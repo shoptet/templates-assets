@@ -1,0 +1,116 @@
+@country-elements-width: 300px;
+@country-elements-height: 360px;
+@country-flag-width: 24px;
+@country-flag-height: 24px;
+@country-flag-item-height: @form-control-height;
+@country-flags-inner-padding-base: 5px;
+@country-flags-inner-border-width: 1px;
+@country-flags-scrollbar-bulgarian-constant: 18px;
+
+.country-flags {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    width: 78px;
+    height: @country-flag-item-height;
+    cursor: pointer;
+    &:not(.active):focus {
+        outline: 0;
+    }
+}
+
+.country-flags-inner {
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-style: solid;
+    border-width: @country-flags-inner-border-width;
+    .country-flags.active & {
+        left: -@country-flags-inner-padding-base;
+        width: @country-elements-width;
+        height: @country-elements-height;
+        padding: @country-flag-item-height @country-flags-inner-padding-base @country-flags-inner-padding-base;
+        overflow: auto;
+    }
+}
+
+.country-flag {
+    display: none;
+    flex-wrap: wrap;
+    align-items: center;
+    height: @country-flag-item-height;
+    &.selected,
+    .country-flags.active & {
+        display: flex;
+        margin-left: -@country-flags-inner-padding-base;
+        margin-right: -@country-flags-inner-padding-base;
+        padding-left: @country-flags-inner-padding-base;
+        padding-right: @country-flags-inner-padding-base;
+        .transition(all @transition-duration @transition-timing);
+    }
+    .country-flags.active &.selected {
+        display: flex;
+        position: absolute;
+        left: @country-flags-inner-padding-base;
+        right: @country-flags-inner-padding-base;
+        top: 0;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    }
+    .country-flags.active &.country-flag-preferred-last {
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    }
+}
+
+.shp-flag-name {
+    display: none;
+    padding-right: @country-flags-inner-padding-base;
+    .country-flags.active & {
+        display: inline-block;
+    }
+}
+
+.shp-flag,
+.shp-flag-label {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.shp-flag {
+    width: @country-flag-width;
+    height: @country-flag-height;
+}
+
+.shp-flag-label {
+    display: flex;
+    position: relative;
+    width: 52px;
+    padding-left: 16px;
+    padding-right: 3px;
+    justify-self: flex-end;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: right;
+    &::before {
+        content: '';
+        position: absolute;
+        left: 3px;
+        top: 50%;
+        width: 0;
+        height: 0;
+        margin-top: -3px;
+        border-width: 6px;
+        border-style: solid;
+        border-color: #b4b4b4 transparent transparent;
+    }
+    .country-flags.active & {
+        width: round(@country-elements-width - (@country-flags-inner-padding-base * 2) - (@country-flags-inner-border-width * 2) - @country-flag-width - @country-flags-scrollbar-bulgarian-constant);
+        text-align: left;
+        &::before {
+            display: none;
+        }
+    }
+}

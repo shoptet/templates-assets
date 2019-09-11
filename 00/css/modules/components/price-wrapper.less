@@ -1,0 +1,42 @@
+.price-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    margin-bottom: @price-wrapper-margin-bottom;
+    text-align: left;
+    .price-label,
+    .price {
+        font-weight: 400;
+        &.price-primary {
+            font-weight: 700;
+        }
+    }
+    .price-label {
+        flex: 1 1 55%;
+        text-align: left;
+        font-size: @price-wrapper-price-label-font-size;
+    }
+    .price {
+        flex: 1 1 45%;
+        padding-left: round(@grid-gutter-width / 4);
+        text-align: right;
+        font-size: @price-wrapper-price-font-size;
+        &.price-primary {
+            font-size: @price-wrapper-price-primary-font-size;
+            line-height: 1;
+            white-space: nowrap;
+        }
+    }
+    &.simple {
+        .price,
+        .price-label {
+            flex: 1 1 100%;
+            text-align: right;
+        }
+    }
+}
+
+.matrixprice {
+    display: none;
+}

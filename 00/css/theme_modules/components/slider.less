@@ -1,0 +1,25 @@
+.ui-slider,
+.slider-content {
+    background-color: @ui-slider-bg;
+    border-color: @ui-slider-border;
+}
+.ui-slider-handle {
+    color: @ui-slider-handle-color;
+    background-color: @ui-slider-handle-bg;
+    &:hover {
+        background-color: @ui-slider-handle-bg-hover;
+    }
+}
+.ui-slider {
+    .ui-slider-range {
+        background-color: @ui-slider-range-bg;
+        border-color: @ui-slider-range-border;
+    }
+}
+.ui-slider-horizontal {
+    .ui-slider-handle {
+        &::after {
+            border-top-color: @ui-slider-handle-bg;
+        }
+    }
+}

@@ -1,0 +1,54 @@
+#header {
+    .transition(height @transition-duration @transition-timing);
+
+    position: relative;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 3;
+
+    .container {
+        .clearfix();
+
+        position: relative;
+    }
+	.site-name {
+        margin: 0;
+        padding-top: @grid-gutter-width;
+        padding-bottom: @grid-gutter-width;
+        font-weight: 400;
+        text-align: center;
+
+        .text-logo {
+            font-size: 2.5rem;
+            text-decoration: none;
+            small {
+                display: block;
+                padding-top: 0.5rem;
+            }
+        }
+        img {
+            max-height: 8rem;
+        }
+	}
+    @media (min-width: @screen-sm-min) {
+        background-size: unset;
+        margin-bottom: @grid-gutter-width;
+        padding-bottom: round(@grid-gutter-width / 2);
+        .site-name {
+            img {
+                max-height: none;
+            }
+        }
+        .type-category &, .type-product & {
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+        }
+        .type-index & {
+            margin-bottom: round(@grid-gutter-width / 2);
+        }
+        .ordering-process & {
+            padding-bottom: 0;
+        }
+    }
+}

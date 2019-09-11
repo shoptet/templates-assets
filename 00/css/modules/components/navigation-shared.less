@@ -1,0 +1,36 @@
+.container.navigation-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-left: 0;
+    padding-right: 0;
+    .site-name {
+        flex: 0 1 100px;
+    }
+    @media (min-width: @screen-xs-min) {
+        .site-name {
+            flex-basis: 200px;
+        }
+    }
+    @media (min-width: @navigation-breakpoint) {
+        .site-name {
+            flex-basis: 200px;
+        }
+    }
+}
+
+#navigation {
+    flex: 1 1 auto;
+    @media (min-width: @screen-xs-min) and (max-width: @screen-xs-max) {
+        padding-top: @navigation_navigation-padding-top-1;
+    }
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        padding-top: @navigation_navigation-padding-top-2;
+    }
+}
+
+.navigation-buttons {
+    @media (min-width: @screen-xs-min) {
+        z-index: @navigation-z-index + 1;
+    }
+}

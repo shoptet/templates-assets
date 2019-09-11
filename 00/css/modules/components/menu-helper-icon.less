@@ -1,0 +1,11 @@
+.menu-helper {
+    > span {
+        display: none;
+    }
+    &::after {
+        width: @navigation-height;
+        font-size: round(@navigation-element-font-size * 1.4);
+        line-height: @navigation-height;
+        border-radius: @menu-helper-icon-border-radius;
+    }
+}

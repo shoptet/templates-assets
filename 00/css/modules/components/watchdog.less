@@ -1,0 +1,41 @@
+.watchdog-row {
+    margin: 0 0 1em;
+    min-height: @form-control-height;
+    display: flex;
+    align-items: center;
+    #priceUnder {
+        margin-right: 15px;
+        width: 20%;
+    }
+    .notificationEmail,
+    select {
+        width: 60%;
+        margin-left: 15px;
+    }
+    .disclaimer {
+        opacity: 0.8;
+        font-style: italic;
+    }
+    #watchdog-reset {
+        display: none;
+    }
+}
+
+.watchdog-messages {
+    width: 100%;
+    .msg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 5;
+        padding: 10px 0;
+        .container {
+            width: 100%;
+        }
+        .cancel-action {
+            float: right;
+            font-weight: bold;
+        }
+    }
+}

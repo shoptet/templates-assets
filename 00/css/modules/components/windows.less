@@ -1,0 +1,49 @@
+.content-window {
+    // @navigation-z-index + 1 = z-index for navigation buttons, we need + 2
+    z-index: @navigation-z-index + 2;
+    position: fixed;
+    left: 0;
+    top: 0;
+    .size(0, 100%);
+    overflow: hidden;
+    .transition(all @transition-duration @transition-timing);
+    &.cart-window {
+        .cart-window-visible & {
+            width: 100%;
+        }
+    }
+    &.search-window {
+        .search-window-visible & {
+            width: 100%;
+        }
+    }
+}
+
+.content-window-in {
+    position: relative;
+    .square(100%);
+    padding-top: 77px;
+    overflow: auto;
+}
+
+.toggle-window-arr {
+    z-index: 1;
+    position: absolute;
+    left: @line-height-computed;
+    top: 24px;
+    text-decoration: none;
+    span {
+        display: none;
+    }
+    &::before {
+        &:extend(.shp-icon);
+        content: @icon-arrow-left-code;
+        margin-right: 1ex;
+        font-size: 30px;
+    }
+    @media (min-width: @screen-sm-min) {
+        span {
+            display: inline;
+        }
+    }
+}

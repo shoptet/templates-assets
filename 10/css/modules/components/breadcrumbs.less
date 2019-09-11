@@ -1,0 +1,23 @@
+.breadcrumbs {
+    display: none;
+    font-size: @font-size-small;
+    > span {
+        vertical-align: middle;
+        &:last-child {
+            font-weight: 700;
+        }
+    }
+    @media (min-width: @screen-sm-min) {
+        display: block;
+        padding-left: round(@grid-gutter-width / 2);
+        padding-right: round(@grid-gutter-width / 2);
+    }
+}
+
+.navigation-home-icon {
+    &::before {
+        &:extend(.shp-icon);
+        content: @icon-home-code;
+        margin-top: -2px;
+    }
+}

@@ -1,0 +1,30 @@
+.social-login-buttons {
+    .form-group {
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.social-login-buttons-divider {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: round(@line-height-computed / 2);
+    span {
+        display: inline-block;
+        flex-grow: 0;
+        flex-shrink: 0;
+        width: auto;
+        padding: 0 round(@grid-gutter-width / 2);
+    }
+    &::before,
+    &::after {
+        content: '';
+        flex-grow: 1;
+        display: inline-block;
+        width: auto;
+        height: 1px;
+        overflow: hidden;
+    }
+}

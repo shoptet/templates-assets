@@ -1,0 +1,22 @@
+.menu-helper {
+    &::after {
+        content: '';
+    }
+    .menu-helper-visible & {
+        &::after {
+            content: '';
+        }
+    }
+    > span {
+        &::after {
+            .menu-helper-icon();
+            margin-left: 1ex;
+            font-size: round(@navigation-element-font-size * .75);
+        }
+        .menu-helper-visible & {
+            &::after {
+                .menu-helper-icon-expanded();
+            }
+        }
+    }
+}

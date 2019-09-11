@@ -1,0 +1,112 @@
+.pagination,
+.pagination-loader,
+.pagination-top {
+    min-width: 33.33%;
+
+    @media (max-width: @screen-md-max) {
+        min-width: 100%;
+        text-align: center;
+    }        
+}
+
+.pagination-loader {
+    @media (max-width: @screen-md-max) {
+        margin: 10px 0;
+    }        
+}
+
+.pagination,
+.pagination-top {
+    font-size: 0;
+    line-height: 0;
+    > a,
+    > strong {
+        display: inline-block;
+        .square(@pagination-link-size);
+        min-width: @pagination-link-size;
+        margin-right: 1px;
+        margin-left: 5px;
+        border-radius: @pagination-link-border-radius;
+        text-align: center;
+        text-decoration: none;
+        font-size: @font-size-base;
+        line-height: @pagination-link-size;
+    }
+    > strong {
+        font-weight: 400;
+    }
+}
+
+.pagination-link {
+    &.prev,
+    &.next,
+    &.up {
+        &::before {
+            &:extend(.shp-icon);
+            font-size: @pagination-arrow-font-size;
+        }
+    }
+    &.prev {
+        &::before {
+            content: @icon-chevron-left-code;
+        }
+    }
+    &.next {
+        &::before {
+            content: @icon-chevron-right-code;
+        }
+    }
+    &.up {
+        &::before {
+            content: @icon-chevron-up-code;
+        }
+    }
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.pagination-top {
+    text-transform: uppercase;
+    > strong {
+        cursor: pointer;
+    }
+    @media (max-width: @screen-md-max) {
+        order: 3;
+        padding-top: @line-height-computed;
+    }        
+}
+
+.pagination-wrapper {
+    margin-top: @line-height-computed;
+    margin-bottom: @line-height-computed;
+    .pagination {
+        text-align: @pagination-text-align;
+        @media (max-width: @screen-md-max) {
+            text-align: center;
+        }        
+    }
+    @media (min-width: @screen-sm-min) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+
+        .pagination-loader {
+            text-align: center;
+            margin-bottom: @line-height-computed;
+        }
+    }
+    @media (max-width: @screen-md-max) {
+        display: flex;
+        flex-direction: column;
+    }        
+}
+
+.pagination-count {
+    width: 100%;
+    text-align: center;
+    @media (max-width: @screen-md-max) {
+        padding-top: @line-height-computed;
+    }
+}

@@ -1,0 +1,87 @@
+#header {
+    .transition(height @transition-duration @transition-timing);
+    .container {
+        .clearfix();
+        height: auto;
+        min-height: 40px;
+    }
+	.site-name {
+        margin: 0;
+        font-weight: 400;
+        a {
+            display: block;
+            span {
+                display: block;
+            }
+            img {
+                display: block;
+                max-height: 40px;
+            }
+            &.text-logo {
+                line-height: 100%;
+                padding-left: 4px;
+                font-size: 14px;
+                text-decoration: none;
+                padding-top: round(@line-height-computed / 4);
+                padding-bottom: round(@line-height-computed / 4);
+                small {
+                    font-size: 60%;
+                    display: block;
+                    font-weight: 100;
+                }
+            }
+        }
+	}
+    @media (max-width: @screen-xs-max) {
+        .container {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .site-name {
+            padding-left: round(@grid-gutter-width / 4);
+        }
+    }
+    @media (min-width: @screen-xs-min) {
+        .container {
+            min-height: 60px;
+        }
+        .site-name {
+            a {
+                img {
+                    max-height: 60px;
+                }
+            }
+        }
+    }
+    @media (min-width: @navigation-breakpoint) {
+        min-height: 0;
+        .container {
+            min-height: @navigation-height;
+        }
+        .site-name {
+            img {
+                max-height: @navigation-height;
+            }
+            a {
+                &.text-logo {
+                    font-size: 24px;
+                }
+            }
+        }
+    }
+    @media (min-width: @screen-md-min) {
+        background-position: center top;
+        background-repeat: no-repeat;
+        .container {
+            position: relative;
+        }
+    }
+    .scrolled & {
+        position: fixed;
+        z-index: 3;
+        left: 0;
+        top: 0;
+        width: 100%;
+        .box-shadow(1px 1px 1px rgba(0,0,0,.2));
+    }
+}

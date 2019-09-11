@@ -1,0 +1,32 @@
+.flag {
+    float: left;
+    clear: left;
+    width: @flag-width;
+    max-width: @flag-max-width;
+    margin-bottom: .5ex;
+    padding: 4px 8px;
+    border-radius: @flag-border-radius;
+    font-size: smaller;
+    font-weight: @flag-font-weight;
+    line-height: 1.1;
+    text-align: center;
+    text-transform: @flag-text-transform;
+    display: inline-block;
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    .opacity(1);
+    .transition(opacity @transition-duration @transition-timing);
+}
+
+.flags-inline {
+    .clearfix();
+    .flag {
+        clear: none;
+        display: inline-block;
+        margin-left: 3px;
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+}

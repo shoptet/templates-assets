@@ -1,0 +1,209 @@
+.btn,
+a.btn {
+    display: inline-block;
+    padding: @btn-padding;
+    border-style: @btn-border-style;
+    border-width: @btn-border-width;
+    border-radius: @btn-border-radius;
+    font-size: @btn-font-size;
+    font-weight: @btn-font-weight;
+    line-height: @btn-line-height;
+    text-align: center;
+    text-decoration: none;
+    text-transform: @btn-text-transform;
+    white-space: normal;
+    .transition(all @transition-duration @transition-timing);
+    .appearance(none);
+    cursor: pointer;
+    &:hover {
+        text-decoration: none;
+    }
+    &:focus {
+        outline: 0;
+    }
+    &.btn-block {
+        display: block;
+        width: 100%;
+    }
+    &.btn-secondary {
+        border-style: @btn-secondary-border-style;
+    }
+    &.btn-xs {
+        padding: @btn-padding-xs;
+        font-size: @btn-font-size-xs;
+        line-height: @btn-line-height-xs;
+    }
+    &.btn-sm {
+        padding: @btn-padding-sm;
+        line-height: @btn-line-height-sm;
+    }
+    &.btn-lg {
+        line-height: @btn-line-height-lg;
+    }
+    &.btn-icon {
+        padding: 15px 0;
+        border: 0;
+        font-size: @icon-font-size-base;
+        font-weight: 400;
+    }
+    &.btn-login,
+    &.btn-cofidis,
+    &.btn-arrow-left,
+    &.btn-arrow-right,
+    &.btn-arrow-up,
+    &.btn-arrow-down {
+        &::before,
+        &::after {
+            font-size: @btn-icon-font-size;
+            text-align: center;
+        }
+        &.btn-text {
+            &::before {
+                margin-right: 1ex;
+            }
+            &.btn-after {
+                &::after {
+                    margin-left: 1ex;
+                }
+            }
+        }
+    }
+    &.btn-login {
+        &::before {
+            &:extend(.shp-icon);
+            content: @icon-lock-code;
+        }
+        &.btn-after {
+            &::before {
+                content: '';
+            }
+            &::after {
+                &:extend(.shp-icon);
+                content: @icon-lock-code;
+            }
+        }
+    }
+    &.btn-cofidis {
+        &::before {
+            &:extend(.shp-icon);
+            content: @icon-calc-code;
+        }
+        &.btn-after {
+            &::before {
+                content: '';
+            }
+            &::after {
+                &:extend(.shp-icon);
+                content: @icon-calc-code;
+            }
+        }
+    }
+    &.btn-arrow-left {
+        &::before {
+            &:extend(.shp-icon);
+            content: @icon-arrow-left-code;
+        }
+        &.btn-after {
+            &::before {
+                content: '';
+            }
+            &::after {
+                &:extend(.shp-icon);
+                content: @icon-arrow-left-code;
+            }
+        }
+    }
+    &.btn-arrow-right {
+        &::before {
+            &:extend(.shp-icon);
+            content: @icon-arrow-right-code;
+        }
+        &.btn-after {
+            &::before {
+                content: '';
+            }
+            &::after {
+                &:extend(.shp-icon);
+                content: @icon-arrow-right-code;
+            }
+        }
+    }
+    &.btn-arrow-down {
+        &::before {
+            &:extend(.shp-icon);
+            content: @icon-arrow-down-code;
+        }
+        &.btn-after {
+            &::before {
+                content: '';
+            }
+            &::after {
+                &:extend(.shp-icon);
+                content: @icon-arrow-down-code;
+            }
+        }
+    }
+    &.btn-arrow-up {
+        &::before {
+            &:extend(.shp-icon);
+            content: @icon-arrow-up-code;
+        }
+        &.btn-after {
+            &::before {
+                content: '';
+            }
+            &::after {
+                &:extend(.shp-icon);
+                content: @icon-arrow-up-code;
+            }
+        }
+    }
+}
+
+a.login-btn {
+    position: relative;
+    display: block;
+    padding-left: 66px;
+    text-decoration: none;
+    &.facebook,
+    &.google {
+        border-style: solid;
+        border-width: 1px;
+        border-radius: @btn-border-radius-small;
+        span,
+        strong {
+            display: block;
+            text-align: center;
+        }
+        strong {
+            padding: 13px 4px;
+            line-height: 20px;
+        }
+        .login-google-icon,.login-facebook-icon  {
+            left: 0;
+            top: 0;
+            position: absolute;
+            .size(66px, 100%);
+            font-size: 28px;
+        }
+    }
+    &.google {
+        .login-google-icon {
+            background: url('@{imgPath}google-g.svg') no-repeat center;
+            background-size: 26px 26px;
+        }
+    }
+    &.facebook {
+        .login-facebook-icon {
+            background: url('@{imgPath}facebook-white.svg') no-repeat center;
+            background-size: 28px 28px;
+        }
+    }
+    #footer &:hover {
+        text-decoration: none;
+    }
+}
+
+input[type="submit"].btn {
+    .appearance(none);
+}

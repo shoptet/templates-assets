@@ -1,0 +1,45 @@
+.entrance-protection {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: round(@grid-gutter-width / 2);
+    .entrance-protection-inner {
+        flex: 0 1 440px;
+        margin: 0 auto;
+        padding: round(@grid-gutter-width / 2);
+    }
+    h1 {
+        margin: 0 auto round(@grid-gutter-width / 2);
+        text-align: center;
+    }
+    .box,
+    .box.box-sm {
+        margin: 0;
+        padding: 0;
+    }
+    .site-name {
+        max-width: 100%;
+        margin: 0 auto round(@grid-gutter-width / 2);
+        padding: 0 @grid-gutter-width;
+        text-align: center;
+    }
+    .form-group {
+        > input {
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    .submit-wrapper {
+        text-align: center;
+    }
+    @media (min-width: @screen-sm-min) {
+        .entrance-protection-inner {
+            padding: @grid-gutter-width round(@grid-gutter-width / 2);
+        }
+        .form-group > input,
+        .site-name {
+            max-width: 80%;
+        }
+    }
+}

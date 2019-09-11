@@ -1,0 +1,28 @@
+.user-action {
+    .user-action-in {
+        > div {
+            display: none;
+        }
+    }
+    .login-window-visible & {
+        .user-action-in {
+            > div.user-action-login {
+                display: block;
+            }
+        }
+    }
+    .search-window-visible & {
+        .user-action-in {
+            > div.user-action-search {
+                display: block;
+            }
+        }
+    }
+    .cart-window-visible & {
+        .user-action-in {
+            > div.user-action-cart {
+                display: block;
+            }
+        }
+    }
+}

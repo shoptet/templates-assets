@@ -1,0 +1,37 @@
+.country-flags-inner {
+    border-color: transparent;
+    .country-flags.active & {
+        border-color: @border-color;
+        background-color: #fff;
+    }
+}
+
+.country-flag {
+    .country-flags.active & {
+        background-color: @input-bg;
+        &.country-flag-preferred {
+            background-color: lighten(@input-bg-disabled, 3%);
+            &:not(.selected):hover {
+                background-color: @input-bg-disabled;
+            }
+        }
+    }
+    .country-flags.active &.selected,
+    .country-flags.active &:hover {
+        background-color: lighten(@input-bg-disabled, 3%);
+    }
+    .country-flags.active &.selected {
+        border-bottom-color: @border-color;
+    }
+}
+
+.country-flag-preferred-last {
+    border-bottom-color: @border-color;
+}
+
+.shp-flag-label {
+    color: @text-muted-color;
+    .shp-flag-name {
+        color: @text-color;
+    }
+}

@@ -1,0 +1,52 @@
+input[type="checkbox"],
+input[type="radio"] {
+    .radio-wrapper & {
+        & + label {
+            &::before {
+                border-color: darken(@input-border, 10%);
+            }
+            &::after {
+                background-color: darken(@input-border, 10%);
+            }
+        }
+        &:disabled {
+            & + label {
+                &::before {
+                    border-color: @input-border;
+                }
+            }
+        }
+        &:checked {
+            & + label {
+                &::before {
+                    border-color: @colorPrimary;
+                }
+                &::after {
+                    border-color: @content-box-bg;
+                    background-color: @colorPrimary;
+                }
+            }
+        }
+    }
+}
+
+.radio-wrapper {
+    border-color: @radio-wrapper-border;
+    background-color: @radio-wrapper-bg;
+    &.active {
+        label {
+            > span {
+                b {
+                    color: @colorPrimary;
+                }
+            }
+        }
+    }
+}
+
+.for-free {
+    color: @color-for-free;
+    .radio-wrapper.active & {
+        color: @colorPrimary;
+    }
+}

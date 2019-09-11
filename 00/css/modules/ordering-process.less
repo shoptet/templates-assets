@@ -1,0 +1,95 @@
+body.ordering-process {
+    #footer,
+    .navigation-buttons a[data-target="cart"],
+    .navigation-buttons a[data-target="search"] {
+        display: none;
+    }
+    #navigation {
+        padding-right: 0;
+    }
+    .navigation-buttons {
+        width: 40px;
+    }
+    @media (min-width: @screen-xs-min) {
+        .navigation-buttons {
+             width: 60px;
+        }
+    }
+    @media (min-width: @screen-sm-min) {
+        .navigation-buttons {
+             width: 80px;
+        }
+    }
+    @media (min-width: @screen-md-min) {
+        .navigation-buttons {
+            display: none;
+        }
+    }
+}
+
+.reca {
+    @media (min-width: @screen-sm-min) {
+        > div {
+            &:nth-child(odd) {
+                clear: both;
+            }
+        }
+    }
+    @media (min-width: @screen-md-min) {
+        > div {
+            &:nth-child(odd) {
+                clear: none;
+            }
+            &:nth-child(3n+1) {
+                clear: both;
+            }
+        }
+    }
+    @media (min-width: @screen-lg-min) {
+        > div {
+            &:nth-child(3n+1) {
+                clear: none;
+            }
+            &:nth-child(4n+1) {
+                clear: both;
+            }
+        }
+    }
+}
+
+.reca-inner {
+    position: relative;
+    min-height: 30px;
+    padding-left: 60px;
+    padding-bottom: @line-height-computed;
+    line-height: 1.4;
+    .reca-photo {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .reca-name {
+        display: block;
+        small {
+            display: block;
+        }
+    }
+    .reca-price {
+        font-size: 18px;
+    }
+}
+
+.recapitulation-table {
+    &.table {
+        width: auto;
+    }
+    th {
+        font-weight: 400;
+        text-align: left;
+    }
+}
+
+
+
+
+

@@ -1,0 +1,134 @@
+/* This mixin resets font styles and sets needed styles for custom icons */
+.shoptet-icon() {
+    display: inline-block;
+    speak: none;
+    vertical-align: middle;
+    font-family: shoptet;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    line-height: 0;
+    text-transform: none;
+    text-decoration: none;
+}
+
+.appearance(@value) {
+    -webkit-appearance: @value;
+    -moz-appearance: @value;
+    appearance: @value;
+}
+
+.list-reset() {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+
+    > li {
+        list-style: none;
+    }
+}
+
+.v-align() {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.border(@value, @style) {
+    border-width: @value;
+    border-style: @style;
+}
+
+.js-hidden-hidden() {
+    position: absolute;
+    max-height: 0;
+    max-width: 0;
+    overflow: hidden;
+    transform: scaleY(0) scaleX(0);
+    transform-origin: center;
+}
+
+.js-hidden-visible() {
+    position: inherit;
+    max-height: none;
+    max-width: none;
+    overflow: visible;
+    transform: scaleY(1) scaleX(1);
+    transform-origin: center;
+    .transition(all @transition-duration @transition-timing);
+}
+
+.checkbox-radio-style() {
+    &::after,
+    &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        display: block;
+        transform: translateY(-50%);
+    }
+    &::before {
+        left: 0;
+        .square(@checkbox-outer-width);
+        .border(@checkbox-border-width, solid);
+        background-color: #fff;
+    }
+}
+
+.checkbox-radio-checked-style() {
+    .square(@checkbox-inner-width);
+    .border(@checkbox-border-width, solid);
+    left: round((@checkbox-outer-width - @checkbox-inner-width) / 2);
+}
+
+.widgetPosition(@element, @breakpoint) {
+    @offsetMixin: ~"@{popup_widget_@{element}-offset}";
+    @topMixin: ~"@{popup-widget_top-@{breakpoint}-min}";
+    @arrowMixin: ~"@{popup-widget_arrow-position-@{element}}";
+    @arrowMixinScrolled: ~"@{popup-widget_arrow-position-@{element}-scrolled}";
+    @offset: `parseFloat("@{offsetMixin}")`;
+    @top: `parseFloat("@{topMixin}")`;
+    @arrow: `parseFloat("@{arrowMixin}")`;
+    @arrowScrolled: `parseFloat("@{arrowMixinScrolled}")`;
+
+    top: unit(round(@top + @offset), px);
+    &::before {
+        right: unit(@arrow, px);
+    }
+    .admin-logged & {
+        top: unit(round(@top + @offset + @admin-bar-height), px);
+        .scrolled & {
+            top: unit(round(@top + @offset), px);
+        }
+    }
+    .scrolled & {
+        &::before {
+            right: unit(@arrowScrolled, px);
+        }
+    }
+}
+
+.fixedInformationBanner() {
+    position: fixed;
+    z-index: 10;
+    bottom: round(@grid-gutter-width / 2);
+    left: round(@grid-gutter-width / 2);
+    max-width: calc(~'100% - '  @grid-gutter-width);
+    opacity: .90;
+    box-shadow: @popup-widget_box-shadow;
+}
+
+.propertyValue(@property; @value){
+    @{property}: @value;
+}
+
+.sr-only-neutralizer(){
+    position: relative;
+    width: auto;
+    height: auto;
+    margin: inherit;
+    padding: inherit;
+    overflow: auto;
+    border: none;
+    clip: auto;
+}

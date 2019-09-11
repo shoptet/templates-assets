@@ -1,0 +1,96 @@
+@latest-contribution_image-size: 60px;
+@latest-contribution_star-size: 18px;
+
+.latest-contribution-wrapper {
+    margin-top: round(@line-height-computed * 2);
+    margin-bottom: round(@line-height-computed * 2);
+    @media (min-width: @screen-sm-min) {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+}
+
+.latest-contribution {
+    padding-bottom: @line-height-computed;
+    @media (min-width: @screen-sm-min) {
+        width: 50%;
+        flex: 1 1 auto;
+        flex-wrap: wrap;
+        &:first-child:not(:last-child) {
+            padding-right: round(@grid-gutter-width / 2);
+        }
+        &:last-child:not(:first-child) {
+            padding-left: round(@grid-gutter-width / 2);
+        }
+    }
+}
+
+.latest-contribution-placeholder {
+    display: none;
+    @media (min-width: @screen-sm-min) {
+        display: block;
+    }
+}
+
+.latest-contribution-inner {
+    display: flex;
+    align-items: flex-start;
+    margin-top: round(@line-height-computed * 2);
+}
+
+.latest-contribution-image {
+    position: relative;
+    height: @latest-contribution_image-size;
+    flex: 0 0 @latest-contribution_image-size;
+    margin-right: round(@grid-gutter-width / 2);
+    img {
+        position: absolute;
+        border-radius: 50%;
+    }
+}
+
+.latest-contribution-content {
+    display: block;
+    width: calc(~'100% - '@latest-contribution_image-size - @grid-gutter-width);
+}
+
+.latest-contribution-product {
+    height: @font-size-h4 + 1px;
+    margin-top: 0;
+    overflow: hidden;
+    margin-bottom: round(@line-height-computed / 4);
+    line-height: 1;
+    @media (max-width: @screen-xs-min) {
+        .text-overflow();
+    }
+}
+
+.latest-contribution-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: round(@line-height-computed / 4);
+    font-size: @font-size-larger;
+    .stars {
+        width: round(@latest-contribution_star-size * 5);
+        height: @latest-contribution_star-size;
+        margin-right: 0;
+    }
+    .star {
+        width: @latest-contribution_star-size;
+        height: @latest-contribution_star-size;
+        &::before {
+            font-size: round(@latest-contribution_star-size - 2);
+        }
+    }
+    > i {
+        padding: 0 round(@grid-gutter-width / 4);
+        font-style: normal;
+    }
+    @media (max-width: @screen-xs-min) {
+      display: block;
+      .stars {
+          display: block;
+      }
+    }
+}

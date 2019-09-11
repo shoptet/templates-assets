@@ -1,0 +1,60 @@
+.breadcrumbs {
+    display: none;
+    @media (min-width: @screen-md-min) {
+        display: flex;
+        margin-left: -(round(@grid-gutter-width / 2));
+        margin-right: -(round(@grid-gutter-width / 2));
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        > span {
+            align-self: center;
+            > a,
+            > span {
+                padding: round(@line-height-computed / 2) round(@grid-gutter-width / 2);
+            }
+            > a {
+                position: relative;
+                display: block;
+                min-height: round(@line-height-computed * 2);
+                &::before,
+                &::after {
+                    content: '';
+                    position: absolute;
+                    right: 0;
+                    .size(1px, 75%);
+                }
+                &::before {
+                    top: -12.5%;
+                    .rotate(-45deg);
+                }
+                &::after {
+                    bottom: -12.5%;
+                    .rotate(45deg);
+                }
+            }
+        }
+    }
+}
+
+.breadcrumbs .navigation-bullet {
+    display: none;
+}
+
+.navigation-home-icon-wrapper {
+    position: relative;
+    &::before {
+        &:extend(.shp-icon);
+        content: @icon-home-code;
+        position: absolute;
+        left: round(@grid-gutter-width / 2);
+        top: 50%;
+        margin-top: -(round(@line-height-computed / 2));
+        font-size: @line-height-computed;
+        line-height: @line-height-computed;
+    }
+    #navigation-first {
+        a {
+            padding-left: @grid-gutter-width;
+        }
+    }
+}

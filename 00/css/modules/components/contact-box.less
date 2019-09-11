@@ -1,0 +1,133 @@
+.contact-box {
+    position: relative;
+    min-height: 100px;
+    padding: @contact-box-padding;
+    border-style: @contact-box-border-style;
+    border-width: @contact-box-border-width;
+    border-radius: @contact-box-border-radius;
+    > img {
+        position: absolute;
+        left: @contact-box-img-left;
+        top: @contact-box-img-top;
+        max-width: 76px;
+        height: auto;
+    }
+    > strong {
+        display: block;
+        margin-bottom: round(@line-height-computed / 4);
+        line-height: 1.1;
+    }
+    ul {
+        margin: 0;
+        padding: 0;
+        li {
+            list-style: none;
+            word-break: break-all;
+            padding-top: @contact-box-li-padding-top;
+            padding-bottom: @contact-box-li-padding-bottom;
+            > span {
+                display: inline-block;
+                position: relative;
+                padding-left: @contact-box-span-padding-left;
+                &::before {
+                    &:extend(.shp-icon);
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 24px;                                             
+                    font-size: @contact-box-icon-font-size;
+                    text-align: center;
+                }
+                &.mail {
+                    &::before {
+                        content: @icon-message-code;
+                    }
+                }
+                &.tel {
+                    &::before {
+                        content: @icon-phone-code;
+                    }
+                }
+                &.cellphone {
+                    &::before {
+                        content: @icon-mobile-code;
+                    }
+                }
+                &.icq {
+                    &::before {
+                        content: @icon-icq-code;
+                    }
+                }
+                &.jabber {
+                    &::before {
+                        content: @icon-jabber-code;
+                    }
+                }
+                &.skype {
+                    &::before {
+                        content: @icon-skype-code;
+                    }
+                }
+                &.facebook {
+                    &::before {
+                        content: @icon-facebook-code;
+                    }
+                }
+                &.twitter {
+                    &::before {
+                        content: @icon-twitter-code;
+                    }
+                }
+                &.instagram {
+                    &::before {
+                        content: @icon-instagram-code;
+                    }
+                }
+                &.msn {
+                    &::before {
+                        content: @icon-msn-code;
+                    }
+                }
+            }
+        }
+    }
+    #footer & {
+        padding: 0;
+        border: 0;
+        > img,
+        > strong {
+            display: none;
+        }
+    }
+    @media (min-width: @screen-sm-min) and (max-width: @contact-box-breakpoint) {
+        padding: @contact-box-padding-responsive;
+        > img {
+            display: none;
+        }
+    }
+}
+
+.checkout-box {
+    h3 {
+        margin-top: 0;
+    }
+    .box.box-sm {
+        visibility: hidden;
+        height: 0;
+        overflow: hidden;
+        margin-bottom: 0;
+        padding: 0;
+        background-color: transparent;
+        .scale(0);
+        .transition(all @transition-duration @transition-timing);
+        &.visible {
+            visibility: visible;
+            height: auto;
+            margin-top: round(@line-height-computed / 2);
+            .scale(1);
+        }
+    }
+    @media (max-width: @screen-xs-max) {
+        margin-top: @line-height-computed;
+    }
+}

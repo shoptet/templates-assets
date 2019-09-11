@@ -1,0 +1,38 @@
+.msg {
+    width: 100%;
+    padding: @msg-padding-xs;
+    border-width: 1px;
+    border-style: solid;
+    opacity: .95;
+    .transition(opacity @transition-duration @transition-timing);
+    cursor: pointer;
+    &.hidden {
+        opacity: 0;
+    }
+    @media (min-width: @screen-md-min) {
+        padding: @msg-padding-md;
+    }
+}
+
+.msg-wrapper {
+    // @navigation-z-index + 1 = z-index for navigation buttons, we need + 2
+    z-index: @navigation-z-index + 2;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    .msg {
+        position: relative;
+    }
+}
+
+/* Notices */
+.notice-message,
+.warning-message,
+.error-message {
+    padding: round(@line-height-computed / 4) round(@line-height-computed / 2) round(@line-height-computed / 4) round(@line-height-computed / 4);
+    margin-top: @line-height-computed;
+    border: 0;
+    font-weight: 400;
+}
+/* // Notices */

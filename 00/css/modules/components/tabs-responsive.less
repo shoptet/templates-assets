@@ -1,0 +1,59 @@
+/* RESPONSIVE MENU */
+.responsive-nav {
+    position: relative;
+    min-width: 250px;
+    margin-bottom: @line-height-computed;
+
+    .shp-tabs-holder {
+        margin-bottom: 0;
+    }
+
+    .visible-links {
+        display: table;
+
+        > li {
+            display: table-cell;
+            a {
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .hidden-links {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        border-top: 1px solid #ccc;
+        z-index: 100;
+        padding: 0;
+        margin: 0;
+        background: inherit;
+
+        > li {
+            display: block;
+            border-bottom: 1px solid #ccc;
+
+            a {
+                display: block;
+                padding: round(@grid-gutter-width / 4) round(@grid-gutter-width / 2);
+            }
+        }
+    }
+
+    .hidden {
+        visibility: hidden;
+    }
+
+    .navigation-btn {
+        position: absolute;
+        height: 100%;
+        right: 0;
+        top: 0;
+        border: 0;
+        outline: none;
+        color: #fff;
+        cursor: pointer;
+        background: rgba(0,0,0,0.5);
+        padding: round(@grid-gutter-width / 4);
+    }
+}

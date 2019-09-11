@@ -1,0 +1,80 @@
+.advanced-order {
+    text-align: center;
+    .h1 {
+        margin-bottom: round(@grid-gutter-width / 2);
+        margin-top: round(@grid-gutter-width / 2);
+    }
+    .h2 {
+        margin-bottom: round(@grid-gutter-width / 2);
+        text-transform: none;
+    }
+    .advanced-order-suggestion {
+        padding-top: @grid-gutter-width;
+        margin-top: @grid-gutter-width;
+        border-top-width: 1px;
+        border-top-style: solid;
+    }
+    .extras-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        position: relative;
+        .extra {
+            text-align: left;
+            width: 100%;
+            margin: 0 0 round(@grid-gutter-width / 2);
+            &.step {
+                margin: round(@grid-gutter-width / 2) 0 0;
+                padding-left: 0;
+                text-align: center;
+            }
+        }
+    }
+    .price-range {
+        margin-bottom: 0;
+    }
+    @media(min-width: @screen-md-min) {
+        .extras-wrap {
+            justify-content: center;
+            .extra {
+                width: auto;
+                margin: 0 round(@grid-gutter-width / 2) round(@grid-gutter-width / 2);
+                flex-shrink: 1;
+                &.step {
+                    width: 100%;
+                    margin: 0;
+                    flex-shrink: 0;
+                }
+            }
+        }
+        .products {
+            > div {
+                padding-bottom: 0;
+                padding-bottom: 0;
+            }
+        }
+    }
+    @media(min-width: @screen-lg-min) {
+        .extras-wrap {
+            .extra {
+                margin: round(@grid-gutter-width / 2) round(@grid-gutter-width / 2) 0;
+                &.step {
+                    width: auto;
+                    margin: round(@grid-gutter-width / 2) round(@grid-gutter-width / 2) 0;
+                    flex-shrink: 1;
+                }
+            }
+        }
+    }
+    @media (min-width: @screen-xl-min) {
+        [class^="columns-"], [class*=" columns-"] & {
+            .products {
+                &.products-block {
+                    > div {
+                        width: 33.333333%;
+                    }
+                }
+            }
+        }
+    }
+}

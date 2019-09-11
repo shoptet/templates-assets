@@ -1,0 +1,40 @@
+.content-window {
+    .transition(all @transition-duration @transition-timing);
+    .size(0, 100%);
+
+    z-index: 10;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+
+    &.cart-window {
+        .cart-window-visible & {
+            width: 100%;
+        }
+    }
+    &.search-window {
+        .search-window-visible & {
+            width: 100%;
+        }
+    }
+    &.login-window {
+        .login-window-visible & {
+            width: 100%;
+        }
+    }
+    &.register-window {
+        .register-window-visible & {
+            width: 100%;
+        }
+    }
+}
+
+.content-window-in {
+    .square(100%);
+
+    position: relative;
+    padding-top: @line-height-computed;
+    padding-bottom: 38px;
+    overflow: auto;
+}

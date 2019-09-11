@@ -1,0 +1,48 @@
+.shp-tabs-holder {
+    border-style: @tabs-border-style;
+    border-width: @tabs-border-width;
+    margin-top: 0;
+    margin-bottom: @line-height-computed;
+    padding-left: 0;
+    text-align: @tabs-text-align;
+    @media (max-width: @screen-xs-max) {
+        margin-left: -(round(@grid-gutter-width / 4));
+        margin-right: -(round(@grid-gutter-width / 4));
+        padding-left: round(@grid-gutter-width / 2);
+        padding-right: round(@grid-gutter-width / 2);
+    }
+    ul.shp-tabs {
+        margin: 0;
+        padding: 0;
+        li {
+            display: inline-block;
+            list-style: none;
+            a {
+                display: block;
+                padding-left: round(@grid-gutter-width / 6);
+                padding-right: round(@grid-gutter-width / 6);
+                padding-top: round(@line-height-computed / 2);
+                padding-bottom: round(@line-height-computed / 2);
+                border-style: @tab-border-style;
+                border-width: @tab-border-width;
+                text-decoration: none;
+            }
+        }
+        @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+            li {
+                a {
+                    padding-left: round(@grid-gutter-width / 4);
+                    padding-right: round(@grid-gutter-width / 4);
+                }
+            }
+        }
+        @media (min-width: @screen-lg-min) {
+            li {
+                a {
+                    padding-left: round(@grid-gutter-width / 2);
+                    padding-right: round(@grid-gutter-width / 2);
+                }
+            }
+        }
+    }
+}

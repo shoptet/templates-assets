@@ -1,0 +1,38 @@
+.sidebar {
+    h4 {
+        position: relative;
+        span {
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            padding-right: 5px;
+        }
+        &::before {
+            z-index: 0;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            content: '';
+            display: block;
+            .size(100%, 1px);
+            margin-top: -1px;
+        }
+    }
+    padding-top: 20px;
+    > div {
+        &.box {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+    @media (min-width: @screen-sm-min) {
+        .login-wrapper {
+            .password-helper {
+                float: none;
+                clear: both;
+                padding-left: 0;
+                padding-top: 1em;
+            }
+        }
+    }
+}

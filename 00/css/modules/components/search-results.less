@@ -1,0 +1,29 @@
+.search-results-groups {
+    .search-results-group {
+        margin-bottom: @line-height-computed;
+    }
+    h4 {
+        margin: 0 0 round((@line-height-computed) / 2) 0;
+    }
+    .search-results-group-list {
+        column-width: @search-results-groups-column-width;
+        column-count: @search-results-groups-column-count;
+        margin-bottom: round((@line-height-computed) / 2);
+        ul {
+            margin: 0;
+            padding-left: @grid-gutter-width;
+            li {
+                list-style-position: outside;
+            }
+        }
+    }
+}
+
+.search-products-heading {
+    margin-top: 0;
+}
+
+.search-next-wrap {
+    text-align: center;
+    margin: @line-height-computed 0;
+}

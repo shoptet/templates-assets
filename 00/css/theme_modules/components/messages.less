@@ -1,0 +1,63 @@
+.msg {
+    &.msg-success,
+    &.msg-notice {
+        border-color: @state-success-border;
+        color: @state-success-text;
+        background-color: @state-success-bg;
+        a {
+            color: @state-success-text;
+        }
+    }
+    &.msg-info {
+        border-color: @state-info-border;
+        color: @state-info-text;
+        background-color: @state-info-bg;
+        a {
+            color: @state-info-text;
+        }
+    }
+    &.msg-warning {
+        border-color: @state-warning-border;
+        color: @state-warning-text;
+        background-color: @state-warning-bg;
+        a {
+            color: @state-warning-text;
+        }
+    }
+    &.msg-error {
+        border-color: @state-danger-border;
+        color: @state-danger-text;
+        background-color: @state-danger-bg;
+        a {
+            color: @state-danger-text;
+        }
+    }
+}
+
+.validator-msg,
+.js-validator-msg {
+    &.msg-info {
+        color: @state-info-bg;
+    }
+    &.msg-error {
+        color: @state-danger-bg
+    }
+    &.msg-warning {
+        color: @state-warning-bg
+    }
+}
+
+.form-control.error-field,
+.form-control.js-error-field,
+.form-control.error-field:focus,
+.form-control.js-error-field:focus {
+    border-color: @state-danger-bg;
+}
+.form-control.warning-field {
+    border-color: @state-warning-bg;
+}
+
+.error-field + label,
+.js-error-field + label {
+    border-color: @state-danger-bg;
+}

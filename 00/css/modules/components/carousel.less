@@ -1,0 +1,49 @@
+.carousel {
+    @media (min-width: @screen-sm-min) {
+        margin-bottom: @line-height-computed;
+        .wide .wide-carousel & {
+            margin-top: -20px;
+        }
+        .multiple-columns-body .wide-carousel & {
+            padding-left: round(@grid-gutter-width / 2);
+            padding-right: round(@grid-gutter-width / 2);
+        }
+    }
+}
+
+.carousel-control {
+    text-decoration: none;
+    &::before {
+        &:extend(.shp-icon);
+        position: absolute;
+        top: 50%;
+        .square(44px);
+        margin-top: -22px;
+        font-size: 28px;
+        line-height: 40px;
+        text-align: center;
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 50%;
+        text-shadow: none;
+    }
+    &.left,
+    &.right {
+        background: none;
+    }
+    &.left {
+        &::before {
+            content: @icon-arrow-left-code;
+            left: 20px;
+        }
+    }
+    &.right {
+        &::before {
+            content: @icon-arrow-right-code;
+            right: 20px;
+        }
+    }
+    &:hover {
+        text-decoration: none;
+    }
+}

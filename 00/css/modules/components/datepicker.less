@@ -1,0 +1,62 @@
+.datepicker.birthdate {
+  position: relative;
+  z-index: 11; //this is to ensure visibility in register popup form - upon initialization the z-index is copied to the .ui-datepicker
+}
+
+.ui-datepicker {
+    width: 24em;
+    padding: @padding-base-vertical @padding-base-horizontal;
+    font-size: @font-size-base;
+    line-height: @line-height-base;
+    color: @input-color;
+    background-color: @input-bg;
+    border: 2px solid @input-border;
+    border-radius: @input-border-radius;
+    .ui-datepicker-title {
+        margin: 0 2em;
+        select {
+            cursor: pointer;
+        }
+    }
+    .ui-corner-all {
+        .ui-icon {
+            display: none;
+        }
+    }
+    .ui-datepicker-prev,
+    .ui-datepicker-prev-hover,
+    .ui-datepicker-next-hover,
+    .ui-datepicker-next {
+        display: table;
+        cursor: pointer;
+        text-align: center;
+        top: @padding-base-vertical;
+        font-size: @font-size-base;
+        line-height: @line-height-base;
+        height: @input-height-base;
+        &:after {
+            display: table-cell;
+            position: relative;
+            color: @input-color;
+            vertical-align: middle;
+        }
+    }
+    .ui-datepicker-next:after {
+        content: "\25B7";
+    }
+    .ui-datepicker-prev:after {
+        content: "\25C1";
+    }
+    th a,
+    td a {
+        padding: 5px;
+        text-align: center;
+        &.ui-state-highlight {
+            background: @gray-lighter;
+        }
+        &.ui-state-active {
+            background: @gray-lighter;
+            font-weight: bold;
+        }
+    }
+}

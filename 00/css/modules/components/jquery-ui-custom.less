@@ -1,0 +1,29 @@
+// Autocomplete
+.ui-menu {
+    border-style: solid;
+    border-width: 1px;
+    border-top-style: none;
+    .ui-state-focus,
+    .ui-state-active {
+        margin: 0;
+    }
+    .ui-menu-item-wrapper {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+    .ui-menu-item {
+        list-style: none;
+    }
+}
+
+.ui-autocomplete {
+    max-height: 200px;
+    overflow: auto;
+    > li {
+        border-top-style: solid;
+        border-top-width: 1px;
+        &:first-child {
+            border-top-style: none;
+        }
+    }
+}

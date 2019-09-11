@@ -1,0 +1,12 @@
+.advanced-parameter-inner {
+    border: 1px solid #fcfcfc;
+    box-shadow: 0 0 1px rgba(0,0,0,.5);
+    &.yes-before {
+        border-color: @color-available;
+        color: @color-available;
+    }
+    .variant-not-chosen .variant-list:not(.variant-selected) & {
+        border: 1px solid @red;
+        box-shadow: 0 0 3px @red;
+    }
+}

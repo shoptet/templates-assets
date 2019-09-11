@@ -1,0 +1,73 @@
+.quantity-form {
+    margin: 0;
+}
+.quantity {
+    position: relative;
+    vertical-align: middle;
+    display: inline-block;
+    padding-left: @quantity-padding-left;
+    padding-right: @quantity-padding-right;
+    border-style: @quantity-border-style;
+    border-width: @quantity-border-width;
+    border-radius: @quantity-border-radius;
+    font-size: @quantity-font-size;
+    font-weight: @quantity-font-weight;
+    line-height: 1;
+    input {
+        display: inline-block;
+        width: @quantity-input-width;
+        height: @quantity-input-height;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        text-align: @quantity-input-text-align;
+        font-family: arial, sans-serif;
+        font-style: normal;
+        background: none;
+        .appearance(none);
+        &:focus {
+            box-shadow: none;
+            outline: 0;
+        }
+    }
+    .increase,
+    .decrease {
+        position: absolute;
+        .size(@quantity-trigger-width, @quantity-trigger-height);
+        cursor: pointer;
+        &::before {
+            &:extend(.shp-icon);
+            position: absolute;
+            left: 0;
+            top: 0;
+            .square(100%);
+            font-size: @quantity-trigger-font-size;
+            line-height: @quantity-trigger-height;
+            text-align: center;
+        }
+    }
+    .increase {
+        left: @quantity-increase-left;
+        right: @quantity-increase-right;
+        top: @quantity-increase-top;
+        border-style: @quantity-increase-border-style;
+        border-width: @quantity-increase-border-width;
+        &::before {
+            content: @quantity-increase-code;
+        }
+    }
+    .decrease {
+        left: @quantity-decrease-left;
+        right: @quantity-decrease-right;
+        top: @quantity-decrease-top;
+        border-style: @quantity-decrease-border-style;
+        border-width: @quantity-decrease-border-width;
+        &::before {
+            content: @quantity-decrease-code;
+        }
+    }
+    .p-detail .add-to-cart & {
+        border-style: @quantity-detail-border-style;
+        border-width: @quantity-detail-border-width;
+    }
+}

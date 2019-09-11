@@ -1,0 +1,150 @@
+.content-modal {
+    padding: round(@grid-gutter-width / 4);
+    .row {
+        margin-left: -(round(@grid-gutter-width / 4));
+        margin-right: -(round(@grid-gutter-width / 4));
+    }
+    @media (min-width: @screen-lg-min) {
+        padding: round(@grid-gutter-width / 2);
+        .row {
+            margin-left: -(round(@grid-gutter-width / 2));
+            margin-right: -(round(@grid-gutter-width / 2));
+        }
+    }
+}
+
+.cpost-delivery-point-form-wrapper {
+    min-height: 330px;
+}
+
+.cpost-delivery-point-logos {
+    min-height: 60px;
+    img {
+        margin-right: round(@grid-gutter-width / 2);
+    }
+}
+
+.cpost-delivery-point-submit {
+    text-align: right;
+}
+
+.cpost-delivery-point-result-legend,
+.cpost-delivery-point-result-table-wrap {
+    margin-top: round(@grid-gutter-width / 2);
+    border-top-style: solid;
+    border-top-width: 1px;
+}
+.cpost-delivery-point-result-legend {
+    padding-top: round(@grid-gutter-width / 2);
+}
+
+.cpost-delivery-point-result {
+    position: relative;
+    table.table {
+        margin-bottom: 0;
+        td {
+            vertical-align: top;
+        }
+    }
+}
+
+a.cpost-delivery-point-show-opening-hours {
+    text-decoration: underline;
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.cpost-delivery-point-opening-hours {
+    display: none;
+    &.active {
+        display: table;
+    }
+}
+
+.cpost-delivery-point-symbols {
+    img {
+        margin-right: 1ex;
+    }
+}
+
+table.table.cpost-delivery-point-result-table {
+    > tbody {
+        > tr {
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            > td {
+                padding-top: round(@grid-gutter-width / 4);
+                padding-bottom: round(@grid-gutter-width / 4);
+            }
+            &:last-child {
+                border-bottom-style: none;
+                > td {
+                    padding-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: @screen-xs-max) {
+    input[type="submit"].delivery-point-picker,
+    .cpost-choose-button {
+        display: block;
+        width: 100%;
+    }
+    .cpost-delivery-point-choose-post th,
+    .cpost-delivery-point-choose-post td,
+    .cpost-delivery-point-result-table > tbody > tr,
+    .cpost-delivery-point-result-table > tbody > tr > td {
+        display: block;
+        width: 100%;
+    }
+    .cpost-delivery-point-choose-post td {
+        padding-top: 3px;
+    }
+    .cpost-delivery-point-form-wrapper {
+        .city,
+        .zip-code { width: 100%; }
+    }
+}
+
+.map {
+    iframe {
+        width: 100%;
+    }
+}
+
+.branch-wrap,
+.cpost-delivery-point-form {
+    .loader:not(.no-display) {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+.detail-information:not(:empty) {
+    margin-top: @line-height-computed;
+    border-top-style: solid;
+    border-top-width: 1px;
+}
+
+.branch-information {
+    margin-bottom: @line-height-computed;
+}
+
+.branch-saved {
+    flex-shrink: 0;
+    display: inline-block;
+    visibility: hidden;
+    &.branch-saved-visible {
+        visibility: visible;
+    }
+    @media (max-width: @screen-xs-max) {
+        width: 90%;
+        margin-top: 5px;
+        .btn {
+            display: block;
+        }
+    }
+}

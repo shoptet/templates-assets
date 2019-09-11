@@ -1,0 +1,52 @@
+.admin-bar {
+        border-color: #333;
+        background-color: #484848;
+        color: #dbdbdb;
+
+        .container {
+            > ul {
+                > li {
+                    border-color: #636363;
+                    > a,
+                    > span {
+                        color: #dbdbdb;
+                    }
+                    &:hover {
+                        color: #fff;
+                        background-color: #636363;
+                        > a,
+                        > span {
+                            color: #fff;
+                        }
+                    }
+                    ul {
+                        border-color: #dbe0e2;
+                        background-color: #f5fcfe;
+                        li {
+                            a,
+                            span {
+                                border-color: #d0effc;
+                                color: #000;
+                                &:hover {
+                                    background-color: #e1f4fa;
+                                }
+                            }
+                        }
+                    }
+                    > ul {
+                        border-top-color: #333;
+                    }
+                }
+            }
+            > a,
+            > span {
+                border-color: #333;
+                background-color: #636363;
+                color: #dbdbdb;
+                &:hover {
+                    background-color: #555;
+                    color: #fff;
+                }
+            }
+        }
+}

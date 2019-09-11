@@ -1,0 +1,40 @@
+.menu-helper,
+.menu-trigger {
+    &::after {
+        color: @menu-helper-span-color;
+        background-color: @menu-helper-span-bg;
+    }
+}
+
+.menu-helper {
+    @media (min-width: unit(@navigation-breakpoint, px)) {
+        > span {
+            border-color: @menu-helper-span-border-color;
+            color: @menu-helper-span-color;
+            background-color: @menu-helper-span-bg;
+        }
+        > ul {
+            border-color: @menu-helper-submenu-border-color;
+            background-color: @menu-helper-submenu-bg;
+            > li {
+                border-top-color: @menu-helper-item-border-color;
+                a {
+                    color: @menu-helper-submenu-color;
+                    &:hover {
+                        color: @menu-helper-submenu-color-hover;
+                    }
+                }
+                &.exp {
+                    > a {
+                        background-color: @menu-helper-submenu-bg;
+                    }
+                    > ul {
+                        > li {
+                            background-color: @menu-helper-submenu-bg;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,16 @@
+.sidebar-inner {
+    padding: round(@grid-gutter-width / 2);
+    > div {
+        margin: 0;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        padding: @line-height-computed 0;
+        h4 {
+            margin-top: 0;
+        }
+        &:last-child {
+            pading-bottom: 0;
+            border-bottom-style: none;
+        }
+    }
+}

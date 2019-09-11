@@ -1,0 +1,92 @@
+.table-responsive {
+    overflow-x: auto;
+    min-height: 0.01%; // Workaround for IE9 bug (see https://github.com/twbs/bootstrap/issues/14837)
+
+    @media screen and (max-width: @screen-xs-max) {
+
+        width: 100%;
+        margin-bottom: round(@line-height-computed * 0.75);
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: 1px solid @table-border-color;
+
+        // Tighten up spacing
+        > .table {
+            margin-bottom: 0;
+
+            // Ensure the content doesn't wrap
+            > thead,
+            > tbody,
+            > tfoot {
+
+                > tr {
+
+                    > th,
+                    > td {
+                        white-space: nowrap;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+table.table {
+    width: 100%;
+    margin-bottom: @line-height-computed;
+    thead,
+    tbody {
+        > tr {
+            > th,
+            > td {
+                padding: .25rem .5rem;
+            }
+        }
+    }
+    &.border {
+        thead,
+        tbody {
+            > tr {
+                > th,
+                > td {
+                    border-style: solid;
+                    border-width: 1px;
+                }
+            }
+        }
+    }
+    @media (max-width: @screen-xs-max) {
+        &.breakable {
+            width: 100%;
+            > thead {
+                display: none;
+            }
+            > tbody {
+                > tr {
+                    > th,
+                    > td {
+                        display: block;
+                        text-align: center;
+                    }
+                    > td {
+                        margin-bottom: round(@line-height-computed / 2);
+                        &.empty {
+                            display: none;
+                        }
+                        font-weight: bold
+                    }
+                }
+            }
+        }
+    }
+}
+
+.table-fit-content {
+    width: 1px;
+    white-space: nowrap;
+}

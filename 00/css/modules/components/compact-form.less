@@ -1,0 +1,42 @@
+.compact-form {
+    position: relative;
+    .form-control {
+        padding-right: @compact-form-input-padding;
+        &.lg {
+            padding-right: @compact-form-input-padding-lg;
+        }
+    }
+    .btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: @compact-form-button-padding;
+        border-radius: @compact-form-button-border-radius;
+        height: @compact-form-button-height;
+        &::before {
+            margin-right: 0;
+        }
+        &.btn-lg {
+            padding: @compact-form-button-padding-lg;
+            border-radius: @compact-form-button-border-radius-lg;
+            height: @compact-form-button-height-lg;
+            &::before {
+                font-size: 36px;
+            }
+        }
+    }
+    .validator-msg-holder {
+        display: flex;
+        flex-wrap: wrap;
+        > * {
+            width: 100%;
+        }
+        input {
+            order: 1;
+        }
+        div {
+            padding-top: @grid-gutter-width / 4;
+            order: 2;
+        }
+    }
+}

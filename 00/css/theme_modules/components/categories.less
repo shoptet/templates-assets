@@ -1,0 +1,110 @@
+#categories {
+    .expandable {
+        > a > span,
+        > .topic > a > span {
+            color: @categories-arrow-color;
+        }
+        > .topic.active > a > span {
+            color: @categories-color-active;
+        }
+        &.active {
+            &.expanded {
+                > a {
+                    > span {
+                        color: @categories-color-active;
+                    }
+                    &:hover {
+                        > span {
+                            color: @categories-color-active-hover;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .expandable {
+        > a:hover > span,
+        > .topic > a:hover > span {
+            color: @categories-color-hover;
+        }
+    }
+    .box-bg-default & {
+        &::after {
+            background-color: @categories-default-bg;
+        }
+    }
+    .box-bg-variant & {
+        &::after {
+            background-color: @categories-variant-bg;
+        }
+    }
+}
+
+.categories {
+    a {
+        color: @categories-color;
+        &:hover {
+            color: @categories-color-hover;
+            background-color: @categories-bg-hover;
+        }
+    }
+    ul {
+        a {
+            &::before {
+                background-color: @categories-bullet-color;
+            }
+        }
+    }
+    li {
+        &.active {
+            > a {
+                color: @categories-color-active;
+                background-color: @categories-bg-active;
+                &:hover {
+                    color: @categories-color-active-hover;
+                    background-color: @categories-bg-active-hover;
+                }
+            }
+        }
+    }
+    .box-bg-default & {
+        a {
+            border-bottom-color: @categories-default-border;
+            color: @box-color;
+            &:hover {
+                color: @categories-color-hover;
+            }
+        }
+    }
+    .box-bg-variant & {
+        a {
+            border-bottom-color: @categories-variant-border;
+            color: @categories-color;
+            &:hover {
+                color: @categories-color-hover;
+            }
+        }
+    }
+    .topic {
+        &.active {
+            > a {
+                color: @categories-color-active;
+                background-color: @categories-bg-active;
+                &:hover {
+                    color: @categories-color-hover;
+                    background-color: @categories-bg-hover;
+                }
+            }
+        }
+        &.child-active {
+            > a {
+                color: @categories-color-child-active;
+                background-color: @categories-bg-child-active;
+                &:hover {
+                    color: @categories-color-hover;
+                    background-color: @categories-bg-hover;
+                }
+            }
+        }
+    }
+}

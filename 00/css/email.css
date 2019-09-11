@@ -1,0 +1,115 @@
+html{ width: 100%; }
+body { width: 100%; margin:0; padding:0; -webkit-font-smoothing: antialiased; color: #474747; line-height: 1.5; -ms-text-size-adjust: 200%; }
+h1, h2, h3, h4 { margin: 20px 0; padding: 0; }
+p { margin-top: 10px; margin-bottom: 0; padding: 0; }
+p.MsoNormal { mso-margin-top-alt: 0; mso-margin-bottom-alt: 0; }
+table { border: 0; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+img { margin: 0; }
+.imgfix { display: block; }
+
+/*------ font ------ */
+body, strong, table, div, a, p, h1, h2, h3, h4, span, .MsoNormal { font-family: 'Noto Sans', Arial, sans-serif !important; }
+body,  h1, h2, h3, h4, .MsoNormal { font-weight: 400; }
+h1 { font-size: 18px !important; text-transform: uppercase; color: #000000; }
+h2 { font-size: 17px !important; color: #000000; }
+table, .MsoNormal { font-size: 13px !important; }
+a { text-decoration: none; color: #f5756c; }
+a:hover { text-decoration: underline; }
+span.small { font-size: 11px !important; }
+strong.highlight { color: #000000; }
+.info-text { color: #999; }
+
+/*----- logo -------*/
+.logo img { max-width: 560px !important; width: auto !important; max-width: none !important; height: auto; }
+
+/* ----------- container ----------- */
+.main-text { padding: 0 10px; }
+
+/* ----------- order content ----------- */
+.order-content th, .order-content td { padding: 5px; border-bottom: 1px solid #efefef; -ms-text-size-adjust: 100%; }
+.order-content tr th:first-child, .order-content tr td:first-child { padding: 5px 5px 5px 0; }
+.order-content tr th:last-child, .order-content tr td:last-child { padding: 5px 0 5px 5px; }
+.order-content img { vertical-align: middle; }
+
+/* ----------- responsivity ----------- */
+@media only screen and (max-width: 800px) {
+    /*-------- container --------*/
+    .container800, .container780, .container740, .main-content { width: 100% !important; }
+
+    /*-------- envelope graphique ------------*/
+    .top-envelope800 { width: 100% !important; }
+    .top-envelope800 img { width: 100% !important; }
+
+    .middle-envelope800 { width: 100% !important; }
+    .middle-envelope800 .left, .middle-envelope800 .right { width: 35% !important; }
+    .middle-envelope800 .left img, .middle-envelope800 .right img { width: 100% !important; }
+
+    .bottom-envelope800 { width: 100% !important; }
+    .bottom-envelope800 .left, .bottom-envelope800 .right { width: 20.5% !important; }
+    .bottom-envelope800 .left img, .bottom-envelope800 .right img { width: 100% !important; }
+    .sign-text { line-height: 20px !important; color: #acacac; }
+
+    #email-template .imgfix-wrap, #email-template .imgfix { height: auto !important; }
+}
+
+@media only screen and (max-width: 640px) {
+    /*----- global -------*/
+    .hide-for-small { display: none; }
+}
+
+@media only screen and (max-width: 479px) {
+    /*------ font ------ */
+    .order-content { font-size: 11px !important; }
+
+    /*----- logo -------*/
+    .logo img { max-width: 260px !important; height: auto !important; }
+
+    /* ----------- order content ----------- */
+    .order-content th, .order-content td { padding: 0 2px; }
+
+    /*-------- envelope graphique ------------*/
+    .top-envelope800, .middle-envelope800, .bottom-envelope800 { width: 98% !important; }
+
+    /*-------- footer ------------*/
+        /*-------- envelope graphique ------------*/
+        .sign-text { line-height: 20px !important; }
+}
+
+@media only screen and (max-width: 330px) {
+    .top-envelope800, .middle-envelope800, .bottom-envelope800 { width: 97% !important; }
+}
+
+.hide-for-portrait {
+    display: table-cell !important;
+}
+
+@media screen and (orientation: landscape) {
+    .hide-for-portrait {
+        display: table-cell !important;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    .hide-for-portrait {
+        display: none !important;
+    }
+}
+
+.hide-for-landscape,
+.show-for-portrait {
+    display: none !important;
+}
+
+@media screen and (orientation: landscape) {
+    .hide-for-landscape,
+    .show-for-portrait {
+        display: none !important;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    .hide-for-landscape,
+    .show-for-portrait {
+        display: table-cell !important;
+    }
+}

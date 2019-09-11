@@ -1,0 +1,27 @@
+.shp-tabs-holder,
+.shp-tabs {
+    border-color: @tabs-border-color;
+    background-color: @tabs-bg;
+}
+
+.shp-tab {
+    &.active {
+        border-top-color: @tab-link-color-active;
+    }
+}
+
+.shp-tab-link {
+    border-color: @tab-border-color;
+    color: @tab-link-color;
+    background-color: @tab-link-bg;
+    &:hover {
+        border-color: @tab-border-color-hover;
+        color: @tab-link-color-hover;
+        background-color: @tab-link-bg-hover;
+    }
+    .active & {
+        border-color: @tab-border-color-active;
+        color: @tab-link-color-active;
+        background-color: @tab-link-bg-active;
+    }
+}

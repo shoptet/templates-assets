@@ -1,0 +1,45 @@
+.link-icons {
+    display: flex;
+    flex-wrap: wrap;
+    margin: @link-icons-margin;
+}
+
+.link-icon {
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin: @link-icon-margin;
+    padding: @link-icon-padding;
+    text-align: center;
+    text-transform: uppercase;
+    &::before {
+        &:extend(.shp-icon);
+        line-height: 1;
+        display: block;
+        margin-bottom: 1ex;
+        font-size: @icon-font-size-base;
+        text-align: center;
+    }
+    &.print {
+        @media (max-width: @screen-sm-max) {
+            display: none;
+        }
+        &::before {
+            content: @icon-print-code;
+        }
+    }
+    &.chat {
+        &::before {
+            content: @icon-comment-code;
+        }
+    }
+    &.watchdog {
+        &::before {
+            content: @icon-watchdog-code;
+        }
+    }
+    &.share {
+        &::before {
+            content: @icon-share-code;
+        }
+    }
+}

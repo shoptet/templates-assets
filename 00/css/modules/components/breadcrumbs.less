@@ -1,0 +1,24 @@
+.breadcrumbs {
+    display: none;
+    padding: round(@line-height-computed / 4) round(@grid-gutter-width / 2);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    font-size: 12px;
+    > span {
+        vertical-align: middle;
+        &:last-child {
+            font-weight: 700;
+        }
+    }
+    @media (min-width: @screen-sm-min) {
+        display: block;
+    }
+}
+
+.navigation-home-icon {
+    &::before {
+        &:extend(.shp-icon);
+        content: @icon-home-code;
+        margin-top: -2px;
+    }
+}

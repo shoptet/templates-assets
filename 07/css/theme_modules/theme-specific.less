@@ -1,0 +1,361 @@
+body {
+    &.editor-active,
+    &.ordering-process,
+    &.entrance-protection-wrapper {
+        background-color: @content-box-bg;
+    }
+}
+
+.top-navigation-bar {
+    color: @accent-heavy-color;
+    background-color: @accent-heavy-bg;
+}
+
+.top-navigation-bar-right {
+    a {
+        color: @accent-link-color;
+        &.primary {
+            background-color: darken(@accent-heavy-bg, 5%);
+            &:hover {
+                background-color: darken(@accent-heavy-bg-hover, 5%);
+            }
+        }
+        &.secondary {
+            background-color: @accent-bg;
+            &:hover {
+                background-color: @accent-bg-hover;
+            }
+        }
+    }
+}
+
+
+#categories {
+    .box-bg-default & {
+        &::after {
+            background-color: @categories-default-bg;
+        }
+    }
+    .box-bg-variant & {
+        &::after {
+            background-color: @categories-variant-bg;
+        }
+    }
+}
+
+#footer {
+    color: @footer-color;
+    background-color: @footer-bg;
+    a:not(.btn):not(.login-btn):not(.social-icon),
+    h3,
+    h4,
+    h5 {
+        color: @footer-color;
+    }
+    .system-footer {
+        ul {
+            li {
+                &::after {
+                    background-color: @footer-color;
+                }
+            }
+        }
+    }
+    #signature {
+        a {
+            color: @footer-secondary-color;
+        }
+    }
+    #filters {
+        color: @text-color; 
+    }
+}
+
+.footer-bottom {
+    color: @footer-secondary-color;
+}
+
+.user-action {
+    color: @user-action-window-color;
+    background-color: @user-action-window-bg;
+    h2,
+    h3,
+    h4 {
+        color: @user-action-window-color;
+    }
+    a {
+        color: @user-action-window-link-color;
+    }
+    .form-control {
+        border-color: @user-action-window-muted-color;
+        color: lighten(@user-action-window-muted-color, 25%);
+        background-color: @user-action-window-secondary-bg;
+        box-shadow: inset 0 0 1px rgba(0,0,0,.9);
+        &::-moz-placeholder {
+            color: lighten(@user-action-window-muted-color, 5%);
+            opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+        }
+        &:-ms-input-placeholder { color: lighten(@user-action-window-muted-color, 5%); } // Internet Explorer 10+
+        &::-webkit-input-placeholder  { color: lighten(@user-action-window-muted-color, 5%); } // Safari and Chrome
+        &:focus {
+            box-shadow: inset 0 0 1px rgba(0,0,0,.9), 0 0 4px @input-focus-color;
+        }
+    }
+    .box.box-bg-default {
+        background: none;
+    }
+}
+
+ul.user-action-tabs {
+    border-bottom-color: @colorTertiaryHover;
+    li {
+        border-color: @colorTertiaryHover;
+        a {
+            color: @text-muted-color;
+            background-color: @box-bg;
+            &:hover {
+                color: @link-color;
+                background-color: transparent;
+            }
+        }
+        &.active {
+            a {
+                color: @link-color;
+                background-color: transparent;
+            }
+        }
+    }
+    @media (min-width: unit(@screen-sm-min, px)) {
+        li {
+            &.active {
+                border-bottom-color: @colorTertiaryHover;
+            }
+        }
+    }
+    .user-action & {
+        border-bottom-color: @user-action-window-muted-color;
+        li {
+            border-color: @user-action-window-muted-color;
+            a {
+                color: @user-action-window-muted-color;
+                background-color: @user-action-window-secondary-bg;
+                &:hover {
+                    color: @user-action-window-color;
+                    background-color: @user-action-window-bg;
+                }
+            }
+            &.active {
+                a {
+                    color: @user-action-window-color;
+                    background-color: @user-action-window-bg;
+                }
+            }
+        }
+        @media (min-width: unit(@screen-sm-min, px)) {
+            li {
+                &.active {
+                    border-bottom-color: @user-action-window-bg;
+                }
+            }
+        }
+    }
+}
+
+.p {
+    background-color: @product-bg;
+    border-color: @border-color;
+    .name {
+        color: @text-color;
+    }
+    &:hover {
+        border-color: @colorTertiaryHover;
+    }
+    .products-block & {
+        > a {
+            &::after {
+                color: rgba(255,255,255,0);
+            }
+            &:hover {
+                &::after {
+                    color:  @colorTertiaryHover;
+                }
+            }
+        }
+    }
+}
+
+.products-additional {
+    .p {
+        border-bottom-color: @border-color;
+    } 
+}
+
+.products-inline,
+.products-inline-image {
+    > div {
+        border-color: @border-color;
+    }
+}
+
+.p-bottom {
+    .price-standard-wrapper,
+    .price-save {
+        color: @colorPrimary;
+    }
+    .price-additional {
+        color: @text-muted-color;
+    }
+}
+
+// Slider
+.slider-wrapper {
+    color: @accent-heavy-color;
+    background-color: @accent-heavy-bg;
+    h4 {
+        color: @accent-heavy-color;
+    }
+    #content & {
+        color: @text-color;
+        background-color: transparent;
+        h4 {
+            color: @headings-color;
+        }
+    }
+}
+
+.category-header {
+    border-bottom-color: @border-color;
+}
+
+// Content window
+.toggle-window-arr {
+    color: @text-color;
+}
+.content-window-in {
+    background-color: @content-box-bg;
+}
+
+.back-shopping {
+    color: @text-color;
+}
+
+ol.cart-header {
+    li {
+        &:first-child {
+            a,
+            strong {
+                &::after {
+                    background-color: @step-active-bg;
+                }
+            }
+            a {
+                &:hover {
+                    &::after {
+                        background-color: @step-active-bg;
+                    }
+                }
+            }
+            &.active {
+                a,
+                strong {
+                    &::after {
+                        background-color: @step-active-bg;
+                    }
+                }
+            }
+        }
+    }
+}
+
+table.table {
+    &.border {
+        thead,
+        tbody {
+            > tr {
+                > th,
+                > td {
+                    border-color: @border-color;
+                }
+            }
+        }
+    }
+    &.posts {
+        td {
+            border-bottom-color: @border-color;
+        }
+    }
+}
+
+.order-summary,
+.order-summary-item {
+    background-color: @box-bg;
+}
+
+.order-summary-item {
+    border-bottom-color: #fff;
+    &.total {
+        background-color: @box-accent-bg;
+    }
+    &.price {
+        color: @box-price-color;
+        background-color: @box-price-bg;
+    }
+}
+
+.helper {
+    color: @accent-color;
+    background-color: @accent-bg;
+    &.single {
+        > a {
+            background-color: @accent-bg;
+        }
+        &:hover {
+            > a {
+                background-color: @accent-bg-hover;
+            }
+        }
+    }
+}
+
+.news-item-widget {
+    .box-bg-default & {
+        border-bottom-color: darken(@box-bg, 4%);
+    }
+    .box-bg-variant & {
+        border-bottom-color: darken(@box-variant-bg, 4%);
+    }
+}
+
+.p-detail {
+    background-color: @content-box-bg;
+}
+
+ul.discussion {
+    > li {
+        border-bottom-color: @border-color;
+    }
+    ul {
+        border-left-color: @border-color;
+    }
+}
+
+.shp-tabs-wrapper {
+    border-top-color: @border-color;
+    &::before {
+        background-color: @border-color;
+    }
+}
+
+.shp-tab {
+    & + & {
+        border-top-color: @border-color;
+    }
+}
+
+.free-gifts-img {
+    .free-gifts-img-hover {
+        img {
+            border-color: @border-color;
+        }
+    }
+}

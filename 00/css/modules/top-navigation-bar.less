@@ -1,0 +1,101 @@
+.top-navigation-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+    line-height: 14px;
+    text-transform: uppercase;
+    .transition(top @transition-duration @transition-timing);
+    .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    a {
+        text-decoration: none;
+    }
+    @media (min-width: @screen-sm-min) {
+        .clearfix();
+        display: block;
+        position: relative;
+        top: 0;
+        bottom: auto;
+        text-align: left;
+    }
+    @media (min-width: @screen-md-min) {
+        font-size: 12px;
+    }
+    .login-window-visible &,
+    .register-window-visible & {
+        z-index: 10;
+        position: fixed;
+        left: 0;
+        top: 100%;
+        width: 100%;
+        margin-top: -50px;
+    }
+}
+
+.top-navigation-bar-left {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    button {
+        padding: 0;
+        border: 0;
+        background: none;
+        .appearance(none);
+    }
+    @media (min-width: @screen-sm-min) {
+        float: left;
+        padding-left: 15px;
+    }
+}
+
+.top-navigation-bar-right {
+    a,
+    strong {
+        display: block;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    a {
+        padding-left: 10px;
+        padding-right: 10px;
+        &.login,
+        &.logout {
+            &::before {
+                &:extend(.shp-icon);
+                margin-right: 1ex;
+            }
+        }
+        &.login {
+            &::before {
+                font-size: 12px;
+                content: @icon-login-code;
+            }
+        }
+        &.logout {
+            &::before {
+                content: @icon-unlock-code;
+            }
+        }
+    }
+    @media (min-width: @screen-sm-min) {
+        .clearfix();
+        float: right;
+        a,
+        strong {
+            float: left;
+        }
+        a {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+    @media (min-width: @screen-md-min) {
+        a {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
+}

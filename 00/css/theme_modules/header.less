@@ -1,0 +1,14 @@
+#header {
+    border-color: @border-color;
+    color: @header-color;
+    background-color: @header-bg-color;
+    background-image: @header-bg-image-sm;
+    @media (min-width: @navigation-breakpoint) {
+        background-image: @header-bg-image;
+    }
+    .site-name {
+        a {
+            color: @header-color;
+        }
+    }
+}

@@ -1,0 +1,371 @@
+// TODO: better place for this
+@navigation-height: (@navigation-element-font-size + (@navigation-link-padding-vertical * 2));
+// TODO: set lower z-index after T9979
+@navigation-z-index: 1000;
+@navigation-submenu-z-index: 1001;
+
+@media (min-width: @screen-xl-min) {
+    .make-grid(xl);
+}
+
+// Global classes
+.no-display,
+.hide {
+    display: none !important;
+}
+.block {
+    display: block;
+}
+.inline {
+    display: inline;
+}
+.flex {
+    display: flex;
+}
+.nowrap {
+    white-space: nowrap;
+}
+.js-hidden {
+    .js-hidden-hidden();
+    &.visible {
+        .js-hidden-visible()
+    }
+}
+
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
+.text-center {
+    text-align: center;
+}
+.text-justify {
+    text-align: justify;
+}
+.text-nowrap {
+    white-space: nowrap;
+}
+
+.spaced {
+    margin-top: round(@line-height-computed * 4);
+}
+.spaced-small {
+    margin-top: @line-height-computed;
+}
+.spaced-smaller {
+    margin-top: round(@line-height-computed / 2);
+}
+
+.no-gutter {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+.show-tooltip.acronym[data-original-title] {
+    border-bottom-width: 1px;
+    border-bottom-style: dashed;
+}
+.show-tooltip.acronym[data-original-title=''] {
+    border-bottom: none;
+}
+
+.em {
+    font-style: italic;
+}
+
+.line {
+    line-height: 1px;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    margin: @line-height-computed 0;
+}
+
+body,
+html {
+    height: 100%;
+}
+
+body {
+    counter-reset: steps top;
+    font-weight: @font-weight-base;
+    &.user-action-visible {
+        overflow: hidden;
+        &.menu-helper-visible {
+            overflow: auto;
+        }
+        @media (min-width: @screen-md-min) {
+            overflow: @user-actions-overflow;
+        }
+    }
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: @headings-font-weight;
+    line-height: @headings-line-height;
+    word-wrap: break-word;
+    text-transform: @headings-text-transform;
+}
+
+h4,
+h5,
+h6,
+.h4,
+.h5,
+.h6 {
+    margin-top: round(@line-height-computed / 2);
+    margin-bottom: round(@line-height-computed / 2);
+}
+
+h1,
+.h1 {
+    font-size: @font-size-h1;
+    font-weight: @font-weight-h1;
+}
+h2,
+.h2 {
+    font-size: @font-size-h2;
+}
+h3,
+.h3 {
+    font-size: @font-size-h3;
+}
+h4,
+.h4 {
+    font-size: @font-size-h4;
+}
+h5,
+.h5 {
+    font-size: @font-size-h5;
+}
+h6,
+.h6 {
+    font-size: @font-size-h6;
+}
+
+p {
+    margin: 0 0 round(@line-height-computed / 2);
+}
+
+a,
+.link-like {
+	text-decoration: none;
+    .transition(all @transition-duration @transition-timing);
+	&.btn {
+		text-decoration: none;
+	}
+    &:hover {
+        text-decoration: none;
+    }
+    &:focus {
+        text-decoration: none;
+        outline: 0;
+    }
+    &.disabled {
+        cursor: default;
+    }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+iframe {
+    max-width: 100%;
+}
+
+label.disabled {
+    opacity: .75;
+    cursor: not-allowed;
+}
+
+// Customer center
+@media (min-width: @screen-sm-min) {
+    .table-md-50 {
+        width: 50% !important;
+    }
+}
+
+.table-th-code {
+    width: 21%;
+}
+
+.table-th-date {
+    width: 7%;
+}
+
+.price-standard,
+.price-save {
+    .p-final-price-wrapper & {
+        > span {
+            display: inline-block;
+            &.empty {
+                visibility: hidden;
+            }
+        }
+    }
+}
+
+.price-standard {
+    > span {
+        text-decoration: line-through;
+    }
+}
+
+.price-measure .empty,
+.price-measure .default-variant {
+    visibility: hidden;
+    td > & {
+        visibility: visible;
+    }
+}
+
+.parameter-value {
+    display: none;
+}
+
+#payu_ {
+    display: none;
+    .container {
+        width: auto !important;
+        padding: 0 !important;
+    }
+    .table-payu {
+        width: 100% !important;
+        margin: 10px 0 !important;
+        padding: 0 !important;
+    }
+    #checkoutContent & {
+        display: block;
+    }
+}
+
+iframe[name="google_conversion_frame"] {
+    display: none;
+}
+
+.shp-icon {
+    .shoptet-icon();
+}
+
+.chevron-after {
+    &::after {
+        &:extend(.shp-icon);
+        vertical-align: initial;
+        font-size: @chevron-font-size;
+        margin-left: .5ex;
+    }
+    &.chevron-down-after {
+        &::after {
+            content: @icon-chevron-down-code;
+        }
+    }
+    &.chevron-up-after {
+        &::after {
+            content: @icon-chevron-up-code;
+        }
+    }
+    &.chevron-left-after {
+        &::after {
+            content: @icon-chevron-left-code;
+        }
+    }
+    &.chevron-right-after {
+        &::after {
+            content: @icon-chevron-right-code;
+        }
+    }
+}
+
+.close-after {
+    &::after {
+        &:extend(.shp-icon);
+        content: @icon-close-code;
+        vertical-align: initial;
+        font-size: @chevron-font-size;
+        margin-left: 1ex;
+    }
+}
+
+.qrcode {
+    border-style: @qrcode-border-style;
+    border-width: @qrcode-border-width;
+}
+
+// Extension of bootstrap
+// Grid
+.container {
+    @media (min-width: @screen-xl-min) {
+        width: @container-xl;
+    }
+}
+
+// Navs
+.tab-content {
+    > .tab-pane {
+        display: none;
+        h2 {
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+    }
+    > .active {
+        display: block;
+    }
+}
+
+.fb-messenger-checkbox {
+    margin: -5px 0 0 -14px;
+    display: block;
+}
+
+.order-complete-links {
+    text-align: center;
+}
+
+.reca-number {
+    text-align: @recapitulation-number-text-align;
+    margin-bottom: @line-height-computed;
+}
+
+.more-categories-wrap {
+    .more-categories-list {
+        display: none;
+    }
+    &.unveiled {
+        .more-categories-trigger {
+            display: none;
+        }
+        .more-categories-list.visible {
+            display: inline;
+        }
+    }
+}
+
+.cart-inner {
+    padding: round(@grid-gutter-width / 4);
+}
+
+.cart-heading {
+    margin: 0.67em 0;
+}
+
+.pr-list-unit {
+    display: inline-block;
+}
+
+.products-block {
+    .p,
+    .img {
+        > a {
+            &::before {
+                content: '';
+                float: left;
+            }
+        }
+    }
+}

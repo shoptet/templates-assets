@@ -1,0 +1,123 @@
+.search {
+    text-align: center;
+    .sidebar & {
+        text-align: left;
+    }
+}
+
+.recommended-products {
+    font-size: 16px;
+    line-height: 1.1;
+    .browse,
+    .indicator {
+        display: none;
+    }
+    .row {
+        > div {
+            display: none;
+            &.active {
+                display: block;
+            }
+        }
+    }
+    .browse {
+        &::before {
+            &:extend(.shp-icon);
+        }
+    }
+    a.recommended-product {
+        display: block;
+        text-decoration: none;
+        img {
+            display: block;
+            margin: 0 auto @line-height-computed;
+        }
+        strong {
+            display: block;
+            &.name {
+                margin-bottom: round(@line-height-computed / 2);
+                font-weight: 300;
+                text-transform: uppercase;
+            }
+            &.price {
+                font-weight: 900;
+            }
+        }
+        .original-price {
+            font-size: 14px;
+            span {
+                text-decoration: line-through;
+            }
+        }
+    }
+    @media (min-width: @screen-sm-min) {
+        position: relative;
+        padding-left: 90px;
+        padding-right: 90px;
+        .browse,
+        .indicator {
+            display: block;
+            &.inactive {
+                display: none;
+            }
+        }
+        .browse {
+            position: absolute;
+            top: 50%;
+            display: block;
+            .square(46px);
+            margin-top: -23px;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 50%;
+            text-decoration: none;
+            &::before {
+                font-size: 36px;
+                line-height: 46px;
+            }
+            &.next {
+                right: 0;
+                &::before {
+                    content: @icon-arrow-right-code;
+                }
+            }
+            &.prev {
+                left: 0;
+                &::before {
+                    content: @icon-arrow-left-code;
+                }
+            }
+        }
+        .row {
+            display: none;
+            &.active {
+                display: block;
+            }
+            > div {
+                display: block;
+            }
+        }
+        a.recommended-product {
+            text-align: left;
+        }
+    }
+}
+
+.indicator {
+    .size(120px, 1px);
+    margin: 0 auto @line-height-computed;
+    > div {
+        .size(33.333333%, 1px);
+        .transition(margin @transition-duration @transition-timing)
+    }
+    &.indicator-1 {
+        > div {
+            margin-left: 33.333333%;
+        }
+    }
+    &.indicator-2 {
+        > div {
+            margin-left: 66.666666%;
+        }
+    }
+}

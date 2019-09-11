@@ -1,0 +1,41 @@
+.sizeID {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.SizeID-button {
+    width: auto !important;
+    height: auto !important;
+
+    .sb-button {
+        border: none !important;
+        height: auto !important;
+        width: auto !important;
+        padding: 0 !important;
+        text-decoration: @sizeid-text-decoration !important;
+        background: none !important;
+
+        .sb-label {
+            height: auto !important;
+            line-height: normal !important;
+            padding-right: 0 !important;
+            font-size: @font-size-base !important;
+
+            &::before,
+            &::after {
+                display: none !important;
+            }
+        }
+    }
+    &:hover {
+        .sb-button {
+            background-color: transparent !important;
+            text-decoration: @sizeid-hover-text-decoration !important;
+        }
+    }
+}
+
+.sizeID-logo {
+    vertical-align: text-bottom;
+    height: @line-height-computed;    
+}

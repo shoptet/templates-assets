@@ -1,0 +1,183 @@
+.user-action {
+    // @navigation-z-index + 1 = z-index for navigation buttons, we need + 2
+    z-index: @navigation-z-index + 2;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    text-align: center;
+    .transition(height @transition-duration @transition-timing);
+    .user-action-in {
+        padding: round(@line-height-computed * 2) 0 @line-height-computed;
+    }
+    .login-window-visible &,
+    .register-window-visible & {
+        height: 100%;
+        overflow: auto;
+    }
+    @media (min-width: @screen-sm-min) {
+        .user-action-in {
+            padding-top: round(@line-height-computed * 2);
+            padding-bottom: round(@line-height-computed * 2);
+        }
+    }
+}
+
+.social-login-buttons {
+    @media(min-width: @screen-sm-min) {
+        .clearfix();
+        .form-group {
+            float: left;
+            width: 50%;
+            margin-bottom: 0;
+            padding-right: 20px;
+            & + .form-group {
+                padding-left: 20px;
+                padding-right: 0;
+                text-align: right;
+            }
+        }
+        .sidebar &, #footer & {
+            .form-group {
+                float: none;
+                width: 100%;
+                padding-left: 0;
+                padding-right: 0;
+                + .form-group {
+                    margin-top: round(@line-height-computed / 2);
+                }
+            }
+        }
+    }
+}
+
+.user-action-login,
+.user-action-register {
+    z-index: -1;
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    margin-right: auto;
+    margin-left: auto;
+    display: none;
+}
+
+.user-action-login {
+    max-width: 680px;
+    .login-window-visible & {
+        z-index: 1;
+        height: auto;
+        display: block;
+    }
+}
+
+.user-action-register {
+    text-align: left;
+    .box {
+        &.box-sm {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+    .register-window-visible & {
+        z-index: 1;
+        height: auto;
+        display: block;
+    }
+}
+
+ul.user-action-tabs {
+    max-width: 680px;
+    margin-bottom: @line-height-computed;
+    padding: 0;
+    font-size: 0;
+    li {
+        list-style: none;
+        display: block;
+        border-width: 1px;
+        border-style: solid;
+        font-size: @font-size-base;
+        a {
+            display: block;
+            padding: 28px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+    }
+    + .tab-content {
+        max-width: 680px;
+    }
+    .user-action & {
+        text-align: center;
+    }
+    &.single {
+        li {
+            display: none;
+            &.active {
+                display: inline-block;
+            }
+        }
+        .user-action & {
+            text-align: left;
+        }
+    }
+    @media (min-width: @screen-sm-min) {
+        margin-bottom: round(@line-height-computed * 2);
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        li {
+            display: inline-block;
+            margin-bottom: -1px;
+            + li {
+                margin-left: -1px;
+            }
+        }
+    }
+    @media (max-width: @screen-xs-max) {
+        li {
+            a {
+                padding: 14px;
+            }
+            &.active {
+                border: 0;
+            }
+        }
+    }
+}
+
+.login-wrapper {
+    text-align: left;
+    .password-helper {
+        padding-top: 1em;
+        text-align: center;
+        line-height: 1.4;
+        a {
+            display: block;
+        }
+    }
+    .btn {
+        display: block;
+        width: 100%;
+    }
+    @media (min-width: @screen-sm-min) {
+        .clearfix();
+        margin-bottom: round(@line-height-computed * 2);
+        text-align: center;
+        .btn {
+            float: right;
+            width: auto;
+        }
+        .password-helper {
+            float: left;
+            padding-top: .5ex;
+            padding-right: 1em;
+            text-align: left;
+        }
+    }
+    .sidebar & {
+        @media (min-width: @screen-xs-min) {
+            margin-bottom: 0;
+        }
+    }
+}

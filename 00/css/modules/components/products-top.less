@@ -1,0 +1,15 @@
+.products-top {
+    margin-bottom: @line-height-computed;
+    > div {
+        .transition(all @transition-duration @transition-timing);
+        &.inactive {
+            position: absolute;
+            height: 0;
+            overflow: hidden;
+            .scale(0);
+        }
+        &.revealed {
+            .scale(1);
+        }
+    }
+}

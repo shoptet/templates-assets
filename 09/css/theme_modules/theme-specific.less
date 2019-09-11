@@ -1,0 +1,332 @@
+.btn-color(@startColor, @hoverTextColor, @hoverBorderColor, @hoverBgColor) {
+    color: @startColor;
+    border-color: @startColor;
+    background-color: transparent;
+
+    &:focus {
+        color: @startColor;
+    }
+    &:hover {
+        color: @hoverTextColor;
+        border-color: @hoverBorderColor;
+        background-color: @hoverBgColor;
+
+        &:focus {
+            color: @hoverTextColor;
+        }
+    }
+}
+
+.password-helper a,
+.cart-price,
+.cart-count {
+    color: @gray-dark;
+
+    &:hover {
+        color: @colorPrimary;
+    }
+    &:focus {
+        color: inherit;
+    }
+}
+main {
+    th,
+    td {
+        border-color: @border-color;
+    }
+}
+header {
+    border-bottom-color: @border-color;
+}
+footer {
+    background-color: @footer-bg;
+    border-top-color: @border-color;
+
+    h4 a, h5 a {
+        color: @gray-dark;
+    }
+    p {
+        color: @gray-dark;
+    }
+    a {
+        color: @gray-dark;
+
+        &:hover {
+            color: @colorPrimary;
+        }
+    }
+}
+
+.subscribe-form .btn {
+    .btn-color(@body-bg, @body-bg, @body-bg, @colorPrimary);
+
+    background-color: @gray-dark;
+
+    &::before {
+        color: @body-bg;
+    }
+}
+
+// Windows
+.user-action,
+.content-window {
+    background-color: @body-bg;
+}
+
+// Navigation
+#navigation {
+    background-color: @body-bg;
+}
+.btn-icon.cart-count {
+    .cart-price {
+        color: @gray-dark;
+        &:hover {
+            color: @colorSecondary;
+        }
+    }
+}
+
+.navigation-in {
+    .contact-wrap {
+        a {
+            color: @link-color;
+            &:hover {
+                color: @text-color;
+            }
+        }
+    }
+}
+
+.top-nav {
+    a,
+    .dropdown {
+        color: @gray-dark;
+        &:hover {
+            color: @link-color;
+        }
+    }
+}
+
+// Windows
+ul.user-action-tabs,
+ul.user-action-tabs li {
+    border-color: @border-color;
+
+    @media (min-width: unit(@screen-sm-min, px)) {
+        .active {
+            &:extend(ul.user-action-tabs);
+
+            border-bottom-color: @body-bg;
+        }
+    }
+}
+
+// Products
+.product {
+    border-color: @border-color;
+
+    .name,
+    .price {
+        color: @text-color-lighter;
+    }
+    .availability {
+        color: @body-bg;
+    }
+    .btn {
+        .btn-color(@body-bg, @colorPrimary, @body-bg, @body-bg);
+    }
+    .btn.btn-cart,
+    .btn.icon-search {
+        color: @colorPrimary;
+    }
+    &.highlight-product .btn {
+        @media (min-width: unit(@screen-lg-min, px)) {
+            .btn-color(@gray-dark, @body-bg, @colorSecondary, @colorSecondary);
+        }
+    }
+    .products-inline &,
+    .products-inline-image & {
+        .availability {
+            color: @text-color;
+        }
+    }
+}
+
+.products-inline,
+.products-inline-image {
+    > div {
+        border-color: @border-color;
+    }
+    .btn.btn-primary,
+    .btn.btn-cart {
+        .btn-color(@colorPrimary, @body-bg, @colorPrimary, @colorPrimary);
+    }
+}
+
+.price-additional,
+.price-measure {
+    color: @gray;
+}
+.price-final {
+    color: @colorPrimary;
+}
+.cart-content a {
+    color: @gray-dark;
+
+    &:hover {
+        color: @link-color;
+    }
+}
+
+.descr-info th {
+    color: @gray;
+}
+
+.subcategories {
+    a {
+        color: @text-color-lighter;
+        &:hover {
+            color: @colorPrimary;
+        }
+    }
+}
+
+.manufacturers a:hover {
+    color: @colorPrimary;
+}
+
+.categories {
+  border-color: @border-color;
+}
+
+.box {
+    h4 {
+        border-bottom-color: @border-color;
+        font-weight: 600;
+    }
+}
+.dropdown-menu {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > label:hover {
+    background-color: transparent;
+    color: @colorPrimary;
+}
+
+// Cart
+.extra.delivery::before,
+.extra.discount::before,
+.extra.cofidis::before,
+.discount-coupon .input-group::before {
+    color: @border-color;
+}
+.extra {
+    color: @colorPrimary;
+
+    .p-name {
+        color: @gray-dark;
+    }
+}
+.back-to-shop {
+    color: @gray;
+}
+.continue-shopping {
+    color: @gray;
+
+    &:hover {
+        color: @colorPrimary;
+    }
+}
+.free-gifts li:hover .free-gift-name {
+    color: @colorPrimary;
+}
+.ordering-process .box {
+    border-color: @border-color;
+}
+.order-icon {
+    color: @colorPrimary;
+}
+.reca-line {
+    border-color: @border-color;
+}
+.order-summary-heading {
+    text-align: center;
+}
+.order-summary-item {
+    &.summary-thx {
+        &:extend(.red);
+    }
+}
+.confirmation {
+    color: @colorSecondary;
+
+    input[type="checkbox"] + &::before,
+    input[type="radio"] + &::before {
+        border-color: @colorSecondary;
+    }
+}
+
+// Search
+.browse {
+    color: @border-color;
+
+    &:hover {
+        color: @colorPrimary;
+    }
+}
+
+@media (min-width: unit(@screen-sm-min, px)) {
+    .navigation-in .exp ul {
+        &::before {
+            border-bottom: @border-color;
+            color: transparent;
+        }
+        &::after {
+            border-bottom: @body-bg;
+            color: transparent;
+        }
+    }
+
+    .highlight-product::after {
+        background-color: rgba(0,0,0,0.03);
+    }
+
+}
+
+.divider {
+    background-color: @border-color;
+}
+
+@media(max-width: unit(@screen-sm-min, px)) {
+    .table-responsive {
+        border-color: @border-color;
+    }
+}
+
+@media (min-width: unit(@screen-lg-min, px)) {
+    .product:not(.highlight-product):hover .tools-wrap {
+        background-color: fade(@colorPrimary,90%)
+    }
+}
+
+.free-gifts-img {
+    .free-gifts-img-hover {
+        img {
+            border-color: @border-color;
+        }
+    }
+}
+
+.sidebar a {
+    color: @gray-dark;
+    &:not(.social-icon):hover {
+        color: @link-color;
+    }
+}
+
+.content-wrapper,
+.top-nav,
+#header {
+    background-color: transparent;
+}

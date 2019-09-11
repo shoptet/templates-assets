@@ -1,0 +1,81 @@
+/* ----- site message ----- */
+.messages,
+.cookie-ag-wrap {
+    // @navigation-z-index + 1 = z-index for navigation buttons, we need + 2
+    z-index: @navigation-z-index + 2;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+}
+.cookie-ag-wrap {
+    z-index: 100000001;
+    top: auto;
+    bottom: 0;
+
+    .site-msg {
+        opacity: 0.8;
+    }
+}
+.site-msg {
+    padding: 1ex 1em;
+    text-align: center;
+    font-size: 12px;
+
+    .close {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-top: -6px;
+        .square(13px);
+        cursor: pointer;
+        .rotate(45deg);
+
+        &::before,
+        &::after {
+            position: absolute;
+            content: "";
+        }
+
+        &::after {
+            left: 0;
+            top: 6px;
+            .size(13px, 1px);
+        }
+
+        &::before {
+            left: 6px;
+            top: 0;
+            .size(1px, 13px);
+        }
+    }
+
+    &.information {
+        text-align: left;
+        line-height: 150%;
+
+        .container {
+            position: relative;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .text {
+            padding-right: 20px;
+        }
+    }
+
+    form {
+        display: inline-block;
+        position: relative;
+        z-index: 2;
+    }
+
+    button {
+        margin-left: 1ex;
+    }
+
+    @media (min-width: @screen-md-min) {
+        z-index: 10000;
+    }
+}

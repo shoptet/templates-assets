@@ -1,0 +1,86 @@
+.flags-extra {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    .highlight-product & {
+        right: round(@grid-gutter-width * 0.75);
+    }
+    .flag {
+        width: @flag-extra-width;
+        height: @flag-extra-height;
+        border-radius: 100%;
+        font-size: @flag-extra-font-size;
+        font-weight: 700;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        .price-standard,
+        .price-save {
+            font-size: @flag-extra-font-size;
+        }
+    }
+    .p-image-wrapper & {
+        z-index: 51;
+        right: round(@grid-gutter-width / 4);
+        @media(min-width: @screen-sm-min) {
+            .flag {
+                .circle(100px, 50%);
+                .price-standard,
+                .price-save {
+                    font-size: round(@flag-extra-font-size * 1.17);
+                }
+            }
+            .flag-freeshipping .icon-van {
+                font-size: round(@flag-extra-font-size * 5.8);
+            }
+            .flag-text {
+                font-size: round(@flag-extra-font-size * 1.17);
+            }
+        }
+    }
+    .products-additional & {
+        @media (min-width: @screen-sm-min) and (max-width: @screen-lg-max) {
+            .flag {
+                width: @flag-extra-width-smaller;
+                height: @flag-extra-height-smaller;
+                font-size: @flag-extra-font-size-smaller;
+            }
+            .price-standard,
+            .price-save {
+                font-size: @flag-extra-font-size-smaller;
+            }
+        }
+    }
+}
+
+.flag-text {
+    font-size: @flag-extra-font-size;
+    line-height: @line-height-smaller;
+    text-transform: uppercase;
+    white-space: nowrap;
+    .products-additional & {
+        @media (min-width: @screen-sm-min) and (max-width: @screen-lg-max) {
+            font-size: @flag-extra-font-size-smaller;
+            line-height: @flag-extra-font-size-smaller;
+        }
+    }
+}
+.flag-freeshipping .icon-van {
+    margin-top: -6px;
+    margin-bottom: -6px;
+    font-size: @flag-extra-icon-font-size;
+    .products-additional & {
+        @media (min-width: @screen-sm-min) and (max-width: @screen-lg-max) {
+            margin-bottom: 0;
+            font-size: @flag-extra-icon-font-size-smaller;
+        }
+    }
+}
+.flag-discount {
+    margin-left: -(round(@grid-gutter-width / 5));
+    .price-standard {
+        display: block;
+    }
+}

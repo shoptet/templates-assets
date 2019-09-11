@@ -1,0 +1,51 @@
+.advanced-parameter {
+    vertical-align: middle;
+    display: inline-block;
+    .square(@advanced-parameter-size);
+    margin: @advanced-parameter-margin;
+    padding: 0;
+}
+
+.advanced-parameter-inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    .square(@advanced-parameter-size);
+    border-radius: @advanced-parameter-border-radius;
+    img {
+        border-radius: @advanced-parameter-border-radius;
+        min-width: 1px;
+    }
+    &::before {
+        &:extend(.shp-icon);
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        .square(100%);
+    }
+    &.yes-before,
+    .disabled & {
+        &::before {
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    }
+    &.yes-before {
+        &::before {
+            background-size: round(@advanced-parameter-size - 12);
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxODk3MS42IiBoZWlnaHQ9IjE0MzM2LjMiIHZpZXdCb3g9IjAgMCAxNy43ODU5MTYgMTMuNDQwMjY3Ij48cGF0aCBkPSJNMTUgLjRsLTggOC00LTQtMi40IDJMNi43IDEzIDE3LjQgMi43eiIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSJncmF5IiBzdHJva2Utd2lkdGg9Ii42Ii8+PC9zdmc+');
+        }
+    }
+    .unavailable-option-wrapper &,
+    .disabled & {
+        opacity: .25;
+        cursor: not-allowed;
+    }
+    .disabled & {
+        &::before {
+            background-size: round(@advanced-parameter-size - 20);
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOS45OTY1IiBoZWlnaHQ9IjIwLjA3MjM4OCIgdmlld0JveD0iMCAwIDAuMDE4NzQ2NzYyIDAuMDE4ODE3ODQ0Ij48cGF0aCBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIiBkPSJNLjAxNTE2LjAwMDU3TC4wMTQ5MjIuMDAwODFsLS4wMDU1NS4wMDU1LS4wMDU3ODYtLjAwNTgtLjAwMzA4LjAwMzEuMDA1Nzg2LjAwNTgtLjAwNTc4Ni4wMDU4LjAwMzA4LjAwMzEuMDA1Nzg2LS4wMDU4LjAwNTc4Ni4wMDU4LjAwMzA4LS4wMDMxTC4wMTgwMDQuMDE0OTdsLS4wMDU1NS0uMDA1NS4wMDU3ODYtLjAwNTgtLjAwMzA4LS4wMDMxeiIgY29sb3I9IiMwMDAiIG92ZXJmbG93PSJ2aXNpYmxlIiBzb2xpZC1jb2xvcj0iIzAwMDAwMCIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSJncmF5IiBzdHJva2Utd2lkdGg9Ii4wMDA3MTgiLz48L3N2Zz4=');
+        }
+    }
+}

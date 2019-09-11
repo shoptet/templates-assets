@@ -1,0 +1,114 @@
+@keyframes scale {
+    from {transform: scaleX(0)}
+    to {transform: scaleX(1)}
+}
+
+.rate-wrapper.unveil-wrapper {
+    .rate-wrap {
+        display: flex;
+    }
+    .rate-star-wrap {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: space-around;
+        height: 100%;
+        margin-left: round(@grid-gutter-width / 2);
+
+        .stars {
+            display: block;
+            margin-bottom: round(@line-height-computed / 8);
+            width: 100%;
+        }
+    }
+    .rate-star {
+        margin-right: round(@grid-gutter-width / 4);
+        width: auto;
+        display: flex;
+        align-items: center;
+
+        &::after {
+            content: "\A";
+            white-space: pre;
+        }
+    }
+    .rate-value {
+        margin-right: round(@grid-gutter-width / 8);
+    }
+    .rate-list {
+        display: flex;
+        align-items: center;
+        margin-bottom: round(@line-height-computed / 2);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    .rate-block {
+        display: flex;
+        flex-grow: 1;
+        padding-right: @grid-gutter-width;
+    }
+    .rate-bar {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: round(@line-height-computed / 4);
+        animation-name: scale;
+        animation-duration: 0.5s;
+        animation-timing-function: linear;
+        transform-origin: left;
+    }
+    .rate-count {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+
+        &.active {
+            right: -(@grid-gutter-width);
+        }
+    }
+    .rate-average-wrap {
+        display: flex;
+        flex-direction: column;
+        line-height: 1;
+    }
+    .rate-average-inner {
+        display: flex;
+        align-items: center;
+    }
+    .rate-average {
+        font-size: 350%;
+    }
+    .add-comment {
+        display: flex;
+        align-items: flex-end;
+        flex-grow: 1;
+    }
+
+    &.unveiled .add-comment {
+        display: none;
+    }
+}
+
+.add-comment {
+    font-weight: 700;
+    cursor: pointer;
+    .rating-icon {
+        display: flex;
+
+        &::before {
+            &:extend(.shp-icon);
+            content: @icon-rating-code;
+            margin-right: round(@grid-gutter-width / 6);
+        }
+    }
+    .comment-icon::before {
+        &:extend(.shp-icon);
+        content: @icon-comment-code;
+        margin-right: round(@grid-gutter-width / 4);
+    }
+    &.btn {
+        font-weight: 400;
+    }
+}

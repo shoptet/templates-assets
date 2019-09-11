@@ -1,0 +1,19 @@
+.phone-combined-input {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    select {
+        display: none;
+    }
+    input,
+    .country-flags {
+        flex-grow: 0;
+    }
+    input {
+        width: calc(100% - 78px);
+        flex-shrink: 1;
+    }
+    @media (min-width: @screen-xs-min) {
+        max-width: @select-width;
+    }
+}

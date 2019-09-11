@@ -1,0 +1,87 @@
+.navigation-buttons {
+    font-size: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+    justify-self: flex-end;
+    .transition(right @transition-duration @transition-timing);
+    a {
+        position: relative;
+        display: inline-block;
+        .square(40px);
+        font-size: @navigation_navigation-buttons-font-size-1;
+        line-height: 38px;
+        text-align: center;
+        text-decoration: none;
+        &::before {
+            &:extend(.shp-icon);
+        }
+        &[data-target="search"] {
+            &::before {
+                content: @icon-search-code;
+            }
+        }
+        &[data-target="cart"] {
+            &::before {
+                content: @icon-cart-code;
+            }
+        }
+        &[data-target="navigation"] {
+            &::before {
+                content: @icon-menu-code;
+            }
+        }
+        &[data-target="login"] {
+            &::before {
+                content: @icon-login-code;
+            }
+        }
+    }
+    &.in-cart {
+        display: none;
+    }
+    @media (min-width: @screen-xs-min) {
+        a {
+            .square(60px);
+            font-size: @navigation_navigation-buttons-font-size-2;
+            line-height: 56px;
+        }
+        .navigation-window-visible & {
+            right: @navigation_navigation-buttons-right-1;
+            margin-right: @navigation_navigation-buttons-margin-right-1;
+            a {
+                &[data-target="navigation"] {
+                    &::before {
+                        content: @icon-close-code;
+                    }
+                }
+            }
+        }
+    }
+    @media (min-width: @screen-sm-min) and (max-width: @navigation-breakpoint - 1) {
+        top: @navigation_navigation-buttons-top-1;
+        .navigation-window-visible & {
+            top: @navigation_navigation-buttons-top-1;
+        }
+        .scrolled & {
+            top: 0;
+        }
+    }
+    @media (min-width: @navigation-breakpoint) {
+        position: relative;
+        right: auto;
+        top: auto;
+        flex-grow: 0;
+        padding-left: round(@grid-gutter-width / 2);
+        a {
+            .square(@navigation-height);
+            line-height: @navigation-height;
+        }
+    }
+}

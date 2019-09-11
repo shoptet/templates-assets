@@ -1,0 +1,20 @@
+.stars .star {
+    color: @rating-default-color;
+
+    &:hover {
+        color: @rating-default-color;
+    }
+    &.is-active:hover {
+        color: @rating-active-color;
+    }
+    &.star-on,
+    &.star-half {
+        &::before {
+            color: @rating-active-color;
+        }
+    }
+}
+
+.stars-label {
+    color: @text-muted-color;
+}

@@ -1,0 +1,131 @@
+@media print {
+    .no-display,
+    .user-action,
+    .admin-bar,
+    .top-navigation-bar,
+    .top-nav,
+    .search,
+    #navigation,
+    .navigation-buttons,
+    .menu-helper,
+    .cart-count,
+    .breadcrumbs,
+    .sidebar,
+    #footer,
+    .content-window,
+    .carousel,
+    .banners-content,
+    .banner-footer,
+    .banner-wrapper,
+    .banner-category,
+    .banner,
+    .btn-cart,
+    .quantity,
+    .category-header,
+    .filters-wrapper,
+    .filters,
+    .pagination,
+    .add-to-cart,
+    .sb-button,
+    .p-switcher-wrapper,
+    .p-thumbnails-wrapper,
+    .p-details h1,
+    .variant-list,
+    [itemprop="aggregateRating"],
+    .box-subscribe,
+    .link-icon,
+    .choose-variant,
+    .availability-label,
+    .p-intro .p-final-price,
+    .shp-tabs-wrapper,
+    .next-prev,
+    .chevron-down-after,
+    .social-icons
+    {
+        display: none;
+    }
+
+
+    @page { margin: 2cm }
+
+    @page :first {
+        margin: 1cm 2cm;
+    }
+
+    * {
+        background: none !important;
+    }
+
+    body {
+        font: 14pt serif;
+        background: #fff !important;
+        color: #000;
+        padding: 0;
+    }
+
+    img {
+        height: auto;
+        max-width: 100%;
+    }
+
+    a,
+    ul,
+    ol,
+    dl,
+    pre {
+        page-break-inside:avoid;
+    }
+
+    table {
+        border-top: 1px solid #ccc;
+        margin-bottom: 20pt;
+        page-break-inside:avoid;
+        font-size: 13pt;
+    }
+
+    th {
+        text-align: left;
+        border-bottom: 1px solid #ccc;
+    }
+
+    td {
+        text-align: left;
+        border-bottom: 1px solid #ccc;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: sans-serif;
+        page-break-after:avoid;
+        page-break-inside:avoid;
+    }
+
+    iframe, ins {
+        display: none;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        line-height: 0pt !important;
+        white-space: nowrap;
+    }
+
+    .p-final-price {
+        display: block;
+        margin-top: 1ex;
+        font-size: 16pt;
+    }
+
+    #header .site-name {
+        border-bottom: 1pt solid #ccc;
+        img {
+            max-width: 100pt;
+            max-height: 70pt;
+        }
+    }
+
+    .p-details table {
+        min-width: 50%;
+    }
+}

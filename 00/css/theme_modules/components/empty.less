@@ -1,0 +1,17 @@
+.empty-content {
+    font-family: sans-serif;
+    .external-fonts-loaded & {
+        font-family: @templateHeadingsFont, sans-serif;
+    }
+    h1 {
+        color: @colorPrimary;
+    }
+    h2 {
+        &::after {
+            color: @border-color;
+        }
+    }
+    p {
+        color: @text-muted-color;
+    }
+}
