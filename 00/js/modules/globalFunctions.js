@@ -298,7 +298,6 @@ function detectScrolled(direction) {
     } else {
         $('html').removeClass('scrolled scrolled-up scrolled-down');
         shoptet.menu.hideSubmenu();
-        shoptet.menu.splitMenu();
     }
 }
 

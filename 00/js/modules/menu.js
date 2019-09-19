@@ -23,7 +23,8 @@
         var i = 0;
         var $menuHelper = $('.menu-helper');
         var menuHelperOffset = $menuHelper.length ? $menuHelper.offset() : 0;
-        $('.navigation-in > ul > li').each(function () {
+        $('#navigation').removeClass('fitted');
+        $('.navigation-in > ul > li').each(function() {
             var $el = $(this);
             var width = $el.outerWidth();
             var offset = $el.offset();
@@ -36,8 +37,6 @@
         });
         if (i === $('.navigation-in > ul > li').length) {
             $('#navigation').addClass('fitted');
-        } else {
-            $('#navigation').removeClass('fitted');
         }
         shoptet.menu.splitHelperMenu(i);
     }
