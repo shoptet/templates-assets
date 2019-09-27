@@ -795,6 +795,10 @@ $(function() {
 
     unveilImages();
 
+    $('.content-window-in').scroll(function() {
+        $('img').unveil();
+    });
+
     // Cookies agreement
     $('.CookiesOK').on('click', function(e) {
         e.preventDefault();
@@ -894,7 +898,7 @@ $(function() {
         clearTimeout(hidePopupWindow);
     });
 
-    $('html').on('mouseleave', '.popup-widget, .hovered-nav, .menu-helper', function() {
+    $('html').on('mouseleave', '.popup-widget, .hovered-nav', function() {
         if ($(this).hasClass('login-widget') || $(this).hasClass('register-widget')) {
             if ($(this).find('input:focus').length) {
                 return false;

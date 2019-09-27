@@ -8,18 +8,20 @@
         for (var key in flagsEl) {
             if (typeof flagsEl[key] === 'object') {
                 var parentGroup = flagsEl[key].parentElement.parentElement;
-                (function(parentGroup) {
-                    flagsEl[key].addEventListener('click', function(e) {
+                (function(flag, parentGroup) {
+                    flag.addEventListener('click', function(e) {
                         e.stopPropagation();
                         parentGroup.focus();
-                        shoptet.phoneInput.setSelectedCountry(this, parentGroup);
                         if (parentGroup.classList.contains('active')) {
                             shoptet.phoneInput.hideCountriesSelect(parentGroup);
                         } else {
                             parentGroup.classList.add('active');
                         }
+                        if (!flag.classList.contains('selected')) {
+                            shoptet.phoneInput.setSelectedCountry(flag, parentGroup, true);
+                        }
                     });
-                }(parentGroup));
+                }(flagsEl[key], parentGroup));
             }
         }
     }
@@ -41,13 +43,13 @@
         el.blur();
     }
 
-    function setSelectedCountry(el, parentGroup) {
-        var select = document.getElementById(parentGroup.getAttribute('data-select'));
+    function setSelectedCountry(el, parentGroup, signal) {
+        var select = document.getElementById(parentGroup.dataset.select);
         var input = select.nextElementSibling;
 
-        var originalValue = parseInt(select.value);
-        var newValue = parseInt(el.dataset.rel);
-        if ((originalValue !== newValue)) {
+        var originalValue = JSON.parse(select.value);
+        var newValue = el.dataset.rel;
+        if ((originalValue.countryCode !== newValue)) {
             var selectedItem = parentGroup.querySelector('.selected');
             if (selectedItem) {
                 selectedItem.classList.remove('selected');
@@ -56,7 +58,9 @@
             el.classList.add('selected');
             shoptet.phoneInput.selectSelectedOption(parentGroup, el, select);
 
-            shoptet.scripts.signalCustomEvent('ShoptetPhoneCodeChange', input);
+            if (signal) {
+                shoptet.scripts.signalCustomEvent('ShoptetPhoneCodeChange', input);
+            }
         }
     }
 
@@ -65,7 +69,8 @@
         var selectedIndex = false;
         for (var i = 0; i < options.length; i++) {
             options[i].removeAttribute('selected');
-            if (options[i].value === el.dataset.rel) {
+            var optionValue = JSON.parse(options[i].value);
+            if (optionValue.countryCode === el.dataset.rel) {
                 selectedIndex = i;
             }
         }

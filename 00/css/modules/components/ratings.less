@@ -13,12 +13,21 @@
         flex-grow: 1;
         justify-content: space-around;
         height: 100%;
-        margin-left: round(@grid-gutter-width / 2);
-
+        margin-top: round(@grid-gutter-width / 4);
         .stars {
             display: block;
-            margin-bottom: round(@line-height-computed / 8);
+            margin-bottom: round(@line-height-computed / 4);
             width: 100%;
+        }
+        .stars-label {
+            line-height: inherit;
+        }
+        @media (min-width: @screen-xs-min) {
+            margin-left: round(@grid-gutter-width / 2);
+            margin-top: 0;
+            .stars {
+                margin-bottom: round(@line-height-computed / 8); 
+            }
         }
     }
     .rate-star {
@@ -75,7 +84,17 @@
     }
     .rate-average-inner {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        & + .add-comment {
+            margin-top: round(@line-height-computed * 1.5);
+        }
+        @media (min-width: @screen-xs-min) {
+           flex-direction: row;
+           align-items: center;
+           & + .add-comment {
+               margin-top: 0;
+           }
+        }
     }
     .rate-average {
         font-size: 350%;

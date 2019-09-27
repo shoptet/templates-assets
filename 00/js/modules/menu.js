@@ -121,13 +121,24 @@
     }
 
     /**
-     * Toggle menu helper box visibility
+     * Show menu helper box
      *
      * This function does not accept any arguments.
      */
-    function toggleMenuHelper() {
-        $('body').toggleClass('user-action-visible menu-helper-visible');
+    function showMenuHelper() {
+        $('body').addClass('user-action-visible menu-helper-visible');
     }
+
+    /**
+     * Hide menu helper box
+     *
+     * This function does not accept any arguments.
+     */
+    function hideMenuHelper() {
+        $('body').removeClass('user-action-visible menu-helper-visible submenu-visible');
+        $('.menu-helper .ext').removeClass('exp');
+    }
+
 
     /**
      * Hide navigation
@@ -135,7 +146,8 @@
      * This function does not accept any arguments.
      */
     function hideNavigation() {
-        $('body').removeClass('user-action-visible navigation-window-visible');
+        $('body').removeClass('user-action-visible submenu-visible navigation-window-visible');
+        $('#navigation .exp').removeClass('exp');
     }
 
     $(function() {
@@ -155,18 +167,28 @@
 
         shoptet.runtime.menuHelper = false;
         $html.on('mouseenter', '.menu-helper', function() {
+            clearTimeout(shoptet.runtime.menuHelper);
             shoptet.runtime.menuHelper = setTimeout(function() {
-                shoptet.menu.toggleMenuHelper();
-            }, shoptet.config.animationDuration / 2);
+                if (!$('body').hasClass('menu-helper-visible')) {
+                    shoptet.menu.showMenuHelper();
+                }
+            }, shoptet.config.animationDuration);
         });
 
         $html.on('mouseleave', '.menu-helper', function() {
             clearTimeout(shoptet.runtime.menuHelper);
+            shoptet.runtime.menuHelper = setTimeout(function() {
+                shoptet.menu.hideMenuHelper();
+            }, shoptet.config.animationDuration * 2);
         });
 
         $html.on('click', '.menu-helper', function() {
             clearTimeout(shoptet.runtime.menuHelper);
-            shoptet.menu.toggleMenuHelper();
+            if ($('body').hasClass('menu-helper-visible')) {
+                shoptet.menu.hideMenuHelper();
+            } else {
+                shoptet.menu.showMenuHelper();
+            }
         });
 
         if (detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
@@ -179,33 +201,24 @@
             e.stopPropagation();
         });
 
+        $html.on('mouseenter', '#navigation .ext > a > span, .menu-helper .ext > a > span', function (e) {
+            e.stopPropagation();
+        });
         $html.on('click', '#navigation .ext > a > span, .menu-helper .ext > a > span', function (e) {
             e.stopPropagation();
             e.preventDefault();
             var $this = $(this);
-            var submenuVisible = $('body').hasClass('submenu-visible');
             var parentSubmenuVisible = $this.parents('li').hasClass('exp');
-            setTimeout(function () {
-                if (
-                    !detectResolution(shoptet.abilities.config.navigation_breakpoint)
-                    && submenuVisible
-                    && parentSubmenuVisible
-                ) {
-                    shoptet.menu.hideSubmenu();
+            setTimeout(function() {
+                if (parentSubmenuVisible) {
+                    $this.parents('li').removeClass('exp');
                 } else {
-                    shoptet.menu.hideSubmenu();
                     shoptet.menu.showSubmenu($this.parents('li'));
                 }
             }, 1);
         });
 
-        $html.on('mouseenter', '#navigation .ext > a > span, .menu-helper .ext > a > span', function (e) {
-            if (!detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
-                e.stopPropagation();
-            }
-        });
-
-        $html.on('mouseenter', '#navigation .ext, .menu-helper .ext', function () {
+        $html.on('mouseenter', '#navigation .ext', function () {
             var $this = $(this);
             setTimeout(function () {
                 var $itemHovered = $this.parent().find(':hover');
@@ -217,7 +230,7 @@
             }, shoptet.config.animationDuration / 2);
         });
 
-        $html.on('mouseleave', '#navigation .ext, .menu-helper .ext', function () {
+        $html.on('mouseleave', '#navigation .ext', function () {
             if (detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
                 shoptet.menu.hideSubmenu();
             }

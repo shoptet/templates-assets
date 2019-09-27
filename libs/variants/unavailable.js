@@ -176,6 +176,7 @@
             if (!unavailableOptgroup.childElementCount) {
                 unavailableOptgroup.parentNode.removeChild(unavailableOptgroup);
             }
+            shoptet.variantsUnavailable.sortOptions(el);
         }
 
         var unavailableOptions = el.querySelectorAll('.' + shoptet.variantsUnavailable.classes.unavailableOption);
@@ -184,6 +185,26 @@
         }
 
         return shoptet.variantsUnavailable.areUnavailableOptionsSelected(unavailableOptions);
+    }
+
+    function sortOptions(el) {
+        var options = [];
+        for (var i = 0; i < el.options.length; i++) {
+            if (el.options[i].parentNode.tagName === 'SELECT') {
+                options.push(el.options[i]);
+            }
+        }
+        options.sort(function(a, b) {
+            return a.getAttribute('data-index') - b.getAttribute('data-index')
+        });
+        options.forEach(function(option) {
+            el.appendChild(option);
+        });
+
+        var optgroup = el.querySelector('optgroup');
+        if (optgroup) {
+            el.appendChild(optgroup);
+        }
     }
 
     document.addEventListener("DOMContentLoaded", function() {

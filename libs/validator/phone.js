@@ -12,19 +12,23 @@
             for (var i = 3; i > 0; i--) {
                 var phoneCode = validatedValue.substr(1, i);
                 if (!phoneCode.match(/^\d+$/)) {
-                    break;
+                    continue;
                 }
                 if (shoptet.phoneInput.phoneCodes.indexOf(parseInt(phoneCode)) !== -1) {
-                    var flag = document.querySelector('.country-flag[data-rel="+' + phoneCode + '"]');
-                    shoptet.phoneInput.setSelectedCountry(flag, flag.parentElement.parentElement);
-                    validatedValue = validatedValue.substring(i + 1);
-                    el.value = validatedValue;
-                    break;
+                    var activeFlag = document.querySelector('.country-flag.selected');
+                    var flag = document.querySelector('.country-flag[data-dial="' + phoneCode + '"]');
+                    if (flag) {
+                        if (activeFlag.getAttribute('data-dial') !== phoneCode) {
+                            shoptet.phoneInput.setSelectedCountry(flag, flag.parentElement.parentElement, false);
+                        }
+                        validatedValue = validatedValue.substring(i + 1);
+                        el.value = validatedValue;
+                        break;
+                    }
                 }
             }
         }
-
-        var number = el.previousElementSibling.value + validatedValue;
+        var phoneInfo = JSON.parse(el.previousElementSibling.value);
         var phoneWrapper = el.parentElement;
 
         if (!validatedValue.length) {
@@ -56,7 +60,9 @@
         };
 
         var url = shoptet.config.validatePhoneUrl;
-        url += '?number=' + encodeURIComponent(number);
+        url += '?number=' + encodeURIComponent(validatedValue)
+            + '&phoneCode=' + encodeURIComponent(phoneInfo.phoneCode)
+            + '&countryCode=' + encodeURIComponent(phoneInfo.countryCode);
         shoptet.ajax.makeAjaxRequest(
             url,
             shoptet.ajax.requestTypes.get,

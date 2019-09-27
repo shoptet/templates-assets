@@ -163,14 +163,14 @@
         validatorRequired: ['validateRequiredField'],
         validatorPhone: ['validateNumber'],
         global: ['showPopupWindow', 'hideContentWindows'],
-        menu: ['toggleMenu', 'splitMenu', 'splitHelperMenu', 'toggleMenuHelper', 'showSubmenu', 'hideSubmenu',
-        'updateMenu', 'hideNavigation'],
+        menu: ['toggleMenu', 'splitMenu', 'splitHelperMenu', 'showMenuHelper', 'hideMenuHelper', 'showSubmenu',
+        'hideSubmenu', 'updateMenu', 'hideNavigation'],
         variantsCommon: ['disableAddingToCart', 'enableAddingToCart', 'hasToDisableCartButton', 'handleSubmit'],
         variantsSimple: ['handler', 'switcher'],
         variantsSplit: ['handler', 'callback', 'showVariantDependent'],
         variantsUnavailable: ['setupAllParameters', 'attachEventListeners', 'getAvailableCombinations', 'getSelected',
         'getExistingOptions', 'getUnavailableOptgroup', 'handleOptions', 'getOption', 'moveOptionFromUnavailable',
-        'areUnavailableOptionsSelected', 'setupCurrentParameter'],
+        'areUnavailableOptionsSelected', 'setupCurrentParameter', 'sortOptions'],
         common: ['getSelectValue', 'getCheckedInputValue']
     };
 
