@@ -733,6 +733,16 @@ function resizeEnd() {
 }
 
 $(function() {
+
+    if ($('.regions-wrapper').length) {
+        shoptet.global.toggleRegionsWrapper();
+    }
+
+    $('html').on('change', '#billCountryId, #deliveryCountryId', function() {
+        shoptet.global.updateSelectedRegions($(this));
+        shoptet.global.toggleRegionsWrapper();
+    });
+
     shoptet.runtime.resize.windowWidth = $(window).width();
 
     var hash = window.location.hash;
@@ -1129,22 +1139,6 @@ $(function() {
         };
     }
 
-    // Leaving registration form confirmation
-    var $regForm = $('#register-form');
-    var formChanged = false;
-
-    $regForm.find('input, textarea, select').change(function() {
-        formChanged = true;
-    });
-    $regForm.submit(function() {
-        formChanged = false;
-    });
-    window.onbeforeunload = function() {
-        if (formChanged) {
-            return shoptet.messages['confirmText'];
-        }
-    };
-
     if($('.query-string-param').length) {
         $('.query-string-param a').click(function(e) {
             e.preventDefault();
@@ -1310,6 +1304,67 @@ function resolveImageFormat() {
         // Unveil images after the window is displayed
         $('.content-window img, .user-action img').unveil();
         $('.content-window img, .user-action img').trigger('unveil');
+    }
+
+    /**
+     * Update regions by clickin' on "Another shipping" in ordering process
+     *
+     * @param {Object} $el
+     * $el = Country select element which has changed
+     */
+    function updateSelectedRegions($el) {
+        if ($el.attr('id') === 'billCountryId') {
+            inputPrefix = 'bill';
+            $('#billCountryIdInput').attr('disabled', true);
+        } else if ($el.attr('id') === 'deliveryCountryId') {
+            var inputPrefix = 'delivery';
+            $('#deliveryCountryIdInput').attr('disabled', true);
+        } else {
+            return false;
+        }
+
+        var id = $el.find('option:selected').val();
+        $('.region-select').attr({
+            'disabled': true,
+            'id': '',
+            'name': ''
+        }).addClass('hide');
+        $('.region-select[data-country="' + id + '"]').attr({
+            'disabled': false,
+            'id': inputPrefix + 'RegionId',
+            'name': inputPrefix + 'RegionId'
+        }).removeClass('hide');
+    }
+
+    /**
+     * Toggle regions wrapper
+     *
+     * This function does not accept any arguments.
+     */
+    function toggleRegionsWrapper() {
+        var $regionsWrapper = $('.regions-wrapper');
+        var allRegions = $regionsWrapper.find('select');
+        var invisibleRegions = $regionsWrapper.find('select.hide');
+        if (allRegions.length > invisibleRegions.length) {
+            $regionsWrapper.show();
+        } else {
+            $regionsWrapper.hide();
+        }
+    }
+
+    /**
+     * Restore default regions by clickin' on "Another shipping" in ordering process
+     *
+     * @param {Object} $el
+     * $el = Default region select
+     * @param {String} val
+     * val = Default region value
+     */
+    function restoreDefaultRegionSelect($el, val) {
+        $('#billRegionIdInput').val(val);
+        $('.region-select').addClass('hide');
+        $el.removeClass('hide');
+        shoptet.global.toggleRegionsWrapper();
     }
 
     shoptet.global = shoptet.global || {};

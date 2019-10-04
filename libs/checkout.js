@@ -247,67 +247,6 @@
     }
 
     /**
-     * Update regions by clickin' on "Another shipping" in ordering process
-     *
-     * @param {Object} $el
-     * $el = Country select element which has changed
-     */
-    function updateSelectedRegions($el) {
-        if ($el.attr('id') === 'billCountryId') {
-            inputPrefix = 'bill';
-            $('#billCountryIdInput').attr('disabled', true);
-        } else if ($el.attr('id') === 'deliveryCountryId') {
-            var inputPrefix = 'delivery';
-            $('#deliveryCountryIdInput').attr('disabled', true);
-        } else {
-            return false;
-        }
-
-        var id = $el.find('option:selected').val();
-        $('.region-select').attr({
-            'disabled': true,
-            'id': '',
-            'name': ''
-        }).addClass('hide');
-        $('.region-select[data-country="' + id + '"]').attr({
-            'disabled': false,
-            'id': inputPrefix + 'RegionId',
-            'name': inputPrefix + 'RegionId'
-        }).removeClass('hide');
-    }
-
-    /**
-     * Toggle regions wrapper
-     *
-     * This function does not accept any arguments.
-     */
-    function toggleRegionsWrapper() {
-        var $regionsWrapper = $('.regions-wrapper');
-        var allRegions = $regionsWrapper.find('select');
-        var invisibleRegions = $regionsWrapper.find('select.hide');
-        if (allRegions.length > invisibleRegions.length) {
-            $regionsWrapper.show();
-        } else {
-            $regionsWrapper.hide();
-        }
-    }
-
-    /**
-     * Restore default regions by clickin' on "Another shipping" in ordering process
-     *
-     * @param {Object} $el
-     * $el = Default region select
-     * @param {String} val
-     * val = Default region value
-     */
-    function restoreDefaultRegionSelect($el, val) {
-        $('#billRegionIdInput').val(val);
-        $('.region-select').addClass('hide');
-        $el.removeClass('hide');
-        shoptet.checkout.toggleRegionsWrapper();
-    }
-
-    /**
      * Fill form values in 2nd step
      *
      * @param {Object} $fields
@@ -345,7 +284,7 @@
             var $defaultBillRegionId = $('.region-select[data-country=' + defaultCountryVal + ']');
             $billCountryId.val(defaultCountryVal);
             $defaultBillRegionId.val(defaultRegionVal);
-            shoptet.checkout.restoreDefaultRegionSelect($defaultBillRegionId, defaultRegionVal);
+            shoptet.global.restoreDefaultRegionSelect($defaultBillRegionId, defaultRegionVal);
         } else {
             $el.addClass('visible');
             toggleRequiredAttributes($el, 'add', false);
@@ -807,12 +746,6 @@
             shoptet.checkout.setupDeliveryShipping();
         }
 
-        if (shoptet.config.orderingProcess.step === 1) {
-            if ($('.regions-wrapper').length) {
-                shoptet.checkout.toggleRegionsWrapper();
-            }
-        }
-
         // remember customer data (via ajax)
         var $orderForm = $('#order-form');
         if ($orderForm.length) {
@@ -950,12 +883,6 @@
                 });
             }
         }
-
-        // Regions
-        $html.on('change', '#billCountryId, #deliveryCountryId', function() {
-            shoptet.checkout.updateSelectedRegions($(this));
-            shoptet.checkout.toggleRegionsWrapper();
-        });
     });
 
 })(shoptet);

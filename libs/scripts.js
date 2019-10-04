@@ -149,29 +149,109 @@
     ];
     // TODO: updateCartButton - on cart page unnecessary
     shoptet.scripts.libs = {
-        cart: ['updateCartButton', 'getCartContent', 'getAdvancedOrder', 'functionsForCart', 'functionsForStep1',
-        'ajaxSubmitForm', 'updateQuantityInCart', 'removeItemFromCart', 'toggleRelatedProducts', 'triggerCofidisCalc'],
-        cookie: ['get', 'create'],
-        checkout: ['changePaymentRelations', 'callShippingBillingRelations', 'replacingChosenShippingAndBilling',
-        'revealMatrixPrice', 'displaySelectedPriceByShippingBillingMethods', 'checkFirstPossibleBillingMethod',
-        'setFirstPossibleShippingAndBilling', 'setActiveShippingAndPayments', 'checkIsSelectedActive', 'payu',
-        'gopaySelectHelper', 'getStatedValues', 'updateSelectedRegions', 'toggleRegionsWrapper',
-        'restoreDefaultRegionSelect', 'setFieldValues', 'toggleAnotherShipping', 'modalMagic', 'chooseABranchModal',
-        'compareHeight', 'fixSidebar', 'handleWithSidebar', 'setupDeliveryShipping'],
-        validator: ['initNewValidator', 'formContainsInvalidFields', 'handleValidators', 'getExistingMessage',
-        'removeErrorMessage', 'addErrorMessage'],
-        validatorRequired: ['validateRequiredField'],
-        validatorPhone: ['validateNumber'],
-        global: ['showPopupWindow', 'hideContentWindows'],
-        menu: ['toggleMenu', 'splitMenu', 'splitHelperMenu', 'showMenuHelper', 'hideMenuHelper', 'showSubmenu',
-        'hideSubmenu', 'updateMenu', 'hideNavigation'],
-        variantsCommon: ['disableAddingToCart', 'enableAddingToCart', 'hasToDisableCartButton', 'handleSubmit'],
-        variantsSimple: ['handler', 'switcher'],
-        variantsSplit: ['handler', 'callback', 'showVariantDependent'],
-        variantsUnavailable: ['setupAllParameters', 'attachEventListeners', 'getAvailableCombinations', 'getSelected',
-        'getExistingOptions', 'getUnavailableOptgroup', 'handleOptions', 'getOption', 'moveOptionFromUnavailable',
-        'areUnavailableOptionsSelected', 'setupCurrentParameter', 'sortOptions'],
-        common: ['getSelectValue', 'getCheckedInputValue']
+        cart: [
+            'updateCartButton',
+            'getCartContent',
+            'getAdvancedOrder',
+            'functionsForCart',
+            'functionsForStep1',
+            'ajaxSubmitForm',
+            'updateQuantityInCart',
+            'removeItemFromCart',
+            'toggleRelatedProducts',
+            'triggerCofidisCalc'
+        ],
+        cookie: [
+            'get',
+            'create'
+        ],
+        checkout: [
+            'changePaymentRelations',
+            'callShippingBillingRelations',
+            'replacingChosenShippingAndBilling',
+            'revealMatrixPrice',
+            'displaySelectedPriceByShippingBillingMethods',
+            'checkFirstPossibleBillingMethod',
+            'setFirstPossibleShippingAndBilling',
+            'setActiveShippingAndPayments',
+            'checkIsSelectedActive',
+            'payu',
+            'gopaySelectHelper',
+            'getStatedValues',
+            'setFieldValues',
+            'toggleAnotherShipping',
+            'modalMagic',
+            'chooseABranchModal',
+            'compareHeight',
+            'fixSidebar',
+            'handleWithSidebar',
+            'setupDeliveryShipping'
+        ],
+        validator: [
+            'initNewValidator',
+            'formContainsInvalidFields',
+            'handleValidators',
+            'getExistingMessage',
+            'removeErrorMessage',
+            'addErrorMessage'
+        ],
+        validatorRequired: [
+            'validateRequiredField'
+        ],
+        validatorPhone: [
+            'validateNumber'
+        ],
+        global: [
+            'showPopupWindow',
+            'hideContentWindows',
+            'updateSelectedRegions',
+            'toggleRegionsWrapper',
+            'restoreDefaultRegionSelect',
+        ],
+        menu: [
+            'toggleMenu',
+            'splitMenu',
+            'splitHelperMenu',
+            'showMenuHelper',
+            'hideMenuHelper',
+            'showSubmenu',
+            'hideSubmenu',
+            'updateMenu',
+            'hideNavigation'
+        ],
+        variantsCommon: [
+            'disableAddingToCart',
+            'enableAddingToCart',
+            'hasToDisableCartButton',
+            'handleSubmit'
+        ],
+        variantsSimple: [
+            'handler',
+            'switcher'
+        ],
+        variantsSplit: [
+            'handler',
+            'callback',
+            'showVariantDependent'
+        ],
+        variantsUnavailable: [
+            'setupAllParameters',
+            'attachEventListeners',
+            'getAvailableCombinations',
+            'getSelected',
+            'getExistingOptions',
+            'getUnavailableOptgroup',
+            'handleOptions',
+            'getOption',
+            'moveOptionFromUnavailable',
+            'areUnavailableOptionsSelected',
+            'setupCurrentParameter',
+            'sortOptions'
+        ],
+        common: [
+            'getSelectValue',
+            'getCheckedInputValue'
+        ]
     };
 
     for (var key in shoptet.scripts.libs) {
