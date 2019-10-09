@@ -154,6 +154,10 @@ ol.cart-header {
     }
 }
 
+.free-gift {
+    flex-wrap: wrap;
+}
+
 .free-gifts-wrapper form,
 .discount-coupon input {
     flex: 1 1 auto;
@@ -165,13 +169,21 @@ ol.cart-header {
     flex: 1;
     align-items: center;
     .free-gifts-img > img {
-        width: 40px;
+        width: 59px;
     }
     form {
         margin: 0;
     }
     ul {
         .list-reset();
+    }
+}
+.free-product-gifts-wrapper {
+    .free-product-gifts {
+        padding-top: 0;
+    }
+    .free-gifts-img > img {
+        width: 59px;
     }
 }
 
@@ -668,8 +680,8 @@ ol.cart-header {
     }
     &.cart-item-gift {
         > div {
-            padding-top: round(@grid-gutter-width / 2);
-            padding-bottom: round(@grid-gutter-width / 2);
+            padding-top: 0;
+            padding-bottom: 0;
             border-right-style: none;
             border-bottom-style: none;
         }
@@ -681,6 +693,21 @@ ol.cart-header {
             }
         }
     }
+}
+
+.gift-items {
+    padding-top: round(@grid-gutter-width / 2);
+    &+.gift-items {
+        padding-top: 0;
+        margin-top: -(2 * @line-height-computed);
+        .for-free {
+            display: none;
+        }
+    }
+}
+
+.gift-items + .order-summary-item {
+    padding-top: round(@grid-gutter-width / 2);
 }
 
 .unit-value {

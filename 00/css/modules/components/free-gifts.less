@@ -1,7 +1,7 @@
-.free-gifts {
+.free-gifts,
+.free-product-gifts {
     padding: 0;
     li {
-        display: none;
         margin: 0;
         padding: 0;
         list-style: none;
@@ -31,6 +31,16 @@
     }
 }
 
+.free-gifts li {
+    display: none;
+}
+
+.free-product-gifts {
+    padding-top: round(@line-height-computed / 2);
+    li {
+        margin-bottom: round(@line-height-computed / 2);
+    }
+}
 
 .free-gift-label {
     flex: 1 1 auto;
@@ -45,6 +55,9 @@
     position: relative;
     img {
         max-width: unset;
+    }
+    > img {
+        width: 59px;
     }
     .free-gifts-img-hover {
         display: none;
@@ -64,11 +77,22 @@
     #colorbox &:hover .free-gifts-img-hover {
         display: none;
     }
+    #colorbox & > img {
+        width: 76px;
+    }
 }
 
 .free-gifts-heading {
     display: none;
     #colorbox & {
         display: block;
+    }
+}
+
+.free-product-gifts-wrapper {
+    flex-basis: 100%;
+    flex-shrink: 0;
+    .free-product-gifts {
+        padding-top: 0;
     }
 }

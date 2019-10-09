@@ -243,6 +243,35 @@ ol.cart-header {
     }
 }
 
+.gift-items {
+    padding-top: round(@grid-gutter-width / 2);
+    padding-bottom: 0;
+    border-bottom-width: 0;
+    &+.gift-items {
+        padding-top: 0;
+        .for-free,
+        strong,
+        br {
+            display: none;
+        }
+    }
+}
+
+.gift-items + .helper {
+    border-top-width: 1px;
+    border-top-style: solid;
+    padding-top: round(@grid-gutter-width / 2);
+    margin-top: round(@grid-gutter-width / 2);
+}
+
+.free-gifts-wrapper {
+    .free-gift-label {
+        span {
+            display: inline;
+        }
+    }
+}
+
 .order-recapitulation {
     > div {
         padding: round(@line-height-computed / 2);

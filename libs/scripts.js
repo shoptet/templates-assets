@@ -36,15 +36,17 @@
         document.dispatchEvent(event);
     }
 
-    function handleFunctionCallback(fn, args) {
-        if (typeof fn.prototype.customCallback === 'function') {
-            fn.prototype.customCallback(args);
+    function handleFunctionCallback(fn, args, namespace) {
+        var fnToApply = shoptet.scripts.customCallbacks[namespace + fn.name];
+        if (typeof fnToApply === 'function') {
+            fnToApply(args);
         }
     }
 
-    function setCustomCallback(fn, customCallback) {
+    function setCustomCallback(fnName, customCallback) {
+        var fn = eval(fnName);
         if (typeof fn === 'function' && typeof customCallback === 'function') {
-            fn.prototype.customCallback = customCallback;
+            shoptet.scripts.customCallbacks[fnName] = customCallback;
         }
     }
 
@@ -273,5 +275,7 @@
     shoptet.scripts.signalDomUpdate = signalDomUpdate;
     shoptet.scripts.signalCustomEvent = signalCustomEvent;
     shoptet.scripts.registerFunction = registerFunction;
+
+    shoptet.scripts.customCallbacks = {};
 
 })(shoptet);
