@@ -1,7 +1,8 @@
 .vote-name {
     font-family: sans-serif;
-    .external-fonts-loaded & {
-        font-family: @templateHeadingsFont, sans-serif;
+    .external-fonts-loaded &,
+    .blank-mode & {
+        font-family: @template-headings-font, sans-serif;
     }
 }
 
@@ -15,7 +16,7 @@
     a {
         color: @text-color;
         &:hover {
-            color: @colorPrimary;
+            color: @color-primary;
         }
     }
 }

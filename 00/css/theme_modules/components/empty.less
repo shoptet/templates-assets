@@ -1,10 +1,11 @@
 .empty-content {
     font-family: sans-serif;
-    .external-fonts-loaded & {
-        font-family: @templateHeadingsFont, sans-serif;
+    .external-fonts-loaded &,
+    .blank-mode & {
+        font-family: @template-headings-font, sans-serif;
     }
     h1 {
-        color: @colorPrimary;
+        color: @color-primary;
     }
     h2 {
         &::after {

@@ -9,7 +9,7 @@ body {
 .welcome h1 {
     .type-index & {
         &::before {
-            background-color: @colorTertiary;
+            background-color: @color-tertiary;
         }
     }
 }
@@ -30,7 +30,7 @@ input[type="checkbox"] {
         &:checked {
             & + label {
                 &::after {
-                    border-color: @colorPrimary;
+                    border-color: @color-primary;
                     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIBAMAAAA2IaO4AAAAElBMVEUAAAD///////////////////8+Uq06AAAABnRSTlMASDzq8OSrdsGqAAAAL0lEQVQI1wXBQQ3AIBAAsIICErY/yWGAcwAO8G+G1uUXraS6+mAefJuS0fRRlyQePoUDD+JfZBEAAAAASUVORK5CYII=');
                     background-position: center center;
                     background-repeat: no-repeat;
@@ -94,7 +94,7 @@ input[type="checkbox"] {
     }
     a:not(.login-btn):not(.btn) {
         &:hover {
-            color: @colorTertiaryHover;
+            color: @color-tertiary-hover;
         }
     }
     #filters {
@@ -106,7 +106,7 @@ input[type="checkbox"] {
 a.recommended-product {
     color: @text-color;
     .price {
-        color: @colorPrimary;
+        color: @color-primary;
     }
     .price-standard-wrapper {
         color: @text-muted-color;
@@ -126,13 +126,13 @@ a.recommended-product {
         }
         &.active {
             a {
-                color: @colorPrimary;
+                color: @color-primary;
                 &::before {
-                    border-color: @colorPrimary;
+                    border-color: @color-primary;
                 }
                 &::after {
                     border-color: @content-box-bg;
-                    background-color: @colorPrimary;
+                    background-color: @color-primary;
                 }
             }
         }
@@ -168,7 +168,7 @@ a.recommended-product {
             }
             &:hover {
                 &::before {
-                    color:  @colorTertiaryHover;
+                    color:  @color-tertiary-hover;
                 }
                 &::after {
                     background-color: fade(@product-bg, 90%);
@@ -187,7 +187,7 @@ a.recommended-product {
     .price,
     .price-save,
     .save-percent {
-        color: @colorPrimary;
+        color: @color-primary;
     }
     .price-additional {
         color: @text-muted-color;
@@ -198,7 +198,7 @@ a.recommended-product {
 .banner-wrapper,
 .banner {
     span {
-        background-color: fade(@colorPrimary, 85%);
+        background-color: fade(@color-primary, 85%);
     }
 }
 
@@ -234,7 +234,7 @@ a.recommended-product {
 .filter-section {
     label {
         &.active {
-            color: @colorPrimary;
+            color: @color-primary;
         }
     }
 }
@@ -283,11 +283,12 @@ ol.cart-header {
     }
 }
 
-.free-gifts-wrapper {
+.free-gifts-wrapper,
+.free-product-gifts-wrapper {
     border-bottom-color: @border-color;
     form {
         h4 {
-            color: @colorPrimary;
+            color: @color-primary;
         }
     }
 }
@@ -299,7 +300,7 @@ ol.cart-header {
 }
 
 .confirmation {
-    color: @colorPrimary;
+    color: @color-primary;
 }
 
 .order-summary-inner {
@@ -311,7 +312,7 @@ ol.cart-header {
 
 .order-summary-item,
 .recapitulation-single {
-    border-bottom-color: @border-color;
+    border-color: @border-color;
 }
 
 .next-step {
@@ -345,13 +346,13 @@ table.table {
     .contact-box {
         border-color: @border-color;
         > strong {
-            color: @colorTertiary;
+            color: @color-tertiary;
         }
         ul {
             li {
                 > span {
                     &::before {
-                        color: @colorTertiary;
+                        color: @color-tertiary;
                     }
                 }
             }
@@ -425,7 +426,7 @@ ul.discussion {
     ul {
         li {
             &::before {
-                color: @colorPrimary;
+                color: @color-primary;
             }
         }
     }
@@ -442,7 +443,7 @@ ul.discussion {
     a {
         color: @gray;
         &:hover {
-            color: @colorPrimary;
+            color: @color-primary;
         }
     }
 }
@@ -460,7 +461,7 @@ ul.discussion {
     border-top-color: @border-color;
 }
 .client-link a {
-    color: @colorPrimary;
+    color: @color-primary;
 }
 
 .cart-widget-product {
@@ -471,11 +472,11 @@ ul.discussion {
     a {
         color: @text-color;
         &:hover {
-            color: @colorPrimary;
+            color: @color-primary;
         }
     }
     > span {
-        color: @colorPrimary;
+        color: @color-primary;
     }
 }
 
@@ -489,12 +490,12 @@ ul.discussion {
 .p-final-price-wrapper {
     .price-standard {
         > span {
-            background-color: @colorPrimary;
+            background-color: @color-primary;
             color: @product-bg;
         }
     }
     .price-save {
-        color: @colorPrimary;
+        color: @color-primary;
     }
 }
 

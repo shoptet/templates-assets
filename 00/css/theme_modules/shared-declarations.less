@@ -1,12 +1,14 @@
 body {
     font-family: sans-serif;
-    .external-fonts-loaded & {
-        font-family: @templateFont, sans-serif;
+    .external-fonts-loaded &,
+    &.blank-mode {
+        font-family: @template-font, sans-serif;
     }
 }
 
-.external-fonts-loaded {
-    font-family: @templateFont, sans-serif;
+.external-fonts-loaded,
+.blank-mode {
+    font-family: @template-font, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6,
@@ -14,8 +16,9 @@ h1, h2, h3, h4, h5, h6,
 .cart-table .main-link,
 .cart-related-name {
     font-family: sans-serif;
-    .external-fonts-loaded & {
-        font-family: @templateHeadingsFont, sans-serif;
+    .external-fonts-loaded &,
+    .blank-mode & {
+        font-family: @template-headings-font, sans-serif;
     }
 }
 
@@ -35,7 +38,7 @@ body {
 }
 
 .highlight {
-    color: @colorPrimary;
+    color: @color-primary;
 }
 
 .red {
@@ -54,10 +57,10 @@ a,
         color: @link-hover-color;
     }
     &.conversion {
-        color: @colorSecondary;
+        color: @color-secondary;
         &:hover,
         &:focus {
-            color: darken(@colorSecondaryHover, 3%);
+            color: darken(@color-secondary-hover, 3%);
         }
     }
 }
@@ -109,11 +112,11 @@ input[type="radio"] {
     &:checked {
         & + label {
             &::before {
-                border-color: @colorPrimary;
+                border-color: @color-primary;
             }
             &::after {
                 border-color: @content-box-bg;
-                background-color: @colorPrimary;
+                background-color: @color-primary;
             }
         }
     }
@@ -178,14 +181,14 @@ input[type="radio"] {
 .indicator {
     background-color: @border-color;
     > div {
-        background-color: @colorPrimary;
+        background-color: @color-primary;
     }
 }
 
 .poll-result {
     > div {
-        background-color: @colorPrimary;
-        border-left-color:  @colorPrimary;
+        background-color: @color-primary;
+        border-left-color:  @color-primary;
     }
 }
 
@@ -258,11 +261,11 @@ ol.top-products.unified {
     a {
         color: @text-color;
         .top-products-name {
-            color: @colorPrimary;
+            color: @color-primary;
         }
         &:hover {
             .top-products-name {
-                color: @colorPrimaryHover;
+                color: @color-primary-hover;
             }
         }
     }
@@ -325,7 +328,7 @@ ol.cart-header {
 
 .cart-widget-product-name {
     > span {
-        color: @colorPrimary;
+        color: @color-primary;
     }
 }
 

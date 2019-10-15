@@ -23,7 +23,7 @@
     color: @gray-dark;
 
     &:hover {
-        color: @colorPrimary;
+        color: @color-primary;
     }
     &:focus {
         color: inherit;
@@ -52,13 +52,13 @@ footer {
         color: @gray-dark;
 
         &:hover {
-            color: @colorPrimary;
+            color: @color-primary;
         }
     }
 }
 
 .subscribe-form .btn {
-    .btn-color(@body-bg, @body-bg, @body-bg, @colorPrimary);
+    .btn-color(@body-bg, @body-bg, @body-bg, @color-primary);
 
     background-color: @gray-dark;
 
@@ -81,7 +81,7 @@ footer {
     .cart-price {
         color: @gray-dark;
         &:hover {
-            color: @colorSecondary;
+            color: @color-secondary;
         }
     }
 }
@@ -133,15 +133,15 @@ ul.user-action-tabs li {
         color: @body-bg;
     }
     .btn {
-        .btn-color(@body-bg, @colorPrimary, @body-bg, @body-bg);
+        .btn-color(@body-bg, @color-primary, @body-bg, @body-bg);
     }
     .btn.btn-cart,
     .btn.icon-search {
-        color: @colorPrimary;
+        color: @color-primary;
     }
     &.highlight-product .btn {
         @media (min-width: unit(@screen-lg-min, px)) {
-            .btn-color(@gray-dark, @body-bg, @colorSecondary, @colorSecondary);
+            .btn-color(@gray-dark, @body-bg, @color-secondary, @color-secondary);
         }
     }
     .products-inline &,
@@ -159,7 +159,7 @@ ul.user-action-tabs li {
     }
     .btn.btn-primary,
     .btn.btn-cart {
-        .btn-color(@colorPrimary, @body-bg, @colorPrimary, @colorPrimary);
+        .btn-color(@color-primary, @body-bg, @color-primary, @color-primary);
     }
 }
 
@@ -168,7 +168,7 @@ ul.user-action-tabs li {
     color: @gray;
 }
 .price-final {
-    color: @colorPrimary;
+    color: @color-primary;
 }
 .cart-content a {
     color: @gray-dark;
@@ -186,13 +186,13 @@ ul.user-action-tabs li {
     a {
         color: @text-color-lighter;
         &:hover {
-            color: @colorPrimary;
+            color: @color-primary;
         }
     }
 }
 
 .manufacturers a:hover {
-    color: @colorPrimary;
+    color: @color-primary;
 }
 
 .categories {
@@ -211,7 +211,7 @@ ul.user-action-tabs li {
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > label:hover {
     background-color: transparent;
-    color: @colorPrimary;
+    color: @color-primary;
 }
 
 // Cart
@@ -222,7 +222,7 @@ ul.user-action-tabs li {
     color: @border-color;
 }
 .extra {
-    color: @colorPrimary;
+    color: @color-primary;
 
     .p-name {
         color: @gray-dark;
@@ -235,17 +235,17 @@ ul.user-action-tabs li {
     color: @gray;
 
     &:hover {
-        color: @colorPrimary;
+        color: @color-primary;
     }
 }
 .free-gifts li:hover .free-gift-name {
-    color: @colorPrimary;
+    color: @color-primary;
 }
 .ordering-process .box {
     border-color: @border-color;
 }
 .order-icon {
-    color: @colorPrimary;
+    color: @color-primary;
 }
 .reca-line {
     border-color: @border-color;
@@ -259,11 +259,11 @@ ul.user-action-tabs li {
     }
 }
 .confirmation {
-    color: @colorSecondary;
+    color: @color-secondary;
 
     input[type="checkbox"] + &::before,
     input[type="radio"] + &::before {
-        border-color: @colorSecondary;
+        border-color: @color-secondary;
     }
 }
 
@@ -272,7 +272,7 @@ ul.user-action-tabs li {
     color: @border-color;
 
     &:hover {
-        color: @colorPrimary;
+        color: @color-primary;
     }
 }
 
@@ -306,7 +306,7 @@ ul.user-action-tabs li {
 
 @media (min-width: unit(@screen-lg-min, px)) {
     .product:not(.highlight-product):hover .tools-wrap {
-        background-color: fade(@colorPrimary,90%)
+        background-color: fade(@color-primary,90%)
     }
 }
 

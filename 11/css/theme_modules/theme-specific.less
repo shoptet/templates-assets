@@ -9,7 +9,7 @@
     .price-standard,
     .btn,
     .products .name {
-        font-family: @templateHeadingsFont, sans-serif;
+        font-family: @template-headings-font, sans-serif;
     }
 }
 
@@ -47,10 +47,10 @@
         a {
             color: @text-muted-color;
             &::before {
-                background-color: @colorPrimary;
+                background-color: @color-primary;
             }
             &:hover {
-                color: @colorPrimary;
+                color: @color-primary;
                 background-color: @sidebar-bg;
             }
         }
@@ -76,7 +76,7 @@
     }
     &:hover {
         &::before {
-            color: @colorPrimary;
+            color: @color-primary;
         }
     }
 }
@@ -149,7 +149,7 @@
     h5 {
         font-family: sans-serif;
         .external-fonts-loaded & {
-            font-family: @templateFont, sans-serif;
+            font-family: @template-font, sans-serif;
         }
     }
     > .container {
@@ -162,7 +162,7 @@
         a {
             color: @text-color;
             &:hover {
-                color: @colorPrimary;
+                color: @color-primary;
             }
         }
     }
@@ -183,7 +183,7 @@
     a {
         color: @text-muted-color;
         &:hover {
-            color: @colorPrimary;
+            color: @color-primary;
         }
     }
 }
@@ -202,11 +202,11 @@ select {
     a {
         color: @text-color;
         &:hover {
-            color: @colorPrimary;
+            color: @color-primary;
         }
     }
     > span {
-        color: @colorPrimary;
+        color: @color-primary;
     }
 }
 
@@ -226,7 +226,7 @@ select {
 
 .cart-free-shipping {
     strong {
-        color: @colorTertiary;
+        color: @color-tertiary;
     }
 }
 
@@ -239,7 +239,7 @@ select {
 
 .extra {
     strong {
-        color: @colorPrimary;
+        color: @color-primary;
     }
 }
 
@@ -286,13 +286,13 @@ select {
     input[type="radio"] {
         + label {
             &:hover {
-                color: @colorPrimary;
+                color: @color-primary;
                 background-color: @content-box-bg;
             }
         }
         &:checked {
             + label {
-                color: @colorPrimary;
+                color: @color-primary;
                 background-color: @content-box-bg;
             }
         }
@@ -330,22 +330,22 @@ select {
     color: darken(@text-color, 20%);
 }
 .confirmation {
-    color: @colorPrimary;
+    color: @color-primary;
 }
 
 input[type="checkbox"] {
     + label.confirmation {
         &::before {
-            border-color: @colorPrimary;
+            border-color: @color-primary;
         }
     }
     &:checked {
         + label.confirmation {
             &::before {
-                border-color: @colorPrimary;
+                border-color: @color-primary;
             }
             &::after {
-                background-color: @colorPrimary;
+                background-color: @color-primary;
             }
         }
     }
@@ -372,11 +372,11 @@ input[type="checkbox"] {
         &.active {
             a,
             strong {
-                border-bottom-color: @colorPrimary;
+                border-bottom-color: @color-primary;
             }
         }
         a:hover {
-            border-bottom-color: @colorPrimary;
+            border-bottom-color: @color-primary;
         }
     }
 }
@@ -399,7 +399,7 @@ a.next-step-back {
 .co-box {
     h4 {
         &::before {
-            color: @colorPrimary;
+            color: @color-primary;
         }
     }
 }
@@ -410,20 +410,20 @@ a.next-step-back {
 
 .order-summary-item {
     &.price {
-        border-top-color: @colorSecondary;
+        border-top-color: @color-secondary;
     }
 }
 
 .recapitulation-single {
     > strong {
         span {
-            color: @colorPrimary;
+            color: @color-primary;
         }
     }
 }
 
 .summary-thx {
-    color: @colorSecondary;
+    color: @color-secondary;
 }
 
 .user-action-tabs {
@@ -439,13 +439,13 @@ a.next-step-back {
         }
         &.active {
             a {
-                color: @colorPrimary;
+                color: @color-primary;
                 &::before {
-                    border-color: @colorPrimary;
+                    border-color: @color-primary;
                 }
                 &::after {
                     border-color: @content-box-bg;
-                    background-color: @colorPrimary;
+                    background-color: @color-primary;
                 }
             }
         }
@@ -454,9 +454,9 @@ a.next-step-back {
 
 .p {
     .name {
-        color: @colorPrimary;
+        color: @color-primary;
         &:hover {
-            color: @colorPrimaryHover;
+            color: @color-primary-hover;
         }
     }
     &:hover {
@@ -471,7 +471,7 @@ a.next-step-back {
             background-color: @btn-primary-bg-hover;
         }
         .name {
-            color: @colorPrimary;
+            color: @color-primary;
         }
     }
 }
@@ -493,13 +493,13 @@ a.next-step-back {
 .latest-contribution-inner {
     &:hover {
         .latest-contribution-product {
-            color: @colorPrimary;
+            color: @color-primary;
         }
     }
 }
 
 .order-summary-heading {
-    color: @colorPrimary;
+    color: @color-primary;
 }
 
 ul.manufacturers {
@@ -507,7 +507,7 @@ ul.manufacturers {
         border-bottom-color: @border-color;
         &:hover {
             h2 {
-                color: @colorPrimary;
+                color: @color-primary;
             }
         }
     }
@@ -520,14 +520,14 @@ ul.manufacturers {
 ol.top-products {
     li {
         &::before {
-            background-color: @colorPrimary;
+            background-color: @color-primary;
             color: #fff;
         }
         a {
             color: @gray-dark;
             &:hover {
                 .top-products-name {
-                    color: @colorPrimary;
+                    color: @color-primary;
                 }
             }
         }

@@ -19,11 +19,11 @@ input[type="radio"] {
         &:checked {
             & + label {
                 &::before {
-                    border-color: @colorPrimary;
+                    border-color: @color-primary;
                 }
                 &::after {
                     border-color: @content-box-bg;
-                    background-color: @colorPrimary;
+                    background-color: @color-primary;
                 }
             }
         }
@@ -37,7 +37,7 @@ input[type="radio"] {
         label {
             > span {
                 b {
-                    color: @colorPrimary;
+                    color: @color-primary;
                 }
             }
         }
@@ -47,6 +47,6 @@ input[type="radio"] {
 .for-free {
     color: @color-for-free;
     .radio-wrapper.active & {
-        color: @colorPrimary;
+        color: @color-primary;
     }
 }
