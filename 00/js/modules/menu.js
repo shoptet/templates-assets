@@ -218,13 +218,12 @@
             }, 1);
         });
 
-        $html.on('mouseenter', '#navigation .ext', function () {
+        shoptet.runtime.submenu = false;
+        $html.on('mouseover', '#navigation .ext', function () {
             var $this = $(this);
-            setTimeout(function () {
-                var $itemHovered = $this.parent().find(':hover');
-                if (!$itemHovered.length > 0 || $itemHovered.index() !== $this.index()) {
-                    return false;
-                } else {
+            clearTimeout(shoptet.runtime.submenu);
+            shoptet.runtime.submenu = setTimeout(function() {
+                if (!$this.hasClass('exp')) {
                     shoptet.menu.showSubmenu($this);
                 }
             }, shoptet.config.animationDuration / 2);
@@ -232,6 +231,7 @@
 
         $html.on('mouseleave', '#navigation .ext', function () {
             if (detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
+                clearTimeout(shoptet.runtime.submenu);
                 shoptet.menu.hideSubmenu();
             }
         });
