@@ -208,6 +208,42 @@
         }
     }
 
+    function handlePromoClick(el) {
+        var promo = shoptet.tracking.bannersList[el.dataset.ecPromoId];
+
+        if (promo) {
+            ga('ec:addPromo', promo);
+
+            ga('ec:setAction', 'promo_click');
+            ga('send', 'event', 'Internal Promotions', 'click', promo.name);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var i;
+        var imageBanners = document.querySelectorAll('a[data-ec-promo-id]');
+        for (i = 0; i < imageBanners.length; i++) {
+            (function(i) {
+                imageBanners[i].addEventListener('click', function() {
+                    shoptet.tracking.handlePromoClick(imageBanners[i]);
+                });
+            })(i);
+        }
+        var textBanners = document.querySelectorAll('span[data-ec-promo-id]');
+        for (i = 0; i < textBanners.length; i++) {
+            (function(i) {
+                var linksInTextBanner = textBanners[i].querySelectorAll('a');
+                (function(links, banner) {
+                    for (var i = 0; i < links.length; i++) {
+                        links[i].addEventListener('click', function() {
+                            shoptet.tracking.handlePromoClick(banner);
+                        });
+                    }
+                })(linksInTextBanner, textBanners[i]);
+            })(i);
+        }
+    });
+
     shoptet.tracking = shoptet.tracking || {};
     shoptet.tracking.getFormAction = getFormAction;
     shoptet.tracking.resolveUpdateAction = resolveUpdateAction;
@@ -218,5 +254,6 @@
     shoptet.tracking.trackFacebookPixel = trackFacebookPixel;
     shoptet.tracking.trackGoogleCart = trackGoogleCart;
     shoptet.tracking.updateDataLayer = updateDataLayer;
+    shoptet.tracking.handlePromoClick = handlePromoClick;
 
 })(shoptet);

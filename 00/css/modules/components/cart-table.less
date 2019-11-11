@@ -49,6 +49,9 @@
             max-width: none;
         }
     }
+    .p-name {
+        padding-left: round(@grid-gutter-width / 4);
+    }
     .p-quantity,
     .p-discount,
     .p-price {
@@ -117,6 +120,7 @@
                 &.p-name {
                     flex: 1 1 calc(~'100% - '  @cart-table-p-image-width);
                     align-self: center;
+                    padding-left: round(@grid-gutter-width / 8);
                 }
                 &:nth-child(odd) {
                     text-align: left;
@@ -227,6 +231,7 @@ tr.related-visible {
         display: inline;
         margin-bottom: 0;
     }
+    max-width: @img-width-sm;
 }
 
 .cart-related-name {

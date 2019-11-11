@@ -111,12 +111,15 @@ footer {
 ul.user-action-tabs,
 ul.user-action-tabs li {
     border-color: @border-color;
-
     @media (min-width: unit(@screen-sm-min, px)) {
         .active {
             &:extend(ul.user-action-tabs);
-
             border-bottom-color: @body-bg;
+        }
+    }
+    .active {
+        a {
+        color: @link-hover-color;
         }
     }
 }

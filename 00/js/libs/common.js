@@ -19,4 +19,9 @@
         var fn = eval(fnName);
         shoptet.scripts.registerFunction(fn, 'common');
     });
+    shoptet.common.keyCodes = {
+        backspace: 8,
+        enter: 13,
+        escape: 27
+    };
 })(shoptet);

@@ -194,6 +194,8 @@
         if (detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
             shoptet.menu.splitMenu();
             shoptet.menu.updateMenu();
+            // Because of slower browsers like Edge, can be removed when they have better engine
+            window.addEventListener('load', shoptet.menu.splitMenu);
         }
 
         // Toggle submenu

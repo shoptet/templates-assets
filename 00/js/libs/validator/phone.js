@@ -6,7 +6,7 @@
         el.classList.add('js-validated-field');
         el.setAttribute('disabled', true);
 
-        var validatedValue = el.value.replace(/ /g, '');
+        var validatedValue = el.value.replace(/[^0-9|'+']/g, '');
         if (validatedValue.indexOf('+') !== -1) {
             // 3 - max length of phone code (without leading '+' sign)
             for (var i = 3; i > 0; i--) {

@@ -945,7 +945,7 @@ $(function() {
     escClasses += '.top-navigation-menu-visible, ';
     escClasses += '.user-action-visible input:focus';
     $('html').on('keyup', escClasses, function(e) {
-        if(e.keyCode === 27) {
+        if(e.keyCode === shoptet.common.keyCodes.escape) {
             $('body').removeClass(shoptet.config.bodyClasses);
             if ($('.overlay').length > 0) {
                 $('.overlay').detach();

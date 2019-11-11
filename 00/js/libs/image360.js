@@ -118,10 +118,14 @@ function init(el) {
             );
         }
         // escape and back button press while on fullscreen
-        window.addEventListener('keydown', function(event) {
-            if (runtime.fullscreenOn && (event.keyCode === 27 || event.keyCode === 8)) {
-                event.preventDefault();
-                navigationFullscreenClick(event, true);
+        window.addEventListener('keydown', function(e) {
+            if (
+                runtime.fullscreenOn
+                &&
+                (e.keyCode === shoptet.common.keyCodes.escape || e.keyCode === shoptet.common.keyCodes.backspace)
+            ) {
+                e.preventDefault();
+                navigationFullscreenClick(e, true);
             }
         });
     }

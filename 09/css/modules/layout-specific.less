@@ -260,10 +260,12 @@ ol.top-products {
 
         .top-products-image {
             flex-shrink: 0;
+            flex-basis: @img-width-xs;
             align-self: center;
         }
 
         .top-products-content {
+            display: flex;
             flex-direction: column;
             justify-content: center;
             margin-left: round(@grid-gutter-width / 4);

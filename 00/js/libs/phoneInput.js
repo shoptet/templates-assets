@@ -78,7 +78,21 @@
     }
 
     function handleKeyCodes(e, el) {
-        if (e.keyCode === 27) {
+        var suggestedFlag = el.querySelector('.country-flag.suggested');
+        if (suggestedFlag) {
+            suggestedFlag.classList.remove('suggested');
+        }
+        if (e.keyCode === shoptet.common.keyCodes.escape) {
+            shoptet.phoneInput.hideCountriesSelect(el);
+            shoptet.phoneInput.pressedKeys = '';
+            return;
+        }
+
+        if (e.keyCode === shoptet.common.keyCodes.enter) {
+            if (shoptet.phoneInput.matchedElement) {
+                shoptet.phoneInput.matchedElement.click();
+                shoptet.phoneInput.matchedElement = false;
+            }
             shoptet.phoneInput.hideCountriesSelect(el);
             shoptet.phoneInput.pressedKeys = '';
             return;
@@ -94,8 +108,12 @@
 
         var matchedElement = el.querySelector('[data-country-name^="' + shoptet.phoneInput.pressedKeys + '"]');
         if (matchedElement) {
+            shoptet.phoneInput.matchedElement = matchedElement;
+            matchedElement.classList.add('suggested');
             var parent = matchedElement.offsetParent;
             parent.scrollTop = matchedElement.offsetTop;
+        } else {
+            shoptet.phoneInput.matchedElement = false;
         }
     }
 
@@ -140,6 +158,7 @@
     shoptet.phoneInput = shoptet.phoneInput || {};
     shoptet.phoneInput.phoneInputKeyup = false;
     shoptet.phoneInput.pressedKeys = '';
+    shoptet.phoneInput.matchedElement = false;
     shoptet.phoneInput.handleFlags = handleFlags;
     shoptet.phoneInput.interconnectFlagsWithSelect = interconnectFlagsWithSelect;
     shoptet.phoneInput.hideCountriesSelect = hideCountriesSelect;

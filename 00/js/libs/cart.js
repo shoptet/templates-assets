@@ -27,14 +27,8 @@
                 } else {
                     $cartButton.append('<i>' + count + '</i>').addClass('full');
                 }
-                if ($overviewWrapper.length) {
-                    $overviewWrapper.find('.cart-overview-item-count').text(count);
-                }
                 if ($priceHolder.length) {
                     $priceHolder.text(price);
-                }
-                if($overviewWrapper.length) {
-                    $overviewWrapper.find('.cart-overview-item-count').text(count);
                 }
             }
 
@@ -45,6 +39,12 @@
                 $priceHolder.text(shoptet.messages['emptyCart']);
             }
         }
+
+        if ($overviewWrapper.length) {
+            $overviewWrapper.find('.cart-overview-item-count').text(count);
+            $overviewWrapper.find('.cart-overview-final-price').text(price);
+        }
+
         shoptet.scripts.signalDomUpdate('ShoptetDOMCartCountUpdated');
     }
 
@@ -77,11 +77,8 @@
             $cartContentWrapper = $(el);
         }
 
-        $.get(shoptet.config.cartContentUrl + cartUrlSuffix, function(response) {
-            var cartContent = $.parseJSON(response).payload;
-            var content = cartContent.content;
-
-            $cartContentWrapper.html(content);
+        var successCallback = function(response) {
+            $cartContentWrapper.html(response.getFromPayload('content'));
             $(el + ' img').unveil();
             initColorbox();
             initTooltips();
@@ -94,7 +91,14 @@
                 callback();
             }
             shoptet.scripts.signalDomLoad('ShoptetDOMCartContentLoaded');
-        });
+        };
+
+        shoptet.ajax.makeAjaxRequest(
+            shoptet.config.cartContentUrl + cartUrlSuffix,
+            shoptet.ajax.requestTypes.get,
+            '',
+            successCallback
+        );
     }
 
     /**
@@ -103,9 +107,8 @@
      * This function does not accept any arguments.
      */
     function getAdvancedOrder() {
-        $.get('/action/Cart/GetExtendedOrder', function(response) {
-            var content = response;
-
+        var successCallback = function(response) {
+            var content = response.getFromPayload('content');
             if (content !== false) {
                 $.colorbox({
                     html: shoptet.content.colorboxHeader + content + shoptet.content.colorboxFooter,
@@ -121,7 +124,14 @@
                     }
                 });
             }
-        });
+        };
+
+        shoptet.ajax.makeAjaxRequest(
+            shoptet.config.advancedOrderUrl,
+            shoptet.ajax.requestTypes.get,
+            '',
+            successCallback
+        );
     }
 
     /**
