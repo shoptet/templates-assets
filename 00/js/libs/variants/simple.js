@@ -27,14 +27,15 @@
             }
         }
 
-        $simpleVariants.bind('change ShoptetSelectedParametersReset', function(ev) {
+        $simpleVariants.bind('change ShoptetSelectedParametersReset', function(e) {
+            shoptet.scripts.signalCustomEvent('ShoptetSimpleVariantChange', e.target);
             hideMsg(true);
 
             if ($(this).is('input')) {
                 $variant = $(this);
                 $variant.parents('.variant-list')
                     .find('.advanced-parameter-inner').removeClass('yes-before');
-                if (ev.type === 'ShoptetSelectedParametersReset') {
+                if (e.type === 'ShoptetSelectedParametersReset') {
                     return;
                 }
                 $variant.siblings('.advanced-parameter-inner').addClass('yes-before');
@@ -44,11 +45,15 @@
             }
 
             shoptet.variantsSimple.switcher($variant);
+            shoptet.variantsSimple.loadedVariant = $variant;
 
             shoptet.variantsCommon.reasonToDisable = $variant.attr('data-disable-reason');
             if (shoptet.variantsCommon.reasonToDisable) {
                 shoptet.variantsCommon.disableAddingToCart();
                 showMessage(shoptet.variantsCommon.reasonToDisable, 'error', '', false, false);
+                shoptet.scripts.signalCustomEvent('ShoptetVariantUnavailable');
+            } else {
+                shoptet.scripts.signalCustomEvent('ShoptetVariantAvailable');
             }
 
         });
@@ -119,4 +124,5 @@
         var fn = eval(fnName);
         shoptet.scripts.registerFunction(fn, 'variantsSimple');
     });
+    shoptet.variantsSimple.loadedVariant = false;
 })(shoptet);

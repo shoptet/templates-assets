@@ -592,7 +592,9 @@ ol.cart-header {
     }
 }
 
-.form-group.unveil-wrapper {
+.form-group.unveil-wrapper,
+#company-info, 
+#note {
     margin-bottom: @line-height-computed;
 }
 
@@ -643,6 +645,9 @@ ol.cart-header {
         border-right-width: 1px;
         &.cart-item-name {
             text-transform: uppercase;
+            .free-gift-amount {
+                text-transform: lowercase;
+            }
         }
         &.cart-item-image {
             display: none;

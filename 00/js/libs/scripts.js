@@ -56,10 +56,13 @@
         }
         try {
             if (eventSource.indexOf(event) !== -1) {
+                var ev;
                 if (globalEvent) {
-                    element.dispatchEvent(new CustomEvent(globalEvent));
+                    ev = new CustomEvent(globalEvent, {bubbles: true});
+                    element.dispatchEvent(ev);
                 }
-                element.dispatchEvent(new CustomEvent(event));
+                ev = new CustomEvent(event, {bubbles: true});
+                element.dispatchEvent(ev);
                 if (shoptet.dev.config.monitorEvents) {
                     if (globalEvent) {
                         console.log(
@@ -147,7 +150,12 @@
     ];
     shoptet.scripts.availableCustomEvents = [
         'ShoptetPhoneCodeChange',
-        'ShoptetSelectedParametersReset'
+        'ShoptetPhoneCodeActive',
+        'ShoptetSelectedParametersReset',
+        'ShoptetSplitVariantParameterChange',
+        'ShoptetSimpleVariantChange',
+        'ShoptetVariantAvailable',
+        'ShoptetVariantUnavailable'
     ];
     // TODO: updateCartButton - on cart page unnecessary
     shoptet.scripts.libs = {

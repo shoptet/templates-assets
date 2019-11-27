@@ -16,10 +16,12 @@
                             shoptet.phoneInput.hideCountriesSelect(parentGroup);
                         } else {
                             parentGroup.classList.add('active');
+                            shoptet.scripts.signalCustomEvent('ShoptetPhoneCodeActive', parentGroup);
                         }
                         if (!flag.classList.contains('selected')) {
                             shoptet.phoneInput.setSelectedCountry(flag, parentGroup, true);
                         }
+                        shoptet.phoneInput.setLastPreferredCountry(parentGroup);
                     });
                 }(flagsEl[key], parentGroup));
             }
@@ -61,6 +63,18 @@
             if (signal) {
                 shoptet.scripts.signalCustomEvent('ShoptetPhoneCodeChange', input);
             }
+        }
+    }
+
+    function setLastPreferredCountry(parentGroup) {
+        var lastPreferred = parentGroup.querySelector('.country-flag-preferred-last');
+        if (lastPreferred) {
+            lastPreferred.classList.remove('country-flag-preferred-last');
+        }
+        var preferred = parentGroup.querySelectorAll('.country-flag-preferred:not(.selected)');
+        if (preferred.length > 0) {
+            lastPreferred = preferred[preferred.length - 1];
+            lastPreferred.classList.add('country-flag-preferred-last');
         }
     }
 
@@ -163,6 +177,7 @@
     shoptet.phoneInput.interconnectFlagsWithSelect = interconnectFlagsWithSelect;
     shoptet.phoneInput.hideCountriesSelect = hideCountriesSelect;
     shoptet.phoneInput.setSelectedCountry = setSelectedCountry;
+    shoptet.phoneInput.setLastPreferredCountry = setLastPreferredCountry;
     shoptet.phoneInput.handleKeyCodes = handleKeyCodes;
     shoptet.phoneInput.selectSelectedOption = selectSelectedOption;
 

@@ -55,7 +55,7 @@
     }
 
     document.addEventListener("DOMContentLoaded", function() {
-        if (shoptet.abilities.about.generation !== 3) {
+        if (!shoptet.abilities || shoptet.abilities.about.generation !== 3) {
             return false;
         }
         printMonitoringInfo();

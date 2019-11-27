@@ -15,8 +15,8 @@
                     continue;
                 }
                 if (shoptet.phoneInput.phoneCodes.indexOf(parseInt(phoneCode)) !== -1) {
-                    var activeFlag = document.querySelector('.country-flag.selected');
-                    var flag = document.querySelector('.country-flag[data-dial="' + phoneCode + '"]');
+                    var activeFlag = el.parentElement.querySelector('.country-flag.selected');
+                    var flag = el.parentElement.querySelector('.country-flag[data-dial="' + phoneCode + '"]');
                     if (flag) {
                         if (activeFlag.getAttribute('data-dial') !== phoneCode) {
                             shoptet.phoneInput.setSelectedCountry(flag, flag.parentElement.parentElement, false);
@@ -38,7 +38,7 @@
             return true;
         }
 
-        if (shoptet.validator.ajaxPending++) {
+        if (shoptet.validator.ajaxPending++ > shoptet.validatorPhone.validators.phoneInputs.elements.length) {
             return;
         }
 
@@ -56,10 +56,10 @@
             }
             el.classList.remove('js-validated-field');
             el.removeAttribute('disabled');
-            shoptet.validator.ajaxPending = 0;
+            shoptet.validator.ajaxPending--;
         };
 
-        var url = shoptet.config.validatePhoneUrl;
+        var url = shoptet.validatorPhone.validateUrl;
         url += '?number=' + encodeURIComponent(validatedValue)
             + '&phoneCode=' + encodeURIComponent(phoneInfo.phoneCode)
             + '&countryCode=' + encodeURIComponent(phoneInfo.countryCode);
@@ -79,6 +79,7 @@
         var fn = eval(fnName);
         shoptet.scripts.registerFunction(fn, 'validatorPhone');
     });
+    shoptet.validatorPhone.validateUrl = '/action/ShoptetValidatePhone/index/';
     shoptet.validatorPhone.messageType = 'validatorInvalidPhoneNumber';
     shoptet.validatorPhone.validators = {
         phoneInputs: {

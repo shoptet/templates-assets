@@ -9,7 +9,8 @@
             } else {
                 shoptet.variantsCommon.enableAddingToCart();
             }
-            $splitParameters.bind('change ShoptetSelectedParametersReset', function() {
+            $splitParameters.bind('change ShoptetSelectedParametersReset', function(e) {
+                shoptet.scripts.signalCustomEvent('ShoptetSplitVariantParameterChange', e.target);
                 shoptet.variantsSplit.showVariantDependent();
                 shoptet.content.codeId = $('#product-detail-form').attr('data-codeid');
                 hideMsg(true);
@@ -89,9 +90,12 @@
         if (response.error) {
             showMessage(response.error, 'error', '', false, false);
             shoptet.variantsCommon.reasonToDisable = response.error;
+            shoptet.scripts.signalCustomEvent('ShoptetVariantUnavailable');
+            shoptet.variantsSplit.loadedData = false;
             return;
         }
         var data = response.data;
+        shoptet.variantsSplit.loadedData = data;
         shoptet.content.codeId = data.id;
         var $form = $('#product-detail-form');
         var $formAmount = $('#product-detail-form .amount');
@@ -127,6 +131,7 @@
         if ($cofidis.length) {
             cofidisCalculator($('.price-final .parameter-dependent:visible'), $cofidis);
         }
+        shoptet.scripts.signalCustomEvent('ShoptetVariantAvailable');
     }
 
     function showVariantDependent() {
@@ -162,5 +167,5 @@
         shoptet.scripts.registerFunction(fn, 'variantsSplit');
     });
     shoptet.variantsSplit.cache = {};
-
+    shoptet.variantsSplit.loadedData = false;
 })(shoptet);

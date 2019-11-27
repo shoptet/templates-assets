@@ -622,19 +622,19 @@ function unveilElementByHash(elementId) {
  * This function does not accept any arguments.
  */
 function locationSearchToObject() {
-    var pairs = window.location.search.substring(1).split("&");
+    var locationSearch = window.location.search.substring(1).split("&");
     var object = {};
-    var pair, i;
 
-    for (i in pairs) {
-        if (pairs[i] === '') {
-            continue;
+    locationSearch.forEach(function(pair) {
+        if (pair !== '') {
+            var splittedPair = pair.split("=");
+            object[decodeURIComponent(splittedPair[0])] = decodeURIComponent(splittedPair[1]);
         }
-        pair = pairs[i].split("=");
-        object[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-    }
+    });
+
     return object;
 }
+
 /**
  * Get offset of an element relative to its parent
  *
@@ -966,6 +966,14 @@ $(function() {
         });
     });
 
+    // Go to detail of a highlighted product, Tango template only
+    $('html').on('click', '.js-product-clickable', function(e) {
+        e.stopPropagation();
+        if ($(e.target).hasClass('js-product-clickable')) {
+            window.location.href = $('a.name', this).attr('href');
+        }
+    });
+
     // Show/hide more in top products
     $('html').on('click', '.products-top .button-wrapper .toggle-top-products', function(e) {
         e.preventDefault();
@@ -1158,8 +1166,23 @@ $(function() {
             $('input[name="fullName"]').val(searchValues.buyerName);
         }
         if (searchValues.preselectStars) {
-            $('.rate-list[data-score="' + searchValues.preselectStars + '"]').addClass('current')
-                .find('.star').addClass('star-on').removeClass('star-off');
+            var numberOfStars = parseInt(searchValues.preselectStars);
+
+            $('.star-wrap .star').removeClass('star-on current').addClass('star-off');
+            $('.rate-list').removeClass('current');
+            $('.rate-list .star').removeClass('star-on current').addClass('star-off');
+            for (var i = 1; i <= numberOfStars; i++) {
+                var ratingElementStar = $('.star-wrap [data-score="' + i + '"]');
+                ratingElementStar.removeClass('star-off').addClass('star-on');
+                if (i === numberOfStars) {
+                    ratingElementStar.addClass('current');
+
+                    var rateList = $('.rate-list [data-score="' + i + '"]');
+                    var rateListStar = $('.rate-list[data-score="' + i + '"] .star');
+                    rateList.addClass('current');
+                    rateListStar.removeClass('star-off').addClass('star-on');
+                }
+            }
         }
     }
 
