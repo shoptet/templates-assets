@@ -1,25 +1,34 @@
 (function(shoptet) {
 
-    function makeAjaxRequest(url, type, data, successCallback, errorCallback, redirectCallback) {
+    function makeAjaxRequest(url, type, data, callbacks) {
+        // TODO: remove this control after the IE browser will be completely unsupported
+        //  and use default parameter (callbacks = {})
+        if (typeof callbacks === 'undefined') {
+            callbacks = {}
+        }
+
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState === XMLHttpRequest.DONE) {
+
                 var response = new AjaxResponse(xmlhttp.response);
-                response.setOnSuccessCallback(function() {
-                    if (typeof successCallback === 'function') {
-                        successCallback(response);
-                    }
+                var allowedCallbacks = [
+                    'success',
+                    'failed',
+                    'redirect',
+                    'complete'
+                ];
+
+                allowedCallbacks.forEach(function(callback) {
+                    response.setCallback(callback, function() {
+                        if (callbacks.hasOwnProperty(callback)
+                            && typeof callbacks[callback] === 'function'
+                        ) {
+                            callbacks[callback](response);
+                        }
+                    });
                 });
-                response.setOnFailedCallback(function() {
-                    if (typeof errorCallback === 'function') {
-                        errorCallback(response);
-                    }
-                });
-                response.setOnRedirectCallback(function() {
-                    if (typeof redirectCallback === 'function') {
-                        redirectCallback(response);
-                    }
-                });
+
                 response.processResult();
                 response.showNotification();
             }

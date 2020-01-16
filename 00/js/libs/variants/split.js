@@ -129,7 +129,7 @@
         });
         var $cofidis = $('#cofidis');
         if ($cofidis.length) {
-            cofidisCalculator($('.price-final .parameter-dependent:visible'), $cofidis);
+            cofidisCalculator($('.price-final-holder:visible'), $cofidis);
         }
         shoptet.scripts.signalCustomEvent('ShoptetVariantAvailable');
     }

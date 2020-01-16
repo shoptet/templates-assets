@@ -8,16 +8,18 @@ function AjaxResponse(result, customSettings) {
     this.R303_REDIRECT = 303;
     this.R500_SERVER_ERROR = 500;
 
+    // TODO: replace this with spread syntax and drop IE11 support finally
     this.settings = $.extend({
-        onSuccess: null,
-        onFailed: null,
-        onRedirect: null
+        complete: null,
+        success: null,
+        failed: null,
+        redirect: null
     }, customSettings);
     try {
         if (typeof result === 'object') {
             this.response = result;
-        } else {
-            this.response = $.parseJSON(result);
+        } else if (typeof result === 'string') {
+            this.response = JSON.parse(result)
         }
     } catch(e) {
         this.response = {
@@ -30,29 +32,9 @@ function AjaxResponse(result, customSettings) {
     return this;
 }
 
-AjaxResponse.prototype.setOnSuccessCallback = function(fn) {
-    if ($.isFunction(fn)) {
-        this.settings.onSuccess = fn;
-    } else {
-        throw new Error('Argument is not a function');
-    }
-
-    return this;
-};
-
-AjaxResponse.prototype.setOnRedirectCallback = function(fn) {
-    if ($.isFunction(fn)) {
-        this.settings.onRedirect = fn;
-    } else {
-        throw new Error('Argument is not a function');
-    }
-
-    return this;
-};
-
-AjaxResponse.prototype.setOnFailedCallback = function(fn) {
-    if ($.isFunction(fn)) {
-        this.settings.onFailed = fn;
+AjaxResponse.prototype.setCallback = function(callback, fn) {
+    if (typeof fn === 'function') {
+        this.settings[callback] = fn;
     } else {
         throw new Error('Argument is not a function');
     }
@@ -126,15 +108,19 @@ AjaxResponse.prototype.showNotification = function() {
 AjaxResponse.prototype.processResult = function() {
     var callback;
     if (this.isFailed()) {
-        callback = this.settings.onFailed;
+        callback = this.settings.failed;
     } else if (this.isRedirected()) {
         this.redirect();
-        callback = this.settings.onRedirect;
+        callback = this.settings.redirect;
     } else {
-        callback = this.settings.onSuccess;
+        callback = this.settings.success;
     }
 
-    if ($.isFunction(callback)) {
+    if (typeof callback === 'function') {
         callback(this.getCode(), this.getMessage(), this.getPayload());
+    }
+
+    if (typeof this.settings.complete === 'function') {
+        this.settings.complete(this.getCode(), this.getMessage(), this.getPayload());
     }
 };

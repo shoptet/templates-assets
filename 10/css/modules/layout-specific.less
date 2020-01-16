@@ -238,8 +238,13 @@ ul {
     }
 }
 
-.search.static .search-whisperer {
-    position: static;
+.search.static {
+    @media (min-width: @navigation-breakpoint) {
+        max-height: 75vh;
+    }
+    .search-whisperer {
+        position: static;
+    }
 }
 
 .eet-message {

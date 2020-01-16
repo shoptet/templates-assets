@@ -22,7 +22,11 @@
                             event
                         );
                         if (currentValidator['fireEvent']) {
-                            currentValidator['elements'][innerKey].dispatchEvent(new Event(event));
+                            if (shoptet.scripts.availableCustomEvents.indexOf(event) !== -1) {
+                                shoptet.scripts.signalCustomEvent(event, currentValidator['elements'][innerKey]);
+                            } else {
+                                shoptet.scripts.signalNativeEvent(event, currentValidator['elements'][innerKey]);
+                            }
                         }
                     });
                 }

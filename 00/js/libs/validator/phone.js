@@ -67,9 +67,9 @@
             url,
             shoptet.ajax.requestTypes.get,
             '',
-            successCallback,
-            false,
-            false
+            {
+                'success': successCallback
+            }
         );
 
     }

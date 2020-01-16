@@ -93,6 +93,7 @@
 @contact-box-li-padding-bottom: 8px;
 @contact-box-li-padding-top: 8px;
 @contact-box-padding: round(@grid-gutter-width / 2) round(@grid-gutter-width / 2) round(@grid-gutter-width / 2) 116px;
+@contact-box-padding-left: round(@grid-gutter-width / 2);
 @contact-box-padding-responsive: round(@grid-gutter-width / 2);
 @contact-box-span-padding-left: 36px;
 @container-desktop: (932px + @grid-gutter-width);
@@ -287,8 +288,8 @@
 @quantity-trigger-width: 24px;
 @rating-avatar-size: 60px;
 @recapitulation-number-text-align: center;
-@related-arrows-top: -210px;
-@related-arrows-top-lg: -290px;
+@related-arrows-top: calc(50% - 20px);
+@related-arrows-top-lg: calc(50% - 20px);
 @related-icon-font-size: 30px;
 @screen-lg-max: (@screen-xl-min - 1);
 @screen-xl-min: 99999em;

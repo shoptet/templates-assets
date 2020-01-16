@@ -292,7 +292,7 @@ function init(el) {
             preloadImages(imageContainer, response.getPayload(), size);
         };
 
-        var errorCallback = function() {
+        var failedCallback = function() {
             imageContainer.classList.remove(shoptet.ajax.pendingClass);
         };
 
@@ -300,9 +300,10 @@ function init(el) {
             config.url,
             shoptet.ajax.requestTypes.post,
             dataString,
-            successCallback,
-            errorCallback,
-            false
+            {
+                'success': successCallback,
+                'failed': failedCallback
+            }
         );
     }
 

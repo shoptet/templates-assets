@@ -55,7 +55,7 @@
             element = document;
         }
         try {
-            if (eventSource.indexOf(event) !== -1) {
+            if (eventSource === null || eventSource.indexOf(event) !== -1) {
                 var ev;
                 if (globalEvent) {
                     ev = new CustomEvent(globalEvent, {bubbles: true});
@@ -113,6 +113,15 @@
         );
     }
 
+    function signalNativeEvent(event, element) {
+        signal(
+            event,
+            element,
+            null,
+            false
+        );
+    }
+
     // Fix Function#name on browsers that do not support it (IE):
     if (!(function f() {}).name) {
         Object.defineProperty(Function.prototype, 'name', {
@@ -155,7 +164,14 @@
         'ShoptetSplitVariantParameterChange',
         'ShoptetSimpleVariantChange',
         'ShoptetVariantAvailable',
-        'ShoptetVariantUnavailable'
+        'ShoptetVariantUnavailable',
+        'ShoptetCartSetCartItemAmount',
+        'ShoptetCartAddCartItem',
+        'ShoptetCartDeleteCartItem',
+        'ShoptetCartSetSelectedGift',
+        'ShoptetCartAddDiscountCoupon',
+        'ShoptetCartUpdated',
+        'validatedFormSubmit'
     ];
     // TODO: updateCartButton - on cart page unnecessary
     shoptet.scripts.libs = {
@@ -165,6 +181,7 @@
             'getAdvancedOrder',
             'functionsForCart',
             'functionsForStep1',
+            'createEventNameFromFormAction',
             'ajaxSubmitForm',
             'updateQuantityInCart',
             'removeItemFromCart',
@@ -282,6 +299,7 @@
     shoptet.scripts.signalDomLoad = signalDomLoad;
     shoptet.scripts.signalDomUpdate = signalDomUpdate;
     shoptet.scripts.signalCustomEvent = signalCustomEvent;
+    shoptet.scripts.signalNativeEvent = signalNativeEvent;
     shoptet.scripts.registerFunction = registerFunction;
 
     shoptet.scripts.customCallbacks = {};

@@ -192,6 +192,8 @@ $(function () {
                 $('.search-next-wrap').remove();
                 $('#products-found').append(data).fadeIn('slow');
                 $('#products-found img').unveil();
+                initTooltips();
+                shoptet.stockAvailabilities.invalidateStockAvailabilities();
             })
         });
     });

@@ -798,7 +798,7 @@
             var $parentForm = $(this).parents('form');
             shoptet.cart.ajaxSubmitForm(
                 $parentForm.attr('action'),
-                $parentForm,
+                $parentForm[0],
                 'functionsForStep1',
                 true,
                 true
@@ -818,7 +818,7 @@
                     var $parentForm = $(this).parents('form');
                     shoptet.cart.ajaxSubmitForm(
                         $parentForm.attr('action'),
-                        $parentForm,
+                        $parentForm[0],
                         'functionsForStep1',
                         true,
                         true

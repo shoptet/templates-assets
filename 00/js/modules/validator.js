@@ -283,7 +283,7 @@ shoptet.validator.shoptetFormValidator = {
                 var requiredFields = document.getElementsByClassName('js-validate-required');
                 for (var key in requiredFields) {
                     if (typeof requiredFields[key] === 'object') {
-                        requiredFields[key].dispatchEvent(new Event('validatedFormSubmit'));
+                        shoptet.scripts.signalCustomEvent('validatedFormSubmit', requiredFields[key]);
                     }
                 }
                 var invalid = shoptet.validator.formContainsInvalidFields($currentForm[0]);

@@ -24,6 +24,7 @@ shoptet.config.colorbox.widthMd = 700;
 shoptet.config.colorbox.widthLg = 1152;
 
 shoptet.config.updateQuantityTimeout = 1000;
+shoptet.config.cartActionUrl = '/action/Cart';
 
 shoptet.runtime.resize = {
     delta: 200,

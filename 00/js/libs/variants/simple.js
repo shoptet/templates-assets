@@ -110,7 +110,7 @@
                 });
 
                 if($('#cofidis').length) {
-                    cofidisCalculator($('.price-final .choose-variant:visible'), $('#cofidis'));
+                    cofidisCalculator($('.price-final-holder:visible'), $('#cofidis'));
                 }
             }
         }

@@ -16,11 +16,11 @@
         if (count > 0) {
             $cartWrapper.addClass('full');
             var i = $cartButton.find('i');
-            if (parseInt(count) > 0) {
+            if (parseFloat(count) > 0) {
                 if (count > 99) {
                     count = '99+';
                 } else {
-                    count = parseInt(count);
+                    count = Math.ceil(parseFloat(count));
                 }
                 if (i.length) {
                     i.text(count);
@@ -97,7 +97,9 @@
             shoptet.config.cartContentUrl + cartUrlSuffix,
             shoptet.ajax.requestTypes.get,
             '',
-            successCallback
+            {
+                'success': successCallback
+            }
         );
     }
 
@@ -130,7 +132,9 @@
             shoptet.config.advancedOrderUrl,
             shoptet.ajax.requestTypes.get,
             '',
-            successCallback
+            {
+                'success': successCallback
+            }
         );
     }
 
@@ -138,12 +142,12 @@
      * This function calls another functions needed to
      * run after AJAX call is complete
      *
-     * @param {Object} $form
-     * $form = form submitted by AJAX
+     * @param {Object} form
+     * form = form submitted by AJAX
      */
-    function functionsForCart($form) {
+    function functionsForCart(form) {
         shoptet.cart.triggerCofidisCalc();
-        shoptet.tracking.handleAction($form[0]);
+        shoptet.tracking.handleAction(form);
         if (typeof shoptet.config.showAdvancedOrder !== 'undefined' && !shoptet.config.orderingProcess.active) {
             shoptet.cart.getAdvancedOrder();
         }
@@ -163,12 +167,25 @@
     }
 
     /**
+     * Create name for custom event depending on form action
+     *
+     * @param {String} action
+     * action = action attribute of submitted form
+     */
+    function createEventNameFromFormAction(action) {
+        var actionName = action.replace(shoptet.config.cartActionUrl, '');
+        actionName = actionName.replace(/\//gi, '');
+        actionName = 'ShoptetCart' + actionName.charAt(0).toUpperCase() + actionName.slice(1);
+        return actionName;
+    }
+
+    /**
      * Submit form by AJAX POST
      *
      * @param {String} action
      * action = action attribute of submitted form
-     * @param {Object} $form
-     * $form = submitted form
+     * @param {Object} form
+     * form = submitted form
      * @param {String} callingFunctions
      * callingFunctions = group of functions which have to be called after submit
      * @param {Boolean} replaceContent
@@ -176,7 +193,8 @@
      * @param {Boolean} displaySpinner
      * displaySpinner = if set to true, the spinner is displayed before and hidden after submit
      */
-    function ajaxSubmitForm(action, $form, callingFunctions, replaceContent, displaySpinner) {
+    function ajaxSubmitForm(action, form, callingFunctions, replaceContent, displaySpinner) {
+        var body = document.getElementsByTagName('body')[0];
         if (displaySpinner === true) {
             showSpinner();
         }
@@ -184,85 +202,96 @@
         var cartUrlSuffix = '';
         if (shoptet.abilities.feature.simple_ajax_cart && !shoptet.config.orderingProcess.active) {
             cartUrlSuffix = '?simple_ajax_cart=1';
-            $('body').addClass('ajax-pending');
+            body.classList.add('ajax-pending');
         }
 
-        $.ajax({
-            type: "POST",
-            url: action + cartUrlSuffix,
-            data: $form.serialize()})
-            .done(function(result) {
-                var response = new AjaxResponse(result);
-                if (typeof shoptet.content.addToNotifier !== 'undefined') {
-                    if (response.response.code !== 500) {
-                        response.response.message += ' ' + shoptet.content.addToNotifier;
-                    }
-                    delete shoptet.content.addToNotifier;
+        var completeCallback = function() {
+            if (typeof shoptet.content.addToNotifier !== 'undefined') {
+                if (response.response.code !== 500) {
+                    response.response.message += ' ' + shoptet.content.addToNotifier;
                 }
-                response.setOnSuccessCallback(function(code, message, payload) {
-                    switch (replaceContent) {
-                        case 'cart':
-                            var count = payload.count;
-                            var price = payload.price;
-                            shoptet.cart.updateCartButton(count, price);
-                            if (
-                                shoptet.config.orderingProcess.step === 0
-                                || $('body').hasClass('cart-window-visible')
-                            ) {
-                                if (callingFunctions === 'functionsForCart') {
-                                    var cartCallback = function() {
-                                        shoptet.cart.functionsForCart($form);
-                                    };
-                                }
-                                shoptet.cart.getCartContent(true, cartCallback);
-                            } else {
-                                delete shoptet.events.cartLoaded;
-                                setTimeout(function() {
-                                    hideSpinner();
-                                }, dismissTimeout);
-                                hideSpinner();
-                            }
-                            break;
-                        case true:
-                            var payloadContent = $(payload.content).find('#content-wrapper');
-                            payloadContent.find('#toplist').remove();
-                            $('#content-wrapper').replaceWith(payloadContent);
-                            $('#content-wrapper img').unveil();
-                            initColorbox();
-                            resizeModal();
-                            shoptet.scripts.signalDomLoad('ShoptetDOMPageContentLoaded');
-                            break;
-                    }
+                delete shoptet.content.addToNotifier;
+            }
+            body.classList.remove('ajax-pending');
+        };
 
-                    dismissMessages();
-
-                    if (callingFunctions === 'functionsForCart' && (typeof cartCallback === 'undefined')) {
-                        shoptet.cart.functionsForCart($form);
-                    }
-
-                    if (callingFunctions === 'functionsForStep1') {
-                        shoptet.cart.functionsForStep1();
-                    }
-
-                    initTooltips();
-                    $(document).trigger('ajaxDone');
-                });
-                response.setOnFailedCallback(function() {
-                    hideSpinner();
-                    $('html, body').animate({
-                        scrollTop: 0
-                    }, shoptet.config.animationDuration);
-                    if (callingFunctions === 'functionsForCart') {
-                        var cartCallback = function() {
-                            shoptet.cart.functionsForCart($form);
-                        };
+        var successCallback = function(response) {
+            switch (replaceContent) {
+                case 'cart':
+                    var count = response.getFromPayload('count');
+                    var price = response.getFromPayload('price');
+                    shoptet.cart.updateCartButton(count, price);
+                    if (
+                        shoptet.config.orderingProcess.step === 0
+                        || body.classList.contains('cart-window-visible')
+                    ) {
+                        if (callingFunctions === 'functionsForCart') {
+                            var cartCallback = function() {
+                                shoptet.cart.functionsForCart(form);
+                            };
+                        }
                         shoptet.cart.getCartContent(true, cartCallback);
+                    } else {
+                        delete shoptet.events.cartLoaded;
+                        setTimeout(function() {
+                            hideSpinner();
+                        }, dismissTimeout);
+                        hideSpinner();
                     }
-                });
-                response.processResult();
-                response.showNotification();
-                $('body').removeClass('ajax-pending');
-            });
+                    break;
+                case true:
+                    var payloadContent = $(payload.content).find('#content-wrapper');
+                    payloadContent.find('#toplist').remove();
+                    $('#content-wrapper').replaceWith(payloadContent);
+                    $('#content-wrapper img').unveil();
+                    initColorbox();
+                    resizeModal();
+                    shoptet.scripts.signalDomLoad('ShoptetDOMPageContentLoaded');
+                    break;
+            }
+
+            dismissMessages();
+
+            if (callingFunctions === 'functionsForCart' && (typeof cartCallback === 'undefined')) {
+                shoptet.cart.functionsForCart(form);
+            }
+
+            if (callingFunctions === 'functionsForStep1') {
+                shoptet.cart.functionsForStep1();
+            }
+            initTooltips();
+            // TODO: remove in future and let available only standardized Shoptet custom events below
+            var ev = new CustomEvent('ajaxDone');
+            document.dispatchEvent(ev);
+            shoptet.scripts.signalCustomEvent('ShoptetCartUpdated', form);
+            shoptet.scripts.signalCustomEvent(shoptet.cart.createEventNameFromFormAction(action), form);
+
+        };
+
+        var failedCallback = function() {
+            hideSpinner();
+            $('html, body').animate({
+                scrollTop: 0
+            }, shoptet.config.animationDuration);
+            if (callingFunctions === 'functionsForCart') {
+                var cartCallback = function() {
+                    shoptet.cart.functionsForCart(form);
+                };
+                shoptet.cart.getCartContent(true, cartCallback);
+            }
+        };
+
+        // TODO: serialize w/o jQuery: https://developer.mozilla.org/en-US/docs/Web/API/FormData
+        shoptet.ajax.makeAjaxRequest(
+            action + cartUrlSuffix,
+            shoptet.ajax.requestTypes.post,
+            $(form).serialize(),
+            {
+                'success': successCallback,
+                'failed': failedCallback,
+                'complete': completeCallback
+            }
+        );
 
         return false;
     }
@@ -285,7 +314,7 @@
         setPcsTimeout = setTimeout(function() {
             shoptet.cart.ajaxSubmitForm(
                 $parentForm.attr('action'),
-                $parentForm,
+                $parentForm[0],
                 'functionsForCart',
                 'cart',
                 displaySpinner
@@ -307,7 +336,7 @@
         }
         shoptet.cart.ajaxSubmitForm(
             $parentForm.attr('action'),
-            $parentForm,
+            $parentForm[0],
             'functionsForCart',
             'cart',
             displaySpinner
@@ -413,7 +442,7 @@
             var $form = $('.free-gifts-wrapper form');
             shoptet.cart.ajaxSubmitForm(
                 $form.attr('action'),
-                $form,
+                $form[0],
                 'functionsForCart',
                 'cart',
                 true
@@ -441,7 +470,7 @@
                 }
                 shoptet.cart.ajaxSubmitForm(
                     $this.attr('action'),
-                    $this,
+                    $this[0],
                     'functionsForCart',
                     'cart',
                     true
@@ -454,7 +483,7 @@
             var $this = $(this);
             shoptet.cart.ajaxSubmitForm(
                 $this.attr('action'),
-                $this,
+                $this[0],
                 'functionsForCart',
                 'cart',
                 true
