@@ -152,11 +152,14 @@
         'ShoptetDOMContentLoaded',
         'ShoptetDOMRegisterFormLoaded',
         'ShoptetDOMCartContentLoaded',
-        'ShoptetDOMAdvancedOrderLoaded'
+        'ShoptetDOMAdvancedOrderLoaded',
+        'ShoptetDOMPageContentLoaded',
+        'ShoptetDOMPageMoreProductsLoaded'
     ];
     shoptet.scripts.availableDOMUpdateEvents = [
         'ShoptetDOMCartCountUpdated'
     ];
+    // TODO: standardize format of "validatedFormSubmit"
     shoptet.scripts.availableCustomEvents = [
         'ShoptetPhoneCodeChange',
         'ShoptetPhoneCodeActive',
@@ -171,7 +174,14 @@
         'ShoptetCartSetSelectedGift',
         'ShoptetCartAddDiscountCoupon',
         'ShoptetCartUpdated',
-        'validatedFormSubmit'
+        'validatedFormSubmit',
+        'ShoptetPagePaginationUsed',
+        'ShoptetPageSortingChanged',
+        'ShoptetPageFiltersRecalledFromHistory',
+        'ShoptetPagePriceFilterChange',
+        'ShoptetPageFilterValueChange',
+        'ShoptetPageFiltersCleared',
+        'ShoptetPageMoreProductsRequested'
     ];
     // TODO: updateCartButton - on cart page unnecessary
     shoptet.scripts.libs = {
@@ -277,7 +287,17 @@
         ],
         common: [
             'getSelectValue',
-            'getCheckedInputValue'
+            'getCheckedInputValue',
+            'createDocumentFromString'
+        ],
+        stockAvailabilities: [
+            'getDeliveryPointName',
+            'getDeliveryPointAmount',
+            'getStockAvailabilities',
+            'setStockAvailabilities',
+            'attachEventListeners',
+            'mouseEnterListener',
+            'mouseLeaveListener'
         ]
     };
 

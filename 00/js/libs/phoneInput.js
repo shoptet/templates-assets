@@ -16,6 +16,7 @@
                             shoptet.phoneInput.hideCountriesSelect(parentGroup);
                         } else {
                             parentGroup.classList.add('active');
+                            positionCountriesSelect(parentGroup);
                             shoptet.scripts.signalCustomEvent('ShoptetPhoneCodeActive', parentGroup);
                         }
                         if (!flag.classList.contains('selected')) {
@@ -131,6 +132,20 @@
         }
     }
 
+    function positionCountriesSelect(el) {
+        el.classList.remove('turned');
+        var wrapper = el.querySelector('.country-flags-inner');
+        var rect = wrapper.getBoundingClientRect();
+        var documentHeight = Math.max(
+            document.body.scrollHeight, document.documentElement.scrollHeight,
+            document.body.offsetHeight, document.documentElement.offsetHeight,
+            document.body.clientHeight, document.documentElement.clientHeight
+        );
+        if (window.pageYOffset + rect.bottom > documentHeight) {
+            el.classList.add('turned');
+        }
+    }
+
     function translateKeys(key) {
         switch (key) {
             case '2':
@@ -178,6 +193,7 @@
     shoptet.phoneInput.hideCountriesSelect = hideCountriesSelect;
     shoptet.phoneInput.setSelectedCountry = setSelectedCountry;
     shoptet.phoneInput.setLastPreferredCountry = setLastPreferredCountry;
+    shoptet.phoneInput.positionCountriesSelect = positionCountriesSelect;
     shoptet.phoneInput.handleKeyCodes = handleKeyCodes;
     shoptet.phoneInput.selectSelectedOption = selectSelectedOption;
 

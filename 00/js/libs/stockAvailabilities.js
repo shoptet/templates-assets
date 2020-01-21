@@ -15,18 +15,22 @@
         if (shoptet.stockAvailabilities.content !== false) {
             return;
         }
-        /* TODO: use shoptet.ajax from {D10170} */
-        $.ajax({
-            url: '/action/ProductStockAmount/?ids[]=' + productIds.join('&ids[]='),
-            type: 'GET',
-            success: function(responseData) {
-                shoptet.stockAvailabilities.content = responseData.payload;
-                shoptet.stockAvailabilities.setStockAvailabilities();
-            },
-            error: function() {
-                showMessage(shoptet.messages['ajaxError'], 'error');
-            }
-        });
+        var successCallback = function(response) {
+            shoptet.stockAvailabilities.content = response.getPayload();
+            shoptet.stockAvailabilities.setStockAvailabilities();
+        };
+
+        var errorCallback = function() {
+            showMessage(shoptet.messages['ajaxError'], 'error');
+        }
+
+        shoptet.ajax.makeAjaxRequest(
+            shoptet.config.stockAmountUrl + '?ids[]=' + productIds.join('&ids[]='),
+            shoptet.ajax.requestTypes.get,
+            '',
+            successCallback,
+            errorCallback
+        );
     }
 
     function setStockAvailabilities() {
@@ -65,23 +69,16 @@
         }
     }
 
-    function invalidateStockAvailabilities() {
-        shoptet.stockAvailabilities.content = false;
-        var event = new CustomEvent('DOMProductsLoaded');
-        document.dispatchEvent(event);
-    }
-
     function attachEventListeners() {
+        shoptet.stockAvailabilities.content = false;
         var elements = document.getElementsByClassName('product-stock-amount');
-        setTimeout(function() {
-            for (var i = 0; i < elements.length; i++) {
-                var element = elements[i];
-                element.removeEventListener('mouseenter', shoptet.stockAvailabilities.mouseEnterListener);
-                element.addEventListener('mouseenter', shoptet.stockAvailabilities.mouseEnterListener);
-                element.removeEventListener('mouseleave', shoptet.stockAvailabilities.mouseLeaveListener);
-                element.addEventListener('mouseleave', shoptet.stockAvailabilities.mouseLeaveListener);
-            }
-        }, 1);
+        for (var i = 0; i < elements.length; i++) {
+            var element = elements[i];
+            element.removeEventListener('mouseenter', shoptet.stockAvailabilities.mouseEnterListener);
+            element.addEventListener('mouseenter', shoptet.stockAvailabilities.mouseEnterListener);
+            element.removeEventListener('mouseleave', shoptet.stockAvailabilities.mouseLeaveListener);
+            element.addEventListener('mouseleave', shoptet.stockAvailabilities.mouseLeaveListener);
+        }
     }
 
     function mouseEnterListener(e) {
@@ -102,15 +99,17 @@
 
     shoptet.stockAvailabilities = shoptet.stockAvailabilities || {};
     shoptet.stockAvailabilities.content = false;
-    shoptet.stockAvailabilities.getDeliveryPointName = getDeliveryPointName;
-    shoptet.stockAvailabilities.getDeliveryPointAmount = getDeliveryPointAmount;
-    shoptet.stockAvailabilities.getStockAvailabilities = getStockAvailabilities;
-    shoptet.stockAvailabilities.setStockAvailabilities = setStockAvailabilities;
-    shoptet.stockAvailabilities.invalidateStockAvailabilities = invalidateStockAvailabilities;
-    shoptet.stockAvailabilities.attachEventListeners = attachEventListeners;
-    shoptet.stockAvailabilities.mouseEnterListener = mouseEnterListener;
-    shoptet.stockAvailabilities.mouseLeaveListener = mouseLeaveListener;
-    shoptet.stockAvailabilities.events = ['DOMContentLoaded', 'DOMProductsLoaded'];
+    shoptet.stockAvailabilities.events = [
+        'DOMContentLoaded',
+        'ShoptetDOMPageContentLoaded',
+        'ShoptetDOMPageMoreProductsLoaded',
+        'ShoptetDOMCartContentLoaded'
+    ];
+
+    shoptet.scripts.libs.stockAvailabilities.forEach(function(fnName) {
+        var fn = eval(fnName);
+        shoptet.scripts.registerFunction(fn, 'stockAvailabilities');
+    });
 
     for (var i = 0; i < shoptet.stockAvailabilities.events.length; i++) {
         document.addEventListener(

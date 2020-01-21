@@ -407,7 +407,9 @@ function toggleShareButtons() {
 
 $(function() {
 
-    $('html').on('click', '.quantity span', function() {
+    var $html = $('html');
+
+    $html.on('click', '.quantity span', function() {
         var $this = $(this);
         var $el = $this.parents('.quantity').find('.amount');
         var action = $this.attr('class');
@@ -438,31 +440,31 @@ $(function() {
     setThumbnailsDirection();
     checkThumbnails(shoptet.config.thumbnailsDirection, 'set', true);
 
-    $('html').on('click', '.browse-p a:not(.inactive)', function(e) {
+    $html.on('click', '.browse-p a:not(.inactive)', function(e) {
         e.preventDefault();
         browseProducts($(this));
     });
 
-    $('html').on('click', '.thumbnail-next', function(e) {
+    $html.on('click', '.thumbnail-next', function(e) {
         e.preventDefault();
         if (!$(this).hasClass('clicked')) {
             switchThumbnails('prev');
         }
     });
 
-    $('html').on('click', '.thumbnail-prev', function(e) {
+    $html.on('click', '.thumbnail-prev', function(e) {
         e.preventDefault();
         if (!$(this).hasClass('clicked')) {
             switchThumbnails('next');
         }
     });
 
-    $('html').on('click', '.p-thumbnail', function(e) {
+    $html.on('click', '.p-thumbnail', function(e) {
         e.preventDefault();
         replaceImage($(this).attr('href'));
     });
 
-    $('html').on('click', '.p-main-image', function(e) {
+    $html.on('click', '.p-main-image', function(e) {
         e.preventDefault();
         var href = $(this).attr('href').replace(/\/orig\//, '/big/');
         $('.cbox-gal[href="' + href  + '"]').trigger('click');
@@ -539,34 +541,37 @@ $(function() {
     });
 
     // load new products dynamically
-    $('html').on('click', '.load-products', function() {
+    $html.on('click', '.load-products', function(e) {
+        shoptet.scripts.signalCustomEvent('ShoptetPageMoreProductsRequested', e.target);
         var $el = $('.pagination .current');
         showSpinner();
 
         $.ajax({
             type: "POST",
             url: $el.next('a').attr('href'),
-            success: function(content) {
-                var listing = $(content).find('.products-page > .product');
-                var pagination = $(content).find('.pagination-wrapper');
+            success: function(payload) {
+                var requestedDocument = shoptet.common.createDocumentFromString(payload);
+                shoptet.tracking.trackProductsFromPayload(requestedDocument);
+                var listing = $(requestedDocument).find('.products-page > .product');
+                var pagination = $(requestedDocument).find('.pagination-wrapper');
+                var $productsWrapper = $('.products-page');
 
                 if (listing !== null) {
-                    $('.products-page').last().append(listing);
+                    $productsWrapper.last().append(listing);
                     $('.pagination-wrapper').replaceWith(pagination);
-
                     sameHeightOfProducts();
                     initTooltips();
-                    shoptet.stockAvailabilities.invalidateStockAvailabilities();
                     setTimeout(function() {
                         $('.products-page img').unveil();
                     }, 1);
                     hideSpinner();
                 }
+                shoptet.scripts.signalDomLoad('ShoptetDOMPageMoreProductsLoaded', $productsWrapper[0]);
             }
         });
     });
 
-    $('html').on('click', '.js-share-buttons-trigger', function(e) {
+    $html.on('click', '.js-share-buttons-trigger', function(e) {
         e.preventDefault();
         $('.social-buttons').toggleClass('no-display');
     });

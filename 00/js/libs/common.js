@@ -14,6 +14,10 @@
         return false;
     }
 
+    function createDocumentFromString(string) {
+        return new DOMParser().parseFromString(string, "text/html");
+    }
+
     shoptet.common = shoptet.common || {};
     shoptet.scripts.libs.common.forEach(function(fnName) {
         var fn = eval(fnName);

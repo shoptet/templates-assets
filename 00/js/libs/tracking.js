@@ -219,6 +219,16 @@
         }
     }
 
+    function trackProductsFromPayload(requestedDocument) {
+        var trackingScript = requestedDocument.getElementById('trackingScript');
+        if (trackingScript) {
+            var trackingProducts = JSON.parse(
+                trackingScript.getAttribute('data-products')
+            );
+            shoptet.tracking.productsList = $.extend(trackingProducts.products, shoptet.tracking.productsList);
+        }
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
         var i;
         var imageBanners = document.querySelectorAll('a[data-ec-promo-id]');
@@ -255,5 +265,6 @@
     shoptet.tracking.trackGoogleCart = trackGoogleCart;
     shoptet.tracking.updateDataLayer = updateDataLayer;
     shoptet.tracking.handlePromoClick = handlePromoClick;
+    shoptet.tracking.trackProductsFromPayload = trackProductsFromPayload;
 
 })(shoptet);

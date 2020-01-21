@@ -82,7 +82,6 @@
             $(el + ' img').unveil();
             initColorbox();
             initTooltips();
-            shoptet.stockAvailabilities.invalidateStockAvailabilities();
 
             if (hide !== false) {
                 hideSpinner();

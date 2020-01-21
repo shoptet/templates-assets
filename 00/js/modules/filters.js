@@ -78,7 +78,13 @@ var priceFilter = function (categoryMinValue, categoryMaxValue) {
 
             url += (url.split('?')[1] ? '&' : '?');
             url += 'priceMin=' + urlValuePriceMin + '&priceMax=' + urlValuePriceMax;
-            $(document).trigger('priceFilterChange', url);
+            makeFilterAjaxRequest(
+                url,
+                true,
+                false,
+                event.target,
+                'ShoptetPagePriceFilterChange'
+            );
         }
     });
 };
@@ -93,10 +99,15 @@ var priceFilter = function (categoryMinValue, categoryMaxValue) {
  * @param {Object} successCallback
  * successCallback = function that has to be fired after the request
  * is successfully executed
+ * @param {Object} element
+ * element = element where the function was called
+ * @param {String} event
+ * event = event which called the function
  */
-function makeFilterAjaxRequest(url, pushHistoryState, successCallback) {
+function makeFilterAjaxRequest(url, pushHistoryState, successCallback, element, event) {
     showSpinner();
     pushHistoryState = typeof pushHistoryState !== 'undefined' ? pushHistoryState : true;
+    shoptet.scripts.signalCustomEvent(event, element);
 
     $.ajax({
         url: url,
@@ -104,35 +115,41 @@ function makeFilterAjaxRequest(url, pushHistoryState, successCallback) {
         dataType: 'html',
         timeout: 10000,
         cache: true,
-        success: function (payload) {
-            var payloadContent = $(payload).find('#content').clone();
-            $('#content').html(payloadContent[0].innerHTML);
-            if ($(payload).find('#filters').length) {
-                var payloadFilterContent = $(payload).find('#filters');
+        success: function(payload) {
+            var requestedDocument = shoptet.common.createDocumentFromString(payload);
+            shoptet.tracking.trackProductsFromPayload(requestedDocument);
+            var payloadContent = $(requestedDocument).find('#content');
+            var $payloadContentWrapper = $('#content');
+            $payloadContentWrapper.html(payloadContent[0].innerHTML);
+            if ($(requestedDocument).find('#filters').length) {
+                var payloadFilterContent = $(requestedDocument).find('#filters');
                 if (!$('#filters').length) {
                     $('#category-header').after('<div id="filters" />');
                 }
                 $('#filters').html(payloadFilterContent[0].innerHTML);
             }
-            if ($(payload).find('.breadcrumbs').length) {
-                var payloadNavContent = $(payload).find('.breadcrumbs').clone();
+            if ($(requestedDocument).find('.breadcrumbs').length) {
+                var payloadNavContent = $(requestedDocument).find('.breadcrumbs').clone();
                 $('.breadcrumbs').html(payloadNavContent[0].innerHTML);
             }
-            if ($(payload).find('.header-title').length) {
-                var payloadH1Content = $(payload).find('.header-title').clone();
+            if ($(requestedDocument).find('.header-title').length) {
+                var payloadH1Content = $(requestedDocument).find('.header-title').clone();
                 $('.header-title').html(payloadH1Content[0].innerHTML);
             }
-            if ($('#categoryMinValue').length) {
-                categoryMinValue = parseInt($('#categoryMinValue').text());
+            var $categoryMinValue = $('#categoryMinValue');
+            var $categoryMaxValue = $('#categoryMaxValue');
+            if ($categoryMinValue.length) {
+                // TODO: use corresponding shoptet object instead of global variable
+                categoryMinValue = parseInt($categoryMinValue.text());
             }
-            if ($('#categoryMaxValue').length) {
-                categoryMaxValue = parseInt($('#categoryMaxValue').text());
+            if ($categoryMaxValue.length) {
+                // TODO: use corresponding shoptet object instead of global variable
+                categoryMaxValue = parseInt($categoryMaxValue.text());
             }
             priceFilter(categoryMinValue, categoryMaxValue);
             $('#content-wrapper img').unveil();
             detectFilters();
             initTooltips();
-            shoptet.stockAvailabilities.invalidateStockAvailabilities();
             hideSpinner();
             dismissMessages();
             setTimeout(function () {
@@ -159,6 +176,7 @@ function makeFilterAjaxRequest(url, pushHistoryState, successCallback) {
             if (typeof (successCallback) === 'function') {
                 successCallback();
             }
+            shoptet.scripts.signalDomLoad('ShoptetDOMPageContentLoaded', $payloadContentWrapper[0]);
         },
         error: function () {
             hideSpinner();
@@ -218,7 +236,7 @@ function detectFilters() {
  * This function does not accept any arguments.
  */
 var parseFilterValuesFromContent = function () {
-    var values = new Array();
+    var values = [];
     values[0] = $('#min').text().toString();
     values[1] = $('#max').text().toString();
     return values;
@@ -259,43 +277,57 @@ var formatFilterValues = function (selectedMinValue, selectedMaxValue) {
 };
 
 $(function () {
+    var $html = $('html');
     /* Filters */
     // History navigation
     if($('.filters').length) {
         window.onpopstate = function() {
-            makeFilterAjaxRequest(location.href, false);
+            makeFilterAjaxRequest(
+                location.href,
+                false,
+                false,
+                document,
+                'ShoptetPageFiltersRecalledFromHistory'
+            );
         };
     }
-
-    // Price filter
-    $(document).on('productFilterOnPopState', function () {
-        priceFilter(categoryMinValue, categoryMaxValue);
-    });
 
     if ($('#slider').length) {
         priceFilter(categoryMinValue, categoryMaxValue);
     }
 
-    $(document).on('priceFilterChange', function (e, url) {
-        makeFilterAjaxRequest(url, true);
+    $html.on('click', '.filter-section input, .active-filters .input', function(e) {
+        makeFilterAjaxRequest(
+            e.target.getAttribute('data-url'),
+            true,
+            false,
+            e.target,
+            'ShoptetPageFilterValueChange'
+        );
     });
 
-    $('html').on('click', '.filter-section input, '
-            + '.active-filters .input, '
-            + 'div.category-header input', function (e) {
-                var $this = $(this);
-                if ($this.attr('type') == 'submit') {
-                    e.preventDefault();
-                }
-                makeFilterAjaxRequest($(this).attr('data-url'), true);
-            });
+    $html.on('click', 'div.category-header input', function(e) {
+        makeFilterAjaxRequest(
+            e.target.getAttribute('data-url'),
+            true,
+            false,
+            e.target,
+            'ShoptetPageSortingChanged'
+        );
+    });
 
-    $('html').on('click', 'p#clear-filters a', function (e) {
+    $html.on('click', 'p#clear-filters a', function(e) {
         e.preventDefault();
-        makeFilterAjaxRequest($(this).attr('href'), true);
+        makeFilterAjaxRequest(
+            e.target.getAttribute('href'),
+            true,
+            false,
+            e.target,
+            'ShoptetPageFiltersCleared'
+        );
     });
 
-    $('html').on('click', 'div.pagination a', function (e) {
+    $html.on('click', 'div.pagination a', function(e) {
         e.preventDefault();
         var $scrollTarget = false;
         var ajaxCallback = false;
@@ -309,7 +341,13 @@ $(function () {
         if ($scrollTarget) {
             ajaxCallback = scrollToEl($scrollTarget);
         }
-        makeFilterAjaxRequest($(this).attr('href'), true, ajaxCallback);
+        makeFilterAjaxRequest(
+            e.target.getAttribute('href'),
+            true,
+            ajaxCallback,
+            e.target,
+            'ShoptetPagePaginationUsed'
+        );
     });
 
     // Filters
