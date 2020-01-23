@@ -28,8 +28,10 @@
             shoptet.config.stockAmountUrl + '?ids[]=' + productIds.join('&ids[]='),
             shoptet.ajax.requestTypes.get,
             '',
-            successCallback,
-            errorCallback
+            {
+                'success': successCallback,
+                'error': errorCallback
+            }
         );
     }
 

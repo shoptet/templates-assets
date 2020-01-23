@@ -291,8 +291,10 @@ shoptet.validator.shoptetFormValidator = {
                     var $firstInvalidEl = $currentForm.find(shoptet.validator.invalidFieldClasses)
                         .first().parents('.form-group');
                     scrollToEl($firstInvalidEl);
+                    shoptet.custom.postFailedValidation();
+                    return false;
                 }
-                return !invalid;
+                return shoptet.custom.postSuccessfulValidation();
             }
         });
 
