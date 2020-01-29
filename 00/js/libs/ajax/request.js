@@ -1,5 +1,16 @@
 (function(shoptet) {
 
+    /**
+    *
+    * @param {String} url
+    * url = url of AJAX request
+    * @param {String} type
+    * type = type of request, get or post
+    * @param {Object} data
+    * data = serialized form data in case of post request, empty string in case of get request
+    * @param {Object} callbacks
+    * callbacks = object with functions to be fired after request
+    */
     function makeAjaxRequest(url, type, data, callbacks) {
         // TODO: remove this control after the IE browser will be completely unsupported
         //  and use default parameter (callbacks = {})
