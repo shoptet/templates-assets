@@ -179,7 +179,7 @@
             clearTimeout(shoptet.runtime.menuHelper);
             shoptet.runtime.menuHelper = setTimeout(function() {
                 shoptet.menu.hideMenuHelper();
-            }, shoptet.config.animationDuration * 2);
+            }, shoptet.config.animationDuration);
         });
 
         $html.on('click', '.menu-helper', function() {

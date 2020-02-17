@@ -1131,7 +1131,7 @@ $(function() {
     if ($('#onlinePaymentButton').length) {
         // Redirect from recapitulation page to provider's online payment after 5 seconds
             if (!$('#onlinePaymentButton').parents('.suspend-redirect').length) {
-                setTimeout(function () {
+                var paymentTimeout = setTimeout(function () {
                     shoptet.events.paymentButtonClicked = true;
                     window.location.href = $('#onlinePaymentButton').attr('href');
                 }, 5000);
@@ -1139,7 +1139,14 @@ $(function() {
 
         // Confirm before page unload on recapitulation page with online payment button
         $('#onlinePaymentButton').click(function() {
+            if (shoptet.events.paymentButtonClicked) {
+                return false;
+            }
+
             shoptet.events.paymentButtonClicked = true;
+            if (paymentTimeout) {
+                clearTimeout(paymentTimeout);
+            }
         });
         window.onbeforeunload = function() {
             if (typeof(shoptet.events.paymentButtonClicked) === 'undefined') {

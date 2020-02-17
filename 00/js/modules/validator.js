@@ -155,7 +155,17 @@ var validators = {
 
         var isValid = true;
         if ($(this).attr('id') == 'billZip') {
-            isValid = /^\d\d\d ?\d\d$/i.test(elementValue.trim());
+            var str = elementValue.trim();
+
+            isValid = /^\d\d\d ?\d\d$/i.test(str);
+
+            if (billingCountryId == 43 && !/[1-7]/i.test(str.substring(0, 1))) {
+                isValid = false;
+            }
+            if (billingCountryId == 151 && !/[089]/i.test(str.substring(0, 1))) {
+                isValid = false;
+            }
+
             shoptet.validator.message = shoptet.messages['validatorZipCode'];
         }
         return isValid;
@@ -267,6 +277,8 @@ shoptet.validator.shoptetFormValidator = {
                 }
                 event.stopImmediatePropagation();
                 setTimeout( function() { $('body').css('cursor', 'inherit'); }, 100);
+                shoptet.scripts.signalCustomEvent('ShoptetFailedValidation', $currentForm[0]);
+                shoptet.custom.postFailedValidation($currentForm[0]);
                 return false;
             } else {
                 $currentForm.removeClass('validation-failed');
@@ -291,9 +303,11 @@ shoptet.validator.shoptetFormValidator = {
                     var $firstInvalidEl = $currentForm.find(shoptet.validator.invalidFieldClasses)
                         .first().parents('.form-group');
                     scrollToEl($firstInvalidEl);
+                    shoptet.scripts.signalCustomEvent('ShoptetFailedValidation', $currentForm[0]);
                     shoptet.custom.postFailedValidation($currentForm[0]);
                     return false;
                 }
+                shoptet.scripts.signalCustomEvent('ShoptetSuccessfulValidation', $currentForm[0]);
                 return shoptet.custom.postSuccessfulValidation($currentForm[0]);
             }
         });

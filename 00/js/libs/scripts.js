@@ -46,7 +46,14 @@
     function setCustomCallback(fnName, customCallback) {
         var fn = eval(fnName);
         if (typeof fn === 'function' && typeof customCallback === 'function') {
-            shoptet.scripts.customCallbacks[fnName] = customCallback;
+            var previousCallback = function() {};
+            if (typeof shoptet.scripts.customCallbacks[fnName] === 'function') {
+                previousCallback = shoptet.scripts.customCallbacks[fnName];
+            }
+            shoptet.scripts.customCallbacks[fnName] = function() {
+                previousCallback();
+                customCallback();
+            };
         }
     }
 
@@ -181,7 +188,9 @@
         'ShoptetPagePriceFilterChange',
         'ShoptetPageFilterValueChange',
         'ShoptetPageFiltersCleared',
-        'ShoptetPageMoreProductsRequested'
+        'ShoptetPageMoreProductsRequested',
+        'ShoptetSuccessfulValidation',
+        'ShoptetFailedValidation'
     ];
     // TODO: updateCartButton - on cart page unnecessary
     shoptet.scripts.libs = {
@@ -284,6 +293,16 @@
             'areUnavailableOptionsSelected',
             'setupCurrentParameter',
             'sortOptions'
+        ],
+        phoneInput: [
+            'handleFlags',
+            'interconnectFlagsWithSelect',
+            'hideCountriesSelect',
+            'setSelectedCountry',
+            'setLastPreferredCountry',
+            'handleKeyCodes',
+            'selectSelectedOption',
+            'positionCountriesSelect'
         ],
         common: [
             'getSelectValue',

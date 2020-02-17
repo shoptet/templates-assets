@@ -23,7 +23,7 @@ function replaceImage(bigImage) {
 
     $mainImageLink.attr({
         'href': bigImage,
-        'data-href': bigImage.replace(/\/(big|category_portrait)\//, "/orig/")
+        'data-href': bigImage.replace(/big/, "/orig/")
     });
     if ($('.cloud-zoom').length) {
         clearTimeout(shoptet.runtime.cloudZoom);
