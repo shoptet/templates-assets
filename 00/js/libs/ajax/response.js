@@ -24,7 +24,7 @@ function AjaxResponse(result, customSettings) {
     } catch(e) {
         this.response = {
             code: this.R200_OK,
-            message: e.message,
+            message: null,
             payload: result
         }
     }

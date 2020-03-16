@@ -38,7 +38,8 @@
             return true;
         }
 
-        if (shoptet.validator.ajaxPending++ > shoptet.validatorPhone.validators.phoneInputs.elements.length) {
+        if (++shoptet.validatorPhone.ajaxPending > shoptet.validatorPhone.validators.phoneInputs.elements.length) {
+            shoptet.validatorPhone.ajaxPending--;
             return;
         }
 
@@ -56,8 +57,14 @@
             }
             el.classList.remove('js-validated-field');
             el.removeAttribute('disabled');
-            shoptet.validator.ajaxPending--;
+            shoptet.validatorPhone.ajaxPending--;
         };
+
+        var failedCallback = function() {
+            el.classList.remove('js-validated-field');
+            el.removeAttribute('disabled');
+            shoptet.validatorPhone.ajaxPending--;
+        }
 
         var url = shoptet.validatorPhone.validateUrl;
         url += '?number=' + encodeURIComponent(validatedValue)
@@ -68,7 +75,8 @@
             shoptet.ajax.requestTypes.get,
             '',
             {
-                'success': successCallback
+                'success': successCallback,
+                'failed' : failedCallback
             }
         );
 
@@ -89,6 +97,7 @@
             fireEvent: true
         }
     };
+    shoptet.validatorPhone.ajaxPending = 0;
 
     for (var i = 0; i < shoptet.validator.events.length; i++) {
         document.addEventListener(shoptet.validator.events[i], function() {

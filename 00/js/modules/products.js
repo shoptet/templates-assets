@@ -509,16 +509,16 @@ $(function() {
 
     $('.productRatingAction').on('click',function() {
         var successCallback = function(response) {
-            $(".stars-wrapper").html(response.response.payload);
+            $(".stars-wrapper").html(response.getPayload());
             initTooltips();
         };
 
-        var url = $(this).attr('href');
+        var dataString = 'productId=' + $(this).data('productid') + '&score=' + $(this).data('score');
 
         shoptet.ajax.makeAjaxRequest(
-            url,
-            shoptet.ajax.requestTypes.get,
-            '',
+            shoptet.config.rateProduct,
+            shoptet.ajax.requestTypes.post,
+            dataString,
             {
                 'success': successCallback
             }

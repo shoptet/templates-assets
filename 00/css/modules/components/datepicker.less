@@ -1,6 +1,5 @@
 .datepicker.birthdate {
   position: relative;
-  z-index: 11; //this is to ensure visibility in register popup form - upon initialization the z-index is copied to the .ui-datepicker
 }
 
 .ui-datepicker {
@@ -12,6 +11,7 @@
     background-color: @input-bg;
     border: 2px solid @input-border;
     border-radius: @input-border-radius;
+    z-index: 10000 !important; // To ensure visibility in user action window. Important is used to overwrite z-index added by js.
     .ui-datepicker-title {
         margin: 0 2em;
         select {

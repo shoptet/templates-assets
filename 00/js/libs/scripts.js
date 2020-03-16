@@ -50,9 +50,9 @@
             if (typeof shoptet.scripts.customCallbacks[fnName] === 'function') {
                 previousCallback = shoptet.scripts.customCallbacks[fnName];
             }
-            shoptet.scripts.customCallbacks[fnName] = function() {
-                previousCallback();
-                customCallback();
+            shoptet.scripts.customCallbacks[fnName] = function(args) {
+                previousCallback(args);
+                customCallback(args);
             };
         }
     }

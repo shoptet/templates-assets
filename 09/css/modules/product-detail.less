@@ -155,6 +155,35 @@
     }
 }
 
+.p-gifts-wrapper {
+    margin-top: round(@line-height-computed / 4);
+}
+.p-gifts-heading {
+    font-size: @font-size-h3;
+    margin-bottom: round(@line-height-computed / 2);
+}
+.p-gift {
+    display: flex;
+    align-items: center;
+    margin-bottom: round(@line-height-computed / 4);
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+.p-gift-image {
+    width: @img-width-sm;
+    flex-shrink: 0;
+}
+.p-gift-name {
+    font-size: @font-size-h3;
+    margin-left: round(@grid-gutter-width / 2);
+    .multiple-columns-body & {
+        @media(min-width: @screen-sm-min) {
+            font-size: @font-size-larger;
+        }
+    }
+}
+
 .p-thumbnails-wrapper {
     position: static;
 }

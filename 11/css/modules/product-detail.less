@@ -185,3 +185,29 @@ ul.shp-tabs {
     display: flex;
     max-width: 100%;
 }
+
+.p-gifts-wrapper {
+    margin: round(@line-height-computed * 1.5) 0;
+}
+.p-gifts-heading {
+    font-size: @font-size-h3;
+    margin-bottom: round(@line-height-computed / 2);
+}
+.p-gift {
+    display: flex;
+    align-items: center;
+    margin-bottom: round(@line-height-computed / 4);
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+.p-gift-image {
+    width: @img-width-sm;
+    flex-shrink: 0;
+}
+.p-gift-name {
+    font-size: @font-size-h4;
+    font-weight: bold;
+    margin-left: round(@grid-gutter-width / 2);
+}
+

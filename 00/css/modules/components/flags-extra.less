@@ -9,12 +9,14 @@
     .flag {
         width: @flag-extra-width;
         height: @flag-extra-height;
+        margin-left: -(round(@grid-gutter-width / 5));
         border-radius: 100%;
         font-size: @flag-extra-font-size;
         font-weight: 700;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         text-align: center;
         .price-standard,
         .price-save {
@@ -78,8 +80,20 @@
         }
     }
 }
+.flag-gift .icon-gift {
+    font-size: 24px;
+    line-height: @flag-extra-icon-font-size;
+    margin-top: -6px;
+    margin-bottom: -6px;
+    .products-additional & {
+        @media (min-width: @screen-sm-min) and (max-width: @screen-lg-max) {
+            margin-bottom: 0;
+            font-size: 14px;
+            line-height: @flag-extra-icon-font-size-smaller;
+        }
+    }
+}
 .flag-discount {
-    margin-left: -(round(@grid-gutter-width / 5));
     .price-standard {
         display: block;
     }

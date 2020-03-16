@@ -513,3 +513,28 @@ td .availability-label {
     display: flex;
     max-width: 100%;
 }
+
+.p-gifts-wrapper {
+    padding-top: round(@line-height-computed / 2);
+}
+.p-gifts-heading {
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 3;
+}
+.p-gift {
+    display: flex;
+    align-items: center;
+    margin-bottom: round(@line-height-computed / 4);
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+.p-gift-image {
+    width: @img-width-sm;
+    flex-shrink: 0;
+}
+.p-gift-name {
+    margin-left: round(@grid-gutter-width / 2);
+    font-weight: bold;
+}

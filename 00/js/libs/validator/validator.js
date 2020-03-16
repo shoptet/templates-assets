@@ -95,6 +95,5 @@
     });
     shoptet.validator.invalidFieldClasses = '.js-error-field, .js-validated-field';
     shoptet.validator.events = ['DOMContentLoaded', 'ShoptetDOMContentLoaded'];
-    shoptet.validator.ajaxPending = 0;
 
 })(shoptet);
