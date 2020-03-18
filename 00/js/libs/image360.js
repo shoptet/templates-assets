@@ -286,7 +286,6 @@ function init(el) {
             showMessage(shoptet.messages['ajaxError'], 'error');
             return;
         }
-        var dataString = 'productId=' + productId + '&imageSize=' + imageContainer.dataset[size];
 
         var successCallback = function callback(response) {
             preloadImages(imageContainer, response.getPayload(), size);
@@ -299,10 +298,13 @@ function init(el) {
         shoptet.ajax.makeAjaxRequest(
             config.url,
             shoptet.ajax.requestTypes.post,
-            dataString,
             {
-                'success': successCallback,
-                'failed': failedCallback
+                productId: productId,
+                imageSize: imageContainer.dataset[size]
+            },
+            {
+                success: successCallback,
+                failed: failedCallback
             }
         );
     }

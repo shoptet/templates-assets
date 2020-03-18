@@ -12,45 +12,57 @@
     * callbacks = object with functions to be fired after request
     */
     function makeAjaxRequest(url, type, data, callbacks) {
-        // TODO: remove this control after the IE browser will be completely unsupported
-        //  and use default parameter (callbacks = {})
-        if (typeof callbacks === 'undefined') {
-            callbacks = {}
-        }
 
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState === XMLHttpRequest.DONE) {
-
-                var response = new AjaxResponse(xmlhttp.response);
-                var allowedCallbacks = [
-                    'success',
-                    'failed',
-                    'redirect',
-                    'complete'
-                ];
-
-                allowedCallbacks.forEach(function(callback) {
-                    response.setCallback(callback, function() {
-                        if (callbacks.hasOwnProperty(callback)
-                            && typeof callbacks[callback] === 'function'
-                        ) {
-                            callbacks[callback](response);
-                        }
-                    });
-                });
-
-                response.processResult();
-                response.showNotification();
+        return new Promise(function(resolve, reject) {
+            // TODO: remove this control after the IE browser will be completely unsupported
+            //  and use default parameter (callbacks = {})
+            if (typeof callbacks === 'undefined') {
+                callbacks = {}
             }
-        };
-
-        xmlhttp.open(type, url, true);
-        xmlhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-        if (type === shoptet.ajax.requestTypes.post) {
-            xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-        }
-        xmlhttp.send(data);
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open(type, url, true);
+            xmlhttp.onload = function() {
+                if (xmlhttp.status >= 200 && xmlhttp.status < 300) {
+                    var response = new AjaxResponse(xmlhttp.response);
+                    var allowedCallbacks = [
+                        'success',
+                        'failed',
+                        'redirect',
+                        'complete'
+                    ];
+                    allowedCallbacks.forEach(function(callback) {
+                        response.setCallback(callback, function() {
+                            if (callbacks.hasOwnProperty(callback)
+                                && typeof callbacks[callback] === 'function'
+                            ) {
+                                callbacks[callback](response);
+                            }
+                        });
+                    });
+                    response.processResult();
+                    response.showNotification();
+                    resolve(response);
+                } else {
+                    reject(
+                        {
+                            status: this.status,
+                            statusText: this.statusText
+                        }
+                    );
+                }
+            }
+            xmlhttp.onerror = function() {
+                reject({
+                  status: this.status,
+                  statusText: this.statusText
+                });
+            };
+            xmlhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+            if (type === shoptet.ajax.requestTypes.post) {
+                xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+            }
+            xmlhttp.send(shoptet.common.serializeData(data));
+        });
     }
 
     shoptet.ajax = shoptet.ajax || {};

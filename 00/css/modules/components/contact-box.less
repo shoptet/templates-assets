@@ -34,7 +34,7 @@
                     position: absolute;
                     left: 0;
                     top: 50%;
-                    width: 24px;                                             
+                    width: 24px;
                     font-size: @contact-box-icon-font-size;
                     text-align: center;
                 }
@@ -53,14 +53,10 @@
                         content: @icon-mobile-code;
                     }
                 }
-                &.icq {
+                &.youtube {
                     &::before {
-                        content: @icon-icq-code;
-                    }
-                }
-                &.jabber {
-                    &::before {
-                        content: @icon-jabber-code;
+                        content: @icon-youtube-code;
+                        font-size: round(@contact-box-icon-font-size * 1.1);
                     }
                 }
                 &.skype {
@@ -83,9 +79,9 @@
                         content: @icon-instagram-code;
                     }
                 }
-                &.msn {
+                &.tiktok {
                     &::before {
-                        content: @icon-msn-code;
+                        content: @icon-tiktok-code;
                     }
                 }
             }

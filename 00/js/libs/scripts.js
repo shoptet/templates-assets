@@ -1,5 +1,4 @@
 (function(shoptet) {
-
     /**
      * Wrapper for functions apply
      *
@@ -307,7 +306,8 @@
         common: [
             'getSelectValue',
             'getCheckedInputValue',
-            'createDocumentFromString'
+            'createDocumentFromString',
+            'serializeData'
         ],
         stockAvailabilities: [
             'getDeliveryPointName',
@@ -317,6 +317,10 @@
             'attachEventListeners',
             'mouseEnterListener',
             'mouseLeaveListener'
+        ],
+        cofidis: [
+            'getElements',
+            'setMinPayment'
         ]
     };
 

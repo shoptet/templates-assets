@@ -476,6 +476,9 @@ ol.cart-header {
         }
     }
     &.co-delivery-method {
+        form:first-of-type & {
+            border-top-style: none;
+        }
         h4 {
             &::before {
                 content: @icon-van-code;
@@ -593,7 +596,7 @@ ol.cart-header {
 }
 
 .form-group.unveil-wrapper,
-#company-info, 
+#company-info,
 #note {
     margin-bottom: @line-height-computed;
 }
@@ -835,5 +838,15 @@ table.table.recapitulation-table {
     h1 {
         margin-top: 0;
         padding-top: @line-height-computed;
+    }
+}
+
+.site-msg-custom.step-1 {
+    padding-top: @line-height-computed;
+    padding-left: round(@grid-gutter-width / 4);
+    padding-right: round(@grid-gutter-width / 4);
+    @media (min-width: @screen-md-min) {
+        padding-left: 0;
+        padding-right: 0;
     }
 }
