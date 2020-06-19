@@ -34,6 +34,51 @@
         return data;
     }
 
+    /**
+     * Create name for custom event depending on form action
+     *
+     * @param {String} action
+     * action = action attribute of submitted form
+     */
+    function createEventNameFromFormAction(action) {
+        var actionName = action.replace(shoptet.config.cartActionUrl, '');
+        actionName = actionName.replace(/\//gi, '');
+        actionName = 'ShoptetCart' + actionName.charAt(0).toUpperCase() + actionName.slice(1);
+        return actionName;
+    }
+
+    /**
+     * Check if element width fits into its closest positioned ancestor element (offset parent)
+     *
+     * @param {Element} el
+     * el = element
+     * @param {Number} paddingRight
+     * paddingRight = optional - width reserved on offset parent right side in pixels
+     */
+    function fitsToParentWidth(el, paddingRight) {
+        var reserved = typeof paddingRight === 'undefined' ? 0 : paddingRight;
+        var parent = el.offsetParent;
+        if (!parent) {
+            return true;
+        }
+        if (el.offsetLeft + el.offsetWidth > parent.offsetWidth - reserved) {
+            return false;
+        }
+        return true;
+    }
+
+    function addClassToElements(elements, className) {
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].classList.add(className);
+        }
+    }
+
+    function removeClassFromElements(elements, className) {
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].classList.remove(className);
+        }
+    }
+
     shoptet.common = shoptet.common || {};
     shoptet.scripts.libs.common.forEach(function(fnName) {
         var fn = eval(fnName);

@@ -15,17 +15,19 @@
             var currentValidator = validators[key];
             for (var innerKey in currentValidator['elements']) {
                 if (typeof currentValidator['elements'][innerKey] === 'object') {
-                    currentValidator['events'].forEach(function(event) {
+                    currentValidator['events'].forEach(function(event, index) {
                         shoptet.validator.initNewValidator(
                             currentValidator['validator'],
                             currentValidator['elements'][innerKey],
                             event
                         );
                         if (currentValidator['fireEvent']) {
-                            if (shoptet.scripts.availableCustomEvents.indexOf(event) !== -1) {
-                                shoptet.scripts.signalCustomEvent(event, currentValidator['elements'][innerKey]);
-                            } else {
-                                shoptet.scripts.signalNativeEvent(event, currentValidator['elements'][innerKey]);
+                            if (!(currentValidator['fireOneEvent'] && index > 0)) {
+                                if (shoptet.scripts.availableCustomEvents.indexOf(event) !== -1) {
+                                    shoptet.scripts.signalCustomEvent(event, currentValidator['elements'][innerKey]);
+                                } else {
+                                    shoptet.scripts.signalNativeEvent(event, currentValidator['elements'][innerKey]);
+                                }
                             }
                         }
                     });
@@ -68,7 +70,7 @@
         message.classList.add('msg-error');
         message.setAttribute('data-type', messageType);
         message.innerHTML = shoptet.messages[messageType];
-        // TODO: unifikovat parentElement
+        // TODO: unify parentElement
         elementWrapper.parentElement.insertBefore(message, elementWrapper);
 
     }

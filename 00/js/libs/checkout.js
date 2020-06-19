@@ -285,6 +285,7 @@
             $billCountryId.val(defaultCountryVal);
             $defaultBillRegionId.val(defaultRegionVal);
             shoptet.global.restoreDefaultRegionSelect($defaultBillRegionId, defaultRegionVal);
+            shoptet.validatorZipCode.updateZipValidPattern($billCountryId);
         } else {
             $el.addClass('visible');
             toggleRequiredAttributes($el, 'add', false);

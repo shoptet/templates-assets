@@ -305,4 +305,26 @@
             }
         }
     }
+    .widget-parameter-wrapper {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        &.justified {
+            justify-content: flex-start;
+        }
+        .widget-parameter-value {
+            &:first-child {
+                a {
+                    padding-left: 0;
+                }
+            }
+        }
+    }
+    &.products-inline-image {
+        .widget-parameter-wrapper {
+            @media (min-width: @screen-md-min) {
+                margin: @line-height-computed 0 0;
+            }
+        }
+    }
 }

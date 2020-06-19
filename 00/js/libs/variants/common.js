@@ -57,6 +57,22 @@
         return true;
     }
 
+    /* Some browsers (e.g. Chrome) restore form values when going back in history
+       but do not fire change events - this function trigger these events manually
+    */
+    function handleBrowserValueRestoration() {
+        window.addEventListener('load', function() {
+            var elements = document.querySelectorAll(
+                '.variant-list select, .surcharge-list select, .advanced-parameter input:checked'
+            );
+            for (var i = 0; i < elements.length; i++) {
+                if (elements[i].value !== '') {
+                    shoptet.scripts.signalNativeEvent('change', elements[i]);
+                }
+            }
+        });
+    }
+
     shoptet.variantsCommon = shoptet.variantsCommon || {};
     shoptet.scripts.libs.variantsCommon.forEach(function(fnName) {
         var fn = eval(fnName);

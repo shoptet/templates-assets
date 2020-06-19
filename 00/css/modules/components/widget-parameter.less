@@ -1,0 +1,35 @@
+.widget-parameter-wrapper {
+    position: relative;
+    margin: @line-height-computed 0 0;
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    .widget-parameter-list {
+        display: flex;
+        flex-shrink: 0;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    .widget-parameter-value,
+    .widget-parameter-more {
+        flex-shrink: 0;
+        a,
+        span {
+            padding: 0 round(@grid-gutter-width / 4);
+        }
+    }
+    .widget-parameter-value {
+        &:first-child {
+            a {
+                padding-left: 0;
+            }
+        }
+    }
+    .widget-parameter-more {
+        visibility: hidden;
+        &.visible {
+            visibility: visible;
+        }
+    }
+}

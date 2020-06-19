@@ -253,3 +253,34 @@
     display: block;
     margin-bottom: 12px;
 }
+
+.widget-parameter-wrapper {
+    .products-block .product:not(.highlight-product):hover & {
+        @media (min-width: @screen-sm-min) {
+            visibility: hidden;
+            opacity: 0;
+        }
+    }
+    .widget-parameter-value {
+        &:first-child {
+            a {
+                padding-left: round(@grid-gutter-width / 4);
+            }
+        }
+    }
+    &.justified {
+        justify-content: center;
+    }
+    .highlight-product & {
+        .widget-parameter-value {
+            &:first-child {
+                a {
+                    padding-left: 0;
+                }
+            }
+        }
+        &.justified {
+            justify-content: flex-start;
+        }
+    }
+}

@@ -476,6 +476,7 @@ $(function() {
     if($('.type-product').length) {
         shoptet.variantsSimple.handler();
         shoptet.variantsSplit.handler();
+        shoptet.variantsCommon.handleBrowserValueRestoration();
     }
 
     // Product's detail tab rating
@@ -560,10 +561,15 @@ $(function() {
                     $productsWrapper.last().append(listing);
                     $('.pagination-wrapper').replaceWith(pagination);
                     sameHeightOfProducts();
+                    shoptet.products.splitWidgetParameters();
                     initTooltips();
                     setTimeout(function() {
                         $('.products-page img').unveil();
                     }, 1);
+                    history.pushState(null, null, this.url);
+                    if ('scrollRestoration' in history) {
+                        history.scrollRestoration = 'manual';
+                    }
                     hideSpinner();
                 }
                 shoptet.scripts.signalDomLoad('ShoptetDOMPageMoreProductsLoaded', $productsWrapper[0]);
@@ -576,3 +582,50 @@ $(function() {
         $('.social-buttons').toggleClass('no-display');
     });
 });
+
+(function(shoptet) {
+
+    function splitWidgetParameters() {
+        var wrappers = document.querySelectorAll('.widget-parameter-wrapper');
+        for (var i = 0; i < wrappers.length; i++) {
+            shoptet.products.splitSingleWidgetParameter(wrappers[i]);
+        }
+    }
+
+    function splitSingleWidgetParameter(wrapper) {
+        var list = wrapper.querySelector('.widget-parameter-list');
+        var values = wrapper.querySelectorAll('.widget-parameter-value');
+        var moreEl = wrapper.querySelector('.widget-parameter-more');
+        var valuesToHide = [];
+        wrapper.classList.remove('justified');
+        moreEl.classList.remove('js-hidden');
+        moreEl.classList.remove('visible');
+        shoptet.common.removeClassFromElements(values, 'js-hidden');
+
+        if (!shoptet.common.fitsToParentWidth(list)) {
+            var moreElWidth = moreEl.offsetWidth;
+            for (var i = 0; i < values.length; i++) {
+                if (!shoptet.common.fitsToParentWidth(values[i], moreElWidth)) {
+                    valuesToHide = [].slice.call(values, i);
+                    break;
+                }
+            }
+            shoptet.common.addClassToElements(valuesToHide, 'js-hidden');
+            if (valuesToHide.length === values.length) {
+                moreEl.classList.add('js-hidden');
+            } else {
+                moreEl.classList.add('visible');
+            }
+        } else {
+            moreEl.classList.add('js-hidden');
+        }
+        wrapper.classList.add('justified');
+    }
+
+    shoptet.products = shoptet.products || {};
+    shoptet.scripts.libs.products.forEach(function(fnName) {
+        var fn = eval(fnName);
+        shoptet.scripts.registerFunction(fn, 'products');
+    });
+
+})(shoptet);

@@ -115,6 +115,20 @@ h4,
     }
 }
 
+.popup-widget {
+    @media (max-width: @screen-xs-max) {
+        &.cart-widget {
+            top: unit(@popup-widget_top-xs-max, px);
+        }
+        &.search-widget {
+            top: unit(@popup-widget_top-xs-max, px);
+        }
+        &.login-widget {
+            top: unit(@popup-widget_top-xs-max, px);
+        }
+    } 
+}
+
 .cart-widget-button {
     .btn {
         display: block;
@@ -525,13 +539,6 @@ ol.top-products {
     .content-wrapper-in > .content {
         flex: 1 1 auto;
         width: 487px;
-    }
-}
-
-#register-form {
-    .submit-wrapper,
-    .stay-in-touch {
-        margin-top: @line-height-computed;
     }
 }
 

@@ -49,6 +49,7 @@ var transform = function () {
                             'msg-info'
                         );
                     }
+                    shoptet.scripts.signalCustomEvent('ShoptetValidationTransform', this);
                 }
             }
         } else {
@@ -145,31 +146,6 @@ var validators = {
         }
         return isValid;
     },
-    billZip: function (elementValue) {
-        var billingCountryId = $("#billCountryId").val();
-        var disableZipValidation = billingCountryId != 43 && billingCountryId != 151;
-
-        if (disableZipValidation){
-            return true;
-        }
-
-        var isValid = true;
-        if ($(this).attr('id') == 'billZip') {
-            var str = elementValue.trim();
-
-            isValid = /^\d\d\d ?\d\d$/i.test(str);
-
-            if (billingCountryId == 43 && !/[1-7]/i.test(str.substring(0, 1))) {
-                isValid = false;
-            }
-            if (billingCountryId == 151 && !/[089]/i.test(str.substring(0, 1))) {
-                isValid = false;
-            }
-
-            shoptet.validator.message = shoptet.messages['validatorZipCode'];
-        }
-        return isValid;
-    },
     billHouseNumber: function (elementValue) {
         var isValid = true;
         if ($(this).attr('id') == 'billHouseNumber') {
@@ -205,7 +181,6 @@ var validate = function(isSubmit) {
 
         if (softWarning) {
             $(this).addClass('warning-field');
-
             if (typeof shoptet.validator.message !== 'undefined') {
                 shoptet.validator.showValidatorMessage(
                     $(this),
@@ -213,11 +188,11 @@ var validate = function(isSubmit) {
                     'msg-warning'
                 );
             }
+            shoptet.scripts.signalCustomEvent('ShoptetValidationWarning', $(this)[0]);
             softWarning = false;
         }
     } else {
         $(this).addClass('error-field');
-
         if (typeof shoptet.validator.message !== 'undefined') {
             shoptet.validator.showValidatorMessage(
                 $(this),
@@ -225,6 +200,7 @@ var validate = function(isSubmit) {
                 'msg-error'
             );
         }
+        shoptet.scripts.signalCustomEvent('ShoptetValidationError', $(this)[0]);
     }
     return isValid;
 };
@@ -266,10 +242,22 @@ shoptet.validator.shoptetFormValidator = {
             $elements.each(function() {
                 var isSubmit = true;
                 var isElementValid = validate.call($(this), isSubmit);
-                if (!isElementValid && invalidElementsCounter++ == 0) {
+                if (!isElementValid && invalidElementsCounter++ == 0 && shoptet.validatorPhone.ajaxPending === 0) {
                     $(this).focus();
                 }
             });
+
+            if (shoptet.validatorPhone.ajaxPending !== 0) {
+                // Async validation -  abort submitting
+                event.preventDefault();
+                new Promise(function (resolve) {
+                    document.addEventListener(shoptet.validatorPhone.ajaxDoneEvent, resolve);
+                }).then(function() {
+                    // Done - resubmit form
+                    $currentForm.submit();
+                });
+            }
+
             if (invalidElementsCounter) {
                 $currentForm.addClass('validation-failed');
                 if ($.isFunction($currentForm.data('validatorSettings').onFailed)) {

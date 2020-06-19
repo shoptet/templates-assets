@@ -155,6 +155,7 @@ function makeFilterAjaxRequest(url, pushHistoryState, successCallback, element, 
             setTimeout(function () {
                 sameHeightOfProducts();
             }, 1000);
+            shoptet.products.splitWidgetParameters();
             try {
                 if (pushHistoryState) {
                     if ($('.breadcrumbs').length) {
@@ -167,6 +168,9 @@ function makeFilterAjaxRequest(url, pushHistoryState, successCallback, element, 
                         history.pushState(null, null, $selector.find('meta').attr('content'));
                     } else {
                         history.pushState(null, null, url);
+                    }
+                    if ('scrollRestoration' in history) {
+                        history.scrollRestoration = 'auto';
                     }
                 } else {
                     document.title = $('meta[property="og:title"]').attr('content');

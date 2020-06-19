@@ -7,10 +7,9 @@ if (shoptet.abilities.feature.top_navigation_menu) {
         var fits = true;
         $('.top-navigation-bar-menu li').removeClass('cropped');
         $('.top-navigation-bar-menu-helper').empty();
+        var menuPadding = parseInt($topMenuWrapper.css('padding-right'));
         $('.top-navigation-bar-menu li').each(function() {
-            var liPosition = $(this).position();
-            var liWidth = $(this).outerWidth();
-            if ((liPosition.left + liWidth) > $topMenuWrapper.width()) {
+            if (!shoptet.common.fitsToParentWidth($(this)[0], menuPadding)) {
                 $(this).addClass('cropped');
                 $(this).nextAll().addClass('cropped');
                 $(this).parents('ul').find('.cropped').clone().appendTo('.top-navigation-bar-menu-helper');

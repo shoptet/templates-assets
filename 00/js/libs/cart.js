@@ -20,7 +20,7 @@
                 if (count > 99) {
                     count = '99+';
                 } else {
-                    count = Math.ceil(parseFloat(count));
+                    count = Math.round(parseFloat(count));
                 }
                 if (i.length) {
                     i.text(count);
@@ -143,10 +143,12 @@
      *
      * @param {Object} form
      * form = form submitted by AJAX
+     * @param {Object} response
+     * form = AJAX response
      */
-    function functionsForCart(form) {
+    function functionsForCart(form, response) {
         shoptet.cart.triggerCofidisCalc();
-        shoptet.tracking.handleAction(form);
+        shoptet.tracking.handleAction(form, response);
         if (typeof shoptet.config.showAdvancedOrder !== 'undefined' && !shoptet.config.orderingProcess.active) {
             shoptet.cart.getAdvancedOrder();
         }
@@ -166,16 +168,17 @@
     }
 
     /**
-     * Create name for custom event depending on form action
+     * Necessary stuff after cart update
      *
      * @param {String} action
      * action = action attribute of submitted form
+     * @param {Object|boolean} el
+     * el = submitted form or document in case of form is removed by getting new cart content
      */
-    function createEventNameFromFormAction(action) {
-        var actionName = action.replace(shoptet.config.cartActionUrl, '');
-        actionName = actionName.replace(/\//gi, '');
-        actionName = 'ShoptetCart' + actionName.charAt(0).toUpperCase() + actionName.slice(1);
-        return actionName;
+    function handleCartPostUpdate(action, el) {
+        initTooltips();
+        shoptet.scripts.signalCustomEvent(shoptet.common.createEventNameFromFormAction(action), el);
+        shoptet.scripts.signalCustomEvent('ShoptetCartUpdated', el);
     }
 
     /**
@@ -217,16 +220,18 @@
         var successCallback = function(response) {
             switch (replaceContent) {
                 case 'cart':
-                    var count = response.getFromPayload('count');
-                    var price = response.getFromPayload('price');
-                    shoptet.cart.updateCartButton(count, price);
+                    shoptet.cart.updateCartButton(response.getFromPayload('count'), response.getFromPayload('price'));
                     if (
                         shoptet.config.orderingProcess.step === 0
                         || body.classList.contains('cart-window-visible')
                     ) {
                         if (callingFunctions === 'functionsForCart') {
                             var cartCallback = function() {
-                                shoptet.cart.functionsForCart(form);
+                                shoptet.cart.functionsForCart(form, response);
+                                // argument "element" is document
+                                // because original form is removed from DOM
+                                // as the cart content is loaded
+                                shoptet.cart.handleCartPostUpdate(action, document);
                             };
                         }
                         shoptet.cart.getCartContent(true, cartCallback);
@@ -252,29 +257,28 @@
             dismissMessages();
 
             if (callingFunctions === 'functionsForCart' && (typeof cartCallback === 'undefined')) {
-                shoptet.cart.functionsForCart(form);
+                shoptet.cart.functionsForCart(form, response);
             }
 
             if (callingFunctions === 'functionsForStep1') {
                 shoptet.cart.functionsForStep1();
             }
-            initTooltips();
-            // TODO: remove in future and let available only standardized Shoptet custom events below
-            var ev = new CustomEvent('ajaxDone');
-            document.dispatchEvent(ev);
-            shoptet.scripts.signalCustomEvent('ShoptetCartUpdated', form);
-            shoptet.scripts.signalCustomEvent(shoptet.cart.createEventNameFromFormAction(action), form);
+
+            // If the cartCallback is defined, function below is executed there
+            if (typeof cartCallback === 'undefined') {
+                shoptet.cart.handleCartPostUpdate(action, form);
+            }
 
         };
 
-        var failedCallback = function() {
+        var failedCallback = function(response) {
             hideSpinner();
             $('html, body').animate({
                 scrollTop: 0
             }, shoptet.config.animationDuration);
             if (callingFunctions === 'functionsForCart') {
                 var cartCallback = function() {
-                    shoptet.cart.functionsForCart(form);
+                    shoptet.cart.functionsForCart(form, response);
                 };
                 shoptet.cart.getCartContent(true, cartCallback);
             }
@@ -396,7 +400,7 @@
 
         // Check discount coupon
         $html.on('click touchend', '#continue-order-button', function(e) {
-            if($('#discountCouponCode').val()) {
+            if ($('#discountCouponCode').val()) {
                 showMessage(shoptet.messages['discountCouponWarning'], 'warning', '', false, true)
                 e.preventDefault();
             } else {
@@ -405,7 +409,7 @@
         });
 
         // Choose free gift
-        $html.on('click', '.free-gift-trigger', function (e) {
+        $html.on('click', '.free-gift-trigger', function(e) {
             e.preventDefault();
             $('.free-gifts-wrapper img').each(function() {
                 $(this).attr('src', $(this).attr('data-src'));
@@ -430,7 +434,7 @@
         $html.on('click', '#colorbox .free-gifts label', function(e) {
             e.preventDefault();
             var id = $(this).attr('for');
-            $('.free-gifts input').each(function () {
+            $('.free-gifts input').each(function() {
                 if (id == $(this).attr('id')) {
                     $(this).prop('checked', true);
                 } else {

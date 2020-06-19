@@ -466,3 +466,29 @@ a.btn {
         }
     }
 }
+
+
+.products-block > div .p .p-bottom {
+    .prices {
+        .price-save {
+            white-space: nowrap;
+        }
+        width: 100%;
+    }
+    &.single-button .prices {
+        @media (min-width: @screen-sm-min) {
+            width: calc(100% - 110px);
+        }
+    }
+}
+
+.widget-parameter-wrapper {
+    margin: 0;
+    .widget-parameter-value,
+    .widget-parameter-more {
+        a,
+        span {
+            font-size: smaller;
+        }
+    }
+}

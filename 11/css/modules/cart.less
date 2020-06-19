@@ -266,7 +266,7 @@ ol.cart-header {
         margin-bottom: round(@line-height-computed * 3);
     }
     @media (min-width: @screen-md-min) {
-        &.next-step-sk {
+        &.next-step:lang(sk) {
             flex-wrap: wrap-reverse;
         }
     }
@@ -402,7 +402,7 @@ ol.cart-header {
         }
     }
     @media (min-width: @screen-md-min) {
-        .next-step-sk & {
+        .next-step:lang(sk) & {
             flex: 1 1 auto;
             width: 100%;
             margin-top: round(@grid-gutter-width / 2);
@@ -423,7 +423,7 @@ ol.cart-header {
         padding-bottom: round(@grid-gutter-width / 2);
     }
     @media (min-width: @screen-md-min) {
-        .next-step-sk & {
+        .next-step:lang(sk) & {
             flex: 1 1 auto;
             width: 100%;
         }
@@ -535,7 +535,7 @@ ol.cart-header {
         }
         .box& h4,
         h4 {
-            margin-left: -(round(@grid-gutter-width * 2)) !important;
+            margin-left: -(round(@grid-gutter-width * 2));
             padding-left: round(@grid-gutter-width * 2);
             &::before {
                 left: round(@grid-gutter-width / 2);
@@ -546,8 +546,27 @@ ol.cart-header {
         padding-left: round(@grid-gutter-width * 3);
         .box& h4,
         h4 {
-            margin-left: -(round(@grid-gutter-width * 3)) !important;
+            margin-left: -(round(@grid-gutter-width * 3));
             padding-left: round(@grid-gutter-width * 3);
+        }
+    }
+    &.co-registration {
+        padding-left: 0;
+        h4 {
+            margin-left: 0;
+            padding-left: 0;
+            margin-top: 0;
+            &::before {
+                content: '';
+            }
+        }
+        &:first-of-type {
+            border: 0;
+            padding-top: 0;
+        }
+        &:empty {
+            padding: 0;
+            border: 0;
         }
     }
 }
@@ -595,8 +614,6 @@ ol.cart-header {
     }
 }
 
-.form-group.unveil-wrapper,
-#company-info,
 #note {
     margin-bottom: @line-height-computed;
 }

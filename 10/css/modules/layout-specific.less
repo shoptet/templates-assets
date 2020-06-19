@@ -75,6 +75,30 @@ ul {
     }
 }
 
+.co-box {
+    &.co-registration {
+        padding-top: (@line-height-computed / 2);
+        padding-bottom: (@line-height-computed / 2);
+        margin: 0;
+        .box-sm {
+            padding: 0;
+        }
+        h4, 
+        h4:first-of-type {
+            position: relative;
+            margin-top: (@line-height-computed / 2);
+            margin-bottom: (@line-height-computed / 2);
+        }
+        .co-box-additional {
+            margin-top: @line-height-computed;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+    }
+    
+}
+
 .next-step {
     position: relative;
     padding-bottom: 34px;

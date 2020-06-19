@@ -13,6 +13,7 @@
                 phoneWrapper,
                 shoptet.validatorRequired.messageType
             );
+            shoptet.scripts.signalCustomEvent('ShoptetValidationError', el);
         } else {
             phoneWrapper = el.parentElement;
             shoptet.validator.removeErrorMessage(el, phoneWrapper, shoptet.validatorRequired.messageType);

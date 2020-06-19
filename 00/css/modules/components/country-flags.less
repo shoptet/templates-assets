@@ -5,7 +5,6 @@
 @country-flag-item-height: @form-control-height;
 @country-flags-inner-padding-base: 5px;
 @country-flags-inner-border-width: 1px;
-@country-flags-scrollbar-bulgarian-constant: 18px;
 
 .country-flags {
     position: relative;
@@ -91,7 +90,7 @@
 .shp-flag-label {
     display: flex;
     position: relative;
-    width: 52px;
+    width: calc(100% - @country-flag-width);
     padding-left: 16px;
     padding-right: 3px;
     justify-self: flex-end;
@@ -110,7 +109,7 @@
         border-style: solid;
     }
     .country-flags.active & {
-        width: round(@country-elements-width - (@country-flags-inner-padding-base * 2) - (@country-flags-inner-border-width * 2) - @country-flag-width - @country-flags-scrollbar-bulgarian-constant);
+        width: calc(100% - @country-flag-width);
         text-align: left;
         &::before {
             display: none;

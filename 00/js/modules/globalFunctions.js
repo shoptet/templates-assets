@@ -148,46 +148,6 @@ function cancelAction(id) {
 }
 
 /**
- * Required fields in registration process - required only when visible
- *
- * @param {Object} $el
- * $el = element containing fields that have to be required
- * @param {String} job
- * job = accepts 'remove' and 'add', specifies if we want to
- * add or remove required attributes
- * @param {Boolean} preserveNoJsValidation
- */
-function toggleRequiredAttributes($el, job, preserveNoJsValidation) {
-    if (job === 'remove') {
-        $.each($el.find(':required'), function() {
-            $(this).removeAttr('required').attr('data-required', 'required');
-        });
-        $.each($el.find('.js-validate'), function() {
-            $(this).addClass('js-validation-suspended');
-        });
-        if (!preserveNoJsValidation) {
-            $.each($el.find('[data-disabled-validation]'), function() {
-                $(this).addClass('no-js-validation');
-                $(this).removeAttr('data-disabled-validation');
-            });
-        }
-    } else {
-        $.each($el.find('[data-required]'), function() {
-            $(this).removeAttr('data-required').attr('required', 'required');
-        });
-        $.each($el.find('.js-validation-suspended'), function() {
-            $(this).removeClass('js-validation-suspended');
-        });
-        if (!preserveNoJsValidation) {
-            $.each($el.find('.no-js-validation'), function() {
-                $(this).removeClass('no-js-validation');
-                $(this).attr('data-disabled-validation', true);
-            });
-        }
-    }
-}
-
-/**
  * Displays spinner during the AJAX call
  *
  * This function does not accept any arguments.
@@ -296,6 +256,9 @@ function detectScrolled(direction) {
     if ($(window).scrollTop() > top) {
         $('html').addClass('scrolled scrolled-' + direction);
         $('html').removeClass(classToRemove);
+        if (!$('body').hasClass('submenu-visible') && !$('body').hasClass('menu-helper-visible') ) {
+            shoptet.menu.hideNavigation();
+        }
     } else {
         $('html').removeClass('scrolled scrolled-up scrolled-down');
         shoptet.menu.hideSubmenu();
@@ -694,6 +657,7 @@ function resizeEndCallback() {
         }
     }
     sameHeightOfProducts();
+    shoptet.products.splitWidgetParameters();
 
     if ($('.carousel').length) {
         setCarouselHeight($('.carousel-inner'));
@@ -742,6 +706,7 @@ $(function() {
     $('html').on('change', '#billCountryId, #deliveryCountryId', function() {
         shoptet.global.updateSelectedRegions($(this));
         shoptet.global.toggleRegionsWrapper();
+        shoptet.validatorZipCode.updateZipValidPattern($(this));
     });
 
     shoptet.runtime.resize.windowWidth = $(window).width();
@@ -897,8 +862,8 @@ $(function() {
             shoptet.global.hideContentWindows();
             return;
         }
-        if (!$(this).hasClass('hovered')) {
-            var target = $(this).attr('data-target');
+        var target = $(this).attr('data-target');
+        if (!$(this).hasClass('hovered') || target === 'navigation') {
             shoptet.global.showPopupWindow(target, true);
         }
         $(this).removeClass('hovered');
@@ -1061,6 +1026,7 @@ $(function() {
         if (typeof sameHeightOfProducts === 'function') {
             sameHeightOfProducts();
         }
+        shoptet.products.splitWidgetParameters();
 
     });
 
@@ -1234,6 +1200,8 @@ $(function() {
         $(this).parents('.p-image-wrapper').find('.image360').show();
     });
 
+    window.addEventListener('load', shoptet.products.splitWidgetParameters);
+
 });
 
 // Necessary for split/simple variants - unify with 2nd gen
@@ -1303,7 +1271,6 @@ function resolveImageFormat() {
                     $(document).trigger('menuUnveiled');
                 }, shoptet.config.animationDuration);
             }
-            shoptet.menu.toggleMenu();
         }
         var currentTarget = target + '-window-visible';
         if ($('body').hasClass(currentTarget)) {

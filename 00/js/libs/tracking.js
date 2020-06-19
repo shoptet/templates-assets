@@ -6,6 +6,8 @@
             return shoptet.config.removeFromCartUrl;
         } else if (formAction === shoptet.config.updateCartUrl) {
             return shoptet.config.updateCartUrl;
+        } else if (formAction === shoptet.config.addDiscountCouponUrl) {
+            return shoptet.config.addDiscountCouponUrl;
         }
 
         return false;
@@ -43,7 +45,7 @@
         return 'ViewContent';
     }
 
-    function handleAction(form) {
+    function handleAction(form, response) {
         var formAction = shoptet.tracking.getFormAction(form.getAttribute('action'));
         if (!formAction) {
             return;
@@ -67,6 +69,7 @@
                 ]
             );
         }
+        shoptet.tracking.updateDataLayerCartInfo(response);
     }
 
     function trackProducts(form, priceId, formAction, trackingFunctions) {
@@ -96,6 +99,7 @@
                 trackingFunction(productData, formAction);
             }
         });
+        shoptet.scripts.signalCustomEvent('ShoptetProductsTracked');
     }
 
     function trackFacebookPixel(fbPixelData, formAction) {
@@ -132,6 +136,7 @@
 
             fbq(eventName, action, data);
         }
+        shoptet.scripts.signalCustomEvent('ShoptetFacebookPixelTracked');
     }
 
     function trackGoogleCart(gaData, formAction) {
@@ -163,6 +168,7 @@
             ga('ec:setAction', action);
             ga('send', 'event', 'UX', 'click', title);
         }
+        shoptet.scripts.signalCustomEvent('ShoptetGoogleCartTracked');
     }
 
     function updateDataLayer(data, formAction) {
@@ -204,8 +210,8 @@
                     }
                 );
             }
-
         }
+        shoptet.scripts.signalCustomEvent('ShoptetDataLayerUpdated');
     }
 
     function handlePromoClick(el) {
@@ -226,6 +232,14 @@
                 trackingScript.getAttribute('data-products')
             );
             shoptet.tracking.productsList = $.extend(trackingProducts.products, shoptet.tracking.productsList);
+        }
+    }
+
+    function updateDataLayerCartInfo(response) {
+        if (typeof dataLayer === 'object') {
+            dataLayer[0].shoptet.cartInfo.leftToFreeShipping = response.getFromPayload('leftToFreeShipping');
+            dataLayer[0].shoptet.cartInfo.freeShipping = response.getFromPayload('freeShipping');
+            dataLayer[0].shoptet.cartInfo.discountCoupon = response.getFromPayload('discountCoupon');
         }
     }
 
@@ -255,16 +269,9 @@
     });
 
     shoptet.tracking = shoptet.tracking || {};
-    shoptet.tracking.getFormAction = getFormAction;
-    shoptet.tracking.resolveUpdateAction = resolveUpdateAction;
-    shoptet.tracking.resolveAmount = resolveAmount;
-    shoptet.tracking.resolveTrackingAction = resolveTrackingAction;
-    shoptet.tracking.handleAction = handleAction;
-    shoptet.tracking.trackProducts = trackProducts;
-    shoptet.tracking.trackFacebookPixel = trackFacebookPixel;
-    shoptet.tracking.trackGoogleCart = trackGoogleCart;
-    shoptet.tracking.updateDataLayer = updateDataLayer;
-    shoptet.tracking.handlePromoClick = handlePromoClick;
-    shoptet.tracking.trackProductsFromPayload = trackProductsFromPayload;
+    shoptet.scripts.libs.tracking.forEach(function(fnName) {
+        var fn = eval(fnName);
+        shoptet.scripts.registerFunction(fn, 'tracking');
+    });
 
 })(shoptet);

@@ -30,11 +30,11 @@
     }
 
     function interconnectFlagsWithSelect() {
-        var flagsGroups = document.getElementsByClassName('country-flags');
+        var flagsGroups = document.querySelectorAll('.country-flags:not(.initialized)');
         for (var key in flagsGroups) {
             if (typeof flagsGroups[key] === 'object') {
-                flagsGroups[key].setAttribute('data-select', flagsGroups[key].nextElementSibling.getAttribute('id'));
                 shoptet.phoneInput.handleFlags(flagsGroups[key]);
+                flagsGroups[key].classList.add('initialized');
             }
         }
     }
@@ -47,7 +47,7 @@
     }
 
     function setSelectedCountry(el, parentGroup, signal) {
-        var select = document.getElementById(parentGroup.dataset.select);
+        var select = parentGroup.nextElementSibling;
         var input = select.nextElementSibling;
 
         var originalValue = JSON.parse(select.value);

@@ -57,7 +57,7 @@
     }
 
     function signal(event, element, eventSource, globalEvent) {
-        if (typeof element === 'undefined') {
+        if (typeof element === 'undefined' || !element) {
             element = document;
         }
         try {
@@ -169,6 +169,8 @@
     shoptet.scripts.availableCustomEvents = [
         'ShoptetPhoneCodeChange',
         'ShoptetPhoneCodeActive',
+        'ShoptetBillZipPatternChange',
+        'ShoptetDeliveryZipPatternChange',
         'ShoptetSelectedParametersReset',
         'ShoptetSplitVariantParameterChange',
         'ShoptetSimpleVariantChange',
@@ -189,7 +191,14 @@
         'ShoptetPageFiltersCleared',
         'ShoptetPageMoreProductsRequested',
         'ShoptetSuccessfulValidation',
-        'ShoptetFailedValidation'
+        'ShoptetFailedValidation',
+        'ShoptetProductsTracked',
+        'ShoptetFacebookPixelTracked',
+        'ShoptetGoogleCartTracked',
+        'ShoptetDataLayerUpdated',
+        'ShoptetValidationTransform',
+        'ShoptetValidationWarning',
+        'ShoptetValidationError'
     ];
     // TODO: updateCartButton - on cart page unnecessary
     shoptet.scripts.libs = {
@@ -199,7 +208,7 @@
             'getAdvancedOrder',
             'functionsForCart',
             'functionsForStep1',
-            'createEventNameFromFormAction',
+            'handleCartPostUpdate',
             'ajaxSubmitForm',
             'updateQuantityInCart',
             'removeItemFromCart',
@@ -246,12 +255,20 @@
         validatorPhone: [
             'validateNumber'
         ],
+        validatorZipCode: [
+            'validateZipCode',
+            'updateZipValidPattern',
+        ],
         global: [
             'showPopupWindow',
             'hideContentWindows',
             'updateSelectedRegions',
             'toggleRegionsWrapper',
             'restoreDefaultRegionSelect',
+        ],
+        products: [
+            'splitWidgetParameters',
+            'splitSingleWidgetParameter'
         ],
         menu: [
             'toggleMenu',
@@ -268,7 +285,8 @@
             'disableAddingToCart',
             'enableAddingToCart',
             'hasToDisableCartButton',
-            'handleSubmit'
+            'handleSubmit',
+            'handleBrowserValueRestoration'
         ],
         variantsSimple: [
             'handler',
@@ -307,7 +325,12 @@
             'getSelectValue',
             'getCheckedInputValue',
             'createDocumentFromString',
-            'serializeData'
+            'serializeData',
+            'createEventNameFromFormAction',
+            'fitsToParentWidth',
+            'addClassToElements',
+            'removeClassFromElements'
+
         ],
         stockAvailabilities: [
             'getDeliveryPointName',
@@ -321,6 +344,20 @@
         cofidis: [
             'getElements',
             'setMinPayment'
+        ],
+        tracking: [
+            'getFormAction',
+            'resolveUpdateAction',
+            'resolveAmount',
+            'resolveTrackingAction',
+            'handleAction',
+            'trackProducts',
+            'trackFacebookPixel',
+            'trackGoogleCart',
+            'updateDataLayer',
+            'handlePromoClick',
+            'trackProductsFromPayload',
+            'updateDataLayerCartInfo'
         ]
     };
 

@@ -11,10 +11,8 @@ select {
 }
 
 .form-group {
-    margin-bottom: @line-height-computed;
-}
-.form-group {
     position: relative;
+    margin-bottom: @line-height-computed;
     select {
         display: block;
         width: 100%;
@@ -23,14 +21,8 @@ select {
     td {
         padding: 0.25rem 0.5rem;
     }
-    &.unveil-wrapper,
     &:last-child {
         margin-bottom: 0;
-    }
-    &.unveil-wrapper {
-        &.unveiled {
-            margin-bottom: @line-height-computed;
-        }
     }
     @media (min-width: @screen-sm-min) {
         select {
@@ -61,6 +53,10 @@ select {
                 line-height: normal;
             }
         }
+    }
+    fieldset + &,
+    .form-option-block + & {
+        margin-top: @line-height-computed;
     }
 }
 
@@ -232,4 +228,9 @@ input {
             .appearance(checkbox);
         }
     }
+}
+
+.required-asterisk:after {
+    content: "*";
+    padding-left: 0.5ch;
 }

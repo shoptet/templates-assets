@@ -73,7 +73,7 @@ body.ordering-process {
 .co-payment-method {
     margin-left: round(@grid-gutter-width / 4);
 }
-#company-info, #note {
+#note {
     margin-bottom: @line-height-computed;
 }
 
@@ -262,13 +262,6 @@ a.btn {
         }
     }
 }
-
-.form-group {
-    &.unveil-wrapper {
-        margin-bottom: @line-height-computed;
-    }
-}
-
 .btn-conversion {
     &::after {
         &:extend(.shp-icon);
@@ -344,6 +337,8 @@ a.btn {
 .products-block {
     > div {
         .p {
+            display: flex;
+            flex-direction: column;
             text-align: center;
             .p-code {
                 right: 10px;
@@ -513,6 +508,22 @@ a.btn {
         }
     }
 }
+
+.widget-parameter-wrapper {
+    margin: auto 0 0;
+    padding: round(@line-height-computed / 2) 0;
+    .widget-parameter-value {
+        &:first-child {
+            a {
+                padding-left: round(@grid-gutter-width / 4);
+            }
+        }
+    }
+    &.justified {
+        justify-content: center;
+    }
+}
+
 
 /* FLAGS LESS */
 .flags-default {
@@ -858,14 +869,13 @@ a.btn {
     border-color: #e7e7e7;
 }
 .p-gifts-heading {
-    font-size: @font-size-h4;
+    font-size: 120%;
     text-transform: none;
     margin-bottom: round(@line-height-computed / 2);
     line-height: @line-height-base;
 }
 .p-gift-name {
     font-size: 120%;
-    font-weight: normal;
 }
 
 .link-icons {

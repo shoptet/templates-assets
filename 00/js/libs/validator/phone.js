@@ -31,6 +31,13 @@
         var phoneInfo = JSON.parse(el.previousElementSibling.value);
         var phoneWrapper = el.parentElement;
 
+        if (validatedValue.length === 0 && el.value.length !== 0) {
+            shoptet.validator.addErrorMessage(el, phoneWrapper, shoptet.validatorPhone.messageType);
+            el.classList.remove('js-validated-field');
+            el.removeAttribute('disabled');
+            return false;
+        }
+
         if (!validatedValue.length) {
             shoptet.validator.removeErrorMessage(el, phoneWrapper, shoptet.validatorPhone.messageType);
             el.classList.remove('js-validated-field');
@@ -54,6 +61,7 @@
                     phoneWrapper,
                     shoptet.validatorPhone.messageType
                 );
+                shoptet.scripts.signalCustomEvent('ShoptetValidationError', el);
             }
             el.classList.remove('js-validated-field');
             el.removeAttribute('disabled');
@@ -78,7 +86,12 @@
                 'success': successCallback,
                 'failed' : failedCallback
             }
-        );
+        ).then(function() {
+            // Check if it is last ajax calling
+            if(shoptet.validatorPhone.ajaxPending === 0) {
+                document.dispatchEvent(new Event(shoptet.validatorPhone.ajaxDoneEvent))
+            }
+        });
 
     }
 
@@ -94,10 +107,12 @@
             elements: document.getElementsByClassName('js-validate-phone'),
             events: ['change', 'ShoptetPhoneCodeChange'],
             validator: shoptet.validatorPhone.validateNumber,
-            fireEvent: true
+            fireEvent: true,
+            fireOneEvent: true
         }
     };
     shoptet.validatorPhone.ajaxPending = 0;
+    shoptet.validatorPhone.ajaxDoneEvent = 'ShoptetAjaxValidationDone';
 
     for (var i = 0; i < shoptet.validator.events.length; i++) {
         document.addEventListener(shoptet.validator.events[i], function() {

@@ -41,8 +41,11 @@
     }
 }
 
-.multiple-columns-body .wide-carousel {
-    @media (min-width: @screen-sm-min) {
-        padding-left: round(@grid-gutter-width / 2);
+.wide-carousel {
+    overflow: hidden;
+    .multiple-columns-body & {
+        @media (min-width: @screen-sm-min) {
+            padding-left: round(@grid-gutter-width / 2);
+        }
     }
 }

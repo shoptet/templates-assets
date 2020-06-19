@@ -234,3 +234,16 @@
     margin-bottom: 12px;
     font-size: 18px;
 }
+
+.widget-parameter-wrapper {
+    .widget-parameter-value {
+        &:first-child {
+            a {
+                padding-left: round(@grid-gutter-width / 4);
+            }
+        }
+    }
+    &.justified {
+        justify-content: center;
+    }
+}

@@ -82,12 +82,12 @@
     margin: @line-height-computed 0;
 }
 
-body,
 html {
     height: 100%;
 }
 
 body {
+    min-height: 100%;
     counter-reset: steps top;
     font-weight: @font-weight-base;
     &.user-action-visible {
@@ -180,6 +180,13 @@ iframe {
 label.disabled {
     opacity: .75;
     cursor: not-allowed;
+}
+
+input[type="search"] {
+  font-size: 17px;
+  @media (min-width: @screen-sm-min) {
+      font-size: inherit;
+  }
 }
 
 // Customer center
@@ -368,4 +375,8 @@ iframe[name="google_conversion_frame"] {
             }
         }
     }
+}
+
+#company-info {
+    margin-bottom: @line-height-computed;
 }
