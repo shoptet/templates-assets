@@ -56,7 +56,7 @@ h4,
 
 .browse-p {
     position: relative;
-}    
+}
 
 .content-wrapper-in {
     @media (min-width: @screen-sm-min) {
@@ -126,7 +126,7 @@ h4,
         &.login-widget {
             top: unit(@popup-widget_top-xs-max, px);
         }
-    } 
+    }
 }
 
 .cart-widget-button {
@@ -390,12 +390,12 @@ select {
 .js-validator-msg {
     margin-bottom: 5px;
     @media (min-width: 480px) {
-        margin-left: 150px;
+        margin-left: @form-group-label-width;
         + input,
         + select,
         + .phone-combined-input {
             clear: both;
-            margin-left: 150px;
+            margin-left: @form-group-label-width;
             .compact-form & {
                 margin-left: 0;
             }
