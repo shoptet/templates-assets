@@ -1,11 +1,7 @@
 .banners-top,
 .banners-content,
 .banners-footer {
-    display: none;
-    @media (min-width: @screen-sm-min) {
-        .clearfix();
-        display: block;
-    }
+    .clearfixMixin();
 }
 
 .banner-category,
@@ -36,7 +32,10 @@
 .banners-top {
     .banner-wrapper {
         float: left;
-        width: 25%;
+        width: 50%;
+        @media (min-width: @screen-sm-min) {
+            width: 25%;
+        }
     }
 }
 

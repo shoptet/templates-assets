@@ -3,10 +3,12 @@ shoptet.validator.invalidEmails = [
     'cetrum.cz',
     'emai.cz',
     'eznam.cz',
+    'gamil.com',
     'gmail.co',
     'gmail.cz',
     'setnam.cz',
     'seunam.cz',
+    'seynam.cz',
     'sezmam.cz',
     'sezn.cz',
     'sezna.cz',
@@ -111,28 +113,9 @@ var validators = {
         }
         return isValid;
     },
-    companyId: function (elementValue) {
-        var billingCountryId = $("#billCountryId").val();
-        var disableCinValidation = billingCountryId != 43 && billingCountryId != 151;
-
-        if (disableCinValidation){
-            return true;
-        }
-
-        var isValid = true;
-        elementValue = elementValue.trim();
-        if ($(this).is('#companyId') && elementValue) {
-            var $companyShopping = $(this).closest('form').find('input#company-shopping[type=checkbox]');
-            if ($companyShopping.length == 0 || $companyShopping.is(':checked')) {
-                isValid = /^\d{8}$/.test($.trim(elementValue));
-                shoptet.validator.message = shoptet.messages['validatorInvalidCompanyId'];
-            }
-        }
-        return isValid;
-    },
     fullname: function (elementValue) {
         var isValid = true;
-       if ($(this).attr('id') == 'billFullName') {
+       if ($(this).attr('id') == 'billFullName' || $(this).attr('id') == 'deliveryFullName') {
             isValid = / /i.test(elementValue.trim());
            shoptet.validator.message = shoptet.messages['validatorFullName'];
         }
@@ -241,6 +224,9 @@ shoptet.validator.shoptetFormValidator = {
             var invalidElementsCounter = 0;
             $elements.each(function() {
                 var isSubmit = true;
+                if ($(this).hasClass('js-validation-suspended')) {
+                    return;
+                }
                 var isElementValid = validate.call($(this), isSubmit);
                 if (!isElementValid && invalidElementsCounter++ == 0 && shoptet.validatorPhone.ajaxPending === 0) {
                     $(this).focus();

@@ -259,7 +259,7 @@
 
         for (key in $fields) {
             if (document.getElementById(key)) {
-                var field = $('#'+key);
+                var field = $('#'+ key);
                 field.val($fields[key]);
             }
         }
@@ -270,7 +270,10 @@
      *
      * This function does not accept any arguments.
      */
-    function toggleAnotherShipping() {
+    function toggleAnotherShipping(scroll) {
+        if (typeof scroll === 'undefined') {
+            scroll = true;
+        }
         var $el = $('#shipping-address');
         var $billCountryId = $('#billCountryId');
         var $regionSelect = $('.region-select');
@@ -286,10 +289,13 @@
             $defaultBillRegionId.val(defaultRegionVal);
             shoptet.global.restoreDefaultRegionSelect($defaultBillRegionId, defaultRegionVal);
             shoptet.validatorZipCode.updateZipValidPattern($billCountryId);
+            shoptet.validatorCompanyId.updateCompanyIdValidPattern();
         } else {
             $el.addClass('visible');
             toggleRequiredAttributes($el, 'add', false);
-            scrollToEl($el);
+            if (scroll) {
+                scrollToEl($el);
+            }
         }
 
         var $billRegionId = $('#billRegionId');
@@ -375,28 +381,29 @@
         var offset = shoptet.checkout.$checkoutContent.offset();
         var scrollTop = $(document).scrollTop();
         var headerHeight = shoptet.abilities.feature.fixed_header ? $('#header').height() : 0;
-        if ((offset.top < scrollTop + headerHeight) && detectResolution(shoptet.config.breakpoints.md)) {
-            if (windowHeight - headerHeight > sidebarHeight) {
-                shoptet.checkout.$checkoutSidebar.css({
-                    'position': 'relative',
-                    'top': scrollTop - offset.top + headerHeight
-                });
-            } else {
-                var bottomLine = offset.top + sidebarHeight;
-                if (windowHeight + scrollTop > bottomLine) {
+        if (windowHeight + scrollTop < document.documentElement.scrollHeight) {
+            if ((offset.top < scrollTop + headerHeight) && detectResolution(shoptet.config.breakpoints.md)) {
+                if (windowHeight - headerHeight > sidebarHeight) {
                     shoptet.checkout.$checkoutSidebar.css({
                         'position': 'relative',
-                        'top': scrollTop - sidebarHeight + windowHeight - offset.top
+                        'top': scrollTop - offset.top + headerHeight
                     });
                 } else {
-                    shoptet.checkout.$checkoutSidebar.css({
-                        'position': 'static'
-                    });
+                    var bottomLine = offset.top + sidebarHeight;
+                    if (windowHeight + scrollTop > bottomLine) {
+                        shoptet.checkout.$checkoutSidebar.css({
+                            'position': 'relative',
+                            'top': scrollTop - sidebarHeight + windowHeight - offset.top
+                        });
+                    } else {
+                        shoptet.checkout.$checkoutSidebar.css({
+                            'position': 'static'
+                        });
+                    }
                 }
-
+            } else {
+                shoptet.checkout.$checkoutSidebar.removeAttr('style');
             }
-        } else {
-            shoptet.checkout.$checkoutSidebar.removeAttr('style');
         }
     }
 
@@ -448,31 +455,37 @@
 
         }
 
-        var cpostDeliveryPoints = [];
+        var postDeliveryPoints = [];
         if (typeof naPostuUrl !== 'undefined') {
-            cpostDeliveryPoints.push({
+            postDeliveryPoints.push({
                 prefix: 'na-postu',
                 url: naPostuUrl
             });
         }
         if (typeof doBalikovnyUrl !== 'undefined') {
-            cpostDeliveryPoints.push({
+            postDeliveryPoints.push({
                 prefix: 'do-balikovny',
                 url: doBalikovnyUrl
             });
         }
+        if (typeof hupostPostaPontUrl !== 'undefined') {
+            postDeliveryPoints.push({
+                prefix: 'posta-pont',
+                url: hupostPostaPontUrl
+            });
+        }
 
-        for (var i = 0; i < cpostDeliveryPoints.length; i++) {
+        for (var i = 0; i < postDeliveryPoints.length; i++) {
 
             (function(i) {
 
-                $html.on('click', '.' + cpostDeliveryPoints[i].prefix + '-choose-post a', function(e) {
+                $html.on('click', '.' + postDeliveryPoints[i].prefix + '-choose-post a', function(e) {
                     e.preventDefault();
                     $parentsElement = $(this).closest('div.radio-wrapper');
-                    $parentsElement.find('.' + cpostDeliveryPoints[i].prefix + '-choose-radio[name="shippingId"]:first')
+                    $parentsElement.find('.' + postDeliveryPoints[i].prefix + '-choose-radio[name="shippingId"]:first')
                         .prop('checked', true);
                     $.colorbox({
-                        href: cpostDeliveryPoints[i].url,
+                        href: postDeliveryPoints[i].url,
                         width : shoptet.config.colorboxWidthMd,
                         className: 'colorbox-md',
                         onComplete: function() {
@@ -483,17 +496,24 @@
 
                 $html.on(
                     'click',
-                    '#' + cpostDeliveryPoints[i].prefix + '-result .'
-                    + cpostDeliveryPoints[i].prefix + '-choose-button',
+                    '#' + postDeliveryPoints[i].prefix + '-result .'
+                    + postDeliveryPoints[i].prefix + '-choose-button',
                     function() {
                         var $tr = $(this).closest('tr');
-                        var zipCode = $.trim($tr.find('.' + cpostDeliveryPoints[i].prefix + '-zip-code').html());
-                        var address = $.trim($tr.find('.' + cpostDeliveryPoints[i].prefix + '-address').html());
+                        var address = $.trim($tr.find('.' + postDeliveryPoints[i].prefix + '-address').html());
                         var newString = shoptet.messages['chosenPost'] + ' ' + address + ' ';
                         var $newLink = $('<a href="#" class="chosen">' + shoptet.messages['change'] + '</a>');
-                        $parentsElement.find('.' + cpostDeliveryPoints[i].prefix + '-choose-post')
+                        $parentsElement.find('.' + postDeliveryPoints[i].prefix + '-choose-post')
                             .html(newString).append($newLink).show(0);
-                        $('#' + cpostDeliveryPoints[i].prefix + '-hidden').val(zipCode);
+
+                        if (postDeliveryPoints[i].prefix === 'posta-pont') {
+                            var branchId = $.trim($tr.find('.' + postDeliveryPoints[i].prefix + '-branch-id').html());
+                            $('#' + postDeliveryPoints[i].prefix + '-hidden').val(branchId);
+                        } else {
+                            var zipCode = $.trim($tr.find('.' + postDeliveryPoints[i].prefix + '-zip-code').html());
+                            $('#' + postDeliveryPoints[i].prefix + '-hidden').val(zipCode);
+                        }
+
                         $.colorbox.close();
                     }
                 );
@@ -557,6 +577,54 @@
                 $parentsElement = $(this).closest('div.radio-wrapper');
                 $parentsElement.find('.zasilkovna-choose-branch[name="shippingId"]').prop('checked', true);
             });
+        }
+
+        if (typeof glsParcelShopUrl !== 'undefined') {
+            var glsParcelShopId = '';
+            var glsParcelShopName = '';
+            var glsModalOpen = false;
+
+            $html.on('click', '.gls-parcel-shop-choose a', function(e) {
+                e.preventDefault();
+                if (glsModalOpen) {
+                    return;
+                }
+                glsModalOpen = true;
+                $parentsElement = $(this).closest('div.radio-wrapper');
+                $parentsElement.find('.gls-parcel-shop-choose-branch[name="shippingId"]').prop('checked', true);
+                $.colorbox({
+                    href: glsParcelShopUrl,
+                    width : shoptet.config.colorbox.widthLg,
+                    className: 'colorbox-lg',
+                    onComplete: function() {
+                        resizeModal();
+                    },
+                    onCleanup: function() {
+                        glsModalOpen = false;
+                        if (glsParcelShopId) {
+                            var completeBranchName = glsParcelShopName + ' ';
+                            var $newLink = $('<a href="#" class="chosen">' + shoptet.messages['change'] + '</a>');
+                            $parentsElement.find('.gls-parcel-shop-choose')
+                                .html(completeBranchName).append($newLink).show(0);
+                            $('input#gls-parcel-shop-hidden').val(glsParcelShopId);
+                        }
+                    }
+                });
+            });
+
+            $html.on('click', '.gls-parcel-shop-confirm', function() {
+                $.colorbox.close();
+            });
+
+            window.glsPSMap_OnSelected_Handler = function(data) {
+                glsParcelShopId = data.pclshopid;
+                glsParcelShopName = data.name;
+                var $confirmWrapper = $('.gls-parcel-shop-confirm-wrapper');
+                if ($confirmWrapper.hasClass('no-display')) {
+                    $('.gls-parcel-shop-confirm-wrapper').removeClass('no-display');
+                    resizeModal();
+                }
+            }
         }
 
         if (typeof dpdParcelShopUrl !== 'undefined') {
@@ -705,6 +773,13 @@
         }
     }
 
+    function displayApplePay() {
+        if (window.ApplePaySession &&
+            (location.protocol !== 'https:' || window.ApplePaySession.canMakePayments())) {
+            $('.apple-pay').show();
+        }
+    }
+
     shoptet.checkout = shoptet.checkout || {};
     shoptet.scripts.libs.checkout.forEach(function(fnName) {
         var fn = eval(fnName);
@@ -740,10 +815,12 @@
     });
 
     document.addEventListener("DOMContentLoaded", function() {
+
         if (shoptet.config.orderingProcess.step === 1) {
             shoptet.checkout.getStatedValues();
             shoptet.checkout.setActiveShippingAndPayments();
             shoptet.checkout.payu();
+            shoptet.checkout.displayApplePay();
             shoptet.checkout.setupDeliveryShipping();
         }
 
@@ -783,16 +860,18 @@
         });
 
         $('#shippingAddressBox').on('change', function() {
+            var $fields = $('#shipping-address .form-option-block').find('input');
             if (this.value == '-1'){
-                $('#shipping-address .form-option-block').find('input').each(function() {
+                $fields.each(function() {
                     $(this).val('');
                 });
-
-                $('.form-option-block').removeClass('js-hidden');
             } else {
                 shoptet.checkout.setFieldValues($(this).find('option:selected').data('record'));
-                $('.form-option-block').addClass('js-hidden');
             }
+            /* Validate */
+            $fields.each(function() {
+                shoptet.scripts.signalNativeEvent('change', this);
+            });
         }).change();
 
         $html.on('change', '.ordering-process #deliveryRegionId', function () {

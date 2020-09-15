@@ -1,4 +1,4 @@
-/* This mixin resets font styles and sets needed styles for custom icons */
+// This mixin resets font styles and sets needed styles for custom icons
 .shoptet-icon() {
     display: inline-block;
     speak: none;
@@ -131,4 +131,16 @@
     overflow: auto;
     border: none;
     clip: auto;
+}
+
+// Same as Bootstrap .clearfix() mixin. Used to avoid duplicates in generated CSS
+.clearfixMixin() {
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+      clear: both;
+    }
 }

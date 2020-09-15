@@ -208,14 +208,24 @@ body.ordering-process {
             width: 180px;
         }
     }
-    @media (min-width: @screen-xs-min) {
-        > input,
-        > select {
-            &.form-control {
-                max-width: @select-width;
-                width: calc(100% - 180px);
+    > input,
+    > select {
+        &.form-control {
+            max-width: @select-width;
+            width: 100%;
+            min-width: auto;
+            &.short {
+                width: 100%;
             }
         }
+    }
+    > .phone-combined-input {
+        max-width: @select-width;
+        width: 100%;
+        min-width: auto;
+    }
+    @media (min-width: @screen-xs-min) {
+
         .btn {
             .co-contact-information & {
                 max-width: @select-width;
@@ -223,9 +233,12 @@ body.ordering-process {
             }
         }
     }
-    @media (max-width: @screen-sm-max) {
-        select {
-            min-width: auto;
+    @media (min-width: @screen-lg-min) {
+        > input,
+        > select {
+            &.form-control {
+                max-width: @select-width;
+            }
         }
     }
 }
@@ -335,11 +348,15 @@ a.btn {
 }
 
 .products-block {
+    display: flex;
+    flex-wrap: wrap;
     > div {
+        max-width: 100%;
         .p {
             display: flex;
             flex-direction: column;
             text-align: center;
+            height: 100%;
             .p-code {
                 right: 10px;
                 top: 10px;
@@ -462,7 +479,6 @@ a.btn {
     }
     .columns-3 &,
     .columns-4 & {
-        .clearfix();
         @media (min-width: @screen-xs-min) {
             > div {
                 float: left;
@@ -1136,23 +1152,28 @@ ul.shp-tabs {
 }
 
 .next-to-carousel-banners {
-    display: none;
-    margin: -60px auto 0;
+    display: flex;
+    flex-flow: column;
     justify-content: center;
     align-items: center;
     position: relative;
+    padding: 0 round(@grid-gutter-width / 2);
     @media (min-width: @screen-sm-min) {
-        display: flex;
+        margin: -60px auto 0;
+        flex-flow: row;
+        padding: 0;
     }
     @media (min-width: @screen-md-min) {
         margin-top: -110px;
     }
 }
 .banner-wrapper {
-    margin: 10px;
-    min-width: 10px;
-    & + & {
-        margin-top: 10px;
+    @media (min-width: @screen-sm-min) {
+        margin: 10px;
+        min-width: 10px;
+        & + & {
+            margin-top: 10px;
+        }
     }
 }
 

@@ -45,10 +45,12 @@
 .vote-product-name,
 .vote-title,
 .vote-name {
-    .text-overflow();
     display: block;
     font-size: @font-size-h3;
     margin-bottom: round(@line-height-computed / 4);
+    &--nowrap {
+        .text-overflow();
+    }
 }
 .vote-name {
     line-height: 1.2;

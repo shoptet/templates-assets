@@ -86,8 +86,12 @@
 }
 
 .banner-wrapper {
-    & + & {
-        margin-top: round(@grid-gutter-width / 2 + 5px);
+    margin-top: round(@grid-gutter-width / 2);
+    @media (min-width: @screen-sm-min) {
+        margin-top: 0;
+        & + & {
+            margin-top: round(@grid-gutter-width / 2 + 5px);
+        }
     }
 }
 

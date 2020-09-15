@@ -277,18 +277,25 @@
                 scrollTop: 0
             }, shoptet.config.animationDuration);
             if (callingFunctions === 'functionsForCart') {
-                var cartCallback = function() {
+                if (
+                    shoptet.config.orderingProcess.step === 0
+                    || body.classList.contains('cart-window-visible')
+                ) {
+                    var cartCallback = function() {
+                        shoptet.cart.functionsForCart(form, response);
+                    };
+                    shoptet.cart.getCartContent(true, cartCallback);
+                } else {
+                    delete shoptet.events.cartLoaded;
                     shoptet.cart.functionsForCart(form, response);
-                };
-                shoptet.cart.getCartContent(true, cartCallback);
+                }
             }
         };
 
-        // TODO: serialize w/o jQuery: https://developer.mozilla.org/en-US/docs/Web/API/FormData
         shoptet.ajax.makeAjaxRequest(
             action + cartUrlSuffix,
             shoptet.ajax.requestTypes.post,
-            $(form).serialize(),
+            shoptet.common.serializeForm(form),
             {
                 'success': successCallback,
                 'failed': failedCallback,
@@ -503,6 +510,11 @@
             toggleRequiredAttributes($shippingAddress, 'remove', false);
         }
 
+        var $companyInfo = $('#company-info');
+        if ($companyInfo.length && !$companyInfo.hasClass('visible')) {
+            toggleRequiredAttributes($companyInfo, 'remove', false);
+        }
+
         $html.on('change', 'input[name="customerGroupId"]', function() {
             var $additionalInformation = $('#additionalInformation');
             if ($(this).hasClass('show-full-profile')) {
@@ -513,8 +525,10 @@
                             $('#company-shopping').trigger('click');
                         }
                         $('#company-shopping').parent().hide();
+                        toggleRequiredAttributes($companyInfo, 'add', false);
                     } else {
                         $('#company-shopping').parent().show();
+                        toggleRequiredAttributes($companyInfo, 'remove', false);
                     }
                     toggleRequiredAttributes($additionalInformation, 'add', true);
                 }
@@ -526,13 +540,23 @@
             }
         });
 
+        $html.on('change', '#company-shopping', function() {
+            if (!$companyInfo.hasClass('visible')) {
+                toggleRequiredAttributes($companyInfo, 'remove', false);
+            } else {
+                toggleRequiredAttributes($companyInfo, 'add', false);
+            }
+        });
+
         $html.on('change', '#another-shipping', function() {
             shoptet.checkout.toggleAnotherShipping();
         });
 
-        $('[data-change]').each(function() {
-            $(this).prop('checked', true).trigger('change');
-        });
+        var $anotherShipping = $('#another-shipping');
+        if ($anotherShipping.length && $anotherShipping[0].hasAttribute('data-change')) {
+            $anotherShipping.prop('checked', true);
+            shoptet.checkout.toggleAnotherShipping(false);
+        };
     });
 
     shoptet.cart = shoptet.cart || {};

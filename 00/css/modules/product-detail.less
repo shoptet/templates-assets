@@ -243,7 +243,7 @@
     @media (min-width: @screen-xl-min) {
         .p-detail {
             form {
-                .clearfix();
+                .clearfixMixin();
             }
         }
         .p-info-wrapper {
@@ -303,7 +303,7 @@
     }
     .price {
         clear: both;
-        .clearfix();
+        .clearfixMixin();
         padding-top: round(@line-height-computed / 2);
         text-align: right;
         @media (min-width: @screen-sm-min) {

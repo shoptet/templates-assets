@@ -177,7 +177,7 @@ ul {
         }
     }
     @media (min-width: @screen-sm-min) {
-        .clearfix();
+        .clearfixMixin();
         min-height: 60px;
         margin-bottom: @line-height-computed;
         padding-bottom: 0;
@@ -249,7 +249,7 @@ ul {
 
 .welcome > div,
 .desc {
-    .clearfix();
+    .clearfixMixin();
 }
 
 .welcome > div {
@@ -264,7 +264,7 @@ ul {
 }
 
 .welcome {
-    .clearfix();
+    .clearfixMixin();
     margin-bottom: round(@line-height-computed * 2);
     h1 {
         text-align: center;
@@ -467,6 +467,11 @@ a.btn {
     }
 }
 
+.products-block {
+    @media (min-width: @screen-sm-min) {
+        .clearfixMixin();
+    }
+}
 
 .products-block > div .p .p-bottom {
     .prices {
@@ -489,6 +494,19 @@ a.btn {
         a,
         span {
             font-size: smaller;
+        }
+    }
+}
+
+.form-group {
+    margin-bottom: @form-group-margin-bottom;
+    fieldset + &,
+    .form-option-block + & {
+        margin-top: @form-group-margin-bottom;
+    }
+    @media (min-width: @screen-xs-min) {
+        label {
+            line-height: @line-height-base;
         }
     }
 }

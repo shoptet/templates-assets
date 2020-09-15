@@ -171,6 +171,7 @@
         'ShoptetPhoneCodeActive',
         'ShoptetBillZipPatternChange',
         'ShoptetDeliveryZipPatternChange',
+        'ShoptetCompanyIdPatternChange',
         'ShoptetSelectedParametersReset',
         'ShoptetSplitVariantParameterChange',
         'ShoptetSimpleVariantChange',
@@ -178,6 +179,7 @@
         'ShoptetVariantUnavailable',
         'ShoptetCartSetCartItemAmount',
         'ShoptetCartAddCartItem',
+        'ShoptetCartAddCartItemFailed',
         'ShoptetCartDeleteCartItem',
         'ShoptetCartSetSelectedGift',
         'ShoptetCartAddDiscountCoupon',
@@ -213,7 +215,10 @@
             'updateQuantityInCart',
             'removeItemFromCart',
             'toggleRelatedProducts',
-            'triggerCofidisCalc'
+            'triggerCofidisCalc',
+        ],
+        cartShared: [
+            'addToCart'
         ],
         cookie: [
             'get',
@@ -239,7 +244,8 @@
             'compareHeight',
             'fixSidebar',
             'handleWithSidebar',
-            'setupDeliveryShipping'
+            'setupDeliveryShipping',
+            'displayApplePay'
         ],
         validator: [
             'initNewValidator',
@@ -257,7 +263,11 @@
         ],
         validatorZipCode: [
             'validateZipCode',
-            'updateZipValidPattern',
+            'updateZipValidPattern'
+        ],
+        validatorCompanyId: [
+            'validateCompanyId',
+            'updateCompanyIdValidPattern',
         ],
         global: [
             'showPopupWindow',
@@ -266,9 +276,38 @@
             'toggleRegionsWrapper',
             'restoreDefaultRegionSelect',
         ],
+        helpers: [
+            'toFloat',
+            'toLocaleFloat',
+            'resolveDecimalSeparator',
+            'resolveThousandSeparator',
+            'resolveDecimalPlaces',
+            'resolveCurrencySymbol',
+            'resolveCurrencySymbolPosition',
+            'formatNumber',
+            'formatAsCurrency',
+            'resolveMinimumAmount',
+            'updateQuantity',
+            'isTouchDevice',
+        ],
         products: [
             'splitWidgetParameters',
-            'splitSingleWidgetParameter'
+            'splitSingleWidgetParameter',
+            'replaceImage',
+            'highlightActiveThumbnail',
+            'browseProducts',
+            'setThumbnailsDirection',
+            'setThumbnails',
+            'checkThumbnailsAction',
+            'checkThumbnails',
+            'switchThumbnails',
+            'checkDiscountFlag',
+            'changeStyle',
+            'setStyle',
+            'returnStyle',
+            'sameHeightOfProductsLoop',
+            'setHeightOfBigProduct',
+            'sameHeightOfProducts'
         ],
         menu: [
             'toggleMenu',
@@ -294,8 +333,14 @@
         ],
         variantsSplit: [
             'handler',
-            'callback',
+            'getData',
             'showVariantDependent'
+        ],
+        surcharges: [
+            'initSurcharges',
+            'updatePrices',
+            'getSurchargePrices',
+            'writePrices'
         ],
         variantsUnavailable: [
             'setupAllParameters',
@@ -326,11 +371,11 @@
             'getCheckedInputValue',
             'createDocumentFromString',
             'serializeData',
+            'serializeForm',
             'createEventNameFromFormAction',
             'fitsToParentWidth',
             'addClassToElements',
             'removeClassFromElements'
-
         ],
         stockAvailabilities: [
             'getDeliveryPointName',
@@ -343,7 +388,8 @@
         ],
         cofidis: [
             'getElements',
-            'setMinPayment'
+            'setMinPayment',
+            'calculator'
         ],
         tracking: [
             'getFormAction',

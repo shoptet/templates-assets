@@ -153,7 +153,7 @@ function makeFilterAjaxRequest(url, pushHistoryState, successCallback, element, 
             hideSpinner();
             dismissMessages();
             setTimeout(function () {
-                sameHeightOfProducts();
+                shoptet.products.sameHeightOfProducts();
             }, 1000);
             shoptet.products.splitWidgetParameters();
             try {

@@ -186,7 +186,7 @@ h4,
 }
 
 .welcome {
-    .clearfix();
+    .clearfixMixin();
     h1 {
         margin-top: 0;
     }
@@ -197,6 +197,9 @@ h4,
 }
 
 .banners-row {
+    .banner-wrapper {
+        margin-top: 10px;
+    }
     @media (min-width: @screen-sm-min) {
         .col-sm-8 {
             padding-left: 0;
@@ -206,6 +209,7 @@ h4,
             padding-right: 0;
         }
         .banner-wrapper {
+            margin-top: 0;
             + .banner-wrapper {
                 margin-top: round(@grid-gutter-width / 2);
             }

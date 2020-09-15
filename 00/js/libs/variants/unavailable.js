@@ -9,10 +9,13 @@
                 shoptet.variantsUnavailable.availableVariants
             );
         });
-        if (displayMessage) {
-            document.getElementById('jsUnavailableCombinationMessage').classList.remove('no-display');
-        } else {
-            document.getElementById('jsUnavailableCombinationMessage').classList.add('no-display');
+        var jsUnavailableCombinationMessage = document.getElementById('jsUnavailableCombinationMessage');
+        if (jsUnavailableCombinationMessage) {
+            if (displayMessage) {
+                jsUnavailableCombinationMessage.classList.remove('no-display');
+            } else {
+                jsUnavailableCombinationMessage.classList.add('no-display');
+            }
         }
     }
 
@@ -252,22 +255,24 @@
         });
 
         resetLink = document.getElementById('jsSplitVariantsReset');
-        resetLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            var parametersHolder =
-                document.querySelectorAll('.' + shoptet.variantsUnavailable.classes.parametersHolder);
-            for (var i = 0; i < parametersHolder.length; i++) {
-                if (parametersHolder[i].tagName === 'SELECT') {
-                    shoptet.scripts.signalCustomEvent('ShoptetSelectedParametersReset', parametersHolder[i]);
-                    parametersHolder[i].options.selectedIndex = 0;
-                } else {
-                    var defaultVariant = parametersHolder[i].querySelector('[data-index="0"]');
-                    defaultVariant.checked = true;
-                    var activeInput = parametersHolder[i].querySelector('input:not([data-index="0"])');
-                    shoptet.scripts.signalCustomEvent('ShoptetSelectedParametersReset', activeInput);
+        if (resetLink) {
+            resetLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                var parametersHolder =
+                    document.querySelectorAll('.' + shoptet.variantsUnavailable.classes.parametersHolder);
+                for (var i = 0; i < parametersHolder.length; i++) {
+                    if (parametersHolder[i].tagName === 'SELECT') {
+                        shoptet.scripts.signalCustomEvent('ShoptetSelectedParametersReset', parametersHolder[i]);
+                        parametersHolder[i].options.selectedIndex = 0;
+                    } else {
+                        var defaultVariant = parametersHolder[i].querySelector('[data-index="0"]');
+                        defaultVariant.checked = true;
+                        var activeInput = parametersHolder[i].querySelector('input:not([data-index="0"])');
+                        shoptet.scripts.signalCustomEvent('ShoptetSelectedParametersReset', activeInput);
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 
     shoptet.variantsUnavailable = shoptet.variantsUnavailable || {};

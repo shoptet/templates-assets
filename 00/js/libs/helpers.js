@@ -1,27 +1,93 @@
 (function(shoptet) {
-    function decSep() {
-        try {
-            return shoptet.config.decSeparator;
-        } catch(ex) {
-            return window.decSeparator;
-        }
-    }
 
     function toFloat(value) {
         if (typeof(value) !== 'string') {
             value = value + '';
         }
-        return parseFloat(value.replace(decSep(), '.'));
+        return parseFloat(value.replace(shoptet.config.decSeparator, '.'));
     }
 
     function toLocaleFloat(value, decimals, trim) {
-        value = value.toFixed(decimals === 'undefined' ? 0 : decimals).toString();
+        if (typeof value === 'number') {
+            value = value.toFixed(decimals === 'undefined' ? 0 : decimals).toString();
 
-        if (trim && value.indexOf('.') != -1) {
-            value = value.replace(/\.?0*$/, '');
+            if (trim && value.indexOf('.') != -1) {
+                value = value.replace(/\.?0*$/, '');
+            }
+            return value.replace('.', shoptet.config.decSeparator);
         }
-        return value.replace('.', decSep());
+        return value;
     }
+
+    function resolveDecimalSeparator(decimalSeparator) {
+        if (typeof decimalSeparator !== 'undefined') {
+            return decimalSeparator;
+        }
+        return shoptet.config.decSeparator;
+    }
+
+    function resolveThousandSeparator(thousandSeparator) {
+        if (typeof thousandSeparator !== 'undefined') {
+            return thousandSeparator;
+        }
+        return shoptet.config.thousandSeparator;
+    }
+
+    function resolveDecimalPlaces(decimalPlaces) {
+        if (typeof decimalPlaces !== 'undefined') {
+            if (!isNaN(decimalPlaces)) {
+                return Math.abs(decimalPlaces);
+            }
+        }
+        if (!isNaN(shoptet.config.decPlaces)) {
+            return Math.abs(shoptet.config.decPlaces);
+        }
+        return 0;
+    }
+
+    function resolveCurrencySymbol(symbol) {
+        if (typeof symbol !== 'undefined') {
+            return symbol;
+        }
+        return shoptet.config.currencySymbol;
+    }
+
+    function resolveCurrencySymbolPosition(symbolPosition) {
+        if (typeof symbolPosition !== 'undefined') {
+            return symbolPosition;
+        }
+        return shoptet.config.currencySymbolLeft;
+    }
+
+    function formatNumber(decimalPlaces, decimalSeparator, thousandSeparator) {
+        var number = this;
+        var thSep = resolveThousandSeparator(thousandSeparator);
+        if (!Number.isInteger(number.valueOf())) {
+            var decSep = resolveDecimalSeparator(decimalSeparator);
+            var decPlaces = resolveDecimalPlaces(decimalPlaces);
+        } else {
+            var decSep = 0;
+            var decPlaces = 0;
+        }
+        var s = number < 0 ? '-' : '';
+        var i = parseInt(number = Math.abs(+number || 0).toFixed(decPlaces)) + '';
+        var j = (j = i.length) > 3 ? j % 3 : 0;
+        return s + (j ? i.substr(0, j) + thSep : '')
+            + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thSep)
+            + (decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : '');
+    }
+
+    function formatAsCurrency(currencySymbol, currencyPosition, decimalPlaces, decimalSeparator, thousandSeparator) {
+        var number = this;
+        var symbol = resolveCurrencySymbol(currencySymbol);
+        var positionLeft = resolveCurrencySymbolPosition(currencyPosition);
+        return ((!positionLeft ? symbol : '')
+            + ' ' + number.ShoptetFormatNumber(decimalPlaces, decimalSeparator, thousandSeparator)
+            + (positionLeft ? (' ' + symbol) : '')).trim();
+    }
+
+    Number.prototype.ShoptetFormatNumber = formatNumber;
+    Number.prototype.ShoptetFormatAsCurrency = formatAsCurrency;
 
     function resolveMinimumAmount(decimals) {
         switch (decimals) {
@@ -100,10 +166,9 @@
     }
 
     shoptet.helpers = shoptet.helpers || {};
-    shoptet.helpers.toFloat = toFloat;
-    shoptet.helpers.toLocaleFloat = toLocaleFloat;
-    shoptet.helpers.updateQuantity = updateQuantity;
-    shoptet.helpers.resolveMinimumAmount = resolveMinimumAmount;
-    shoptet.helpers.isTouchDevice = isTouchDevice;
+    shoptet.scripts.libs.helpers.forEach(function(fnName) {
+        var fn = eval(fnName);
+        shoptet.scripts.registerFunction(fn, 'helpers');
+    });
 
 })(shoptet);

@@ -1,82 +1,52 @@
 (function(shoptet) {
 
     function handler() {
+        shoptet.surcharges.initSurcharges();
+
         var selector = '.variant-list .hidden-split-parameter, .variant-list .split-parameter';
         var $splitParameters = $(selector);
+
         if ($splitParameters.length) {
             if (shoptet.variantsCommon.hasToDisableCartButton()) {
                 shoptet.variantsCommon.disableAddingToCart();
             } else {
                 shoptet.variantsCommon.enableAddingToCart();
             }
+
             $splitParameters.bind('change ShoptetSelectedParametersReset', function(e) {
                 shoptet.scripts.signalCustomEvent('ShoptetSplitVariantParameterChange', e.target);
                 shoptet.variantsSplit.showVariantDependent();
-                shoptet.content.codeId = $('#product-detail-form').attr('data-codeid');
+                shoptet.surcharges.updatePrices();
                 hideMsg(true);
-                var postData = [];
+                var parameterValues = [];
+                var parameterNames = [];
                 var valueIsMissing = false;
                 $splitParameters.each(function() {
+                    parameterNames.push($(this).attr('data-parameter-id'));
                     var value = $('input:checked, option:selected', this).val();
                     if ($.trim(value) === '') {
                         valueIsMissing = true;
+                        shoptet.variantsCommon.reasonToDisable = shoptet.messages['chooseVariant'];
                         $(this).parents('.variant-list').removeClass('variant-selected');
                     } else {
                         $(this).parents('.variant-list').addClass('variant-selected');
                     }
-                    postData[postData.length] = value;
+                    parameterValues.push(value);
                 });
 
                 if (!valueIsMissing) {
-                    var dataString = 'productId=';
-                    sep = '&';
-                    var productId = $('#product-detail-form input[name="productId"]').val();
-                    if ($.trim(productId) === '') {
-                        return;
+                    var tempVariantCode = [];
+                    for (var i = 0; i < parameterValues.length; i++) {
+                        tempVariantCode.push(String(parameterNames[i]) + '-' + String(parameterValues[i]));
                     }
-
-                    dataString += productId;
-                    for (idx = 0; idx < postData.length; idx++) {
-                        dataString += sep + 'parameterValueId[]=' + postData[idx];
-                    }
+                    tempVariantCode.sort();
+                    var variantCode = tempVariantCode.join('-');
 
                     shoptet.variantsCommon.disableAddingToCart();
-
-                    if (shoptet.variantsSplit.cache.hasOwnProperty(dataString)) {
-                        // Data from request are already cached, use them.
-                        shoptet.variantsSplit.callback(shoptet.variantsSplit.cache[dataString]);
-                    } else {
-                        // Data are not cached, make new AJAX request to get them.
-                        // TODO: Use ajaxRequest
-                        showSpinner();
-                        $.ajax({
-                            url: '/action/ProductDetail/GetVariantDetail/',
-                            type: 'POST',
-                            data: dataString,
-                            success: function (responseData) {
-                                var response = {};
-                                response.error = false;
-                                if (responseData.error) {
-                                    showMessage(responseData.error, 'error', '', false, false);
-                                    shoptet.variantsCommon.reasonToDisable = responseData.error;
-                                    response.error = responseData.error;
-                                }
-
-                                response.data = responseData.data;
-                                shoptet.variantsSplit.cache[dataString] = response;
-                                shoptet.variantsSplit.callback(response);
-                            },
-                            error: function () {
-                                //
-                            },
-                            complete: function() {
-                                hideSpinner();
-                            }
-                        });
-                    }
+                    shoptet.variantsSplit.getData(variantCode);
                 }
-
             });
+
             if (
                 $('input:not(.variant-default):checked, option:not(.variant-default):selected',
                 $splitParameters).length
@@ -86,52 +56,56 @@
         }
     }
 
-    function callback(response) {
-        if (response.error) {
-            showMessage(response.error, 'error', '', false, false);
-            shoptet.variantsCommon.reasonToDisable = response.error;
-            shoptet.scripts.signalCustomEvent('ShoptetVariantUnavailable');
-            shoptet.variantsSplit.loadedData = false;
-            return;
-        }
-        var data = response.data;
-        shoptet.variantsSplit.loadedData = data;
-        shoptet.content.codeId = data.id;
-        var $form = $('#product-detail-form');
-        var $formAmount = $('#product-detail-form .amount');
-        $form.find('input[name=priceId]').val(data.id);
+    function getData(variantCode) {
+        if (shoptet.variantsSplit.necessaryVariantData.hasOwnProperty(variantCode)) {
+            // Existing variant
+            var data = shoptet.variantsSplit.necessaryVariantData[variantCode];
+            shoptet.content.codeId = data.id;
+            var $form = $('#product-detail-form');
+            var $formAmount = $('#product-detail-form .amount');
+            $form.find('input[name=priceId]').val(data.id);
 
-        shoptet.tracking.trackProducts(
-            $form[0],
-            data.id,
-            'ViewContent',
-            [shoptet.tracking.trackFacebookPixel]
-        );
+            shoptet.tracking.trackProducts(
+                $form[0],
+                data.id,
+                'ViewContent',
+                [shoptet.tracking.trackFacebookPixel]
+            );
 
-        if (data.variantImage) {
-            var replaceInfo = resolveImageFormat();
-            replaceImage(data.variantImage.big, data.variantImage[replaceInfo.format], replaceInfo.link);
-        }
-        if (data.isNotSoldOut) {
-            shoptet.variantsCommon.enableAddingToCart();
-            hideMsg();
+            if (data.variantImage) {
+                var replaceInfo = resolveImageFormat();
+                shoptet.products.replaceImage(
+                    data.variantImage.big,
+                    data.variantImage[replaceInfo.format],
+                    replaceInfo.link
+                );
+            }
+            if (data.isNotSoldOut) {
+                shoptet.variantsCommon.enableAddingToCart();
+                hideMsg();
+            } else {
+                shoptet.variantsCommon.reasonToDisable = shoptet.messages['unavailableVariant'];
+                showMessage(shoptet.variantsCommon.reasonToDisable, 'error', '', false, false);
+            }
+            $formAmount.val(
+                shoptet.helpers.toLocaleFloat(data.minimumAmount, data.decimalCount, true)
+            );
+            $formAmount.data({
+                'min': data.minimumAmount,
+                'max': data.maximumAmount,
+                'decimals': data.decimalCount
+            });
+            var $cofidis = $('#cofidis');
+            if ($cofidis.length) {
+                shoptet.cofidis.calculator($('.price-final-holder:visible'), $cofidis);
+            }
+            shoptet.scripts.signalCustomEvent('ShoptetVariantAvailable');
         } else {
+            // Non existing variant
             shoptet.variantsCommon.reasonToDisable = shoptet.messages['unavailableVariant'];
-            showMessage(shoptet.variantsCommon.reasonToDisable, 'error', '', false, false);
+            showMessage(shoptet.messages['unavailableVariant'], 'error', '', false, false);
+            shoptet.scripts.signalCustomEvent('ShoptetVariantUnavailable');
         }
-        $formAmount.val(
-            shoptet.helpers.toLocaleFloat(data.minimumAmount, data.decimalCount, true)
-        );
-        $formAmount.data({
-            'min': data.minimumAmount,
-            'max': data.maximumAmount,
-            'decimals': data.decimalCount
-        });
-        var $cofidis = $('#cofidis');
-        if ($cofidis.length) {
-            cofidisCalculator($('.price-final-holder:visible'), $cofidis);
-        }
-        shoptet.scripts.signalCustomEvent('ShoptetVariantAvailable');
     }
 
     function showVariantDependent() {
@@ -156,8 +130,8 @@
         }
         $('.p-detail-inner .parameter-dependent.' + classToDisplay + ', .p-code .parameter-dependent.' + classToDisplay)
             .removeClass(shoptet.variantsCommon.noDisplayClasses);
-        if (typeof checkDiscountFlag === 'function') {
-            checkDiscountFlag();
+        if (typeof shoptet.products.checkDiscountFlag === 'function') {
+            shoptet.products.checkDiscountFlag();
         }
     }
 
@@ -166,6 +140,4 @@
         var fn = eval(fnName);
         shoptet.scripts.registerFunction(fn, 'variantsSplit');
     });
-    shoptet.variantsSplit.cache = {};
-    shoptet.variantsSplit.loadedData = false;
 })(shoptet);

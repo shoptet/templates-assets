@@ -34,6 +34,43 @@
         return data;
     }
 
+
+    /**
+     * Create object from form through FormData object
+     *  Ready for request consume FormData Directly
+     */
+    function serializeForm(form) {
+        var fallBack = form;
+        if (typeof form === 'undefined' || form === null) {
+            return form;
+        }
+        if (form instanceof jQuery) {
+            form = form.get(0);
+        }
+        if (form instanceof HTMLFormElement) {
+            form = new FormData(form);
+        }
+        if (form instanceof FormData) {
+            var object = {};
+            try {
+                var formDataEntries = form.entries(), formDataEntry = formDataEntries.next(), pair;
+                while (!formDataEntry.done) {
+                    pair = formDataEntry.value;
+                    object[pair[0]] = pair[1];
+                    formDataEntry = formDataEntries.next();
+                }
+                return serializeData(object);
+            } catch (e) {
+                console.error(e);
+                // Polyfill doesn't work or something wrong => jQuery fallBack
+                form = $(fallBack).serialize();
+                return form;
+            }
+        } else {
+            return form;
+        }
+    }
+
     /**
      * Create name for custom event depending on form action
      *

@@ -234,3 +234,12 @@ input {
     content: "*";
     padding-left: 0.5ch;
 }
+
+.form-control,
+input, select, textarea {
+    /* Minimum font size to disable iOS zoom 1.15em is aprox 16.1 px */
+    font-size: 1.15em;
+    @media (min-width: @screen-sm-min) {
+        font-size: inherit;
+    }
+}

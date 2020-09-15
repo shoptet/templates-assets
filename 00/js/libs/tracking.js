@@ -1,3 +1,15 @@
+// Function without namespace
+function getShoptetDataLayer(key) {
+    if (dataLayer[0].shoptet) {
+        if (key) {
+            return dataLayer[0].shoptet[key];
+        } else {
+            return dataLayer[0].shoptet;
+        }
+    }
+    return undefined;
+}
+
 (function(shoptet) {
     function getFormAction(formAction) {
         if (formAction === shoptet.config.addToCartUrl) {
@@ -57,6 +69,8 @@
             priceId = priceIdInput.value;
         }
 
+        shoptet.tracking.updateDataLayerCartInfo(response);
+
         if (priceId) {
             trackProducts(
                 form,
@@ -69,7 +83,6 @@
                 ]
             );
         }
-        shoptet.tracking.updateDataLayerCartInfo(response);
     }
 
     function trackProducts(form, priceId, formAction, trackingFunctions) {
@@ -177,6 +190,26 @@
             var amount = shoptet.tracking.resolveAmount(formAction, data);
             var itemWasHandled = false;
 
+            var GTMshoppingCart = {
+                'ecommerce': {
+                  'currencyCode': data.currency,
+                }
+            }
+            // Populate only notnull values productFieldObject
+            productData = {};
+            productData.id = data.content_ids[0];
+            productData.name = data.base_name;
+            productData.brand = data.manufacturer;
+            productData.category = data.content_category;
+            productData.variant = data.variant;
+            productData.price = data.value;
+            productData.quantity = data.amount;
+            for (var key in productData) {
+                if (productData[key] === null) {
+                    delete productData[key];
+                }
+            }
+
             // check if item is already in cart
             dataLayer[0].shoptet.cart.forEach(function(el, i) {
                 if (itemWasHandled) {
@@ -194,6 +227,9 @@
                             } else {
                                 dataLayer[0].shoptet.cart.splice(i, 1);
                             }
+                            GTMshoppingCart.event = 'removeFromCart';
+                            GTMshoppingCart.ecommerce.remove = [];
+                            GTMshoppingCart.ecommerce.remove.push(productData);
                             itemWasHandled = true;
                             break;
                     }
@@ -204,12 +240,21 @@
                 // handled item is not in cart, so we add it there
                 dataLayer[0].shoptet.cart.push(
                     {
-                        "code": data.content_ids[0],
-                        "quantity": amount,
-                        "priceWithVat": data.value
+                        'code': data.content_ids[0],
+                        'quantity': amount,
+                        'priceWithVat': data.value
                     }
                 );
             }
+
+            // Not removing product, add an item
+            if (typeof GTMshoppingCart.event === 'undefined') {
+                GTMshoppingCart.event = 'addToCart';
+                GTMshoppingCart.ecommerce.add = [];
+                GTMshoppingCart.ecommerce.add.push(productData);
+            }
+
+            dataLayer.push(GTMshoppingCart);
         }
         shoptet.scripts.signalCustomEvent('ShoptetDataLayerUpdated');
     }
@@ -237,9 +282,18 @@
 
     function updateDataLayerCartInfo(response) {
         if (typeof dataLayer === 'object') {
-            dataLayer[0].shoptet.cartInfo.leftToFreeShipping = response.getFromPayload('leftToFreeShipping');
-            dataLayer[0].shoptet.cartInfo.freeShipping = response.getFromPayload('freeShipping');
-            dataLayer[0].shoptet.cartInfo.discountCoupon = response.getFromPayload('discountCoupon');
+            var leftToFreeShipping = response.getFromPayload('leftToFreeShipping');
+            if(leftToFreeShipping !== null) {
+                dataLayer[0].shoptet.cartInfo.leftToFreeShipping = leftToFreeShipping;
+            }
+            var freeShipping = response.getFromPayload('freeShipping');
+            if(freeShipping !== null) {
+                dataLayer[0].shoptet.cartInfo.freeShipping = freeShipping;
+            }
+            var discountCoupon = response.getFromPayload('discountCoupon');
+            if(discountCoupon !== null) {
+                dataLayer[0].shoptet.cartInfo.discountCoupon = discountCoupon;
+            }
         }
     }
 

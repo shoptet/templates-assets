@@ -9,6 +9,14 @@
         el.classList.remove('hidden');
     }
 
+    function calculator($newPriceHolder, $cofidis) {
+        var newPrice = parseFloat($newPriceHolder.text().replace(/[^\d,.-]/g, ''));
+        $cofidis.attr(
+            'onClick',
+            $cofidis.attr('onClick').replace(/(cenaZbozi=)(.+)(&idObchodu)/, '$1' + newPrice + '$3')
+        );
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         var elements = shoptet.cofidis.getElements();
         var successCallback = function(response) {

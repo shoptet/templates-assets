@@ -5,9 +5,9 @@
         }
 
         var validatedValue = el.value.trim();
+        el.value = validatedValue;
         var validPattern = el.getAttribute('data-pattern');
         var elWrapper = el.parentElement;
-
         var regex = validPattern ? new RegExp(validPattern, "i") : false;
 
         if (regex && validatedValue && !regex.test(validatedValue)) {

@@ -17,9 +17,6 @@
             if ($activeOption.attr('data-disable-reason')) {
                 shoptet.variantsCommon.reasonToDisable = $activeOption.attr('data-disable-reason');
             }
-            if ($activeOption.attr('data-codeid')) {
-                shoptet.content.codeId = $activeOption.attr('data-codeid');
-            }
             if (shoptet.variantsCommon.hasToDisableCartButton()) {
                 shoptet.variantsCommon.disableAddingToCart();
             } else {
@@ -69,7 +66,6 @@
 
         if ($variant.attr('data-codeid')) {
             $('#product-detail-form').find('input[name=priceId]').val($variant.attr('data-codeid'));
-            shoptet.content.codeId = $variant.attr('data-codeid');
         }
 
         shoptet.tracking.trackProducts(
@@ -82,7 +78,9 @@
         var bigImageUrl = $variant.attr('data-big');
         if (typeof bigImageUrl !== 'undefined') {
             var replaceInfo = resolveImageFormat();
-            replaceImage(bigImageUrl, $variant.attr('data-' + replaceInfo.format), replaceInfo.link);
+            shoptet.products.replaceImage(
+                bigImageUrl, $variant.attr('data-' + replaceInfo.format), replaceInfo.link
+            );
         }
 
         var variantIndex = $variant.data('index');
@@ -109,13 +107,14 @@
                     'decimals': $variant.data('decimals')
                 });
 
-                if($('#cofidis').length) {
-                    cofidisCalculator($('.price-final-holder:visible'), $('#cofidis'));
+                var $cofidis = $('#cofidis');
+                if ($cofidis.length) {
+                    shoptet.cofidis.calculator($('.price-final-holder:visible'), $cofidis);
                 }
             }
         }
-        if (typeof checkDiscountFlag === 'function') {
-            checkDiscountFlag();
+        if (typeof shoptet.products.checkDiscountFlag === 'function') {
+            shoptet.products.checkDiscountFlag();
         }
     }
 

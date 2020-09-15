@@ -97,7 +97,7 @@
             }
         }
         @media (min-width: @screen-xs-min) {
-            .clearfix();
+            .clearfixMixin();
             fieldset {
                 div {
                     text-align: left;
@@ -110,7 +110,7 @@
             }
         }
         @media (min-width: @screen-lg-min) {
-            .clearfix();
+            .clearfixMixin();
             fieldset {
                 div {
                     text-align: left;
@@ -141,7 +141,7 @@
         }
         @media (min-width: @screen-lg-min) {
             fieldset {
-                div { 
+                div {
                     &:nth-child(even) {
                         clear: none;
                     }

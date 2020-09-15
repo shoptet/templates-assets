@@ -116,7 +116,7 @@
             font-size: smaller;
         }
         > div {
-            .clearfix();
+            .clearfixMixin();
             .p-tools {
                 position: absolute;
                 right: 0;
@@ -176,7 +176,6 @@
         }
     }
     @media (min-width: @screen-sm-min) {
-        .clearfix();
         margin-left: round(-@grid-gutter-width / 4);
         margin-right: round(-@grid-gutter-width / 4);
         > div {
