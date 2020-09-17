@@ -322,8 +322,8 @@
             }
             if (firstActive === 1) {
                 $el.addClass('inactive');
-                $el.next('.p-next').removeClass('inactive');
             }
+            $el.next('.p-next').removeClass('inactive');
         }
     }
 

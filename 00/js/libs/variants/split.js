@@ -60,7 +60,6 @@
         if (shoptet.variantsSplit.necessaryVariantData.hasOwnProperty(variantCode)) {
             // Existing variant
             var data = shoptet.variantsSplit.necessaryVariantData[variantCode];
-            shoptet.content.codeId = data.id;
             var $form = $('#product-detail-form');
             var $formAmount = $('#product-detail-form .amount');
             $form.find('input[name=priceId]').val(data.id);
