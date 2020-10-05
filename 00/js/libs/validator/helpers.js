@@ -16,16 +16,18 @@ function toggleRequiredAttributes($el, job, preserveNoJsValidation) {
         });
         $.each($el.find('.js-validate'), function() {
             shoptet.validator.removeErrorMessage(this, this.parentElement);
-            $(this).addClass('js-validation-suspended').attr(
-                'data-original-value',
-                $(this).val()
-            ).attr(
-                'data-original-autocomplete',
-                $(this).attr('autocomplete')
-            ).attr(
-                'autocomplete',
-                'autocomplete-off'
-            ).val('');
+            $(this).addClass('js-validation-suspended')
+                .removeClass('js-error-field')
+                .attr(
+                    'data-original-value',
+                    $(this).val()
+                ).attr(
+                    'data-original-autocomplete',
+                    $(this).attr('autocomplete')
+                ).attr(
+                    'autocomplete',
+                    'autocomplete-off'
+                ).val('');
         });
         if (!preserveNoJsValidation) {
             $.each($el.find('[data-disabled-validation]'), function() {

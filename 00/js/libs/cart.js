@@ -111,10 +111,10 @@
         var successCallback = function(response) {
             var content = response.getFromPayload('content');
             if (content !== false) {
-                $.colorbox({
+                shoptet.modal.open({
                     html: shoptet.content.colorboxHeader + content + shoptet.content.colorboxFooter,
                     width: shoptet.config.colorbox.widthLg,
-                    className: 'colorbox-lg',
+                    className: shoptet.config.colorbox.classLg,
                     onComplete: function() {
                         $('.colorbox-html-content img').unveil();
                         $('body').removeClass(shoptet.config.bodyClasses);
@@ -239,7 +239,7 @@
                         delete shoptet.events.cartLoaded;
                         setTimeout(function() {
                             hideSpinner();
-                        }, dismissTimeout);
+                        }, shoptet.config.dismissTimeout);
                         hideSpinner();
                     }
                     break;
@@ -249,7 +249,7 @@
                     $('#content-wrapper').replaceWith(payloadContent);
                     $('#content-wrapper img').unveil();
                     initColorbox();
-                    resizeModal();
+                    shoptet.modal.shoptetResize();
                     shoptet.scripts.signalDomLoad('ShoptetDOMPageContentLoaded');
                     break;
             }
@@ -315,13 +315,13 @@
      * timeout = number of miliseconds between input change and cart update
      */
     function updateQuantityInCart($input, timeout) {
-        clearTimeout(setPcsTimeout);
+        clearTimeout(shoptet.runtime.setPcsTimeout);
         var $parentForm = $input.parents('form');
         var displaySpinner = true;
         if (!shoptet.abilities.feature.extended_ajax_cart && $('body').hasClass('user-action-visible')) {
             displaySpinner = false;
         }
-        setPcsTimeout = setTimeout(function() {
+        shoptet.runtime.setPcsTimeout = setTimeout(function() {
             shoptet.cart.ajaxSubmitForm(
                 $parentForm.attr('action'),
                 $parentForm[0],
@@ -423,11 +423,11 @@
             });
 
             var content = $('.free-gifts-wrapper').html();
-            $.colorbox({
+            shoptet.modal.open({
                 html: shoptet.content.colorboxHeader + content + shoptet.content.colorboxFooter,
                 width: shoptet.config.colorbox.widthSm,
                 maxHeight: '95%',
-                className: 'colorbox-sm'
+                className: shoptet.config.colorbox.classSm
             });
             $('#colorbox input').remove();
         });
@@ -448,7 +448,7 @@
                     $(this).prop('checked', false);
                 }
             });
-            $.colorbox.close();
+            shoptet.modal.close();
             var $form = $('.free-gifts-wrapper form');
             shoptet.cart.ajaxSubmitForm(
                 $form.attr('action'),

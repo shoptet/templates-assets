@@ -326,7 +326,7 @@
     function modalMagic() {
         if($('.branch-saved:visible').length) {
             $('.branch-saved').click(function() {
-                $.colorbox.close();
+                shoptet.modal.close();
             });
         }
         return false;
@@ -345,10 +345,10 @@
      * branchInput = selector of input element holding selected branch id
      */
     function chooseABranchModal(href, branchWrap, branchId, branchInput) {
-        $.colorbox({
-            maxWidth: '100%',
+        shoptet.modal.open({
+            maxWidth: shoptet.config.colorbox.maxWidth,
             width : shoptet.config.colorboxWidthMd,
-            className: 'colorbox-md',
+            className: shoptet.config.colorbox.classMd,
             href: href,
             onComplete: function() {
                 $(branchWrap + ' select:first').focus();
@@ -450,7 +450,7 @@
                 var changePointLink = $('<a href="#" class="chosen">' + shoptet.messages['change'] + '</a>');
                 $('.personal-collection-choose-branch').html(completePointName).append(changePointLink);
                 $('.personal-collection-point-id').val(pointId);
-                $.colorbox.close();
+                shoptet.modal.close();
             });
 
         }
@@ -484,12 +484,12 @@
                     $parentsElement = $(this).closest('div.radio-wrapper');
                     $parentsElement.find('.' + postDeliveryPoints[i].prefix + '-choose-radio[name="shippingId"]:first')
                         .prop('checked', true);
-                    $.colorbox({
+                    shoptet.modal.open({
                         href: postDeliveryPoints[i].url,
                         width : shoptet.config.colorboxWidthMd,
-                        className: 'colorbox-md',
+                        className: shoptet.config.colorbox.classMd,
                         onComplete: function() {
-                            resizeModal();
+                            shoptet.modal.shoptetResize();
                         }
                     });
                 });
@@ -505,7 +505,6 @@
                         var $newLink = $('<a href="#" class="chosen">' + shoptet.messages['change'] + '</a>');
                         $parentsElement.find('.' + postDeliveryPoints[i].prefix + '-choose-post')
                             .html(newString).append($newLink).show(0);
-
                         if (postDeliveryPoints[i].prefix === 'posta-pont') {
                             var branchId = $.trim($tr.find('.' + postDeliveryPoints[i].prefix + '-branch-id').html());
                             $('#' + postDeliveryPoints[i].prefix + '-hidden').val(branchId);
@@ -513,8 +512,7 @@
                             var zipCode = $.trim($tr.find('.' + postDeliveryPoints[i].prefix + '-zip-code').html());
                             $('#' + postDeliveryPoints[i].prefix + '-hidden').val(zipCode);
                         }
-
-                        $.colorbox.close();
+                        shoptet.modal.close();
                     }
                 );
             })(i);
@@ -558,7 +556,7 @@
                             $('#ulozenka-form .loader').addClass('no-display');
                             $('#ulozenka-form .branch-saved').addClass('branch-saved-visible');
                             $('#ulozenka-form').submit();
-                            resizeModal();
+                            shoptet.modal.shoptetResize();
                         },
                         error: function() {
                             showMessage(shoptet.messages['ajaxError'], 'warning', '', false, false);
@@ -666,7 +664,7 @@
                         success: function(responseData) {
                             $('#dpd-cz-parcel-shop-wrapper .detail-information').html(responseData);
                             $('#dpd-cz-parcel-shop-form .loader').addClass('no-display');
-                            resizeModal();
+                            shoptet.modal.shoptetResize();
                             $('#dpd-cz-parcel-shop-form .branch-saved').addClass('branch-saved-visible');
                             $('#dpd-cz-parcel-shop-form').submit();
                         },
@@ -687,10 +685,10 @@
                 $('#dpd-zip-check-modal .dpd-zip-check-result').hide();
                 $('#dpd-zip-check-text').val("");
                 $('#dpd-zip-check-modal').show();
-                $.colorbox({
-                    maxWidth: '100%',
+                shoptet.modal.open({
+                    maxWidth: shoptet.config.colorbox.maxWidth,
                     width : shoptet.config.colorboxWidthMd,
-                    className: 'colorbox-md',
+                    className: shoptet.config.colorbox.classMd,
                     inline: true,
                     href: '#dpd-zip-check-modal',
                     onClosed: function() {
@@ -712,8 +710,7 @@
                             } else {
                                 $('#dpd-zip-check-invalid').show();
                             }
-
-                            resizeModal();
+                            shoptet.modal.shoptetResize();
                         },
                         error: function() {
                         }
@@ -758,7 +755,7 @@
                         success: function(responseData) {
                             $('#ppl-partner-cz-wrapper .detail-information').html(responseData);
                             $('#ppl-partner-cz-form .loader').addClass('no-display');
-                            resizeModal();
+                            shoptet.modal.shoptetResize();
                             $('#ppl-partner-cz-form .branch-saved').addClass('branch-saved-visible');
                             $('#ppl-partner-cz-form').submit();
                         },

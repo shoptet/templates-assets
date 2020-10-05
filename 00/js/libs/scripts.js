@@ -215,7 +215,7 @@
             'updateQuantityInCart',
             'removeItemFromCart',
             'toggleRelatedProducts',
-            'triggerCofidisCalc',
+            'triggerCofidisCalc'
         ],
         cartShared: [
             'addToCart'
@@ -274,7 +274,7 @@
             'hideContentWindows',
             'updateSelectedRegions',
             'toggleRegionsWrapper',
-            'restoreDefaultRegionSelect',
+            'restoreDefaultRegionSelect'
         ],
         helpers: [
             'toFloat',
@@ -288,7 +288,7 @@
             'formatAsCurrency',
             'resolveMinimumAmount',
             'updateQuantity',
-            'isTouchDevice',
+            'isTouchDevice'
         ],
         products: [
             'splitWidgetParameters',
@@ -404,6 +404,15 @@
             'handlePromoClick',
             'trackProductsFromPayload',
             'updateDataLayerCartInfo'
+        ],
+        runtime: [
+            'resizeEnd'
+        ],
+        modal: [
+            'open',
+            'close',
+            'resize',
+            'shoptetResize'
         ]
     };
 

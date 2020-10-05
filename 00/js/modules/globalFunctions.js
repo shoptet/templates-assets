@@ -1,40 +1,4 @@
-var setPcsTimeout;
-/* TODO: shoptet.config */
-var dismissTimeout = 6000;
-shoptet.config.animationDuration = 300;
-var dismiss = setTimeout(function() {
-    hideMsg();
-}, dismissTimeout);
-
-// Must be identically as media query breakpoints in CSS
-shoptet.config.breakpoints = {};
-shoptet.config.breakpoints.xs = 479;
-shoptet.config.breakpoints.sm = 767;
-shoptet.config.breakpoints.md = 991;
-shoptet.config.breakpoints.lg = 1199;
-shoptet.config.breakpoints.xl = 1439;
-
-shoptet.config.colorbox = {};
-shoptet.config.colorbox.opacity = 0.65;
-shoptet.config.colorbox.maxWidth = '98%';
-shoptet.config.colorbox.initialHeight = 480;
-shoptet.config.colorbox.widthXs = 300;
-shoptet.config.colorbox.widthSm = 500;
-shoptet.config.colorbox.widthMd = 700;
-shoptet.config.colorbox.widthLg = 1152;
-
-shoptet.config.updateQuantityTimeout = 1000;
-shoptet.config.cartActionUrl = '/action/Cart';
-
-shoptet.runtime.resize = {
-    delta: 200,
-    rtime: false,
-    timeout: false,
-    windowWidth: false
-};
-shoptet.runtime.cloudZoom = false;
-shoptet.runtime.updateMenu = false;
-
+// TODO: move these declarations to filters and unify with 2G
 var categoryMinValue = parseInt($('#categoryMinValue').text());
 var categoryMaxValue = parseInt($('#categoryMaxValue').text());
 var currencyExchangeRate = shoptet.helpers.toFloat($('#currencyExchangeRate').text());
@@ -81,7 +45,7 @@ function showMessage(content, type, id, cancel, overlay, parent) {
         overlay = false;
     }
     hideMsg(true);
-    clearTimeout(dismiss);
+    clearTimeout(shoptet.config.dismiss);
 
     if ($('.msg').length) {
         hideMsg(true);
@@ -125,9 +89,9 @@ function hideMsg(action) {
 * This function does not accept any arguments.
 */
 function dismissMessages() {
-    dismiss = setTimeout(function() {
+    shoptet.runtime.dismiss = setTimeout(function() {
         hideMsg();
-    }, dismissTimeout);
+    }, shoptet.config.dismissTimeout);
 }
 
 /**
@@ -400,45 +364,9 @@ function initColorbox() {
         for(var key in $lightboxes) {
             $('*[data-gallery="' + key + '"]').colorbox({
                 rel: key,
-                className: 'colorbox-lg'
-            });
-        }
-    }
-}
-
-/**
-* Resize modal window
-*
-* This function does not accept any arguments.
-*/
-function resizeModal() {
-    /* detected colorbox open */
-    if ($("#colorbox").css("display")=="block") {
-        // colorbox.widthMd is default width of colorbox
-        var width = shoptet.config.colorbox.widthMd;
-
-        if ($('#colorbox').hasClass('colorbox-xs')) {
-            if(shoptet.runtime.resize.windowWidth < 700){
-                width = '98%';
-            } else {
-                width = shoptet.config.colorbox.widthMd;
-            }
-            $.colorbox.resize({
-                width: width
-            });
-            return;
-        } else if ($('#colorbox').hasClass('colorbox-sm')) {
-            width = shoptet.config.colorbox.widthSm;
-        } else if ($('#colorbox').hasClass('colorbox-lg')) {
-            width = shoptet.config.colorbox.widthLg;
-        }
-        if (!detectResolution(shoptet.config.breakpoints.lg)) {
-            $.colorbox.resize({
-                width: $('.content-wrapper').width()
-            });
-        } else {
-            $.colorbox.resize({
-                width: width
+                maxWidth: shoptet.config.colorbox.maxWidth,
+                width: shoptet.config.colorbox.widthLg,
+                className: shoptet.config.colorbox.classLg
             });
         }
     }
@@ -659,7 +587,7 @@ function resizeEndCallback() {
     if ($('.carousel').length) {
         setCarouselHeight($('.carousel-inner'));
     }
-    resizeModal();
+    shoptet.modal.shoptetResize();
     addPaddingToOverallWrapper();
 
     if (typeof shoptet.checkout !== 'undefined' && shoptet.checkout.$checkoutSidebar.length) {
@@ -669,53 +597,6 @@ function resizeEndCallback() {
             shoptet.checkout.handleWithSidebar();
         }
     }
-}
-
-/**
- * Function that fires after end of resize
- *
- * This function does not accept any arguments.
- */
-function resizeEnd() {
-    if (new Date() - shoptet.runtime.resize.rtime < shoptet.runtime.resize.rtime.delta) {
-        setTimeout(resizeEnd, shoptet.runtime.resize.delta);
-    } else {
-        shoptet.runtime.resize.timeout = false;
-        $(document).trigger('resizeEnd');
-        var window_changed = $(window).width() !== shoptet.runtime.resize.windowWidth;
-        if (window_changed) {
-            shoptet.runtime.resize.windowWidth = $(window).width();
-            resizeEndCallback();
-        }
-    }
-}
-
-function openAgreementModal() {
-    var $this = $('.site-agreement');
-    var showOnly = false;
-    if ($this.hasClass('show-only')) {
-        showOnly = true;
-    }
-    var content = $this.html();
-    var modalWidth;
-
-    if(shoptet.runtime.resize.windowWidth < 700){
-        modalWidth = '100%';
-    } else {
-        modalWidth = shoptet.config.colorbox.widthMd;
-    }
-
-    $.colorbox({
-        opacity: '.95',
-        closeButton: showOnly,
-        overlayClose: showOnly,
-        html: shoptet.content.colorboxHeader + content + shoptet.content.colorboxFooter,
-        className: 'colorbox-xs',
-        width: modalWidth,
-        onClosed: function() {
-            $('.site-agreement').remove();
-        }
-    });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -728,10 +609,7 @@ document.addEventListener('DOMContentLoaded', function() {
         shoptet.global.updateSelectedRegions($(this));
         shoptet.global.toggleRegionsWrapper();
         shoptet.validatorZipCode.updateZipValidPattern($(this));
-        shoptet.validatorCompanyId.updateCompanyIdValidPattern();
     });
-
-    shoptet.runtime.resize.windowWidth = $(window).width();
 
     var hash = window.location.hash;
     if (hash.length) {
@@ -751,16 +629,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!detectResolution(shoptet.config.breakpoints.sm)) {
         addPaddingToOverallWrapper();
     }
-
-    $(window).resize(function () {
-        shoptet.runtime.resize.rtime = new Date();
-        if (shoptet.runtime.resize.timeout === false) {
-            shoptet.runtime.resize.timeout = true;
-            setTimeout(
-                resizeEnd, shoptet.runtime.resize.delta
-            );
-        }
-    });
 
     detectScrolled('up');
 
@@ -818,7 +686,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'agreed',
             {days: shoptet.config.agreementCookieExpire}
         );
-        $.colorbox.close();
+        shoptet.modal.close();
     });
 
     // Information banner
@@ -831,12 +699,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     if ($('.site-agreement').length) {
-        openAgreementModal();
+        if ($(this).hasClass('show-only')) {
+            var showOnly = true;
+        } else {
+            var showOnly = false;
+        }
+        var content = $('.site-agreement').html();
+        shoptet.modal.open({
+            opacity: '.95',
+            closeButton: showOnly,
+            overlayClose: showOnly,
+            html: shoptet.content.colorboxHeader + content + shoptet.content.colorboxFooter,
+            className: shoptet.config.colorbox.classMd,
+            width: shoptet.config.colorbox.widthMd,
+            onClosed: function() {
+                $('.site-agreement').remove();
+            }
+        });
     }
 
     $('html').on('click', '.colorbox-close', function(e) {
         e.preventDefault();
-        $.colorbox.close();
+        shoptet.modal.close();
     });
 
     // Init form validator
@@ -1045,10 +929,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     $('html').on('click', '.link-icon.chat, .link-icon.watchdog', function(e) {
         e.preventDefault();
-        $.colorbox({
+        shoptet.modal.open({
             href: $(this).attr('href'),
             width : shoptet.config.colorbox.widthSm,
-            className: 'colorbox-sm',
+            className: shoptet.config.colorbox.classSm,
             onComplete: function() {
                 shoptet.validator.initValidator($('form'));
             }
@@ -1057,10 +941,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     $('html').on('click', 'a.colorbox, a.p-main-image.cbox', function(e) {
         e.preventDefault();
-        $.colorbox({
+        shoptet.modal.open({
             href: $(this).attr('href'),
+            maxWidth: shoptet.config.colorbox.maxWidth,
             width : shoptet.config.colorbox.widthLg,
-            className: 'colorbox-lg'
+            className: shoptet.config.colorbox.classLg
         });
     });
 

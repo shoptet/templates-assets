@@ -194,9 +194,9 @@
         var moreEl = wrapper.querySelector('.widget-parameter-more');
         var valuesToHide = [];
         wrapper.classList.remove('justified');
-        moreEl.classList.remove('js-hidden');
+        moreEl.classList.remove('no-display');
         moreEl.classList.remove('visible');
-        shoptet.common.removeClassFromElements(values, 'js-hidden');
+        shoptet.common.removeClassFromElements(values, 'no-display');
 
         if (!shoptet.common.fitsToParentWidth(list)) {
             var moreElWidth = moreEl.offsetWidth;
@@ -206,14 +206,14 @@
                     break;
                 }
             }
-            shoptet.common.addClassToElements(valuesToHide, 'js-hidden');
+            shoptet.common.addClassToElements(valuesToHide, 'no-display');
             if (valuesToHide.length === values.length) {
-                moreEl.classList.add('js-hidden');
+                moreEl.classList.add('no-display');
             } else {
                 moreEl.classList.add('visible');
             }
         } else {
-            moreEl.classList.add('js-hidden');
+            moreEl.classList.add('no-display');
         }
         wrapper.classList.add('justified');
     }

@@ -48,7 +48,8 @@
     shoptet.validatorCompanyId.validators = {
         companyIdInputs: {
             elements: document.getElementsByClassName('js-validate-company-id'),
-            events: ['change', 'ShoptetCompanyIdPatternChange'],
+            /* order is important here - we dont want to fire an unnecessary change event */
+            events: ['ShoptetCompanyIdPatternChange', 'change'],
             validator: shoptet.validatorCompanyId.validateCompanyId,
             fireEvent: true,
             fireOneEvent: true

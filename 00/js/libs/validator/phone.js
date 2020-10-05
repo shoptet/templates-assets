@@ -28,8 +28,16 @@
                 }
             }
         }
-        var phoneInfo = JSON.parse(el.previousElementSibling.value);
         var phoneWrapper = el.parentElement;
+        var phoneInfo = {};
+        var phoneInfoEl = phoneWrapper.querySelector('.js-phone-code');
+        try  {
+            phoneInfo = JSON.parse(phoneInfoEl.value);
+        } catch(e) {
+            el.classList.remove('js-validated-field');
+            el.removeAttribute('disabled');
+            return false;
+        }
 
         if (validatedValue.length === 0 && el.value.length !== 0) {
             shoptet.validator.addErrorMessage(el, phoneWrapper, shoptet.validatorPhone.messageType);
