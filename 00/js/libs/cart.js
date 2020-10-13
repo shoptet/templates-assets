@@ -147,7 +147,6 @@
      * form = AJAX response
      */
     function functionsForCart(form, response) {
-        shoptet.cart.triggerCofidisCalc();
         shoptet.tracking.handleAction(form, response);
         if (typeof shoptet.config.showAdvancedOrder !== 'undefined' && !shoptet.config.orderingProcess.active) {
             shoptet.cart.getAdvancedOrder();
@@ -364,25 +363,7 @@
         $target.prev('tr').toggleClass('related-visible');
     }
 
-    /**
-     * Cofidis icon trigger onClick calc event
-     *
-     * This function does not accept any arguments.
-     */
-    function triggerCofidisCalc() {
-        if ($('.cofidis.extra').length) {
-            $('.installments').on('click', function(e) {
-                e.stopPropagation();
-            });
-            $('.cofidis.extra').on('click', function() {
-                $('.installments').trigger('click');
-            });
-        }
-    }
-
     document.addEventListener("DOMContentLoaded", function() {
-        shoptet.cart.triggerCofidisCalc();
-
         var $html = $('html');
         // cart - set pcs form
         $html.on('change', 'input.amount', function() {

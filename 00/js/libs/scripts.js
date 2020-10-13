@@ -214,8 +214,7 @@
             'ajaxSubmitForm',
             'updateQuantityInCart',
             'removeItemFromCart',
-            'toggleRelatedProducts',
-            'triggerCofidisCalc'
+            'toggleRelatedProducts'
         ],
         cartShared: [
             'addToCart'
@@ -389,7 +388,9 @@
         cofidis: [
             'getElements',
             'setMinPayment',
-            'calculator'
+            'calculator',
+            'handleClick',
+            'addCalculatorListeners'
         ],
         tracking: [
             'getFormAction',

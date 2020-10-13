@@ -20,25 +20,29 @@
      * This function does not accept any arguments.
      */
     function splitMenu() {
-        var i = 0;
+        var i;
         var $menuHelper = $('.menu-helper');
+        var $items = $('.navigation-in > ul > li:visible');
         var menuHelperOffset = $menuHelper.length ? $menuHelper.offset() : 0;
+        var navigElems = [];
         $('#navigation').removeClass('fitted');
-        $('.navigation-in > ul > li').each(function() {
+        $items.each(function() {
             var $el = $(this);
-            var width = $el.outerWidth();
-            var offset = $el.offset();
-            if ((width + offset.left) > menuHelperOffset.left) {
-                $el.addClass('splitted');
-            } else {
-                $el.removeClass('splitted');
-                i++;
-            }
+            var elemPos = $el.outerWidth() + $el.offset().left;
+            $el.removeClass('splitted');
+            navigElems.unshift({$el, elemPos});
         });
-        if (i === $('.navigation-in > ul > li').length) {
+        for(i = 0; i < navigElems.length; i++) {
+            if(navigElems[i].elemPos > menuHelperOffset.left) {
+                navigElems[i].$el.addClass('splitted');
+            } else {
+                break;
+            }
+        }
+        if (i === 0) {
             $('#navigation').addClass('fitted');
         }
-        shoptet.menu.splitHelperMenu(i);
+        shoptet.menu.splitHelperMenu($('.navigation-in > ul > li').length - i);
     }
 
     /**
@@ -192,7 +196,6 @@
         });
 
         if (detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
-            shoptet.menu.splitMenu();
             shoptet.menu.updateMenu();
         }
 

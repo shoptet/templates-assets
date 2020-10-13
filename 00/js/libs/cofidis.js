@@ -12,13 +12,29 @@
     function calculator($newPriceHolder, $cofidis) {
         var newPrice = parseFloat($newPriceHolder.text().replace(/[^\d,.-]/g, ''));
         $cofidis.attr(
-            'onClick',
-            $cofidis.attr('onClick').replace(/(cenaZbozi=)(.+)(&idObchodu)/, '$1' + newPrice + '$3')
+            'data-url',
+            $cofidis.attr('data-url').replace(/(cenaZbozi=)(.+)(&idObchodu)/, '$1' + newPrice + '$3')
         );
     }
 
+    function handleClick(e) {
+        e.preventDefault();
+        var url = e.currentTarget.dataset.url;
+        window.open(url, 'iPlatba', 'width=770,height=650,menubar=no,toolbar=no');
+    }
+
+    function addCalculatorListeners() {
+        var cofidisCalculatorLinks = document.querySelectorAll('.js-cofidis-open');
+        for (var i = 0; i < cofidisCalculatorLinks.length; i++) {
+            cofidisCalculatorLinks[i].removeEventListener('click', shoptet.cofidis.handleClick);
+            cofidisCalculatorLinks[i].addEventListener('click', shoptet.cofidis.handleClick);
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
+        shoptet.cofidis.addCalculatorListeners();
         var elements = shoptet.cofidis.getElements();
+
         var successCallback = function(response) {
             var index = response.getFromPayload('index');
             var minPayment = response.getFromPayload('minPayment');
@@ -26,6 +42,7 @@
                 shoptet.cofidis.setMinPayment(elements[index], minPayment);
             }
         };
+
         for (var i = 0; i < elements.length; i++) {
             shoptet.ajax.makeAjaxRequest(
                 '/action/Iplatba/GetMinPayment/',
@@ -39,6 +56,10 @@
                 }
             )
         }
+    });
+
+    document.addEventListener('ShoptetDOMContentLoaded', function() {
+        shoptet.cofidis.addCalculatorListeners();
     });
 
     shoptet.cofidis = shoptet.cofidis || {};
