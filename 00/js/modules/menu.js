@@ -30,7 +30,7 @@
             var $el = $(this);
             var elemPos = $el.outerWidth() + $el.offset().left;
             $el.removeClass('splitted');
-            navigElems.unshift({$el, elemPos});
+            navigElems.unshift({$el: $el, elemPos: elemPos});
         });
         for(i = 0; i < navigElems.length; i++) {
             if(navigElems[i].elemPos > menuHelperOffset.left) {
