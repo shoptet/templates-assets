@@ -90,6 +90,13 @@
         }
     });
 
+    // Trim text inputs globally
+    document.addEventListener('change', function(e) {
+        if (e.target && e.target.matches('input[type="text"], input[type="email"]')) {
+            e.target.value = e.target.value.trim();
+        }
+    });
+
     shoptet.validator = shoptet.validator || {};
     shoptet.scripts.libs.validator.forEach(function(fnName) {
         var fn = eval(fnName);

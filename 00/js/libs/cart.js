@@ -537,7 +537,7 @@
         if ($anotherShipping.length && $anotherShipping[0].hasAttribute('data-change')) {
             $anotherShipping.prop('checked', true);
             shoptet.checkout.toggleAnotherShipping(false);
-        };
+        }
     });
 
     shoptet.cart = shoptet.cart || {};

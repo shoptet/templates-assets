@@ -221,14 +221,11 @@ function detectFilters() {
         $el = $('.filters-wrapper');
         var filtersDefaultPosition = $('#filters-default-position').attr('data-filters-default-position');
         if (filtersDefaultPosition == 'left' || filtersDefaultPosition == 'right') {
-            if ($('aside .filters-wrapper').length) {
-                if (!$('aside').is(':visible')) {
-                    moveFilters($el, 'content');
-                }
+            var $asideFilterSelector = $('.sidebar-' + filtersDefaultPosition + ' .filters-wrapper');
+            if ($asideFilterSelector.length && !$asideFilterSelector.is(':visible')) {
+                moveFilters($el, 'content');
             } else {
-                if ($('aside').is(':visible')) {
-                    moveFilters($el, 'default');
-                }
+                moveFilters($el, 'default');
             }
         }
     }

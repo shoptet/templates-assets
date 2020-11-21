@@ -663,6 +663,13 @@ a.btn {
     border-width: 0;
     position: relative;
     padding-bottom: @line-height-computed;
+    .wide & {
+        @media (min-width: @screen-sm-min) {
+            img {
+              max-height: 670px;
+            }
+        }
+    }
 }
 .image360-navigation {
     bottom: @line-height-computed;

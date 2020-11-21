@@ -1,0 +1,73 @@
+@subcategories_chevron-size: 8px;
+@subcategories_mobile-line-height: round(@font-size-small + 2) ;
+.subcategories {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0 0 @line-height-computed;
+    padding: 0;
+    border-style: solid;
+    border-width: 1px;
+    li {
+        list-style: none;
+        flex: 0 0 auto;
+        padding: 0;
+        a {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 50px;
+            padding: round(@grid-gutter-width / 6) @grid-gutter-width round(@grid-gutter-width / 6)  round(@grid-gutter-width / 3);
+            border: 0;
+            font-weight: 500;
+            text-decoration: underline;
+            .text {
+                max-height: round(@line-height-computed * 2);
+                overflow: hidden;
+            }
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+    &.with-image {
+        li {
+            a {
+                display: flex;
+                align-items: center;
+                padding-left: round(@grid-gutter-width / 6);
+                .image {
+                    width: 25%;
+                    text-align: center;
+                    img {
+                        max-height: 30px;
+                    }
+                }
+                .text {
+                    width: 75%;
+                    padding-left: round(@grid-gutter-width / 4);
+                    flex-grow: 0;
+                    text-align: left;
+                    display: inline-block;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+            &.parametric {
+                text-align: center;
+            }
+        }
+    }
+    @media (max-width: @screen-sm-max) {
+        li {
+            a {
+                padding: 0 round(@grid-gutter-width / 1.5) 0 round(@grid-gutter-width / 3);
+                .text {
+                    max-height: round(@subcategories_mobile-line-height * 3);
+                    font-size: @font-size-small;
+                    line-height: @subcategories_mobile-line-height;
+                }
+            }
+        }
+    }
+}

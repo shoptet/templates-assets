@@ -863,7 +863,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         if ($this.attr('data-unveil') === 'category-filter-hover') {
             $this.parent('.filter-section').hide();
-            $('.filter-section-default').removeClass('filter-section-default');
         }
         $('#' + $this.attr('data-unveil')).toggleClass('visible');
         if ($this.attr('data-unveil') === 'filters') {
@@ -880,6 +879,11 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleText($this, $this.text(), $this.text(), $this.attr('data-text'));
         }
         $('html').trigger('contentResized');
+    });
+
+    $('html').on('click', '.js-window-location', function(e) {
+        e.preventDefault();
+        window.location.href = $(this).attr('data-url');
     });
 
     // Tooltips

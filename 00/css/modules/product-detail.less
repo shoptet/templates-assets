@@ -107,11 +107,12 @@
     .wide & {
         @media (min-width: @screen-sm-min) {
             min-height: 330px;
-            padding-left: 120px;
-            padding-right: 120px;
             border-left-style: none;
             border-right-style: none;
             border-top-style: none;
+            img {
+              max-height: 768px;
+            }
         }
         @media (min-width: @screen-lg-min) {
             min-height: 415px;
@@ -124,8 +125,8 @@
                 height: 1px;
                 overflow: hidden;
                 line-height: 0;
-                margin-left: 80px;
-                margin-right: 80px;
+                margin: 0 auto;
+                max-width: 270px;
             }
         }
     }

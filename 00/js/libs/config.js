@@ -2,6 +2,7 @@
     shoptet.config = shoptet.config || {};
     shoptet.config.animationDuration = 300;
     shoptet.config.dismissTimeout = 6000;
+    shoptet.config.adminBarTimeout = 800;
 
 // Must be identically as media query breakpoints in CSS
     shoptet.config.breakpoints = {};

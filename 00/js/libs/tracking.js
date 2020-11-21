@@ -1,4 +1,11 @@
-// Function without namespace
+// Functions available within global scope
+
+/**
+ * Get Shoptet data layer object
+ *
+ * @param {String} key
+ * key = key of dataLayer object
+ */
 function getShoptetDataLayer(key) {
     if (dataLayer[0].shoptet) {
         if (key) {
@@ -8,6 +15,15 @@ function getShoptetDataLayer(key) {
         }
     }
     return undefined;
+}
+
+/**
+ * Get list of all products contained in page
+ *
+ * This function does not accept any arguments.
+ */
+function getShoptetProductsList() {
+    return shoptet.tracking.productsList;
 }
 
 (function(shoptet) {
@@ -20,6 +36,8 @@ function getShoptetDataLayer(key) {
             return shoptet.config.updateCartUrl;
         } else if (formAction === shoptet.config.addDiscountCouponUrl) {
             return shoptet.config.addDiscountCouponUrl;
+        } else if (formAction === shoptet.config.setSelectedGiftUrl) {
+            return shoptet.config.setSelectedGiftUrl;
         }
 
         return false;
@@ -283,6 +301,7 @@ function getShoptetDataLayer(key) {
     function updateDataLayerCartInfo(response) {
         if (typeof dataLayer === 'object') {
             var leftToFreeShipping = response.getFromPayload('leftToFreeShipping');
+
             if(leftToFreeShipping !== null) {
                 dataLayer[0].shoptet.cartInfo.leftToFreeShipping = leftToFreeShipping;
             }
@@ -293,6 +312,20 @@ function getShoptetDataLayer(key) {
             var discountCoupon = response.getFromPayload('discountCoupon');
             if(discountCoupon !== null) {
                 dataLayer[0].shoptet.cartInfo.discountCoupon = discountCoupon;
+            }
+
+            var leftToFreeGift = response.getFromPayload('leftToFreeGift');
+            if(leftToFreeGift !== null) {
+                dataLayer[0].shoptet.cartInfo.leftToFreeGift = leftToFreeGift;
+            }
+            var freeGift = response.getFromPayload('freeGift');
+            if(freeGift !== null) {
+                dataLayer[0].shoptet.cartInfo.freeGift = freeGift;
+            }
+            var trackingContainer = response.getFromPayload('trackingContainer');
+            if(trackingContainer !== null) {
+                trackingContainer = JSON.parse(trackingContainer);
+                shoptet.tracking.productsList = $.extend(trackingContainer.products, shoptet.tracking.productsList);
             }
         }
     }

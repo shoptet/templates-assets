@@ -595,7 +595,7 @@
                     width : shoptet.config.colorbox.widthLg,
                     className: 'colorbox-lg',
                     onComplete: function() {
-                        resizeModal();
+                        shoptet.modal.shoptetResize();
                     },
                     onCleanup: function() {
                         glsModalOpen = false;
@@ -620,7 +620,7 @@
                 var $confirmWrapper = $('.gls-parcel-shop-confirm-wrapper');
                 if ($confirmWrapper.hasClass('no-display')) {
                     $('.gls-parcel-shop-confirm-wrapper').removeClass('no-display');
-                    resizeModal();
+                    shoptet.modal.shoptetResize();
                 }
             }
         }

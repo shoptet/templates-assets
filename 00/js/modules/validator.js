@@ -5,6 +5,7 @@ shoptet.validator.invalidEmails = [
     'eznam.cz',
     'gamil.com',
     'gmail.co',
+    'gmai.com',
     'gmail.cz',
     'gmail.sk',
     'gmail.hu',

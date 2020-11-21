@@ -1,0 +1,25 @@
+.breadcrumbs {
+    display: none;    
+    padding-bottom: round(@line-height-computed / 2);
+    font-size: @font-size-smaller;
+    > span {
+        vertical-align: middle;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        a {
+            text-decoration: underline;
+        }
+
+    }
+    @media (min-width: @screen-sm-min) {
+        display: block;
+    }
+}
+
+.navigation-home-icon {
+    &::before {
+        &:extend(.shp-icon);
+        content: @icon-home-code;
+        margin-top: -2px;
+    }
+}

@@ -32,6 +32,7 @@
     };
     shoptet.runtime.cloudZoom = false;
     shoptet.runtime.updateMenu = false;
+    shoptet.runtime.adminBar = false;
 
     shoptet.scripts.libs.runtime.forEach(function(fnName) {
         var fn = eval(fnName);
