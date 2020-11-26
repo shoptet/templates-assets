@@ -1179,8 +1179,9 @@ function resolveImageFormat() {
         }
         if (target === 'register') {
             if ($('.user-action-register .loader').length) {
-                $.get(shoptet.config.registerUrl, function(response) {
-                    var content =  $($.parseHTML(response)).find("#register-form");
+                var successCallback = function(response) {
+                    var requestedDocument = shoptet.common.createDocumentFromString(response.getPayload());
+                    var content =  $(requestedDocument).find("#register-form");
                     $('.user-action-register .loader').remove();
                     content.appendTo('.place-registration-here');
                     if (!$('#additionalInformation').hasClass('visible')) {
@@ -1189,7 +1190,18 @@ function resolveImageFormat() {
                     shoptet.validator.initValidator($('#register-form'));
                     initDatepickers();
                     shoptet.scripts.signalDomLoad('ShoptetDOMRegisterFormLoaded');
-                })
+                };
+                shoptet.ajax.makeAjaxRequest(
+                    shoptet.config.registerUrl,
+                    shoptet.ajax.requestTypes.get,
+                    '',
+                    {
+                        'success': successCallback
+                    },
+                    {
+                        'X-Shoptet-XHR': 'Shoptet_Coo7ai'
+                    }
+                );
             }
         }
         // Unveil images after the window is displayed

@@ -52,7 +52,10 @@
                     index: i
                 },
                 {
-                    success: successCallback
+                    'success': successCallback
+                },
+                {
+                    'X-Shoptet-XHR': 'Shoptet_Coo7ai'
                 }
             )
         }

@@ -20,6 +20,7 @@ function fulltextSearch($searchInput, $searchContainer) {
                     xhr = $.ajax({
                         url: '/action/ProductSearch/ajaxSearch/',
                         type: 'GET',
+                        headers: {'X-Shoptet-XHR': 'Shoptet_Coo7ai'},
                         data: $form.serialize()
                     })
                     .done(function (result) {
@@ -185,6 +186,7 @@ $(function () {
         var string = $(e.target).data('string');
         $.ajax({
             url: '/action/productSearch/ajaxNextContent?string=' + string + '&offset=' + offset,
+            headers: {'X-Shoptet-XHR': 'Shoptet_Coo7ai'},
             async: true,
             timeout: 150800,
             dataType: 'html',

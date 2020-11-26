@@ -112,6 +112,7 @@ function makeFilterAjaxRequest(url, pushHistoryState, successCallback, element, 
     $.ajax({
         url: url,
         type: 'GET',
+        headers: {'X-Shoptet-XHR': 'Shoptet_Coo7ai'},
         dataType: 'html',
         timeout: 10000,
         cache: true,

@@ -93,6 +93,9 @@
             {
                 'success': successCallback,
                 'failed' : failedCallback
+            },
+            {
+                'X-Shoptet-XHR': 'Shoptet_Coo7ai'
             }
         ).then(function() {
             // Check if it is last ajax calling

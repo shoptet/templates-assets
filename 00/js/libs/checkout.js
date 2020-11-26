@@ -347,7 +347,7 @@
     function chooseABranchModal(href, branchWrap, branchId, branchInput) {
         shoptet.modal.open({
             maxWidth: shoptet.config.colorbox.maxWidth,
-            width : shoptet.config.colorboxWidthMd,
+            width : shoptet.config.colorbox.widthMd,
             className: shoptet.config.colorbox.classMd,
             href: href,
             onComplete: function() {
@@ -486,7 +486,7 @@
                         .prop('checked', true);
                     shoptet.modal.open({
                         href: postDeliveryPoints[i].url,
-                        width : shoptet.config.colorboxWidthMd,
+                        width : shoptet.config.colorbox.widthMd,
                         className: shoptet.config.colorbox.classMd,
                         onComplete: function() {
                             shoptet.modal.shoptetResize();
@@ -551,6 +551,7 @@
                     $.ajax({
                         url: '/action/Ulozenka/getBranchInformation/?id=' + id,
                         type: 'GET',
+                        headers: {'X-Shoptet-XHR': 'Shoptet_Coo7ai'},
                         success: function(responseData) {
                             $('#ulozenka-wrapper .detail-information').html(responseData);
                             $('#ulozenka-form .loader').addClass('no-display');
@@ -590,10 +591,10 @@
                 glsModalOpen = true;
                 $parentsElement = $(this).closest('div.radio-wrapper');
                 $parentsElement.find('.gls-parcel-shop-choose-branch[name="shippingId"]').prop('checked', true);
-                $.colorbox({
+                shoptet.modal.open({
                     href: glsParcelShopUrl,
                     width : shoptet.config.colorbox.widthLg,
-                    className: 'colorbox-lg',
+                    className: shoptet.config.colorbox.classLg,
                     onComplete: function() {
                         shoptet.modal.shoptetResize();
                     },
@@ -661,6 +662,7 @@
                     $.ajax({
                         url: '/action/DpdParcelShop/getBranchInformation/?id=' + id,
                         type: 'GET',
+                        headers: {'X-Shoptet-XHR': 'Shoptet_Coo7ai'},
                         success: function(responseData) {
                             $('#dpd-cz-parcel-shop-wrapper .detail-information').html(responseData);
                             $('#dpd-cz-parcel-shop-form .loader').addClass('no-display');
@@ -687,7 +689,7 @@
                 $('#dpd-zip-check-modal').show();
                 shoptet.modal.open({
                     maxWidth: shoptet.config.colorbox.maxWidth,
-                    width : shoptet.config.colorboxWidthMd,
+                    width : shoptet.config.colorbox.widthMd,
                     className: shoptet.config.colorbox.classMd,
                     inline: true,
                     href: '#dpd-zip-check-modal',
@@ -704,6 +706,7 @@
                 if (zip !== '') {
                     $.ajax({
                         url: '/action/DpdPrivate/checkSaturdayZipCode/?zipCode=' + zip,
+                        headers: {'X-Shoptet-XHR': 'Shoptet_Coo7ai'},
                         success: function(response) {
                             if(response == '1') {
                                 $('#dpd-zip-check-valid').show();
@@ -752,6 +755,7 @@
                     $.ajax({
                         url: '/action/PplPartner/getBranchInformation/?id=' + id,
                         type: 'GET',
+                        headers: {'X-Shoptet-XHR': 'Shoptet_Coo7ai'},
                         success: function(responseData) {
                             $('#ppl-partner-cz-wrapper .detail-information').html(responseData);
                             $('#ppl-partner-cz-form .loader').addClass('no-display');
@@ -827,8 +831,16 @@
             var lastData = $orderForm.serialize();
             $('#order-form input').blur(function() {
                 var data = $(this).closest('form').serialize();
-                if (data != lastData) {
-                    $.post('/action/OrderingProcess/step2CustomerAjax/', data);
+                if (data !== lastData) {
+                    shoptet.ajax.makeAjaxRequest(
+                        shoptet.config.customerDataUrl,
+                        shoptet.ajax.requestTypes.post,
+                        data,
+                        {},
+                        {
+                            'X-Shoptet-XHR': 'Shoptet_Coo7ai'
+                        }
+                    );
                     lastData = data;
                 }
             });

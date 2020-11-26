@@ -97,7 +97,10 @@
             shoptet.ajax.requestTypes.get,
             '',
             {
-                'success': successCallback
+                'success': successCallback,
+            },
+            {
+                'X-Shoptet-XHR': 'Shoptet_Coo7ai'
             }
         );
     }
@@ -133,6 +136,9 @@
             '',
             {
                 'success': successCallback
+            },
+            {
+                'X-Shoptet-XHR': 'Shoptet_Coo7ai'
             }
         );
     }
@@ -299,6 +305,9 @@
                 'success': successCallback,
                 'failed': failedCallback,
                 'complete': completeCallback
+            },
+            {
+                'X-Shoptet-XHR': 'Shoptet_Coo7ai'
             }
         );
 

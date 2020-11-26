@@ -31,6 +31,9 @@
             {
                 'success': successCallback,
                 'error': errorCallback
+            },
+            {
+                'X-Shoptet-XHR': 'Shoptet_Coo7ai'
             }
         );
     }

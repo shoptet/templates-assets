@@ -304,8 +304,11 @@
                     imageSize: imageContainer.dataset[size]
                 },
                 {
-                    success: successCallback,
-                    failed: failedCallback
+                    'success': successCallback,
+                    'failed': failedCallback
+                },
+                {
+                    'X-Shoptet-XHR': 'Shoptet_Coo7ai'
                 }
             );
         }

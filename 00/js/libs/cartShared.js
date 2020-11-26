@@ -40,6 +40,9 @@
                 shoptet.common.serializeForm(form),
                 {
                     'complete': completeCallback
+                },
+                {
+                    'X-Shoptet-XHR': 'Shoptet_Coo7ai'
                 }
             );
         } else {

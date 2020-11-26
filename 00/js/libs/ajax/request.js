@@ -10,8 +10,10 @@
     * data = serialized form data in case of post request, empty string in case of get request
     * @param {Object} callbacks
     * callbacks = object with functions to be fired after request
+    * @param {Object} header
+    * header = identification of request, only for internal use
     */
-    function makeAjaxRequest(url, type, data, callbacks) {
+    function makeAjaxRequest(url, type, data, callbacks, header) {
 
         return new Promise(function(resolve, reject) {
             // TODO: remove this control after the IE browser will be completely unsupported
@@ -21,6 +23,11 @@
             }
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.open(type, url, true);
+            if (header && header.hasOwnProperty('X-Shoptet-XHR')) {
+                if (header['X-Shoptet-XHR'] === 'Shoptet_Coo7ai') {
+                    xmlhttp.setRequestHeader('X-Shoptet-XHR', 'Shoptet_Coo7ai');
+                }
+            }
             xmlhttp.onload = function() {
                 if (xmlhttp.status >= 200 && xmlhttp.status < 300) {
                     var response = new AjaxResponse(xmlhttp.response);

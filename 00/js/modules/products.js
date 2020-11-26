@@ -115,6 +115,9 @@
                 dataString,
                 {
                     'success': successCallback
+                },
+                {
+                    'X-Shoptet-XHR': 'Shoptet_Coo7ai'
                 }
             );
 
@@ -144,6 +147,7 @@
             $.ajax({
                 type: "POST",
                 url: $el.next('a').attr('href'),
+                headers: {'X-Shoptet-XHR': 'Shoptet_Coo7ai'},
                 success: function(payload) {
                     var requestedDocument = shoptet.common.createDocumentFromString(payload);
                     shoptet.tracking.trackProductsFromPayload(requestedDocument);
