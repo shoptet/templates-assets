@@ -46,7 +46,7 @@
                 }
             );
         } else {
-            if(typeof shoptet.cart.ajaxSubmitForm === 'undefined') {
+            if (shoptet.abilities.about.generation !==3) {
                 ajaxAddToCart(
                     shoptet.config.addToCartUrl,
                     form

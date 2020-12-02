@@ -1024,13 +1024,12 @@ a.btn {
         h4 {
             font-size: @font-size-h1;
             font-weight: @font-weight-h1;
-            padding: 0 auto;
             text-align: center;
         }
         .sr-only {
             .sr-only-neutralizer();
         }
-        h4, p {
+        .newsletter-header {
             flex: 1 2 auto;
             margin: 0 auto;
         }
@@ -1039,7 +1038,7 @@ a.btn {
             padding: round(@line-height-computed / 2) round(@grid-gutter-width / 4);
         }
         form {
-            flex: 2 1 auto;
+            flex: 0 1 auto;
             width: 100%;
             .validator-msg {
                 font-size: 80%;
@@ -1058,16 +1057,24 @@ a.btn {
             }
         }
         @media(min-width: @screen-sm-min) {
-            align-items: baseline;
             flex-flow: row;
+            justify-content: space-between;
+            align-items: start;
+            p {
+                padding-left: 0;
+            }
             h4 {
+                margin-top: 0;
                 text-align: left;
             }
             form {
-                width: auto;
+                flex-basis: 40%;
             }
         }
         @media(min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+            .newsletter-header {
+                padding-right: round(@grid-gutter-width / 4);
+            }
             form {
                 flex-basis: 50%;
             }
