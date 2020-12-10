@@ -775,10 +775,11 @@
     }
 
     function displayApplePay() {
-        if (window.ApplePaySession &&
-            (location.protocol !== 'https:' || window.ApplePaySession.canMakePayments())) {
-            $('.apple-pay').show();
-        }
+        try {
+            if (window.ApplePaySession && window.ApplePaySession.canMakePayments()) {
+                $('.apple-pay').show();
+            }
+        } catch (err) {}
     }
 
     shoptet.checkout = shoptet.checkout || {};
