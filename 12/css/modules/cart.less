@@ -188,7 +188,9 @@ ol.cart-header {
 }
 
 .discount-coupon {
+    text-align: right;
     label {
+        text-align: left;
         display: block;
         font-weight: 700;
         text-transform: none;
@@ -206,7 +208,6 @@ ol.cart-header {
         padding-bottom: @line-height-computed;
         label,
         > div {
-            display: block;
             vertical-align: middle;
         }
         label {
@@ -225,21 +226,13 @@ ol.cart-header {
             margin-left: -.5rem;
         }
     }
-    @media (min-width: @screen-lg-min) {
-        text-align: right;
-    }
 }
 
 .applied-coupon {
     padding-top: 5px;
-    line-height: 40px;
     display: flex;
-    align-items: baseline;
-    form,
-    fieldset,
-    strong {
-        display: inline-block;
-    }
+    align-items: center;
+    justify-content: space-between;
     .btn {
         margin-left: 1ex;
     }

@@ -151,53 +151,53 @@ ol.cart-header {
 
 .discount-coupon {
     label {
+        width: 100%;
         display: block;
         font-weight: 700;
         text-transform: uppercase;
     }
     .btn {
         display: block;
+        width: 40px;
+    }
+    .btn-text {
         width: 100%;
     }
     @media (max-width: @screen-xs-max) {
         max-width: 480px;
     }
     @media (min-width: @screen-sm-min) {
-        display: table;
-        label,
-        > div {
-            display: table-cell;
-            vertical-align: middle;
-        }
         label {
             padding-right: 1em;
         }
-        .btn,
-        .form-control {
-            display: inline-block;
-            vertical-align: top;
-            width: auto;
-        }
         .form-control {
             width: 290px;
+            display: inline-block;
+            vertical-align: top;
         }
         .btn {
             margin-left: -.5rem;
         }
-    }
-    @media (min-width: @screen-lg-min) {
-        text-align: right;
+        .btn-text {
+            width: auto;
+            display: inline-block;
+            vertical-align: top;
+        }
     }
 }
 
 .applied-coupon {
-    line-height: 46px;
+    display: flex;
+    align-items: center;
     form,
     fieldset,
     strong {
         display: inline-block;
     }
-    .btn {
+    strong {
+        margin-right: 1ex;
+    }
+    form {
         margin-left: 1ex;
     }
 }
