@@ -70,7 +70,7 @@
         message.classList.add('msg-error');
         message.setAttribute('data-type', messageType);
         message.innerHTML = shoptet.messages[messageType];
-        // TODO: unify parentElement
+        // TODO: unify parentElement - really needed as of T18075 smart labels pretty please
         elementWrapper.parentElement.insertBefore(message, elementWrapper);
 
     }

@@ -1,0 +1,61 @@
+.smart-label-wrapper {
+    position: relative;
+}
+
+.smart-label-wrapper label {
+    padding: 0 0 0 @padding-base-horizontal;
+    margin: 0;
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    line-height: calc(@input-height-base + @font-size-smaller);
+}
+
+.smart-label-wrapper.phone-form-group label {
+    left: 78px; //00/css/modules/components/country-flags.less .country-flags
+}
+
+.smart-label-wrapper.focused label,
+.smart-label-wrapper.populated label {
+    line-height: initial;
+    font-size: @font-size-smaller;
+    padding-top: @padding-base-vertical;
+    padding-left: calc(@padding-base-horizontal + 1px);
+    opacity: 0.5;
+}
+
+.smart-label-wrapper.focused input,
+.smart-label-wrapper.populated input,
+.smart-label-wrapper.focused textarea,
+.smart-label-wrapper.populated textarea {
+    padding-top: calc((@padding-base-vertical * 2) + @font-size-smaller);
+}
+
+.smart-label-wrapper select {
+    padding-top: calc(@padding-base-vertical + @font-size-smaller);
+}
+
+.smart-label-wrapper input,
+.smart-label-wrapper textarea,
+.smart-label-wrapper select,
+.smart-label-wrapper label {
+    height: calc(@input-height-base + @font-size-smaller);
+    -webkit-transition: 0.2s ease-in-out;
+    -moz-transition: 0.2s ease-in-out;
+    -ms-transition: 0.2s ease-in-out;
+    -o-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
+}
+
+.smart-label-wrapper .validator-msg, 
+.smart-label-wrapper .js-validator-msg {
+    margin-left: 0;
+    + input,
+    + select,
+    + .phone-combined-input {
+      margin-left: 0;
+    }
+}
