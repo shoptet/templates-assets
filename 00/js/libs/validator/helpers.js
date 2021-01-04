@@ -13,6 +13,7 @@ function toggleRequiredAttributes($el, job, preserveNoJsValidation) {
         $('[autocomplete="email"]').attr('autocomplete', 'new-email');
         $.each($el.find(':required'), function() {
             $(this).removeAttr('required').attr('data-required', 'required');
+            $(this).addClass('js-validate');
         });
         $.each($el.find('.js-validate'), function() {
             shoptet.validator.removeErrorMessage(this, this.parentElement);
