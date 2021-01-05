@@ -56,6 +56,18 @@
         }
     }
 
+    function setCustomFunction(fnName, fn) {
+        if (typeof fn !== 'function' || typeof shoptet.custom[fnName] !== 'function') {
+            return;
+        }
+        var previousCallback = shoptet.custom[fnName];
+        shoptet.custom[fnName] = function(el, args) {
+            var originalReturnValue = previousCallback(el, args);
+            var returnValue = fn(el, args);
+            return !(originalReturnValue === false || returnValue === false);
+        }
+    }
+
     function signal(event, element, eventSource, globalEvent) {
         if (typeof element === 'undefined' || !element) {
             element = document;
@@ -431,6 +443,7 @@
     shoptet.scripts.handleFunctionCall = handleFunctionCall;
     shoptet.scripts.handleFunctionCallback = handleFunctionCallback;
     shoptet.scripts.setCustomCallback = setCustomCallback;
+    shoptet.scripts.setCustomFunction = setCustomFunction;
     shoptet.scripts.signal = signal;
     shoptet.scripts.signalDomLoad = signalDomLoad;
     shoptet.scripts.signalDomUpdate = signalDomUpdate;

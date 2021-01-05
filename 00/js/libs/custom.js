@@ -4,23 +4,28 @@
     * Called after successful validation of form
     * @param {Object} form
     * form = validated form
+    * @param {Object} args
+    * args = optional arguments
     * You can stop submitting of form by returning false
     * @return Boolean
     */
-    function postSuccessfulValidation(form) {
+    function postSuccessfulValidation(form, args) {
         return true;
-    };
+    }
 
     /*
     * Called after failed validation of form
     * @param {Object} form
     * form = validated form
+    * @param {Object} args
+    * args = optional arguments
     * @return undefined
     */
-    function postFailedValidation(form) {};
+    function postFailedValidation(form, args) {}
 
     shoptet.custom = shoptet.custom || {};
-    shoptet.custom.postSuccessfulValidation = postSuccessfulValidation;
-    shoptet.custom.postFailedValidation = postFailedValidation;
+    shoptet.custom.config = shoptet.custom.config || {};
+    shoptet.custom.postSuccessfulValidation = shoptet.custom.postSuccessfulValidation || postSuccessfulValidation;
+    shoptet.custom.postFailedValidation = shoptet.custom.postSuccessfulValidation || postFailedValidation;
 
 })(shoptet);

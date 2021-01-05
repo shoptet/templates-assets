@@ -1,11 +1,15 @@
 (function(shoptet) {
 
   function initSurcharges() {
-    var surchargeSelector = '.surcharge-list .surcharge-parameter'
+    var surchargeSelector = '.surcharge-list .surcharge-parameter';
     var surcharges = document.querySelectorAll(surchargeSelector);
+    var savePriceRatio = getShoptetDataLayer('customer').priceRatio;
+    if (savePriceRatio) {
+      shoptet.surcharges.customerPriceRatio = savePriceRatio;
+    }
     if (surcharges.length) {
         surcharges.forEach(function(elem) {
-            elem.addEventListener('change', shoptet.surcharges.updatePrices)
+            elem.addEventListener('change', shoptet.surcharges.updatePrices);
         })
     }
   }
@@ -39,6 +43,11 @@
     var finalPriceWrapper = wrapper.querySelectorAll('.price-final-holder.calculated:not(.noDisplay)');
     var additionalPriceWrapper = wrapper.querySelectorAll('.price-additional-holder.calculated:not(.noDisplay)');
 
+    if (shoptet.surcharges.customerPriceRatio) {
+      shoptet.surcharges.totalSurchargeFinalPrice *= shoptet.surcharges.customerPriceRatio;
+      shoptet.surcharges.totalSurchargeAdditionalPrice *= shoptet.surcharges.customerPriceRatio;
+    }
+
     for (var i = 0; i < finalPriceWrapper.length; i++) {
       var finalPrice = parseFloat(finalPriceWrapper.item(i).getAttribute('data-price'));
       finalPrice += shoptet.surcharges.totalSurchargeFinalPrice;
@@ -71,4 +80,5 @@
   shoptet.surcharges.values = {};
   shoptet.surcharges.totalSurchargeFinalPrice = 0;
   shoptet.surcharges.totalSurchargeAdditionalPrice = 0;
+  shoptet.surcharges.customerPriceRatio = null;
 })(shoptet);

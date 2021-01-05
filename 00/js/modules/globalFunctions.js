@@ -317,7 +317,7 @@ function unveilImages() {
                         $('body').addClass('carousel-set');
                     }
                 }
-            }, 1000);
+            }, shoptet.config.unveilTimeout);
         }
         $('body').addClass('unveiled');
     });
