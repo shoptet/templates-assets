@@ -28,12 +28,25 @@
             &.top-navigation-tools {
                 display: block;
             }
+            &.top-navigation-tools--language {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                button {
+                    padding-left: 24px;
+                }
+                .shp-flag {
+                    position: absolute;
+                    top: -3px;
+                    left: 0;
+                }
+            }
         }
     }
     .dropdown {
         position: absolute;
         left: 105px;
-        top: 23px;
+        top: 17px;
         display: inline-block;
         > span {
             display: none;
@@ -65,6 +78,15 @@
                 margin-top: -7px;
                 line-height: 15px;
             }
+        }
+    }
+    .dropdown--languages {
+        .dropdown-menu {
+            left: -10px;
+            right: auto;
+        }
+        button {
+            text-transform: uppercase;
         }
     }
     @media (max-width: @navigation-breakpoint - 1) {

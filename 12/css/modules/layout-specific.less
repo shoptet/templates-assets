@@ -1295,6 +1295,13 @@ ul.shp-tabs {
         display: inline-flex;
         align-items: center;
         padding: 0 10px 0 0;
+        height: 40px;
+        @media (min-width: @screen-xs-min) {
+            height: 60px;
+        }
+        @media (min-width: @navigation-breakpoint) {
+            height: @navigation-height;
+        }
         > span {
             display: none;
         }
@@ -1329,6 +1336,22 @@ ul.shp-tabs {
             &:focus {
                 text-decoration: underline;
             }
+        }
+    }
+    .dropdown--languages {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        button {
+            padding-top: 10px;
+            border-right: 0;
+            text-transform: uppercase;
+            @media (min-width: @screen-xs-min) {
+                border: 0;
+            }
+        }
+        .dropdown-menu {
+            left: -10px;
         }
     }
 }
