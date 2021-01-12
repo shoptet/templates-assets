@@ -6,6 +6,10 @@
 @top-navigation-bar_menu-padding: 40px + @top-navigation-bar_trigger-size + @grid-gutter-width; /* needs to fit text 'more' with icon and padding */;
 
 .top-navigation-bar {
+    display: none;
+    @media (min-width: @navigation-breakpoint) {
+        display: block;
+    }
     @media (min-width: @navigation-breakpoint) {
         border-top-style: solid;
         border-top-width: 1px;
@@ -30,7 +34,7 @@
     .top-navigation-tools {
         display: flex;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: flex-end;        
     }
     .dropdown {
         margin-right: round(@grid-gutter-width / 2);
