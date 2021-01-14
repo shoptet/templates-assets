@@ -1080,6 +1080,11 @@ document.addEventListener('DOMContentLoaded', function() {
         scrollToEl($target);
     });
 
+    $('html').on('click', '.toggle-coupon-input-button', function(e) {
+        $(this).next('.discount-coupon').slideToggle();
+        $(this).toggleClass('discount-coupon-visible');
+    });
+
     initDatepickers();
 
     if ($('.site-msg.information').length && $('.site-msg.cookies').length) {

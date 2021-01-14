@@ -195,6 +195,207 @@ table.detail-parameters {
 /* footer end */
 
 
+/* popup & overlay start */
+//user-action-tabs
+.user-action-tabs {
+    border-color: @tabs-border-color;
+    background-color: @tabs-bg;
+    li {
+        a {
+            border-color: @tab-border-color;
+            color: @tab-link-color;
+            background-color: @tab-link-bg;
+            &:hover {
+                border-color: @tab-border-color-hover;
+                color: @tab-link-color-hover;
+                background-color: @tab-link-bg-hover;
+            }
+        }
+        &.active {
+          a {
+                border-color: @tab-border-color-active;
+                color: @tab-link-color-active;
+                background-color: @tab-link-bg-active;
+             }
+        }
+    }
+}
+/* popup & overlay end */
+
+/* cart & checkout start */
+// cart widget
+.cart-widget-product {
+    border-bottom-color: @border-color;
+}
+
+.cart-widget-product-name {
+    a {
+        color: @text-color;
+        &:hover {
+            color: @color-primary;
+        }
+    }
+    > span {
+        color: @color-primary;
+    }
+}
+
+.cart-widget-product-amount,
+.cart-widget-product-unit {
+    color: @text-muted-color;
+}
+
+.cart-widget-product-price {
+    color: @text-color;
+}
+
+.cart-widget-product-delete {
+    button {
+        color: @gray-dark;
+        &:hover {
+            color: @red;
+        }
+    }
+}
+
+.cart-free-shipping {
+    color: @text-color;
+    strong {
+        color: @color-tertiary;
+    }
+}
+
+// Content window
+.toggle-window-arr {
+    color: @text-color;
+}
+
+.content-window-in {
+    background-color: @content-box-bg;
+}
+
+.back-shopping {
+    color: @text-color;
+}
+
+ol.cart-header {
+    li {
+        a,
+        strong {
+            span {
+                &::before {
+                    background-color: #fff;
+                    border-color: @border-color;
+                }
+                &::after {
+                    border-top-color: @border-color;
+                }
+            }
+        }
+        &.active {
+            a,
+            strong {
+                span {
+                    &::before {
+                        background-color: @color-secondary;
+                        border-color: @color-secondary;
+                    }
+                }
+            }
+        }
+        &.completed {
+            a,
+            strong {
+                span {
+                    &::before {
+                        background-color: @color-secondary;
+                        border-color: @color-secondary;
+                    }
+                    &::after {
+                        border-top-color: @color-secondary;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.extra {
+    &.discount {
+        .price-range {
+            div {
+                &::after {
+                    color: @price-range-bg;
+                }
+            }
+        }
+    }
+}
+
+.cart-inner .free-gift {
+    border-bottom-color: @border-color;
+}
+
+.price-secondary {
+    color: @text-muted-color;
+}
+
+#checkoutSidebar .toggle-contacts {
+    background: transparent;
+}
+
+.checkout-box,
+.country-flags,
+.order-summary-inner,
+.order-summary-item,
+.recapitulation-single,
+.order-recapitulation,
+.consents-first {
+    border-color: @border-color;
+}
+
+.shipping-billing-table {
+    .radio-wrapper {
+        border-color: transparent transparent @border-color;
+        &:hover {
+            border-color: transparent @border-color @border-color;
+        }
+        &:first-child {
+            &:hover {
+                border-color: @border-color;
+            }
+        }
+    }
+}
+
+#select-country-payment {
+    background: @gray-lighter;
+}
+
+#checkoutContent .helper {
+    background: @gray-lighter;
+    a {
+        color: @text-color;
+    }
+}
+
+.recapitulation-wrapper {
+    table {
+        tr {
+            th {
+                .row-header-label {
+                    background-color: white;
+                }
+                &:after {
+                    border-top-color: @border-color;
+                }
+            }
+        }
+    }
+}
+/* cart & checkout end */
+
+
 
 
 
