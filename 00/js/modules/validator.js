@@ -8,7 +8,6 @@ shoptet.validator.invalidEmails = [
     'gmai.com',
     'gmail.cz',
     'gmail.sk',
-    'gmail.hu',
     'gmail.pl',
     'gmail.de',
     'gmail.ro',
