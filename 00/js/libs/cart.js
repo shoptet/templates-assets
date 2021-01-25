@@ -416,7 +416,7 @@
             shoptet.modal.open({
                 html: shoptet.content.colorboxHeader + content + shoptet.content.colorboxFooter,
                 width: shoptet.config.colorbox.widthSm,
-                maxHeight: '95%',
+                maxHeight: shoptet.config.colorbox.maxHeight,
                 className: shoptet.config.colorbox.classSm
             });
             $('#colorbox input').remove();

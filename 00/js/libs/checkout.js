@@ -350,6 +350,7 @@
             width : shoptet.config.colorbox.widthMd,
             className: shoptet.config.colorbox.classMd,
             href: href,
+            maxHeight: shoptet.config.colorbox.maxHeight,
             onComplete: function() {
                 $(branchWrap + ' select:first').focus();
                 $(branchId + ' option[value="' + $(branchInput).val() + '"]').attr('selected', 'selected');

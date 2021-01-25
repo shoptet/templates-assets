@@ -16,6 +16,7 @@
     shoptet.config.colorbox = {};
     shoptet.config.colorbox.opacity = 0.65;
     shoptet.config.colorbox.maxWidth = '98%';
+    shoptet.config.colorbox.maxHeight = '95%';
     shoptet.config.colorbox.initialHeight = 480;
     shoptet.config.colorbox.widthXs = 300;
     shoptet.config.colorbox.widthSm = 500;
