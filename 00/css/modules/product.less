@@ -295,3 +295,69 @@
         }
     }
 }
+
+@media (max-width: @screen-xs-max) {
+    .columns-mobile-2 .products-block {
+        display: flex;
+        flex-wrap: wrap;
+
+        >div {
+            width: 50%;
+            margin-bottom: 20px;
+
+            .quantity {
+                display: none;
+            }
+            .p {
+                height: 100%;
+                margin-bottom: 0;
+
+                a img {
+                    margin-bottom: 0;
+                }
+                .p-code {
+                    display: none;
+                }
+            }
+            .flags {
+                position: static;
+                .flag {
+                    float: none;
+                    width: auto;
+                    max-width: 100%;
+                    display: block;
+                    margin: 0;
+                    padding: 2px 4px;
+                }
+            }
+            .flags-extra {
+                text-align: center;
+                .flag {
+                    float: none;
+                    width: auto;
+                    height: auto;
+                    border-radius: 0;
+                    flex-direction: row;
+                    padding: 3px;
+                    margin: 0;
+                    .icon-van {
+                        font-size: 14px;
+                        margin-right: 5px;
+                        margin-left: 3px;
+                    }
+                }
+            }
+            .p-tools {
+                display: flex;
+                align-items: center;
+            }
+        }
+        >div:nth-child(even) {
+            padding-left: 5px;
+        }
+        >div:nth-child(odd) {
+            padding-right: 5px;
+            clear: both;
+        }
+    }
+}

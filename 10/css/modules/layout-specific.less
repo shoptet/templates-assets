@@ -375,6 +375,16 @@ ul {
             }
         }
     }
+    .menu-level-2 {
+        @media (min-width: @navigation-breakpoint) {
+            overflow-y: auto;
+            max-height: calc(100vh - 140px);
+            html:not(.scrolled) .admin-logged & {
+                // .header-navigation (140) + .admin-bar (25) = 165
+                max-height: calc(100vh - 165px);
+            }
+        }
+    }
 }
 
 .cart-table {
@@ -411,4 +421,3 @@ ul {
         margin-left: @form-group-label-width;
     }
 }
-

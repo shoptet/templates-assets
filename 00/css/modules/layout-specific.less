@@ -449,6 +449,19 @@ a.btn {
         padding-left: 60px;
         padding-right: 20px;
     }
+    .menu-level-2 {
+        @media (min-width: @navigation-breakpoint) {
+            overflow-y: auto;
+            max-height: calc(100vh - 124px);
+            html:not(.scrolled) .admin-logged & {
+                // #header (80) + .top-navigation-bar (44) + .admin-bar (25) = 149
+                max-height: calc(100vh - 149px);
+            }
+            .scrolled & {
+                max-height: calc(100vh - 80px);
+            }
+        }
+    }
 }
 
 .products-additional {
@@ -469,6 +482,12 @@ a.btn {
 
 .products-block {
     @media (min-width: @screen-sm-min) {
+        .clearfixMixin();
+    }
+}
+
+.columns-mobile-2 .products-block {
+    @media (max-width: @screen-xs-max) {
         .clearfixMixin();
     }
 }

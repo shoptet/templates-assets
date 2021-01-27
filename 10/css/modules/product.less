@@ -207,6 +207,36 @@
     }
 }
 
+@media (max-width: @screen-xs) {
+    .columns-mobile-2 .products-block > div {
+        width: 50%;
+        .p .flags {
+            position: static;
+            text-align: center;
+            .flag {
+                float: none;
+                width: auto;
+                max-width: 100%;
+                display: inline-block;
+                margin: 4px;
+                padding: 4px 15px;
+            }
+            .flag.flag-discount {
+                display: flex;
+            }
+        }
+        .p .prices-top .price-final {
+            flex: 1 1 100%;
+        }
+        .p-code {
+            display: none;
+        }
+        .stars-wrapper {
+            margin-top: 5px;
+        }
+    }
+}
+
 .browse-p {
     .p-prev, .p-next {
         z-index: 9;

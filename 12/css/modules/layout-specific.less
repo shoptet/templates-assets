@@ -525,6 +525,23 @@ a.btn {
     }
 }
 
+@media (max-width: @screen-xs-max) {
+    .columns-mobile-2 .products-block > div {
+        margin-bottom: 20px;
+        .flags-default .flag:before,
+        .flags-default .flag:after {
+            display: none;
+        }
+        .flags .flag.flag-discount {
+            display: flex;
+        }
+    }
+}
+
+.tab-pane .products-block {
+    margin: 0 -20px;
+}
+
 .widget-parameter-wrapper {
     margin: auto 0 0;
     padding: round(@line-height-computed / 2) 0;
