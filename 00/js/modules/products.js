@@ -602,7 +602,11 @@
             $(notBigP).removeAttr('style');
 
             var breakpoint = shoptet.abilities.config.category.product.same_height_breakpoint;
+
             if (detectResolution(shoptet.config.breakpoints[breakpoint])) {
+                if (!detectResolution(shoptet.config.breakpoints.xl)) {
+                    $('.products-block.big:not(:first) .p:first:not(.big)').addClass('big');
+                }
                 if ($(notBigP).length) {
                     sameHeightOfProductsLoop(notBigP);
                 }
