@@ -14,6 +14,8 @@ shoptet.config.bodyClasses = 'user-action-visible' +
     ' cart-window-visible' +
     ' search-window-visible' +
     ' login-window-visible' +
+    ' currency-window-visible' +
+    ' language-window-visible' +
     ' register-window-visible' +
     ' menu-helper-visible' +
     ' submenu-visible' +

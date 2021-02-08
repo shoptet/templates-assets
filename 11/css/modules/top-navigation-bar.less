@@ -31,14 +31,9 @@
             &.top-navigation-tools--language {
                 display: flex;
                 align-items: center;
-                justify-content: flex-end;
-                button {
-                    padding-left: 24px;
-                }
-                .shp-flag {
-                    position: absolute;
-                    top: -3px;
-                    left: 0;
+                justify-content: flex-start;
+                @media (min-width: @navigation-breakpoint) {
+                    justify-content: flex-end;
                 }
             }
         }

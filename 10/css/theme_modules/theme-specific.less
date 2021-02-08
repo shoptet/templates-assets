@@ -513,3 +513,50 @@ ul.discussion {
         }
     }
 }
+
+//languagesMenu
+.languagesMenu__header {
+    color: @text-color;
+    text-align: left;
+    background-color: @popup-widget-bg;
+
+    @media (min-width: unit(@navigation-breakpoint, px)) {
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background-color: transparent;
+        color: @header-color;
+    }
+}
+
+.languagesMenu__list {
+    top: 48px;
+    background-color: @popup-widget-bg;
+
+    &::before {
+        content: '';
+        top: -10px;
+        left: 15px;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid @popup-widget-bg;
+        position: absolute;
+    }
+}
+
+.languagesMenu.open .languagesMenu__content {
+    left: -7px;
+    top: 50px;
+}
+
+.languagesMenu .languagesMenu__list__link {
+    color: @text-color;
+
+    &:hover {
+        color: @tab-link-color;
+        background-color: @tab-link-bg;
+    }
+}
+
+.currency-window-visible .languagesMenu__list--currency,
+.language-window-visible .languagesMenu__list--language {
+    display: block;
+}

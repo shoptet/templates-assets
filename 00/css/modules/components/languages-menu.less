@@ -1,0 +1,108 @@
+.languagesMenu {
+    position: relative;
+
+    &.open .languagesMenu__content {
+        display: block;
+    }
+}
+
+.languagesMenu__flags {
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    display: flex;
+    align-items: center;
+
+    @media (min-width: @navigation-breakpoint) {
+        display: none;
+    }
+}
+
+.languagesMenu__flags .shp-flag {
+    margin-right: 5px;
+}
+
+.languagesMenu__content {
+    display: none;
+    position: absolute;
+    left: 0;
+    white-space: nowrap;
+    z-index: 1000;
+
+    @media (min-width: @navigation-breakpoint) {
+        display: flex;
+        position: static;
+        left: auto;
+        background-color: transparent;
+    }
+}
+
+.languagesMenu__box {
+    &.open .languagesMenu__list {
+        display: block;
+    }
+
+    @media (min-width: @navigation-breakpoint) {
+        position: relative;
+    }
+}
+
+.languagesMenu__header {
+    font-size: 14px;
+    line-height: 30px;
+    padding: 0 10px;
+    font-weight: bold;
+
+    @media (min-width: @navigation-breakpoint) {
+        padding: 2px 5px;
+        margin-right: 10px;
+    }
+
+    &--actual {
+        display: none;
+        @media (min-width: @navigation-breakpoint) {
+            display: block;
+            cursor: pointer;
+            font-weight: normal;
+        }
+    }
+    &--name {
+        @media (min-width: @navigation-breakpoint) {
+            display: none;
+        }
+    }
+    .caret {
+        margin-left: 5px;
+    }
+}
+
+.languagesMenu__list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    min-width: 150px;
+
+    @media (min-width: @navigation-breakpoint) {
+        display: none;
+        z-index: 1000;
+        position: absolute;
+        left: 0;
+    }
+}
+
+//.navigation-buttons a
+.languagesMenu .languagesMenu__list__link {
+    position: static;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    line-height: 30px;
+    text-align: left;
+    padding: 0 10px;
+}
+
+.languagesMenu__list__name {
+    margin-left: 10px;
+}

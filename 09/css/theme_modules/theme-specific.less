@@ -352,3 +352,49 @@ ul.user-action-tabs li {
         }
     }
 }
+
+//languagesMenu
+
+.languagesMenu__header {
+    color: @btn-plain-color;
+    background-color: @header-bg-color;
+}
+
+.languagesMenu__header--name {
+    border-left: 1px solid @menu-helper-submenu-border-color;
+    border-right: 1px solid @menu-helper-submenu-border-color;
+}
+
+.languagesMenu__content {
+    border-top: 1px solid @menu-helper-submenu-border-color;
+
+    @media (min-width: unit(@navigation-breakpoint, px)) {
+        border: none;
+    }
+}
+
+.languagesMenu__list {
+    border: 1px solid @menu-helper-submenu-border-color;
+    border-bottom: none;
+    background-color: @header-bg-color;
+}
+
+.languagesMenu .languagesMenu__list__link {
+    color: @btn-plain-color;
+    border-bottom: 1px solid @menu-helper-submenu-border-color;
+
+    &:hover {
+        color: @header-color;
+        background-color: @tab-link-bg;
+    }
+}
+
+.currency-window-visible .languagesMenu__list--currency,
+.language-window-visible .languagesMenu__list--language {
+    display: block;
+}
+
+body.user-action-visible.currency-window-visible,
+body.user-action-visible.language-window-visible {
+    overflow: auto;
+}

@@ -372,3 +372,84 @@ ul.discussion {
         bottom: 100%;
     }
 }
+
+//languagesMenu
+.top-navigation-bar-left--language {
+    margin-left: 0;
+}
+
+.languagesMenu {
+    display: flex;
+    justify-content: center;
+
+    @media (min-width: unit(@screen-sm-min, px)) {;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    @media (min-width: unit(@navigation-breakpoint, px)) {
+        margin-top: 5px;
+    }
+}
+
+.languagesMenu__content {
+    background-color: @header-bg-color;
+    bottom: 30px;
+
+    @media (max-width: unit(@navigation-breakpoint, px)) and (min-width: unit(@screen-sm-min, px)) {
+        bottom: auto;
+        min-width: 160px;
+        padding: 5px 0;
+        border: 1px solid rgba(0,0,0,.15);
+        border-radius: 2px;
+        box-shadow: 0 6px 12px rgba(0,0,0,.175);
+        background-clip: padding-box;
+    }
+
+    @media (min-width: unit(@navigation-breakpoint, px)) {
+        background-color: transparent;
+    }
+
+}
+
+.languagesMenu__box {
+    margin-right: 10px;
+}
+
+.languagesMenu__list {
+    @media (min-width: unit(@navigation-breakpoint, px)) {
+        background-color: @header-bg-color;
+        padding: 5px 0;
+        border: 1px solid rgba(0,0,0,.15);
+        border-radius: 2px;
+        box-shadow: 0 6px 12px rgba(0,0,0,.175);
+        background-clip: padding-box;
+    }
+}
+
+.languagesMenu__header {
+    color: @navigation-color;
+    text-align: left;
+
+    @media (min-width: unit(@navigation-breakpoint, px)) {
+        color: @accent-heavy-color;
+    }
+}
+
+.languagesMenu .languagesMenu__list__link {
+    color: @navigation-color;
+
+    &:hover {
+        color: @header-color;
+    }
+}
+
+.currency-window-visible .languagesMenu__list--currency,
+.language-window-visible .languagesMenu__list--language {
+    display: block;
+}
+
+body.user-action-visible.currency-window-visible,
+body.user-action-visible.language-window-visible {
+    overflow: auto;
+}

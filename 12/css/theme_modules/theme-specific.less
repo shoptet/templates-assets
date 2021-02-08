@@ -186,3 +186,34 @@ ol.top-products {
 .next-step-back {
     color: @text-color;
 }
+
+//languagesMenu
+.languagesMenu__content {
+    background-color: @header-bg-color;
+}
+
+.languagesMenu__header {
+    color: @header-color;
+
+    @media (min-width: unit(@navigation-breakpoint, px)) {
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+}
+
+.languagesMenu__list {
+    background-color: @header-bg-color;
+}
+
+.languagesMenu .languagesMenu__list__link {
+    color: @header-color;
+
+    &:hover {
+        color: @tab-link-color;
+        background-color: @tab-link-bg;
+    }
+}
+
+body.user-action-visible.currency-window-visible,
+body.user-action-visible.language-window-visible {
+    overflow: auto;
+}

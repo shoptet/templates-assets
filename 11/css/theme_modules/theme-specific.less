@@ -549,3 +549,53 @@ ol.top-products {
         }
     }
 }
+
+//languagesMenu
+.languagesMenu {
+
+}
+.languagesMenu__content {
+    background-color: @header-bg-color;
+    border: 1px solid @border-color;
+
+    @media (min-width: unit(@navigation-breakpoint, px)) {
+        border: 0;
+    }
+}
+
+.languagesMenu__header {
+    color: @text-color-lighter;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    &:hover {
+        color: @header-color;
+    }
+}
+
+.languagesMenu__list {
+    background-color: @header-bg-color;
+}
+
+.languagesMenu__header--name {
+    color: #000000;
+}
+
+.languagesMenu__box.open .languagesMenu__header  {
+    color: @header-color;
+}
+
+.languagesMenu__list__link--currency:before {
+    content: "\2022";
+    color: @header-color;
+    font-weight: bold;
+    width: 1em;
+}
+
+.languagesMenu .languagesMenu__list__link {
+    color: @text-color-lighter;
+
+    &:hover {
+        color: @header-color;
+        background-color: @tab-link-bg;
+    }
+}
