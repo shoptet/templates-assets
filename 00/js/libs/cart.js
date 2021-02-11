@@ -111,14 +111,14 @@
      * This function does not accept any arguments.
      */
     function getAdvancedOrder() {
-        var successCallback = function(response) {
+        var successCallback = function (response) {
             var content = response.getFromPayload('content');
             if (content !== false) {
                 shoptet.modal.open({
                     html: shoptet.content.colorboxHeader + content + shoptet.content.colorboxFooter,
                     width: shoptet.config.colorbox.widthLg,
                     className: shoptet.config.colorbox.classLg,
-                    onComplete: function() {
+                    onComplete: function () {
                         $('.colorbox-html-content img').unveil();
                         $('body').removeClass(shoptet.config.bodyClasses);
                         if ($('.overlay').length > 0) {
@@ -129,7 +129,6 @@
                 });
             }
         };
-
         shoptet.ajax.makeAjaxRequest(
             shoptet.config.advancedOrderUrl,
             shoptet.ajax.requestTypes.get,
@@ -154,8 +153,11 @@
      */
     function functionsForCart(form, response) {
         shoptet.tracking.handleAction(form, response);
-        if (typeof shoptet.config.showAdvancedOrder !== 'undefined' && !shoptet.config.orderingProcess.active) {
-            shoptet.cart.getAdvancedOrder();
+        if (typeof shoptet.config.showAdvancedOrder !== 'undefined'
+            && !shoptet.config.orderingProcess.active
+            && !$(form).hasClass('js-quantity-form')
+            && !$(form).hasClass('js-remove-form')) {
+                shoptet.cart.getAdvancedOrder();
         }
     }
 
