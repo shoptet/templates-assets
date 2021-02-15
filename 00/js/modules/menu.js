@@ -20,26 +20,29 @@
      * This function does not accept any arguments.
      */
     function splitMenu() {
-        var i = 0;
+        var i;
         var $menuHelper = $('.menu-helper');
         var $items = $('.navigation-in > ul > li:visible');
         var menuHelperOffset = $menuHelper.length ? $menuHelper.offset() : 0;
-        $('.navigation-in').removeClass('size'); // use only resize
+        var navigElems = [];
         $('#navigation').removeClass('fitted');
         $items.each(function() {
             var $el = $(this);
-            if($el.offset().top > menuHelperOffset.top) {
-                $el.addClass('splitted');
-            } else {
-                $el.removeClass('splitted');
-                i++;
-            }
+            var elemPos = $el.outerWidth() + $el.offset().left;
+            $el.removeClass('splitted');
+            navigElems.unshift({$el: $el, elemPos: elemPos});
         });
-        shoptet.menu.splitHelperMenu();
-        setTimeout(function(){
-            $('.navigation-in').addClass('size');
-        }, 500);
-        shoptet.menu.splitHelperMenu(i);
+        for(i = 0; i < navigElems.length; i++) {
+            if(navigElems[i].elemPos > menuHelperOffset.left) {
+                navigElems[i].$el.addClass('splitted');
+            } else {
+                break;
+            }
+        }
+        if (i === 0) {
+            $('#navigation').addClass('fitted');
+        }
+        shoptet.menu.splitHelperMenu($('.navigation-in > ul > li').length - i);
     }
 
     /**
@@ -59,7 +62,6 @@
                 $this.removeClass('splitted');
             }
         });
-
         if (
             $li.length - numberOfAppendedCategories === $('.menu-helper > ul > li.splitted').length
         ) {
