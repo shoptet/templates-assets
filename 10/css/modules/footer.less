@@ -17,7 +17,10 @@
         }
     }
     @media(min-width: @screen-sm-min) {
-        padding-bottom: @line-height-computed;
+        .footer-icon {
+            margin-bottom: 0;
+            margin-top: 0;
+        }
     }
 }
 
@@ -28,6 +31,8 @@
     border-top-width: 1px;
     text-align: center;
 }
+
+
 
 .footer-bottom {
     .clearfixMixin();

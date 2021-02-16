@@ -52,12 +52,26 @@ body {
     h5 {
         color: @footer-color;
     }
-    .system-footer {
-        ul {
-            li {
-                &::after {
-                    background-color: @footer-color;
-                }
+    .footer-link {
+        padding-right: 30px;
+        position: relative;
+        &::after {
+            content: '';
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            background-color: @footer-color;
+            width: 1px;
+            height: 22px;
+            -webkit-transform: skewX(-30deg) skewY(0deg);
+            -ms-transform: skewX(-30deg) skewY(0deg);
+             -o-transform: skewX(-30deg) skewY(0deg);
+                transform: skewX(-30deg) skewY(0deg);
+        }
+        &:last-child {
+            padding-right: 0;
+            &::after {
+                display: none;
             }
         }
     }

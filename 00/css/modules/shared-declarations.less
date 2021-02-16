@@ -379,3 +379,53 @@ iframe[name="google_conversion_frame"] {
     position: relative;
     z-index: 55;
 }
+
+/* Footer links */
+.footer-links {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: round(@grid-gutter-width / 4) 0;
+    .footer-link {
+        list-style: none;
+        display: inline-block;
+        padding: 0 5px;
+        &:first-of-type {
+            padding-left: 0;
+        }
+        &:last-of-type {
+            padding-right: 0;
+        }
+    }
+}
+.footer-left {
+    .footer-links {
+        justify-content: center;
+        @media (min-width: @screen-sm-min) {
+            justify-content: flex-start;
+        }
+    }
+}
+.footer-icons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center; 
+    .footer-icon {
+        display: inline-block;
+        margin: round(@grid-gutter-width / 4);
+        align-self: center;
+    }
+}
+.footer-links-icons {
+    padding: round(@line-height-computed * 1.5) round(@grid-gutter-width / 2);
+    .footer-links {
+        margin-top: 0
+    }
+    .footer-icon {
+        margin-bottom: 0;
+    }
+}

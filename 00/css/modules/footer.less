@@ -5,15 +5,23 @@
             text-decoration: underline;
         }
     }
+    .system-footer {
+        display: flex;
+        flex-direction: column;
+        padding-left: round(@grid-gutter-width / 2);
+        padding-right: round(@grid-gutter-width / 2);
+        .footer-left {
+            order: 1;
+        }
+        .footer-right {
+            order: 0;
+            text-align: center;
+        }
+    }
     @media(min-width: @screen-sm-min) {
         display: block;
         padding-top: @line-height-computed;
         padding-bottom: @line-height-computed;
-        .footer-left,
-        .footer-right {
-            display: table-cell;
-            vertical-align: middle;
-        }
         .footer-left {
             width: 66.666666%;
         }
@@ -26,39 +34,18 @@
             }
         }
         .system-footer {
-            display: table;
-            ul {
-                margin: 0;
-                padding: 0;
-                li {
-                    position: relative;
-                    list-style: none;
-                    display: inline-block;
-                    padding-right: 30px;
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        right: 10px;
-                        top: 5px;
-                        .size(1px, 22px);
-                        .skew(-30deg, 0deg);
-                    }
-                    &:last-child {
-                        &::after {
-                            display: none;
-                        }
-                    }
-                }
+            flex-direction: row;
+            align-items: center;
+            .footer-left {
+                order: unset;
+            }
+            .footer-right {
+                order: unset;
+                text-align: right;
             }
             p {
                 margin-bottom: 0;
             }
-        }
-    }
-    @media (max-width: @screen-xs-max) {
-        .system-footer {
-            padding-left: round(@grid-gutter-width / 2);
-            padding-right: round(@grid-gutter-width / 2);
         }
     }
 }
