@@ -147,13 +147,25 @@
                 transform-origin: top;
                 .transition(transform @transition-duration @transition-timing);
             }
-            &:hover,
-            .advanced-order & {
+            &:hover {
                 z-index: 3;
                 position: absolute;
                 left: 0;
                 right: 0;
-
+            }
+            .advanced-order &,
+            .advanced-order &:hover {
+                .price-additional,
+                .p-bottom {
+                    position: relative;
+                    padding: 0;
+                }
+                .p-bottom {
+                    box-shadow: none;
+                }
+            }
+            &:hover,
+            .advanced-order & {
                 .p-code,
                 .stars,
                 .stars-label,
@@ -169,7 +181,6 @@
             }
             &:hover {
                 box-shadow: 0 0 16px rgba(0, 0, 0, .16);
-                position: relative;
                 .prices {
                     position: relative;
                     z-index: 4;

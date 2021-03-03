@@ -7,7 +7,10 @@
             var $el = $this.parents('.quantity').find('.amount');
             var action = $this.attr('class');
             var callback = false;
-            if ($el.parents('.cart-table').length || $el.parents('.cart-widget-product-amount').length) {
+            if ($el.parents('.cart-table').length
+                || $el.parents('.cart-widget-product-amount').length
+                || $(this).parents('.ao-product').length
+            ) {
                 function updateQuantityCallback() {
                     shoptet.cart.updateQuantityInCart($el, shoptet.config.updateQuantityTimeout);
                 }

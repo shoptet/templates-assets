@@ -124,6 +124,9 @@
                         if ($('.overlay').length > 0) {
                             $('.overlay').detach();
                         }
+                        setTimeout(function() {
+                            shoptet.modal.shoptetResize();
+                        }, 1);
                         shoptet.scripts.signalDomLoad('ShoptetDOMAdvancedOrderLoaded');
                     }
                 });
@@ -378,7 +381,10 @@
         var $html = $('html');
         // cart - set pcs form
         $html.on('change', 'input.amount', function() {
-            if ($(this).parents('.cart-table').length || $(this).parents('.cart-widget-product-amount').length) {
+            if ($(this).parents('.cart-table').length
+                || $(this).parents('.cart-widget-product-amount').length
+                || $(this).parents('.ao-product').length
+            ) {
                 shoptet.cart.updateQuantityInCart($(this), shoptet.config.updateQuantityTimeout);
             }
         });
