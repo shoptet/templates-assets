@@ -212,17 +212,15 @@
                     payuInputs[i].addEventListener('mousedown', function(e) {
                         e.stopPropagation();
                         var activeLine = document.querySelector('.payu-billing-info');
-                        if (!activeLine.classList.contains('active')) {
-                            document.querySelector(
-                                '#order-billing-methods .radio-wrapper.active input'
-                            ).checked = false;
-                            document.querySelector(
-                                '#order-billing-methods .radio-wrapper.active'
-                            ).classList.remove('active');
-                            activeLine.classList.add('active')
-                            activeLine.querySelector('input').checked = true;
-                            shoptet.checkoutShared.replacingChosenShippingAndBilling();
-                        }
+                        document.querySelector(
+                            '#order-billing-methods .radio-wrapper.active input'
+                        ).checked = false;
+                        document.querySelector(
+                            '#order-billing-methods .radio-wrapper.active'
+                        ).classList.remove('active');
+                        activeLine.classList.add('active')
+                        activeLine.querySelector('input').checked = true;
+                        shoptet.checkoutShared.replacingChosenShippingAndBilling();
                     });
                 }
             }
@@ -843,9 +841,9 @@
                     }
                     if (input.classList.contains('payu')) {
                         var payuTable = document.querySelector('.table-payu');
-                        if (payuTable && !payuTable.querySelector('input:checked')) {
+                        if (payuTable) {
                             // Check the first specific PayU billing method
-                            payuTable.querySelector('input[name="pay_type"]').checked = true;
+                            payuTable.querySelector('input[name="pay_type"]').setAttribute('checked', 'checked');
                         }
                     }
                 }
