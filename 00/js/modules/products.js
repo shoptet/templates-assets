@@ -250,7 +250,7 @@
 
         $mainImageLink.attr({
             'href': bigImage,
-            'data-href': bigImage.replace(/big/, "/orig/")
+            'data-href': bigImage.replace(/\/big\//, '/orig/')
         });
         if ($('.cloud-zoom').length) {
             clearTimeout(shoptet.runtime.cloudZoom);
