@@ -296,7 +296,7 @@
     }
 }
 
-@media (max-width: @screen-xs-max) {
+@media (min-width: 321px) and (max-width: @screen-xs-max) {
     .columns-mobile-2 .products-block {
         display: flex;
         flex-wrap: wrap;
@@ -304,7 +304,6 @@
         >div {
             width: 50%;
             margin-bottom: 20px;
-
             .quantity {
                 display: none;
             }
@@ -319,22 +318,12 @@
                     display: none;
                 }
             }
-            .flags {
-                position: static;
-                .flag {
-                    float: none;
-                    width: auto;
-                    max-width: 100%;
-                    display: block;
-                    margin: 0;
-                    padding: 2px 4px;
-                }
-            }
             .flags-extra {
                 text-align: center;
                 .flag {
                     float: none;
-                    width: auto;
+                    min-width: 100%;
+                    flex: 1 1 100%;
                     height: auto;
                     border-radius: 0;
                     flex-direction: row;
@@ -350,6 +339,13 @@
             .p-tools {
                 display: flex;
                 align-items: center;
+            }
+            .inner {
+                display: flex;
+                flex-wrap: wrap;
+                .descr {
+                    align-self: flex-end;
+                }
             }
         }
         >div:nth-child(even) {

@@ -218,29 +218,30 @@
     }
 }
 
-@media (max-width: @screen-xs) {
+@media (min-width: 321px) and (max-width: @screen-xs-max) {
     .columns-mobile-2 .products-block > div {
         width: 50%;
-        .p .flags {
-            position: static;
-            text-align: center;
-            .flag {
-                float: none;
-                width: auto;
-                max-width: 100%;
-                display: inline-block;
-                margin: 4px;
-                padding: 4px 15px;
+        .p {
+            .flags {
+                top: 4px;
+                text-align: right;
+
+                .flag {
+                    float: none;
+                    width: auto;
+                    max-width: 100%;
+                    display: inline-block;
+                }
+                .flag.flag-discount {
+                    display: flex;
+                }
             }
-            .flag.flag-discount {
-                display: flex;
+            .prices-top .price-final {
+                flex: 1 1 100%;
             }
-        }
-        .p .prices-top .price-final {
-            flex: 1 1 100%;
-        }
-        .p-code {
-            display: none;
+            .p-code {
+                display: none;
+            }
         }
         .stars-wrapper {
             margin-top: 5px;

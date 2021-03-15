@@ -229,9 +229,16 @@
     }
 }
 
-@media (max-width: @screen-xs) {
+@media (min-width: 321px) and (max-width: @screen-xs-max) {
     .columns-mobile-2 .products-block > div {
         width: 50%;
+        .inner {
+            display: flex;
+            flex-wrap: wrap;
+            .descr {
+                align-self: flex-end;
+            }
+        }
         .flags-extra .flag .price-standard {
             margin-right: 5px;
         }

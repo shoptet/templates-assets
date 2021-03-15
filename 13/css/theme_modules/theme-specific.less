@@ -46,18 +46,22 @@
 }
 
 .breadcrumbs {
-    > span {
-        &:last-child {
+    a, span {
+        color: @text-muted-color;
+        &:hover {
             color: @text-muted-color;
         }
     }
+}
+
+.stars-label {
+    color: @text-color;
 }
 
 table.detail-parameters {
     tbody {
         tr {
             th {
-                color: @text-muted-color;
                 .row-header-label {
                     background-color: white;
                 }
@@ -91,20 +95,17 @@ table.detail-parameters {
         }
     }
 }
+
 .p-final-price-wrapper {
     .price-final {
         font-family: @template-headings-font;
     }
-
-}
-#product-detail-form {
-    background-color: @gray-lighter;
-}
-.variant-list {
-    .variant-label {
+    .standard-price-label,
+    .price-additional {
         color: @text-muted-color;
     }
 }
+
 #product-detail-form .advanced-parameter-inner {
     border-color: @border-color;
     &:hover {
@@ -114,7 +115,8 @@ table.detail-parameters {
         border-color: @border-color;
         &::before {
             background-color: white;
-            border-color: @border-color;
+            border-color: black;
+            color: black;
         }
     }
 }
@@ -130,6 +132,21 @@ table.detail-parameters {
         }
 
     }
+}
+
+.link-icons {
+    .link-icon {
+        color: @text-color;
+    }
+}
+
+.hidden-links,
+.hidden-links .shp-tab-link {
+    background-color: @gray-lighter;
+}
+
+.p-detail-tabs-wrapper .rate-average-wrap .rate-average {
+    color: @text-color;
 }
 
 /* product page end */

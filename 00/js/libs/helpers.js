@@ -52,11 +52,11 @@
         return shoptet.config.currencySymbol;
     }
 
-    function resolveCurrencySymbolPosition(symbolPosition) {
-        if (typeof symbolPosition !== 'undefined') {
-            return symbolPosition;
+    function resolveCurrencySymbolPosition(symbolPositionLeft) {
+        if (typeof symbolPositionLeft !== 'undefined') {
+            return symbolPositionLeft;
         }
-        return shoptet.config.currencySymbolLeft;
+        return parseInt(shoptet.config.currencySymbolLeft);
     }
 
     function formatNumber(decimalPlaces, decimalSeparator, thousandSeparator) {
@@ -78,13 +78,34 @@
             + (decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : '');
     }
 
-    function formatAsCurrency(currencySymbol, currencyPosition, decimalPlaces, decimalSeparator, thousandSeparator) {
+    /**
+     * Format currency the same way as on backend
+     * If you omit all arguments, default values of currency will be used
+     *
+     * @param {String} currencySymbol
+     * currencySymbol = symbol or code of currency
+     * @param {Boolean} currencyPositionLeft
+     * currencyPositionLeft = whether the symbol is located left to the number
+     * @param {Number} decimalPlaces
+     * decimalPlaces = number of decimal places
+     * @param {String} decimalSeparator
+     * decimalSeparator = separator of decimals
+     * @param {String} thousandSeparator
+     * thousandSeparator = separator of thousands
+     */
+    function formatAsCurrency(
+        currencySymbol,
+        currencyPositionLeft,
+        decimalPlaces,
+        decimalSeparator,
+        thousandSeparator
+    ) {
         var number = this;
         var symbol = resolveCurrencySymbol(currencySymbol);
-        var positionLeft = resolveCurrencySymbolPosition(currencyPosition);
-        return ((!positionLeft ? symbol : '')
-            + ' ' + number.ShoptetFormatNumber(decimalPlaces, decimalSeparator, thousandSeparator)
-            + (positionLeft ? (' ' + symbol) : '')).trim();
+        var positionLeft = resolveCurrencySymbolPosition(currencyPositionLeft);
+        return ((positionLeft ? symbol : '')
+            + number.ShoptetFormatNumber(decimalPlaces, decimalSeparator, thousandSeparator)
+            + (!positionLeft ? (' ' + symbol) : '')).trim();
     }
 
     Number.prototype.ShoptetFormatNumber = formatNumber;

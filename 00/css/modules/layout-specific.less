@@ -486,8 +486,9 @@ a.btn {
     }
 }
 
-.columns-mobile-2 .products-block {
-    @media (max-width: @screen-xs-max) {
+
+@media (min-width: 321px) and (max-width: @screen-xs-max) {
+    .columns-mobile-2 .products-block {
         .clearfixMixin();
     }
 }
@@ -528,4 +529,8 @@ a.btn {
             line-height: @line-height-base;
         }
     }
+}
+
+.tab-manufacturer-name {
+    display: none;
 }

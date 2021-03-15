@@ -224,56 +224,64 @@
     }
 }
 
-@media (max-width: @screen-xs) {
+@media (min-width: 321px) and (max-width: @screen-xs-max) {
     .columns-mobile-2 .products-block {
         > div:nth-child(2) {
             border-top-style: none;
         }
         > div {
             width: 50%;
-            .p .p-code {
-                display: none;
+
+            .p {
+                .p-code {
+                    display: none;
+                }
+                .name {
+                    text-align: left;
+                }
             }
             .flags {
-                position: static;
-                .flag {
-                    float: none;
-                    width: auto;
-                    max-width: 100%;
-                    display: block;
-                    margin: 0;
-                    padding: 2px 4px;
-                }
                 .flag.flag-discount {
                     display: flex;
+
+                    .price-standard {
+                        margin-right: 5px;
+                    }
                 }
             }
             .flags-extra .flag {
-                width: auto;
+                min-width: 100%;
                 height: auto;
                 border-radius: 0;
                 flex-direction: row;
                 padding: 3px;
                 margin-bottom: 0;
+                margin-left: 0;
+
                 .icon-van {
                     font-size: 14px;
                     margin-right: 5px;
                     margin-left: 3px;
                 }
             }
-            .availability,
             .ratings-wrapper {
-                text-align: center;
-            }
-            .ratings-wrapper {
+                justify-content: flex-start;
                 min-height: auto;
+
+                .stars-wrapper {
+                    margin-bottom: 5px;
+                    flex: 0;
+                }
+                .availability {
+                    text-align: initial;
+                    margin-bottom: 5px;
+                }
             }
             .prices {
-                text-align: center;
                 margin-bottom: 5px;
             }
             .p-bottom>div {
-                justify-content: center;
+                justify-content: flex-start;
             }
         }
     }

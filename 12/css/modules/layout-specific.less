@@ -525,13 +525,9 @@ a.btn {
     }
 }
 
-@media (max-width: @screen-xs-max) {
+@media (min-width: 321px) and (max-width: @screen-xs-max) {
     .columns-mobile-2 .products-block > div {
         margin-bottom: 20px;
-        .flags-default .flag:before,
-        .flags-default .flag:after {
-            display: none;
-        }
         .flags .flag.flag-discount {
             display: flex;
         }
@@ -1526,4 +1522,8 @@ ol.top-products {
     @media(min-width: @screen-xs-min) {
         margin-left: 180px;
     }
+}
+
+.tab-manufacturer-name {
+    display: none;
 }
