@@ -32,6 +32,11 @@
     .banner-wrapper {
         float: left;
         width: 50%;
+        @media (max-width: @screen-xs-max) {
+            &:nth-child(3) {
+                clear: both;
+            }
+        }
         @media (min-width: @screen-sm-min) {
             width: 25%;
         }
