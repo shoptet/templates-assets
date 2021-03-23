@@ -139,12 +139,13 @@ function getShoptetProductsList() {
             var eventName;
 
             var amount = shoptet.tracking.resolveAmount(formAction, fbPixelData);
+            var priceValue = fbPixelData.facebookPixelVat ? fbPixelData.value : fbPixelData.valueWoVat;
             var data = {
                 content_name: fbPixelData.content_name,
                 content_category: fbPixelData.content_category,
                 content_ids: fbPixelData.content_ids,
                 content_type: 'product',
-                value: parseFloat(fbPixelData.value) * amount,
+                value: parseFloat(priceValue) * amount,
                 currency: fbPixelData.currency
             };
 
