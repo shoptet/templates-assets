@@ -16,7 +16,11 @@
     bottom: 0;
 
     .site-msg {
-        opacity: 0.8;
+        opacity: 0.9;
+
+        @media (max-width: @screen-sm) {
+            opacity: 1;
+        }
     }
 }
 .site-msg {
