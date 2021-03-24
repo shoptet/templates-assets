@@ -111,32 +111,6 @@ ol.cart-header {
     }
 }
 
-@media (max-width: @screen-xs) {
-    .ordering-process {
-        .quantity-form {
-            .quantity {
-                padding: 0 36px;
-                input {
-                    text-align: center;
-                }
-                .increase,
-                .decrease {
-                    .square(36px);
-                    top: 0;
-                    &::before {
-                        line-height: 36px;
-                    }
-                }
-                .decrease {
-                    right: auto;
-                    left: 0;
-                    border-style: none;
-                }
-            }
-        }
-    }
-}
-
 .cart-summary {
     padding-top: round(@grid-gutter-width / 2);
     @media (max-width: @screen-sm-max) {

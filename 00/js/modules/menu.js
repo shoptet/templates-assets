@@ -213,7 +213,6 @@
         $html.on('mouseenter', '#navigation .ext > a > span, .menu-helper .ext > a > span', function (e) {
             e.stopPropagation();
         });
-
         $html.on('click', '#navigation .ext > a > span, .menu-helper .ext > a > span', function (e) {
             e.stopPropagation();
             e.preventDefault();
@@ -226,11 +225,9 @@
                     shoptet.menu.showSubmenu($this.parents('li'));
                 }
             }, 1);
-            clearTimeout(shoptet.runtime.submenu);
         });
 
         shoptet.runtime.submenu = false;
-
         $html.on('mouseover', '#navigation .ext', function () {
             var $this = $(this);
             clearTimeout(shoptet.runtime.submenu);
@@ -243,13 +240,6 @@
 
         $html.on('mouseleave', '#navigation .ext', function () {
             if (detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
-                clearTimeout(shoptet.runtime.submenu);
-                shoptet.menu.hideSubmenu();
-            }
-        });
-
-        $html.on('click', '#navigation .ext a', function () {
-            if ($(this).parent().hasClass('ext')) {
                 clearTimeout(shoptet.runtime.submenu);
                 shoptet.menu.hideSubmenu();
             }
