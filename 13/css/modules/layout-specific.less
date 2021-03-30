@@ -14,10 +14,9 @@
 @navigation_third-level-item-height: 16px;
 
 @hover-box-shadow: 0 0 10px rgba(0,0,0,.16);
-
 @breadcrumb-in-detail-height: 20px;
-
 @narrow-container-width: @container-lg;
+@cart-widget-bottom-height: 144px;
 
 //header
 .navigation-wrapper {
@@ -446,7 +445,7 @@ table.detail-parameters {
                     position: relative;
                     z-index: 2;
                 }
-                &:after {
+                &::after {
                     content:"";
                     position: absolute;
                     top: 50%;
@@ -619,7 +618,7 @@ table.detail-parameters {
         display: flex;
         justify-content: center;
         align-items: center;
-        &:before {
+        &::before {
             position: relative;
             font-size: 12px;
             width: round(@advanced-parameter-size / 2);
@@ -663,7 +662,7 @@ table.detail-parameters {
     .link-icon {
         display: flex;
         margin-right: round(@grid-gutter-width / 2);
-        &:before {
+        &::before {
             margin-bottom: 0;
             margin-right: 5px;
         }
@@ -1119,7 +1118,7 @@ table.detail-parameters {
             }
         }
         &.display-image {
-            &:before {
+            &::before {
                 position: absolute;
                 left: 0;
                 top: 0;
@@ -1229,10 +1228,36 @@ ul.user-action-tabs {
     text-align: right;
 }
 
+.cart-widget-bottom {
+  z-index: 3;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  height: @cart-widget-bottom-height;
+  text-align: center;
+}
+
+.cart-widget-inner.popup-widget-inner {
+    margin-bottom: @cart-widget-bottom-height;
+    @media (max-width: @screen-sm-max) {
+        .cart-widget-products {
+            margin-bottom: @cart-widget-bottom-height;
+        }
+    }
+}
+
 .cart-widget-button {
-    padding: 0;
-    margin: @line-height-computed 0;
+    padding: @line-height-computed 0;
+    margin: 0;
     top: 0;
+    @media (max-width: @screen-sm-max) {
+        position: relative;
+        left: initial;
+        right: initial;
+        bottom: initial;
+    }
 }
 
 .cart-free-shipping {
@@ -1243,6 +1268,10 @@ ul.user-action-tabs {
         padding: 0;
         div {
             padding-bottom: @line-height-computed;
+            strong {
+                padding-top: round(@line-height-computed / 2);
+                display: inline-block;
+            }
         }
     }
     .price-range {

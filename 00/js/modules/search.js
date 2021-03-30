@@ -156,8 +156,11 @@ $(function () {
     // Whisperer
     var $searchInput = $('.search input.query-input');
     if ($searchInput.length) {
-        $searchInput.after('<div class="search-whisperer"></div>');
-        fulltextSearch($searchInput, $('.search-whisperer'));
+        $searchInput.parents('form').each(function () {
+            var $this = $(this);
+            $this.find($searchInput).after('<div class="search-whisperer"></div>');
+            fulltextSearch($this.find($searchInput), $this.find('.search-whisperer'));
+        });
     }
 
     // Submit form by clickin' on "Show all results" link in whisperer

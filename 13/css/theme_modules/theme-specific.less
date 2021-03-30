@@ -277,6 +277,10 @@ table.detail-parameters {
     color: @text-color;
 }
 
+.cart-widget-bottom {
+    background-color: @popup-widget-bg;
+}
+
 .cart-widget-product-delete {
     button {
         color: @gray-dark;
@@ -290,6 +294,23 @@ table.detail-parameters {
     color: @text-color;
     strong {
         color: @color-tertiary;
+    }
+}
+
+//checkout
+.cart-table-header {
+    color: @text-muted-color;
+}
+
+.free-gift-price {
+    color: @green;
+}
+
+.cart-table .p-price .price-final,
+.cart-table .unit-value {
+    color: @text-color;
+    @media (max-width: @screen-sm-max) {
+        color: @text-muted-color;
     }
 }
 
@@ -377,8 +398,7 @@ ol.cart-header {
 .order-summary-inner,
 .order-summary-item,
 .recapitulation-single,
-.order-recapitulation,
-.consents-first {
+.order-recapitulation {
     border-color: @border-color;
 }
 
@@ -394,10 +414,6 @@ ol.cart-header {
             }
         }
     }
-}
-
-#select-country-payment {
-    background: @gray-lighter;
 }
 
 #checkoutContent .helper {
