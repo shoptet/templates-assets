@@ -82,6 +82,15 @@
         // currently the shoptet.checkoutShared.activeShipping is HTML div element containing
         // all information about shipping, you can access necessary information by query selector
         console.log(shoptet.checkoutShared.activeShipping);
+        // for example, you can get also GUID of chosen shipping:
+        console.log('%cactiveShipping GUID:', 'color: orangered; font-size: 16px;');
+        console.log(shoptet.checkoutShared.activeShipping.querySelector('input').getAttribute('data-guid'));
+        // shipping request code is available under shoptet.checkoutShared.shippingRequestCode
+        console.log('%cshippingRequestCode:', 'color: orangered; font-size: 16px;');
+        console.log(shoptet.checkoutShared.shippingRequestCode);
+        // information about language, e-shop ID and currency, you can get from dataLayer:
+        console.log('%cgetShoptetDataLayer():', 'color: orangered; font-size: 16px;');
+        console.log(getShoptetDataLayer());
     });
     document.addEventListener('ShoptetBillingMethodUpdated', function() {
         // currently the shoptet.checkoutShared.activeBilling is HTML div element containing
