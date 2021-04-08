@@ -65,7 +65,7 @@
         }
 
         if ($variant.attr('data-codeid')) {
-            $('#product-detail-form').find('input[name=priceId]').val($variant.attr('data-codeid'));
+            $('form#product-detail-form').find('input[name=priceId]').val($variant.attr('data-codeid'));
         }
 
         shoptet.tracking.trackProducts(

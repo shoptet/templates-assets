@@ -180,6 +180,14 @@
                 }
             });
         }
+
+        if ($('#order-billing-methods').hasClass('cart-hide-unselected-options')) {
+            $('#order-billing-methods .active').filter('.js-hidden')
+                .toggleClass('js-hidden visible-single');
+            $('#order-billing-methods .visible-single').filter('.inactive-child')
+                .toggleClass('visible-single js-hidden');
+        }
+
         shoptet.checkoutShared.replacingChosenShippingAndBilling();
     }
 
@@ -832,6 +840,20 @@
                     }
                 }
                 this.classList.add('active');
+                var toggleableTable = this.closest('.cart-hide-unselected-options');
+                var nonactiveWrappers = toggleableTable.querySelectorAll('.radio-wrapper:not(.active)');
+                if (typeof toggleableTable !== 'undefined') {
+                    if (nonactiveWrappers) {
+                        for (var i = 0; i < nonactiveWrappers.length; i++) {
+                            nonactiveWrappers[i].classList.remove('visible-single');
+                            nonactiveWrappers[i].classList.add('js-hidden');
+                        }
+                    }
+                    this.classList.add('visible-single');
+                    this.classList.remove('js-hidden');
+                    var toggleButton = toggleableTable.nextElementSibling;
+                    toggleButton.classList.remove('js-hidden');
+                }
                 var input = this.querySelector('input[name="billingId"]');
                 if (!input) {
                     input = this.querySelector('input[name="shippingId"]');
