@@ -453,7 +453,7 @@ ol.cart-header {
     }
     h4 {
         position: relative;
-        padding-left: round(@grid-gutter-width * 2);
+        padding-left: round(@grid-gutter-width * 1.2);
         line-height: @cart_icon-size;
         &::before {
             &:extend(.shp-icon);
@@ -816,7 +816,7 @@ ol.cart-header {
 
 .order-summary-heading,
 .recapitulation-wrapper {
-    max-width: @common_page-content-max-width;
+    max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -844,10 +844,33 @@ table.table.recapitulation-table {
     > tbody {
         > tr {
             > th {
-                text-align: left;
+                width: 40%;
                 font-weight: 400;
+                text-align: left;
+            }
+
+            @media (max-width: @screen-sm) {
+                display: block;
+
+                th {
+                    width: 100%;
+                    display: block;
+                    padding: 0;
+                }
+                td {
+                    display: block;
+                    padding: 0 0 10px 0;
+                }
+            }
+            @media (min-width: @screen-md-min) {
+                th {
+                    width: auto;
+                }
             }
         }
+    }
+    &:first-of-type {
+        margin-bottom: 0;
     }
 }
 
@@ -867,3 +890,13 @@ table.table.recapitulation-table {
         padding-right: 0;
     }
 }
+
+.cart-heading {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.order-complete-links {
+    padding-bottom: 30px;
+}
+

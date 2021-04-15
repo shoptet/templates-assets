@@ -348,5 +348,29 @@ ol.cart-header {
     + .recapitulation-table {
         margin-top: -@line-height-computed;
     }
+
+    @media (max-width: @screen-sm) {
+        display: block;
+        padding: 0 20px;
+
+        tbody,
+        tr,
+        th,
+        td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+        tr {
+            padding-bottom: 10px;
+        }
+        &.table tbody>tr>td,
+        &.table tbody>tr>th {
+            padding: 0;
+        }
+    }
+}
+.recapitulation-wrapper .cart-table {
+    padding: 0 20px;
 }
 

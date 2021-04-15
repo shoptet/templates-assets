@@ -141,7 +141,7 @@
         }
         &.delivery::before,
         &.discount::before,
-        &.cofidis::before, {
+        &.cofidis::before {
             font-size: 38px;
             margin-right: round(@grid-gutter-width / 4);
             position: absolute;
@@ -256,6 +256,8 @@
 }
 .order-icon {
     font-weight: 400;
+    margin-left: 20px;
+    margin-right: 20px;
 
     &::before {
         margin-right: round(@grid-gutter-width / 2);
@@ -319,9 +321,46 @@
     border-bottom-width: 1px;
     border-bottom-style: solid;
 }
+.content-wrapper.container .reca-line {
+    margin-left: 0;
+    margin-right: 0;
+}
 .recapitulation-table {
     &.table {
         width: auto;
+    }
+    @media (max-width: @screen-sm) {
+        display: block;
+
+        tbody,
+        tr,
+        th,
+        td {
+            width: 100%;
+            display: block;
+        }
+        tr {
+            padding-bottom: 10px;
+        }
+    }
+}
+.reca-spacer .recapitulation-table.table tbody>tr {
+    >th {
+        padding: 0 10px 0 0;
+    }
+    >td {
+        padding: 0;
+    }
+}
+@media (max-width: @screen-sm) {
+    .recapitulation-wrapper .reca-spacer > .col-sm-6 {
+        padding: 0;
+
+        &:first-child {
+            .recapitulation-table {
+                margin-bottom: 0;
+            }
+        }
     }
 }
 .order-summary-item.total,

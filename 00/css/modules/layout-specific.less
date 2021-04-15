@@ -534,3 +534,29 @@ a.btn {
 .tab-manufacturer-name {
     display: none;
 }
+
+@media (max-width: @screen-sm) {
+    .order-summary-heading,
+    .reca-number,
+    .recapitulation-table,
+    .recapitulation-wrapper h2 {
+        padding-left: round(@line-height-computed / 2);
+        padding-right: round(@line-height-computed / 2);
+    }
+    .recapitulation-table:first-of-type { margin-bottom: 0; }
+    .recapitulation-table td:first-child,
+    .recapitulation-table td:last-child { padding: 0; }
+    table.table thead > tr > th,
+    table.table tbody > tr > th,
+    table.table thead > tr > td,
+    table.table tbody>tr>td {
+        padding-left: 0;
+        line-height: 1;
+    }
+}
+
+@media (min-width: @screen-xs-min) and (max-width: @screen-xs-max) {
+    .recapitulation-table td:last-child {
+        padding-right: round(@line-height-computed / 2);
+    }
+}

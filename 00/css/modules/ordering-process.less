@@ -70,11 +70,35 @@ body.ordering-process {
 }
 
 .recapitulation-table {
-    &.table {
-        width: auto;
+    &:first-child {
+        margin-bottom: 0;
     }
     th {
+        width: 40%;
         font-weight: 400;
         text-align: left;
+    }
+
+    @media (max-width: @screen-sm) {
+        display: block;
+
+        tr {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        th {
+            width: 100%;
+            display: block;
+        }
+
+        td {
+            display: block
+        }
+    }
+    @media (min-width: @screen-md-min) {
+        th {
+            width: auto;
+        }
     }
 }
