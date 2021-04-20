@@ -226,7 +226,10 @@ function detectFilters() {
             if ($asideFilterSelector.length && !$asideFilterSelector.is(':visible')) {
                 moveFilters($el, 'content');
             } else {
-                moveFilters($el, 'default');
+                if ($('.sidebar-' + filtersDefaultPosition).is(':visible')) {
+                    moveFilters($el, 'default');
+                }
+                // else - filters are where they should be
             }
         }
     }
