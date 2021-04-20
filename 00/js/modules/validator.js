@@ -314,7 +314,7 @@ shoptet.validator.removeValidatorMessage = function($el) {
 shoptet.validator.validatorMessage = {
     init: function($el) {
         var id = 'id-' + Math.floor((Math.random() * 1024) + (Math.random() * 2048));
-        $('<div class="validator-msg" id="' + id + '"></div>').appendTo($('body'));
+        $('<div class="validator-msg js-validator-msg" id="' + id + '"></div>').appendTo($('body'));
         var $container = $('#' + id);
         $('html').on('click', '#' + id, function() {
             $container.prev('input').removeClass('error-field');
@@ -334,7 +334,7 @@ shoptet.validator.validatorMessage = {
             .addClass(cssClass)
             .html($el.data('validatorMessageMessage'));
 
-        $container.insertBefore($el);
+        $el.closest('.js-validated-element-wrapper').append($container);
         $container.fadeIn(150);
     },
     hide: function($el) {

@@ -1,0 +1,16 @@
+.js-validator-msg {
+    margin-top: 5px;
+    @media (min-width: 480px) {
+        margin-left: @form-group-label-width;
+
+        .no-label &,
+        .no-indent &,
+        .compact-form & {
+            margin-left: 0;            
+        }
+    }
+}
+
+.user-action .js-validator-msg {
+    text-align: left;
+}

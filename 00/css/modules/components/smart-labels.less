@@ -9,7 +9,7 @@
     width: auto;
     max-width: 100%;
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     line-height: calc(@input-height-base + @font-size-smaller);
 }
@@ -48,14 +48,4 @@
     -ms-transition: 0.2s ease-in-out;
     -o-transition: 0.2s ease-in-out;
     transition: 0.2s ease-in-out;
-}
-
-.smart-label-wrapper .validator-msg, 
-.smart-label-wrapper .js-validator-msg {
-    margin-left: 0;
-    + input,
-    + select,
-    + .phone-combined-input {
-      margin-left: 0;
-    }
 }

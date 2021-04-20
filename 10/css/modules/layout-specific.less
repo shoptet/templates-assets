@@ -395,31 +395,8 @@ ul {
     }
 }
 
-.validator-msg {
-    margin-bottom: 5px;
-    @media (min-width: 480px) {
-        + input,
-        + select {
-            clear: both;
-            margin-left: @form-group-label-width;
-            .compact-form & {
-                margin-left: 0;
-            }
-
-        }
-        .input-wrapper & {
-            + input,
-            + select {
-                margin-left: 0;
-            }
-        }
-    }
-}
-.js-validator-msg,
-.js-validator-msg + .phone-combined-input {
-    @media(min-width: @screen-xs-min) {
-        margin-left: @form-group-label-width;
-    }
+.js-validator-msg {
+    padding-bottom: round(@line-height-computed / 2);
 }
 
 .tab-manufacturer-name {

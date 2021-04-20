@@ -224,7 +224,7 @@ body.ordering-process {
             text-decoration: underline;
         }
         @media (min-width: @screen-xs-min) {
-            width: 180px;
+            width: @form-group-label-width;
         }
     }
     > input,
@@ -1072,7 +1072,7 @@ a.btn {
         form {
             flex: 0 1 auto;
             width: 100%;
-            .validator-msg {
+            .js-validator-msg {
                 font-size: 80%;
             }
             .form-group {
@@ -1534,13 +1534,6 @@ ol.top-products {
 
 .box.box-sm.box-filters {
     padding: @line-height-computed 0;
-}
-
-.js-validator-msg,
-.js-validator-msg + .phone-combined-input {
-    @media(min-width: @screen-xs-min) {
-        margin-left: 180px;
-    }
 }
 
 .tab-manufacturer-name {
