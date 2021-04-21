@@ -179,7 +179,13 @@
     text-transform: uppercase;
 }
 #clear-filters {
+    clear: both;
     text-align: center;
+    margin-bottom: 0;
+    .close-after {
+        padding-top: 5px;
+        padding-bottom: 10px;
+    }
 }
 
 #category-filter-hover {
@@ -197,10 +203,6 @@
 #category-filter-hover .filter-section:first-child {
     border-top-style: @filter-section-border-top-style;
     border-top-width: @filter-section-border-top-width;
-}
-
-#clear-filters {
-    clear: both;
 }
 
 .param-filter-top {
@@ -229,6 +231,8 @@
 .filter-label {
     display: flex;
     align-items: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .filter-count {
