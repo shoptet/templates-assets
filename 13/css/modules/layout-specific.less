@@ -572,7 +572,6 @@ select {
     }
 }
 
-
 table.detail-parameters {
     float: none;
     width: 100%;
@@ -986,10 +985,6 @@ table.detail-parameters {
         padding-top: 0;
     }
 }
-
-
-
-
 /* product detail page end */
 
 /* category page start */
@@ -1208,6 +1203,93 @@ table.detail-parameters {
 }
 
 /* category page end */
+
+/* manufacturer list page start */
+ul.manufacturers-anchors {
+    .list-reset();
+    li {
+        display: inline-block;
+        a {
+            display: block;
+            text-decoration: underline;
+            padding: round(@grid-gutter-width / 4);
+            @media (min-width: @screen-md-min) {
+                padding: round(@grid-gutter-width / 2);
+            }
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+}
+ul.manufacturers {
+    .list-reset();
+    li {
+        list-style: none;
+    }
+    h2 {
+        flex: 0 0 round(@grid-gutter-width * 2.5);
+        margin: 0;
+        padding: round(@grid-gutter-width / 2);
+        font-size: @font-size-x-large;
+        font-weight: 900;
+        text-align: center;
+        .transition(color @transition-duration @transition-timing);
+    }
+    ul {
+        flex: 1 1 auto;
+        li {
+            padding: round(@grid-gutter-width / 8) 0;
+        }
+    }
+    > li {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        margin: 0;
+        padding: round(@line-height-computed / 2) 0;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        &:last-child {
+            border-bottom-style: none;
+        }
+        &:first-child {
+            border-top-style: solid;
+            border-top-width: 1px;
+        }
+        a {
+            text-decoration: underline;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+    @media (min-width: @screen-sm-min) {
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            flex: 1 1 calc(~'100% - '  (@grid-gutter-width * 2.5));
+            li {
+                flex: 0 0 50%;
+            }
+        }
+    }
+    @media (min-width: @screen-md-min) {
+        ul {
+            li {
+                flex-basis: 33.333333%;
+            }
+        }
+    }
+    @media (min-width: @screen-lg-min) {
+        ul {
+            li {
+                flex-basis: 25%;
+            }
+        }
+    }
+}
+/* manufacturer list page end */
 
 /* aside start */
 .categories {
@@ -1464,13 +1546,19 @@ ul.user-action-tabs {
         @media (min-width: @screen-md-min) {
             width: calc(50% - @grid-gutter-width / 2);
         }
+        .title {
+            font-size: @font-size-h2;
+        }
+        .news-item-link-img {
+            width: 100%;
+            height: 100%;
+        }
         .news-image {
             object-fit: cover;
             width: 100%;
-            height: 20vh;
             margin-bottom: @grid-gutter-width / 2;
             @media (min-width: @screen-md-min) {
-                height: 40vh;
+                object-fit: contain;
             }
         }
     }

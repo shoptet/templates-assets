@@ -87,7 +87,6 @@ table.detail-parameters {
     background-color: transparent;
     color: #fff;
 }
-
 /* content end */
 
 /* product page start */
@@ -159,7 +158,6 @@ table.detail-parameters {
 .p-detail-tabs-wrapper .rate-average-wrap .rate-average {
     color: @text-color;
 }
-
 /* product page end */
 
 /* category page start */
@@ -211,8 +209,32 @@ table.detail-parameters {
         }
     }
 }
-
 /* category page end */
+
+
+/* manufacturer list page start */
+ul.manufacturers-anchors {
+    li a {
+        color: @text-color;
+    } 
+}
+ul.manufacturers {
+    > li {
+        border-color: @border-color;
+        h2 {
+            color: @text-muted-color;
+        }
+        li a {
+            color: @text-color;
+        }
+        &:hover {
+            h2 {
+                color: @color-primary;
+            }
+        }
+    }
+}
+/* manufacturer list page end */
 
 /* aside start */
 .sidebar {
@@ -235,8 +257,6 @@ table.detail-parameters {
         }
     }
 }
-
-
 /* aside end */
 
 
