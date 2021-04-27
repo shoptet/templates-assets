@@ -18,12 +18,26 @@
 @narrow-container-width: @container-lg;
 @cart-widget-bottom-height: 144px;
 
+//overall wrapper
+.overall-wrapper {
+    @media (max-width: @navigation-breakpoint-max) {
+        padding-top: 40px;
+    }
+
+    @media (min-width: @screen-xs-min) and (max-width: @navigation-breakpoint-max) {
+        padding-top: 60px;
+    }
+}
+
 //header
-.navigation-wrapper {
-    > div {
+#header {
+    .container {
         display: flex;
         justify-content: space-between;
-        width: 100%;
+        &::before,
+        &::after {
+            content: none;
+        }
     }
 
     .header-top {
@@ -62,16 +76,46 @@
             }
         }
     }
+
+    @media (max-width: @navigation-breakpoint-max) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 60;
+        box-shadow: 0 1px 2px rgba(0,0,0,.16);
+        transition: transform @transition-duration / 2;
+
+        .header-bottom {
+            border-top-width: 0;
+        }
+
+        .scrolled-down body:not(.ordering-process):not(.search-window-visible) & {
+            transform: translateY(-100%);
+        }
+
+        .header-bottom-wrapper {
+            min-height: 0;
+        }
+    }
 }
 
 #navigation {
     padding-top: 0;
 
-    @media (min-width: @screen-xs-min) and (max-width: @navigation-breakpoint - 1) {
+    @media (max-width: @navigation-breakpoint-max) {
+        border-top-width: 1px;
+        border-top-style: solid;
+        top: 40px;
+    }
+
+    @media (min-width: @screen-xs-min) and (max-width: @navigation-breakpoint-max) {
+        top: 60px;
         .navigation-window-visible & {
             width: 100%;
         }
     }
+
     .menu-level-2 {
         @media (min-width: @navigation-breakpoint) {
             border-top-width: 1px;
@@ -109,10 +153,57 @@
         padding: 0 @navigation-link-padding-horizontal;
     }
     .navigation-in ul li:hover > a {
-        text-decoration: underline;
+        @media (min-width: @navigation-breakpoint) {
+            text-decoration: underline;
+        }
     }
-    .navigation-in > ul > li {
-        border: none;
+    a > b {
+        @media (max-width: @navigation-breakpoint-max) {
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+        }
+    }
+
+    .menu-level-1, .navigationActions {
+        @media (max-width: @navigation-breakpoint-max) {
+            > li > a {
+                position: relative;
+                margin-right: @navigation-link-padding-horizontal-small;
+            }
+        }
+    }
+}
+
+.navigation-in {
+    @media (max-width: @navigation-breakpoint-max) {
+        height: calc(100% - 40px);
+    }
+    @media (min-width: @screen-xs-min) and (max-width: @navigation-breakpoint-max) {
+        height: calc(100% - 60px);
+    }
+}
+
+.navigation-close {
+    display: none;
+}
+
+.navigation-buttons {
+    a[data-target="navigation"] {
+        .navigation-window-visible &::before {
+            content: @icon-close-code;
+            font-size: 14px;
+        }
+    }
+}
+
+.submenu-arrow {
+    @media (max-width: @navigation-breakpoint-max) {
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        right: -10px;
+        font-size: @navigation-element-font-size;
+        padding: 10px;
     }
 }
 
@@ -178,7 +269,7 @@ select {
     .banner-wrapper {
         margin-top: 0;
     }
-    
+
     .carousel {
         margin-bottom: 0;
     }
@@ -190,7 +281,7 @@ select {
     border: none;
     background-color: transparent;
     box-shadow: none;
-    
+
     .next-to-carousel-banners & {
         left: auto;
         right: 0;
@@ -206,7 +297,7 @@ select {
     font-size: @font-size-h1;
     font-weight: 700;
     max-width: 100%;
-    
+
     .next-to-carousel-banners & {
         text-align: right;
     }
@@ -236,13 +327,13 @@ select {
         left: @grid-gutter-width;
         &::before {
             left: 0;
-        }    
+        }
     }
     &.right {
         right: @grid-gutter-width;
         &::before {
             right: 0;
-        }    
+        }
     }
 }
 
@@ -489,7 +580,7 @@ select {
     .wide & {
         @media (min-width: @screen-md-min) {
             flex-direction: row;
-        }    
+        }
     }
     @media (min-width: @screen-lg-min) {
         flex-direction: row;
@@ -511,7 +602,7 @@ select {
             @media (min-width: @screen-md) {
                 display: block;
             }
-        } 
+        }
     }
 
     .p-image-wrapper {
@@ -525,7 +616,7 @@ select {
                 padding-right: @grid-gutter-width;
             }
         }
-        @media (min-width: @screen-lg-min) { 
+        @media (min-width: @screen-lg-min) {
             width: 50%;
             padding-right: @grid-gutter-width;
         }
@@ -545,7 +636,7 @@ select {
                 width: 50%;
             }
         }
-        @media (min-width: @screen-lg-min) { 
+        @media (min-width: @screen-lg-min) {
             width: 50%;
         }
     }
@@ -673,7 +764,7 @@ table.detail-parameters {
     .price-final-holder {
         font-weight: 600;
     }
-    
+
     .wide & {
         width: 100%;
     }
@@ -760,7 +851,7 @@ table.detail-parameters {
         box-shadow: @hover-box-shadow;
     }
     input {
-        width: @advanced-parameter-size; 
+        width: @advanced-parameter-size;
     }
     .decrease,
     .increase {
@@ -852,7 +943,7 @@ table.detail-parameters {
         &:hover {
             text-decoration: underline;
         }
-    }    
+    }
     a.shp-tab-link {
         font-size: @tabs-font-size;
 
@@ -916,7 +1007,7 @@ table.detail-parameters {
     .stars {
         height: 30px;
     }
-    .stars a, 
+    .stars a,
     .stars span {
         width: 30px;
         height: 30px;
@@ -930,7 +1021,7 @@ table.detail-parameters {
 }
 
 .rate-wrapper.unveil-wrapper .rate-list {
-    margin-bottom: 5px; 
+    margin-bottom: 5px;
 }
 
 .rate-wrap {
@@ -1298,7 +1389,7 @@ ul.manufacturers {
             font-size: 130%;
         }
     }
-    ul {    
+    ul {
         ul {
             a {
                 font-weight: normal;
@@ -1464,7 +1555,7 @@ ul.user-action-tabs {
             height: 50px;
         }
     }
-    
+
 }
 
 .cart-widget-product-price {

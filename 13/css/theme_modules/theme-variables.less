@@ -130,7 +130,7 @@
 @gray-light: #e6e6e6;
 @gray-lighter: #f7f7f7;
 @green: #009c00;
-@header-bg-color: transparent;
+@header-bg-color: @content-box-bg;
 @header-bg-image: none;
 @header-bg-image-breakpoint: @screen-sm-min;
 @header-bg-image-sm: none;
@@ -163,6 +163,7 @@
 @navigation-bg: transparent;
 @navigation-bg-small: #fff;
 @navigation-breakpoint: @screen-sm-min;
+@navigation-breakpoint-max: (@navigation-breakpoint - 1);
 @navigation-button-cart-bg: transparent;
 @navigation-button-cart-bg-hover: transparent;
 @navigation-button-cart-color: @text-color;

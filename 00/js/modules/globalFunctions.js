@@ -198,36 +198,49 @@ function detectResolution(resolution) {
  * direction = direction of scroll
  */
 function detectScrolled(direction) {
-    if (!shoptet.abilities.feature.fixed_header) {
+    /* T17829 */
+    if (!shoptet.abilities.feature.fixed_header
+        && shoptet.abilities.about.id !== '13'
+        ) {
         return;
     }
-    var classToRemove;
-    var top = 0;
-    var adminBarHeight =
-        $('.admin-bar').length
-        ? $('.admin-bar').height()
-        : 0;
-    var topNavigationBarHeight =
-        $('.top-navigation-bar').length
-        ? $('.top-navigation-bar').height()
-        : 0;
-    detectResolution(shoptet.config.breakpoints.sm) ? top = topNavigationBarHeight + adminBarHeight : top = 0;
 
-    if (direction === 'up') {
-        classToRemove = 'scrolled-down';
-    } else {
-        classToRemove = 'scrolled-up';
+    var navigationVisible = detectResolution(shoptet.abilities.config.navigation_breakpoint);
+    if (navigationVisible && !shoptet.abilities.feature.fixed_header) {
+        return;
+    }
+
+    var $html = $('html');
+    var classToRemove = direction === 'up' ? 'scrolled-down' : 'scrolled-up';
+    var top = 0;
+
+    if (navigationVisible && shoptet.abilities.feature.fixed_header) {
+        var adminBarHeight =
+            $('.admin-bar').length
+            ? $('.admin-bar').height()
+            : 0;
+        var topNavigationBarHeight =
+            $('.top-navigation-bar').length
+            ? $('.top-navigation-bar').height()
+            : 0;
+        top = topNavigationBarHeight + adminBarHeight;
     }
 
     if ($(window).scrollTop() > top) {
-        $('html').addClass('scrolled scrolled-' + direction);
-        $('html').removeClass(classToRemove);
-        if (!$('body').hasClass('submenu-visible') && !$('body').hasClass('menu-helper-visible') ) {
+        $html.addClass('scrolled scrolled-' + direction);
+        $html.removeClass(classToRemove);
+        if (navigationVisible
+            && shoptet.abilities.feature.fixed_header
+            && !$('body').hasClass('submenu-visible')
+            && !$('body').hasClass('menu-helper-visible')
+            ) {
             shoptet.menu.hideNavigation();
         }
     } else {
-        $('html').removeClass('scrolled scrolled-up scrolled-down');
-        shoptet.menu.hideSubmenu();
+        $html.removeClass('scrolled scrolled-up scrolled-down');
+        if (navigationVisible && shoptet.abilities.feature.fixed_header) {
+            shoptet.menu.hideSubmenu();
+        }
     }
 }
 

@@ -215,6 +215,7 @@
 @msg-padding-md: round(@line-height-computed / 2) round(@grid-gutter-width / 2);
 @msg-padding-xs: round(@line-height-computed / 4) round(@grid-gutter-width / 2);
 @navigation-breakpoint: @screen-md-min;
+@navigation-breakpoint-max: (@navigation-breakpoint - 1);
 @navigation-close-visibility: @screen-xs-min - 1;
 @navigation-element-font-size: 16px;
 @navigation-element-font-weight: 400;
@@ -235,7 +236,7 @@
 @navigation-menu-level-2-item-border-width: @navigation-item-border-top-width-small;
 @navigation-submenu-bullet-border-radius: 100%;
 @navigation-submenu-link-padding-horizontal: round(@navigation-link-padding-horizontal-small * 2);
-@navigation-submenu-link-padding-vertical: round(@navigation-link-padding-vertical-small * .75);
+@navigation-submenu-link-padding-vertical: @navigation-link-padding-vertical-small * .75;
 @navigation-submenu-margin-left: 0;
 @navigation-submenu-position-left: 0;
 @navigation-submenu-position-top: 100%;

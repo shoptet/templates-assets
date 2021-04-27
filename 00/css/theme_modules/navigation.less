@@ -73,8 +73,26 @@
             }
         }
     }
+    .navigationActions {
+        border-color: @border-color;
+    }
+    .navigationActions__submenu {
+        ul:not(:first-of-type) {
+            li:first-of-type > a {
+                border-color: @border-color;
+            }
+        }
+        li::before {
+            color: @navigation-color-small;
+        }
+    }
 }
 
 .navigation-close {
     color: @navigation-color-small;
 }
+
+.navigationActions__submenu__item--active::before {
+    background-color: @navigation-color-small;
+}
+

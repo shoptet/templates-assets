@@ -22,7 +22,7 @@
     function splitMenu() {
         var i;
         var $menuHelper = $('.menu-helper');
-        var $items = $('.navigation-in > ul > li:visible');
+        var $items = $('.navigation-in .menu-level-1 > li:visible');
         var menuHelperOffset = $menuHelper.length ? $menuHelper.offset() : 0;
         var navigElems = [];
         $('#navigation').removeClass('fitted');
@@ -42,7 +42,7 @@
         if (i === 0) {
             $('#navigation').addClass('fitted');
         }
-        shoptet.menu.splitHelperMenu($('.navigation-in > ul > li').length - i);
+        shoptet.menu.splitHelperMenu($('.navigation-in .menu-level-1 > li').length - i);
     }
 
     /**
@@ -106,7 +106,7 @@
      * This function does not accept any arguments.
      */
     function hideSubmenu() {
-        $('#navigation .ext, .menu-helper .ext').removeClass('exp');
+        $('.menu-level-1 .ext').removeClass('exp');
         $('body').removeClass('submenu-visible');
     }
 
@@ -167,7 +167,7 @@
         });
 
         // Menu helper
-        $('.navigation-in > ul').clone().appendTo('.menu-helper');
+        $('.navigation-in .menu-level-1').clone().appendTo('.menu-helper');
 
         shoptet.runtime.menuHelper = false;
         $html.on('mouseenter', '.menu-helper', function() {
@@ -210,11 +210,11 @@
             return false;
         });
 
-        $html.on('mouseenter', '#navigation .ext > a > span, .menu-helper .ext > a > span', function (e) {
+        $html.on('mouseenter', '.menu-level-1 .ext > a > span', function (e) {
             e.stopPropagation();
         });
 
-        $html.on('click', '#navigation .ext > a > span, .menu-helper .ext > a > span', function (e) {
+        $html.on('click', '.menu-level-1 .ext > a > span, .navigationActions .ext > a', function (e) {
             e.stopPropagation();
             e.preventDefault();
             var $this = $(this);
@@ -231,7 +231,7 @@
 
         shoptet.runtime.submenu = false;
 
-        $html.on('mouseover', '#navigation .ext', function () {
+        $html.on('mouseover', '.menu-level-1 .ext', function () {
             var $this = $(this);
             clearTimeout(shoptet.runtime.submenu);
             shoptet.runtime.submenu = setTimeout(function() {
@@ -241,14 +241,14 @@
             }, shoptet.config.animationDuration / 2);
         });
 
-        $html.on('mouseleave', '#navigation .ext', function () {
+        $html.on('mouseleave', '.menu-level-1 .ext', function () {
             if (detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
                 clearTimeout(shoptet.runtime.submenu);
                 shoptet.menu.hideSubmenu();
             }
         });
 
-        $html.on('click', '#navigation .ext a', function () {
+        $html.on('click', '.menu-level-1 .ext a', function () {
             if ($(this).parent().hasClass('ext')) {
                 clearTimeout(shoptet.runtime.submenu);
                 shoptet.menu.hideSubmenu();

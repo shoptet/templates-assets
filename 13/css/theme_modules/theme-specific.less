@@ -30,6 +30,15 @@
     border-top-color: @border-color;
 }
 
+#navigation {
+    border-top-color: @border-color;
+    @media (max-width: @navigation-breakpoint-max) {
+        a > b {
+            border-bottom-color: @text-color;
+        }
+    }
+}
+
 .navigation-buttons a[data-target="search"],
 .navigation-buttons a[data-target="navigation"] {
     background: transparent;
