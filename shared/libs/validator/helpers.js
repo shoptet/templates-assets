@@ -16,7 +16,7 @@ function toggleRequiredAttributes($el, job, preserveNoJsValidation) {
             $(this).addClass('js-validate');
         });
         $.each($el.find('.js-validate'), function() {
-            shoptet.validator.removeErrorMessage(this, this.parentElement);
+            shoptet.validator.removeErrorMessage(this);
             $(this).addClass('js-validation-suspended')
                 .removeClass('js-error-field')
                 .attr(

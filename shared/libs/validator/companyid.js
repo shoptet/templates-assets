@@ -5,19 +5,17 @@
         }
         var validatedValue = el.value.trim();
         var validPattern = el.getAttribute('data-pattern');
-        var elWrapper = el.parentElement;
 
         var regex = validPattern ? new RegExp(validPattern, "i") : false;
 
         if (regex && validatedValue && !regex.test(validatedValue)) {
             shoptet.validator.addErrorMessage(
                 el,
-                elWrapper,
                 shoptet.validatorCompanyId.messageTypeCustomized
             );
             shoptet.scripts.signalCustomEvent('ShoptetValidationError', el);
         } else {
-            shoptet.validator.removeErrorMessage(el, elWrapper, shoptet.validatorCompanyId.messageTypeCustomized);
+            shoptet.validator.removeErrorMessage(el, shoptet.validatorCompanyId.messageTypeCustomized);
         }
     }
 

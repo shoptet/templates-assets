@@ -51,14 +51,14 @@
     for (var i = 0; i < finalPriceWrapper.length; i++) {
       var finalPrice = parseFloat(finalPriceWrapper.item(i).getAttribute('data-price'));
       finalPrice += shoptet.surcharges.totalSurchargeFinalPrice;
-      finalPrice = Number(finalPrice).ShoptetFormatAsCurrency(undefined, undefined);
+      finalPrice = Number(finalPrice).ShoptetFormatAsCurrency();
       finalPriceWrapper.item(i).querySelector('.calculated-price').textContent = finalPrice;
     }
 
     for (var i = 0; i < additionalPriceWrapper.length; i++) {
       var additionalPrice = parseFloat(additionalPriceWrapper.item(i).getAttribute('data-price'));
       additionalPrice += shoptet.surcharges.totalSurchargeAdditionalPrice;
-      additionalPrice = Number(additionalPrice).ShoptetFormatAsCurrency(undefined, undefined);
+      additionalPrice = Number(additionalPrice).ShoptetFormatAsCurrency();
       additionalPriceWrapper.item(i).querySelector('.calculated-price').textContent = additionalPrice;
     }
   }

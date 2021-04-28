@@ -44,20 +44,25 @@
         };
 
         for (var i = 0; i < elements.length; i++) {
-            shoptet.ajax.makeAjaxRequest(
-                '/action/Iplatba/GetMinPayment/',
-                shoptet.ajax.requestTypes.post,
-                {
-                    price: parseInt(elements[i].getAttribute('data-price')),
-                    index: i
-                },
-                {
-                    'success': successCallback
-                },
-                {
-                    'X-Shoptet-XHR': 'Shoptet_Coo7ai'
-                }
-            )
+            var minPayment = parseInt(elements[i].getAttribute('data-minpay'));
+            if (minPayment) {
+                shoptet.cofidis.setMinPayment(elements[i], minPayment);
+            } else {
+                shoptet.ajax.makeAjaxRequest(
+                    '/action/Iplatba/GetMinPayment/',
+                    shoptet.ajax.requestTypes.post,
+                    {
+                        price: parseInt(elements[i].getAttribute('data-price')),
+                        index: i
+                    },
+                    {
+                        'success': successCallback
+                    },
+                    {
+                        'X-Shoptet-XHR': 'Shoptet_Coo7ai'
+                    }
+                )
+            }
         }
     });
 

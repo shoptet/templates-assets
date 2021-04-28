@@ -108,8 +108,23 @@
             + (!positionLeft ? (' ' + symbol) : '')).trim();
     }
 
+    function roundForDocument() {
+        var number = this;
+        switch (shoptet.config.documentsRounding) {
+            case '1':
+                return Math.ceil(number);
+            case '2' :
+                return Math.floor(number);
+            case '3' :
+                return Math.round(number);
+            default:
+                return number;
+        }
+    }
+
     Number.prototype.ShoptetFormatNumber = formatNumber;
     Number.prototype.ShoptetFormatAsCurrency = formatAsCurrency;
+    Number.prototype.ShoptetRoundForDocument = roundForDocument;
 
     function resolveMinimumAmount(decimals) {
         switch (decimals) {

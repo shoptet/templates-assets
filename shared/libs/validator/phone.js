@@ -40,14 +40,14 @@
         }
 
         if (validatedValue.length === 0 && el.value.length !== 0) {
-            shoptet.validator.addErrorMessage(el, phoneWrapper, shoptet.validatorPhone.messageType);
+            shoptet.validator.addErrorMessage(el, shoptet.validatorPhone.messageType);
             el.classList.remove('js-validated-field');
             el.removeAttribute('disabled');
             return false;
         }
 
         if (!validatedValue.length) {
-            shoptet.validator.removeErrorMessage(el, phoneWrapper, shoptet.validatorPhone.messageType);
+            shoptet.validator.removeErrorMessage(el, shoptet.validatorPhone.messageType);
             el.classList.remove('js-validated-field');
             el.removeAttribute('disabled');
             return true;
@@ -61,12 +61,11 @@
         var successCallback = function(response) {
             if (response.getFromPayload('isValidForRegion')) {
                 el.value = response.getFromPayload('nationalNumber');
-                shoptet.validator.removeErrorMessage(el, phoneWrapper, shoptet.validatorPhone.messageType);
-                shoptet.validator.removeErrorMessage(el, phoneWrapper, shoptet.validatorRequired.messageType);
+                shoptet.validator.removeErrorMessage(el, shoptet.validatorPhone.messageType);
+                shoptet.validator.removeErrorMessage(el, shoptet.validatorRequired.messageType);
             } else {
                 shoptet.validator.addErrorMessage(
                     el,
-                    phoneWrapper,
                     shoptet.validatorPhone.messageType
                 );
                 shoptet.scripts.signalCustomEvent('ShoptetValidationError', el);

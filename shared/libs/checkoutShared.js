@@ -94,10 +94,6 @@
         $shippingAndBillingTables.each(function() {
             var $activeLine = $(this).find('.radio-wrapper.active');
             if (!$activeLine.length) {
-                // TODO: remove this if it doesn't appear in test
-                var err = 'Should not happen. Please let @vracovsky know how you were able to display '
-                + 'this error message. Code: replacingChosenShippingAndBilling';
-                console.error(err);
                 $activeLine = $(this).find('.radio-wrapper:first');
                 $activeLine.find('input').prop('checked', true);
             }
@@ -274,7 +270,9 @@
 
     function updatePrice(e) {
         var priceHolder = e.target.querySelector('.payment-shipping-price');
-        priceHolder.innerHTML = e.detail.price.withVat.ShoptetFormatAsCurrency();
+        priceHolder.innerHTML = e.detail.price.withVat.ShoptetFormatAsCurrency(
+            undefined, undefined, shoptet.config.decPlacesSystemDefault
+        );
         priceHolder.setAttribute('data-shipping-price', e.detail.price.withVat);
         priceHolder.setAttribute('data-shipping-price-wv', e.detail.price.withoutVat);
         var priceNotSpecified = e.target.querySelector('.shipping-price-not-specified');
@@ -317,16 +315,17 @@
                 withoutVat: Number(cartPriceWithoutVat.getAttribute('data-price-total-wv')),
             }
         };
-        // TODO: improve not specified behavior
         var calculatedPriceWithVat = prices.shipping.withVat + prices.billing.withVat + prices.cart.withVat;
-        if (shoptet.config.documentsRounding !== "0") {
-            calculatedPriceWithVat = Math.round(calculatedPriceWithVat);
-        }
+        calculatedPriceWithVat = calculatedPriceWithVat.ShoptetRoundForDocument();
         var calculatedPriceWithoutVat = prices.shipping.withoutVat + prices.billing.withoutVat + prices.cart.withoutVat;
         cartPriceWithVat.innerHTML = shippingPriceNotSpecified ? shoptet.messages.specifyShippingMethod
-            : calculatedPriceWithVat.ShoptetFormatAsCurrency();
+            : calculatedPriceWithVat.ShoptetFormatAsCurrency(
+                undefined, undefined, shoptet.config.decPlacesSystemDefault
+            );
         cartPriceWithoutVat.innerHTML = shippingPriceNotSpecified ? shoptet.messages.specifyShippingMethod
-            : calculatedPriceWithoutVat.ShoptetFormatAsCurrency();
+            : calculatedPriceWithoutVat.ShoptetFormatAsCurrency(
+                undefined, undefined, shoptet.config.decPlacesSystemDefault
+            );
     }
 
     function afterPriceChange() {

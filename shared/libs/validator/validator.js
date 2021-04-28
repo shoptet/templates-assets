@@ -36,16 +36,19 @@
         });
     }
 
-    function getExistingMessage(element) {
-        var parent = element.parentElement;
+    function getExistingMessage(elementWrapper) {
         var messageClass = '.js-validator-msg';
 
-        return parent.querySelectorAll(messageClass);
+        return elementWrapper.querySelectorAll(messageClass);
     }
 
-    function removeErrorMessage(element, elementWrapper, messageType) {
+    function removeErrorMessage(element, messageType, elementWrapper) {
+        if (typeof elementWrapper === 'undefined') {
+            elementWrapper =  element.closest('.js-validated-element-wrapper');
+        }
         var messageClass = 'js-error-field';
         var existingMessage = shoptet.validator.getExistingMessage(elementWrapper);
+
         if (existingMessage.length) {
             for (var i = 0; i < existingMessage.length; i++) {
                 if (typeof messageType === 'undefined') {
@@ -59,20 +62,34 @@
                     }
                 }
             }
+            var errorRemoveEvent = new CustomEvent('shoptetRemoveErrorMessage', {
+                bubbles: true,
+                detail: {
+                    element: element,
+                },
+            });
+            element.dispatchEvent(errorRemoveEvent);
         }
     }
 
-    function addErrorMessage(element, elementWrapper, messageType) {
-        shoptet.validator.removeErrorMessage(element, elementWrapper);
+    function addErrorMessage(element, messageType) {
+        var elementWrapper = element.closest('.js-validated-element-wrapper');
+        shoptet.validator.removeErrorMessage(element, undefined, elementWrapper);
         element.classList.add('js-error-field');
         var message = document.createElement('div');
         message.classList.add('js-validator-msg');
         message.classList.add('msg-error');
         message.setAttribute('data-type', messageType);
         message.innerHTML = shoptet.messages[messageType];
-        // TODO: unify parentElement - really needed as of T18075 smart labels pretty please
-        elementWrapper.parentElement.insertBefore(message, elementWrapper);
+        elementWrapper.insertAdjacentElement('beforeend', message);
 
+        var errorAddEvent = new CustomEvent('shoptetAddErrorMessage', {
+            bubbles: true,
+            detail: {
+                element: element,
+            },
+        });
+        element.dispatchEvent(errorAddEvent);
     }
 
     document.addEventListener('DOMContentLoaded', function() {

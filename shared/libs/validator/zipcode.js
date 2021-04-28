@@ -7,18 +7,16 @@
         var validatedValue = el.value.trim();
         el.value = validatedValue;
         var validPattern = el.getAttribute('data-pattern');
-        var elWrapper = el.parentElement;
         var regex = validPattern ? new RegExp(validPattern, "i") : false;
 
         if (regex && validatedValue && !regex.test(validatedValue)) {
             shoptet.validator.addErrorMessage(
                 el,
-                elWrapper,
                 shoptet.validatorZipCode.messageType
             );
             shoptet.scripts.signalCustomEvent('ShoptetValidationError', el);
         } else {
-            shoptet.validator.removeErrorMessage(el, elWrapper, shoptet.validatorZipCode.messageType);
+            shoptet.validator.removeErrorMessage(el, shoptet.validatorZipCode.messageType);
         }
     }
 
