@@ -239,9 +239,22 @@
                 align-self: flex-end;
             }
         }
-        .flags-extra .flag .price-standard {
-            margin-right: 5px;
+        .flags-extra {
+            right: 0;
+            .flag {
+                margin-right: 0;
+                margin-left: 0;
+                padding: 0 4px;
+                display: none;
+                .price-standard {
+                    margin-right: 5px;
+                }
+                &:first-of-type {
+                    display: flex;
+                }
+            }
         }
+
     }
 }
 

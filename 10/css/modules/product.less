@@ -221,7 +221,18 @@
 @media (min-width: 321px) and (max-width: @screen-xs-max) {
     .columns-mobile-2 .products-block > div {
         width: 50%;
-        .p {
+         .p {
+             height: 100%;
+             display: flex;
+             flex-wrap: wrap;
+             .p-in {
+                 display: flex;
+                 flex-wrap: wrap;
+                 justify-content: center;
+             }
+            .p-bottom {
+                align-self: flex-end;
+            }
             .flags {
                 top: 4px;
                 text-align: right;
@@ -236,11 +247,22 @@
                     display: flex;
                 }
             }
-            .prices-top .price-final {
-                flex: 1 1 100%;
+            .prices-top {
+                .price-standard,
+                .price-final,
+                .save-percent {
+                    flex: 1 1 100%;
+                }
             }
             .p-code {
                 display: none;
+            }
+            .p-name {
+                min-height: 40px;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
             }
         }
         .stars-wrapper {

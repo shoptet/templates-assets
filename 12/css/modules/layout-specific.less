@@ -547,6 +547,27 @@ a.btn {
 @media (min-width: 321px) and (max-width: @screen-xs-max) {
     .columns-mobile-2 .products-block > div {
         margin-bottom: 20px;
+
+        .p {
+            .availability {
+                padding-top: 10px;
+            }
+            .name {
+                min-height: 40px;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            a img {
+                margin-bottom: 19px;
+            }
+        }
+        .flags.flags-extra {
+            right: 0;
+            display: block;
+            width: 100%;
+        }
         .flags .flag.flag-discount {
             display: flex;
         }

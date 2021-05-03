@@ -238,6 +238,13 @@
                 }
                 .name {
                     text-align: left;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+                a.image {
+                    margin-bottom: 19px;
                 }
             }
             .flags {
@@ -249,19 +256,25 @@
                     }
                 }
             }
-            .flags-extra .flag {
-                min-width: 100%;
-                height: auto;
-                border-radius: 0;
-                flex-direction: row;
-                padding: 3px;
-                margin-bottom: 0;
-                margin-left: 0;
+            .flags-extra {
+                bottom: -19px;
+                display: block;
+                width: 100%;
 
-                .icon-van {
-                    font-size: 14px;
-                    margin-right: 5px;
-                    margin-left: 3px;
+                .flag {
+                    min-width: 100%;
+                    height: auto;
+                    border-radius: 0;
+                    flex-direction: row;
+                    padding: 3px;
+                    margin-bottom: 0;
+                    margin-left: 0;
+
+                    .icon-van {
+                        font-size: 14px;
+                        margin-right: 5px;
+                        margin-left: 3px;
+                    }
                 }
             }
             .ratings-wrapper {
@@ -275,13 +288,23 @@
                 .availability {
                     text-align: initial;
                     margin-bottom: 5px;
+                    flex: 1 1 100%;
                 }
             }
             .prices {
                 margin-bottom: 5px;
+                flex: 1 1 100%;
             }
-            .p-bottom>div {
-                justify-content: flex-start;
+            .p-bottom {
+                >div {
+                    justify-content: flex-start;
+                }
+                .p-tools {
+                    text-align: left;
+                }
+                .p-desc {
+                    max-height: round(@line-height-computed * 4);
+                }
             }
         }
     }

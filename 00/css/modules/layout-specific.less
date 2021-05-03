@@ -501,6 +501,16 @@ a.btn {
 @media (min-width: 321px) and (max-width: @screen-xs-max) {
     .columns-mobile-2 .products-block {
         .clearfixMixin();
+        .p .name {
+            min-height: 50px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .p-bottom {
+            padding-top: round(@grid-gutter-width/ 8);
+        }
     }
 }
 
