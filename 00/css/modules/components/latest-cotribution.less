@@ -75,14 +75,12 @@
 }
 
 .latest-contribution-product {
-    height: @font-size-h4 + 1px;
+    height: @font-size-h4 + round(@font-size-h4 / 3);
     margin-top: 0;
     overflow: hidden;
     margin-bottom: round(@line-height-computed / 4);
-    line-height: 1;
-    @media (max-width: @screen-xs-min) {
-        .text-overflow();
-    }
+    line-height: @font-size-h4 + round(@font-size-h4 / 3);
+    .text-overflow();
 }
 
 .latest-contribution-info {
