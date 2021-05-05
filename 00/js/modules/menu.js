@@ -238,7 +238,7 @@
                 if (!$this.hasClass('exp')) {
                     shoptet.menu.showSubmenu($this);
                 }
-            }, shoptet.config.animationDuration / 2);
+            }, shoptet.config.submenuTimeout);
         });
 
         $html.on('mouseleave', '.menu-level-1 .ext', function () {
