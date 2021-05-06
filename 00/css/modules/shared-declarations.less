@@ -82,6 +82,10 @@
     margin: @line-height-computed 0;
 }
 
+*:focus:not(.focus-visible) {
+    outline: 0;
+}
+
 html {
     height: 100%;
 }
@@ -161,7 +165,6 @@ a,
     }
     &:focus {
         text-decoration: none;
-        outline: 0;
     }
     &.disabled {
         cursor: default;
@@ -407,7 +410,7 @@ iframe[name="google_conversion_frame"] {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center; 
+    justify-content: center;
     .footer-icon {
         display: inline-block;
         margin: round(@grid-gutter-width / 4);

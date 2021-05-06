@@ -87,9 +87,6 @@ select {
     input[type="search"]& {
         .box-sizing(border-box);
     }
-    &:focus {
-        outline: 0;
-    }
     &.ui-autocomplete-input {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
@@ -107,9 +104,6 @@ select.form-control {
     background-image: @select-bg-image;
     background-repeat: no-repeat;
     background-position: right center;
-    &:focus {
-        outline: 0;
-    }
     &::-ms-expand { display: none; }
     @media (max-width: @screen-xs-max) {
         max-width: 275px;
@@ -224,6 +218,7 @@ input {
 
 .form-control,
 input, select, textarea {
+    outline: 0;
     /* Minimum font size to disable iOS zoom 1.15em is aprox 16.1 px */
     font-size: 1.15em;
     @media (min-width: @screen-sm-min) {

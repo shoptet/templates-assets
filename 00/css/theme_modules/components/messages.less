@@ -47,13 +47,20 @@
 }
 
 .form-control.error-field,
-.form-control.js-error-field,
-.form-control.error-field:focus,
-.form-control.js-error-field:focus {
+.form-control.js-error-field {
     border-color: @state-danger-bg;
+    &:focus {
+        border-color: @state-danger-bg;
+        box-shadow: 0 0 0 0.1em fade(@state-danger-bg, 25%);
+    }
 }
+
 .form-control.warning-field {
     border-color: @state-warning-bg;
+    &:focus {
+        border-color: @state-warning-bg;
+        box-shadow: 0 0 0 0.1em fade(@state-warning-bg, 25%);
+    }
 }
 
 .error-field + label,
