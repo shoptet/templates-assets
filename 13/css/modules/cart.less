@@ -27,6 +27,11 @@
     flex-flow: column;
     @media (max-width: @cart-table-breakpoint) {
         padding: round(@grid-gutter-width / 2);
+        &.cart-empty {
+            .cart-content {
+                margin-bottom: @line-height-computed;
+            }
+        }
     }
     @media (min-width: @screen-xl-min) {
         .in-kosik & {
@@ -57,7 +62,7 @@ ol.cart-header {
     list-style: none;
     display: flex;
     justify-content: center;
-    
+
     @media (max-width: @cart-table-breakpoint) {
         padding: round(@grid-gutter-width / 2) 0;
     }
@@ -67,9 +72,9 @@ ol.cart-header {
         text-align: center;
         padding: 0 round(@grid-gutter-width / 4);
         position: relative;
-        width: 25%; 
+        width: 25%;
         @media (max-width: @cart-table-breakpoint) {
-            width: 33.3%; 
+            width: 33.3%;
         }
         a,
         strong {
@@ -219,7 +224,7 @@ ol.cart-header {
             padding-left: (@cart-table-td-horizontal-padding * 3);
             padding-right: 30px;
             position: relative;
-        }   
+        }
         .p-availability {
             display: none;
         }
@@ -248,7 +253,7 @@ ol.cart-header {
         .p-total {
             order: 6;
             padding-right: 0;
-            
+
             form {
                 display: none;
             }
@@ -268,7 +273,7 @@ ol.cart-header {
             margin-bottom: round(@grid-gutter-width / 4);
             padding-bottom: round(@grid-gutter-width / 4);
         }
-        .show-related, 
+        .show-related,
         tr.related {
             display: none;
         }
@@ -295,14 +300,14 @@ ol.cart-header {
         tr.free-gift-row {
             .free-gift-name-cell {
                 flex: 1 1 calc(~'100% - '  @cart-table-p-image-width);
-            } 
+            }
             .free-gift-cell-filler {
                 order: 2;
-            } 
+            }
             .p-availability {
                 display: block;
                 order: 3;
-            } 
+            }
         }
     }
     @media (max-width: @screen-xs-max) {
@@ -396,7 +401,7 @@ tr.removeable {
     padding-top: @line-height-computed;
     .price-label.price-primary,
     .price.price-primary {
-        flex: 1 1 100%;  
+        flex: 1 1 100%;
         text-align: right;
     }
     .price-secondary {
@@ -493,7 +498,7 @@ tr.removeable {
         &.discount-coupon-visible {
             &::after {
                 content: @icon-chevron-up-code;
-            }    
+            }
         }
         @media (max-width: @screen-xs-max) {
             display: none;
@@ -555,7 +560,7 @@ tr.removeable {
             content: @icon-tag-code;
             font-size: 16px;
         }
-        
+
     }
     &.cofidis {
         .price-range::before {
@@ -632,7 +637,7 @@ tr.removeable {
             margin-left: 1ex;
             vertical-align: inherit;
         }
-    }    
+    }
 }
 
 /* krok 2 */
@@ -751,7 +756,7 @@ label[for="phone"] {
             h4 {
                 display: none;
             }
-        }    
+        }
     }
 }
 
@@ -869,7 +874,7 @@ label[for="phone"] {
         &:last-child {
             @media (max-width: @cart-table-breakpoint) {
                 border: 0;
-            }     
+            }
         }
     }
 }
@@ -917,7 +922,7 @@ label[for="phone"] {
         }
         @media (max-width: @cart-table-breakpoint) {
             padding: round(@grid-gutter-width / 2);
-        }    
+        }
     }
 
     .order-payment {
@@ -966,7 +971,7 @@ label[for="phone"] {
     width: 50%;
     @media (max-width: @cart-table-breakpoint) {
         width: 100%;
-    }  
+    }
 }
 
 .recapitulation-table-payment {
@@ -975,7 +980,7 @@ label[for="phone"] {
     justify-content: space-between;
     @media (max-width: @cart-table-breakpoint) {
         flex-wrap: wrap;
-    }  
+    }
 }
 
 .qrcode {

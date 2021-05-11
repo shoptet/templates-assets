@@ -46,11 +46,15 @@ function fulltextSearch($searchInput, $searchContainer) {
             e.stopPropagation();
         }
     });
-    $(document).click(function () {
-        clearSearchWhisperer();
+
+    $(document).click(function (e) {
+        if (!$(e.target).hasClass('js-search-input')) {
+            clearSearchWhisperer();
+        }
     });
+
     function clearSearchWhisperer() {
-        $searchContainer.removeClass('active')
+        $searchContainer.removeClass('active');
         $searchContainer.empty();
         return false;
     }
@@ -174,6 +178,7 @@ $(function () {
     $('html').on('focus', '.search-form input[type="search"]', function() {
         if (
             shoptet.abilities.feature.focused_search_window
+            && !shoptet.config.orderingProcess.active
             && !$('body').hasClass('search-window-visible')
         ) {
             shoptet.global.showPopupWindow('search', true);

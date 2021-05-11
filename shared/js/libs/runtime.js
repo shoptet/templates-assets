@@ -15,6 +15,12 @@
                 resizeEndCallback();
                 shoptet.runtime.resize.windowWidth = $(window).width();
             }
+
+            var height = window.innerHeight;
+            if (height !== shoptet.runtime.resize.windowHeight) {
+                document.documentElement.style.setProperty('--vh', (height * 0.01) + 'px');
+                shoptet.runtime.resize.windowHeight = height;
+            }
         }
     }
 
@@ -28,7 +34,8 @@
         delta: 300,
         rtime: false,
         timeout: false,
-        windowWidth: false
+        windowWidth: false,
+        windowHeight: false
     };
     shoptet.runtime.cloudZoom = false;
     shoptet.runtime.updateMenu = false;
@@ -41,6 +48,10 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         shoptet.runtime.resize.windowWidth = $(window).width();
+        shoptet.runtime.resize.windowHeight = window.innerHeight;
+        document.documentElement.style.setProperty('--vh',
+            (shoptet.runtime.resize.windowHeight * 0.01) + 'px'
+        );
     });
 
     window.addEventListener('resize', function() {

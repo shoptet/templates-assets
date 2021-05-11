@@ -1,0 +1,35 @@
+.product-slider {
+    .product-slider-pagination {
+        .pagination-button {
+            color: transparent;
+            background: @border-color;
+
+            &.active {
+                background: @color-primary;
+            }
+
+            &:hover {
+                background: @color-primary-hover;
+            }
+        }
+    }
+
+    .product-slider-navigation {
+        color: transparent;
+        background: transparent;
+
+        &::before {
+            color: @border-color;
+            background: transparent;
+            border-color: @border-color;
+        }
+
+        &:hover {
+            &::before {
+                color: @color-primary;
+                background: transparent;
+                border-color: @color-primary;
+            }
+        }
+    }
+}

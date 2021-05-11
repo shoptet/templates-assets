@@ -1,0 +1,95 @@
+@product-slider-navigation-size: 32px;
+
+.product-slider-holder {
+    width: 100%;
+    &.has-navigation {
+        padding: 0 (@product-slider-navigation-size + 5px);
+    }
+}
+
+.product-slider {
+    margin: (@line-height-computed * 2) 0;
+
+    .products-block {
+        margin: 0;
+    }
+    .product-slider-pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: @line-height-computed;
+
+        .pagination-button {
+            font-size: 0;
+            line-height: 0;
+            display: block;
+            width: @product-slider-navigation-size;
+            height: 2px;
+            padding: 0;
+            margin: 4px;
+            cursor: pointer;
+            border: 0;
+            outline: none;
+        }
+    }
+
+    .product-slider-navigation {
+        font-size: 0;
+        line-height: 0;
+        position: absolute;
+        top: 50%;
+        display: block;
+        width: @product-slider-navigation-size;
+        height: @product-slider-navigation-size;
+        padding: 0;
+        -webkit-transform: translate(0, -50%);
+        -ms-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+        cursor: pointer;
+        border: none;
+        outline: none;
+        opacity: 0;
+
+        &::before {
+            font-size: 20px;
+            width: @product-slider-navigation-size;
+            height: @product-slider-navigation-size;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        &.navigation-prev {
+            left: 0; 
+            &::before {
+                &:extend(.shp-icon);
+                content: @icon-chevron-left-code;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        &.navigation-next {
+            right: 0;
+            &::before {
+                &:extend(.shp-icon);
+                content: @icon-chevron-right-code;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+
+    &:hover {
+        .product-slider-navigation {
+            opacity: 1;
+        }
+    }
+
+    .mobile & {
+        .product-slider-navigation {
+            opacity: 1;
+        }    
+    }
+}

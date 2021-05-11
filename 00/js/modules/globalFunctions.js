@@ -1191,12 +1191,17 @@ function resolveImageFormat() {
         } else {
             $('body').addClass('user-action-visible');
         }
+
         $('body').toggleClass(target + '-window-visible');
+
         if (target === 'search' && $('body').hasClass('search-window-visible')) {
             setTimeout(function() {
-                $('.content-window .search .search-form input').focus();
+                $('.js-search-main .js-search-input:visible').focus();
             }, shoptet.config.animationDuration);
+        } else {
+            $('.js-search-main .js-search-input').blur();
         }
+
         if (target === 'register') {
             if ($('.user-action-register .loader').length) {
                 var successCallback = function(response) {
