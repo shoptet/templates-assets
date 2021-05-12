@@ -32,6 +32,12 @@
 
 #navigation {
     border-top-color: @border-color;
+    .external-fonts-loaded & {
+        font-family: @template-headings-font, sans-serif;
+        .menu-level-3 {
+            font-family: @template-font, sans-serif;
+        }
+    }
     @media (max-width: @navigation-breakpoint-max) {
         a > b {
             border-bottom-color: @text-color;
@@ -167,6 +173,9 @@ table.detail-parameters {
 .p-detail-tabs-wrapper .rate-average-wrap .rate-average {
     color: @text-color;
 }
+.p-detail-tabs {
+    font-family: @template-headings-font;
+}
 /* product page end */
 
 /* category page start */
@@ -209,7 +218,7 @@ table.detail-parameters {
     > div {
         border-color: transparent;
         &:hover {
-            border-color: @border-color;
+            border-color: transparent;
         }
     }
     .p-in-in {
@@ -281,7 +290,16 @@ ul.manufacturers {
 #footer {
     background-color: @gray-lighter;
 }
-
+.footer-rows {
+    .news-item-widget {
+        h5 {
+            font-family: @template-font;
+        }
+    }
+}
+.footer-bottom {
+    background-color: #fff;
+}
 /* footer end */
 
 
