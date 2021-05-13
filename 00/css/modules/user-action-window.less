@@ -87,65 +87,6 @@
     }
 }
 
-ul.user-action-tabs {
-    max-width: 680px;
-    margin-bottom: @line-height-computed;
-    padding: 0;
-    font-size: 0;
-    li {
-        list-style: none;
-        display: block;
-        border-width: 1px;
-        border-style: solid;
-        font-size: @font-size-base;
-        a {
-            display: block;
-            padding: 28px;
-            text-transform: uppercase;
-            text-decoration: none;
-        }
-    }
-    + .tab-content {
-        max-width: 680px;
-    }
-    .user-action & {
-        text-align: center;
-    }
-    &.single {
-        li {
-            display: none;
-            &.active {
-                display: inline-block;
-            }
-        }
-        .user-action & {
-            text-align: left;
-        }
-    }
-    @media (min-width: @screen-sm-min) {
-        margin-bottom: round(@line-height-computed * 2);
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        li {
-            display: inline-block;
-            margin-bottom: -1px;
-            + li {
-                margin-left: -1px;
-            }
-        }
-    }
-    @media (max-width: @screen-xs-max) {
-        li {
-            a {
-                padding: 14px;
-            }
-            &.active {
-                border: 0;
-            }
-        }
-    }
-}
-
 .login-wrapper {
     text-align: left;
     .password-helper {

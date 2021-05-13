@@ -120,61 +120,6 @@ body {
     }
 }
 
-ul.user-action-tabs {
-    border-bottom-color: @color-tertiary-hover;
-    li {
-        border-color: @color-tertiary-hover;
-        a {
-            color: @text-muted-color;
-            background-color: @box-bg;
-            &:hover {
-                color: @link-color;
-                background-color: transparent;
-            }
-        }
-        &.active {
-            a {
-                color: @link-color;
-                background-color: transparent;
-            }
-        }
-    }
-    @media (min-width: unit(@screen-sm-min, px)) {
-        li {
-            &.active {
-                border-bottom-color: @color-tertiary-hover;
-            }
-        }
-    }
-    .user-action & {
-        border-bottom-color: @user-action-window-muted-color;
-        li {
-            border-color: @user-action-window-muted-color;
-            a {
-                color: @user-action-window-muted-color;
-                background-color: @user-action-window-secondary-bg;
-                &:hover {
-                    color: @user-action-window-color;
-                    background-color: @user-action-window-bg;
-                }
-            }
-            &.active {
-                a {
-                    color: @user-action-window-color;
-                    background-color: @user-action-window-bg;
-                }
-            }
-        }
-        @media (min-width: unit(@screen-sm-min, px)) {
-            li {
-                &.active {
-                    border-bottom-color: @user-action-window-bg;
-                }
-            }
-        }
-    }
-}
-
 .p {
     background-color: @product-bg;
     border-color: @border-color;

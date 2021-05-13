@@ -231,38 +231,6 @@
     }
 }
 
-.user-action-tabs {
-    li {
-        display: block;
-        a {
-            position: relative;
-            display: block;
-            padding: 5px 5px 5px 30px;
-            text-decoration: none;
-            .checkbox-radio-style();
-            &::after,
-            &::before {
-                border-radius: 50%;
-            }
-        }
-        &.active {
-            a {
-                &::after {
-                    .checkbox-radio-checked-style();
-                }
-            }
-        }
-    }
-    @media (min-width: @screen-sm-min) {
-        display: table;
-        li {
-            display: table-cell;
-            vertical-align: middle;
-            width: 50%;
-        }
-    }
-}
-
 .login-wrapper {
     .clearfixMixin();
     padding-top: round(@grid-gutter-width / 2);

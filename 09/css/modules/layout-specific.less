@@ -110,17 +110,6 @@ h3,
         margin-bottom: round(@grid-gutter-width / 4);
     }
 }
-ul.user-action-tabs {
-    li {
-        a {
-            padding: round(@grid-gutter-width / 4) round(@grid-gutter-width / 2);
-        }
-    }
-    + .tab-content {
-        max-width: 440px;
-        margin: 0 auto;
-    }
-}
 
 @media (min-width: @screen-sm-min) {
     .user-action-login {
@@ -130,14 +119,6 @@ ul.user-action-tabs {
         .tab-content {
             width: 80%;
             margin: 0 auto;
-        }
-    }
-    ul.user-action-tabs {
-        li {
-            border-width: 0;
-        }
-        .active {
-            border-width: 1px;
         }
     }
 }
