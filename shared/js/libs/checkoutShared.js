@@ -562,28 +562,8 @@
         }
 
         if (typeof zasilkovnaUrl !== 'undefined') {
-            function handlePacketaPoint(extendedPoint) {
-                shoptet.checkoutShared.packeta.selectedBranch = extendedPoint;
-                if (extendedPoint) {
-                    var zasilkovnaBranchId = document.querySelector('.zasilkovna-branch-id');
-                    var packetaSelectorBranchName = document.querySelector('.zasilkovna-name');
-                    if (zasilkovnaBranchId) {
-                        zasilkovnaBranchId.value = extendedPoint.id;
-                    }
-                    if (packetaSelectorBranchName) {
-                        packetaSelectorBranchName.innerHTML = extendedPoint.name;
-                    }
-                }
-            }
             $document.on('click', '.zasilkovna-choose a', function(e) {
                 e.preventDefault();
-                if (shoptet.checkoutShared.packeta.widgetOptions.apiKey) {
-                    Packeta.Widget.pick(
-                        shoptet.checkoutShared.packeta.widgetOptions.apiKey,
-                        handlePacketaPoint,
-                        shoptet.checkoutShared.packeta.widgetOptions
-                    );
-                }
             });
         }
 
