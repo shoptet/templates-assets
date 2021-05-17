@@ -865,6 +865,18 @@
                         }
                     }
                 }
+                var toggleableTable = this.closest('.cart-hide-unselected-options');
+                if (toggleableTable) {
+                    var nonactiveWrappers = toggleableTable.querySelectorAll('.radio-wrapper:not(.active)');
+                    for (var i = 0; i < nonactiveWrappers.length; i++) {
+                        nonactiveWrappers[i].classList.remove('selected-option');
+                        nonactiveWrappers[i].classList.add('unselected-option');
+                    }
+                    this.classList.add('selected-option');
+                    this.classList.remove('unselected-option');
+                    var toggleButton = document.querySelector('[data-table="'+toggleableTable.id+'"]');
+                    toggleButton.classList.remove('js-hidden');
+                }
             });
         }
     });

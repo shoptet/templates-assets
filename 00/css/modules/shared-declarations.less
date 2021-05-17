@@ -1,8 +1,5 @@
 // TODO: better place for this
 @navigation-height: (@navigation-element-font-size + (@navigation-link-padding-vertical * 2));
-// TODO: set lower z-index after T9979
-@navigation-z-index: 1000;
-@navigation-submenu-z-index: 1001;
 
 @media (min-width: @screen-xl-min) {
     .make-grid(xl);
@@ -374,7 +371,7 @@ iframe[name="google_conversion_frame"] {
 /* social buttons popoup */
 .at-share-dock-outer {
     position: relative;
-    z-index: 55;
+    z-index: @z-pupup-minus-1;
 }
 
 /* Footer links */

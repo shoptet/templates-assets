@@ -88,7 +88,7 @@
                     &.top-navigation-contacts,
                     &.top-navigation-menu {
                         display: block;
-                        z-index: @navigation-z-index + 1;
+                        z-index: @z-navigation-1;
                         position: fixed;
                         bottom: 10px;
                     }
@@ -173,7 +173,7 @@
             line-height: round(@top-navigation-bar_icon-size - @top-navigation-bar_icon-padding * 2);
         }
         &[data-target="navigation"] {
-            z-index: 2;
+            z-index: @z-base-2;
             position: absolute;
             right: round(@grid-gutter-width / 2 - @top-navigation-bar_icon-padding);
             &::before {
@@ -324,7 +324,7 @@
 
 .top-navigation-bar-menu-helper {
     display: none;
-    z-index: 53;
+    z-index: @z-popup;
     position: absolute;
     right: 0;
     bottom: 30px;
@@ -345,7 +345,6 @@
 }
 
 .top-navigation-menu-trigger {
-    z-index: 54;
     position: absolute;
     right: 0;
     bottom: -1px;

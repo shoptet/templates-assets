@@ -41,7 +41,7 @@ ol.cart-header {
         &::after,
         &::before {
             content: '';
-            z-index: 1;
+            z-index: @z-base-1;
             position: absolute;
             left: 0;
             bottom: 35px;
@@ -49,10 +49,10 @@ ol.cart-header {
             margin-left: 12.5%;
         }
         &::after {
-            z-index: 1;
+            z-index: @z-base-1;
         }
         &::before {
-            z-index: 2;
+            z-index: @z-base-2;
         }
         li {
             position: relative;
@@ -65,7 +65,7 @@ ol.cart-header {
             strong {
                 span {
                     &::before {
-                        z-index: 2;
+                        z-index: @z-base-2;
                         position: absolute;
                         left: 50%;
                         bottom: 0;
@@ -151,7 +151,7 @@ ol.cart-header {
     .free-gift-trigger {
         position: absolute;
         right: 10px;
-        top: 15%;                                              
+        top: 15%;
     }
 }
 

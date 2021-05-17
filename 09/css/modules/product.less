@@ -118,7 +118,7 @@
                 cursor: pointer;
 
                 .tools {
-                    z-index: 1;
+                    z-index: @z-base-1;
                     position: relative;
                 }
                 &::after {
@@ -128,19 +128,6 @@
                     left: 0;
                     width: 100%;
                     height: 100%;
-                }
-                .p-short-description {
-                    margin-top: 0;
-                    text-align: left;
-                    position: relative;
-                    z-index: @z-highlight;
-                    width: 50%;
-                    cursor: auto;
-                    padding-right: round(@grid-gutter-width / 2);
-
-                    .tools-wrap {
-                        padding-left: 0;
-                    }
                 }
                 .product-link,
                 .availability {

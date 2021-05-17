@@ -7,11 +7,10 @@
     right: 0;
 }
 .messages {
-    // @navigation-z-index + 1 = z-index for navigation buttons, z-index:@navigation-z-index + 2 = z-index for cbox overlay, we need + 3
-    z-index: @navigation-z-index + 3;
+    z-index: @z-navigation-3;
 }
 .cookie-ag-wrap {
-    z-index: 100000001;
+    z-index: @z-cookies;
     top: auto;
     bottom: 0;
 
@@ -74,7 +73,7 @@
     form {
         display: inline-block;
         position: relative;
-        z-index: 2;
+        z-index: @z-base-2;
     }
 
     button {
@@ -82,6 +81,6 @@
     }
 
     @media (min-width: @screen-md-min) {
-        z-index: 10000;
+        z-index: @z-super;
     }
 }

@@ -214,7 +214,7 @@ ul {
 .slider-content {
     &::before,
     &::after {
-        z-index: 1;
+        z-index: @z-base-1;
         position: absolute;
         top: -12px;
         content: '';
@@ -331,11 +331,11 @@ ul {
 .menu-helper {
     @media (min-width: @navigation-breakpoint) {
         .scrolled & {
-            z-index: -1;
+            z-index: @z-base-minus-1;
             opacity: 0;
         }
         .scrolled .navigation-window-visible & {
-            z-index: 1;
+            z-index: @z-base-1;
             opacity: 1;
         }
     }

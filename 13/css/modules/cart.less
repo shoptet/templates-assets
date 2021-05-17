@@ -94,9 +94,9 @@ ol.cart-header {
                     justify-content: center;
                     align-items: center;
                     margin: 0 auto 10px;
-                    z-index: 2;
+                    z-index: @z-base-2;
                     position: relative;
-                    z-index: 2;
+                    z-index: @z-base-2;
                     display: inline-block;
                     @media (max-width: @cart-table-breakpoint) {
                         margin: 0 auto 5px;
@@ -111,7 +111,7 @@ ol.cart-header {
                     position: absolute;
                     top: round(@cart_number-size / 2);
                     left: 50%;
-                    z-index: 1;
+                    z-index: @z-base-1;
                 }
             }
         }
@@ -876,6 +876,10 @@ label[for="phone"] {
                 border: 0;
             }
         }
+        input[type="radio"] + label {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
     }
 }
 
@@ -945,7 +949,7 @@ label[for="phone"] {
             .row-header-label {
                 display: inline-block;
                 position: relative;
-                z-index: 2;
+                z-index: @z-base-2;
                 padding-right: 5px;
             }
             &::after {
@@ -957,7 +961,7 @@ label[for="phone"] {
                 height: 1px;
                 border-top-style: solid;
                 border-top-width: 1px;
-                z-index: 1;
+                z-index: @z-base-1;
         }
 
     }

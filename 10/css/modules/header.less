@@ -15,7 +15,7 @@
     background-size: cover;
     .container {
         position: relative;
-        z-index: 3;
+        z-index: @z-base-3;
     }
 	.site-name {
         float: left;
@@ -57,7 +57,7 @@
         }
         .scrolled.scrolled-down & {
             opacity: 0;
-            z-index: -1;
+            z-index: @z-base-minus-1;
         }
     }
     @media (min-width: @screen-xs-min) {
@@ -182,7 +182,7 @@ h2.header-title {
 }
 
 #videoWrapper {
-    z-index: 1;
+    z-index: @z-base-1;
     position: absolute;
     left: 0;
     top: 0;
@@ -194,7 +194,7 @@ h2.header-title {
     }
     &::before {
         content: '';
-        z-index: 2;
+        z-index: @z-base-2;
         position: absolute;
         left: 0;
         top: 0;

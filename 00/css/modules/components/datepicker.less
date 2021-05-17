@@ -11,7 +11,7 @@
     background-color: @input-bg;
     border: 2px solid @input-border;
     border-radius: @input-border-radius;
-    z-index: 10000 !important; // To ensure visibility in user action window. Important is used to overwrite z-index added by js.
+    z-index: @z-super !important; // To ensure visibility in user action window. Important is used to overwrite z-index added by js.
     .ui-datepicker-title {
         margin: 0 2em;
         select {

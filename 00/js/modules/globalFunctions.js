@@ -1100,6 +1100,16 @@ document.addEventListener('DOMContentLoaded', function() {
         $(this).toggleClass('discount-coupon-visible');
     });
 
+    $(window).load(function() {
+        $('.cart-toggle-unselected-options').addClass('js-hidden');
+    });
+
+    $('html').on('click', '.cart-toggle-unselected-options', function(e) {
+        $(this).addClass('js-hidden');
+        var dataTableId = $(this).data('table');
+        $('#' + dataTableId + ' .radio-wrapper').removeClass('selected-option unselected-option');
+    });
+
     initDatepickers();
 
     if ($('.site-msg.information').length && $('.site-msg.cookies').length) {

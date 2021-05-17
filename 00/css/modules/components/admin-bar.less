@@ -4,8 +4,8 @@
 
     @media (min-width: @screen-md-min) {
         .size(100%, unit(@admin-bar-height, px));
-        // TODO: separate variable after T9979
-        z-index: @navigation-submenu-z-index + 1;
+
+        z-index: @z-navigation-2;
         position: relative;
         display: block;
         border-style: solid;
@@ -55,7 +55,7 @@
                         border-right: 0;
                     }
                     ul {
-                        z-index: 4;
+                        z-index: @z-base-4;
                         position: absolute;
                         top: -1px;
                         right: 100%;

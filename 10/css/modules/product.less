@@ -8,7 +8,7 @@
         margin-bottom: round(@grid-gutter-width / 2);
         border-bottom-style: solid;
         border-bottom-width: 1px;
-        z-index: 4;
+        z-index: @z-base-4;
         &:hover {
             z-index: 5;
         }
@@ -148,7 +148,7 @@
                 .transition(transform @transition-duration @transition-timing);
             }
             &:hover {
-                z-index: 3;
+                z-index: @z-base-3;
                 position: absolute;
                 left: 0;
                 right: 0;
@@ -183,7 +183,7 @@
                 box-shadow: 0 0 16px rgba(0, 0, 0, .16);
                 .prices {
                     position: relative;
-                    z-index: 4;
+                    z-index: @z-base-4;
                     padding: 0 5px;
                     margin: 0 -5px;
                 }
@@ -273,7 +273,7 @@
 
 .browse-p {
     .p-prev, .p-next {
-        z-index: 9;
+        z-index: @z-higher-base-minus-1;
     }
 }
 

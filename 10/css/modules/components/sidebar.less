@@ -3,12 +3,12 @@
         position: relative;
         span {
             position: relative;
-            z-index: 1;
+            z-index: @z-base-1;
             display: inline-block;
             padding-right: 5px;
         }
         &::before {
-            z-index: 0;
+            z-index: @z-base;
             position: absolute;
             left: 0;
             top: 50%;

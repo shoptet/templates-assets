@@ -930,7 +930,7 @@ a.btn {
         &.no-display {
             display: block !important;
             opacity: 0;
-            z-index: -1;
+            z-index: @z-base-minus-1;
         }
     }
     @media (min-width: @screen-xs-min) {
@@ -1163,7 +1163,7 @@ a.btn {
                 list-style: none;
                 display: inline-block;
                 padding: 0 5px;
-                &::before { 
+                &::before {
                     content: none;
                 }
             }

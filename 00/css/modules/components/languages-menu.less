@@ -27,7 +27,7 @@
     position: absolute;
     left: 0;
     white-space: nowrap;
-    z-index: 1000;
+    z-index: @z-navigation;
 
     @media (min-width: @navigation-breakpoint) {
         display: flex;
@@ -84,7 +84,7 @@
 
     @media (min-width: @navigation-breakpoint) {
         display: none;
-        z-index: 1000;
+        z-index: @z-navigation;
         position: absolute;
         left: 0;
     }

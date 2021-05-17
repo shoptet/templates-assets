@@ -69,3 +69,26 @@ input[type="radio"].payu + label::after {
     display: inline;
     .appearance(auto);
 }
+
+.cart-toggle-unselected-options {
+    padding: round(@grid-gutter-width / 3);
+    cursor: pointer;
+    &::after {
+        &:extend(.shp-icon);
+        content: @icon-chevron-down-code;
+        margin-left: .5em;
+    }
+}
+
+.cart-hide-unselected-options .radio-wrapper {
+    max-height: 500px;
+    overflow: hidden;
+    .transition(all .2s ease);
+    &.unselected-option {
+        max-height: 0;     
+        padding-top: 0;
+        padding-bottom: 0;
+        border-bottom-width: 0;
+        border-top-width: 0;
+    }    
+}

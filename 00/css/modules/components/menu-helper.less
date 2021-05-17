@@ -11,7 +11,7 @@
 }
 
 .menu-helper {
-    z-index: 1;
+    z-index: @z-base-1;
     position: @menu-helper-element-position;
     top: @menu-helper-element-position-top;
     right: @menu-helper-element-position-right;
@@ -42,7 +42,7 @@
         }
     }
     > ul {
-        z-index: 1;
+        z-index: @z-base-1;
         position: absolute;
         top: calc(50% + round(@menu-helper-element-padding-vertical + @menu-helper-element-line-height / 2));
         right: 0;
@@ -90,7 +90,7 @@
         }
     }
     &.empty {
-        z-index: -1;
+        z-index: @z-base-minus-1;
         visibility: hidden;
     }
     @media (min-width: @navigation-breakpoint) {

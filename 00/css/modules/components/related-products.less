@@ -19,7 +19,7 @@
 }
 .browse-p {
     position: unset;
-    z-index: 4;
+    z-index: @z-base-4;
     margin-bottom: @line-height-computed;
     margin-top: @line-height-computed;
     text-align: center;
@@ -48,7 +48,7 @@
         }
         &.inactive {
             visibility: hidden;
-            z-index: -1;
+            z-index: @z-base-minus-1;
             transition: none;
         }
     }
@@ -71,7 +71,7 @@
         .p-prev,
         .p-next {
             display: block;
-            z-index: 1;
+            z-index: @z-base-1;
             position: absolute;
             top: @related-arrows-top;
         }

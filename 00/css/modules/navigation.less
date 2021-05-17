@@ -166,7 +166,7 @@
     overflow: hidden;
     .transition(all @transition-duration @transition-timing);
     @media (max-width: @navigation-breakpoint - 1) {
-        z-index: @navigation-z-index;
+        z-index: @z-navigation;
         position: fixed;
         right: 0;
         top: 0;
@@ -351,7 +351,7 @@
                 }
             }
             &.menu-level-2 {
-                z-index: @navigation-submenu-z-index;
+                z-index: @z-navigation-1;
                 position: absolute;
                 left: @navigation-submenu-position-left;
                 top: calc(100% - @navigation-link-padding-vertical / 2);
