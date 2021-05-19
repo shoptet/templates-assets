@@ -1,0 +1,93 @@
+.benefitBanner {
+  width: 100%;
+  margin: 20px auto;
+
+  @media (min-width: @screen-xs) {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
+  &--homepage {
+    padding: 0;
+    max-width: 460px;
+  }
+}
+
+.benefitBanner__item {
+  display: flex;
+  flex: 1 1 100%;
+  margin-bottom: 15px;
+  align-items: center;
+  overflow: hidden;
+
+  @media (min-width: @screen-xs) {
+    flex: 0 0 50%;
+    width: 50%;
+  }
+  @media (min-width: @screen-md-min) {
+    flex: 1 1 25%;
+  }
+}
+
+.benefitBanner__link {
+  display: flex;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.benefitBanner__picture {
+  flex: 0 0 75px;
+  max-width: 75px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.benefitBanner__img {
+  width: 100%;
+  height: auto;
+}
+
+.benefitBanner__content {
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+  padding-right: 10px;
+  overflow: hidden;
+}
+
+.benefitBanner__title {
+  width: 100%;
+  font-size: 1.1em;
+}
+
+.multiple-columns-body {
+  .benefitBanner__item {
+    @media (min-width: @screen-md-min) {
+      flex: 1 1 50%;
+    }
+    @media (min-width: @screen-lg-min) {
+      flex: 1 1 25%;
+    }
+  }
+  .position--benefitHomepage {
+    @media (min-width: @screen-md-min) {
+      flex-wrap: wrap;
+      .benefitBanner__item {
+        flex: 1 1 33%;
+      }
+    }
+  }
+  .position--benefitProduct {
+    flex-wrap: wrap;
+    width: 100%;
+
+    .benefitBanner__item {
+      @media (min-width: @screen-md-min) {
+        flex: 1 1 33%;
+      }
+    }
+  }
+}

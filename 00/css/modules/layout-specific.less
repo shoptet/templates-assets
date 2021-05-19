@@ -581,3 +581,16 @@ a.btn {
         padding-right: round(@line-height-computed / 2);
     }
 }
+
+@media (min-width: @screen-md-min) {
+    .position--benefitCategory {
+        padding-left: @sidebar-padding-left;
+        padding-right: round(@grid-gutter-width / 2);
+    }
+}
+
+.multiple-columns-body .position--benefitProduct .benefitBanner__item {
+    @media (min-width: @screen-lg-min) {
+        flex: 1 1 33.333%;
+    }
+}

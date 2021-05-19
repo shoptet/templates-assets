@@ -171,6 +171,22 @@ function getShoptetProductsList() {
         shoptet.scripts.signalCustomEvent('ShoptetFacebookPixelTracked');
     }
 
+    function trackGoogleProductDetail(gaData, action) {
+        if (typeof ga === 'function') {
+            ga('ec:addProduct', {
+                'id': gaData.content_ids[0],
+                'name': gaData.base_name,
+                'category': gaData.content_category,
+                'brand': gaData.manufacturer,
+                'variant': gaData.variant,
+                'price': gaData.valueWoVat,
+            });
+            ga('ec:setAction', action);
+            ga('send', 'event', 'Product', 'click', 'Variant selected');
+        }
+        shoptet.scripts.signalCustomEvent('ShoptetGoogleProductDetailTracked');
+    }
+
     function trackGoogleCart(gaData, formAction) {
         if (typeof ga === 'function') {
             var action = shoptet.tracking.resolveTrackingAction(formAction, gaData);

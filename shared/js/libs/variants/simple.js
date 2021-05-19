@@ -68,12 +68,22 @@
             $('form#product-detail-form').find('input[name=priceId]').val($variant.attr('data-codeid'));
         }
 
+        var trackGA = $variant.attr('data-preselected') ? false : true;
+
         shoptet.tracking.trackProducts(
             $('#product-detail-form')[0],
             $variant.data('codeid'),
             'ViewContent',
             [shoptet.tracking.trackFacebookPixel]
         );
+        if (trackGA) {
+            shoptet.tracking.trackProducts(
+                $('#product-detail-form')[0],
+                $variant.data('codeid'),
+                'detail',
+                [shoptet.tracking.trackGoogleProductDetail]
+            );
+        }
 
         var bigImageUrl = $variant.attr('data-big');
         if (typeof bigImageUrl !== 'undefined') {

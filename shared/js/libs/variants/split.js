@@ -43,7 +43,11 @@
                     var variantCode = tempVariantCode.join('-');
 
                     shoptet.variantsCommon.disableAddingToCart();
-                    shoptet.variantsSplit.getData(variantCode);
+                    if($('input:checked, option:selected', this).attr('data-preselected')) {
+                        shoptet.variantsSplit.getData(variantCode, 0);
+                    } else {
+                        shoptet.variantsSplit.getData(variantCode, 1);
+                    }
                 }
             });
 
@@ -56,7 +60,7 @@
         }
     }
 
-    function getData(variantCode) {
+    function getData(variantCode, trackGA) {
         if (shoptet.variantsSplit.necessaryVariantData.hasOwnProperty(variantCode)) {
             // Existing variant
             var data = shoptet.variantsSplit.necessaryVariantData[variantCode];
@@ -70,6 +74,14 @@
                 'ViewContent',
                 [shoptet.tracking.trackFacebookPixel]
             );
+            if (trackGA) {
+                shoptet.tracking.trackProducts(
+                    $form[0],
+                    data.id,
+                    'detail',
+                    [shoptet.tracking.trackGoogleProductDetail]
+                );
+            }
 
             if (data.variantImage) {
                 var replaceInfo = resolveImageFormat();
