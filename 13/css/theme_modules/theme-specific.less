@@ -38,11 +38,16 @@
             font-family: @template-font, sans-serif;
         }
     }
-    @media (max-width: @navigation-breakpoint-max) {
-        a > b {
-            border-bottom-color: @text-color;
+    .navigation-in ul li {
+        > a > b {
+            border-bottom-color: transparent;
         }
-    }
+        &:hover {
+            > a > b {
+                border-bottom-color: @text-color;
+            }
+        }
+    }    
 }
 
 .navigation-buttons a[data-target="search"],
@@ -206,7 +211,6 @@ table.detail-parameters {
 }
 
 .subcategories {
-    border-color: @border-color;
     li {
         a {
             color: @text-color;
