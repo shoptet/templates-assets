@@ -7,7 +7,6 @@
 
 if (shoptet.abilities.feature.tabs_accordion) {
     $(document).ready(function(){
-        $(".shp-accordion").addClass('active');
         $(".shp-accordion.active .shp-accordion-content").show();
 
         $(".shp-accordion-link").click(function() {
