@@ -21,6 +21,7 @@ shoptet.config.bodyClasses = 'user-action-visible' +
     ' submenu-visible' +
     ' top-navigation-menu-visible' +
     ' categories-window-visible';
+
 /**
  * Function for displaying information messages
  *
@@ -78,7 +79,7 @@ function hideMsg(action) {
         $('.msg, .overlay.visible').remove();
     } else {
         $('.msg, .overlay.visible').addClass('hidden');
-        setTimeout(function() {
+        setTimeout(function () {
             $('.msg, .overlay.visible').remove();
         }, shoptet.config.animationDuration);
     }
@@ -86,12 +87,12 @@ function hideMsg(action) {
 }
 
 /**
-* Dismiss messages from notifier
-*
-* This function does not accept any arguments.
-*/
+ * Dismiss messages from notifier
+ *
+ * This function does not accept any arguments.
+ */
 function dismissMessages() {
-    shoptet.runtime.dismiss = setTimeout(function() {
+    shoptet.runtime.dismiss = setTimeout(function () {
         hideMsg();
     }, shoptet.config.dismissTimeout);
 }
@@ -129,7 +130,7 @@ function showSpinner() {
  */
 function hideSpinner() {
     $('.overlay.spinner').addClass('invisible');
-    setTimeout(function() {
+    setTimeout(function () {
         $('body').removeClass('spinner-visible');
         $('.overlay.spinner').detach();
     }, shoptet.config.animationDuration);
@@ -167,15 +168,15 @@ function getScrollBarWidth() {
     outer.style.width = '200px';
     outer.style.height = '150px';
     outer.style.overflow = 'hidden';
-    outer.appendChild (inner);
+    outer.appendChild(inner);
 
-    document.body.appendChild (outer);
+    document.body.appendChild(outer);
     var w1 = inner.offsetWidth;
     outer.style.overflow = 'scroll';
     var w2 = inner.offsetWidth;
     if (w1 == w2) w2 = outer.clientWidth;
 
-    document.body.removeChild (outer);
+    document.body.removeChild(outer);
 
     return (w1 - w2);
 }
@@ -201,7 +202,7 @@ function detectScrolled(direction) {
     /* T17829 */
     if (!shoptet.abilities.feature.fixed_header
         && shoptet.abilities.about.id !== '13'
-        ) {
+    ) {
         return;
     }
 
@@ -217,12 +218,12 @@ function detectScrolled(direction) {
     if (navigationVisible && shoptet.abilities.feature.fixed_header) {
         var adminBarHeight =
             $('.admin-bar').length
-            ? $('.admin-bar').height()
-            : 0;
+                ? $('.admin-bar').height()
+                : 0;
         var topNavigationBarHeight =
             $('.top-navigation-bar').length
-            ? $('.top-navigation-bar').height()
-            : 0;
+                ? $('.top-navigation-bar').height()
+                : 0;
         top = topNavigationBarHeight + adminBarHeight;
     }
 
@@ -233,7 +234,7 @@ function detectScrolled(direction) {
             && shoptet.abilities.feature.fixed_header
             && !$('body').hasClass('submenu-visible')
             && !$('body').hasClass('menu-helper-visible')
-            ) {
+        ) {
             shoptet.menu.hideNavigation();
         }
     } else {
@@ -257,7 +258,7 @@ function detectScrolled(direction) {
  * hideText = text that has to be to hidden
  */
 function toggleText($el, text, showText, hideText) {
-    if(text == hideText) {
+    if (text == hideText) {
         $el.attr('data-text', hideText);
         $el.html(showText);
     } else {
@@ -281,7 +282,7 @@ function toggleContacts($el) {
     toggleText($el, text, showText, hideText);
 }
 
-var delay = (function() {
+var delay = (function () {
     var timer = 0;
     return function (callback, ms) {
         clearTimeout(timer);
@@ -290,11 +291,11 @@ var delay = (function() {
 })();
 
 /**
-* Scroll page to element
-*
-* @param {Object} $el
-* $el = HTML element to which the page should scroll
-*/
+ * Scroll page to element
+ *
+ * @param {Object} $el
+ * $el = HTML element to which the page should scroll
+ */
 function scrollToEl($el) {
     var $message = $('.messages .msg');
     var messageHeight = $message.length ? $message.outerHeight() : 0;
@@ -317,14 +318,14 @@ function scrollToEl($el) {
 }
 
 /**
-* Unveil images
-*
-* This function does not accept any arguments.
-*/
+ * Unveil images
+ *
+ * This function does not accept any arguments.
+ */
 function unveilImages() {
-    $('img').unveil(100, function() {
+    $('img').unveil(100, function () {
         if (!$('body').hasClass('unveiled')) {
-            setTimeout(function() {
+            setTimeout(function () {
                 shoptet.products.sameHeightOfProducts();
                 if (detectResolution(shoptet.config.breakpoints.sm)) {
                     if ($('.carousel').length) {
@@ -342,11 +343,11 @@ function unveilImages() {
 }
 
 /**
-* Set carousel height to be equal like highest image to prevent element jump after fade
-*
-* @param {Object} $carousel
-* $carousel = carousel element
-*/
+ * Set carousel height to be equal like highest image to prevent element jump after fade
+ *
+ * @param {Object} $carousel
+ * $carousel = carousel element
+ */
 function setCarouselHeight($carousel) {
     $carousel.removeAttr('style');
     var maxHeight = 0;
@@ -363,35 +364,35 @@ function setCarouselHeight($carousel) {
 }
 
 /**
-* Init colorbox elements
-*
-* This function does not accept any arguments.
-*/
+ * Init colorbox elements
+ *
+ * This function does not accept any arguments.
+ */
 function initColorbox() {
     $('.variant-image a').colorbox();
 
     var $lightboxes = {};
-    $('a[data-gallery]').each(function() {
+    $('a[data-gallery]').each(function () {
         $lightboxes[$(this).data('gallery')] = 1;
     });
 
-    if(!$.isEmptyObject($lightboxes)) {
-        for(var key in $lightboxes) {
+    if (!$.isEmptyObject($lightboxes)) {
+        for (var key in $lightboxes) {
             $('*[data-gallery="' + key + '"]').colorbox({
                 rel: key,
                 maxWidth: shoptet.modal.config.maxWidth,
                 width: shoptet.modal.config.widthLg,
-                className: shoptet.modal.config.classLg
+                className: shoptet.modal.config.classLg + ' productDetail'
             });
         }
     }
 }
 
 /**
-* Add space for "footer" on mobile resolution
-*
-* This function does not accept any arguments.
-*/
+ * Add space for "footer" on mobile resolution
+ *
+ * This function does not accept any arguments.
+ */
 function addPaddingToOverallWrapper() {
     if (!shoptet.abilities.feature.positioned_footer) {
         return;
@@ -405,31 +406,31 @@ function addPaddingToOverallWrapper() {
 }
 
 /**
-* Detect video background in header
-*
-* @param {Object} $video
-* $video = handled video element
-*/
+ * Detect video background in header
+ *
+ * @param {Object} $video
+ * $video = handled video element
+ */
 function detectVideoBackground($video) {
     return $video.length > 0;
 }
 
 /**
-* Detect video background height
-*
-* @param {Object} $videoWrapper
-* $videoWrapper = header background video wrapper
-*/
+ * Detect video background height
+ *
+ * @param {Object} $videoWrapper
+ * $videoWrapper = header background video wrapper
+ */
 function detectVideoBackgroundHeight($videoWrapper) {
     return $videoWrapper.height();
 }
 
 /**
-* Pause video (if it is not)
-*
-* @param {Object} $video
-* $video = handled video element
-*/
+ * Pause video (if it is not)
+ *
+ * @param {Object} $video
+ * $video = handled video element
+ */
 function pauseVideo($video) {
     if (!$video[0].paused) {
         $video[0].pause();
@@ -437,11 +438,11 @@ function pauseVideo($video) {
 }
 
 /**
-* Resume video (if it is not)
-*
-* @param {Object} $video
-* $video = handled video element
-*/
+ * Resume video (if it is not)
+ *
+ * @param {Object} $video
+ * $video = handled video element
+ */
 function resumeVideo($video) {
     if ($video[0].paused) {
         $video[0].play();
@@ -449,13 +450,13 @@ function resumeVideo($video) {
 }
 
 /**
-* Pause/resume header video background
-*
-* @param {Object} $video
-* $video = handled video element
-* @param {Object} $videoWrapper
-* $videoWrapper = header background video wrapper
-*/
+ * Pause/resume header video background
+ *
+ * @param {Object} $video
+ * $video = handled video element
+ * @param {Object} $videoWrapper
+ * $videoWrapper = header background video wrapper
+ */
 function handleWithVideo($video, $videoWrapper) {
     var offset = $videoWrapper.offset();
     var scrollTop = $('body').scrollTop();
@@ -513,8 +514,8 @@ function unveilElementByHash(elementId) {
             $(hashHiddenElements[elementId][i]).addClass('js-hidden');
         }
     }
-    $(window).load(function() {
-        setTimeout(function() {
+    $(window).load(function () {
+        setTimeout(function () {
             scrollToEl($(elementId));
         }, shoptet.config.animationDuration + 1);
     });
@@ -529,7 +530,7 @@ function locationSearchToObject() {
     var locationSearch = window.location.search.substring(1).split("&");
     var object = {};
 
-    locationSearch.forEach(function(pair) {
+    locationSearch.forEach(function (pair) {
         if (pair !== '') {
             var splittedPair = pair.split("=");
             object[decodeURIComponent(splittedPair[0])] = decodeURIComponent(splittedPair[1]);
@@ -567,7 +568,7 @@ function fixTooltipAfterChange(element) {
 }
 
 function initDatepickers() {
-    $('.datepicker.birthdate').each(function() {
+    $('.datepicker.birthdate').each(function () {
         var $elem = $(this);
         $elem.datepicker({
             changeMonth: true,
@@ -585,7 +586,7 @@ function initDatepickers() {
 
 function resizeEndCallback() {
     shoptet.products.sameHeightOfProducts();
-    setTimeout(function() {
+    setTimeout(function () {
         detectFilters();
     }, 1000);
     shoptet.products.setThumbnailsDirection();
@@ -614,13 +615,13 @@ function resizeEndCallback() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     if ($('.regions-wrapper').length) {
         shoptet.global.toggleRegionsWrapper();
     }
 
-    $('html').on('change', '#billCountryId, #deliveryCountryId', function() {
+    $('html').on('change', '#billCountryId, #deliveryCountryId', function () {
         shoptet.global.updateSelectedRegions($(this));
         shoptet.global.toggleRegionsWrapper();
         shoptet.validatorZipCode.updateZipValidPattern($(this));
@@ -652,12 +653,12 @@ document.addEventListener('DOMContentLoaded', function() {
     var headerVideoBackgroundExists = detectVideoBackground($headerVideoWrapper);
     if (headerVideoBackgroundExists) {
         var $headerVideo = $('#videoWrapper video');
-        setTimeout(function() {
+        setTimeout(function () {
             handleWithVideo($headerVideo, $headerVideoWrapper);
         }, 1000);
     }
 
-    $(window).scroll(function() {
+    $(window).scroll(function () {
 
         if (headerVideoBackgroundExists) {
             handleWithVideo($headerVideo, $headerVideoWrapper);
@@ -668,33 +669,33 @@ document.addEventListener('DOMContentLoaded', function() {
             // downscroll code
             detectScrolled('down');
         } else {
-           // upscroll code
-           detectScrolled('up');
+            // upscroll code
+            detectScrolled('up');
         }
         lastScrollTop = st;
     });
 
     unveilImages();
 
-    $('.content-window-in').scroll(function() {
+    $('.content-window-in').scroll(function () {
         $('img').unveil();
     });
 
     // Cookies agreement
-    $('.CookiesOK').on('click', function(e) {
+    $('.CookiesOK').on('click', function (e) {
         e.preventDefault();
         shoptet.cookie.create('CookiesOK', 'agreed', {days: $('.CookiesOK').data('cookie-notice-ttl')});
         $('.cookies').fadeOut(shoptet.config.animationDuration);
-        setTimeout(function() {
+        setTimeout(function () {
             $('.cookies').remove();
         }, shoptet.config.animationDuration);
-        if($('.site-msg.information').length) {
+        if ($('.site-msg.information').length) {
             $('.site-msg.information').css('bottom', $('.site-msg.information').offset().left);
         }
     });
 
     // Site agreement
-    $('html').on('click', '#site-agree-button', function(e) {
+    $('html').on('click', '#site-agree-button', function (e) {
         e.preventDefault();
         shoptet.cookie.create(
             shoptet.config.agreementCookieName,
@@ -705,10 +706,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Information banner
-    $('.js-close-information-msg').on('click', function() {
+    $('.js-close-information-msg').on('click', function () {
         shoptet.cookie.create('informationBanner', '1', {days: 1});
         $('.site-msg.information').fadeOut(shoptet.config.animationDuration);
-        setTimeout(function() {
+        setTimeout(function () {
             $('.site-msg.information').remove();
         }, shoptet.config.animationDuration);
     });
@@ -727,13 +728,13 @@ document.addEventListener('DOMContentLoaded', function() {
             html: shoptet.content.colorboxHeader + content + shoptet.content.colorboxFooter,
             className: shoptet.modal.config.classMd,
             width: shoptet.modal.config.widthMd,
-            onClosed: function() {
+            onClosed: function () {
                 $('.site-agreement').remove();
             }
         });
     }
 
-    $('html').on('click', '.colorbox-close', function(e) {
+    $('html').on('click', '.colorbox-close', function (e) {
         e.preventDefault();
         shoptet.modal.close();
     });
@@ -742,24 +743,24 @@ document.addEventListener('DOMContentLoaded', function() {
     shoptet.validator.initValidator($('form'));
 
     // Prevent click on disabled links
-    $('html').on('click', 'a.disabled', function(e) {
+    $('html').on('click', 'a.disabled', function (e) {
         e.preventDefault();
     });
 
     // Dismiss messages
-    $('html').on('click', '.msg', function() {
+    $('html').on('click', '.msg', function () {
         hideMsg();
     });
-    $('html').on('click', '.cancel-action', function(e) {
+    $('html').on('click', '.cancel-action', function (e) {
         e.stopPropagation();
     });
 
-    $('html').on('click', '.hide-content-windows', function(e) {
+    $('html').on('click', '.hide-content-windows', function (e) {
         e.preventDefault();
         shoptet.global.hideContentWindows();
     });
 
-    $('html').on('touchend click', '.toggle-window, .toggle-window-arr, .toggle-trigger', function(e) {
+    $('html').on('touchend click', '.toggle-window, .toggle-window-arr, .toggle-trigger', function (e) {
         if (e.type === 'touchend' || !$(this).attr('data-redirect')) {
             e.preventDefault();
         }
@@ -775,23 +776,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     var hidePopupWindow;
-    $('html').on('mouseenter', '.popup-widget, .hovered-nav, .menu-helper', function() {
+    $('html').on('mouseenter', '.popup-widget, .hovered-nav, .menu-helper', function () {
         clearTimeout(hidePopupWindow);
     });
 
-    $('html').on('mouseleave', '.popup-widget, .hovered-nav', function() {
+    $('html').on('mouseleave', '.popup-widget, .hovered-nav', function () {
         if ($(this).hasClass('login-widget') || $(this).hasClass('register-widget')) {
             if ($(this).find('input:focus').length) {
                 return false;
             }
         }
-        hidePopupWindow = setTimeout(function() {
+        hidePopupWindow = setTimeout(function () {
             $('body').removeClass(shoptet.config.bodyClasses);
         }, shoptet.config.animationDuration);
         $(this).removeClass('hovered');
     });
 
-    $('html').on('mouseenter', '.toggle-window[data-hover="true"]', function(e) {
+    $('html').on('mouseenter', '.toggle-window[data-hover="true"]', function (e) {
         $(this).addClass('hovered');
         e.preventDefault();
         clearTimeout(hidePopupWindow);
@@ -802,9 +803,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    $('html').on('mouseleave', '.toggle-window[data-hover="true"]', function() {
+    $('html').on('mouseleave', '.toggle-window[data-hover="true"]', function () {
         if (detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
-            hidePopupWindow = setTimeout(function() {
+            hidePopupWindow = setTimeout(function () {
                 $('body').removeClass(shoptet.config.bodyClasses);
             }, shoptet.config.animationDuration);
         }
@@ -815,8 +816,8 @@ document.addEventListener('DOMContentLoaded', function() {
     escClasses += '.user-action-visible, ';
     escClasses += '.top-navigation-menu-visible, ';
     escClasses += '.user-action-visible input:focus';
-    $('html').on('keyup', escClasses, function(e) {
-        if(e.keyCode === shoptet.common.keyCodes.escape) {
+    $('html').on('keyup', escClasses, function (e) {
+        if (e.keyCode === shoptet.common.keyCodes.escape) {
             $('body').removeClass(shoptet.config.bodyClasses);
             if ($('.overlay').length > 0) {
                 $('.overlay').detach();
@@ -826,19 +827,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-    $('html').on('keyup', 'input, textarea', function(e) {
+    $('html').on('keyup', 'input, textarea', function (e) {
         e.stopPropagation();
     });
 
     $('#carousel').on('slide.bs.carousel', function () {
-        $('#carousel img').each(function(){
+        $('#carousel img').each(function () {
             var $this = $(this);
             $this.attr('src', $this.attr('data-src'));
         });
     });
 
     // Go to detail of a highlighted product, Tango template only
-    $('html').on('click', '.js-product-clickable', function(e) {
+    $('html').on('click', '.js-product-clickable', function (e) {
         e.stopPropagation();
         if ($(e.target).hasClass('js-product-clickable')) {
             window.location.href = $('a.name', this).attr('href');
@@ -846,7 +847,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Show/hide more in top products
-    $('html').on('click', '.products-top .button-wrapper .toggle-top-products', function(e) {
+    $('html').on('click', '.products-top .button-wrapper .toggle-top-products', function (e) {
         e.preventDefault();
         var $this = $(this);
         if ($this.parents().siblings('.inactive').length) {
@@ -860,7 +861,7 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleText($this, text, showText, hideText);
     });
 
-    $('html').on('click', '.cancel-action', function(e) {
+    $('html').on('click', '.cancel-action', function (e) {
         e.preventDefault();
         id = $(this).attr('data-id');
         if (id === '') {
@@ -871,7 +872,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Unveil hidden elements
-    $('html').on('change, click', '[data-unveil]', function(e) {
+    $('html').on('change, click', '[data-unveil]', function (e) {
         var $this = $(this);
         if ($this.context.localName === "a") {
             e.preventDefault();
@@ -896,7 +897,7 @@ document.addEventListener('DOMContentLoaded', function() {
         $('html').trigger('contentResized');
     });
 
-    $('html').on('click', '.js-window-location', function(e) {
+    $('html').on('click', '.js-window-location', function (e) {
         e.preventDefault();
         window.location.href = $(this).attr('data-url');
     });
@@ -925,7 +926,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $('.shp-tabs > li').removeClass('active');
             $('.shp-tabs > li > a[href="' + href + '"]').parents('li').addClass('active');
         }
-        if($(this).parents('.responsive-nav').length > 0) {
+        if ($(this).parents('.responsive-nav').length > 0) {
             var parentUl = $(this).parents('ul:first');
             $(this).parents('.responsive-nav').find('ul').not(parentUl).find('li').removeClass('active');
         }
@@ -940,61 +941,64 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Toggle categories menu
-    $('html').on('click', '#categories .expandable:not(.external) > a > span, #categories .expandable:not(.external) > .topic > a > span',  function(e) {
+    var selectorMenuExternal = '#categories .expandable:not(.external) > a > span';
+    var selectorMenuTopic = ',#categories .expandable:not(.external) > .topic > a > span';
+    var selectorsMenu = selectorMenuExternal + selectorMenuTopic;
+    $('html').on('click', selectorsMenu, function (e) {
         e.stopPropagation();
         e.preventDefault();
         $(this).closest('.expandable').toggleClass('expanded');
     });
 
-    $('html').on('click', '.link-icon.chat, .link-icon.watchdog', function(e) {
+    $('html').on('click', '.link-icon.chat, .link-icon.watchdog', function (e) {
         e.preventDefault();
         shoptet.modal.open({
             href: $(this).attr('href'),
-            width : shoptet.modal.config.widthSm,
+            width: shoptet.modal.config.widthSm,
             className: shoptet.modal.config.classSm,
-            onComplete: function() {
+            onComplete: function () {
                 shoptet.validator.initValidator($('form'));
             }
         });
     });
 
-    $('html').on('click', 'a.colorbox, a.p-main-image.cbox', function(e) {
+    $('html').on('click', 'a.colorbox, a.p-main-image.cbox', function (e) {
         e.preventDefault();
         shoptet.modal.open({
             href: $(this).attr('href'),
             maxWidth: shoptet.modal.config.maxWidth,
-            width : shoptet.modal.config.widthLg,
+            width: shoptet.modal.config.widthLg,
             className: shoptet.modal.config.classLg
         });
     });
 
     // Print page
-    $('.link-icon.print').on('click', function(e) {
+    $('.link-icon.print').on('click', function (e) {
         e.preventDefault();
         window.print();
     });
 
-    $('html').on('click', '.toggle-contacts', function() {
+    $('html').on('click', '.toggle-contacts', function () {
         toggleContacts($(this));
         $('html').trigger('contentResized');
     });
 
-    $('html').on('click', '.toggle-contacts > a', function(e) {
+    $('html').on('click', '.toggle-contacts > a', function (e) {
         e.preventDefault();
     });
 
 
     // Open share window by clickin' on social icons
-    $('html').on('click', '.share a', function(e) {
+    $('html').on('click', '.share a', function (e) {
         e.preventDefault();
         window.open($(this).attr('href'), '', 'width=600, height=600');
     });
 
     // Affiliate center
-    $('.html-code textarea').click(function() {
+    $('.html-code textarea').click(function () {
         $(this).focus().select();
     });
-    $('html').on('click', '.url-generation-box .btn', function() {
+    $('html').on('click', '.url-generation-box .btn', function () {
         var $container = $(this).closest('.affiliate-banner');
         var $newHtmlCodeContainer = $container.find('.url-generation-box .html-code').clone(true, true);
         var val = new String($newHtmlCodeContainer.find('textarea').val());
@@ -1006,15 +1010,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if ($('#onlinePaymentButton').length) {
         // Redirect from recapitulation page to provider's online payment after 5 seconds
-            if (!$('#onlinePaymentButton').parents('.suspend-redirect').length) {
-                var paymentTimeout = setTimeout(function () {
-                    shoptet.events.paymentButtonClicked = true;
-                    window.location.href = $('#onlinePaymentButton').attr('href');
-                }, 5000);
+        if (!$('#onlinePaymentButton').parents('.suspend-redirect').length) {
+            var paymentTimeout = setTimeout(function () {
+                shoptet.events.paymentButtonClicked = true;
+                window.location.href = $('#onlinePaymentButton').attr('href');
+            }, 5000);
         }
 
         // Confirm before page unload on recapitulation page with online payment button
-        $('#onlinePaymentButton').click(function() {
+        $('#onlinePaymentButton').click(function () {
             if (shoptet.events.paymentButtonClicked) {
                 return false;
             }
@@ -1024,15 +1028,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 clearTimeout(paymentTimeout);
             }
         });
-        window.onbeforeunload = function() {
-            if (typeof(shoptet.events.paymentButtonClicked) === 'undefined') {
+        window.onbeforeunload = function () {
+            if (typeof (shoptet.events.paymentButtonClicked) === 'undefined') {
                 return '';
             }
         };
     }
 
-    if($('.query-string-param').length) {
-        $('.query-string-param a').click(function(e) {
+    if ($('.query-string-param').length) {
+        $('.query-string-param a').click(function (e) {
             e.preventDefault();
 
             var params = $(this).attr('href').split('=');
@@ -1070,7 +1074,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    $('html').on('click', '.js-scroll-top', function(e) {
+    $('html').on('click', '.js-scroll-top', function (e) {
         e.preventDefault();
         var $target;
         var $trigger = $(this);
@@ -1095,16 +1099,16 @@ document.addEventListener('DOMContentLoaded', function() {
         scrollToEl($target);
     });
 
-    $('html').on('click', '.toggle-coupon-input-button', function(e) {
+    $('html').on('click', '.toggle-coupon-input-button', function (e) {
         $(this).next('.discount-coupon').slideToggle();
         $(this).toggleClass('discount-coupon-visible');
     });
 
-    $(window).load(function() {
+    $(window).load(function () {
         $('.cart-toggle-unselected-options').addClass('js-hidden');
     });
 
-    $('html').on('click', '.cart-toggle-unselected-options', function(e) {
+    $('html').on('click', '.cart-toggle-unselected-options', function (e) {
         $(this).addClass('js-hidden');
         var dataTableId = $(this).data('table');
         $('#' + dataTableId + ' .radio-wrapper').removeClass('selected-option unselected-option');
@@ -1118,7 +1122,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /* thumbnail function override */
-    $('.show360image').on('click', function() {
+    $('.show360image').on('click', function () {
         $('.p-thumbnails-inner a.p-thumbnail').removeClass('highlighted');
         $(this).addClass('highlighted');
         $(this).parents('.p-image-wrapper').find('.p-image').hide();
@@ -1132,7 +1136,7 @@ function resolveImageFormat() {
     return true;
 }
 
-(function(shoptet) {
+(function (shoptet) {
 
     /**
      * Hide window displayed by user interaction
@@ -1172,7 +1176,7 @@ function resolveImageFormat() {
             if (typeof shoptet.events.cartLoaded === 'undefined') {
                 shoptet.events.cartLoaded = true;
                 $('body').addClass('ajax-pending');
-                var callback = function() {
+                var callback = function () {
                     // Track FB pixel for templates with extended AJAX cart
                     if (typeof shoptet.content.initiateCheckoutData !== 'undefined') {
                         if (typeof fbq !== 'undefined') {
@@ -1182,7 +1186,7 @@ function resolveImageFormat() {
                     }
                     $('body').removeClass('ajax-pending');
                 };
-                setTimeout(function() {
+                setTimeout(function () {
                     shoptet.cart.getCartContent(false, callback);
                 }, 0);
             }
@@ -1190,7 +1194,7 @@ function resolveImageFormat() {
 
         if (target === 'navigation') {
             if (!$('body').hasClass('navigation-window-visible')) {
-                setTimeout(function() {
+                setTimeout(function () {
                     $(document).trigger('menuUnveiled');
                 }, shoptet.config.animationDuration);
             }
@@ -1205,7 +1209,7 @@ function resolveImageFormat() {
         $('body').toggleClass(target + '-window-visible');
 
         if (target === 'search' && $('body').hasClass('search-window-visible')) {
-            setTimeout(function() {
+            setTimeout(function () {
                 $('.js-search-main .js-search-input:visible').focus();
             }, shoptet.config.animationDuration);
         } else {
@@ -1214,9 +1218,9 @@ function resolveImageFormat() {
 
         if (target === 'register') {
             if ($('.user-action-register .loader').length) {
-                var successCallback = function(response) {
+                var successCallback = function (response) {
                     var requestedDocument = shoptet.common.createDocumentFromString(response.getPayload());
-                    var content =  $(requestedDocument).find("#register-form");
+                    var content = $(requestedDocument).find("#register-form");
                     $('.user-action-register .loader').remove();
                     content.appendTo('.place-registration-here');
                     if (!$('#additionalInformation').hasClass('visible')) {
@@ -1306,7 +1310,7 @@ function resolveImageFormat() {
     }
 
     shoptet.global = shoptet.global || {};
-    shoptet.scripts.libs.global.forEach(function(fnName) {
+    shoptet.scripts.libs.global.forEach(function (fnName) {
         var fn = eval(fnName);
         shoptet.scripts.registerFunction(fn, 'global');
     });

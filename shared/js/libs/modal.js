@@ -1,4 +1,4 @@
-(function(shoptet) {
+(function (shoptet) {
 
     /**
      * Wrapper function to open colorbox or any other modal rendering script
@@ -57,18 +57,18 @@
                 responsiveWidth = $('#content').width() - 30
             }
             width = responsiveWidth > width ? width : responsiveWidth;
-            shoptet.modal.resize({
-                width: width
-            });
-        } else {
-            shoptet.modal.resize({
-                width: width
-            });
+            if ($colorbox.hasClass('productDetail')) {
+                width = shoptet.modal.config.maxWidth;
+            }
         }
+
+        shoptet.modal.resize({
+            width: width
+        });
     }
 
     shoptet.modal = shoptet.modal || {};
-    shoptet.scripts.libs.modal.forEach(function(fnName) {
+    shoptet.scripts.libs.modal.forEach(function (fnName) {
         var fn = eval(fnName);
         shoptet.scripts.registerFunction(fn, 'modal');
     });

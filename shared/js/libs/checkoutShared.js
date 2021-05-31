@@ -483,7 +483,7 @@
                         width: shoptet.modal.config.widthMd,
                         className: shoptet.modal.config.classMd,
                         onComplete: function() {
-                            shoptet.modal.resize();
+                            shoptet.modal.shoptetResize();
                         }
                     });
                 });
@@ -549,7 +549,7 @@
                             $('#ulozenka-form .branch-saved').addClass('branch-saved-visible')
                                 .removeClass('no-display');
                             $('#ulozenka-form').submit();
-                            shoptet.modal.resize();
+                            shoptet.modal.shoptetResize();
                         },
                         error: function() {
                             showMessage(shoptet.messages['ajaxError'], 'warning', '', false, false);
@@ -584,7 +584,7 @@
                     width : shoptet.modal.config.widthLg,
                     className: shoptet.modal.config.classLg,
                     onComplete: function() {
-                        shoptet.modal.resize();
+                        shoptet.modal.shoptetResize();
                     },
                     onCleanup: function() {
                         glsModalOpen = false;
@@ -611,7 +611,7 @@
                 var $confirmWrapper = $('.gls-parcel-shop-confirm-wrapper');
                 if ($confirmWrapper.hasClass('no-display')) {
                     $('.gls-parcel-shop-confirm-wrapper').removeClass('no-display');
-                    shoptet.modal.resize();
+                    shoptet.modal.shoptetResize();
                 }
             }
         }
@@ -654,7 +654,7 @@
                         success: function(responseData) {
                             $('#dpd-cz-parcel-shop-wrapper .detail-information').html(responseData);
                             $('#dpd-cz-parcel-shop-form .loader').addClass('no-display');
-                            shoptet.modal.resize();
+                            shoptet.modal.shoptetResize();
                             $('#dpd-cz-parcel-shop-form .branch-saved').addClass('branch-saved-visible');
                             $('#dpd-cz-parcel-shop-form').submit();
                         },
@@ -700,7 +700,7 @@
                                 $('#dpd-zip-check-invalid').show();
                             }
 
-                            shoptet.modal.resize();
+                            shoptet.modal.shoptetResize();
                         },
                         error: function() {
                         }
@@ -743,7 +743,7 @@
                         success: function(responseData) {
                             $('#ppl-partner-cz-wrapper .detail-information').html(responseData);
                             $('#ppl-partner-cz-form .loader').addClass('no-display');
-                            shoptet.modal.resize();
+                            shoptet.modal.shoptetResize();
                             $('#ppl-partner-cz-form .branch-saved').addClass('branch-saved-visible');
                             $('#ppl-partner-cz-form').submit();
                         },
