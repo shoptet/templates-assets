@@ -127,6 +127,11 @@ input[type="radio"] {
             }
         }
     }
+    &.focus-visible {
+        & + label::before {
+            box-shadow: 0 0 0 0.2em fade(@color-primary, 50%);
+        }
+    }
 }
 
 .additional-information {
