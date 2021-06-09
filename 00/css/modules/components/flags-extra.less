@@ -100,21 +100,20 @@
 }
 
 @media (min-width: 321px) and (max-width: @screen-xs-max) {
-    .columns-mobile-2 .products-block > div .flags-extra {
-        .flag {
-            width: auto;
-            height: auto;
-            border-radius: 0;
-            flex-direction: row;
-            margin-bottom: 0;
-            margin-right: -8px;
-            .icon-van,
-            .icon-gift {
-                font-size: 14px;
-                line-height: 14px;
-                margin-right: 5px;
-                margin-left: 3px;
-            }
+    .columns-mobile-2 .products-block > div .flags-extra .flag {
+        width: auto;
+        height: auto;
+        border-radius: 0;
+        flex-direction: row;
+        margin-bottom: 0;
+        margin-right: -8px;
+
+        .icon-van,
+        .icon-gift {
+            font-size: 14px;
+            line-height: 14px;
+            margin-right: 5px;
+            margin-left: 3px;
         }
     }
 }
