@@ -1,0 +1,31 @@
+@import "../../../00/css/bootstrap/variables";
+@import "../../../00/css/modules/layout-mixins";
+@import "../../../00/css/modules/components/icon-codes";
+@import "../../../@{template}/css/modules/layout-variables";
+@import "../../../@{template}/css/theme_modules/theme-variables";
+
+.flags-extra {
+    .flag {
+        .price-standard,
+        .price-save {
+            font-size: @font-size-larger;
+        }
+    }
+    .p-image-wrapper & {
+        @media(min-width: @screen-sm-min) {
+          .flag {
+              .price-save {
+                  font-size: @font-size-large;
+              }
+          }
+          .flag-freeshipping .icon-van {
+              font-size: @font-size-large;
+          }
+        }
+    }
+    .products-additional & {
+        @media (min-width: @screen-sm-min) {
+            font-size: @font-size-large;
+        }
+    }
+}
