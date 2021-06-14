@@ -270,11 +270,12 @@
 
     function updatePrice(e) {
         var priceHolder = e.target.querySelector('.payment-shipping-price');
+
         priceHolder.innerHTML = e.detail.price.withVat.ShoptetFormatAsCurrency(
             undefined, undefined, shoptet.config.decPlacesSystemDefault
         );
-        priceHolder.setAttribute('data-shipping-price', e.detail.price.withVat);
-        priceHolder.setAttribute('data-shipping-price-wv', e.detail.price.withoutVat);
+        priceHolder.setAttribute('data-shipping-price-wv', e.detail.price.withVat);
+        priceHolder.setAttribute('data-shipping-price-wov', e.detail.price.withoutVat);
         var priceNotSpecified = e.target.querySelector('.shipping-price-not-specified');
         if (priceNotSpecified) {
             priceNotSpecified.classList.remove('shipping-price-not-specified');
@@ -293,26 +294,21 @@
     function updatePriceSummary(shippingActive, billingActive) {
         var shippingPrice = document.querySelector('[data-shipping-price-id="' + shippingActive + '"]');
         var billingPrice = document.querySelector('[data-billing-price-id="' + billingActive + '"]');
-        var cartPriceWithVat = document.querySelector('[data-price-total]');
-        var cartPriceWithoutVat = document.querySelector('[data-price-total-wv]');
-        if (cartPriceWithoutVat === null) {
-            // Workaround for non VAT payers
-            cartPriceWithoutVat = document.createElement('span');
-        }
-        // TODO:
+        var cartPriceWithVat = document.querySelector('[data-price-total-wv]');
+        var cartPriceWithoutVat = document.querySelector('[data-price-total-wov]');
         var shippingPriceNotSpecified = shippingPrice.querySelector('.shipping-price-not-specified');
         var prices = {
             shipping: {
-                withVat: Number(shippingPrice.getAttribute('data-shipping-price')),
-                withoutVat: Number(shippingPrice.getAttribute('data-shipping-price-wv'))
+                withVat: Number(shippingPrice.getAttribute('data-shipping-price-wv')),
+                withoutVat: Number(shippingPrice.getAttribute('data-shipping-price-wov'))
             },
             billing: {
-                withVat: Number(billingPrice.getAttribute('data-billing-price')),
-                withoutVat: Number(billingPrice.getAttribute('data-billing-price-wv'))
+                withVat: Number(billingPrice.getAttribute('data-billing-price-wv')),
+                withoutVat: Number(billingPrice.getAttribute('data-billing-price-wov'))
             },
             cart: {
-                withVat: Number(cartPriceWithVat.getAttribute('data-price-total')),
-                withoutVat: Number(cartPriceWithoutVat.getAttribute('data-price-total-wv')),
+                withVat: Number(cartPriceWithVat.getAttribute('data-price-total-wv')),
+                withoutVat: Number(cartPriceWithoutVat.getAttribute('data-price-total-wov')),
             }
         };
         var calculatedPriceWithVat = prices.shipping.withVat + prices.billing.withVat + prices.cart.withVat;
@@ -351,11 +347,11 @@
                                 e.target.querySelector('.external-shipping-method-branch-price-without-vat');
                             var shippingPrice = e.target.querySelector('.payment-shipping-price');
                             shippingPrice.setAttribute(
-                                'data-shipping-price',
+                                'data-shipping-price-wv',
                                 e.detail.price.withVat
                             );
                             shippingPrice.setAttribute(
-                                'data-shipping-price-wv',
+                                'data-shipping-price-wov',
                                 e.detail.price.withoutVat
                             );
                             branchLabel.innerHTML = e.detail.branch.label;
