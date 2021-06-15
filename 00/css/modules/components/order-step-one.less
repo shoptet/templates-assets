@@ -73,10 +73,14 @@ input[type="radio"].payu + label::after {
 .cart-toggle-unselected-options {
     padding: round(@grid-gutter-width / 3);
     cursor: pointer;
+    text-decoration: underline;
     &::after {
         &:extend(.shp-icon);
         content: @icon-chevron-down-code;
         margin-left: .5em;
+    }
+    &:hover {
+        text-decoration: none;
     }
 }
 

@@ -1,68 +1,66 @@
 @smart-height: @input-height-base + (@padding-base-vertical * 2) + @font-size-base;
 
-.smart-label-wrapper {
+.smart-labels-active .smart-label-wrapper {
     position: relative;
-}
 
-.smart-label-wrapper label {
-    padding: 0 0 0 @padding-base-horizontal;
-    margin: 0;
-    height: auto;
-    width: auto;
-    max-width: 100%;
-    position: absolute;
-    top: 0; /* todo: switch to top: 0 after T18084 release */
-    left: 0;
-    //transition
-    line-height: @smart-height;
-    font-size: @font-size-base;
-    opacity: 1;
-
-    -webkit-transition: all 0.2s;
-    -moz-transition: all 0.2s;
-    -ms-transition: all 0.2s;
-    -o-transition: all 0.2s;
-    transition: all 0.2s;
-}
-
-.smart-label-wrapper.phone-form-group label {
-    left: 88px; //00/css/modules/components/country-flags.less .country-flags
-}
-
-.smart-label-wrapper.focused label,
-.smart-label-wrapper.populated label {
-    line-height: @font-size-smaller;
-    font-size: @font-size-smaller;
-    padding-top: calc(@padding-base-vertical * 2);
-    opacity: 0.5;
-}
-
-.smart-label-wrapper input,
-.smart-label-wrapper textarea {
-    padding-top: calc((@padding-base-vertical * 2) + @font-size-smaller);
-}
-
-.smart-label-wrapper select {
-    padding-top: calc(@padding-base-vertical + @font-size-smaller);
-}
-
-.smart-label-wrapper input,
-.smart-label-wrapper textarea,
-.smart-label-wrapper select,
-.smart-label-wrapper label {
-    height: @smart-height;
-}
-
-.smart-label-wrapper .validator-msg, 
-.smart-label-wrapper .js-validator-msg {
-    margin-left: 0;
-    + input,
-    + select,
-    + .phone-combined-input {
-      margin-left: 0;
+    label {
+        padding: 0 0 0 @padding-base-horizontal;
+        margin: 0;
+        height: auto;
+        width: auto;
+        max-width: 100%;
+        position: absolute;
+        top: 0; /* todo: switch to top: 0 after T18084 release */
+        left: 0;
+        //transition
+        line-height: @smart-height;
+        font-size: @font-size-base;
+        opacity: 1;
+    
+        -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        -ms-transition: all 0.2s;
+        -o-transition: all 0.2s;
+        transition: all 0.2s;
     }
-}
 
-.smart-label-wrapper label[for="phone"] {
-    display: block;
+    &.phone-form-group label {
+        left: 88px; //00/css/modules/components/country-flags.less .country-flags
+    }
+
+    &.focused label,
+    &.populated label {
+        line-height: @font-size-smaller;
+        font-size: @font-size-smaller;
+        padding-top: calc(@padding-base-vertical * 2);
+        opacity: 0.5;
+    }
+
+    input {
+        padding-top: calc((@padding-base-vertical * 2) + @font-size-smaller);
+    }
+
+    select {
+        padding-top: calc(@padding-base-vertical + @font-size-smaller);
+    }
+
+    input,
+    select,
+    label {
+        height: @smart-height;
+    }
+
+    .validator-msg, 
+    .js-validator-msg {
+        margin-left: 0;
+        + input,
+        + select,
+        + .phone-combined-input {
+            margin-left: 0;
+        }
+    }
+
+    label[for="phone"] {
+        display: block;
+    }
 }

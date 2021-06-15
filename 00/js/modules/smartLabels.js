@@ -11,54 +11,64 @@ if (shoptet.abilities.feature.smart_labels){
         $.fn.SmartLabels = function(options){
 
             var defaults = {
-                smartLabelClass : 'smart-label-wrapper',
                 populatedClass : 'populated',
                 focusedClass : 'focused'
             },
 
             settings = $.extend({}, defaults, options);
 
-            var invalidTypes = [
-                'radio',
-                'checkbox',
-                'hidden',
-                'submit'
+            var validTypes = [
+                'text',
+                'phone',
+                'tel',
+                'password',
+                'number',
+                'email',
+                'select'
             ];
 
             return this.each(function(){
 
-                var element = $(this), //.form-group
-                    input = element.find('textarea, input, select');
+                var element = $(this), //.smart-label-wrapper
+                    input = element.find('input, select');
 
-                if ($(input[1]).attr('type') == 'tel') {
-                    input = $(input[1]);
-                }
-
-                if(invalidTypes.indexOf(input.attr('type')) == -1) {
-                    element.addClass(settings.smartLabelClass);
-
-                    if(input.val() == ''){
-                        element.removeClass(settings.populatedClass);
-                    } else {
-                        element.addClass(settings.populatedClass);
+                // if .smart-label-wrapper has valid elements
+                if (typeof input[0] !== "undefined") {
+                    if ($(input[1]).attr('type') == 'tel') {
+                        input = $(input[1]);
                     }
 
+                    if (input[0].nodeName == 'SELECT') {
+                        var att = document.createAttribute("type");
+                        att.value = "select";
+                        input[0].setAttributeNode(att);
+                    }
 
-                    input.on('focus', function(){
-                        element.addClass(settings.focusedClass);
-                    });
+                    if(validTypes.indexOf(input.attr('type')) > -1) {
 
-                    input.on('blur', function(){
-                        element.removeClass(settings.focusedClass);
-
-                        if(!input.val()){
+                        if (input.val() == ''){
                             element.removeClass(settings.populatedClass);
+                        } else {
+                            element.addClass(settings.populatedClass);
                         }
-                    });
 
-                    input.on('keyup', function(){
-                        element.addClass(settings.populatedClass);
-                    });
+
+                        input.on('focus', function(){
+                            element.addClass(settings.focusedClass);
+                        });
+
+                        input.on('blur', function(){
+                            element.removeClass(settings.focusedClass);
+
+                            if(!input.val()){
+                                element.removeClass(settings.populatedClass);
+                            }
+                        });
+
+                        input.on('keyup', function(){
+                            element.addClass(settings.populatedClass);
+                        });
+                    }
                 }
             });
         };
@@ -66,7 +76,6 @@ if (shoptet.abilities.feature.smart_labels){
 
     $(document).ready(function(){
         /* START SMART LABELS */
-        $('#checkoutContent .form-group').SmartLabels();
-        $('#register-form .form-group').SmartLabels();
+        $('.smart-label-wrapper').SmartLabels();
     });
 }
