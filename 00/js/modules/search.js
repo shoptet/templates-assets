@@ -10,10 +10,21 @@ function fulltextSearch($searchInput, $searchContainer) {
     var $form = $searchInput.parents('form');
     var xhr;
 
-    $searchInput.keyup(function() {
-        if ($searchInput.val().indexOf(' ') == -1) {
-            $('.search-whisperer-empty').hide()
+    $searchInput.on('keyup focus', function(e) {
+        if (shoptet.abilities.feature.extended_search_whisperer) {
+            if ($searchInput.val().length <= 2) {
+                clearSearchWhisperer();
+                return;
+            }
+            showSearchLoader();
+        } else if (e.type === 'focus') {
+            return;
         }
+
+        if ($searchInput.val().indexOf(' ') == -1) {
+            $('.search-whisperer-empty').hide();
+        }
+
         delay(function() {
             if ($searchInput.val().length > 2) {
                 if (!xhr || xhr.readyState === 4) {
@@ -26,14 +37,13 @@ function fulltextSearch($searchInput, $searchContainer) {
                     .done(function (result) {
                         var response = $.parseJSON(result);
                         $searchContainer.html(response);
-                        $searchContainer.addClass('active')
-                        $searchContainer.slideDown(shoptet.config.animationDuration);
-                        if ($searchInput.val().indexOf(' ') != -1) {
-                            $('.search-whisperer-empty').show()
+                        if ($searchInput.is(':focus')) {
+                            $searchContainer.addClass('active');
+                            $('body').addClass('search-focused');
                         }
                     })
                     .fail(function () {
-                        $searchContainer.slideDown(shoptet.config.animationDuration);
+                        // TODO: add error message
                     });
                 }
             } else if ($searchInput.val().length <= 2) {
@@ -41,6 +51,7 @@ function fulltextSearch($searchInput, $searchContainer) {
             }
         }, 500);
     });
+
     $searchContainer.click(function(e) {
         if (!$(e.target).hasClass('whisperer-trigger')) {
             e.stopPropagation();
@@ -48,16 +59,39 @@ function fulltextSearch($searchInput, $searchContainer) {
     });
 
     $(document).click(function (e) {
-        if (!$(e.target).hasClass('js-search-input')) {
-            clearSearchWhisperer();
+        var $target = $(e.target);
+        if (!$target.is('.js-search-input, .js-try-search-button')) {
+            clearSearchWhisperer($target);
         }
     });
 
-    function clearSearchWhisperer() {
+    function clearSearchWhisperer($elementClicked) {
         $searchContainer.removeClass('active');
         $searchContainer.empty();
+        if ($elementClicked && !$elementClicked.hasClass('search-input-icon')) {
+            clearSearchFocus();
+        }
         return false;
     }
+
+    function showSearchLoader() {
+        $searchContainer.addClass('active');
+        $('body').addClass('search-focused');
+        if (!$('.searchWhisperer__loaderWrapper').length) {
+            $searchContainer.html('<div class="searchWhisperer__loaderWrapper"><div class="loader"></div></div>');
+        }
+    }
+}
+
+/**
+ * Clear search focus state with intentional delay (we need to check for the class in various handlers)
+ *
+ * This function does not accept any arguments.
+ */
+function clearSearchFocus() {
+    setTimeout(function() {
+        $('body').removeClass('search-focused');
+    }, shoptet.config.animationDuration / 2);
 }
 
 /**
@@ -157,36 +191,69 @@ function switchRecommended(target) {
 }
 
 $(function () {
+    var $html = $('html');
+    var $body = $('body');
+
     // Whisperer
     var $searchInput = $('.search input.query-input');
     if ($searchInput.length) {
         $searchInput.parents('form').each(function () {
             var $this = $(this);
-            $this.find($searchInput).after('<div class="search-whisperer"></div>');
-            fulltextSearch($this.find($searchInput), $this.find('.search-whisperer'));
+            var whispererClass = shoptet.abilities.feature.extended_search_whisperer
+                ? 'searchWhisperer'
+                : 'search-whisperer';
+            $this.find($searchInput).after('<div class="' + whispererClass + '"></div>');
+            fulltextSearch($this.find($searchInput), $this.find('.' + whispererClass));
         });
     }
 
     // Submit form by clickin' on "Show all results" link in whisperer
-    $('html').on('click', '.whisperer-trigger', function(e) {
+    $html.on('click', '.whisperer-trigger', function(e) {
         e.stopPropagation();
         e.preventDefault();
         $(this).parents('.search-form').submit();
     });
 
     // Open search window by clickin' into sidebar search widget input
-    $('html').on('focus', '.search-form input[type="search"]', function() {
+    $html.on('focus', '.search-form input[type="search"]', function(e) {
+        $body.addClass('search-focused');
+        shoptet.common.moveCursorToEnd(e.target);
         if (
             shoptet.abilities.feature.focused_search_window
             && !shoptet.config.orderingProcess.active
-            && !$('body').hasClass('search-window-visible')
+            && !$body.hasClass('search-window-visible')
         ) {
             shoptet.global.showPopupWindow('search', true);
         }
     });
 
+    $html.on('blur', '.search-form input[type="search"]', function() {
+        if (!$('.searchWhisperer.active').length) {
+            clearSearchFocus();
+        }
+    });
+
+    $html.on('click', '.search-input-icon', function() {
+        if ($body.hasClass('search-window-visible')) {
+            shoptet.global.hideContentWindows();
+            clearSearchFocus();
+        } else if ($body.hasClass('search-focused')) {
+            clearSearchFocus();
+        } else {
+            $(this).closest('form').find('.js-search-input').focus();
+        }
+    });
+
+    $html.on('click', '.js-try-search-button', function() {
+        if (detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
+            $('.js-search-input').focus();
+        } else {
+            shoptet.global.showPopupWindow('search', true);
+        }
+    });
+
     // Load more search results
-    $('html').on('click', '#loadNextSearchResults', function(e) {
+    $html.on('click', '#loadNextSearchResults', function(e) {
         e.preventDefault();
         $(this).after('<div class="loader static accented" />');
         $(this).remove();
@@ -209,14 +276,14 @@ $(function () {
     });
 
     // Display groups in search results
-    $('html').on('click', '.display-results-group', function(e) {
+    $html.on('click', '.display-results-group', function(e) {
         e.preventDefault();
         $list = $(this).siblings('.search-results-group-list');
         $list.find('.no-display').removeClass('no-display');
         $(this).hide();
     });
 
-    $('html').on('submit', '.search-form', function() {
+    $html.on('submit', '.search-form', function() {
         if(!checkMinimalLength($(this).find('input[type="search"]'))) {
             return false;
         }
@@ -226,7 +293,7 @@ $(function () {
     if (detectRecommended() < 1) {
         hideRecommended();
     }
-    $('html').on('click', '.recommended-products .browse', function(e) {
+    $html.on('click', '.recommended-products .browse', function(e) {
         e.preventDefault();
         if ($(this).hasClass('prev')) {
             switchRecommended('prev');

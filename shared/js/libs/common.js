@@ -116,6 +116,20 @@
         }
     }
 
+    /**
+     * Move cursor to the end of input or textarea
+     */
+    function moveCursorToEnd(el) {
+        if (typeof el.selectionStart == "number") {
+            el.selectionStart = el.selectionEnd = el.value.length;
+        } else if (typeof el.createTextRange != "undefined") {
+            el.focus();
+            var range = el.createTextRange();
+            range.collapse(false);
+            range.select();
+        }
+    }
+
     shoptet.common = shoptet.common || {};
     shoptet.scripts.libs.common.forEach(function(fnName) {
         var fn = eval(fnName);

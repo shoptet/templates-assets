@@ -390,7 +390,8 @@
             'createEventNameFromFormAction',
             'fitsToParentWidth',
             'addClassToElements',
-            'removeClassFromElements'
+            'removeClassFromElements',
+            'moveCursorToEnd'
         ],
         stockAvailabilities: [
             'getDeliveryPointName',

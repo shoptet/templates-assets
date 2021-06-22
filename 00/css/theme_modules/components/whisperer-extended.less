@@ -1,0 +1,23 @@
+.searchWhisperer {
+    background-color: @body-bg;
+}
+
+.searchWhisperer__additionalResults {
+    border-color: @border-color;
+}
+
+.searchWhisperer__product,
+.searchWhisperer__additionalResults__link {
+    color: @text-color;
+    &:hover, &:focus {
+        color: @text-color
+    }
+}
+
+.searchWhisperer__loaderWrapper {
+    .loader {
+        border-color: @color-primary;
+        border-right-color: transparent;
+        background-color: @body-bg;
+    }
+}

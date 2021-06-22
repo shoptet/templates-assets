@@ -20,7 +20,8 @@ shoptet.config.bodyClasses = 'user-action-visible' +
     ' menu-helper-visible' +
     ' submenu-visible' +
     ' top-navigation-menu-visible' +
-    ' categories-window-visible';
+    ' categories-window-visible +'
+    ' search-focused';
 
 /**
  * Function for displaying information messages
@@ -323,7 +324,15 @@ function scrollToEl($el) {
  * This function does not accept any arguments.
  */
 function unveilImages() {
+    var imgResizeDone = 0;
     $('img').unveil(100, function () {
+        if ($(this).data('lazy')) {
+            $(this).load(function () {
+                if (imgResizeDone) {
+                    shoptet.products.sameHeightOfProducts();
+                }
+            });
+        }
         if (!$('body').hasClass('unveiled')) {
             setTimeout(function () {
                 shoptet.products.sameHeightOfProducts();
@@ -333,6 +342,7 @@ function unveilImages() {
                         $('body').addClass('carousel-set');
                     }
                 }
+                imgResizeDone = 1;
             }, shoptet.config.unveilTimeout);
         }
         $('body').addClass('unveiled');
@@ -1214,6 +1224,7 @@ function resolveImageFormat() {
             }, shoptet.config.animationDuration);
         } else {
             $('.js-search-main .js-search-input').blur();
+            clearSearchFocus();
         }
 
         if (target === 'register') {
