@@ -1079,9 +1079,6 @@ a.btn {
             font-weight: @font-weight-h1;
             text-align: center;
         }
-        .sr-only {
-            .sr-only-neutralizer();
-        }
         .newsletter-header {
             flex: 1 2 auto;
             margin: 0 auto;
@@ -1131,6 +1128,11 @@ a.btn {
             form {
                 flex-basis: 50%;
             }
+        }
+    }
+    .subscribe-form {
+        .sr-only {
+            .sr-only-neutralizer();
         }
     }
     ul {
