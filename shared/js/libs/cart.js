@@ -405,12 +405,10 @@
         });
 
         // Check discount coupon
-        $html.on('click touchend', '#continue-order-button', function(e) {
+        $html.on('click', '#continue-order-button', function(e) {
             if ($('#discountCouponCode').val()) {
-                showMessage(shoptet.messages['discountCouponWarning'], 'warning', '', false, true)
                 e.preventDefault();
-            } else {
-                window.location = $(this).attr('href');
+                showMessage(shoptet.messages['discountCouponWarning'], 'warning', '', false, true);
             }
         });
 
