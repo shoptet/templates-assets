@@ -194,7 +194,7 @@
 
                 // update selector width acc to holder width
                 this.selectorWidth = selectorComputedWidth - selectorComputedWidth % this.perPage;
-                this.selector.style.width = this.selectorWidth + 'px';
+                this.selector.style.width = (this.selectorWidth + this.config.boxShadowOffset) + 'px';
             }
         }, {
             /**
@@ -871,6 +871,7 @@
                     draggable: true,
                     multipleDrag: true,
                     threshold: 20,
+                    boxShadowOffset: 10,
                     loop: false,
                     pagination: false,
                     navigation: false,
@@ -923,11 +924,12 @@
 
         for (var i = 0; i < productSliderElements.length; i++) {
             var itemsPerPage = parseInt(productSliderElements[i].dataset.columns);
+            var itemsPerPageMobile = parseInt(productSliderElements[i].dataset.columnsMobile);
             productSliders[i] = new ProductSlider({
                 selector: productSliderElements[i],
                 perPage: {
                     // shoptet.config.breakpoints
-                    '479': 1,
+                    '320': itemsPerPageMobile,
                     '767': 2,
                     '991': 3,
                     '1199': itemsPerPage

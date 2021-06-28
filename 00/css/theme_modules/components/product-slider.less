@@ -2,33 +2,45 @@
     .product-slider-pagination {
         .pagination-button {
             color: transparent;
-            background: @border-color;
+            background-color: @border-color;
 
             &.active {
-                background: @color-primary;
+                background-color: @color-primary;
             }
 
             &:hover {
-                background: @color-primary-hover;
+                background-color: @color-primary-hover;
             }
         }
     }
 
     .product-slider-navigation {
         color: transparent;
-        background: transparent;
+        background-color: transparent;
 
         &::before {
             color: @border-color;
-            background: transparent;
-            border-color: @border-color;
+            background-color: transparent;
         }
 
         &:hover {
             &::before {
                 color: @color-primary;
-                background: transparent;
-                border-color: @color-primary;
+                background-color: transparent;
+            }
+        }
+
+        @media (max-width: @navigation-breakpoint-max) { 
+            &::before {
+                background-color: #fff;
+                border-color: @border-color;
+            }
+            
+            &:hover {
+                &::before {
+                    background-color: #fff;
+                    border-color: @color-primary;
+                }
             }
         }
     }

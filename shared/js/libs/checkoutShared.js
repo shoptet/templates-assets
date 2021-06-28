@@ -565,13 +565,13 @@
             function handlePacketaPoint(extendedPoint) {
                 shoptet.checkoutShared.packeta.selectedBranch = extendedPoint;
                 if (extendedPoint) {
-                    var zasilkovnaBranchId = document.querySelector('.zasilkovna-branch-id');
-                    var packetaSelectorBranchName = document.querySelector('.zasilkovna-name');
-                    if (zasilkovnaBranchId) {
-                        zasilkovnaBranchId.value = extendedPoint.id;
+                    var zasilkovnaBranchId = document.querySelectorAll('.zasilkovna-branch-id');
+                    var packetaSelectorBranchName = document.querySelectorAll('.zasilkovna-name');
+                    for (var i = 0; i < zasilkovnaBranchId.length; i++) {
+                        zasilkovnaBranchId[i].value = extendedPoint.id;
                     }
-                    if (packetaSelectorBranchName) {
-                        packetaSelectorBranchName.innerHTML = extendedPoint.name;
+                    for (var i = 0; i < packetaSelectorBranchName.length; i++) {
+                        packetaSelectorBranchName[i].innerHTML = extendedPoint.name;
                     }
                 }
             }
