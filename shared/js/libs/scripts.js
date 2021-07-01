@@ -233,7 +233,8 @@
             'toggleRelatedProducts'
         ],
         cartShared: [
-            'addToCart'
+            'addToCart',
+            'removeFromCart'
         ],
         cookie: [
             'get',

@@ -56,7 +56,8 @@
             minute + parseInt(defaultExpiration.minutes),
             second + parseInt(defaultExpiration.seconds)
         );
-        document.cookie = name + '=' + value + '; expires=' + expiration + '; path=/';
+        var maxAge = (parseInt(defaultExpiration.days) + 1) * 24 * 60 * 60;
+        document.cookie = name + '=' + value + '; expires=' + expiration + '; max-age=' + maxAge + '; path=/';
         return true;
     }
 

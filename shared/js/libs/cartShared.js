@@ -4,14 +4,20 @@
      * Add to cart function
      */
 
-    function addToCart(payload, silent) {
+    function addToCart(payload, silent, configUrlType) {
         if (typeof payload !== 'object') {
             shoptet.scripts.signalCustomEvent('ShoptetCartAddCartItemFailed');
             throw new Error ('Invalid function arguments');
         }
 
+        if (typeof configUrlType === 'undefined') {
+            configUrl = shoptet.config.addToCartUrl;
+        } else {
+            configUrl = configUrlType;
+        }
+
         var form = document.createElement('form');
-        form.setAttribute('action', shoptet.config.addToCartUrl);
+        form.setAttribute('action', configUrl);
 
         for (var key in payload) {
             if (typeof payload[key] === 'object') {
@@ -35,7 +41,7 @@
             };
             cartUrlSuffix = '?simple_ajax_cart=1';
             shoptet.ajax.makeAjaxRequest(
-                shoptet.config.addToCartUrl + cartUrlSuffix,
+                configUrl + cartUrlSuffix,
                 shoptet.ajax.requestTypes.post,
                 shoptet.common.serializeForm(form),
                 {
@@ -48,12 +54,12 @@
         } else {
             if (shoptet.abilities.about.generation !==3) {
                 ajaxAddToCart(
-                    shoptet.config.addToCartUrl,
+                    configUrl,
                     form
                 );
             } else {
                 shoptet.cart.ajaxSubmitForm(
-                    shoptet.config.addToCartUrl,
+                    configUrl,
                     form,
                     'functionsForCart',
                     'cart',
@@ -61,6 +67,10 @@
                 );
             }
         }
+    }
+
+    function removeFromCart(payload, silent) {
+        addToCart(payload, silent, shoptet.config.removeFromCartUrl);
     }
 
     shoptet.cartShared = shoptet.cartShared || {};
