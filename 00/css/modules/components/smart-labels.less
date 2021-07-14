@@ -17,11 +17,7 @@
         font-size: @font-size-base;
         opacity: 1;
 
-        -webkit-transition: all 0.2s;
-        -moz-transition: all 0.2s;
-        -ms-transition: all 0.2s;
-        -o-transition: all 0.2s;
-        transition: all 0.2s;
+        .transition(all 0.2s);
     }
 
     &.phone-form-group label {
@@ -38,6 +34,17 @@
 
     input {
         padding-top: calc((@padding-base-vertical * 2) + @font-size-smaller);
+    }
+
+    input,
+    textarea {
+        .placeholder(transparent);
+        &:focus {
+            .placeholder();
+        }
+        &::placeholder {
+            .transition(color 0.2s);
+        }
     }
 
     select {
@@ -62,5 +69,9 @@
 
     label[for="phone"] {
         display: block;
+    }
+
+    .form-group-tooltip {
+        top: 50%;
     }
 }

@@ -217,14 +217,14 @@ body.ordering-process {
 .form-group {
     label {
         width: 100%;
+        @media (min-width: @screen-xs-min) {
+            width: @form-group-label-width;
+        }
         .consents& {
             line-height: normal;
         }
         a {
             text-decoration: underline;
-        }
-        @media (min-width: @screen-xs-min) {
-            width: @form-group-label-width;
         }
     }
     > input,
@@ -244,12 +244,21 @@ body.ordering-process {
         min-width: auto;
     }
     @media (min-width: @screen-xs-min) {
-
         .btn {
             .co-contact-information & {
                 max-width: @select-width;
                 width: calc(100% - 180px);
             }
+        }
+        .form-group-tooltip {
+            left: calc(100% - @form-group-tooltip-position-left);
+            top: calc(100% - @form-control-height / 2);
+        }
+    }
+    @media (min-width: @screen-md-min) {
+        .form-group-tooltip {
+            left: calc(@form-group-label-width + @select-width - @form-group-tooltip-position-left);
+            top: calc(@form-control-height / 2);
         }
     }
     @media (min-width: @screen-lg-min) {

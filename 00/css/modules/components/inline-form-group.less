@@ -33,3 +33,10 @@
         }
     }
 }
+
+.form-group-tooltip {
+    @media (min-width: @screen-xs-min) {
+        left: calc(@form-group-label-width + @select-width - @form-group-tooltip-position-left);
+        top: calc(@form-control-height / 2);
+    }
+}

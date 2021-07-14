@@ -60,6 +60,13 @@ select {
     }
 }
 
+.form-group-hasTooltip {
+    position: relative;
+    .form-control {
+        padding-right: @form-group-tooltip-position-left + 5px;
+    }
+}
+
 .form-control {
     display: block;
     width: @form-control-width;
@@ -225,4 +232,11 @@ input, select, textarea {
     @media (min-width: @screen-sm-min) {
         font-size: inherit;
     }
+}
+
+.form-group-tooltip {
+    position: absolute;
+    left: calc(100% - @form-group-tooltip-position-left);
+    top: calc(100% - @form-control-height / 2);
+    transform: translateY(-50%);
 }

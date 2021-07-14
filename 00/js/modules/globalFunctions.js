@@ -740,6 +740,12 @@ document.addEventListener('DOMContentLoaded', function () {
             width: shoptet.modal.config.widthMd,
             onClosed: function () {
                 $('.site-agreement').remove();
+            },
+            onComplete: function() {
+                shoptet.modal.shoptetResize();
+                $('#colorbox img').on('load', function() {
+                    shoptet.modal.shoptetResize();
+                });
             }
         });
     }
@@ -1239,6 +1245,7 @@ function resolveImageFormat() {
                     }
                     shoptet.validator.initValidator($('#register-form'));
                     initDatepickers();
+                    initTooltips();
                     shoptet.scripts.signalDomLoad('ShoptetDOMRegisterFormLoaded');
                 };
                 shoptet.ajax.makeAjaxRequest(
