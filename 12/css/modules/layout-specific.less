@@ -596,6 +596,11 @@ a.btn {
                 padding-left: round(@grid-gutter-width / 4);
             }
         }
+        @media (max-width: @screen-xs) {
+            a {
+                padding: 10px 15px;
+            }
+        }
     }
     &.justified {
         justify-content: center;
@@ -845,6 +850,11 @@ a.btn {
     table.detail-parameters {
         width: auto;
     }
+    @media (max-width: @screen-xs) {
+        select {
+            line-height: 28px;
+        }
+    }
 }
 .delivery-time-label {
     font-weight: normal;
@@ -974,7 +984,7 @@ a.btn {
         font-weight: bold;
         text-align: left;
         margin-bottom: 5px;
-        padding: 0 round(@line-height-computed / 2) 0 0;
+        padding: 6px round(@line-height-computed / 2) 6px 0;
         &::before {
             display: inline;
             margin-right: 10px;
@@ -996,7 +1006,7 @@ a.btn {
     border-bottom: 1px solid #e7e7e7;
     input[type="radio"] {
         + label {
-            padding: 5px 3px;
+            padding: 9px 8px;
             margin-right: 1px;
             margin-left: 1px;
             margin-top: 1px;
@@ -1398,6 +1408,7 @@ ul.shp-tabs {
             }
         }
         ul.dropdown-menu {
+            padding: 0;
             margin-top: -1px;
             border-radius: 0;
             a {
@@ -1405,6 +1416,7 @@ ul.shp-tabs {
                 width: 100%;
                 font-size: 14px;
                 text-align: left;
+                padding: 10px 20px;
             }
         }
         .dropdown-menu > li > a {

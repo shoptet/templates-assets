@@ -17,6 +17,9 @@
     -moz-hyphens: none;
     .opacity(1);
     .transition(opacity @transition-duration @transition-timing);
+    @media (max-width: @screen-xs) {
+        font-size: @font-size-smaller;
+    }
 }
 
 .flags-inline {

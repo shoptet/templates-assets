@@ -497,9 +497,8 @@ a.btn {
     }
 }
 
-
-@media (min-width: 321px) and (max-width: @screen-xs-max) {
-    .columns-mobile-2 .products-block {
+.columns-mobile-2 .products-block {
+    @media (max-width: @screen-xs-max) {
         .clearfixMixin();
         .p .name {
             min-height: 50px;
@@ -549,6 +548,12 @@ a.btn {
         label {
             line-height: @line-height-base;
         }
+    }
+}
+
+@media (max-width: @screen-xs) {
+    .flag {
+        font-size: 15px;
     }
 }
 
