@@ -172,7 +172,7 @@
         $document.on('click', '#orderFormSubmit', function() {
             var $el = $('input[name="shippingId"].choose-branch:checked');
             if ($el.length) {
-                var code = $el.attr('data-code');
+                var code = $el.attr('data-external') ? 'external-shipping' : $el.attr('data-code');
                 var $label = $el.siblings('label');
                 var $chosen = $label.find('.chosen');
                 if (!$chosen.length) {
