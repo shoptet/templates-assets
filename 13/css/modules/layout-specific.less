@@ -21,8 +21,8 @@
 @narrow-container-width: @container-lg;
 @cart-widget-bottom-height: 144px;
 
-@header_search-height-xs: 40px + @form-control-height;
-@header_search-height-sm: 60px + @form-control-height;
+@header_search-height-xs: 50px + @form-control-height;
+@header_search-height-sm: 80px + @form-control-height;
 
 //misc
 .btn,
@@ -35,7 +35,7 @@ a.btn.btn-conversion {
 //overall wrapper
 .overall-wrapper {
     @media (max-width: @navigation-breakpoint-max) {
-        padding-top: 40px;
+        padding-top: 50px;
     }
 
     @media (min-width: @screen-xs-min) and (max-width: @navigation-breakpoint-max) {
@@ -100,13 +100,25 @@ a.btn.btn-conversion {
                     line-height: @navigation_navigation-height-mobile;
                 }
             }
-        }
-        @media (min-width: @navigation-breakpoint) {
-            a[data-target="login"] {
-                display: none;
-            }
-            a {
+            @media (min-width: @navigation-breakpoint) {
+                width: auto;
+                height: @navigation_navigation-height-mobile;
+                line-height: @navigation_navigation-height-mobile;
                 margin-left: @grid-gutter-width;
+                &[data-target="login"] {
+                    display: none;
+                }
+                &[data-target="cart"] {
+                    display: flex;
+                    align-items: center;
+                    &::before {
+                        font-size: @font-size-h2-large;
+                        margin-right: round(@grid-gutter-width / 4);
+                    }
+                    i {
+                        left: 10px;
+                    }
+                }
             }
         }
     }
@@ -162,7 +174,8 @@ a.btn.btn-conversion {
 
     @media (min-width: @navigation-breakpoint) {
         .header-top-wrapper {
-            > div {
+            > div,
+            .site-name {
                 flex: 0 1 33.333333%;
             }
         }
@@ -371,7 +384,6 @@ a.btn.btn-conversion {
 .search-input-icon {
     .size(40px, 40px);
     position: absolute;
-    font-size: 1.25em;
     left: round(@grid-gutter-width * 1.25 / 2);
     top: 50%;
     transform: translate(-50%, -50%);
@@ -379,6 +391,9 @@ a.btn.btn-conversion {
     justify-content: center;
     align-items: center;
     cursor: text;
+    @media (min-width: @navigation-breakpoint) {
+        font-size: @font-size-h2-large;
+    }
     &::before {
         &:extend(.shp-icon);
         content: @icon-search-code;
@@ -388,12 +403,13 @@ a.btn.btn-conversion {
         cursor: pointer;
         &::before {
             content: @icon-close-code;
+            font-size: @navigation_navigation-buttons-font-size-1;
         }
     }
     &.compact-form {
         &::before {
             display: none;
-        }   
+        }
     }
 }
 
@@ -451,7 +467,10 @@ a.btn.btn-conversion {
 }
 
 .content-wrapper {
-    padding-top: 20px;
+    padding-top: 10px;
+    @media (min-width: @navigation-breakpoint) {
+        padding-top: 0;
+    }
 }
 
 #content {
@@ -464,7 +483,7 @@ a.btn.btn-conversion {
     h1 {
         margin-top: 0;
     }
-    
+
     p {
         margin: 0 0 @line-height-computed;
     }
@@ -511,7 +530,7 @@ select {
     margin-left: 0;
     margin-right: 0;
     @media (min-width: @navigation-breakpoint) {
-        margin-top: -(@line-height-computed);
+        margin-top: -20px;
     }
 
     [class*="col-"] {
@@ -1847,10 +1866,10 @@ body.user-action-visible {
 .user-action-in {
     .popup-widget {
         &.cart-widget {
-            
+
             @media (max-width: @screen-sm-max) {
                 top: unit(@popup-widget_top-sm-max, px);
-            } 
+            }
             @media (max-width: @screen-xs-max) {
                 top: unit(@popup-widget_top-xs-max, px);
             }
