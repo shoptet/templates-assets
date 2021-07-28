@@ -380,6 +380,7 @@ a.btn {
     flex-wrap: wrap;
     > div {
         max-width: 100%;
+        padding: 0 0 round(@grid-gutter-width / 2) 0;
         .p {
             display: flex;
             flex-direction: column;
@@ -530,7 +531,7 @@ a.btn {
     .columns-4 .wide & {
         @media (min-width: @screen-sm-min) {
             > div {
-                width: 33%;
+                width: 33.333333%;
             }
             &.products-additional {
                 > div {
@@ -554,31 +555,44 @@ a.btn {
 }
 
 @media (min-width: 321px) and (max-width: @screen-xs-max) {
-    .columns-mobile-2 .products-block > div {
-        margin-bottom: 20px;
 
-        .p {
-            .availability {
-                padding-top: 10px;
+    .columns-mobile-2 .tab-content {          
+        padding-left: round(@grid-gutter-width / 8);
+        padding-right: round(@grid-gutter-width / 8);
+    }
+
+    .columns-mobile-2 .products-block {
+        > div {
+            margin-bottom: 0;
+
+            &:nth-child(even),
+            &:nth-child(odd){
+                padding: round(@grid-gutter-width / 8);
             }
-            .name {
-                min-height: 40px;
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
+
+            .p {
+                .availability {
+                    padding-top: 10px;
+                }
+                .name {
+                    min-height: 40px;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+                a img {
+                    margin-bottom: 19px;
+                }
             }
-            a img {
-                margin-bottom: 19px;
+            .flags.flags-extra {
+                right: 0;
+                display: block;
+                width: 100%;
             }
-        }
-        .flags.flags-extra {
-            right: 0;
-            display: block;
-            width: 100%;
-        }
-        .flags .flag.flag-discount {
-            display: flex;
+            .flags .flag.flag-discount {
+                display: flex;
+            }
         }
     }
 }
@@ -1295,6 +1309,12 @@ ul.shp-tabs {
 .tab-content {
   padding-left: round(@grid-gutter-width / 2);
   padding-right: round(@grid-gutter-width / 2);
+        
+    @media(min-width: @screen-xs-min) and (max-width: @screen-xs-max){
+        padding-left: round(@grid-gutter-width * .333333);
+        padding-right: round(@grid-gutter-width * .333333);
+    }
+
 }
 
 .homepage-texts-wrapper {
