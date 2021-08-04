@@ -1,4 +1,4 @@
-(function () {
+(function (shoptet) {
     'use strict';
 
     var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
@@ -906,39 +906,59 @@
         return ProductSlider;
     }();
 
-    var supportsES6 = function() {
-        try {
-          new Function("(a = 0) => a");
-          return true;
-        }
-        catch (err) {
-          return false;
-        }
-    }();
+    /**
+     * Used for initiating product slider
+     *
+     * @param {String} target
+     * target = CSS selector of targeted element
+     */
+    function runProductSlider(target) {
+        var supportsES6 = function() {
+            try {
+            new Function("(a = 0) => a");
+            return true;
+            }
+            catch (err) {
+            return false;
+            }
+        }();
 
-    if (shoptet.abilities.feature.product_slider
-        && supportsES6
-    ) {
-        var productSliderElements = document.querySelectorAll('.product-slider');
-        var productSliders = [];
+        if (shoptet.abilities.feature.product_slider && supportsES6) {
+            var productSliderElements = document.querySelectorAll(target);
+            var productSliders = [];
 
-        for (var i = 0; i < productSliderElements.length; i++) {
-            var itemsPerPage = parseInt(productSliderElements[i].dataset.columns);
-            var itemsPerPageMobile = parseInt(productSliderElements[i].dataset.columnsMobile);
-            productSliders[i] = new ProductSlider({
-                selector: productSliderElements[i],
-                perPage: {
-                    // shoptet.config.breakpoints
-                    '320': itemsPerPageMobile,
-                    '767': 2,
-                    '991': 3,
-                    '1199': itemsPerPage
-                },
-                loop: true,
-                pagination: true,
-                navigation: true,
+            for (var i = 0; i < productSliderElements.length; i++) {
+                var itemsPerPage = parseInt(productSliderElements[i].dataset.columns);
+                var itemsPerPageMobile = parseInt(productSliderElements[i].dataset.columnsMobile);
+                productSliders[i] = new ProductSlider({
+                    selector: productSliderElements[i],
+                    perPage: {
+                        // shoptet.config.breakpoints
+                        '320': itemsPerPageMobile,
+                        '767': 2,
+                        '991': 3,
+                        '1199': itemsPerPage
+                    },
+                    loop: true,
+                    pagination: true,
+                    navigation: true,
+                });
+            }
+
+            document.addEventListener("ShoptetModalResizeDone", function(e) {
+                for (var i = 0; i < productSliderElements.length; i++) {
+                    productSliders[i].resizeHandler();
+                }
             });
         }
     }
 
-})();
+    runProductSlider('.product-slider');
+
+    shoptet.productSlider = shoptet.productSlider || {};
+    shoptet.scripts.libs.productSlider.forEach(function(fnName) {
+        var fn = eval(fnName);
+        shoptet.scripts.registerFunction(fn, 'productSlider');
+    });
+
+})(shoptet);

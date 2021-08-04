@@ -28,6 +28,7 @@
      */
     function resize(options) {
         $.colorbox.resize(options);
+        document.dispatchEvent(new Event(shoptet.modal.resizeDoneEvent));
     }
 
     /**
@@ -86,5 +87,6 @@
     shoptet.modal.config.classSm = 'shoptet-modal-sm';
     shoptet.modal.config.classMd = 'shoptet-modal-md';
     shoptet.modal.config.classLg = 'shoptet-modal-lg';
+    shoptet.modal.resizeDoneEvent = 'ShoptetModalResizeDone';
 
 })(shoptet);

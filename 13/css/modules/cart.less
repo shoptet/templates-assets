@@ -16,6 +16,17 @@
     }
 }
 
+.cart-emptied {
+    .cart-header {
+        display: none;
+    }
+    .cart-heading {
+        @media (min-width: @navigation-breakpoint) {
+            margin-top: 0;
+        }
+    }
+}
+
 .ordering-process {
     .content-wrapper {
         padding-top: 0;
@@ -949,7 +960,7 @@ label[for="phone"] {
         padding-bottom: 10px;
         border-style: solid;
         border-width: 1px;
-        &:hover {
+        .desktop &:hover {
             border-style: solid;
             border-width: 1px;
             box-shadow: @hover-box-shadow;

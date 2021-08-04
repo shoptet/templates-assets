@@ -437,6 +437,9 @@
             'close',
             'resize',
             'shoptetResize'
+        ],
+        productSlider: [
+            'runProductSlider'
         ]
     };
 

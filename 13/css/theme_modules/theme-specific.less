@@ -320,6 +320,7 @@ ul.manufacturers {
 // cart widget
 .cart-widget-product {
     border-bottom-color: @border-color;
+    color: @text-color;
 }
 
 .cart-widget-product-name {
@@ -471,10 +472,10 @@ ol.cart-header {
 .shipping-billing-table {
     .radio-wrapper {
         border-color: transparent transparent @border-color;
-        &:hover {
+        .desktop &:hover {
             border-color: transparent @border-color @border-color;
         }
-        &:first-child {
+        .desktop &:first-child {
             &:hover {
                 border-color: @border-color;
             }
@@ -539,6 +540,6 @@ ol.cart-header {
 
 .search-focused {
     &::before {
-        background-color: rgba(255, 255, 255, 0.65);
+        background-color: rgba(0, 0, 0, 0.65);
     }
 }

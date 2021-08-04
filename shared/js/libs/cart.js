@@ -78,7 +78,11 @@
         }
 
         var successCallback = function(response) {
-            $cartContentWrapper.html(response.getFromPayload('content'));
+            var response = response.getFromPayload('content');
+            if (response.indexOf('cart-empty') !== -1) {
+                $('body').addClass('cart-emptied');
+            }
+            $cartContentWrapper.html(response);
             $(el + ' img').unveil();
             initColorbox();
             initTooltips();
@@ -125,6 +129,9 @@
                             $('.overlay').detach();
                         }
                         setTimeout(function() {
+                            if (typeof shoptet.productSlider.runProductSlider === 'function') {
+                                shoptet.productSlider.runProductSlider('.advanced-order .product-slider');
+                            }
                             shoptet.modal.shoptetResize();
                         }, 1);
                         shoptet.scripts.signalDomLoad('ShoptetDOMAdvancedOrderLoaded');
@@ -144,6 +151,7 @@
             }
         );
     }
+
 
     /**
      * This function calls another functions needed to
