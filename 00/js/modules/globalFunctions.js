@@ -1087,6 +1087,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     rateListStar.removeClass('star-off').addClass('star-on');
                 }
             }
+            $('input[name="score"]').val(numberOfStars);
         }
     }
 

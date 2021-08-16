@@ -1576,7 +1576,6 @@ table.detail-parameters {
         margin-left: 0;
         margin-right: 0;
         > div {
-            width: 25%;
             padding: 10px;
             .p {
                 .p-code {
@@ -1586,6 +1585,21 @@ table.detail-parameters {
                         top: initial;
                     }
                 }
+            }
+        }
+    }
+    .columns-4 &,
+    .columns-3 & {
+        @media (min-width: @screen-md-min) {
+            > div {
+                width: 33.333333%;
+            }
+        }
+    }
+    .columns-4 & {
+        @media (min-width: @screen-lg-min) {
+            > div {
+                width: 25%;
             }
         }
     }
