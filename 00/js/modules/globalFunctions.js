@@ -938,6 +938,16 @@ document.addEventListener('DOMContentLoaded', function () {
         var external = e.target.getAttribute('data-external');
         var forceScroll = e.target.getAttribute('data-force-scroll');
         $(href + ' img').unveil();
+
+        $('[data-iframe-src]').each(function(){
+            var self = $(this);
+            self.attr('src', self.data('iframe-src'));
+            self.removeAttr('data-iframe-src');
+            self.on('load', function(){
+                self.prev('.loader').remove();
+            });
+        })
+
         if (external) {
             $('.shp-tabs > li').removeClass('active');
             $('.shp-tabs > li > a[href="' + href + '"]').parents('li').addClass('active');
@@ -953,7 +963,6 @@ document.addEventListener('DOMContentLoaded', function () {
             shoptet.products.sameHeightOfProducts();
         }
         shoptet.products.splitWidgetParameters();
-
     });
 
     // Toggle categories menu

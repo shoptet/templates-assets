@@ -9,9 +9,7 @@
 .country-flags {
     position: relative;
     display: flex;
-    flex-shrink: 0;
     align-items: center;
-    width: 78px;
     height: @country-flag-item-height;
     cursor: pointer;
     &:not(.active):focus {
@@ -21,9 +19,7 @@
 
 .country-flags-inner {
     z-index: @z-base-1;
-    position: absolute;
-    left: 0;
-    top: 0;
+    position: relative;
     border-style: solid;
     border-width: @country-flags-inner-border-width;
     .country-flags.active & {
@@ -41,14 +37,12 @@
 
 .country-flag {
     display: none;
-    flex-wrap: wrap;
     align-items: center;
     height: @country-flag-item-height;
     &.selected,
     .country-flags.active & {
         display: flex;
         margin-left: -@country-flags-inner-padding-base;
-        margin-right: -@country-flags-inner-padding-base;
         padding-left: @country-flags-inner-padding-base;
         padding-right: @country-flags-inner-padding-base;
         .transition(all @transition-duration @transition-timing);

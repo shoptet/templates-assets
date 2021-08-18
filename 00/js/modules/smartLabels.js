@@ -45,7 +45,6 @@ if (shoptet.abilities.feature.smart_labels){
                     }
 
                     if(validTypes.indexOf(input.attr('type')) > -1) {
-
                         if (input.val() == ''){
                             element.removeClass(settings.populatedClass);
                         } else {
@@ -69,6 +68,17 @@ if (shoptet.abilities.feature.smart_labels){
                             element.addClass(settings.populatedClass);
                         });
                     }
+                }
+
+                if (this.classList.contains('js-phone-form-group')) {
+                    var phonelabel = this.getElementsByTagName('label')[0];
+                    var phoneInput = this.querySelectorAll('.js-phone-form-control');
+
+                    phonelabel.style.setProperty("left", phoneInput[0].offsetLeft + "px");
+
+                    document.addEventListener('ShoptetPhoneCodeChange', function (e) {
+                        phonelabel.style.setProperty("left", phoneInput[0].offsetLeft + "px");
+                    }, false);
                 }
             });
         };
