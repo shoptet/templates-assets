@@ -325,7 +325,7 @@ function scrollToEl($el) {
  */
 function unveilImages() {
     var imgResizeDone = 0;
-    $('img').unveil(100, function () {
+    $('img:not(.js-postpone-lazyload)').unveil(100, function () {
         if ($(this).data('lazy')) {
             $(this).load(function () {
                 if (imgResizeDone) {
