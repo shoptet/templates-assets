@@ -1002,4 +1002,33 @@
         shoptet.scripts.registerFunction(fn, 'checkoutShared');
     });
 
+    document.addEventListener("DOMContentLoaded", function () {
+        var $document = $(document);
+
+        $document.on('click', '#orderFormButton', function () {
+            $('.js-orderFormSubmit').click();
+        });
+
+        $document.on('click', '.js-orderFormSubmit', function () {
+            var $el = $('input[name="shippingId"].choose-branch:checked');
+
+            if ($el.length) {
+                var code = $el.attr('data-code');
+                var $label = $el.siblings('label');
+                if(!$label.length){
+                    $label = $el.parent('label');
+                }
+                var $chosen = $label.find('.chosen');
+                if (!$chosen.length) {
+                    if ($label.find('.zasilkovna-choose').length && !$label.find('.zasilkovna-default').length) {
+                        return true;
+                    }
+                    showMessage(shoptet.messages['choose-' + code], 'error', '', false, false);
+                    scrollToEl($label);
+                    return false;
+                }
+            }
+        });
+    });
+
 })(shoptet);
