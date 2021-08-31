@@ -231,14 +231,18 @@
 
         shoptet.runtime.submenu = false;
 
+        /* Remove version conditional when versioning is removed from the system and leave detectResolution only */
         $html.on('mouseover', '.menu-level-1 .ext', function () {
-            var $this = $(this);
-            clearTimeout(shoptet.runtime.submenu);
-            shoptet.runtime.submenu = setTimeout(function() {
-                if (!$this.hasClass('exp')) {
-                    shoptet.menu.showSubmenu($this);
-                }
-            }, shoptet.config.submenuTimeout);
+            if (shoptet.config.mobileHeaderVersion !== '1'
+                || detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
+                var $this = $(this);
+                clearTimeout(shoptet.runtime.submenu);
+                shoptet.runtime.submenu = setTimeout(function() {
+                    if (!$this.hasClass('exp')) {
+                        shoptet.menu.showSubmenu($this);
+                    }
+                }, shoptet.config.submenuTimeout);
+            }
         });
 
         $html.on('mouseleave', '.menu-level-1 .ext', function () {

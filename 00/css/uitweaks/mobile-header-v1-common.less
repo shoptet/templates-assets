@@ -1,0 +1,42 @@
+@import "shared-imports";
+
+.navigation-in {
+    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+        > ul {
+            > li {
+                > a {
+                    padding-top: 0;
+                    padding-bottom: 0;
+                    display: flex;
+                    align-items: center;
+                    > b {
+                        font-weight: @navigation-element-font-weight-small;
+                        padding-top: @navigation-link-padding-vertical-small;
+                        padding-bottom: @navigation-link-padding-vertical-small;
+                        display: inline-block;
+                    }
+                    > span {
+                        padding-top: @navigation-link-padding-vertical-small;
+                        padding-bottom: @navigation-link-padding-vertical-small;
+                    }
+                    .navigationActions__flagWrapper {
+                        line-height: 24px;
+                        padding-top: calc((@navigation-element-font-size + (@navigation-link-padding-vertical-small * 2) - 24px) / 2);
+                        padding-bottom: calc((@navigation-element-font-size + (@navigation-link-padding-vertical-small * 2) - 24px) / 2);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.submenu-arrow {
+    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+        line-height: @navigation-element-font-size;
+        &::after {
+            vertical-align: sub;
+        }
+    }
+}

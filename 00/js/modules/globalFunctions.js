@@ -200,23 +200,23 @@ function detectResolution(resolution) {
  * direction = direction of scroll
  */
 function detectScrolled(direction) {
-    /* T17829 */
     if (!shoptet.abilities.feature.fixed_header
-        && shoptet.abilities.about.id !== '13'
+        && shoptet.config.mobileHeaderVersion !== '1'
     ) {
         return;
     }
 
     var navigationVisible = detectResolution(shoptet.abilities.config.navigation_breakpoint);
+
     if (navigationVisible && !shoptet.abilities.feature.fixed_header) {
         return;
     }
 
     var $html = $('html');
     var classToRemove = direction === 'up' ? 'scrolled-down' : 'scrolled-up';
-    var top = 0;
+    var top = shoptet.abilities.feature.fixed_header ? 0 : 50;
 
-    if (navigationVisible && shoptet.abilities.feature.fixed_header) {
+    if (shoptet.abilities.feature.fixed_header && navigationVisible) {
         var adminBarHeight =
             $('.admin-bar').length
                 ? $('.admin-bar').height()
@@ -231,8 +231,8 @@ function detectScrolled(direction) {
     if ($(window).scrollTop() > top) {
         $html.addClass('scrolled scrolled-' + direction);
         $html.removeClass(classToRemove);
-        if (navigationVisible
-            && shoptet.abilities.feature.fixed_header
+        if (shoptet.abilities.feature.fixed_header
+            && navigationVisible
             && !$('body').hasClass('submenu-visible')
             && !$('body').hasClass('menu-helper-visible')
         ) {
@@ -240,7 +240,7 @@ function detectScrolled(direction) {
         }
     } else {
         $html.removeClass('scrolled scrolled-up scrolled-down');
-        if (navigationVisible && shoptet.abilities.feature.fixed_header) {
+        if (shoptet.abilities.feature.fixed_header && navigationVisible) {
             shoptet.menu.hideSubmenu();
         }
     }

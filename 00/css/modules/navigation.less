@@ -252,11 +252,6 @@
                 padding-bottom: @navigation-link-padding-vertical-small;
                 text-transform: @navigation-element-text-transform;
                 text-decoration: none;
-                &.navigationActions__link--flag {
-                    line-height: 24px;
-                    padding-top: calc((@navigation-element-font-size + @navigation-link-padding-vertical-small * 2 - 24px) / 2);
-                    padding-bottom: calc((@navigation-element-font-size + @navigation-link-padding-vertical-small * 2 - 24px) / 2);
-                }
                 b {
                     font-weight: @navigation-element-font-weight;
                 }
@@ -274,8 +269,8 @@
                 a.navigationActions__link--flag {
                     display: flex;
                     align-items: center;
-                    padding-top: calc((@navigation-element-font-size + round(@navigation-submenu-link-padding-vertical * 2) - 24px) / 2);
-                    padding-bottom: calc((@navigation-element-font-size + round(@navigation-submenu-link-padding-vertical * 2) - 24px) / 2);
+                    padding-top: calc((@navigation-element-font-size + (@navigation-submenu-link-padding-vertical * 2) - 24px) / 2);
+                    padding-bottom: calc((@navigation-element-font-size + (@navigation-submenu-link-padding-vertical * 2) - 24px) / 2);
                 }
             }
         }

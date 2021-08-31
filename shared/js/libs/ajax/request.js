@@ -23,11 +23,21 @@
             }
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.open(type, url, true);
+
             if (header && header.hasOwnProperty('X-Shoptet-XHR')) {
                 if (header['X-Shoptet-XHR'] === 'Shoptet_Coo7ai') {
                     xmlhttp.setRequestHeader('X-Shoptet-XHR', 'Shoptet_Coo7ai');
                 }
             }
+
+            xmlhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+
+            if(header && header.hasOwnProperty('Content-Type')) {
+                xmlhttp.setRequestHeader('Content-Type', header['Content-Type']);
+            } else if (type === shoptet.ajax.requestTypes.post) {
+                xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+            }
+
             xmlhttp.onload = function() {
                 if (xmlhttp.status >= 200 && xmlhttp.status < 300) {
                     var response = new AjaxResponse(xmlhttp.response);
@@ -64,10 +74,6 @@
                   statusText: this.statusText
                 });
             };
-            xmlhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-            if (type === shoptet.ajax.requestTypes.post) {
-                xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-            }
             xmlhttp.send(shoptet.common.serializeData(data));
         });
     }
