@@ -208,13 +208,11 @@ function detectScrolled(direction) {
 
     var navigationVisible = detectResolution(shoptet.abilities.config.navigation_breakpoint);
 
-    if (navigationVisible && !shoptet.abilities.feature.fixed_header) {
-        return;
-    }
-
     var $html = $('html');
     var classToRemove = direction === 'up' ? 'scrolled-down' : 'scrolled-up';
-    var top = shoptet.abilities.feature.fixed_header ? 0 : 50;
+    var top = (!shoptet.abilities.feature.fixed_header && !navigationVisible)
+        ? 50
+        : 0;
 
     if (shoptet.abilities.feature.fixed_header && navigationVisible) {
         var adminBarHeight =

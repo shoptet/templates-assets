@@ -1,0 +1,24 @@
+@import "../../../00/css/uitweaks/shared-imports";
+
+.overall-wrapper {
+    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+        padding-top: 60px;
+    }
+    @media (max-width: unit(@screen-xs-min - 1, px)) {
+        padding-top: 40px;
+    }
+}
+
+#header {
+    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: @z-popup;
+        transition: transform @transition-duration / 2;
+        .scrolled-down & {
+            transform: translateY(-100%);
+        }
+    }
+}

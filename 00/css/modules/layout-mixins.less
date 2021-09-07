@@ -97,9 +97,10 @@
     }
     .admin-logged & {
         top: unit(round(@top + @offset + @admin-bar-height), px);
-        .scrolled & {
-            top: unit(round(@top + @offset), px);
-        }
+    }
+    // Specific for Waltz template
+    .scrolled .template-10.admin-logged & {
+        top: unit(round(@top + @offset), px);
     }
     .scrolled & {
         &::before {

@@ -208,6 +208,11 @@ ul {
 .admin-bar {
     position: fixed;
     top: 0;
+    @media (min-width: @screen-md-min) {
+        .scrolled & {
+            display: none;
+        }
+    }
 }
 
 // Slider

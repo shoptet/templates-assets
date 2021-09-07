@@ -1,6 +1,6 @@
 @import "../../../00/css/uitweaks/shared-imports";
 
-@header_search-height: @mobile-header-height-xs + @form-control-height + round(@line-height-computed * 0.75);
+@header_search-height: @header-height-xs + @form-control-height + round(@line-height-computed * 0.75);
 @navigation-buttons_icon-size: 40px;
 @navigation-buttons_icon-padding: 4px;
 
@@ -8,7 +8,7 @@
     @media (max-width: unit(@navigation-breakpoint-max, px)) {
         width: 100%;
         position: fixed;
-        top: @mobile-header-height-xs;
+        top: @header-height-xs;
         z-index: @z-popup;
 
         .search-window-visible & {
@@ -34,7 +34,7 @@
         }
         .site-name {
             position: absolute;
-            top: -@mobile-header-height-xs;
+            top: -@header-height-xs;
             left: 10px;
             position: absolute;
             text-align: left;
@@ -45,10 +45,10 @@
             > a {
                 display: flex;
                 align-items: center;
-                height: @mobile-header-height-xs;
+                height: @header-height-xs;
             }
             img {
-                max-height: @mobile-header-height-xs;
+                max-height: @header-height-xs;
                 max-width: 125px;
                 padding-top: 5px;
                 padding-bottom: 5px;
@@ -169,9 +169,9 @@
 
 .overall-wrapper {
     @media (max-width: unit(@navigation-breakpoint-max, px)) {
-        padding-top: @mobile-header-height-xs + @line-height-computed;
+        padding-top: @header-height-xs + @line-height-computed;
         .type-index & {
-            padding-top: @mobile-header-height-xs;
+            padding-top: @header-height-xs;
         }
         .ordering-process & {
             padding-top: 0;
@@ -264,6 +264,16 @@
         background-color: @body-bg;
         @media (min-width: unit(@navigation-breakpoint, px)) {
             background-color: @sidebar-bg;
+        }
+    }
+}
+
+.popup-widget {
+    @media (max-width: unit(@screen-xs-max, px)) {
+        &.cart-widget,
+        &.login-widget {
+            top: 0;
+            padding-top: @header-height-xs;
         }
     }
 }

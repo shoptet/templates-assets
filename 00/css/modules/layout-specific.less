@@ -73,6 +73,14 @@ iframe {
     }
 }
 
+.admin-bar {
+    @media (min-width: @screen-md-min) {
+        .scrolled & {
+            display: none;
+        }
+    }
+}
+
 #header {
     .scrolled & {
         position: fixed;

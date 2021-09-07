@@ -1,0 +1,56 @@
+@import "../../../00/css/uitweaks/shared-imports";
+
+.navigation-buttons {
+    > a {
+        .size(42px, 55px);
+    }
+}
+
+#header {
+    z-index: @z-pupup-minus-1;
+    .container {
+        z-index: @z-pupup-minus-1;
+    }
+}
+
+.header-navigation {
+    z-index: @z-pupup-minus-1;
+}
+
+.popup-widget {
+    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+        &.cart-widget,
+        &.search-widget,
+        &.login-widget {
+            top: @header-height-xs;
+        }
+    }
+}
+
+.navigation-in {
+    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+        ul {
+            &.menu-level-2 {
+                > li {
+                    > a {
+                        &::before {
+                            content: none;
+                        }
+                    }
+                }
+                li {
+                    a {
+                        padding-left: round(@navigation-submenu-link-padding-horizontal * 1.5);
+                    }
+                }
+                &.navigationActions__submenu {
+                    li {
+                        a {
+                            padding-left: round(@navigation-submenu-link-padding-horizontal * 1.5 - @navigation-link-padding-horizontal-small);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

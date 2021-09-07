@@ -13,15 +13,15 @@
 @navigation_image-max-height: round(@navigation_image-size / 1.4);
 @navigation_third-level-item-height: 16px;
 
-@navigation_navigation-height-mobile: @mobile-header-height-xs;
+@navigation_navigation-height-mobile: @header-height-xs;
 
 @hover-box-shadow: 0 0 10px rgba(0,0,0,.16);
 @hover-box-shadow-sm: 0 0px 4px rgba(0,0,0,.16);
 @narrow-container-width: @container-lg;
 @cart-widget-bottom-height: 144px;
 
-@header_search-height-xs: @mobile-header-height-xs + @form-control-height;
-@header_search-height-sm: @mobile-header-height-sm + @form-control-height;
+@header_search-height-xs: @header-height-xs + @form-control-height;
+@header_search-height-sm: @header-height-sm + @form-control-height;
 
 //misc
 .btn,
@@ -35,11 +35,11 @@ a.btn.btn-conversion {
 //overall wrapper
 .overall-wrapper {
     @media (max-width: @navigation-breakpoint-max) {
-        padding-top: @mobile-header-height-xs;
+        padding-top: @header-height-xs;
     }
 
     @media (min-width: @screen-xs-min) and (max-width: @navigation-breakpoint-max) {
-        padding-top: @mobile-header-height-sm;
+        padding-top: @header-height-sm;
     }
 }
 
@@ -86,10 +86,10 @@ a.btn.btn-conversion {
         a {
             margin-left: 0;
             @media (min-width: @screen-xs-min) and (max-width: @navigation-breakpoint-max) {
-                width: @mobile-header-height-sm;
-                height: @mobile-header-height-sm;
+                width: @header-height-sm;
+                height: @header-height-sm;
                 &::before {
-                    line-height: @mobile-header-height-sm;
+                    line-height: @header-height-sm;
                     font-size: @font-size-x-large;
                 }
             }
@@ -204,7 +204,7 @@ a.btn.btn-conversion {
     }
 
     @media (min-width: @screen-xs-min) and (max-width: @navigation-breakpoint-max) {
-        top: @mobile-header-height-sm;
+        top: @header-height-sm;
         .navigation-window-visible & {
             width: 100%;
         }
@@ -697,7 +697,7 @@ select {
         }
     }
     &.products-inline {
-        @media (min-width: @screen-lg-min) {        
+        @media (min-width: @screen-lg-min) {
             > div {
                 width: 25%;
             }

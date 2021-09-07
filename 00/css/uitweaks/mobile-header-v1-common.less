@@ -1,7 +1,21 @@
 @import "shared-imports";
 
+.navigation-buttons {
+    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+        .dropdown,
+        .languagesMenu {
+            display: none;
+        }
+        a[data-target="login"] {
+            display: none;
+        }
+    }
+}
+
 .navigation-in {
     @media (max-width: unit(@navigation-breakpoint-max, px)) {
+        font-size: @navigation-element-font-size-small;
+        line-height: @navigation-element-font-size-small;
         > ul {
             > li {
                 > a {
@@ -21,8 +35,18 @@
                     }
                     .navigationActions__flagWrapper {
                         line-height: 24px;
-                        padding-top: calc((@navigation-element-font-size + (@navigation-link-padding-vertical-small * 2) - 24px) / 2);
-                        padding-bottom: calc((@navigation-element-font-size + (@navigation-link-padding-vertical-small * 2) - 24px) / 2);
+                        padding-top: calc((@navigation-element-font-size-small + (@navigation-link-padding-vertical-small * 2) - 24px) / 2);
+                        padding-bottom: calc((@navigation-element-font-size-small + (@navigation-link-padding-vertical-small * 2) - 24px) / 2);
+                    }
+                }
+            }
+        }
+        ul {
+            &.menu-level-2 {
+                li {
+                    a.navigationActions__link--flag {
+                        padding-top: calc((@navigation-element-font-size-small + (@navigation-submenu-link-padding-vertical * 2) - 24px) / 2);
+                        padding-bottom: calc((@navigation-element-font-size-small + (@navigation-submenu-link-padding-vertical * 2) - 24px) / 2);
                     }
                 }
             }
@@ -32,11 +56,22 @@
 
 .submenu-arrow {
     @media (max-width: unit(@navigation-breakpoint-max, px)) {
-        padding-left: 1.5em;
-        padding-right: 1.5em;
-        line-height: @navigation-element-font-size;
+        padding-left: 2em;
+        padding-right: 2em;
+        font-size: @submenu-arrow-font-size-small;
+        line-height: @navigation-element-font-size-small;
         &::after {
             vertical-align: sub;
+        }
+    }
+}
+
+.navigation-close {
+    @media (max-width: unit(@navigation-close-visibility, px)) {
+        &::before {
+            .square(@navigation-element-font-size-small);
+            font-size: @navigation-element-font-size-small;
+            line-height: @navigation-element-font-size-small;
         }
     }
 }
