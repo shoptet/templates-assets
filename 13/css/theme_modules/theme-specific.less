@@ -398,11 +398,11 @@ ol.cart-header {
     li {
         a,
         strong {
+            &::before {
+                background-color: #fff;
+                border-color: @border-color;
+            }
             span {
-                &::before {
-                    background-color: #fff;
-                    border-color: @border-color;
-                }
                 &::after {
                     border-top-color: @border-color;
                 }
@@ -411,22 +411,20 @@ ol.cart-header {
         &.active {
             a,
             strong {
-                span {
-                    &::before {
-                        background-color: @color-secondary;
-                        border-color: @color-secondary;
-                    }
+                &::before {
+                    background-color: @color-secondary;
+                    border-color: @color-secondary;
                 }
             }
         }
         &.completed {
             a,
             strong {
+                &::before {
+                    background-color: @color-secondary;
+                    border-color: @color-secondary;
+                }
                 span {
-                    &::before {
-                        background-color: @color-secondary;
-                        border-color: @color-secondary;
-                    }
                     &::after {
                         border-top-color: @color-secondary;
                     }

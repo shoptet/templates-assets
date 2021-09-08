@@ -61,11 +61,8 @@
     background: none !important;
 }
 
-input[type="radio"].payu + label::before,
-input[type="radio"].payu + label::after {
-    visibility: hidden;
-}
 #payu_ input[type="radio"] {
+    visibility: hidden;
     display: inline;
     .appearance(auto);
 }
@@ -89,10 +86,10 @@ input[type="radio"].payu + label::after {
     overflow: hidden;
     .transition(all .2s ease);
     &.unselected-option {
-        max-height: 0;     
+        max-height: 0;
         padding-top: 0;
         padding-bottom: 0;
         border-bottom-width: 0;
         border-top-width: 0;
-    }    
+    }
 }

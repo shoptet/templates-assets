@@ -60,7 +60,11 @@ function showMessage(content, type, id, cancel, overlay, parent) {
     } else {
         cancel = '';
     }
-    $('<div class="msg msg-' + type + '"><div class="container">' + content + cancel + '</div></div>').prependTo(parent);
+
+    var message = '<div class="msg msg-' + type + '" role="alert"><div class="container">';
+    message += content + cancel + '</div></div>';
+
+    $(message).prependTo(parent);
     if (overlay === true) {
         $('<div class="overlay visible" />').appendTo('body');
         $('body').addClass('msg-visible');

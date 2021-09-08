@@ -81,7 +81,7 @@ ol.cart-header {
     display: flex;
     justify-content: center;
     @media (max-width: @cart-table-breakpoint) {
-        margin-bottom: 0;
+        margin-bottom: (@line-height-computed * 1.5);
     }
 
     li {
@@ -95,30 +95,29 @@ ol.cart-header {
         }
         a,
         strong {
-            span {
-                white-space: pre-line;
-                &::before {
-                    counter-increment: steps;
-                    content: counter(steps);
-                    .square(@cart_number-size);
-                    border-style: solid;
-                    border-width: 1px;
-                    font-size: @font-size-larger;
-                    line-height: round(@cart_number-size - 2);
-                    text-align: center;
-                    border-radius: 50%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    margin: 0 auto 10px;
-                    z-index: @z-base-2;
-                    position: relative;
-                    z-index: @z-base-2;
-                    display: inline-block;
-                    @media (max-width: @cart-table-breakpoint) {
-                        margin: 0 auto 5px;
-                    }
+            &::before {
+                counter-increment: steps;
+                content: counter(steps);
+                .square(@cart_number-size);
+                border-style: solid;
+                border-width: 1px;
+                font-size: @font-size-larger;
+                line-height: round(@cart_number-size - 2);
+                text-align: center;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 auto 10px;
+                z-index: @z-base-2;
+                position: relative;
+                z-index: @z-base-2;
+                display: block;
+                @media (max-width: @cart-table-breakpoint) {
+                    margin: 0 auto 5px;
                 }
+            }
+            span {
                 &::after {
                     content: "";
                     display: block;

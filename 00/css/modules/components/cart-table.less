@@ -289,9 +289,6 @@ button::-moz-focus-inner {
     line-height: @cancel-icon-font-size;
     background: none;
     .appearance(none);
-    span {
-        display: none;
-    }
     &::before {
         &:extend(.shp-icon);
         content: @icon-close-code;
@@ -302,11 +299,14 @@ button::-moz-focus-inner {
 tr.removeable {
     @media (min-width: @screen-md-min) {
         .remove-item {
-            visibility: hidden;
+            opacity: 0;
+            &:focus {
+                opacity: 1;
+            }
         }
         &:hover {
             .remove-item {
-                visibility: visible;
+                opacity: 1;
             }
         }
     }
