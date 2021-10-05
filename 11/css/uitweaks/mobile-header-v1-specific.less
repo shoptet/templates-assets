@@ -5,7 +5,7 @@
 @navigation-buttons_icon-padding: 4px;
 
 #header {
-    @media (max-width: @navigation-breakpoint-max) {
+    @media (max-width: unit(@navigation-breakpoint-max, px)) {
         width: 100%;
         position: fixed;
         top: @header-height-xs;
@@ -93,13 +93,13 @@
 }
 
 #navigation {
-    @media (max-width: @navigation-breakpoint-max) {
+    @media (max-width: unit(@navigation-breakpoint-max, px)) {
         padding-bottom: 0;
     }
 }
 
 .top-navigation-bar {
-    @media (max-width: @navigation-breakpoint-max) {
+    @media (max-width: unit(@navigation-breakpoint-max, px)) {
         position: fixed;
         top: 0;
         z-index: @z-popup;
@@ -162,14 +162,14 @@
 }
 
 .navigation-wrapper {
-    @media (max-width: @navigation-breakpoint-max) {
+    @media (max-width: unit(@navigation-breakpoint-max, px)) {
         padding: 0 round(@grid-gutter-width / 4);
     }
 }
 
 .overall-wrapper {
-    @media (max-width: @navigation-breakpoint-max) {
-        padding-top: @mobile-header-height-xs + @line-height-computed;
+    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+        padding-top: @header-height-xs + @line-height-computed;
         .type-index & {
             padding-top: @header-height-xs;
         }
@@ -180,7 +180,7 @@
 }
 
 .content-wrapper {
-    @media (max-width: @navigation-breakpoint-max) {
+    @media (max-width: unit(@navigation-breakpoint-max, px)) {
         &.container .row .wide-carousel {
             padding-left: 0;
             padding-right: 0;
@@ -199,7 +199,7 @@
         .square(@navigation-buttons_icon-size);
         padding: @navigation-buttons_icon-padding;
         text-align: center;
-        @media (min-width: @navigation-breakpoint) {
+        @media (min-width: unit(@navigation-breakpoint, px)) {
             display: none;
         }
     }
@@ -244,7 +244,7 @@
         }
     }
     .cart-count {
-        @media (max-width: @navigation-breakpoint-max) {
+        @media (max-width: unit(@navigation-breakpoint-max, px)) {
             margin-left: round(@navigation-buttons_icon-padding * 3);
             bottom: 3px;
         }
@@ -262,7 +262,7 @@
 .ordering-process {
     body& {
         background-color: @body-bg;
-        @media (min-width: @navigation-breakpoint) {
+        @media (min-width: unit(@navigation-breakpoint, px)) {
             background-color: @sidebar-bg;
         }
     }

@@ -41,7 +41,7 @@ input[type="checkbox"] {
 }
 
 .navigation-buttons {
-    @media (min-width: @navigation-breakpoint) {
+    @media (min-width: unit(@navigation-breakpoint, px)) {
         a {
             .navigation-window-visible & {
                 &[data-target="navigation"] {
@@ -497,7 +497,7 @@ ul.discussion {
     text-align: left;
     background-color: @popup-widget-bg;
 
-    @media (min-width: @navigation-breakpoint) {
+    @media (min-width: unit(@navigation-breakpoint, px)) {
         border: 1px solid rgba(255, 255, 255, 0.3);
         background-color: transparent;
         color: @header-color;

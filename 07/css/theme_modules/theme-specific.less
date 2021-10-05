@@ -325,7 +325,7 @@ ul.discussion {
     }
 }
 
-@media (max-width: @screen-sm-min) {
+@media (max-width: unit(@screen-sm-min, px)) {
     .dropdown-menu {
         top: auto;
         bottom: 100%;
@@ -341,12 +341,12 @@ ul.discussion {
     display: flex;
     justify-content: center;
 
-    @media (min-width: @screen-sm-min) {
+    @media (min-width: unit(@screen-sm-min, px)) {
         display: inline-block;
         margin-top: 10px;
     }
 
-    @media (min-width: @navigation-breakpoint) {
+    @media (min-width: unit(@navigation-breakpoint, px)) {
         margin-top: 5px;
     }
 }
@@ -355,7 +355,7 @@ ul.discussion {
     background-color: @header-bg-color;
     bottom: 30px;
 
-    @media (max-width: @navigation-breakpoint) and (min-width: @screen-sm-min) {
+    @media (max-width: unit(@navigation-breakpoint, px)) and (min-width: unit(@screen-sm-min, px)) {
         bottom: auto;
         min-width: 160px;
         padding: 5px 0;
@@ -365,7 +365,7 @@ ul.discussion {
         background-clip: padding-box;
     }
 
-    @media (min-width: @navigation-breakpoint) {
+    @media (min-width: unit(@navigation-breakpoint, px)) {
         background-color: transparent;
     }
 
@@ -376,7 +376,7 @@ ul.discussion {
 }
 
 .languagesMenu__list {
-    @media (min-width: @navigation-breakpoint) {
+    @media (min-width: unit(@navigation-breakpoint, px)) {
         background-color: @header-bg-color;
         padding: 5px 0;
         border: 1px solid rgba(0,0,0,.15);
@@ -390,7 +390,7 @@ ul.discussion {
     color: @navigation-color;
     text-align: left;
 
-    @media (min-width: @navigation-breakpoint) {
+    @media (min-width: unit(@navigation-breakpoint, px)) {
         color: @accent-heavy-color;
     }
 }
