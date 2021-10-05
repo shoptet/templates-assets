@@ -13,7 +13,7 @@
 }
 
 .navigation-in {
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         font-size: @navigation-element-font-size-small;
         line-height: @navigation-element-font-size-small;
         > ul {
@@ -55,7 +55,7 @@
 }
 
 .submenu-arrow {
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         padding-left: 2em;
         padding-right: 2em;
         font-size: @submenu-arrow-font-size-small;
@@ -67,7 +67,7 @@
 }
 
 .navigation-close {
-    @media (max-width: unit(@navigation-close-visibility, px)) {
+    @media (max-width: @navigation-close-visibility) {
         &::before {
             .square(@navigation-element-font-size-small);
             font-size: @navigation-element-font-size-small;
