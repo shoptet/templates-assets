@@ -172,50 +172,57 @@ function getShoptetProductsList() {
     }
 
     function trackGoogleProductDetail(gaData, action) {
-        if (typeof ga === 'function') {
-            ga('ec:addProduct', {
-                'id': gaData.content_ids[0],
-                'name': gaData.base_name,
-                'category': gaData.content_category,
-                'brand': gaData.manufacturer,
-                'variant': gaData.variant,
-                'price': gaData.valueWoVat,
+        if (typeof gtag === 'function') {
+            gtag('event', 'view_item', {
+                "items": [
+                    {
+                        "id": gaData.content_ids[0],
+                        "name": gaData.base_name,
+                        "category": gaData.content_category,
+                        "brand": gaData.manufacturer,
+                        "variant": gaData.variant,
+                        "price": gaData.valueWoVat
+                    }
+                ]
             });
-            ga('ec:setAction', action);
-            ga('send', 'event', 'Product', 'click', 'Variant selected');
         }
+
         shoptet.scripts.signalCustomEvent('ShoptetGoogleProductDetailTracked');
     }
 
     function trackGoogleCart(gaData, formAction) {
-        if (typeof ga === 'function') {
-            var action = shoptet.tracking.resolveTrackingAction(formAction, gaData);
-            var title;
+        var action = shoptet.tracking.resolveTrackingAction(formAction, gaData);
+        var eventName = '';
 
-            switch (action) {
-                case 'add':
-                    title = 'add to cart';
-                    break;
-                case 'remove':
-                    title = 'remove from cart';
-                    break;
-                default:
-                    return;
-            }
-
-            var amount = shoptet.tracking.resolveAmount(formAction, gaData);
-            ga('ec:addProduct', {
-                'id': gaData.content_ids[0],
-                'name': gaData.base_name,
-                'category': gaData.content_category,
-                'brand': gaData.manufacturer,
-                'variant': gaData.variant,
-                'price': gaData.valueWoVat,
-                'quantity': amount
-            });
-            ga('ec:setAction', action);
-            ga('send', 'event', 'UX', 'click', title);
+        switch (action) {
+            case 'add':
+                eventName = 'add_to_cart';
+                break;
+            case 'remove':
+                eventName = 'remove_from_cart';
+                break;
+            default:
+                return;
         }
+
+        var amount = shoptet.tracking.resolveAmount(formAction, gaData);
+
+        if (typeof gtag === 'function') {
+            gtag('event', eventName, {
+                "items": [
+                    {
+                        "id": gaData.content_ids[0],
+                        "name": gaData.base_name,
+                        "brand": gaData.manufacturer,
+                        "category": gaData.content_category,
+                        "variant": gaData.variant,
+                        "quantity": amount,
+                        "price": gaData.valueWoVat
+                    }
+                ]
+            });
+        }
+
         shoptet.scripts.signalCustomEvent('ShoptetGoogleCartTracked');
     }
 
@@ -297,11 +304,15 @@ function getShoptetProductsList() {
     function handlePromoClick(el) {
         var promo = shoptet.tracking.bannersList[el.dataset.ecPromoId];
 
-        if (promo) {
-            ga('ec:addPromo', promo);
-
-            ga('ec:setAction', 'promo_click');
-            ga('send', 'event', 'Internal Promotions', 'click', promo.name);
+        if (promo && typeof gtag === 'function') {
+            gtag('event', 'select_content', {
+                "promotions": [
+                    {
+                        "id": promo.id,
+                        "name": promo.name
+                    }
+                ]
+            });
         }
     }
 
