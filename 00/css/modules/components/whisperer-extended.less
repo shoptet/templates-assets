@@ -8,7 +8,7 @@
     right: 0;
     width: 100%;
     text-align: left;
-    z-index: @z-popup;
+    z-index: @z-navigation-3;
     position: absolute;
     padding: 0 round(@grid-gutter-width / 4) round(@grid-gutter-width / 4);
 
@@ -17,15 +17,7 @@
     }
 
     @media (min-width: @navigation-breakpoint) {
-        width: auto;
-        right: -(@whisperer-additional-width);
-        left: -(@whisperer-additional-width);
         padding: round(@grid-gutter-width);
-    }
-
-    @media (min-width: @navigation-breakpoint) and (max-width: @screen-sm-max) {
-        right: -(@whisperer-additional-width-sm);
-        left: -(@whisperer-additional-width-sm);
     }
 }
 

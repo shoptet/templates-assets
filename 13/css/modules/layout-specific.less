@@ -436,7 +436,23 @@ a.btn.btn-conversion {
 .searchWhisperer {
     box-shadow: @hover-box-shadow-sm;
     @media (min-width: @navigation-breakpoint) {
-        box-shadow: @hover-box-shadow;
+        box-shadow: none;
+    }
+    @media (min-width: @screen-sm-min) {
+        width: 90%;
+        margin-left: 5%;
+    }
+    @media (min-width: @screen-md-min) {
+        width: 94%;
+        margin-left: 3%;
+    }
+    @media (min-width: @screen-lg-min) {
+        width: 77%;
+        margin-left: 11.5%;
+    }
+    @media (min-width: @screen-xl-min) {
+        width: 70%;
+        margin-left: 15%;
     }
 }
 

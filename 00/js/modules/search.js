@@ -56,6 +56,9 @@ function fulltextSearch($searchInput, $searchContainer) {
         if (!$(e.target).hasClass('whisperer-trigger')) {
             e.stopPropagation();
         }
+        if ($(e.target).hasClass('js-searchWhisperer__button')) {
+            $form.submit();
+        }
     });
 
     $(document).click(function (e) {
@@ -202,8 +205,12 @@ $(function () {
             var whispererClass = shoptet.abilities.feature.extended_search_whisperer
                 ? 'searchWhisperer'
                 : 'search-whisperer';
-            $this.find($searchInput).after('<div class="' + whispererClass + '"></div>');
-            fulltextSearch($this.find($searchInput), $this.find('.' + whispererClass));
+            if (shoptet.abilities.feature.extended_search_whisperer) {
+                $this.after('<div class="' + whispererClass + '"></div>');
+            } else {
+                $this.find($searchInput).after('<div class="' + whispererClass + '"></div>');
+            }
+            fulltextSearch($this.find($searchInput), $this.parent().find('.' + whispererClass));
         });
     }
 
