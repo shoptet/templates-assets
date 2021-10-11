@@ -93,8 +93,21 @@ select {
 }
 
 .form-control,
-input, select, textarea {
+input, 
+select, 
+textarea {
     &:focus {
+        box-shadow: 0 0 0 0.1em fade(@input-border-focus, 50%);
+    }
+}
+
+.country-flags {
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 3px;
+    &:focus {
+        border-color: @input-border-focus;
         box-shadow: 0 0 0 0.1em fade(@input-border-focus, 50%);
     }
 }

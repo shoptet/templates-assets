@@ -51,6 +51,8 @@
         $('#deliveryRegionId').attr({
             'value': $billRegionId.find('option:selected').val()
         });
+
+        setTimeout(function(){ $('.smart-label-wrapper').SmartLabels(); }, 0);
     }
 
 

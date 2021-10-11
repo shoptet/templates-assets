@@ -1,8 +1,13 @@
 (function(shoptet) {
 
     function handleFlags(el) {
-        el.addEventListener('keyup', function (e) {
-            shoptet.phoneInput.handleKeyCodes(e, el);
+        el.addEventListener('keydown', function (e) {
+            if (el.classList.contains('active')) {
+                shoptet.phoneInput.handleKeyCodes(e, el);
+            }else if (e.keyCode === shoptet.common.keyCodes.enter) {
+                el.classList.add('active');
+                el.querySelector('.country-flag').focus();
+            }
         });
         var flagsEl = el.getElementsByClassName('country-flag');
         for (var key in flagsEl) {
@@ -97,13 +102,35 @@
         if (suggestedFlag) {
             suggestedFlag.classList.remove('suggested');
         }
+
         if (e.keyCode === shoptet.common.keyCodes.escape) {
             shoptet.phoneInput.hideCountriesSelect(el);
             shoptet.phoneInput.pressedKeys = '';
             return;
         }
 
+        var focusedFlag = el.querySelector('.country-flag:focus');
+        if (e.keyCode === 40 && focusedFlag) {
+            e.preventDefault();
+            var nextFlag = focusedFlag.nextElementSibling;
+            if (nextFlag){
+                nextFlag.focus();
+            }
+            return;
+        }
+        if (e.keyCode === 38 && focusedFlag) {
+            e.preventDefault();
+            var prevFlag = focusedFlag.previousElementSibling;
+            if (prevFlag){
+                prevFlag.focus();
+            }
+            return;
+        }
+
         if (e.keyCode === shoptet.common.keyCodes.enter) {
+            if (focusedFlag) {
+                focusedFlag.click();
+            }
             if (shoptet.phoneInput.matchedElement) {
                 shoptet.phoneInput.matchedElement.click();
                 shoptet.phoneInput.matchedElement = false;

@@ -552,6 +552,9 @@ tr.removeable {
     .price-range {
         margin-left: 30px;
         margin-top: 10px;
+        @media (max-width: @screen-xs-max) {
+            max-width: calc(100% - 30px);
+        }
         &::before {
             &:extend(.shp-icon);
             margin-right: .5ex;

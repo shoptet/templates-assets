@@ -31,6 +31,7 @@
 
 .benefitBanner__link {
   display: flex;
+  align-items: center;
 
   &:hover {
     opacity: 0.8;
@@ -43,6 +44,10 @@
   margin-right: 10px;
   display: flex;
   align-items: center;
+  &:only-child {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
 }
 
 .benefitBanner__img {

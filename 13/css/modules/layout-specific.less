@@ -30,6 +30,11 @@ a.btn,
 a.btn.btn-conversion {
     font-weight: 900;
     text-transform: none;
+    &.btn-cart {
+        &::before {
+            &:extend(.shp-icon);
+        }
+    }
 }
 
 //overall wrapper
@@ -458,8 +463,7 @@ a.btn.btn-conversion {
 
 //content
 .content {
-    padding-left: 0;
-    padding-right: 0;
+    min-width: 0;
 
     .sidebar-left + & {
         @media (min-width: @screen-sm-min) {
@@ -535,8 +539,6 @@ select {
 
 /* homepage start */
 .banners-row {
-    margin-left: 0;
-    margin-right: 0;
     @media (min-width: @navigation-breakpoint) {
         .desktop & {
             margin-top: -20px;
@@ -556,6 +558,11 @@ select {
         margin-bottom: 0;
     }
     .wide-carousel .carousel {
+        margin-top: 0;
+    }
+}
+.wide .banners-row .wide-carousel .carousel {
+    @media (min-width: @screen-sm-min) {
         margin-top: 0;
     }
 }
@@ -955,10 +962,6 @@ select {
         margin: 0 0 @line-height-computed;
     }
 
-    .flags.flags-extra {
-        display: none;
-    }
-
     .p-gifts-heading {
         text-transform: none;
     }
@@ -971,18 +974,6 @@ select {
         @media (max-width: @navigation-breakpoint-max) {
             max-width: 100%;
             width: 100%;
-        }
-    }
-}
-
-.image360,
-.p-image {
-    .wide & {
-        @media (min-width: @screen-xl-min) {
-            padding-bottom: 0;
-            &::after {
-                display: none;
-            }
         }
     }
 }
@@ -1063,27 +1054,17 @@ table.detail-parameters {
     border-width: 0;
     position: relative;
     padding-bottom: @line-height-computed;
+    .wide & {
+        @media (min-width: @screen-xl-min) {
+            &::after {
+                display: none;
+            }
+        }
+    }
 }
 
 .image360-navigation {
     bottom: @line-height-computed;
-}
-
-.p-thumbnails {
-    height: 120px;
-    margin-left: -10px;
-    .p-thumbnails-inner {
-        height: 120px;
-        padding: 10px;
-    }
-    a {
-        &:hover {
-            z-index: @z-higher-base;
-            img {
-                box-shadow: @hover-box-shadow;
-            }
-        }
-    }
 }
 .p-thumbnails-horizontal .p-thumbnail::before,
 .p-thumbnails-horizontal .show360image::before {
@@ -2094,7 +2075,6 @@ body.user-action-visible {
         }
         .news-item-link-img {
             width: 100%;
-            height: 100%;
         }
         .news-image {
             object-fit: cover;
@@ -2138,3 +2118,7 @@ body.user-action-visible {
     }
 }
 /* slider end */
+
+.country-flags {
+    border-radius: 0;
+}
