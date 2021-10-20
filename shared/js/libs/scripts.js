@@ -396,7 +396,8 @@
             'fitsToParentWidth',
             'addClassToElements',
             'removeClassFromElements',
-            'moveCursorToEnd'
+            'moveCursorToEnd',
+            'throttle'
         ],
         stockAvailabilities: [
             'getDeliveryPointName',

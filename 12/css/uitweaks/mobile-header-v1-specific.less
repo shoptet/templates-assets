@@ -1,16 +1,16 @@
 @import "../../../00/css/uitweaks/shared-imports";
 
 .overall-wrapper {
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         padding-top: 60px;
     }
-    @media (max-width: unit(@screen-xs-min - 1, px)) {
+    @media (max-width: @screen-xs-min - 1) {
         padding-top: 40px;
     }
 }
 
 #header {
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         position: fixed;
         top: 0;
         left: 0;

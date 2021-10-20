@@ -5,7 +5,7 @@
 @navigation-buttons_icon-padding: 4px;
 
 #header {
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         width: 100%;
         position: fixed;
         top: @header-height-xs;
@@ -93,13 +93,13 @@
 }
 
 #navigation {
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         padding-bottom: 0;
     }
 }
 
 .top-navigation-bar {
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         position: fixed;
         top: 0;
         z-index: @z-popup;
@@ -162,13 +162,13 @@
 }
 
 .navigation-wrapper {
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         padding: 0 round(@grid-gutter-width / 4);
     }
 }
 
 .overall-wrapper {
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         padding-top: @header-height-xs + @line-height-computed;
         .type-index & {
             padding-top: @header-height-xs;
@@ -180,7 +180,7 @@
 }
 
 .content-wrapper {
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         &.container .row .wide-carousel {
             padding-left: 0;
             padding-right: 0;
@@ -199,7 +199,7 @@
         .square(@navigation-buttons_icon-size);
         padding: @navigation-buttons_icon-padding;
         text-align: center;
-        @media (min-width: unit(@navigation-breakpoint, px)) {
+        @media (min-width: @navigation-breakpoint) {
             display: none;
         }
     }
@@ -244,7 +244,7 @@
         }
     }
     .cart-count {
-        @media (max-width: unit(@navigation-breakpoint-max, px)) {
+        @media (max-width: @navigation-breakpoint-max) {
             margin-left: round(@navigation-buttons_icon-padding * 3);
             bottom: 3px;
         }
@@ -262,14 +262,14 @@
 .ordering-process {
     body& {
         background-color: @body-bg;
-        @media (min-width: unit(@navigation-breakpoint, px)) {
+        @media (min-width: @navigation-breakpoint) {
             background-color: @sidebar-bg;
         }
     }
 }
 
 .popup-widget {
-    @media (max-width: unit(@screen-xs-max, px)) {
+    @media (max-width: @screen-xs-max) {
         &.cart-widget,
         &.login-widget {
             top: 0;

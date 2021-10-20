@@ -126,7 +126,7 @@ footer {
         color: @color-primary;
     }
     &.highlight-product .btn {
-        @media (min-width: unit(@screen-lg-min, px)) {
+        @media (min-width: @screen-lg-min) {
             .btn-color(@gray-dark, @body-bg, @color-secondary, @color-secondary);
         }
     }
@@ -262,7 +262,7 @@ footer {
     }
 }
 
-@media (min-width: unit(@screen-sm-min, px)) {
+@media (min-width: @screen-sm-min) {
     .navigation-in .exp ul {
         &::before {
             border-bottom: @border-color;
@@ -284,13 +284,13 @@ footer {
     background-color: @border-color;
 }
 
-@media(max-width: unit(@screen-sm-min, px)) {
+@media(max-width: @screen-sm-min) {
     .table-responsive {
         border-color: @border-color;
     }
 }
 
-@media (min-width: unit(@screen-lg-min, px)) {
+@media (min-width: @screen-lg-min) {
     .product:not(.highlight-product):hover .tools-wrap {
         background-color: fade(@color-primary,90%)
     }
@@ -327,7 +327,7 @@ footer {
     }
 }
 
-@media (min-width: unit(@screen-lg-min, px)) {
+@media (min-width: @screen-lg-min) {
     .products-block .product:not(.highlight-product):hover {
         .widget-parameter-wrapper a,
         .widget-parameter-more span {
@@ -351,7 +351,7 @@ footer {
 .languagesMenu__content {
     border-top: 1px solid @menu-helper-submenu-border-color;
 
-    @media (min-width: unit(@navigation-breakpoint, px)) {
+    @media (min-width: @navigation-breakpoint) {
         border: none;
     }
 }

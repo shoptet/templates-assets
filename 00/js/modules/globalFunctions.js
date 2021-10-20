@@ -670,8 +670,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 1000);
     }
 
-    $(window).scroll(function () {
-
+    $(window).scroll(shoptet.common.throttle(function() {
         if (headerVideoBackgroundExists) {
             handleWithVideo($headerVideo, $headerVideoWrapper);
         }
@@ -685,13 +684,13 @@ document.addEventListener('DOMContentLoaded', function () {
             detectScrolled('up');
         }
         lastScrollTop = st;
-    });
+    }, 100));
 
     unveilImages();
 
-    $('.content-window-in').scroll(function () {
+    $('.content-window-in').scroll(shoptet.common.throttle(function () {
         $('img').unveil();
-    });
+    }, 100));
 
     // Cookies agreement
     $('.CookiesOK').on('click', function (e) {

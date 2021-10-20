@@ -1,13 +1,13 @@
 @import "../../../00/css/uitweaks/shared-imports";
 
 .navigation-wrapper {
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         padding: 0 round(@grid-gutter-width / 4);
     }
 }
 
 .overall-wrapper {
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         padding-top: @header-height-xs + @line-height-computed;
         .has-carousel & {
             padding-top: @header-height-xs;
@@ -19,7 +19,7 @@
 }
 
 .breadcrumbs {
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         margin-top: @line-height-computed;
         padding-left: 0;
         padding-right: 0;
@@ -27,7 +27,7 @@
 }
 
 #header {
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         position: fixed;
         top: 0;
         left: 0;
@@ -68,7 +68,7 @@
 }
 
 .cart-count {
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         bottom: 2px;
     }
 }
@@ -77,7 +77,7 @@
     &.top-nav-right {
         justify-content: flex-end;
     }
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         .top-nav-login,
         .top-nav-currency {
             display: none;
@@ -95,13 +95,13 @@
 
 .subnav-right {
     padding-left: round(@grid-gutter-width / 8);
-    @media (min-width: unit(@navigation-breakpoint, px)) {
+    @media (min-width: @navigation-breakpoint) {
         padding-left: round(@grid-gutter-width / 2);
     }
 }
 
 #header {
-    @media (max-width: unit(@navigation-breakpoint-max, px)) {
+    @media (max-width: @navigation-breakpoint-max) {
         background-color: @header-bg-color;
     }
 }

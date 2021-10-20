@@ -14,7 +14,7 @@
 }
 
 #navigation {
-    @media (max-width: unit(@navigation-breakpoint - 1, px)) {
+    @media (max-width: @navigation-breakpoint - 1) {
         background-color: @navigation-bg-small;
     }
 }
@@ -97,7 +97,7 @@
 }
 
 .menu-helper {
-    @media (min-width: unit(@screen-sm-min, px)) {
+    @media (min-width: @screen-sm-min) {
         background-color: transparent;
         > span {
             &::before {
@@ -533,7 +533,7 @@ ol.top-products {
     background-color: @header-bg-color;
     border: 1px solid @border-color;
 
-    @media (min-width: unit(@navigation-breakpoint, px)) {
+    @media (min-width: @navigation-breakpoint) {
         border: 0;
     }
 }
