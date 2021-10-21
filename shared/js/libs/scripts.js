@@ -234,7 +234,8 @@
         ],
         cartShared: [
             'addToCart',
-            'removeFromCart'
+            'removeFromCart',
+            'updateQuantityInCart'
         ],
         cookie: [
             'get',

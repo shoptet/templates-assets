@@ -7,7 +7,7 @@
     function addToCart(payload, silent, configUrlType) {
         if (typeof payload !== 'object') {
             shoptet.scripts.signalCustomEvent('ShoptetCartAddCartItemFailed');
-            throw new Error ('Invalid function arguments');
+            throw new Error('Invalid function arguments');
         }
 
         if (typeof configUrlType === 'undefined') {
@@ -52,7 +52,7 @@
                 }
             );
         } else {
-            if (shoptet.abilities.about.generation !==3) {
+            if (shoptet.abilities.about.generation !== 3) {
                 ajaxAddToCart(
                     configUrl,
                     form
@@ -71,6 +71,10 @@
 
     function removeFromCart(payload, silent) {
         addToCart(payload, silent, shoptet.config.removeFromCartUrl);
+    }
+
+    function updateQuantityInCart(payload, silent) {
+        addToCart(payload, silent, shoptet.config.updateCartUrl);
     }
 
     shoptet.cartShared = shoptet.cartShared || {};
