@@ -940,14 +940,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var forceScroll = e.target.getAttribute('data-force-scroll');
         $(href + ' img').unveil();
 
-        $('[data-iframe-src]').each(function(){
-            var self = $(this);
-            self.attr('src', self.data('iframe-src'));
-            self.removeAttr('data-iframe-src');
-            self.on('load', function(){
-                self.prev('.loader').remove();
-            });
-        })
+        if (href === '#productVideos') {
+            shoptet.products.unveilProductVideoTab(href);
+        }
 
         if (external) {
             $('.shp-tabs > li').removeClass('active');
@@ -965,6 +960,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         shoptet.products.splitWidgetParameters();
     });
+
+    // Unveil videos in active tab
+    if ($('.tab-pane.active [data-iframe-src]').length) {
+        shoptet.products.unveilProductVideoTab();
+    }
 
     // Toggle categories menu
     var selectorMenuExternal = '#categories .expandable:not(.external) > a > span';

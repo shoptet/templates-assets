@@ -328,7 +328,8 @@
             'returnStyle',
             'sameHeightOfProductsLoop',
             'setHeightOfBigProduct',
-            'sameHeightOfProducts'
+            'sameHeightOfProducts',
+            'unveilProductVideoTab'
         ],
         menu: [
             'toggleMenu',

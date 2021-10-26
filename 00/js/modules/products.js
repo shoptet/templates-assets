@@ -621,6 +621,28 @@
         }
     }
 
+    function unveilProductVideoTab(href) {
+        var selector = '[data-iframe-src]';
+        if (href) {
+            selector = href + ' ' + selector;
+        }
+
+        $(selector).each(function() {
+            var self = $(this);
+            var src = self.data('iframe-src');
+
+            if (self.attr('src') === src) {
+                return;
+            }
+
+            self.attr('src', src);
+            self.on('load', function() {
+                self.prev('.loader').remove();
+                self.parent().removeClass('overlay spinner');
+            });
+        });
+    }
+
     shoptet.products = shoptet.products || {};
     shoptet.scripts.libs.products.forEach(function(fnName) {
         var fn = eval(fnName);
