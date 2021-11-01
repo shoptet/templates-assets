@@ -931,10 +931,14 @@ document.addEventListener('DOMContentLoaded', function () {
         // Auto open comment form if no comments exists
         var $discussionForm = $(href).find('.discussion-form');
         var $discussionContent = $(href).find('.vote-wrap');
-        if ($discussionForm.length) {
-            if (!$discussionContent.length) {
-                $('.add-comment .comment-icon').trigger('click');
-            }
+        if ($discussionForm.length && !$discussionContent.length) {
+            $('.add-comment .comment-icon').trigger('click');
+        }
+        // Auto open vote form if no votes exists
+        var $voteForm = $(href).find('.vote-form');
+        var $voteContent = $(href).find('.vote-wrap');
+        if ($voteForm.length && !$voteContent.length) {
+            $('.add-comment .rating-icon').trigger('click');
         }
         var external = e.target.getAttribute('data-external');
         var forceScroll = e.target.getAttribute('data-force-scroll');
@@ -1155,6 +1159,11 @@ document.addEventListener('DOMContentLoaded', function () {
         $(this).parents('.p-image-wrapper').find('.p-image').hide();
         $(this).parents('.p-image-wrapper').find('.image360').show();
     });
+
+    document.documentElement.style.setProperty(
+        '--scrollbar-width',
+        (window.innerWidth - document.documentElement.clientWidth) + "px"
+    );
 
 });
 

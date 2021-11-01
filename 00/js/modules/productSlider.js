@@ -871,7 +871,7 @@
                     draggable: true,
                     multipleDrag: true,
                     threshold: 20,
-                    boxShadowOffset: 10,
+                    boxShadowOffset: 0,
                     loop: false,
                     pagination: false,
                     navigation: false,
@@ -942,6 +942,7 @@
                     loop: true,
                     pagination: true,
                     navigation: true,
+                    boxShadowOffset: shoptet.abilities.config.slider_shadow_size,
                 });
             }
 
