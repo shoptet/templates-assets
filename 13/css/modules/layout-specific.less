@@ -2139,6 +2139,23 @@ body.user-action-visible {
         overflow: hidden;
     }
 }
+@media (min-width: 321px) and (max-width: @screen-xs-max) {
+    .columns-mobile-2 .products-block > div {
+        .flags.flags-extra {
+            right: 0;
+            display: block;
+            width: 100%;
+            .flag {
+                margin-left: 0;
+                margin-top: 0.5ex;
+                font-size: @font-size-smaller;
+            }
+        }
+        .flags .flag.flag-discount {
+            display: flex;
+        }
+    }
+}
 /* slider end */
 
 .country-flags {

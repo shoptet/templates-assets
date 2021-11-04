@@ -532,29 +532,33 @@
             */
             key: 'updateAfterDrag',
             value: function updateAfterDrag() {
-                var movement = (this.config.rtl ? -1 : 1) * (this.drag.endX - this.drag.startX);
-                var movementDistance = Math.abs(movement);
-                var howManySliderToSlide = this.config.multipleDrag
-                    ? Math.ceil(movementDistance / (this.selectorWidth / this.perPage))
-                    : 1;
+                if (this.innerElements.length > this.perPage) {
+                    var movement = (this.config.rtl ? -1 : 1) * (this.drag.endX - this.drag.startX);
+                    var movementDistance = Math.abs(movement);
+                    var howManySliderToSlide = this.config.multipleDrag
+                        ? Math.ceil(movementDistance / (this.selectorWidth / this.perPage))
+                        : 1;
 
-                var slideToNegativeClone =
-                    movement > 0 && this.currentSlide - howManySliderToSlide < 0;
-                var slideToPositiveClone =
-                    movement < 0 && this.currentSlide + howManySliderToSlide > this.innerElements.length - this.perPage;
+                    var slideToNegativeClone =
+                        movement > 0 && this.currentSlide - howManySliderToSlide < 0;
+                    var slideToPositiveClone =
+                        movement
+                        < 0 && this.currentSlide + howManySliderToSlide
+                        > this.innerElements.length - this.perPage;
 
-                if (movement > 0
-                    && movementDistance > this.config.threshold
-                    && this.innerElements.length > this.perPage
-                    ) {
-                    this.prev(howManySliderToSlide);
-                } else if (movement < 0
-                    && movementDistance > this.config.threshold
-                    && this.innerElements.length > this.perPage
-                    ) {
-                    this.next(howManySliderToSlide);
+                    if (movement > 0
+                        && movementDistance > this.config.threshold
+                        && this.innerElements.length > this.perPage
+                        ) {
+                        this.prev(howManySliderToSlide);
+                    } else if (movement < 0
+                        && movementDistance > this.config.threshold
+                        && this.innerElements.length > this.perPage
+                        ) {
+                        this.next(howManySliderToSlide);
+                    }
+                    this.slideToCurrent(slideToNegativeClone || slideToPositiveClone);
                 }
-                this.slideToCurrent(slideToNegativeClone || slideToPositiveClone);
             }
         }, {
             /**
@@ -692,13 +696,7 @@
                 if (this.innerElements.length > this.perPage) {
                     e.preventDefault();
                     if (this.pointerDown) {
-                        // if dragged element is a link
-                        // mark preventClick prop as a true
-                        // to detemine about browser redirection later on
-                        if (e.target.nodeName === 'A') {
-                            this.drag.preventClick = true;
-                        }
-
+                        this.drag.preventClick = true;
                         this.drag.endX = e.pageX;
                         this.selector.style.cursor = '-webkit-grabbing';
                         this.sliderFrame.style.webkitTransition = 'all 0ms ' + this.config.easing;
