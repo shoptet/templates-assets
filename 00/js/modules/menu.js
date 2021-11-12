@@ -268,6 +268,19 @@
             location.replace($(this).closest('ul').prev('a').attr('href'));
         });
 
+        // Overlay adaptation
+        var hoverTimer;
+        $html.on('mouseenter', '.js-navigation-container', function (e) {
+            hoverTimer = setTimeout(function() {
+                $('body').addClass('navigation-hovered');
+            }, 200);
+        });
+
+        $html.on('mouseleave', '.js-navigation-container', function (e) {
+            clearTimeout(hoverTimer);
+            $('body').removeClass('navigation-hovered');
+        });
+
     });
 
     shoptet.menu = shoptet.menu || {};

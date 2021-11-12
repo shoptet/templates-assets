@@ -19,8 +19,9 @@ shoptet.config.bodyClasses = 'user-action-visible' +
     ' register-window-visible' +
     ' menu-helper-visible' +
     ' submenu-visible' +
+    ' navigation-hovered' +
     ' top-navigation-menu-visible' +
-    ' categories-window-visible +'
+    ' categories-window-visible' +
     ' search-focused';
 
 /**
