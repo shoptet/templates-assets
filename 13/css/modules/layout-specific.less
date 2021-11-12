@@ -481,8 +481,12 @@ body {
             }
         }
     }
+    &.search-focused {
+        &::before {
+            opacity: 1;
+        }
+    }
 }
-
 
 #header .search-form {
     &::after {
@@ -1869,7 +1873,7 @@ ul.manufacturers {
 .filter-label {
     width: 100%;
     .filter-count {
-        border-radius: 100%; 
+        border-radius: 100%;
         padding: 0;
         line-height: @line-height-computed;
         width: @line-height-computed;
@@ -1882,7 +1886,7 @@ ul.manufacturers {
             display: block;
         }
     }
-} 
+}
 //top 10
 @top-10-counter-size: 20px;
 .top-products {
