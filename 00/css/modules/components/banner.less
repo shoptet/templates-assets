@@ -74,7 +74,12 @@
         a {
             img {
                 .transition(all @transition-duration @transition-timing);
-                transform: translateZ(0);
+                transform: translateZ(0); // safari hack
+                @supports (-moz-appearance:none) { // reverts safari hack on firefox
+                    & {
+                        transform: none;
+                    }
+                }
             }
             &:hover {
                 img {
