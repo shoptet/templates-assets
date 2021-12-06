@@ -174,6 +174,7 @@ function getShoptetProductsList() {
     function trackGoogleProductDetail(gaData, action) {
         if (typeof gtag === 'function') {
             gtag('event', 'view_item', {
+                "send_to": "analytics",
                 "items": [
                     {
                         "id": gaData.content_ids[0],
@@ -209,6 +210,7 @@ function getShoptetProductsList() {
 
         if (typeof gtag === 'function') {
             gtag('event', eventName, {
+                "send_to": "analytics",
                 "items": [
                     {
                         "id": gaData.content_ids[0],
@@ -306,6 +308,7 @@ function getShoptetProductsList() {
 
         if (promo && typeof gtag === 'function') {
             gtag('event', 'select_content', {
+                "send_to": "analytics",
                 "promotions": [
                     {
                         "id": promo.id,

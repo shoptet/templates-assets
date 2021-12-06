@@ -137,7 +137,7 @@ var validators = {
     billHouseNumber: function (elementValue) {
         var isValid = true;
         if ($(this).attr('id') == 'billHouseNumber') {
-            isValid = /^(\d+)(\/\d+)?(\s)?(\/)?[a-z]?$/i.test(elementValue.trim());
+            isValid = /^[1-9]\d*(\s*[-/]\s*([1-9]|[a-zA-Z])\d*)? ?[a-zA-Z]?$/gmi.test(elementValue.trim());
             shoptet.validator.message = shoptet.messages['validatorHouseNumber'];
         }
         return isValid;
