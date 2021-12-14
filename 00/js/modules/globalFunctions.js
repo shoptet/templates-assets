@@ -744,6 +744,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 $('.site-agreement').remove();
             },
             onComplete: function() {
+                $('#cboxOverlay').addClass('siteAgreement');
+                $('#colorbox').addClass('siteAgreement');
                 shoptet.modal.shoptetResize();
                 $('#colorbox img').on('load', function() {
                     shoptet.modal.shoptetResize();
