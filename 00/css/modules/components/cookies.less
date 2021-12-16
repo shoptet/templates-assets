@@ -1,4 +1,12 @@
-@color-cookies: #11111f;
+@cookies-color: #11111f;
+@cookies-bottom-width: 590px;
+
+body.cookies-visible {
+    overflow: hidden;
+    .siteCookies {
+        display: none;
+    }
+}
 
 .siteCookies {
     color: #ffffff;
@@ -14,7 +22,7 @@
         &--top {
             bottom: auto;
             top: 0;
-            background-color: @color-cookies;
+            background-color: @cookies-color;
 
             .siteCookies__form {
                 max-width: 800px;
@@ -41,23 +49,36 @@
             }
         }
 
-        &--bottom.siteCookies--scrolled {
-            background-color: @color-cookies;
+        &--bottom {
+            left: 50%;
+            width: @cookies-bottom-width;
+            margin-left: -(@cookies-bottom-width / 2);
+
+            &.siteCookies--scrolled {
+                left: 0;
+                width: 100%;
+                margin-left: 0;
+                background-color: @cookies-color;
+            }
         }
     }
 }
 
 .siteCookies__form {
-    background-color: @color-cookies;
+    background-color: @cookies-color;
     padding: 20px 15px 25px 15px;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
 
     @media (min-width: @screen-sm-min) {
         display: flex;
-        max-width: 590px;
+        max-width: @cookies-bottom-width;
         margin: 0 auto;
     }
+}
+
+.siteCookies__content {
+    flex: 1
 }
 
 .siteCookies__text {
@@ -123,7 +144,7 @@
     width: 100%;
     line-height: 55px;
     background-color: #ffffff;
-    color: @color-cookies;
+    color: @cookies-color;
     border-radius: 4px;
     border: 0;
     font-weight: bold;
@@ -135,7 +156,7 @@
     padding: 0;
 
     &:hover {
-        color: @color-cookies;
+        color: @cookies-color;
         background-color: #ffffff;
 
         @media (min-width: @screen-sm-min) {
@@ -159,6 +180,20 @@
 #cboxContent.cookiesDialog {
     border-radius: 8px;
     background-color: #f8fafb;
+
+    @media (max-width: @screen-xs-max) {
+        position: fixed;
+        left: 10px;
+        right: 10px;
+        top: 10px;
+        bottom: 10px;
+        height: auto !important;
+        margin: 0 auto;
+        #cboxLoadedContent {
+            height: 100% !important;
+            padding: 0;
+        }
+    }
 }
 
 .template-14 #cboxContent.cookiesDialog .colorbox-html-content {
@@ -307,7 +342,7 @@
     display: block;
     line-height: 48px;
     text-decoration: none;
-    color: @color-cookies;
+    color: @cookies-color;
     padding: 0 12px;
     font-size: 16px;
     font-weight: bold;
@@ -338,11 +373,11 @@
     width: 100%;
     padding: 0 15px;
     color: #ffffff;
-    background-color: @color-cookies;
+    background-color: @cookies-color;
 
     &:hover {
         color: #ffffff;
-        background-color: @color-cookies;
+        background-color: @cookies-color;
 
         @media (min-width: @screen-sm-min) {
             opacity: 0.9;

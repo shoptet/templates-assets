@@ -241,6 +241,13 @@
             'get',
             'create'
         ],
+        consent: [
+            'get',
+            'set',
+            'isSet',
+            'isAccepted',
+            'onAccept'
+        ],
         checkout: [
             'toggleAnotherShipping'
         ],
