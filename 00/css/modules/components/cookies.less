@@ -1,5 +1,5 @@
 @cookies-color: #11111f;
-@cookies-bottom-width: 590px;
+@cookies-bottom-width: 670px;
 
 body.cookies-visible {
     overflow: hidden;
@@ -140,6 +140,13 @@ body.cookies-visible {
     }
 }
 
+.siteCookies__buttonWrap {
+    @media (min-width: @screen-sm-min) {
+        display: flex;
+        align-items: flex-start;
+    }
+}
+
 .siteCookies__button {
     width: 100%;
     line-height: 55px;
@@ -161,6 +168,15 @@ body.cookies-visible {
 
         @media (min-width: @screen-sm-min) {
             opacity: 0.8;
+        }
+    }
+
+    &--first {
+        margin-bottom: 16px;
+
+        @media (min-width: @screen-sm-min) {
+            margin-bottom: 0;
+            margin-right: 16px;
         }
     }
 
