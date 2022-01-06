@@ -83,8 +83,19 @@ function getShoptetProductsList() {
 
         var priceId = false;
         var priceIdInput = form.querySelector('[name=priceId]');
+        var productCodeInput = form.querySelector('[name=productCode]');
         if (priceIdInput) {
             priceId = priceIdInput.value;
+        }
+        if (!priceId && productCodeInput) {
+            var tracking = JSON.parse(response.getFromPayload('trackingContainer'));
+            for (var product in tracking.products) {
+                tracking.products[product].content_ids.forEach(function(e){
+                    if (e === productCodeInput.value) {
+                        priceId = product;
+                    }
+                });
+            }
         }
 
         shoptet.tracking.updateDataLayerCartInfo(response);
