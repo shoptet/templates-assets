@@ -631,22 +631,21 @@
             $document.on('change', '#branchId', function() {
                 var id = $('option:selected', this).val();
                 if ($.trim(id) != '') {
-                    $('#ulozenka-form .loader').removeClass('no-display');
-                    $('#ulozenka-form .branch-saved').removeClass('branch-saved-visible').addClass('no-display');
+                    $('#ulozenka-form .branch-saved').removeClass('branch-saved-visible');
+                    $('#ulozenka-form .js-branch-loader').removeClass('no-display');
                     $.ajax({
                         url: '/action/Ulozenka/getBranchInformation/?id=' + id,
                         type: 'GET',
                         success: function(responseData) {
                             $('#ulozenka-wrapper .detail-information').html(responseData);
-                            $('#ulozenka-form .loader').addClass('no-display');
-                            $('#ulozenka-form .branch-saved').addClass('branch-saved-visible')
-                                .removeClass('no-display');
+                            $('#ulozenka-form .js-branch-loader').addClass('no-display');
+                            $('#ulozenka-form .branch-saved').addClass('branch-saved-visible');
                             $('#ulozenka-form').submit();
                             shoptet.modal.shoptetResize();
                         },
                         error: function() {
                             showMessage(shoptet.messages['ajaxError'], 'warning', '', false, false);
-                            $('#ulozenka-form .loader').addClass('no-display');
+                            $('#ulozenka-form .js-branch-loader').addClass('no-display');
                         }
                     });
                 }
@@ -761,21 +760,21 @@
             $document.on('change', '#dpdParcelShopBranchId', function() {
                 var id = $('option:selected', this).val();
                 if ($.trim(id) !== '') {
-                    $('#dpd-cz-parcel-shop-form .loader').removeClass('no-display');
                     $('#dpd-cz-parcel-shop-form .branch-saved').removeClass('branch-saved-visible');
+                    $('#dpd-cz-parcel-shop-form .js-branch-loader').removeClass('no-display');
                     $.ajax({
                         url: '/action/DpdParcelShop/getBranchInformation/?id=' + id,
                         type: 'GET',
                         success: function(responseData) {
                             $('#dpd-cz-parcel-shop-wrapper .detail-information').html(responseData);
-                            $('#dpd-cz-parcel-shop-form .loader').addClass('no-display');
+                            $('#dpd-cz-parcel-shop-form .js-branch-loader').addClass('no-display');
                             shoptet.modal.shoptetResize();
                             $('#dpd-cz-parcel-shop-form .branch-saved').addClass('branch-saved-visible');
                             $('#dpd-cz-parcel-shop-form').submit();
                         },
                         error: function() {
                             showMessage(shoptet.messages['ajaxError'], 'warning', '', false, false);
-                            $('#dpd-cz-parcel-shop-form .loader').addClass('no-display');
+                            $('#dpd-cz-parcel-shop-form .js-branch-loader').addClass('no-display');
                         }
                     });
                 }
@@ -839,7 +838,7 @@
 
             $document.on('submit', '#ppl-partner-cz-form', function(e) {
                 e.preventDefault();
-                var name = $('#ppl-partner-cz-wrapper .branch-name').text();
+                var name = $('#pplPartnerBranchId option:selected').text();
                 var newString = shoptet.messages['chosenBranch'] + ': ' + name + ' ';
                 var $newLink = $('<a href="#" class="chosen">' + shoptet.messages['change'] + '</a>');
                 $parentsElement.find('.ppl-choose').html(newString).append($newLink).show(0);
@@ -850,21 +849,21 @@
             $document.on('change', '#pplPartnerBranchId', function() {
                 var id = $('option:selected', this).val();
                 if ($.trim(id) != '') {
-                    $('#ppl-partner-cz-form .loader').removeClass('no-display');
                     $('#ppl-partner-cz-form .branch-saved').removeClass('branch-saved-visible');
+                    $('#ppl-partner-cz-form .js-branch-loader').removeClass('no-display');
                     $.ajax({
                         url: '/action/PplPartner/getBranchInformation/?id=' + id,
                         type: 'GET',
                         success: function(responseData) {
                             $('#ppl-partner-cz-wrapper .detail-information').html(responseData);
-                            $('#ppl-partner-cz-form .loader').addClass('no-display');
+                            $('#ppl-partner-cz-form .js-branch-loader').addClass('no-display');
                             shoptet.modal.shoptetResize();
                             $('#ppl-partner-cz-form .branch-saved').addClass('branch-saved-visible');
                             $('#ppl-partner-cz-form').submit();
                         },
                         error: function() {
                             showMessage(shoptet.messages['ajaxError'], 'warning', '', false, false);
-                            $('#ppl-partner-cz-form .loader').addClass('no-display');
+                            $('#ppl-partner-cz-form .js-branch-loader').addClass('no-display');
                         }
                     });
                 }
@@ -894,9 +893,9 @@
             className:shoptet.modal.config.ClassMd,
             href: href,
             onComplete: function() {
-                $(branchWrap + ' select:first').focus();
                 $(branchId + ' option[value="' + $(branchInput).val() + '"]').attr('selected', 'selected');
                 $(branchId).trigger('change');
+                shoptet.checkoutShared.initBranchSelect();
             }
         });
     }
@@ -913,6 +912,41 @@
             });
         }
         return false;
+    }
+
+    function initBranchSelect() {
+        var $select = $('.js-select-basic');
+
+        if (!$select.length) {
+            return;
+        }
+
+        $select.select2({
+            dropdownParent: $('#colorbox'),
+            language: {
+                noResults: function () {
+                    return $select.attr('data-no-results');
+                }
+            }
+        });
+
+        $select.on('select2:opening', function() {
+            if (!$select.find('option:selected').val()) {
+                shoptet.modal.resize({ height: '500px' });
+            }
+        });
+
+        $select.on('select2:close', function() {
+            if (!$select.find('option:selected').val()) {
+                shoptet.modal.shoptetResize();
+            }
+        });
+
+        shoptet.modal.shoptetResize();
+
+        if (!$select.find('option:selected').val()) {
+            $select.select2('open');
+        }
     }
 
     document.addEventListener('DOMContentLoaded', function() {

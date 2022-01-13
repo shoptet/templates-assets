@@ -2,28 +2,47 @@
     document.addEventListener('DOMContentLoaded', function() {
         var $html = $('html');
 
-        $html.on('click', '.quantity span', function() {
-            var $this = $(this);
-            var $el = $this.parents('.quantity').find('.amount');
-            var action = $this.attr('class');
-            var callback = false;
-            if ($el.parents('.cart-table').length
-                || $el.parents('.cart-widget-product-amount').length
-                || $(this).parents('.ao-product').length
-            ) {
-                function updateQuantityCallback() {
-                    shoptet.cart.updateQuantityInCart($el, shoptet.config.updateQuantityTimeout);
+        $html.on('click', 'a.shipping-options', function (e) {
+            e.preventDefault();
+            showSpinner();
+            var shippingUrl = $(this).attr('href');
+            var successCallback = function (response) {
+                var content = response.response.payload;
+                if (content !== false) {
+                    shoptet.modal.open({
+                        html: content,
+                        width: shoptet.modal.config.widthMd,
+                        maxWidth: shoptet.modal.config.maxWidth,
+                        onComplete: function() {
+                            initTooltips();
+                        }
+                    });
                 }
-                callback = updateQuantityCallback;
-            }
-            shoptet.helpers.updateQuantity(
-                $el[0],
-                $el.data('min'),
-                $el.data('max'),
-                $el.data('decimals'),
-                action,
-                callback
+            };
+            shoptet.ajax.makeAjaxRequest(
+                shippingUrl,
+                shoptet.ajax.requestTypes.get,
+                '',
+                {
+                    'success': successCallback
+                },
+                {
+                    'X-Shoptet-XHR': 'Shoptet_Coo7ai'
+                }
             );
+        });
+
+        $html.on('click', '.quantity span', function() {
+            changeQuantity($(this));
+        });
+
+        $html.on('keydown', '.quantity span', function(e) {
+            var keyNum = e.which || e.keyCode;
+            var keyName = e.key;
+            if(keyNum === 13 || keyName === 'Enter' || keyNum === 32 || keyName === ' '){
+                changeQuantity($(this));
+                return false;
+            }
         });
 
         if ($('#ogImage').length) {
@@ -641,6 +660,34 @@
                 self.parent().removeClass('overlay spinner');
             });
         });
+    }
+
+    /**
+     * Change quantity of products at cart, with arrows buttons
+     *
+     * This function does not accept any arguments.
+     */
+    function changeQuantity($this){
+        var $el = $this.parents('.quantity').find('.amount');
+        var action = $this.attr('class');
+        var callback = false;
+        if ($el.parents('.cart-table').length
+        || $el.parents('.cart-widget-product-amount').length
+        || $this.parents('.ao-product').length
+        ) {
+            function updateQuantityCallback() {
+                shoptet.cart.updateQuantityInCart($el, shoptet.config.updateQuantityTimeout);
+            }
+            callback = updateQuantityCallback;
+        }
+        shoptet.helpers.updateQuantity(
+            $el[0],
+            $el.data('min'),
+            $el.data('max'),
+            $el.data('decimals'),
+            action,
+            callback
+        );
     }
 
     shoptet.products = shoptet.products || {};

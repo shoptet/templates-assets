@@ -1,5 +1,5 @@
 @subcategories_chevron-size: 8px;
-@subcategories_mobile-line-height: round(@font-size-small + 2);
+@subcategories_mobile-line-height: round(@font-size-small + 4);
 
 .subcategories {
     display: flex;
@@ -33,9 +33,11 @@
             }
             &:hover {
                 .text {
-                    text-decoration: underline;
-                    text-underline-offset: 4px;
-                    text-decoration-thickness: 2px;
+                    @media (min-width: @screen-md-min) {
+                        text-decoration: underline;
+                        text-underline-offset: 4px;
+                        text-decoration-thickness: 2px;
+                    }
                 }
             }
         }

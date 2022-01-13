@@ -931,20 +931,31 @@ document.addEventListener('DOMContentLoaded', function () {
     // Tabs
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         var href = e.target.getAttribute('href');
+        var external = e.target.getAttribute('data-external');
+        var forceScroll = e.target.getAttribute('data-force-scroll');
+        var isTab = true;
+
+        // Check for accordion
+        var accordionLink = $('.shp-accordion-link[href="' + href + '"]');
+        var isAccordion = !!accordionLink.length;
+        if (isAccordion) {
+            isTab = false;
+        }
+
         // Auto open comment form if no comments exists
         var $discussionForm = $(href).find('.discussion-form');
         var $discussionContent = $(href).find('.vote-wrap');
         if ($discussionForm.length && !$discussionContent.length) {
             $('.add-comment .comment-icon').trigger('click');
         }
+
         // Auto open vote form if no votes exists
         var $voteForm = $(href).find('.vote-form');
         var $voteContent = $(href).find('.vote-wrap');
         if ($voteForm.length && !$voteContent.length) {
             $('.add-comment .rating-icon').trigger('click');
         }
-        var external = e.target.getAttribute('data-external');
-        var forceScroll = e.target.getAttribute('data-force-scroll');
+
         $(href + ' img').unveil();
 
         if (href === '#productVideos') {
@@ -952,16 +963,30 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (external) {
-            $('.shp-tabs > li').removeClass('active');
-            $('.shp-tabs > li > a[href="' + href + '"]').parents('li').addClass('active');
+            if (isTab) {
+                $('.shp-tabs > li').removeClass('active');
+                $('.shp-tabs > li > a[href="' + href + '"]').parents('li').addClass('active');
+            } else if (isAccordion) {
+                accordionLink.closest('.shp-accordion').addClass('active');
+                accordionLink.next('.shp-accordion-content').show();
+            }
         }
-        if ($(this).parents('.responsive-nav').length > 0) {
+
+        if (isTab && $(this).parents('.responsive-nav').length > 0) {
             var parentUl = $(this).parents('ul:first');
             $(this).parents('.responsive-nav').find('ul').not(parentUl).find('li').removeClass('active');
         }
-        if (!detectResolution(shoptet.config.breakpoints.sm) || forceScroll) {
-            scrollToEl($(href).parents('.shp-tabs-wrapper'));
+
+        if (forceScroll || !detectResolution(shoptet.config.breakpoints.sm)) {
+            var scrollEl;
+            if (isTab) {
+                scrollEl = $(href).closest('.shp-tabs-wrapper');
+            } else if (isAccordion) {
+                scrollEl = accordionLink;
+            }
+            scrollToEl(scrollEl);
         }
+
         if (typeof shoptet.products.sameHeightOfProducts === 'function') {
             shoptet.products.sameHeightOfProducts();
         }

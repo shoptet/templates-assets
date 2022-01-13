@@ -273,7 +273,8 @@
             'handleExternalShippingLinks',
             'setupDeliveryShipping',
             'chooseABranchModal',
-            'modalMagic'
+            'modalMagic',
+            'initBranchSelect'
         ],
         validator: [
             'initNewValidator',
@@ -336,7 +337,8 @@
             'sameHeightOfProductsLoop',
             'setHeightOfBigProduct',
             'sameHeightOfProducts',
-            'unveilProductVideoTab'
+            'unveilProductVideoTab',
+            'changeQuantity'
         ],
         menu: [
             'toggleMenu',

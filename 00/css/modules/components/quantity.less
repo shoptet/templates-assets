@@ -28,6 +28,14 @@
         &:focus {
             box-shadow: none;
         }
+        &[type='number'] {
+            -moz-appearance: textfield;
+        }
+        &[type='number']::-webkit-outer-spin-button, 
+        &[type='number']::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     }
     .increase,
     .decrease {
@@ -68,5 +76,15 @@
     .p-detail .add-to-cart & {
         border-style: @quantity-detail-border-style;
         border-width: @quantity-detail-border-width;
+    }
+    .tooltip-inner {
+        width: max-content;
+    }
+    .increase-tooltip, 
+    .decrease-tooltip {
+        position: absolute;
+        top: 0;
+        width: @quantity-trigger-width;
+        right: @quantity-decrease-right;
     }
 }

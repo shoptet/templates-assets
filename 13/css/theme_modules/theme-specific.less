@@ -105,6 +105,9 @@ table.detail-parameters {
                 &:after {
                     border-top-color: @border-color;
                 }
+                &.shipping-options-cell:after {
+                    display: none;
+                }
             }
             td {
                 a {
@@ -148,7 +151,6 @@ table.detail-parameters {
     .price-final {
         font-family: @template-headings-font;
     }
-    .standard-price-label,
     .price-additional {
         color: @text-muted-color;
     }

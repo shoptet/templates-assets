@@ -3,8 +3,8 @@
 @hover-box-shadow: 0 0 10px rgba(0,0,0,.16);
 @cart_icon-size: 30px;
 
-.in-krok-1,
-.in-krok-2 {
+.id--16,
+.id--17 {
     .header-bottom #navigation,
     .navigation-buttons a[data-target="navigation"],
     #formSearchForm,
@@ -52,7 +52,7 @@
         }
     }
     @media (min-width: @screen-xl-min) {
-        .in-kosik & {
+        .id--9 & {
             width: 82%;
             margin-left: auto;
             margin-right: auto;
@@ -434,7 +434,7 @@ tr.removeable {
 
 .cart-inner h4 {
     text-align: center;
-    .in-kosik & {
+    .id--9 & {
         display: none;
     }
 }
@@ -648,8 +648,8 @@ tr.removeable {
 }
 
 .next-step-forward {
-    .in-krok-1 &,
-    .in-kosik & {
+    .id--16 &,
+    .id--9 & {
         &::after {
             &:extend(.shp-icon);
             content: @icon-chevron-right-code;
@@ -848,7 +848,7 @@ label[for="phone"] {
         padding: 0;
         margin-top: @line-height-computed * 2;
     }
-    .in-krok-2 & {
+    .id--17 & {
         @media (max-width: @cart-table-breakpoint) {
             border-width: 1px 0 0;
             h4 {
@@ -1001,7 +1001,7 @@ label[for="phone"] {
 
 
 /* reca */
-.in-dekujeme {
+.id--15 {
     .cart-header {
         display: none;
     }

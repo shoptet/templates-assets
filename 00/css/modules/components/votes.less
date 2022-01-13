@@ -1,17 +1,24 @@
 .votes-wrap {
-    margin-top: @comments-spacing;
     .votes-wrap {
         padding-left: @grid-gutter-width;
         margin-top: round(@grid-gutter-width * 0.75);
     }
 }
 
+.tab-content {
+    .votes-wrap {
+        margin-top: @comments-spacing;
+    }
+    .vote-wrap {
+        border-top-style: solid;
+        border-top-width: 1px;
+        padding-top: @comments-spacing;
+    }
+}
+
 .vote-wrap {
     margin-bottom: @comments-spacing;
-    padding-top: @comments-spacing;
     font-size: @font-size-base;
-    border-top-style: solid;
-    border-top-width: 1px;
     &:last-child {
         margin-bottom: 0;
     }

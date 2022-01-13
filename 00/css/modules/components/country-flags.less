@@ -18,12 +18,14 @@
 }
 
 .country-flags-inner {
-    z-index: @z-base-1;
     position: relative;
     border-style: solid;
     border-width: @country-flags-inner-border-width;
     .country-flags.active & {
+        position: absolute;
+        top: -@country-flags-inner-border-width;
         left: -@country-flags-inner-padding-base;
+        z-index: @z-higher-base;
         width: @country-elements-width;
         height: @country-elements-height;
         padding: @country-flag-item-height @country-flags-inner-padding-base @country-flags-inner-padding-base;

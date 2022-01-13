@@ -171,17 +171,28 @@
         var max = typeof max !== 'undefined'
             ? toFloat(max) : toFloat(shoptet.config.defaultProductMaxAmount);
 
-        if (action === 'increase') {
+        if (action.indexOf('increase') !== -1) {
             value += (min > 1) ? 1 : min;
         } else {
             value -= (min > 1) ? 1 : min;
         }
 
-        if (value < min || value > max) {
+        value = shoptet.helpers.toFloat(value.toFixed(decimals));
+        if (value < min) {
+            $(el).siblings('.js-decrease-tooltip').tooltip('show');
+            $(el).siblings('.js-remove-pcs-tooltip').tooltip().show();
             return false;
+        }else if(value > max) {
+            $(el).siblings('.js-increase-tooltip').tooltip('show');
+            $(el).siblings('.js-add-pcs-tooltip').tooltip().show();
+            return false;
+        }else {
+            $('.js-increase-tooltip, .js-decrease-tooltip').tooltip('hide');
+            $('.js-add-pcs-tooltip').tooltip().hide();
+            $('.js-remove-pcs-tooltip').tooltip().hide();
         }
 
-        el.value = shoptet.helpers.toLocaleFloat(value, decimals, true);
+        el.value = value;
 
         if (typeof callback === 'function') {
             callback();

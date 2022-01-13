@@ -43,7 +43,7 @@
             }
         }
     }
-    &.in-cart {
+    &.id--9 { // cart
         display: none;
     }
     @media (min-width: @screen-xs-min) {
@@ -64,7 +64,7 @@
             }
         }
     }
-    @media (min-width: @screen-sm-min) and (max-width: @navigation-breakpoint - 1) {
+    @media (min-width: @screen-sm-min) and (max-width: (@navigation-breakpoint - 1)) {
         top: @navigation_navigation-buttons-top-1;
         .navigation-window-visible & {
             top: @navigation_navigation-buttons-top-1;

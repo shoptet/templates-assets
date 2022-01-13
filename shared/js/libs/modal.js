@@ -55,7 +55,7 @@
             if (shoptet.abilities.about.generation === 3) {
                 responsiveWidth = $('.content-wrapper').width()
             } else {
-                responsiveWidth = $('#content').width() - 30
+                responsiveWidth = $('#content').width();
             }
             width = responsiveWidth > width ? width : responsiveWidth;
             if ($colorbox.hasClass('productDetail')) {
