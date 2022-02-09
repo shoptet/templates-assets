@@ -307,6 +307,10 @@
         var billingPrice = document.querySelector('[data-billing-price-id="' + billingActive + '"]');
         var cartPriceWithVat = document.querySelector('[data-price-total-wv]');
         var cartPriceWithoutVat = document.querySelector('[data-price-total-wov]');
+        if (cartPriceWithoutVat === null) {
+            // Workaround for non VAT payers
+            cartPriceWithoutVat = document.createElement('span');
+        }
         var shippingPriceNotSpecified = shippingPrice.classList.contains('shipping-price-not-specified');
         if (shippingPriceNotSpecified) {
             cartPriceWithVat.innerHTML = shoptet.messages.specifyShippingMethod;
