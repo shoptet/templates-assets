@@ -216,7 +216,8 @@
         'ShoptetValidationError',
         'ShoptetBaseShippingInfoObtained',
         'ShoptetShippingMethodUpdated',
-        'ShoptetBillingMethodUpdated'
+        'ShoptetBillingMethodUpdated',
+        'ShoptetSurchargesPriceUpdated'
     ];
     // TODO: updateCartButton - on cart page unnecessary
     shoptet.scripts.libs = {
@@ -246,7 +247,9 @@
             'set',
             'isSet',
             'isAccepted',
-            'onAccept'
+            'onAccept',
+            'openCookiesSettingModal',
+            'cookiesConsentSubmit'
         ],
         checkout: [
             'toggleAnotherShipping'
@@ -317,7 +320,9 @@
             'formatAsCurrency',
             'resolveMinimumAmount',
             'updateQuantity',
-            'isTouchDevice'
+            'isTouchDevice',
+            'getFunctionFromString',
+            'loadDataAttributes'
         ],
         products: [
             'splitWidgetParameters',
@@ -356,7 +361,9 @@
             'enableAddingToCart',
             'hasToDisableCartButton',
             'handleSubmit',
-            'handleBrowserValueRestoration'
+            'handleBrowserValueRestoration',
+            'updateQuantityTooltips',
+            'hideQuantityTooltips'
         ],
         variantsSimple: [
             'handler',
@@ -452,6 +459,13 @@
         ],
         productSlider: [
             'runProductSlider'
+        ],
+        csrf: [
+            'refreshCSRFToken',
+            'injectCSRFToken',
+            'validateCSRFToken',
+            'appendCSRFInput',
+            'submitLink'
         ]
     };
 

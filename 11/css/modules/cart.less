@@ -132,6 +132,10 @@ ol.cart-header {
                     left: 0;
                     border-style: none;
                 }
+                .increase-tooltip, 
+                .decrease-tooltip {
+                    right: 40%;
+                }
             }
         }
     }
@@ -849,6 +853,9 @@ ol.cart-header {
 .order-summary-heading {
     text-align: center;
     text-transform: uppercase;
+    ~ p {
+        text-align: center;
+    }
 }
 
 .recapitulation-wrapper {

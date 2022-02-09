@@ -73,6 +73,54 @@
         });
     }
 
+    function updateQuantityTooltips($form, minimumAmount, maximumAmount) {
+
+        var templateGeneration = shoptet.abilities.about.generation;
+
+        if (templateGeneration === 3) {
+            updateQuantityTooltip_3gen($form.find('.js-decrease-tooltip'), minimumAmount);
+            updateQuantityTooltip_3gen($form.find('.js-increase-tooltip'), maximumAmount);
+        } else if(templateGeneration === 2 || templateGeneration === 1) {
+            updateQuantityTooltip_2gen($form.find('.js-remove-pcs-tooltip'), minimumAmount);
+            updateQuantityTooltip_2gen($form.find('.js-add-pcs-tooltip'), maximumAmount);
+        }else {
+            return false;
+        }
+
+        function updateQuantityTooltip_2gen(el, val) {
+            if (!el) {
+                return false;
+            }
+            if(!el.tooltip().getTip()) {
+                el.tooltip().show().hide();
+            }
+            var currentToolTipTitle = el.tooltip().getTip().find('.tooltip-content').text();
+            var newToolTipTitle = replaceNumberAtTooltip(currentToolTipTitle, val);
+            el.tooltip().getTip().find('.tooltip-content').text(newToolTipTitle);
+        }
+        
+        function updateQuantityTooltip_3gen(el, val) {
+            if (!el) {
+                return false;
+            }
+            var newToolTipTitle = replaceNumberAtTooltip(el.data('original-title'), val);
+            el.attr('data-original-title', newToolTipTitle);
+            fixTooltipAfterChange(el);
+        }
+
+        function replaceNumberAtTooltip(txt, val){
+            return txt.replace(/\b\d+([\.,]\d+)?/g, val);
+        }
+
+    }
+
+    function hideQuantityTooltips(){
+        $('.js-increase-tooltip, .js-decrease-tooltip').tooltip('hide');
+        $('.js-add-pcs-tooltip, .js-remove-pcs-tooltip').each(function(){
+            $(this).tooltip().hide();
+        });
+    }
+
     shoptet.variantsCommon = shoptet.variantsCommon || {};
     shoptet.scripts.libs.variantsCommon.forEach(function(fnName) {
         var fn = eval(fnName);

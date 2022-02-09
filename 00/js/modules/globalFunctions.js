@@ -1193,6 +1193,16 @@ document.addEventListener('DOMContentLoaded', function () {
         (window.innerWidth - document.documentElement.clientWidth) + "px"
     );
 
+    $('html').on('click', '.js-cookies-settings', function(e){
+        e.preventDefault();
+        shoptet.consent.openCookiesSettingModal();
+    })
+
+    $('html').on('click', '.js-cookiesConsentSubmit', function (e) {
+        e.preventDefault();
+        shoptet.consent.cookiesConsentSubmit(this.value);
+    });
+
 });
 
 // Necessary for split/simple variants - unify with 2nd gen

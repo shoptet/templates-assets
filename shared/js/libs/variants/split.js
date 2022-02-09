@@ -98,18 +98,27 @@
                 shoptet.variantsCommon.reasonToDisable = shoptet.messages['unavailableVariant'];
                 showMessage(shoptet.variantsCommon.reasonToDisable, 'error', '', false, false);
             }
+            
             $formAmount.val(
-                shoptet.helpers.toLocaleFloat(data.minimumAmount, data.decimalCount, true)
-            );
-            $formAmount.data({
+                data.minimumAmount
+            ).data({
                 'min': data.minimumAmount,
                 'max': data.maximumAmount,
                 'decimals': data.decimalCount
-            });
+            }).attr({
+                'min': data.minimumAmount,
+                'max': data.maximumAmount,        
+            })
+            
             var $cofidis = $('#cofidis');
             if ($cofidis.length) {
                 shoptet.cofidis.calculator($('.price-final-holder:visible'), $cofidis);
             }
+            shoptet.variantsCommon.updateQuantityTooltips(
+                $form, 
+                data.minimumAmount,
+                data.maximumAmount
+            );
             shoptet.scripts.signalCustomEvent('ShoptetVariantAvailable');
         } else {
             // Non existing variant

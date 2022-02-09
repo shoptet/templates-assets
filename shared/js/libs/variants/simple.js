@@ -64,21 +64,23 @@
             shoptet.variantsCommon.enableAddingToCart();
         }
 
+        var $form = $('form#product-detail-form');
+
         if ($variant.attr('data-codeid')) {
-            $('form#product-detail-form').find('input[name=priceId]').val($variant.attr('data-codeid'));
+            $form.find('input[name=priceId]').val($variant.attr('data-codeid'));
         }
 
         var trackGA = $variant.attr('data-preselected') ? false : true;
 
         shoptet.tracking.trackProducts(
-            $('#product-detail-form')[0],
+            $form[0],
             $variant.data('codeid'),
             'ViewContent',
             [shoptet.tracking.trackFacebookPixel]
         );
         if (trackGA) {
             shoptet.tracking.trackProducts(
-                $('#product-detail-form')[0],
+                $form[0],
                 $variant.data('codeid'),
                 'detail',
                 [shoptet.tracking.trackGoogleProductDetail]
@@ -105,13 +107,12 @@
                 $('.p-detail-inner .choose-variant.' + variantIndex + ', .p-code .choose-variant.' + variantIndex)
                     .removeClass(shoptet.variantsCommon.noDisplayClasses);
 
-                $('.add-to-cart .amount').val(shoptet.helpers.toLocaleFloat(
-                    $variant.data('min'),
-                    $variant.data('decimals'),
-                    true
-                    )
-                );
-                $('.add-to-cart .amount').data({
+                $('.add-to-cart .amount').val(
+                    $variant.data('min')
+                ).attr({
+                    'min': $variant.data('min'),
+                    'max': $variant.data('max'),        
+                }).data({
                     'min': $variant.data('min'),
                     'max': $variant.data('max'),
                     'decimals': $variant.data('decimals')
@@ -121,6 +122,11 @@
                 if ($cofidis.length) {
                     shoptet.cofidis.calculator($('.price-final-holder:visible'), $cofidis);
                 }
+                shoptet.variantsCommon.updateQuantityTooltips(
+                    $form, 
+                    $variant.data('min'),
+                    $variant.data('max')
+                );
             }
         }
         if (typeof shoptet.products.checkDiscountFlag === 'function') {

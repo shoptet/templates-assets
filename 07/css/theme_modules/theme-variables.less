@@ -87,6 +87,7 @@
 @categories-variant-border: darken(@box-variant-bg, 4%);
 @color-available: @green;
 @color-for-free: @green;
+@color-header-background: @colorHeaderBackground;
 @color-primary: @colorPrimary;
 @color-primary-hover: @colorPrimaryHover;
 @color-secondary: @colorSecondary;
@@ -94,6 +95,7 @@
 @color-tertiary: @colorTertiary;
 @color-tertiary-hover: @colorTertiaryHover;
 @color-tertiary-hover-hover: darken(@color-tertiary-hover, 3%);
+@colorHeaderBackground: #fff;
 @colorPrimary: #239ceb;
 @colorPrimaryHover: #1997e5;
 @colorSecondary: #468c98;
@@ -130,11 +132,11 @@
 @gray-light: #e6e6e6;
 @gray-lighter: #f7f7f7;
 @green: #009c00;
-@header-bg-color: @content-box-bg;
+@header-bg-color: @color-header-background;
 @header-bg-image: none;
 @header-bg-image-breakpoint: @screen-md-min;
 @header-bg-image-sm: none;
-@header-color: @link-color;
+@header-color: contrast(@header-bg-color, @text-color, #fff);
 @headerBackgroundUrl: none;
 @headings-color: @text-color;
 @input-bg: #fff;
@@ -158,9 +160,9 @@
 @menu-helper-span-color: @navigation-color;
 @menu-helper-submenu-bg: @navigation-bg;
 @menu-helper-submenu-border-color: @border-color;
-@menu-helper-submenu-color: @text-color;
+@menu-helper-submenu-color: @navigation-color;
 @menu-helper-submenu-color-hover: @navigation-color-hover;
-@navigation-bg: #fff;
+@navigation-bg: @header-bg-color;
 @navigation-bg-small: #fff;
 @navigation-breakpoint: @screen-md-min;
 @navigation-breakpoint-max: (@navigation-breakpoint - 1);
@@ -172,7 +174,7 @@
 @navigation-button-login-bg-hover: @navigation-bg;
 @navigation-button-login-color: @navigation-color;
 @navigation-button-login-color-hover: @navigation-color;
-@navigation-button-navigation-bg: @navigation-bg-small;
+@navigation-button-navigation-bg: @navigation-bg;
 @navigation-button-navigation-bg-hover: @navigation-bg;
 @navigation-button-navigation-color: @navigation-color;
 @navigation-button-navigation-color-hover: @navigation-color;
@@ -180,7 +182,7 @@
 @navigation-button-search-bg-hover: @navigation-bg;
 @navigation-button-search-color: @navigation-color;
 @navigation-button-search-color-hover: @link-hover-color;
-@navigation-color: @text-color;
+@navigation-color: @header-color;
 @navigation-color-hover: @link-color;
 @navigation-color-small: #000;
 @navigation-color-small-hover: @link-color;
@@ -190,9 +192,9 @@
 @navigation-item-border-color-small: transparent;
 @navigation-item-color: @navigation-color;
 @navigation-item-color-hover: @navigation-color-hover;
-@navigation-menu-level-2-bg: @navigation-bg-small;
+@navigation-menu-level-2-bg: @navigation-bg;
 @navigation-menu-level-2-border-color: @border-color;
-@navigation-menu-level-2-color: @navigation-color-small;
+@navigation-menu-level-2-color: @navigation-color;
 @navigation-menu-level-2-color-hover: @navigation-color-small-hover;
 @news-item-time-color: #999;
 @news-item-widget-border-color: @border-color;

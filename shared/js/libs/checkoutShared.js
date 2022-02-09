@@ -281,8 +281,8 @@
                 undefined, undefined, shoptet.config.decPlacesSystemDefault
             );
         }
-        priceHolder.setAttribute('data-shipping-price', e.detail.price.withVat);
-        priceHolder.setAttribute('data-shipping-price-wv', e.detail.price.withoutVat);
+        priceHolder.setAttribute('data-shipping-price-wv', e.detail.price.withVat);
+        priceHolder.setAttribute('data-shipping-price-wov', e.detail.price.withoutVat);
         shoptet.checkoutShared.afterPriceChange();
     }
 
@@ -305,12 +305,8 @@
     function updatePriceSummary(shippingActive, billingActive) {
         var shippingPrice = document.querySelector('[data-shipping-price-id="' + shippingActive + '"]');
         var billingPrice = document.querySelector('[data-billing-price-id="' + billingActive + '"]');
-        var cartPriceWithVat = document.querySelector('[data-price-total]');
-        var cartPriceWithoutVat = document.querySelector('[data-price-total-wv]');
-        if (cartPriceWithoutVat === null) {
-            // Workaround for non VAT payers
-            cartPriceWithoutVat = document.createElement('span');
-        }
+        var cartPriceWithVat = document.querySelector('[data-price-total-wv]');
+        var cartPriceWithoutVat = document.querySelector('[data-price-total-wov]');
         var shippingPriceNotSpecified = shippingPrice.classList.contains('shipping-price-not-specified');
         if (shippingPriceNotSpecified) {
             cartPriceWithVat.innerHTML = shoptet.messages.specifyShippingMethod;
@@ -318,22 +314,28 @@
         } else {
             var prices = {
                 shipping: {
-                    withVat: shoptet.checkoutShared.getPriceFromElement(shippingPrice, 'data-shipping-price'),
-                    withoutVat: shoptet.checkoutShared.getPriceFromElement(shippingPrice, 'data-shipping-price-wv')
+                    withVat: shoptet.checkoutShared.getPriceFromElement(shippingPrice, 'data-shipping-price-wv'),
+                    withoutVat: shoptet.checkoutShared.getPriceFromElement(shippingPrice, 'data-shipping-price-wov'),
+                    vat: shoptet.checkoutShared.getPriceFromElement(shippingPrice, 'data-shipping-price-vat')
                 },
                 billing: {
-                    withVat: shoptet.checkoutShared.getPriceFromElement(billingPrice, 'data-billing-price'),
-                    withoutVat: shoptet.checkoutShared.getPriceFromElement(billingPrice, 'data-billing-price-wv')
+                    withVat: shoptet.checkoutShared.getPriceFromElement(billingPrice, 'data-billing-price-wv'),
+                    withoutVat: shoptet.checkoutShared.getPriceFromElement(billingPrice, 'data-billing-price-wov'),
+                    vat: shoptet.checkoutShared.getPriceFromElement(billingPrice, 'data-billing-price-vat')
                 },
                 cart: {
-                    withVat: shoptet.checkoutShared.getPriceFromElement(cartPriceWithVat, 'data-price-total'),
-                    withoutVat: shoptet.checkoutShared.getPriceFromElement(cartPriceWithoutVat, 'data-price-total-wv')
+                    withVat: shoptet.checkoutShared.getPriceFromElement(cartPriceWithVat, 'data-price-total-wv'),
+                    withoutVat: shoptet.checkoutShared.getPriceFromElement(cartPriceWithoutVat, 'data-price-total-wov'),
+                    vat: shoptet.checkoutShared.getPriceFromElement(cartPriceWithVat, 'data-price-total-vat')
                 }
             };
             var calculatedPriceWithVat = prices.shipping.withVat + prices.billing.withVat + prices.cart.withVat;
             calculatedPriceWithVat = calculatedPriceWithVat.ShoptetRoundForDocument();
             var calculatedPriceWithoutVat =
                 prices.shipping.withoutVat + prices.billing.withoutVat + prices.cart.withoutVat;
+            // It would took complete refactoring to synchronize behavior of price rounding within tpl and js,
+            // that's why the line below is commented
+            //calculatedPriceWithoutVat = calculatedPriceWithoutVat.ShoptetRoundForDocument();
             cartPriceWithVat.innerHTML = calculatedPriceWithVat.ShoptetFormatAsCurrency(
                 undefined, undefined, shoptet.config.decPlacesSystemDefault
             );
@@ -412,14 +414,14 @@
         }
 
         shippingPrice.setAttribute(
-            'data-shipping-price',
+            'data-shipping-price-wv',
             e.detail.price.withVat
         );
         priceInputWithVat.setAttribute('value', e.detail.price.withVat);
         shoptet.checkoutShared.externalShippingDetails[e.detail.code].price.withVat = e.detail.price.withVat;
 
         shippingPrice.setAttribute(
-            'data-shipping-price-wv',
+            'data-shipping-price-wov',
             e.detail.price.withoutVat
         );
         priceInputWithoutVat.setAttribute('value', e.detail.price.withoutVat);
@@ -564,15 +566,28 @@
                 url: hupostPostaPontUrl
             });
         }
+        if (typeof skPostUrl !== 'undefined') {
+            postDeliveryPoints.push({
+                prefix: 'sk-post',
+                url: skPostUrl
+            });
+        }
 
         for (var i = 0; i < postDeliveryPoints.length; i++) {
             (function(i) {
                 $document.on('click', '.' + postDeliveryPoints[i].prefix + '-choose-post a', function(e) {
                     e.preventDefault();
                     $parentsElement = $(this).closest('.radio-wrapper');
+                    var url = postDeliveryPoints[i].url;
+
+                    if (postDeliveryPoints[i].prefix === 'sk-post') {
+                        url += '?shipmentId=' + $parentsElement.find('input').val();
+                    }
+
+                    window.clickedElement = $(this);
                     shoptet.modal.open({
                         maxWidth: shoptet.modal.config.maxWidth,
-                        href: postDeliveryPoints[i].url,
+                        href: url,
                         width: shoptet.modal.config.widthMd,
                         className: shoptet.modal.config.classMd,
                         onComplete: function() {
@@ -591,7 +606,9 @@
                         var $newLink = $('<a href="#" class="chosen">' + shoptet.messages['change'] + '</a>');
                         $parentsElement.find('.' + postDeliveryPoints[i].prefix + '-choose-post')
                             .html(newString).append($newLink).show(0);
-                        if (postDeliveryPoints[i].prefix === 'posta-pont') {
+                        if (postDeliveryPoints[i].prefix === 'posta-pont'
+                            || postDeliveryPoints[i].prefix === 'sk-post'
+                            ) {
                             var branchId = $.trim($tr.find('.' + postDeliveryPoints[i].prefix + '-branch-id').html());
                             $('#' + postDeliveryPoints[i].prefix + '-hidden').val(branchId);
                         } else {
@@ -660,7 +677,11 @@
                     var zasilkovnaBranchId = document.querySelectorAll('.zasilkovna-branch-id');
                     var packetaSelectorBranchName = document.querySelectorAll('.zasilkovna-name');
                     for (var i = 0; i < zasilkovnaBranchId.length; i++) {
-                        zasilkovnaBranchId[i].value = extendedPoint.id;
+                        if (extendedPoint.carrierId !== undefined){
+                            zasilkovnaBranchId[i].value = extendedPoint.carrierId + '-' + extendedPoint.id;
+                        } else {
+                            zasilkovnaBranchId[i].value = extendedPoint.id;
+                        }
                     }
                     for (var i = 0; i < packetaSelectorBranchName.length; i++) {
                         packetaSelectorBranchName[i].innerHTML = extendedPoint.name;

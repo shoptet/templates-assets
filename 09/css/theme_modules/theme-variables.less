@@ -87,6 +87,7 @@
 @categories-variant-border: @border-color;
 @color-available: @green;
 @color-for-free: @green;
+@color-header-background: @colorHeaderBackground;
 @color-primary: @colorPrimary;
 @color-primary-hover: @colorPrimaryHover;
 @color-secondary: @colorSecondary;
@@ -94,6 +95,7 @@
 @color-tertiary: @colorTertiary;
 @color-tertiary-hover: @colorTertiaryHover;
 @color-tertiary-hover-hover: darken(@color-tertiary-hover, 3%);
+@colorHeaderBackground: #fff;
 @colorPrimary: #239ceb;
 @colorPrimaryHover: #1997e5;
 @colorSecondary: #468c98;
@@ -174,8 +176,8 @@
 @navigation-button-login-color-hover: @navigation-color;
 @navigation-button-navigation-bg: transparent;
 @navigation-button-navigation-bg-hover: transparent;
-@navigation-button-navigation-color: @btn-plain-color;
-@navigation-button-navigation-color-hover: @btn-plain-color;
+@navigation-button-navigation-color: contrast(@color-header-background, @btn-plain-color, #fff);
+@navigation-button-navigation-color-hover: @navigation-button-navigation-color;
 @navigation-button-search-bg: @navigation-bg;
 @navigation-button-search-bg-hover: @navigation-bg;
 @navigation-button-search-color: @navigation-color;

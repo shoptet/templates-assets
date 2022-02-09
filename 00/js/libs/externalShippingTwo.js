@@ -20,7 +20,8 @@
         shoptet.checkoutShared.externalShippingDetails[myShippingName].label.selected = 'Label of selected shipping';
         shoptet.checkoutShared.externalShippingDetails[myShippingName].price = {
             withVat: 200,
-            withoutVat: 165.28
+            withoutVat: 165.28,
+            vat: 34.72
         };
         shoptet.modal.close();
     });

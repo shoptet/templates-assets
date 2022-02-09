@@ -3,7 +3,15 @@
   function initSurcharges() {
     var surchargeSelector = '.surcharge-list .surcharge-parameter';
     var surcharges = document.querySelectorAll(surchargeSelector);
-    var savePriceRatio = getShoptetDataLayer('customer').priceRatio;
+    var dataLayer, savePriceRatio;
+    try {
+        dataLayer = getShoptetDataLayer();
+    } catch (error) {
+        dataLayer = false;
+    }
+    if (dataLayer) {
+        savePriceRatio = dataLayer.customer.priceRatio;
+    }
     if (savePriceRatio) {
       shoptet.surcharges.customerPriceRatio = savePriceRatio;
     }
@@ -16,6 +24,8 @@
 
   function getSurchargePrices(wrapper) {
     var activeOptions = wrapper.querySelectorAll('select.surcharge-parameter option:checked');
+    shoptet.surcharges.totalSurchargeFinalPrice = 0;
+    shoptet.surcharges.totalSurchargeAdditionalPrice = 0;
     activeOptions.forEach(function(activeOption) {
         var valueId = activeOption.value;
         if (valueId && !shoptet.surcharges.values.hasOwnProperty(valueId)) {
@@ -63,12 +73,10 @@
     }
   }
 
-  function updatePrices() {
+  function updatePrices(e) {
     getSurchargePrices(document);
     writePrices(document);
-
-    shoptet.surcharges.totalSurchargeFinalPrice = 0;
-    shoptet.surcharges.totalSurchargeAdditionalPrice = 0;
+    shoptet.scripts.signalCustomEvent('ShoptetSurchargesPriceUpdated', e.target);
   }
 
   shoptet.surcharges = shoptet.surcharges || {};

@@ -4,13 +4,16 @@ input[type="checkbox"]+label::after {
 }
 
 /* header start */
+.header-bottom {
+    background-color: @content-box-bg;
+}
+
 .top-navigation-bar {
     background-color: @gray-lighter;
     border-color: @gray-lighter;
     a {
         color: @text-color;
     }
-
 }
 
 .top-navigation-bar-menu-helper,
@@ -29,6 +32,7 @@ input[type="checkbox"]+label::after {
 }
 
 .header-bottom {
+    color: @text-color;
     border-color: @border-color;
 }
 
@@ -38,7 +42,7 @@ input[type="checkbox"]+label::after {
 
 #navigation {
     border-top-color: @border-color;
-    background-color: @header-bg-color;
+    background-color: @content-box-bg;
     .external-fonts-loaded & {
         font-family: @template-headings-font, sans-serif;
         .menu-level-3 {
@@ -554,23 +558,47 @@ ol.cart-header {
 .search-input {
     border-color: transparent;
     &::placeholder {
-        color: @text-color;
+        color: @header-color;
     }
     #header & {
+        color: @header-color;
+        background-color: @color-header-background;
         &:focus,
         .search-focused &,
         .search-window-visible & {
             border-color: transparent;
+            color: @text-color;
+            background-color: @content-box-bg;
+            &::placeholder {
+                color: @text-color;
+            }
         }
-        @media (min-width: @navigation-breakpoint) {
-            border-bottom-color: transparent;
-        }
-
     }
 }
 
-#header .search-form::after {
-    background-color: @input-bg;
+.search-input-icon {
+    .search-focused &,
+    .search-window-visible & {
+        color: @text-color;
+    }
+}
+
+.search-form {
+    #header &:hover {
+        @media (min-width: @navigation-breakpoint) {
+            .search-input {
+                border-color: transparent;
+                color: @text-color;
+                background-color: @content-box-bg;
+                &::placeholder {
+                    color: @text-color;
+                }
+            }
+            .search-input-icon {
+                color: @text-color;
+            }
+        }
+    }
 }
 
 .search-focused::before,

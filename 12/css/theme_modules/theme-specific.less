@@ -1,3 +1,9 @@
+#header {
+    @media (max-width: @navigation-breakpoint-max) {
+        box-shadow: 0 1px 2px rgba(0,0,0,.16);
+    }
+}
+
 .dropdown-menu {
     background-color: @navigation-bg;
     > li > a {
@@ -7,6 +13,37 @@
         &:focus {
             color: @navigation-color;
             background-color: @navigation-bg;
+        }
+    }
+}
+
+.navigation-buttons {
+    .dropdown {
+        > button {
+            border-color: contrast(@color-header-background, rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.3));
+            background: transparent;
+            color: @header-color;
+        }
+    }
+}
+
+.navigation-buttons when (@header-color = @text-color) {
+    a[data-target="cart"] {
+        &,
+        &:hover {
+            i {
+                background-color: @color-primary;
+            }
+        }
+    }
+}
+
+.navigation-in when (@header-color = @text-color) {
+    @media (min-width: @navigation-breakpoint) {
+        ul {
+            &.menu-level-2 {
+                border-color: @border-color;
+            }
         }
     }
 }
@@ -171,7 +208,7 @@ ol.top-products {
     color: @header-color;
 
     @media (min-width: @navigation-breakpoint) {
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        border: 1px solid contrast(@color-header-background, rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.3));
     }
 }
 

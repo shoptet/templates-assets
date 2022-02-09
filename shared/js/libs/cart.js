@@ -477,11 +477,11 @@
                     shoptet.helpers.toFloat($amount.data('min')) || shoptet.helpers.resolveMinimumAmount(decimals);
                 var value = $amount.length ? shoptet.helpers.toFloat($amount.val()) : 1;
                 if (value > max) {
-                    $amount.val(shoptet.helpers.toLocaleFloat(max, decimals, true));
+                    $amount.val(max);
                     shoptet.content.addToNotifier = shoptet.messages['amountChanged'];
                 }
                 if (value < min) {
-                    $amount.val(shoptet.helpers.toLocaleFloat(min, decimals, true));
+                    $amount.val(min);
                     shoptet.content.addToNotifier = shoptet.messages['amountChanged'];
                 }
                 shoptet.cart.ajaxSubmitForm(

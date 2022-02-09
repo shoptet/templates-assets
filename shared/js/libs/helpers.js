@@ -187,9 +187,7 @@
             $(el).siblings('.js-add-pcs-tooltip').tooltip().show();
             return false;
         }else {
-            $('.js-increase-tooltip, .js-decrease-tooltip').tooltip('hide');
-            $('.js-add-pcs-tooltip').tooltip().hide();
-            $('.js-remove-pcs-tooltip').tooltip().hide();
+            shoptet.variantsCommon.hideQuantityTooltips();
         }
 
         el.value = value;
@@ -201,6 +199,20 @@
         return true;
     }
 
+    $('html').on('click', function(e){
+        if(!$(e.target).is('.decrease, .increase, .remove-pcs, .add-pcs')){
+            shoptet.variantsCommon.hideQuantityTooltips();
+        }
+    })
+    
+    $('.cart-widget, .product').on('mouseleave', function() {
+        shoptet.variantsCommon.hideQuantityTooltips();
+    });
+
+    document.addEventListener('ShoptetCartUpdated', function() {
+        shoptet.variantsCommon.hideQuantityTooltips();
+    });
+
     function isTouchDevice() {
         var prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
         var mq = function(query) {
@@ -211,6 +223,33 @@
         }
         var query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
         return mq(query);
+    }
+
+    // Get function from string, with or without scopes (by Nicolas Gauthier)
+    function getFunctionFromString(string) {
+        if (typeof string === 'undefined') {
+            return;
+        }
+
+        var scope = window;
+        var scopeSplit = string.split('.');
+        for (i = 0; i < scopeSplit.length - 1; i++) {
+            scope = scope[scopeSplit[i]];
+            if (scope == undefined) return;
+        }
+
+        return scope[scopeSplit[scopeSplit.length - 1]];
+    }
+
+    function loadDataAttributes($elem) {
+        var names = $elem.data('names').toString().split(',');
+        var values = $elem.data('values').toString().split(',');
+        var attributes = {};
+        for (i = 0, cnt = names.length; i < cnt; i++) {
+            attributes[names[i]] = values[i];
+        }
+
+        return attributes;
     }
 
     shoptet.helpers = shoptet.helpers || {};

@@ -65,8 +65,8 @@
 @btn-special-border: @color-tertiary-hover-hover;
 @btn-special-color: #fff;
 @btn-special-color-hover: @btn-special-color;
-@cart-count-bg: #fff;
-@cart-count-color: #000;
+@cart-count-bg: contrast(@header-bg-color, #000, #fff);
+@cart-count-color: contrast(@header-color, #000, #fff);
 @cart-table-td-bg-color: @content-box-bg;
 @cart-table-td-border-bottom-color: @border-color;
 @cart-table-td-border-right-color: transparent;
@@ -87,6 +87,7 @@
 @categories-variant-border: darken(@box-variant-bg, 4%);
 @color-available: @green;
 @color-for-free: @green;
+@color-header-background: @colorHeaderBackground;
 @color-primary: @colorPrimary;
 @color-primary-hover: @colorPrimaryHover;
 @color-secondary: @colorSecondary;
@@ -94,6 +95,7 @@
 @color-tertiary: @colorTertiary;
 @color-tertiary-hover: @colorTertiaryHover;
 @color-tertiary-hover-hover: darken(@color-tertiary-hover, 3%);
+@colorHeaderBackground: #fff;
 @colorPrimary: #239ceb;
 @colorPrimaryHover: #1997e5;
 @colorSecondary: #468c98;
@@ -130,11 +132,11 @@
 @gray-light: #e6e6e6;
 @gray-lighter: #f7f7f7;
 @green: #009c00;
-@header-bg-color: @color-primary;
+@header-bg-color: @color-header-background;
 @header-bg-image: none;
 @header-bg-image-breakpoint: @screen-sm-min;
 @header-bg-image-sm: none;
-@header-color: #fff;
+@header-color: contrast(@header-bg-color, @text-color, #fff);
 @headerBackgroundUrl: none;
 @headings-color: @text-color;
 @input-bg: #fff;
@@ -160,7 +162,7 @@
 @menu-helper-submenu-border-color: @navigation-bg;
 @menu-helper-submenu-color: @navigation-color;
 @menu-helper-submenu-color-hover: @navigation-color-hover;
-@navigation-bg: @color-primary;
+@navigation-bg: @color-header-background;
 @navigation-bg-small: #fff;
 @navigation-breakpoint: @screen-md-min;
 @navigation-breakpoint-max: (@navigation-breakpoint - 1);
@@ -180,7 +182,7 @@
 @navigation-button-search-bg-hover: @navigation-bg;
 @navigation-button-search-color: @navigation-color;
 @navigation-button-search-color-hover: @navigation-color;
-@navigation-color: #fff;
+@navigation-color: contrast(@navigation-bg, @text-color, #fff);
 @navigation-color-hover: @navigation-color;
 @navigation-color-small: #000;
 @navigation-color-small-hover: @link-color;

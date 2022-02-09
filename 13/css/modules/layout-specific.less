@@ -18,7 +18,7 @@
 @hover-box-shadow: 0 0 10px rgba(0,0,0,.16);
 @hover-box-shadow-sm: 0 0px 4px rgba(0,0,0,.16);
 @narrow-container-width: @container-lg;
-@cart-widget-bottom-height: 144px;
+@cart-widget-bottom-height: 156px;
 
 @header_search-height-xs: @header-height-xs + @form-control-height;
 @header_search-height-sm: @header-height-sm + @form-control-height;
@@ -387,6 +387,7 @@ article {
 
 .search-form {
     position: relative;
+    .transition(color @transition-duration);
 }
 
 .search-input {
@@ -484,21 +485,6 @@ body {
     &.search-focused {
         &::before {
             opacity: 1;
-        }
-    }
-}
-
-#header .search-form {
-    &::after {
-        bottom: 0;
-        content: '';
-        position: absolute;
-        display: block;
-        z-index: @z-popup;
-        width: 100%;
-        height: 10px;
-        @media (max-width: @navigation-breakpoint-max) {
-            content: none;
         }
     }
 }
@@ -1559,9 +1545,14 @@ table.detail-parameters {
     > div {
         border-style: solid;
         border-width: 1px;
-        max-width: 100%;
+        width: 100%;
+        max-width: 450px;
+        margin-right: auto;
+        margin-left: auto;
+        padding-top: round(@grid-gutter-width / 4);
         &:hover {
             box-shadow: @hover-box-shadow;
+            z-index: 1;
             .p {
                 a {
                     text-decoration: underline;
@@ -1684,6 +1675,10 @@ table.detail-parameters {
         margin-left: 0;
         margin-right: 0;
         > div {
+            width: 50%;
+            max-width: none;
+            margin-right: 0;
+            margin-left: 0;
             .p {
                 .name {
                     height: @line-height-computed * 2;
@@ -1735,6 +1730,19 @@ table.detail-parameters {
         }
     }
 }
+
+// This prevents shift of the banner and .products.products-page.products-block below the left floated sidebar on the category page
+.desktop.multiple-columns-body .aside-indented .products-page, 
+.desktop.multiple-columns-body .aside-indented .banner-category {
+    margin-left: auto;
+    @media (min-width: @screen-sm-min) {
+        width: calc(100% - @sidebar-smaller-width);
+    }
+    @media (min-width: @screen-md-min) {
+        width: calc(100% - @sidebar-larger-width);
+    }
+}
+
 .flags {
     &.flags-extra {
         left: auto;
@@ -2076,15 +2084,17 @@ body.user-action-visible {
 .user-action-in {
     .popup-widget {
         &.cart-widget {
-
             @media (max-width: @screen-sm-max) {
                 top: unit(@popup-widget_top-sm-max, px);
+                height: calc(100% - unit(@popup-widget_top-sm-max, px));
             }
             @media (max-width: @screen-xs-max) {
                 top: unit(@popup-widget_top-xs-max, px);
+                height: calc(100% - unit(@popup-widget_top-xs-max, px));
             }
             @media (max-width: @screen-xs) {
-                top: 51px;
+                top: @header-height-xs;
+                height: calc(100% - @header-height-xs);
             }
         }
     }
@@ -2097,7 +2107,6 @@ body.user-action-visible {
 }
 
 .cart-widget-product {
-    padding: round(@grid-gutter-width / 4);
     &:last-child {
         border-bottom-style: solid;
     }
@@ -2168,23 +2177,20 @@ body.user-action-visible {
 }
 
 .cart-widget-bottom {
-  z-index: @z-base-3;
-  position: absolute;
-  left: 0;
-  bottom: 0;
   display: block;
   width: 100%;
-  height: @cart-widget-bottom-height;
   text-align: center;
 }
 
 .cart-widget-inner.popup-widget-inner {
-    &.full {
-        margin-bottom: @cart-widget-bottom-height;
-    }
     @media (max-width: @screen-sm-max) {
         .cart-widget-products {
-            margin-bottom: @cart-widget-bottom-height;
+            height: calc(100% - @cart-widget-bottom-height);
+        }
+    }
+    @media (max-width: @screen-xs) {
+        .cart-widget-products {
+            height: calc(100% - 177px);
         }
     }
     &:not(.full) {

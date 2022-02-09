@@ -1,3 +1,5 @@
+@header-mobile-color-specific: contrast(@color-header-background, @text-muted-color, #fff);
+
 .external-fonts-loaded {
     ol.cart-header,
     .next-step,
@@ -85,6 +87,49 @@
     &::before {
         color: #fff;
         background-color: @gray-dark;
+    }
+}
+
+.responsive-tools when (@header-mobile-color-specific = #fff) {
+    @media (max-width: @navigation-breakpoint-max) {
+        [data-target="search"] {
+            &,
+            &:hover {
+                color: @header-mobile-color-specific;
+            }
+        }
+        > a[data-target="navigation"] {
+            &,
+            &:hover {
+                &::before {
+                    background-color: transparent;
+                }
+            }
+        }
+        .ordering-process & > a[data-target="navigation"] {
+            &,
+            &:hover {
+                color: #fff;
+                &::before {
+                    background-color: @gray-dark;
+                }
+            }
+        }
+    }
+}
+
+.navigation-buttons when (@header-mobile-color-specific = #fff) {
+    @media (max-width: @navigation-breakpoint-max) {
+        a[data-target="cart"] {
+            &,
+            &:hover {
+                color: @header-mobile-color-specific;
+                i {
+                    color: #000;
+                    background-color: @header-mobile-color-specific;
+                }
+            }
+        }
     }
 }
 

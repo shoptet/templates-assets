@@ -240,4 +240,10 @@ input, select, textarea {
     left: calc(100% - @form-group-tooltip-position-left);
     top: calc(100% - @form-control-height / 2);
     transform: translateY(-50%);
+
+    @media (max-width: @screen-xs-max) {
+        .js-error-field + & {
+            top: calc(50%);
+        }
+    }
 }

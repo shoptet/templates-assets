@@ -201,6 +201,15 @@
             e.preventDefault();
             $('.social-buttons').toggleClass('no-display');
         });
+
+        if ('loading' in HTMLIFrameElement.prototype) {    
+            $('iframe[data-iframe-src]').each(function() {
+              var self = $(this);
+              self.attr('src', self.data('iframe-src'));
+              self.removeAttr('data-iframe-src');
+            });
+        }
+
     });
 
     window.addEventListener('load', function() {
@@ -645,20 +654,15 @@
         if (href) {
             selector = href + ' ' + selector;
         }
-
         $(selector).each(function() {
             var self = $(this);
             var src = self.data('iframe-src');
-
+            
             if (self.attr('src') === src) {
                 return;
             }
-
+            
             self.attr('src', src);
-            self.on('load', function() {
-                self.prev('.loader').remove();
-                self.parent().removeClass('overlay spinner');
-            });
         });
     }
 

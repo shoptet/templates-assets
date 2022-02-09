@@ -4,6 +4,10 @@
 }
 
 .rate-wrapper.unveil-wrapper {
+    margin-bottom: @grid-gutter-width;
+    .tab-content & {
+        margin-bottom: round(@line-height-computed);
+    }
     .rate-wrap {
         display: flex;
     }
@@ -115,6 +119,7 @@
     cursor: pointer;
     .rating-icon {
         display: flex;
+        align-items: baseline;
 
         &::before {
             &:extend(.shp-icon);

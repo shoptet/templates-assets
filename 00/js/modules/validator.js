@@ -233,6 +233,7 @@ shoptet.validator.shoptetFormValidator = {
                     return;
                 }
                 var isElementValid = validate.call($(this), isSubmit);
+                shoptet.scripts.signalCustomEvent('validatedFormSubmit', this);
                 if (!isElementValid && invalidElementsCounter++ == 0 && shoptet.validatorPhone.ajaxPending === 0) {
                     $(this).focus();
                 }

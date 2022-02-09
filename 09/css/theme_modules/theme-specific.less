@@ -1,3 +1,5 @@
+@header-mobile-color-specific: contrast(@color-header-background, @btn-plain-color, #fff);
+
 .btn-color(@startColor, @hoverTextColor, @hoverBorderColor, @hoverBgColor) {
     color: @startColor;
     border-color: @startColor;
@@ -104,6 +106,27 @@ footer {
         &:hover {
             color: @link-color;
         }
+    }
+}
+
+.navigation-buttons when (@header-mobile-color-specific = #fff) {
+    @media (max-width: @navigation-breakpoint-max) {
+        a[data-target="cart"] {
+            &,
+            &:hover {
+                color: @header-mobile-color-specific;
+                i {
+                    color: #000;
+                    background-color: @header-mobile-color-specific;
+                }
+            }
+        }
+    }
+}
+
+a.btn-icon[data-target="search"] when (@header-mobile-color-specific = #fff) {
+    @media (max-width: @navigation-breakpoint-max) {
+        color: @header-mobile-color-specific;
     }
 }
 
@@ -238,6 +261,9 @@ footer {
 }
 .order-summary-heading {
     text-align: center;
+    ~ p {
+        text-align: center;
+    }
 }
 .order-summary-item {
     &.summary-thx {
