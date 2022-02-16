@@ -75,6 +75,10 @@ AjaxResponse.prototype.getMessage = function() {
     return this.response.message;
 };
 
+AjaxResponse.prototype.getMessages = function() {
+    return this.response.messages;
+};
+
 AjaxResponse.prototype.getPayload = function() {
     return this.response.payload;
 };
