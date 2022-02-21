@@ -497,8 +497,22 @@ tr.removeable {
     }
 }
 
-.toggle-coupon-input {
+.coupon-input {
     padding: @line-height-computed 0;
+    .discount-coupon {
+        padding: 0;
+        margin: 0;
+        float: none;
+    }
+}
+
+.toggle-coupon-input {
+    .discount-coupon {
+        display: none;
+        @media (max-width: @screen-xs-max) {
+            display: block;
+        }
+    }
     .toggle-coupon-input-button {
         padding: 0;
         cursor: pointer;
@@ -512,6 +526,7 @@ tr.removeable {
             margin-left: .5em;
         }
         &.discount-coupon-visible {
+            margin-bottom: 1ex;
             &::after {
                 content: @icon-chevron-up-code;
             }
@@ -520,30 +535,26 @@ tr.removeable {
             display: none;
         }
     }
-    .discount-coupon {
-        display: none;
-        padding: 0;
-        margin: 0;
-        float: none;
-        @media (max-width: @screen-xs-max) {
-            display: block;
-        }
-    }
 }
 
-
 .applied-coupon {
+    .discount-coupon & {
     padding-top: 5px;
     line-height: 40px;
     display: flex;
-    align-items: baseline;
-    form,
-    fieldset,
+    align-items: center;
+    }
     strong {
-        display: inline-block;
+        line-height: 1.6;
+    }
+    form,
+    fieldset {
+        display: flex;
     }
     .btn {
-        margin-left: 1ex;
+    margin-left: 15px;
+    padding-top: 0;
+    font-size: 20px;
     }
 }
 
