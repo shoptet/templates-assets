@@ -91,6 +91,7 @@
                 html: shoptet.content.colorboxHeader + content + shoptet.content.colorboxFooter,
                 className: shoptet.modal.config.classMd,
                 width: shoptet.modal.config.widthMd,
+                height: shoptet.modal.config.initialHeight,
                 onComplete: function() {
                     $('#cboxContent').addClass('cookiesDialog');
                     shoptet.modal.shoptetResize();

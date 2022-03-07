@@ -933,8 +933,8 @@
                     perPage: {
                         // shoptet.config.breakpoints
                         '320': itemsPerPageMobile,
-                        '767': 2,
-                        '991': 3,
+                        '767': ((itemsPerPage - 2) > 0)?(itemsPerPage - 2):1,
+                        '991': ((itemsPerPage - 1) > 0)?(itemsPerPage - 1):1,
                         '1199': itemsPerPage
                     },
                     loop: true,

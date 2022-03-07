@@ -159,7 +159,7 @@
 @menu-helper-span-border-color: @border-color;
 @menu-helper-span-color: @navigation-color;
 @menu-helper-submenu-bg: @navigation-bg;
-@menu-helper-submenu-border-color: @border-color;
+@menu-helper-submenu-border-color: if((@navigation-color = @text-color), @border-color, @navigation-bg);
 @menu-helper-submenu-color: @navigation-color;
 @menu-helper-submenu-color-hover: @navigation-color-hover;
 @navigation-bg: @header-bg-color;
@@ -193,7 +193,7 @@
 @navigation-item-color: @navigation-color;
 @navigation-item-color-hover: @navigation-color-hover;
 @navigation-menu-level-2-bg: @navigation-bg;
-@navigation-menu-level-2-border-color: @border-color;
+@navigation-menu-level-2-border-color: if((@navigation-color = @text-color), @border-color, @navigation-bg);
 @navigation-menu-level-2-color: @navigation-color;
 @navigation-menu-level-2-color-hover: @navigation-color-small-hover;
 @news-item-time-color: #999;

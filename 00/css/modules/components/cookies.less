@@ -1,5 +1,6 @@
 @cookies-color: #11111f;
 @cookies-bottom-width: 670px;
+@cookies-center-width: 600px;
 @cookies-spacing: 16px;
 @cookies-border-radius: @cookies-spacing;
 
@@ -27,7 +28,7 @@ html.cookies-visible {
 }
 
 .siteCookies {
-    color: #ffffff;
+    color: var(--cookies-notice-color);
     position: fixed;
     z-index: @z-cookies;
     bottom: 0;
@@ -40,31 +41,19 @@ html.cookies-visible {
         &--top {
             bottom: auto;
             top: 0;
-            background-color: @cookies-color;
-
-            .siteCookies__form {
-                max-width: 800px;
-            }
+            background-color: var(--cookies-notice-background);
         }
 
         &--left {
             right: auto;
             left: 30px;
             bottom: 30px;
-
-            .siteCookies__form {
-                border-radius: 10px;
-            }
         }
 
         &--right {
             right: 30px;
             left: auto;
             bottom: 30px;
-
-            .siteCookies__form {
-                border-radius: 10px;
-            }
         }
 
         &--bottom {
@@ -76,22 +65,52 @@ html.cookies-visible {
                 left: 0;
                 width: 100%;
                 margin-left: 0;
-                background-color: @cookies-color;
+                background-color: var(--cookies-notice-background);
+                box-shadow: 0px 0px 30px rgba(27, 25, 57, 0.5);
+                .siteCookies__form {
+                    box-shadow: unset;
+                }
             }
+        }
+    
+        &--center {        
+            top: 50%;
+            right: auto;
+            bottom: auto;
+            left: 50%;
+            width: @cookies-center-width;
+            transform: translate(-50%, -50%);
         }
     }
 }
 
 .siteCookies__form {
-    background-color: @cookies-color;
+    background-color: var(--cookies-notice-background);
     padding: 20px 15px 25px 15px;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
+    border-top-left-radius: @cookies-border-radius / 2;
+    border-top-right-radius: @cookies-border-radius / 2;
+    box-shadow: 0 0 30px rgba(27, 25, 57, 0.5);
 
     @media (min-width: @screen-sm-min) {
         display: flex;
+        padding: 24px 24px 14px 24px;
         max-width: @cookies-bottom-width;
         margin: 0 auto;
+
+        .siteCookies--top & {
+            max-width: 800px;
+        }
+
+        .siteCookies--left &,
+        .siteCookies--right & {
+            border-radius: @cookies-border-radius / 2; 
+        }
+        
+        .siteCookies--center & {
+            position: relative;
+            flex-direction: column;
+            border-radius: @cookies-border-radius / 2;
+        }
     }
 }
 
@@ -104,21 +123,25 @@ html.cookies-visible {
     margin-bottom: @cookies-spacing;
 
     p {
-        color: #ffffff;
+        color: var(--cookies-notice-color);
     }
 
     a {
         text-decoration: underline;
-        color: #ffffff;
+        color: var(--cookies-notice-color);
 
         &:hover {
             text-decoration: none;
-            color: #ffffff;
+            color: var(--cookies-notice-color);
         }
     }
 
     @media (min-width: @screen-sm-min) {
         margin-right: 30px;
+
+        .siteCookies--center & {
+            margin-right: 0;
+        } 
     }
 }
 
@@ -130,6 +153,12 @@ html.cookies-visible {
     @media (min-width: @screen-sm-min) {
         text-align: left;
         margin-bottom: 0;
+
+        .siteCookies--center & {
+            position: absolute;
+            bottom: 2.1em;
+            max-width: 30%;
+        }
     }
 }
 
@@ -137,8 +166,8 @@ html.cookies-visible {
     width: 100%;
     display: block;
     text-decoration: none;
-    color: #ffffff;
-    background-color: #31304f;
+    color: var(--cookies-notice-color);
+    background-color: var(--cookies-notice-background);
     border-radius: @cookies-border-radius / 4;
     line-height: 38px;
     font-weight: bold;
@@ -146,9 +175,9 @@ html.cookies-visible {
     box-sizing: border-box;
 
     &:hover {
-        color: #ffffff;
         @media (min-width: @screen-sm-min) {
-            background: darken(#31304f, 5%);
+            background: var(--cookies-notice-link-hover);
+            color: #ffffff;
         }
     }
 
@@ -164,13 +193,20 @@ html.cookies-visible {
     display: flex;
     align-items: flex-start;
     gap: @cookies-spacing;
+
+    @media (min-width: @screen-sm-min) {
+        .siteCookies--center & {
+            align-self: flex-end;
+            max-width: 67%;
+        }
+    }
 }
 
 .siteCookies__button {
     width: 100%;
     line-height: 55px;
-    background-color: #ffffff;
-    color: @cookies-color;
+    background-color: var(--cookies-notice-color);
+    color: var(--cookies-notice-background);
     border-radius: @cookies-border-radius / 4;
     border: 0;
     font-weight: bold;
@@ -181,8 +217,8 @@ html.cookies-visible {
     padding: 0;
 
     &:hover {
-        color: @cookies-color;
-        background-color: #ffffff;
+        background-color: var(--cookies-notice-button-hover);
+        color: var(--cookies-notice-background);
 
         @media (min-width: @screen-sm-min) {
             opacity: 0.8;
@@ -191,13 +227,18 @@ html.cookies-visible {
 
     @media (min-width: @screen-sm-min) {
         padding: 0 25px;
+
+        .siteCookies--center & {
+            width: auto;
+            margin: 0;
+        }
     }
 
     @media (min-width: @screen-md-min) {
         transition: all 0.4s;
 
         &:hover {
-            background-color: #f5f5f5;
+            background-color: var(--cookies-notice-button-hover);
         }
     }
 }
