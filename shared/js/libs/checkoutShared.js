@@ -270,19 +270,50 @@
 
     function updatePrice(e) {
         var priceHolder = e.target.querySelector('.payment-shipping-price');
-        if (priceHolder.classList.contains('shipping-price-not-specified') && !e.detail.invalidate) {
-            priceHolder.classList.remove('shipping-price-not-specified');
-        }
-        if (e.detail.invalidate || e.detail.price.withVat === null) {
+        var preserveValue = priceHolder.getAttribute('data-preserve-value');
+        if (
+            e.detail.invalidate
+            ||
+            e.detail.price.withVat === null) {
             priceHolder.classList.add('shipping-price-not-specified');
-            priceHolder.innerHTML = shoptet.messages['specifyShippingMethod'];
+            if (!preserveValue) {
+                priceHolder.innerHTML = shoptet.messages['specifyShippingMethod'];
+            }
         } else {
-            priceHolder.innerHTML = e.detail.price.withVat.ShoptetFormatAsCurrency(
-                undefined, undefined, shoptet.config.decPlacesSystemDefault
-            );
+            priceHolder.classList.remove('shipping-price-not-specified');
+            if (!preserveValue) {
+                var priceInputWithVat =
+                    e.target.querySelector('.external-shipping-method-price-with-vat');
+                var priceInputWithoutVat =
+                    e.target.querySelector('.external-shipping-method-price-without-vat');
+                var shippingPrice = e.target.querySelector('.payment-shipping-price');
+
+                shippingPrice.setAttribute(
+                    'data-shipping-price-wv',
+                    e.detail.price.withVat
+                );
+
+                shippingPrice.setAttribute(
+                    'data-shipping-price-wov',
+                    e.detail.price.withoutVat
+                );
+
+                priceInputWithVat.setAttribute('value', e.detail.price.withVat);
+                shoptet.checkoutShared.externalShippingDetails[e.detail.code].price.withVat
+                    = e.detail.price.withVat;
+
+                priceInputWithoutVat.setAttribute('value', e.detail.price.withoutVat);
+                shoptet.checkoutShared.externalShippingDetails[e.detail.code].price.withouVat
+                    = e.detail.price.withoutVat;
+
+                priceHolder.innerHTML = e.detail.price.withVat.ShoptetFormatAsCurrency(
+                    undefined, undefined, shoptet.config.decPlacesSystemDefault
+                );
+                priceHolder.setAttribute('data-shipping-price-wv', e.detail.price.withVat);
+                priceHolder.setAttribute('data-shipping-price-wov', e.detail.price.withoutVat);
+            }
         }
-        priceHolder.setAttribute('data-shipping-price-wv', e.detail.price.withVat);
-        priceHolder.setAttribute('data-shipping-price-wov', e.detail.price.withoutVat);
+
         shoptet.checkoutShared.afterPriceChange();
     }
 
@@ -313,8 +344,10 @@
         }
         var shippingPriceNotSpecified = shippingPrice.classList.contains('shipping-price-not-specified');
         if (shippingPriceNotSpecified) {
-            cartPriceWithVat.innerHTML = shoptet.messages.specifyShippingMethod;
-            cartPriceWithoutVat.innerHTML = shoptet.messages.specifyShippingMethod;
+            if (!shippingPrice.getAttribute('data-preserve-value')) {
+                cartPriceWithVat.innerHTML = shoptet.messages.specifyShippingMethod;
+                cartPriceWithoutVat.innerHTML = shoptet.messages.specifyShippingMethod;
+            }
         } else {
             var prices = {
                 shipping: {
@@ -391,13 +424,8 @@
         var shippingInfo = e.target.querySelector('.specify-shipping-method');
         var shippingLabel = shippingInfo.querySelector('.specified-shipping-method');
         var labelInput = e.target.querySelector('.external-shipping-method-label');
-        var priceInputWithVat =
-            e.target.querySelector('.external-shipping-method-price-with-vat');
-        var priceInputWithoutVat =
-            e.target.querySelector('.external-shipping-method-price-without-vat');
         var verificationCodeInput =
             e.target.querySelector('.external-shipping-method-verification-code');
-        var shippingPrice = e.target.querySelector('.payment-shipping-price');
 
         if (e.detail.invalidate || e.detail.label.selected === null) {
             shippingInfo.classList.remove('chosen');
@@ -410,31 +438,14 @@
                 var currentTime = new Date().getTime();
                 var timeoutTime = e.detail.expires.getTime() - currentTime;
                 shoptet.checkoutShared.setTimeoutForExpiration(e.detail.code, e.target, timeoutTime);
+                shoptet.checkoutShared.externalShippingDetails[e.detail.code].expires = e.detail.expires;
             }
             shoptet.checkoutShared.externalShippingDetails[e.detail.code].label.selected = e.detail.label.selected;
-            shoptet.checkoutShared.externalShippingDetails[e.detail.code].verificationCode = e.detail.verificationCode;
             labelInput.setAttribute('value', e.detail.label.selected);
+            shoptet.checkoutShared.externalShippingDetails[e.detail.code].verificationCode = e.detail.verificationCode;
+            verificationCodeInput.setAttribute('value', e.detail.verificationCode);
             shippingLabel.innerHTML = e.detail.label.selected;
         }
-
-        shippingPrice.setAttribute(
-            'data-shipping-price-wv',
-            e.detail.price.withVat
-        );
-        priceInputWithVat.setAttribute('value', e.detail.price.withVat);
-        shoptet.checkoutShared.externalShippingDetails[e.detail.code].price.withVat = e.detail.price.withVat;
-
-        shippingPrice.setAttribute(
-            'data-shipping-price-wov',
-            e.detail.price.withoutVat
-        );
-        priceInputWithoutVat.setAttribute('value', e.detail.price.withoutVat);
-        shoptet.checkoutShared.externalShippingDetails[e.detail.code].price.withouVat = e.detail.price.withoutVat;
-
-        verificationCodeInput.setAttribute('value', e.detail.verificationCode);
-        shoptet.checkoutShared.externalShippingDetails[e.detail.code].verificationCode = e.detail.verificationCode;
-
-        shoptet.checkoutShared.externalShippingDetails[e.detail.code].expires = e.detail.expires;
     }
 
     function setupExternalShipping() {
@@ -1082,7 +1093,11 @@
                     if ($label.find('.zasilkovna-choose').length && !$label.find('.zasilkovna-default').length) {
                         return true;
                     }
-                    showMessage(shoptet.messages['choose-' + code], 'error', '', false, false);
+                    var message = shoptet.messages['choose-' + code];
+                    if (typeof message === 'undefined') {
+                        message = shoptet.messages['specifyShippingMethod'];
+                    }
+                    showMessage(message, 'error', '', false, false);
                     scrollToEl($label);
                     return false;
                 }

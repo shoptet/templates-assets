@@ -90,7 +90,7 @@
         console.log(shoptet.checkoutShared.activeShipping);
         // for example, you can get also GUID of chosen shipping:
         console.log('%cactiveShipping GUID:', 'color: orangered;');
-        console.log(shoptet.checkoutShared.activeShipping.querySelector('input').getAttribute('data-guid'));
+        console.log(shoptet.checkoutShared.activeShipping.querySelector('input[data-guid]').getAttribute('data-guid'));
         // shipping request code is available under shoptet.checkoutShared.shippingRequestCode
         console.log('%cshippingRequestCode:', 'color: orangered;');
         console.log(shoptet.checkoutShared.shippingRequestCode);
