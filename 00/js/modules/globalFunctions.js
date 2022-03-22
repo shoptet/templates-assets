@@ -62,8 +62,8 @@ function showMessage(content, type, id, cancel, overlay, parent) {
         cancel = '';
     }
 
-    var message = '<div class="msg msg-' + type + '" role="alert"><div class="container">';
-    message += content + cancel + '</div></div>';
+    var message = '<div class="msg msg-' + type + '" role="alert"><div class="container"><span data-testid="notifierMessage">';
+    message += content + cancel + '</span></div></div>';
 
     $(message).prependTo(parent);
     if (overlay === true) {

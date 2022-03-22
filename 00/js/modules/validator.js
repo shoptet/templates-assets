@@ -121,7 +121,7 @@ var validators = {
     fullname: function (elementValue) {
         var isValid = true;
        if ($(this).attr('id') == 'billFullName' || $(this).attr('id') == 'deliveryFullName') {
-            isValid = / /i.test(elementValue.trim());
+            isValid = /\s/i.test(elementValue.trim());
            shoptet.validator.message = shoptet.messages['validatorFullName'];
         }
         return isValid;
