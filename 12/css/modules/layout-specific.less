@@ -1359,7 +1359,15 @@ ul.shp-tabs {
     }
 }
 
-
+.homepage-blog-wrapper {
+    @media (min-width: @screen-sm-min) {
+        margin-left: 0;
+        margin-right: 0;
+        .news-item {
+            padding: round(@grid-gutter-width / 3);
+        }
+    }
+}
 
 //carousel.less
 .carousel {

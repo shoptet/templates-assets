@@ -806,6 +806,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 return false;
             }
         }
+        if ($(this).hasClass('stay-open')) {
+            return false;
+        }
         hidePopupWindow = setTimeout(function () {
             $('body').removeClass(shoptet.config.bodyClasses);
         }, shoptet.config.animationDuration);
