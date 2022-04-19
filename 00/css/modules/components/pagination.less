@@ -10,9 +10,7 @@
 }
 
 .pagination-loader {
-    @media (max-width: @screen-md-max) {
-        margin: 10px 0;
-    }        
+    margin: 10px 0;        
 }
 
 .pagination,
@@ -69,6 +67,7 @@
 .pagination-top {
     text-transform: uppercase;
     > strong {
+        width: auto;
         cursor: pointer;
     }
     @media (max-width: @screen-md-max) {
@@ -101,6 +100,11 @@
         display: flex;
         flex-direction: column;
     }
+    @media (min-width: @screen-md-max) {
+        .pagination-loader {
+            margin: 0;
+        }
+    }
     @media (min-width: 321px) and (max-width: @screen-xs-max) {
         clear: both;
     }
@@ -109,7 +113,5 @@
 .pagination-count {
     width: 100%;
     text-align: center;
-    @media (max-width: @screen-md-max) {
-        padding-top: @line-height-computed;
-    }
+    padding-top: @line-height-computed;
 }

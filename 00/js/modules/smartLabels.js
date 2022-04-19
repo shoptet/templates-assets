@@ -58,8 +58,10 @@ if (shoptet.abilities.feature.smart_labels){
 
                         input.on('blur', function(){
                             element.removeClass(settings.focusedClass);
-
-                            if(!input.val()){
+                            
+                            if(input.val()){
+                                element.addClass(settings.populatedClass);
+                            }else{
                                 element.removeClass(settings.populatedClass);
                             }
                         });

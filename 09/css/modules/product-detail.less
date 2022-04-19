@@ -111,6 +111,17 @@
                 padding-left: 0;
             }
         }
+        .shipping-availability {
+            margin-bottom: @line-height-computed;
+            margin-top: @line-height-computed;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            @media(max-width: @screen-sm-max) {
+                justify-content: flex-start;
+                gap: @line-height-computed;
+            }
+        }
 
         .size-id-label {
             @media(max-width: @screen-md-max) {

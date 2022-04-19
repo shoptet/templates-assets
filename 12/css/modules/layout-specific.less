@@ -863,16 +863,25 @@ a.btn {
     }
     table.detail-parameters {
         width: auto;
+        .shipping-options {
+            text-decoration: underline;
+            text-transform: none;
+            font-weight: 700;
+        }
+        .delivery-time-label,
+        .delivery-time {
+            font-weight: normal;
+            text-transform: none;
+        }
+        .delivery-time {
+            padding-right: round(@grid-gutter-width / 2);
+        }
     }
     @media (max-width: @screen-xs) {
         select {
             line-height: 28px;
         }
     }
-}
-.delivery-time-label {
-    font-weight: normal;
-    text-transform: none;
 }
 
 .p-final-price-wrapper {

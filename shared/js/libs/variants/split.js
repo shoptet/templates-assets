@@ -16,7 +16,7 @@
             $splitParameters.bind('change ShoptetSelectedParametersReset', function(e) {
                 shoptet.scripts.signalCustomEvent('ShoptetSplitVariantParameterChange', e.target);
                 shoptet.variantsSplit.showVariantDependent();
-                shoptet.surcharges.updatePrices();
+                shoptet.surcharges.updatePrices(e);
                 hideMsg(true);
                 var parameterValues = [];
                 var parameterNames = [];

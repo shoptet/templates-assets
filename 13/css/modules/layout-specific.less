@@ -53,6 +53,7 @@ input[type="checkbox"]:checked+label::after {
 
 .welcome-wrapper,
 .category-perex,
+.category__secondDescription,
 .p-short-description,
 .tab-content,
 article {
@@ -589,8 +590,13 @@ select {
 }
 
 .pagination-wrapper .pagination-loader {
-    margin: 0;
+    margin: 0 0 @line-height-computed;
+
+    @media (min-width: @screen-md-max) {
+        margin: 0;
+    }
 }
+
 .pagination-top > strong,
 .pagination-top > a,
 .pagination a {
@@ -598,7 +604,6 @@ select {
 }
 .pagination-top {
     > strong {
-        width: auto;
         margin: 0;
         padding-right: 10px;
         transition: all 0.3s ease-out;
@@ -1139,6 +1144,24 @@ table.detail-parameters {
                 td {
                     display: table-cell;
                 }
+            }
+        }
+    }
+}
+table.shipping-options-layout {
+    tr.shipping-options-row {
+        td {
+            padding-left: 0;
+        }
+        @media (min-width: @screen-xs-min) {
+            display: table-cell;
+        }
+    }
+    tr.delivery-time-row {
+        @media (min-width: @screen-xs-min) {
+            display: contents;
+            td {
+                width: 0;
             }
         }
     }
@@ -1747,15 +1770,19 @@ table.detail-parameters {
     }
 }
 
-// This prevents shift of the banner and .products.products-page.products-block below the left floated sidebar on the category page
-.desktop.multiple-columns-body .aside-indented .products-page, 
-.desktop.multiple-columns-body .aside-indented .banner-category {
-    margin-left: auto;
-    @media (min-width: @screen-sm-min) {
-        width: calc(100% - @sidebar-smaller-width);
-    }
-    @media (min-width: @screen-md-min) {
-        width: calc(100% - @sidebar-larger-width);
+// This prevents shift of the banner, .products-page, .pagination-wrapper, .category__secondDescription below the left floated sidebar on the category page
+.desktop.multiple-columns-body .aside-indented {
+    .products-page, 
+    .banner-category,
+    .pagination-wrapper,
+    .category__secondDescription {
+        margin-left: auto;
+        @media (min-width: @screen-sm-min) {
+            width: calc(100% - @sidebar-smaller-width);
+        }
+        @media (min-width: @screen-md-min) {
+            width: calc(100% - @sidebar-larger-width);
+        }
     }
 }
 
