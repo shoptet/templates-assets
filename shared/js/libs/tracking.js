@@ -159,6 +159,9 @@ function getShoptetProductsList() {
                 value: parseFloat(priceValue) * amount,
                 currency: fbPixelData.currency
             };
+            var eventInfo = {
+                eventID: shoptet.config.fbEventId
+            };
 
             switch (action) {
                 case 'remove':
@@ -177,9 +180,38 @@ function getShoptetProductsList() {
                     return;
             }
 
-            fbq(eventName, action, data);
+            fbq(eventName, action, data, eventInfo);
         }
+
+        shoptet.tracking.trackFacebookPixelApi(eventName, action, data);
         shoptet.scripts.signalCustomEvent('ShoptetFacebookPixelTracked');
+    }
+
+    function trackFacebookPixelApi(eventName, action, data) {
+        if (!shoptet.config.fbCAPIEnabled) {
+            return;
+        }
+
+        var payload = {
+            eventName: eventName,
+            eventId: shoptet.config.fbEventId,
+            action: action,
+            data: data
+        };
+
+        var settings = {
+            url: shoptet.config.fbCAPIUrl,
+            type: 'POST',
+            data: {
+                payload: payload
+            }
+        };
+
+        if (shoptet.csrf.csrfToken !== undefined) {
+            settings.data.__csrf__ = shoptet.csrf.csrfToken;
+        }
+
+        $.ajax(settings);
     }
 
     function trackGoogleProductDetail(gaData, action) {

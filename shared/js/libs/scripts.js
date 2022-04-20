@@ -441,6 +441,7 @@
             'handleAction',
             'trackProducts',
             'trackFacebookPixel',
+            'trackFacebookPixelApi',
             'trackGoogleCart',
             'trackGoogleProductDetail',
             'updateDataLayer',
