@@ -37,11 +37,13 @@
         .name {
             font-size: @font-size-larger;
             line-height: @line-height-larger;
-            display: block;
             text-transform: uppercase;
             height: round(@font-size-larger * @line-height-larger * 2);
             font-weight: 700;
             margin-bottom: round(@grid-gutter-width / 8);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
             overflow: hidden;
         }
         .prices {

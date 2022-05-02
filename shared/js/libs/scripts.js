@@ -444,7 +444,8 @@
             'trackFacebookPixelApi',
             'trackGoogleCart',
             'trackGoogleProductDetail',
-            'updateDataLayer',
+            'updateCartDataLayer',
+            'updateGoogleEcommerce',
             'handlePromoClick',
             'trackProductsFromPayload',
             'updateDataLayerCartInfo'

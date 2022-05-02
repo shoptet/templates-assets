@@ -331,7 +331,10 @@ a.btn {
         content: '';
     }
     @media (min-width: @screen-sm-min) {
+        position: relative; //*
+        display: block;     //*
         top: 24px;
+        left: 0;            //* fix zooming in Safari
     }
 }
 .continue-shopping {

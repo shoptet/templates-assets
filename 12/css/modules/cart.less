@@ -126,6 +126,20 @@ ol.cart-header {
 }
 
 .cart-inner {
+    padding: round(@grid-gutter-width / 4) round(@grid-gutter-width / 8);
+
+    @media (min-width: @screen-md-min) {
+        padding: round(@grid-gutter-width / 4)
+    }
+
+    .cart-window & {
+        padding: round(@grid-gutter-width / 4) 0;
+
+        @media (min-width: @screen-md-min) {
+            padding: round(@grid-gutter-width / 4)
+        }
+    }
+
     .delivery-time {
         margin-bottom: @line-height-computed;
     }

@@ -52,6 +52,36 @@ function getShoptetProductsList() {
         return false;
     }
 
+    function resolveAffectedPriceId(response) {
+        var FEdataLayer = getShoptetDataLayer('cart') || [];
+        var BEdataLayer = response.getFromPayload('cartItems') || [];
+        // Change of the amount
+        if (FEdataLayer.length === BEdataLayer.length) {
+            for (var i=0;i<FEdataLayer.length;i++) {
+                if (FEdataLayer[i].quantity !== BEdataLayer[i].quantity) {
+                    return FEdataLayer[i].priceId;
+                }
+            }
+        } 
+        // Product added
+        if (BEdataLayer.length > FEdataLayer.length) {
+            for (var i=0;i<BEdataLayer.length;i++) {
+                if (!FEdataLayer[i] || FEdataLayer[i].code !== BEdataLayer[i].code) {
+                    return BEdataLayer[i].priceId;
+                }
+            }
+        }
+        // Product removed
+        if (FEdataLayer.length > BEdataLayer.length) {
+            for (var i=0;i<FEdataLayer.length;i++) {
+                if (!BEdataLayer[i] || FEdataLayer[i].code !== BEdataLayer[i].code) {
+                    return FEdataLayer[i].priceId;
+                }
+            }
+        }
+        return false;
+    }
+
     function resolveAmount(formAction, data) {
         var amount = data.amount;
         if (shoptet.tracking.getFormAction(formAction) === shoptet.config.updateCartUrl) {
@@ -81,22 +111,7 @@ function getShoptetProductsList() {
             return;
         }
 
-        var priceId = false;
-        var priceIdInput = form.querySelector('[name=priceId]');
-        var productCodeInput = form.querySelector('[name=productCode]');
-        if (priceIdInput) {
-            priceId = priceIdInput.value;
-        }
-        if (!priceId && productCodeInput) {
-            var tracking = JSON.parse(response.getFromPayload('trackingContainer'));
-            for (var product in tracking.products) {
-                tracking.products[product].content_ids.forEach(function(e){
-                    if (e === productCodeInput.value) {
-                        priceId = product;
-                    }
-                });
-            }
-        }
+        var priceId = resolveAffectedPriceId(response);
 
         shoptet.tracking.updateDataLayerCartInfo(response);
 
@@ -108,10 +123,11 @@ function getShoptetProductsList() {
                 [
                     shoptet.tracking.trackGoogleCart,
                     shoptet.tracking.trackFacebookPixel,
-                    shoptet.tracking.updateDataLayer
+                    shoptet.tracking.updateGoogleEcommerce
                 ]
             );
         }
+        shoptet.tracking.updateCartDataLayer(response);
     }
 
     function trackProducts(form, priceId, formAction, trackingFunctions) {
@@ -271,7 +287,7 @@ function getShoptetProductsList() {
         shoptet.scripts.signalCustomEvent('ShoptetGoogleCartTracked');
     }
 
-    function updateDataLayer(data, formAction) {
+    function updateGoogleEcommerce(data, formAction) {
         if (typeof dataLayer === 'object') {
             var action = shoptet.tracking.resolveTrackingAction(formAction, data);
             var amount = shoptet.tracking.resolveAmount(formAction, data);
@@ -323,17 +339,6 @@ function getShoptetProductsList() {
                 }
             });
 
-            if (!itemWasHandled) {
-                // handled item is not in cart, so we add it there
-                dataLayer[0].shoptet.cart.push(
-                    {
-                        'code': data.content_ids[0],
-                        'quantity': amount,
-                        'priceWithVat': data.value
-                    }
-                );
-            }
-
             // Not removing product, add an item
             if (typeof GTMshoppingCart.event === 'undefined') {
                 GTMshoppingCart.event = 'addToCart';
@@ -343,7 +348,6 @@ function getShoptetProductsList() {
 
             dataLayer.push(GTMshoppingCart);
         }
-        shoptet.scripts.signalCustomEvent('ShoptetDataLayerUpdated');
     }
 
     function handlePromoClick(el) {
@@ -370,6 +374,11 @@ function getShoptetProductsList() {
             );
             shoptet.tracking.productsList = $.extend(trackingProducts.products, shoptet.tracking.productsList);
         }
+    }
+
+    function updateCartDataLayer(response) {
+        dataLayer[0].shoptet.cart = response.getFromPayload('cartItems') || [];
+        shoptet.scripts.signalCustomEvent('ShoptetDataLayerUpdated');
     }
 
     function updateDataLayerCartInfo(response) {
