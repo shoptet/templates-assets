@@ -173,10 +173,12 @@ function getShoptetProductsList() {
                 content_ids: fbPixelData.content_ids,
                 content_type: 'product',
                 value: parseFloat(priceValue) * amount,
-                currency: fbPixelData.currency
+                currency: fbPixelData.currency,
+                eventId: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
             };
+
             var eventInfo = {
-                eventID: shoptet.config.fbEventId
+                eventID: data.eventId
             };
 
             switch (action) {
@@ -210,7 +212,7 @@ function getShoptetProductsList() {
 
         var payload = {
             eventName: eventName,
-            eventId: shoptet.config.fbEventId,
+            eventId: data.eventId,
             action: action,
             data: data
         };
