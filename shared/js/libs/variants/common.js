@@ -91,12 +91,13 @@
             if (!el) {
                 return false;
             }
-            if(!el.tooltip().getTip()) {
+            if (typeof el.tooltip().getTip() === 'undefined') {
                 el.tooltip().show().hide();
+            } else {
+                var currentToolTipTitle = el.tooltip().getTip().find('.tooltip-content').text();
+                var newToolTipTitle = replaceNumberAtTooltip(currentToolTipTitle, val);
+                el.tooltip().getTip().find('.tooltip-content').text(newToolTipTitle);
             }
-            var currentToolTipTitle = el.tooltip().getTip().find('.tooltip-content').text();
-            var newToolTipTitle = replaceNumberAtTooltip(currentToolTipTitle, val);
-            el.tooltip().getTip().find('.tooltip-content').text(newToolTipTitle);
         }
         
         function updateQuantityTooltip_3gen(el, val) {

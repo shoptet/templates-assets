@@ -129,6 +129,9 @@ ul.shp-tabs {
 .surcharge-list {
     select {
         width: 220px;
+        @media (max-width: @screen-xs){
+            width: 200px;
+        }
     }
 }
 
@@ -166,6 +169,9 @@ ul.shp-tabs {
         padding-right: round(@grid-gutter-width / 2);
         font-weight: 400;
         text-align: left;
+        @media (max-width: @screen-xs) {
+            padding-right: round(@grid-gutter-width / 4);
+        }
     }
     tr {
         &:last-child {
