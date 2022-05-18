@@ -123,6 +123,7 @@ function getShoptetProductsList() {
                 [
                     shoptet.tracking.trackGoogleCart,
                     shoptet.tracking.trackFacebookPixel,
+                    shoptet.tracking.trackGlamiPixel,
                     shoptet.tracking.updateGoogleEcommerce
                 ]
             );
@@ -230,6 +231,31 @@ function getShoptetProductsList() {
         }
 
         $.ajax(settings);
+    }
+
+    function trackGlamiPixel(productData, formAction) {
+        if (typeof glami !== 'function') {
+            return;
+        }
+
+        var trackingAction = shoptet.tracking.resolveTrackingAction(formAction, productData);
+
+        if (trackingAction !== 'add') {
+            return;
+        }
+
+        var eventName = 'track';
+        var eventAction = 'AddToCart';
+        var eventParams = {
+            item_ids: productData.content_ids.slice(),
+            value: productData.value,
+            currency: productData.currency,
+            consent: shoptet.consent.isAccepted(shoptet.config.cookiesConsentOptAnalytics) ? 1 : 0
+        };
+
+        glami(eventName, eventAction, eventParams);
+
+        shoptet.scripts.signalCustomEvent('ShoptetGlamiPixelTracked');
     }
 
     function trackGoogleProductDetail(gaData, action) {
