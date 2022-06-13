@@ -781,7 +781,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     $('html').on('touchend click', '.toggle-window, .toggle-window-arr, .toggle-trigger', function (e) {
-        if (e.type === 'touchend' || !$(this).attr('data-redirect')) {
+        if ((e.type === 'touchend' || !$(this).attr('data-redirect' )) && !$(this).hasClass('languagesMenu__box')) {
             e.preventDefault();
         }
         if ($(this).hasClass('hide-content-windows')) {
