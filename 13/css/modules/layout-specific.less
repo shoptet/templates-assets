@@ -1096,7 +1096,7 @@ table.detail-parameters {
                 position: relative;
                 padding-right: round(@grid-gutter-width / 2);
                 text-align: left;
-                min-width: 150px;
+                min-width: 180px;
                 .row-header-label {
                     padding-right: 10px;
                     display: inline-flex;
@@ -1154,17 +1154,9 @@ table.shipping-options-layout {
         td {
             padding-left: 0;
         }
-        @media (min-width: @screen-xs-min) {
-            display: table-cell;
-        }
-    }
-    tr.delivery-time-row {
-        @media (min-width: @screen-xs-min) {
-            display: contents;
-            td {
-                width: 0;
+            a {
+                font-weight: 400;
             }
-        }
     }
 }
 
