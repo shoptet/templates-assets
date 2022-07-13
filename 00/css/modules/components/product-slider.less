@@ -4,18 +4,27 @@
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    position: relative;
+    position: relative;    
+    padding: (@line-height-computed * 2) 0;
+
+    @media (max-width: @navigation-breakpoint-max) {
+        padding: @line-height-computed 0;
+    }
+
     &.has-navigation {
-        padding: 0 (@product-slider-navigation-size + 5px);
+        padding-left: @product-slider-navigation-size;
+        padding-right: @product-slider-navigation-size;
         &:hover {
             .product-slider-navigation {
                 opacity: 1;
             }
         }
         @media (max-width: @navigation-breakpoint-max) { 
-            padding: 0;
+            padding-left: 0;
+            padding-right: 0;
         }
     }
+    
     @media (min-width: @screen-md-min) {
         .desktop.one-column-body.columns-1 &,
         .mobile.multiple-columns-body.columns-1 &,
@@ -39,19 +48,6 @@
         .desktop.multiple-columns-body.columns-2 & {
             width: 100%;
         }
-    }
-}
-
-.product-slider {
-    padding: (@line-height-computed * 2) 0;
-    position: relative;
-
-    @media (max-width: @navigation-breakpoint-max) {
-        padding: @line-height-computed 0;
-    }
-
-    .products-block {
-        margin: 0;
     }
 
     .product-slider-pagination {
@@ -137,11 +133,14 @@
     .mobile & {
         .product-slider-navigation {
             opacity: 1;
-        }    
+        }
     }
+}
 
-    @media (max-width: @navigation-breakpoint-max) {
-        .products-block {
+.product-slider {
+    .products-block {
+        margin: 0;
+        @media (max-width: @navigation-breakpoint-max) {
             > div {
                 padding: 5px;
             }

@@ -59,11 +59,21 @@ input[type="checkbox"]:checked+label::after {
 article {
     ul {
         list-style-type: none;
-        li::before {
-            &:extend(.shp-icon);
-            content: @icon-chevron-right-code;
-            font-size: @font-size-small;
-            margin: 0 10px 0 -10px;
+        li {
+            &::before {
+                &:extend(.shp-icon);
+                content: @icon-chevron-right-code;
+                font-size: @font-size-small;
+                margin: -2px 4px 0 -18px;
+            }
+        }
+        &[style^='list-style-type'],
+        &[style*=' list-style-type'] {
+            li {
+                &::before {
+                    display: none;
+                }
+            }
         }
     }
 }
@@ -524,8 +534,15 @@ body {
     }
 
     .sidebar-right + & {
-        padding-left: round(@grid-gutter-width / 2);
+        @media (min-width: @screen-sm-min) {
+            padding-left: round(@grid-gutter-width / 2);
+        }
     }
+}
+
+.sidebar-right {
+    padding-left: @sidebar-padding-right;
+    padding-right: @sidebar-padding-left;
 }
 
 .content-wrapper {
@@ -579,9 +596,10 @@ body {
 
 #content .sidebar.sidebar-right {
     float: right;
+    padding-top: @line-height-computed * 2;
 }
 
-.sidebar+#category-header {
+.sidebar + #category-header {
     padding-top: @line-height-computed * 2;
 }
 
@@ -1315,6 +1333,8 @@ table.shipping-options-layout {
 }
 
 .quantity {
+    padding-left: 40px;
+    padding-right: 40px;
     &:hover {
         box-shadow: @hover-box-shadow;
     }
@@ -1762,6 +1782,14 @@ table.shipping-options-layout {
             }
         }
     }
+    .columns-4.has-right-sidebar &,
+    .columns-3.has-right-sidebar & {
+        @media (min-width: @screen-md-min) {
+            > div {
+                width: 50%;
+            }
+        }
+    }
     .columns-4 & {
         @media (min-width: @screen-lg-min) {
             > div {
@@ -1783,6 +1811,19 @@ table.shipping-options-layout {
         }
         @media (min-width: @screen-md-min) {
             width: calc(100% - @sidebar-larger-width);
+        }
+    }
+}
+
+.desktop.multiple-columns-body.has-right-sidebar .aside-indented {
+    .products-page, 
+    .banner-category,
+    .pagination-wrapper,
+    .category__secondDescription {
+        margin-left: auto;
+        margin-right: auto;
+        @media (min-width: @sidebar-right-breakpoint) {
+            width: calc(100% - (@sidebar-larger-width * 2));
         }
     }
 }

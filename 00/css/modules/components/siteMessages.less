@@ -31,27 +31,15 @@
         position: absolute;
         right: 0;
         top: 50%;
-        margin-top: -6px;
-        .square(13px);
+        margin-top: -7px;
+        .square(12px);
+        font-size: 12px;
+        line-height: 12px;
         cursor: pointer;
-        .rotate(45deg);
-
-        &::before,
-        &::after {
-            position: absolute;
-            content: "";
-        }
-
-        &::after {
-            left: 0;
-            top: 6px;
-            .size(13px, 1px);
-        }
 
         &::before {
-            left: 6px;
-            top: 0;
-            .size(1px, 13px);
+            &:extend(.shp-icon);
+            content: @icon-close-code;
         }
     }
 

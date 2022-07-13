@@ -263,7 +263,13 @@
                 if (this.innerElements.length > this.perPage) {
                     if (this.config.pagination) {
                         this.pagination = document.createElement('div');
-                        this.pagination.className = 'product-slider-pagination';
+                        this.pagination.className = 'product-slider-pagination'; 
+                        
+                        var currentPagination = this.selector.parentNode
+                            .getElementsByClassName(this.pagination.className);
+                        if (currentPagination[0]) {
+                            currentPagination[0].remove();
+                        }
 
                         var _loop = function _loop(_i4) {
                             var paginationBtn = document.createElement('button');
@@ -278,25 +284,39 @@
                         for (var _i4 = 0; _i4 < this.innerElements.length; _i4++) {
                             _loop(_i4);
                         }
-                        this.selector.appendChild(this.pagination);
+                        this.selector.parentNode.appendChild(this.pagination);
                     }
 
                     if (this.config.navigation) {
                         var prevBtn = document.createElement('button');
                         prevBtn.className = 'product-slider-navigation navigation-prev';
                         prevBtn.textContent = 'prev';
+
+                        var currentPrevBtn = this.selector.parentNode
+                            .getElementsByClassName(prevBtn.className); 
+                        if (currentPrevBtn[0]) {
+                            currentPrevBtn[0].remove();
+                        }
+
                         prevBtn.addEventListener('click', function () {
                             return _this2.prev();
                         });
-                        this.selector.appendChild(prevBtn);
+                        this.selector.parentNode.appendChild(prevBtn);
 
                         var nextBtn = document.createElement('button');
                         nextBtn.className = 'product-slider-navigation navigation-next';
                         nextBtn.textContent = 'next';
+
+                        var currentNextBtn = this.selector.parentNode
+                            .getElementsByClassName(nextBtn.className); 
+                        if (currentNextBtn[0]) {
+                            currentNextBtn[0].remove();
+                        }
+
                         nextBtn.addEventListener('click', function () {
                             return _this2.next();
                         });
-                        this.selector.appendChild(nextBtn);
+                        this.selector.parentNode.appendChild(nextBtn);
                     }
 
                     // Go to currently active slide after initial build

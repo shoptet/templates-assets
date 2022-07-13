@@ -192,7 +192,7 @@ ol.cart-header {
     .cart-related-button {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: baseline;
     }
     tr.related td {
         padding-top: 0;
@@ -1124,3 +1124,8 @@ label[for="phone"] {
     }
 }
 
+.cart-related-info {
+    @media (min-width: @screen-sm-min) {
+        width: 60%;
+    }
+}

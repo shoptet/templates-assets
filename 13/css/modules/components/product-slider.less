@@ -1,0 +1,19 @@
+.product-slider-holder {
+    &.has-navigation {
+        padding-left: calc(@product-slider-navigation-size + 5px);
+        padding-right: calc(@product-slider-navigation-size + 5px);
+        @media (max-width: @navigation-breakpoint-max) { 
+            padding-left: 0;
+            padding-right: 0;
+            .product-slider-navigation.navigation-next {
+                right: -5px;
+            }
+            .product-slider-navigation.navigation-prev {
+                left: -5px;
+            }
+        }
+    }
+    .product-slider {
+        padding: 5px;
+    }
+}
