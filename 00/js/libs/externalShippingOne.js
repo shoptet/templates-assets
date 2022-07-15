@@ -12,9 +12,9 @@
     invalidateLink.setAttribute('href', '#');
     chooseLink.addEventListener('click', function (e) {
         e.preventDefault();
-        // do all your necessary stuff here
+        // call API endpoint https://api.myshoptet.com/api/shipping-request/shippingRequestCode/shippingGuid and store response (verificationCode)
         shoptet.checkoutShared.externalShippingDetails[myShippingName].invalidate = false;
-        shoptet.checkoutShared.externalShippingDetails[myShippingName].verificationCode = 'abcde12345';
+        shoptet.checkoutShared.externalShippingDetails[myShippingName].verificationCode = response.data.verificationCode;
         shoptet.checkoutShared.externalShippingDetails[myShippingName].expires =
             new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
         shoptet.checkoutShared.externalShippingDetails[myShippingName].label.selected = 'Label of selected shipping';
