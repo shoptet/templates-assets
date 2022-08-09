@@ -191,7 +191,7 @@
             flex: 0 0 auto;
             width: 33.333333%;
             &:nth-child(3) {
-                border-top-style: none;
+            border-top-style: none;
             }
             &:nth-child(even) {
                 border-right-style: solid;
@@ -231,7 +231,6 @@
         }
         > div {
             width: 50%;
-
             .p {
                 .p-code {
                     display: none;
@@ -378,4 +377,16 @@
 .widget-parameter-wrapper {
     margin-top: auto;
     padding-top: @line-height-computed;
+}
+
+.products-alternative {
+    position: relative;
+    &:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        .size(1px, 100%);
+        background-color: #fff;
+    }
 }

@@ -946,17 +946,21 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Auto open comment form if no comments exists
-        var $discussionForm = $(href).find('.discussion-form');
-        var $discussionContent = $(href).find('.vote-wrap');
-        if ($discussionForm.length && !$discussionContent.length) {
-            $('.add-comment .comment-icon').trigger('click');
+        var $discussionForm = $(href).find('#discussion-form');
+        if ($discussionForm.length) {
+            var $discussionContent = $(href).find('.vote-wrap');
+            if (!$discussionContent.length && !$discussionForm.hasClass('visible')) {
+                $(href).find('.add-comment').trigger('click');
+            }
         }
 
         // Auto open vote form if no votes exists
-        var $voteForm = $(href).find('.vote-form');
-        var $voteContent = $(href).find('.vote-wrap');
-        if ($voteForm.length && !$voteContent.length) {
-            $('.add-comment .rating-icon').trigger('click');
+        var $rateForm = $(href).find('#rate-form');
+        if ($rateForm.length) {
+            var $voteContent = $(href).find('.vote-wrap');
+            if (!$voteContent.length && !$rateForm.hasClass('visible')) {
+                $(href).find('.add-comment').trigger('click');
+            }
         }
 
         $(href + ' img').unveil();

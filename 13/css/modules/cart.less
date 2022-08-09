@@ -454,9 +454,15 @@ tr.removeable {
         padding-left: (@grid-gutter-width / 2);
         padding-right: (@grid-gutter-width / 2);
     }
+    .input-group {
+        .btn {
+            line-height: 0;
+        }
+    }
     .btn.btn-arrow-right.btn-text {
         &::before {
             margin-right: 0;
+            line-height: 32px;
             content: @icon-chevron-right-code;
             font-size: initial;
         }

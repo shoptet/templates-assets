@@ -11,11 +11,12 @@
 }
 
 .menu-helper {
-    z-index: @z-base-1;
+    z-index: @z-base-minus-1;
     position: @menu-helper-element-position;
     top: @menu-helper-element-position-top;
     right: @menu-helper-element-position-right;
     display: none;
+    visibility: hidden;
     flex: 0 0 auto;
     align-items: center;
     height: @navigation-height;
@@ -90,9 +91,9 @@
             display: none;
         }
     }
-    &.empty {
-        z-index: @z-base-minus-1;
-        visibility: hidden;
+    &.visible {
+        z-index: @z-base-1;
+        visibility: visible;
     }
     @media (min-width: @navigation-breakpoint) {
         display: flex;

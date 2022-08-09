@@ -108,9 +108,17 @@
         align-items: flex-end;
         flex-grow: 1;
     }
+}
 
-    &.unveiled .add-comment {
-        display: none;
+.rate-wrapper,
+.discussion-wrapper {
+    &.unveiled {
+        .add-comment {
+            display: none;
+        }
+        .vote-content .add-comment {
+            display: inline-block;
+        }
     }
 }
 

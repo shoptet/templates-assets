@@ -149,8 +149,8 @@
         $('#productDiscussion .add-comment').click(function() {
             $('#productDiscussion .add-comment').show();
             $(this).hide();
-
-            $('.discussion-form').show();
+            $discussionForm = $('.discussion-form');
+            $discussionForm.addClass('visible-permanent');
             moveElementAfterSelector($('.discussion-form'), $(this));
 
             $('.discussion-form input[name="parentId"]').remove();

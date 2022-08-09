@@ -65,9 +65,9 @@
         if (
             $li.length - numberOfAppendedCategories === $('.menu-helper > ul > li.splitted').length
         ) {
-            $('.menu-helper').addClass('empty');
+            $('.menu-helper').removeClass('visible');
         } else {
-            $('.menu-helper').removeClass('empty');
+            $('.menu-helper').addClass('visible');
         }
     }
 

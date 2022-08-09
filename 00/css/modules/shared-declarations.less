@@ -24,7 +24,10 @@
 }
 .js-hidden {
     .js-hidden-hidden();
-    &.visible {
+    // Visible-permanent class is for purposes of the product discussion,
+    // where one form is being moved between both new comments and replies.
+    &.visible,
+    &.visible-permanent {
         .js-hidden-visible()
     }
 }
