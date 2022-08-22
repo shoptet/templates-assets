@@ -17,6 +17,7 @@
      * This function does not accept any arguments.
      */
     function close() {
+        $('#colorbox, #cboxOverlay').removeClass();
         $.colorbox.close();
     }
 
