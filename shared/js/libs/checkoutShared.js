@@ -225,8 +225,6 @@
                             }
                         }
                     }
-                    shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS = document.querySelector( '.radio-wrapper[data-guid="' + shoptet.checkoutShared.shoptetPayPIS.PISdata.guid + '"]' );
-                    renderPIS(shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS, shoptet.checkoutShared.shoptetPayPIS.PISdata);
                     shoptetPayPISHandlePaymentMethodChange();
                 } catch (error) {
                     console.log('Unable to parse JSON of Bank list.', error);
@@ -242,20 +240,22 @@
      * SPay PIS (platebni tlacitka) payment method selection handling
      */
     function shoptetPayPISHandlePaymentMethodChange() { 
+        shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS = document.querySelector( '.radio-wrapper[data-guid="' + shoptet.checkoutShared.shoptetPayPIS.PISdata.guid + '"]' );
+        renderPIS(shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS, shoptet.checkoutShared.shoptetPayPIS.PISdata);
         document.addEventListener('ShoptetBillingMethodUpdated', function (ev) {
-            if (ev.target === shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS
-                && ev.target.classList.contains('active')) {
+            if (ev.target === shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS 
+                && ev.target.classList.contains( 'active')) {
                     showPISModal(shoptet.checkoutShared.shoptetPayPIS.PISdata);
+                    shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS.querySelector('.pisPaymentMethod').classList.remove('pisPaymentMethod--hidden'); 
             }
         });
-        if (shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS
-            && shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS.classList.contains('active')) {
+        if (shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS 
+            && shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS.classList.contains( 'active')) {
                 shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS.querySelector('.pisPaymentMethod').classList.remove('pisPaymentMethod--hidden');
         }
     }
 
     function showPISModal(data) {
-        shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS.querySelector('.pisPaymentMethod').classList.remove('pisPaymentMethod--hidden'); 
         var t = document.getElementById('template__pisModal');
         var i = document.getElementById('template__pisModalItem');
         var clone = document.importNode(t.content, true);
@@ -1011,7 +1011,7 @@
                 e.preventDefault();
                 $parentsElement = $(this).closest('.radio-wrapper');
                 shoptet.checkoutShared.chooseABranchModal(
-                    pplPartnerUrl,
+                    pplPartnerUrl + '?deliveryCountryId=' + $('#deliveryCountryId').val(),
                     '#ppl-partner-cz-wrapper',
                     '#pplPartnerBranchId',
                     '#ppl-partner-cz-branch-id'
@@ -1034,7 +1034,7 @@
                     $('#ppl-partner-cz-form .branch-saved').removeClass('branch-saved-visible');
                     $('#ppl-partner-cz-form .js-branch-loader').removeClass('no-display');
                     $.ajax({
-                        url: '/action/PplPartner/getBranchInformation/?id=' + id,
+                        url: '/action/PplPartner/getBranchInformation/?id=' + id +'&deliveryCountryId=' + $('#deliveryCountryId').val(),
                         type: 'GET',
                         success: function(responseData) {
                             $('#ppl-partner-cz-wrapper .detail-information').html(responseData);
@@ -1136,9 +1136,7 @@
         shoptet.checkoutShared.setActiveShippingAndPayments();
         shoptet.checkoutShared.displayApplePay();
         shoptet.checkoutShared.setupDeliveryShipping();
-        if (shoptet.checkoutShared.spayPaymentActive) {
-            shoptet.checkoutShared.initShoptetPayPIS();
-        }
+        shoptet.checkoutShared.initShoptetPayPIS();
         shoptet.checkoutShared.payu();
         shoptet.checkoutShared.setupExternalShipping();
         if (typeof changeCountryAndRegions === 'function') {
