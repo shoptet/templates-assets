@@ -225,33 +225,6 @@
         return mq(query);
     }
 
-    // Get function from string, with or without scopes (by Nicolas Gauthier)
-    function getFunctionFromString(string) {
-        if (typeof string === 'undefined') {
-            return;
-        }
-
-        var scope = window;
-        var scopeSplit = string.split('.');
-        for (i = 0; i < scopeSplit.length - 1; i++) {
-            scope = scope[scopeSplit[i]];
-            if (scope == undefined) return;
-        }
-
-        return scope[scopeSplit[scopeSplit.length - 1]];
-    }
-
-    function loadDataAttributes($elem) {
-        var names = $elem.data('names').toString().split(',');
-        var values = $elem.data('values').toString().split(',');
-        var attributes = {};
-        for (i = 0, cnt = names.length; i < cnt; i++) {
-            attributes[names[i]] = values[i];
-        }
-
-        return attributes;
-    }
-
     shoptet.helpers = shoptet.helpers || {};
     shoptet.scripts.libs.helpers.forEach(function(fnName) {
         var fn = eval(fnName);

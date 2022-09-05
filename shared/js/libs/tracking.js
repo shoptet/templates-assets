@@ -226,8 +226,8 @@ function getShoptetProductsList() {
             }
         };
 
-        if (shoptet.csrf.csrfToken !== undefined) {
-            settings.data.__csrf__ = shoptet.csrf.csrfToken;
+        if (shoptet.csrf.token !== undefined) {
+            settings.data.__csrf__ = shoptet.csrf.token;
         }
 
         $.ajax(settings);

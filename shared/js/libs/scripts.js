@@ -322,9 +322,7 @@
             'formatAsCurrency',
             'resolveMinimumAmount',
             'updateQuantity',
-            'isTouchDevice',
-            'getFunctionFromString',
-            'loadDataAttributes'
+            'isTouchDevice'
         ],
         products: [
             'splitWidgetParameters',
@@ -466,11 +464,14 @@
             'runProductSlider'
         ],
         csrf: [
-            'refreshCSRFToken',
-            'injectCSRFToken',
-            'validateCSRFToken',
-            'appendCSRFInput',
-            'submitLink'
+            'isTokenExpired',
+            'refreshToken',
+            'injectToken',
+            'validateToken'
+        ],
+        csrfLink: [
+            'getFunctionFromString',
+            'loadDataAttributes'
         ]
     };
 

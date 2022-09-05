@@ -59,6 +59,11 @@ function fulltextSearch($searchInput, $searchContainer) {
         if ($(e.target).hasClass('js-searchWhisperer__button')) {
             $form.submit();
         }
+        if ($(e.target).hasClass('increase') || $(e.target).hasClass('decrease')) {
+            e.stopPropagation();
+            e.preventDefault();
+            shoptet.products.changeQuantity($(e.target));
+        }
     });
 
     $(document).click(function (e) {
