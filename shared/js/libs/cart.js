@@ -25,7 +25,7 @@
                 if (i.length) {
                     i.text(count);
                 } else {
-                    $cartButton.append('<i>' + count + '</i>').addClass('full');
+                    $cartButton.append('<i data-testid="headerCartCount">' + count + '</i>').addClass('full');
                 }
                 if ($priceHolder.length) {
                     $priceHolder.text(price);

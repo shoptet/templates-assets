@@ -7,29 +7,7 @@
     }
 
     function refreshToken() {
-        clearTimeout(shoptet.csrf.refreshTimeout);
-        $.getJSON(shoptet.csrf.refreshURL).done(
-            function(data) {
-                if (data && typeof data.token !== 'undefined') {
-                    // If we have successfully received the token,
-                    // refresh it and inject to the forms...
-                    shoptet.csrf.refreshTimeout = setTimeout(shoptet.csrf.refreshToken, shoptet.csrf.refreshTimeoutDuration);
-                    shoptet.csrf.token = data.token;
-                    shoptet.csrf.tokenIssuedAt = new Date().getTime();
-                    document.querySelectorAll('form').forEach(function(form) {
-                        shoptet.csrf.injectToken(form);
-                    });
-                } else {
-                    // ...if not, try to receive it again after some time
-                    shoptet.csrf.refreshTimeout = setTimeout(shoptet.csrf.refreshToken, shoptet.csrfRetryTimeoutDuration);
-                }
-            }
-        ).fail(
-            function() {
-                // If the request fails, try to receive the token again after some time
-                shoptet.csrf.refreshTimeout = setTimeout(shoptet.csrf.refreshToken, shoptet.csrfRetryTimeoutDuration);
-            }
-        );
+        //
     }
 
     function injectToken(f) {
@@ -74,19 +52,6 @@
         shoptet.csrf.refreshTimeoutDuration = 60 * 60 * 1000;
         shoptet.csrf.retryTimeoutDuration = 60 * 1000;
         shoptet.csrf.refreshTimeout = setTimeout(shoptet.csrf.refreshToken, shoptet.csrf.refreshTimeoutDuration);
-
-        // Refresh token after the period of inactivity (waking up the device from sleep, activated inactive tab...)
-        var wakeUpTimeout = 1000 * 30;
-        var lastTime = (new Date()).getTime();
-        setInterval(function() {
-            var currentTime = (new Date()).getTime();
-            if (currentTime > (lastTime + wakeUpTimeout + 2000)) {
-                if (shoptet.csrf.isTokenExpired()) {
-                    shoptet.csrf.refreshToken();
-                }
-            }
-            lastTime = currentTime;
-        }, wakeUpTimeout);
 
         document.addEventListener("DOMContentLoaded", function() {
             var selector;

@@ -34,6 +34,7 @@
     let elements = document.querySelectorAll('.csrf-post-js, .csrf-post-ajax-js');
     for (let i = 0; i < elements.length; i++) {
         elements[i].addEventListener('click', function(e) {
+            e.preventDefault();
             e.stopImmediatePropagation();
             if ($(this).hasClass('muted')) {
                 return false;
