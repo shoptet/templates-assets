@@ -346,12 +346,22 @@ ol.cart-header {
     }
 }
 
+tr.removeable .remove-item,
+.remove-item-placeholder {
+    width: @cart_side-space;
+    margin-right: -(@cart_side-space);
+}
+
+.remove-item-placeholder {
+    @media (min-width: @screen-md-min) {
+        display: inline-block;
+    }
+}
+
 tr.removeable {
     .remove-item {
         visibility: visible;
         display: inline-block;
-        width: @cart_side-space;
-        margin-right: -(@cart_side-space);
     }
     @media (min-width: @screen-md-min) {
         .remove-item {

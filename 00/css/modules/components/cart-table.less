@@ -285,7 +285,8 @@ button::-moz-focus-inner {
     padding: 0;
 }
 
-.remove-item {
+.remove-item,
+.remove-item-placeholder {
     vertical-align: middle;
     position: relative;
     margin: 0;
@@ -299,6 +300,14 @@ button::-moz-focus-inner {
         &:extend(.shp-icon);
         content: @icon-close-code;
         font-size: @cancel-icon-font-size;
+    }
+}
+
+.remove-item-placeholder {
+    display: none;
+    opacity: 0;
+    @media (min-width: @screen-md-min) {
+        display: inline;
     }
 }
 
