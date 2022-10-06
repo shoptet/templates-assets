@@ -25,10 +25,36 @@
     justify-content: space-around;
     margin-bottom: round(@grid-gutter-width * 1.5);
     padding: 0 round(@grid-gutter-width / 4);
+    text-align: center;
+
+    &::before,
+    &::after {
+        content: '|';
+        display: inline-flex;
+        padding: 0 5px;
+        align-self: center;
+        font-size: 18px;
+    }
+    &::before {
+        order: 2;
+    }
+    &::after {
+        order: 4;
+    }
 
     .step {
         text-transform: uppercase;
         font-size: @font-size-h3;
+
+        &.step-1 {
+            order: 1;
+        }
+        &.step-2 {
+            order: 3;
+        }
+        &.step-3 {
+            order: 5;
+        }
 
         strong,
         a {

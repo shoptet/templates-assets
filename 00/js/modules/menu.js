@@ -200,14 +200,8 @@
         }
 
         // Toggle submenu
-        $html.on('touchstart', '#navigation, .navigation-buttons a:not(".js-languagesMenu__list__link")', function (e) {
+        $html.on('touchstart', '#navigation, .navigation-buttons a', function (e) {
             e.stopPropagation();
-        });
-
-        $('.js-languagesMenu__list__link').unbind();
-        $html.on('click touchstart', '.js-languagesMenu__list__link', function() {
-            window.location = this.href;
-            return false;
         });
 
         $html.on('mouseenter', '.menu-level-1 .ext > a > span', function (e) {

@@ -33,7 +33,7 @@
     }
 }
 
-.sidebar {
+.sidebar-inner {
     padding-right: @sidebar-padding-right;
     padding-left: @sidebar-padding-left;
 }
@@ -52,9 +52,11 @@
 .sidebar {
     @media (max-width: @screen-xs-max) {
         &.sidebar-left {
-            display: none;
-            &.sidebar-visible {
-                display: block;
+            .sidebar-inner {
+                display: none;
+                &.visible {
+                    display: block;
+                }
             }
         }
     }
@@ -72,3 +74,29 @@
         width: @sidebar-larger-width;
     }
 }
+// Indented sidebar in category
+.sidebar-indented {
+    @media (min-width: @screen-sm-min) {
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            .category-top {
+                width: 100%;
+            }
+            .sidebar {
+                margin-left: -(round(@grid-gutter-width / 2));
+                margin-right: round(@grid-gutter-width / 2);
+            }
+        }
+        .category-content-wrapper {
+            width: calc(100% - @sidebar-smaller-width);
+        }
+    }
+    @media (min-width: @screen-md-min) {
+        .category-content-wrapper {
+            width: calc(100% - @sidebar-larger-width);
+        }
+    }
+}
+
+

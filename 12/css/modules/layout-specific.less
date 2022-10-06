@@ -323,18 +323,11 @@ a.btn {
 //windows.less
 .toggle-window-arr {
     text-align: left;
-    top: -85px;
+    position: absolute;
+    top: 24px;
+    left: round(@grid-gutter-width / 2);
     span {
         display: inline;
-    }
-    &::before {
-        content: '';
-    }
-    @media (min-width: @screen-sm-min) {
-        position: relative; //*
-        display: block;     //*
-        top: 24px;
-        left: 0;            //* fix zooming in Safari
     }
 }
 .continue-shopping {
@@ -1473,7 +1466,7 @@ ul.shp-tabs {
 }
 
 //sidebar.less
-.sidebar {
+.sidebar-inner {
     > div {
         border-top-style: solid;
         border-top-width: 1px;

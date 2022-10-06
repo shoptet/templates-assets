@@ -205,31 +205,31 @@ function makeFilterAjaxRequest(url, pushHistoryState, successCallback, element, 
  */
 function moveFilters($el, targetLocation) {
     if (targetLocation != 'default') {
-        $('#filters-wrapper').after($el);
+        $('#filters-wrapper').append($el);
     } else {
-        $('#filters-default-position').after($el);
+        $('#filters-default-position').append($el);
     }
 }
 
 /**
- * This function checks, if it's neccessary to move filters
+ * This function checks, if it's necessary to move filters
  * to another location. If so, moves them.
  *
  * This function does not accept any arguments.
  */
 function detectFilters() {
-    if ($('.filters-wrapper').length) {
-        $el = $('.filters-wrapper');
-        var filtersDefaultPosition = $('#filters-default-position').attr('data-filters-default-position');
-        if (filtersDefaultPosition == 'left' || filtersDefaultPosition == 'right') {
-            var $asideFilterSelector = $('.sidebar-' + filtersDefaultPosition + ' .filters-wrapper');
-            if ($asideFilterSelector.length && !$asideFilterSelector.is(':visible')) {
+    var $el;
+    var $asideFilterLocation = $('.sidebar .box-filters');
+    if ($asideFilterLocation.length) {
+        if (!$asideFilterLocation.is(':visible')) {
+            $el = $('.sidebar .box-filters .filters-wrapper');
+            if ($el.length) {
                 moveFilters($el, 'content');
-            } else {
-                if ($('.sidebar-' + filtersDefaultPosition).is(':visible')) {
-                    moveFilters($el, 'default');
-                }
-                // else - filters are where they should be
+            }
+        } else {
+            $el = $('#filters-wrapper .filters-wrapper');
+            if ($el.length) {
+                moveFilters($el, 'default');
             }
         }
     }

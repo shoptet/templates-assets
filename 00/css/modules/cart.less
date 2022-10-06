@@ -5,7 +5,7 @@ ol.cart-header {
     li {
         list-style: none;
         float: left;
-        width: 15%;
+        width: 16.666666%;
         a,
         strong {
             position: relative;
@@ -15,7 +15,7 @@ ol.cart-header {
             padding: 0 5px;
             font-size: 11px;
             font-weight: 700;
-            line-height: 20px;
+            line-height: 75px;
             text-transform: uppercase;
             text-decoration: none;
             .skew(30deg, 0deg);
@@ -25,21 +25,17 @@ ol.cart-header {
                 padding-top: 5px;
                 text-align: center;
                 .skew(-30deg, 0deg);
-                i {
-                    display: block;
-                }
                 &::before {
-                    display: block;
+                    display: inline;
                     counter-increment: steps;
                     content: counter(steps) + '. ';
                 }
             }
         }
         &.active {
-            width: 55%;
+            width: 66.666666%;
             a,
             strong {
-                padding: 0 30px;
                 span {
                     visibility: visible;
                 }
@@ -76,33 +72,16 @@ ol.cart-header {
     }
     @media (min-width: @screen-md-min) {
         li {
-            width: 25%;
+            width: 33.333333%;
             a,
             strong {
-                padding: 0 30px;
                 font-size: 13px;
                 span {
                     visibility: visible;
                 }
             }
             &.active {
-                width: 25%;
-            }
-        }
-    }
-    @media (min-width: @screen-lg-min) {
-        li {
-            a,
-            strong {
-                height: 75px;
-                line-height: 75px;
-                span {
-                    padding-top: 0;
-                    i,
-                    &::before {
-                        display: inline;
-                    }
-                }
+                width: 33.333333%;
             }
         }
     }
