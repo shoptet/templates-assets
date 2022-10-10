@@ -391,6 +391,11 @@ ol.top-products {
     text-transform: uppercase;
 }
 
+.login-window .toggle-window-arr::before,
+.register-window .toggle-window-arr::before {
+    display: none;
+}
+
 .btn,
 a.btn {
     &.btn-cart,
@@ -493,4 +498,77 @@ a.btn {
 
 .social-buttons-wrapper {
     margin-top: round(@line-height-computed * 2);
+}
+
+/* TODO: copied from Techno, inconsistencies marked by comments */
+.p-thumbnails {
+    .wide & {
+        @media(min-width: @screen-sm-min) {
+            position: absolute;
+            // left: 0;
+            right: 0;
+            // top: 0;
+            bottom: 20px;
+            .size(100px, 330px);
+            margin-bottom: 0;
+            > div {
+                .size(100px, 9999em);
+                > div {
+                    display: block;
+                }
+            }
+            a {
+                margin-left: 0;
+                margin-top: -1px;
+                &:first-child {
+                    margin-top: 0;
+                }
+            }
+            &.overflow-prev {
+                &::before {
+                    left: 1px;
+                    top: 0;
+                    .size(98px, 40px);
+                    #gradient > .vertical(rgba(255,255,255,1),rgba(255,255,255,0), 50%, 100%);
+                }
+            }
+            &.overflow-next {
+                &::after {
+                    left: 1px;
+                    right: auto;
+                    top: auto;
+                    bottom: 0;
+                    .size(98px, 40px);
+                    #gradient > .vertical(rgba(255,255,255,0),rgba(255,255,255,1), 0%, 50%);
+                }
+            }
+            .thumbnail-prev,
+            .thumbnail-next {
+                left: 50%;
+                right: auto;
+                margin-top: 0;
+                margin-left: -10px;
+            }
+            .thumbnail-prev {
+                top: 0;
+                &::before {
+                    content: @icon-chevron-up-code;
+                }
+            }
+            .thumbnail-next {
+                top: auto;
+                bottom: 0;
+                &::before {
+                    content: @icon-chevron-down-code;
+                }
+            }
+        }
+        @media(min-width: @screen-md-min) {
+            //height: 460px;
+            height: 380px;
+        }
+        @media(min-width: @screen-lg-min) {
+            //height: 530px;
+        }
+    }
 }

@@ -255,7 +255,7 @@
     }
 
     function showPISModal(data) {
-        shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS.querySelector('.pisPaymentMethod').classList.remove('pisPaymentMethod--hidden'); 
+        shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS.querySelector('.pisPaymentMethod').classList.remove('pisPaymentMethod--hidden');
         var t = document.getElementById('template__pisModal');
         var i = document.getElementById('template__pisModalItem');
         var clone = document.importNode(t.content, true);
@@ -321,8 +321,23 @@
         t.content.querySelector('.shoptetpay__pis__code').value = selected.code;
 
         var clone = document.importNode(t.content, true);
-        paymentMethodPIS.appendChild(clone);
-        paymentMethodPIS.querySelector('.bankSelection__button').addEventListener('click', function(e) { showPISModal(shoptet.checkoutShared.shoptetPayPIS.PISdata); });
+        if (shoptet.abilities.about.generation !== 3) {
+            clone.querySelector('.pisPaymentMethod').classList.remove('pisPaymentMethod--hidden');
+            var pisWrapper = document.getElementById('template__pisWrapperTable2G');
+            var radioWrapper = pisWrapper.content.querySelector('.pisWrapper__radio');
+            [].forEach.call(paymentMethodPIS.children, function(child) {
+                radioWrapper.appendChild(child);
+            });
+            var pisPaymentRow = pisWrapper.content.querySelector('.pisWrapper__pisPayment');
+            pisPaymentRow.appendChild(clone);
+            paymentMethodPIS.innerHTML = '';
+            paymentMethodPIS.appendChild(document.importNode(pisWrapper.content, true));
+            paymentMethodPIS.parentNode.querySelector('.bankSelection__button').addEventListener('click', function(e) { showPISModal(shoptet.checkoutShared.shoptetPayPIS.PISdata); });
+        } else {
+            paymentMethodPIS.appendChild(clone);
+            paymentMethodPIS.querySelector('.bankSelection__button').addEventListener('click', function(e) { showPISModal(shoptet.checkoutShared.shoptetPayPIS.PISdata); });
+        }
+        shoptet.checkoutShared.shoptetPayPIS.paymentMethodPISdescription = paymentMethodPIS.querySelector('.bankInformation__description');
     }
 
     /**
@@ -1149,7 +1164,7 @@
             elements[i].addEventListener('mousedown', function(e) {
                 e.stopPropagation();
                 var label = this.querySelector('label');
-                if (label.classList.contains('inactive')) {
+                if (label.classList.contains('inactive') || e.target.closest('.bankInformation')) {
                     return false;
                 }
                 var table = this.closest('.shipping-billing-table');
