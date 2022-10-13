@@ -18,7 +18,9 @@
             } else {
                 // For case when selected method was inactivated in the meantime
                 // and there is no checked input
-                $(this).find('input[type="radio"]').first().closest('.radio-wrapper').addClass('active');
+                var radio = $(this).find('input[type="radio"]').first();
+                radio[0].checked = true;
+                radio.closest('.radio-wrapper').addClass('active');
             }
         });
         shoptet.checkoutShared.callShippingBillingRelations();
@@ -190,8 +192,8 @@
                 try {
                     var obj = JSON.parse(responseData);
                     for (const [guid, value] of Object.entries(obj)) {
-                        if(value.hasOwnProperty('billingMethod') && value.billingMethod === 'pis') {
-                            if(!!document.querySelector( '.radio-wrapper[data-guid="' + guid + '"]' )) {
+                        if (value.hasOwnProperty('billingMethod') && value.billingMethod === 'pis') {
+                            if (!!document.querySelector('.radio-wrapper[data-guid="' + guid + '"]')) {
                                 shoptet.checkoutShared.shoptetPayPIS.PISdata = {guid:guid, banks: []};
                                 getPISBanksData();
                                 break;
@@ -203,6 +205,7 @@
                 }
             },
             error: function(error) {
+                hideAllSPayMethods();
                 console.log('Unable to reach payment method endpoint.',error);
             }
         });
@@ -233,9 +236,28 @@
                 }
             },
             error: function(error) {
+                hidePISMethod();
                 console.log('Unable to reach PIS Bank list endpoint.', error);
             }
         });
+    }
+
+    /**
+     * SPay PIS (platebni tlacitka) hide (remove) all SPay methods
+     */
+    function hidePISMethod() {
+        document.querySelector('.radio-wrapper[data-guid="' + shoptet.checkoutShared.shoptetPayPIS.PISdata.guid + '"]').remove();
+        shoptet.checkoutShared.setActiveShippingAndPayments();
+    }
+
+    /**
+     * Hide (remove) all SPay methods
+     */
+    function hideAllSPayMethods() {
+        [].forEach.call(document.querySelectorAll('.shoptetpay'), function(method) {
+            method.closest('.radio-wrapper').remove();
+        });
+        shoptet.checkoutShared.setActiveShippingAndPayments();
     }
 
     /**
