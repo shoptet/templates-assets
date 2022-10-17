@@ -465,7 +465,6 @@
         ],
         csrf: [
             'isTokenExpired',
-            'refreshToken',
             'injectToken',
             'validateToken'
         ],

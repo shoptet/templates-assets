@@ -3,11 +3,7 @@
     function isTokenExpired() {
         let t = new Date().getTime();
         let ti = shoptet.csrf.tokenIssuedAt;
-        return t - ti > shoptet.csrf.refreshTimeoutDuration;
-    }
-
-    function refreshToken() {
-        //
+        return t - ti > shoptet.csrf.tokenValidity;
     }
 
     function injectToken(f) {
@@ -49,9 +45,14 @@
             var fn = eval(fnName);
             shoptet.scripts.registerFunction(fn, 'csrf');
         });
-        shoptet.csrf.refreshTimeoutDuration = 60 * 60 * 1000;
-        shoptet.csrf.retryTimeoutDuration = 60 * 1000;
-        shoptet.csrf.refreshTimeout = setTimeout(shoptet.csrf.refreshToken, shoptet.csrf.refreshTimeoutDuration);
+        shoptet.csrf.tokenIssuedAt = new Date().getTime();
+        /*
+            The validity has to be synced with $csrf_window in cms/packages/Security/CSRFTrait.php
+            The maximum validity of the token is 6h 59m when it is generated right at the
+            top of the hour; so instead we have to count with 5h 59m and subtract five more
+            minutes just for sure.
+         */
+        shoptet.csrf.tokenValidity = 1000 * 60 * 59 * 6;
 
         document.addEventListener("DOMContentLoaded", function() {
             var selector;
@@ -66,11 +67,6 @@
         });
 
         if (shoptet.csrf.submitListener) {
-            document.addEventListener('ShoptetDOMContentLoaded', function() {
-                if (shoptet.csrf.isTokenExpired()) {
-                    shoptet.csrf.refreshToken();
-                }
-            });
             document.addEventListener('submit', function(e) {
                 if (e.target && (shoptet.csrf.formsSelector === '' || e.target.classList.contains(shoptet.csrf.formsSelector))) {
                     var prevDefaultPrevented = e.defaultPrevented;

@@ -257,7 +257,7 @@ $(function () {
     });
 
     $html.on('click', '.js-try-search-button', function() {
-        if (detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
+        if (detectResolution(shoptet.abilities.config.navigation_breakpoint) && $('.js-search-input').is(':visible')) {
             $('.js-search-input').focus();
         } else {
             shoptet.global.showPopupWindow('search', true);

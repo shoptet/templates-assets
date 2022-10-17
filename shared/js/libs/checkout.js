@@ -160,8 +160,25 @@
             $('#order-form input').blur(function() {
                 var data = $(this).closest('form').serialize();
                 if (data != lastData) {
-                    $.post('/action/OrderingProcess/step2CustomerAjax/', data);
                     lastData = data;
+                    $.ajax({
+                        url: '/action/OrderingProcess/step2CustomerAjax/',
+                        type: 'POST',
+                        data: data,
+                        success: function(response) {
+                            try {
+                                if(response.payload) {
+                                    $('#summary-box').html(response.payload)
+                                    shoptet.checkoutShared.setActiveShippingAndPayments();
+                                }
+                            } catch (error) {
+                                console.log(error);
+                            }
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
                 }
             });
         }
