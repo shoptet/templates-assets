@@ -329,7 +329,7 @@ function scrollToEl($el) {
 function unveilImages() {
     var imgResizeDone = 0;
     $('img:not(.js-postpone-lazyload)').unveil(100, function () {
-        if ($(this).data('lazy')) {
+        if ($(this).data('shp-lazy')) {
             $(this).load(function () {
                 if (imgResizeDone) {
                     shoptet.products.sameHeightOfProducts();

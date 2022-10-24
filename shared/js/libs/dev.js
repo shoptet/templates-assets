@@ -2,13 +2,13 @@
 
     function enableEventsMonitoring() {
         shoptet.dev.config.monitorEvents = true;
-        console.log('%cEvents monitoring enabled.', shoptet.dev.config.log.styles.success);
+        console.log('%cEvents monitoring has been enabled.', shoptet.dev.config.log.styles.success);
         return true;
     }
 
     function disableEventsMonitoring() {
         shoptet.dev.config.monitorEvents = false;
-        console.log('%cEvents monitoring disabled.', shoptet.dev.config.log.styles.error);
+        console.log('%cEvents monitoring has been disabled.', shoptet.dev.config.log.styles.success);
         return true;
     }
 
@@ -20,7 +20,7 @@
         if (shoptet.dev.config.monitorEvents) {
             console.log(
                 '%cEvents monitoring is enabled.',
-                shoptet.dev.config.log.styles.success
+                shoptet.dev.config.log.styles.info
             );
             console.log(
                 'To disable events monitoring, run %cshoptet.dev.disableEventsMonitoring()',
@@ -29,7 +29,7 @@
         } else {
             console.log(
                 '%cEvents monitoring is disabled.',
-                shoptet.dev.config.log.styles.error
+                shoptet.dev.config.log.styles.info
             );
             console.log(
                 'To enable events monitoring, run %cshoptet.dev.enableEventsMonitoring()',
@@ -109,7 +109,7 @@
         fontLarger: 'font-size: ' + shoptet.dev.config.log.fontSize.larger,
     };
     shoptet.dev.config.name = "Shoptet developers tools";
-    shoptet.dev.config.version = '0.1.2';
+    shoptet.dev.config.version = '0.1.3';
     shoptet.dev.config.monitorEvents = false;
 
     shoptet.dev.enableEventsMonitoring = enableEventsMonitoring;
