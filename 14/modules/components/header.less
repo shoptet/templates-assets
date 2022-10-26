@@ -1,0 +1,75 @@
+#header {
+    .header-top {
+        position: relative;
+        height: @header-height-sm;
+        @media (min-width: @screen-md-min) {
+            height: auto;
+        }
+        .header-top-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: @header-height-sm;            
+            flex-wrap: wrap;
+            position: relative;
+            > div {
+                width: 33.333%;
+                flex-grow: 0;
+                &.user-action {
+                    width: 100%;
+                    flex-grow: 1;
+                }
+            }
+            .site-name,
+            h1.site-name {
+                text-align: center;
+                padding: @double-spacing 0;
+                height: 100%;
+                margin: 0;
+                a {
+                    img {
+                        max-height: 100%;
+                        @media (min-width: @screen-md-min) {
+                            max-height: auto;    
+                        }
+                    }
+                }
+            }
+            @media (max-width: @navigation-breakpoint-max) {
+                justify-content: space-between;
+                padding-right: 0;
+                .site-name {
+                    order: 1;
+                    text-align: left;
+                    width: 50%;
+                    padding-right: calc(@grid-gutter-width / 2);
+                    a {
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+                .navigation-tools {
+                    display: none;
+                }
+                .navigation-buttons {
+                    order: 2;
+                    width: 50%;
+                }
+            }   
+            @media (min-width: @screen-md-min) {
+                height: auto;
+            }
+        }
+        .user-action {
+            @media (max-width: @screen-sm-max) {
+                position: relative;
+            }  
+        }
+    }
+    .header-bottom {
+        .header-bottom-wrapper {
+            position: relative;
+        }
+    }
+}

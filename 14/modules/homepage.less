@@ -1,0 +1,157 @@
+.homepage-group-title {
+    text-align: center;
+    padding-top: @double-spacing;
+    @media (min-width: @screen-sm-min) {
+        padding-top: calc(@basic-spacing * 6);
+    }
+    &.h4 {        
+        .h2();
+    }
+}
+
+.homepage-latest-contribution {
+    text-align: center;
+    .latest-contribution-wrapper {
+        padding-bottom: @double-spacing;
+        @media (min-width: @screen-sm-min) {
+            padding-bottom: round(@penta-spacing * 2);
+        }
+    }
+    .latest-contribution {
+        display: flex;
+        flex-flow: row;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 0;
+        @media (min-width: @screen-sm-min) {
+            padding-top: @penta-spacing;
+        }
+        @media (max-width: @screen-xs-max) {
+            display: flex;
+            flex-flow: row;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        h2 {
+            flex: 0 0 100%;
+            width: 100%;
+        }
+        a {
+            padding: 0 @double-spacing;
+            flex: 1;
+            @media (max-width: @screen-md-max) {
+                flex-basis: 50%;
+                padding: 0 @double-spacing @penta-spacing;
+            }
+            @media (max-width: @screen-xs-max) {
+                flex-basis: 100%;
+                padding: 0 @basic-spacing @penta-spacing;
+            }
+        }
+        .latest-contribution-product {
+            margin-top: @double-spacing;
+            margin-bottom: @basic-spacing;
+        }
+        .latest-contribution-info {
+            .fontSmaller();
+            display: flex;
+            flex-flow: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            .latest-contribution-author {
+                display: block;
+                width: 100%;
+                flex-basis: 100%;
+            }
+            .latest-contribution-date,
+            .latest-contribution-subject,
+            .latest-contribution-author {
+                padding: 0 @basic-spacing @basic-spacing;
+            }
+            > i {
+                display: none;
+            }
+        }
+        .latest-contribution-description {
+            .fontBigger();
+        }
+    }
+    .latest-contribution-discussion {
+        .latest-contribution-image {
+            width: @homepage-avatar-size;
+            height: @homepage-avatar-size;
+            margin: auto;
+            position: relative;
+            img {
+                border-radius: 50%;
+                width: @homepage-avatar-size;
+                height: @homepage-avatar-size;
+            }
+            .vote-initials {
+                width: @homepage-avatar-size;
+                height: @homepage-avatar-size;
+                line-height: @homepage-avatar-size;
+            }
+            span:not(:only-child) {
+                display: none;
+            }
+        }
+    }
+    .latest-contribution-rating {
+        .latest-contribution-image img {
+            border-radius: @border-radius-base;
+        }
+        .latest-contribution-info {
+            display: flex;
+            flex-flow: column-reverse;
+            align-items: center;
+            .latest-contribution-author::after {
+                content: '';
+            }
+        }
+        .stars {
+            width: auto;
+            margin: round(@line-height-computed / 2) 0;
+            height: 20px;
+            .star {
+                margin: 0 5px;
+                width: 20px;
+                height: 20px;
+                &::before {
+                    font-size: 20px;
+                    line-height: 20px;
+                }
+            }
+        }
+    }
+    .latest-contribution-placeholder {
+        display: none;
+    }
+}
+
+.welcome-wrapper {
+    padding: @line-height-computed 0;
+    @media (min-width: @screen-sm-min) {
+        padding: round(@line-height-computed * 3) 0;
+        font-size: @font-size-larger;
+        h1 {
+            margin-bottom: round(@line-height-computed * 2);
+        }
+        p {
+            margin: 0 0 @line-height-computed;
+        }
+        .one-column-body & {
+            .welcome {
+                width: 80%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    }    
+}

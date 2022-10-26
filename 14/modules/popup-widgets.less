@@ -1,0 +1,247 @@
+.popup-widget {
+    top: 0;
+
+    @media (min-width: @screen-md-min) {
+        left: auto;
+        right: 0;
+        margin-left: 0;
+        margin-right: calc(@grid-gutter-width / 1.5);
+    }
+}
+
+.user-action {
+    @media (max-width: @screen-sm-max) {
+        position: relative;
+    }  
+}
+
+.user-action-in .popup-widget {
+    z-index: @z-navigation-3;
+
+    @media (min-width: @screen-md-min) {
+        top: 100%;
+        margin-top: 0;
+        border-radius: @border-radius-base;
+        .admin-logged & {
+            top: 100%;
+        }
+        .popup-widget-inner {
+            border-radius: @border-radius-base;
+        }
+    }
+
+    @media (max-width: @screen-sm-max) {
+        .popup-widget-inner {
+            overflow-y: auto;
+        }
+    }
+
+    &.loader-wrapper {
+        min-height: @loader-size + @grid-gutter-width;
+    }
+}
+
+.ajax-pending .loader-wrapper::after, 
+.ajax-pending-element::after, 
+.loader-overlay {
+    border-radius: @border-radius-base;
+}
+
+.popup-widget-inner.cart-widget-inner {    
+    padding: @triple-spacing;
+    &.full {
+        margin-bottom: @cart-widget-bottom-height;
+    }
+    @media (max-width: @screen-sm-max) {
+        .cart-widget-products {
+            margin-bottom: @cart-widget-bottom-height;
+        }
+    }
+    &:not(.full) {
+        .cart-widget-products-inner .cart-widget-product {
+            min-height: @cart-widget-bottom-height;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 0;
+        }
+    }
+    .cart-widget-products {
+        .cart-widget-product {
+            padding: @double-spacing 0;
+            &:first-child {
+                padding-top: 0;
+            }
+            .cart-widget-product-name-and-price {
+                padding-left: @double-spacing;
+                padding-right: @double-spacing;
+            }
+            > div.cart-widget-product-unit {
+                display: none;
+            }
+        
+            .cart-widget-product-amount {
+                width: 104px;
+                padding: 0;
+            }
+            .cart-widget-product-delete {
+                padding-left: 0;
+            }
+            @media (max-width: @screen-phone) {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                align-items: center;
+                .cart-widget-product-name-and-price {
+                    width: calc(100% - 76px);
+                }
+            }
+        }
+    }
+    
+    .cart-widget-bottom {
+        z-index: @z-base-3;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        display: flex;
+        flex-flow: column-reverse;
+        width: 100%;
+        height: @cart-widget-bottom-height;
+        text-align: center;
+        border-bottom-right-radius: @border-radius-base;
+        border-bottom-left-radius: @border-radius-base;    
+
+        .cart-widget-button {
+            padding: @triple-spacing;
+            margin: 0;
+            top: 0;
+            border-radius: @border-radius-base;
+            @media (max-width: @screen-sm-max) {
+                position: relative;
+                left: initial;
+                right: initial;
+                bottom: initial;
+            }
+            a {
+                width: 100%;
+                padding: @double-spacing;
+            }
+        }
+
+        .cart-free-shipping {
+            position: relative;
+            bottom: 0;
+            height: auto;
+            > div {
+                padding: 0 @triple-spacing;
+                .fontSmaller();
+                div {
+                    strong {
+                        padding-top: round(@line-height-computed / 2);
+                        display: inline-block;
+                    }
+                }
+            }
+            .price-range {
+                margin-top: round(@line-height-computed / 2);
+                margin-bottom: 0;
+                max-width: 100%;
+                padding-bottom: 0;
+                div {
+                    padding-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+.popup-widget.login-widget {
+    right: @navigation_navigation-buttons-width;
+}
+
+.popup-widget.search-widget {
+    padding: round(@grid-gutter-width / 2);
+    overflow: auto;
+
+    @media (min-width: @screen-md-min) {
+        padding: @grid-gutter-width round(@grid-gutter-width * 2) @triple-spacing;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        width: calc(100% - @grid-gutter-width);
+        max-width: @popup_widget_search-width;
+        overflow: visible;
+    }
+    
+    .search-window-visible & {
+        display: flex;
+    }
+
+    .search-widget-close {
+        display: none;
+        position: absolute; 
+        top: 0;
+        right: 0;
+        width: 40px;
+        height: 40px;
+        &::before {
+            &:extend(.shp-icon);
+            content: @icon-close-code;
+            cursor: pointer;
+        }
+        @media (min-width: @screen-md-min) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+    }
+
+    form {
+        width: 100%;
+
+        .search-form-input-group {
+            display: flex;
+            width: 100%;
+            max-width: 640px;
+            margin: auto;
+
+            .search-input {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+                padding: round(@penta-spacing / 2) @double-spacing;
+                height: @basic-spacing * 8;
+            }
+
+            .search-button {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+                position: relative;
+                height: @basic-spacing * 8;
+                padding: @triple-spacing;
+            }
+        }
+    } 
+}
+
+.search-widget .search-widget-try-button {
+    width: 100%;
+}
+
+body.user-action-visible.search-window-visible {
+
+    @media (min-width: @screen-md-min) {
+        &::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: @z-navigation-2;
+        }
+    }
+}

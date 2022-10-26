@@ -1,0 +1,34 @@
+.navigation-buttons {
+    position: relative;
+    a {
+        margin-left: 0;
+        height: @header-height-sm;
+        width: @navigation_navigation-buttons-width;
+        line-height: @header-height-sm;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &::after {
+            &:extend(.shp-icon-shadow);
+        }
+        &[data-target="search"],
+        &[data-target="login"],
+        &[data-target="cart"] {
+            &::before {
+                content: '';
+                display: none;
+            }
+        }
+        &[data-target="navigation"] {
+            &::after {
+                content: @icon-menu-code;
+            }
+            .navigation-window-visible & {
+                &::after {
+                    content: @icon-close-code;
+                }   
+            }
+        }
+    }
+}

@@ -1,0 +1,167 @@
+.slider-content {
+    margin-bottom: @grid-gutter-width;
+}
+
+.filter-sections {
+    padding: 0;
+    .filter-section {
+        padding-top: 0;
+        padding-bottom: @double-spacing;
+        &.filter-section-count,
+        &.filter-section-button {
+            padding-bottom: 0;
+        }
+        #clear-filters {
+            margin-bottom: @double-spacing;
+        }
+        &:only-child {
+            padding-bottom: 0;
+        }
+        h4 {
+            margin-top: @triple-spacing;
+        }
+    }
+}
+
+#content, 
+#footer {
+    .filter-section fieldset div label {
+        &:not(.advanced-parameter) {
+            padding-top: @basic-spacing;
+            padding-bottom: @basic-spacing;
+        }
+        &.advanced-parameter {
+            margin: 0 @basic-spacing @basic-spacing 0;
+        }
+    }
+}
+
+.filters-wrapper {
+    .filters-unveil-button-wrapper {
+        display: none;
+        margin: 0;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        left: 0;
+        right: 0;
+        .unveil-button {
+            position: relative;
+            z-index: @z-base-1;
+            text-align: left;
+            font-weight: 600;
+            text-transform: none;
+            padding: @double-spacing @grid-gutter-width @double-spacing @double-spacing;
+            width: 100%;
+
+            .one-column-body &,
+            .multiple-columns-body.mobile & {
+                @media (min-width: @screen-md-min) {
+                    width: auto;
+                }
+            }
+            .multiple-columns-body.desktop & {
+                @media (min-width: @screen-lg-min) {
+                    width: auto;
+                }
+            }
+        }
+        i {
+            position: relative;
+            z-index: @z-base-2;
+            left: -(@grid-gutter-width - 5px);
+            width: 0;
+            pointer-events: none;
+            .transition(all @transition-duration @transition-timing);
+        }
+    }
+}
+
+#content {
+    .filters-wrapper {
+        margin-top: 0;
+        margin-bottom: @double-spacing;
+        text-align: center;
+        @media (max-width: @navigation-breakpoint-max) {
+            padding: 0 @basic-spacing;
+        }
+        
+        .filters-unveil-button-wrapper {
+            display: flex;
+        }
+
+        .one-column-body &,
+        .multiple-columns-body.mobile & {
+            @media (min-width: @screen-md-min) {
+                margin-bottom: @grid-gutter-width;
+                .filters-unveil-button-wrapper {
+                    display: inline-flex;
+                }
+            }
+        }
+        .multiple-columns-body.desktop & {
+            @media (min-width: @screen-lg-min) {
+                margin-bottom: @grid-gutter-width;
+                .filters-unveil-button-wrapper {
+                    display: inline-flex;
+                }
+            }
+        }
+    }
+    #filters {
+        padding: @triple-spacing;
+        margin-top: @double-spacing;
+        border-radius: @border-radius-base;
+        border-style: solid;
+        border-width: 1px;
+        @media (min-width: @screen-md-min) {
+            margin-top: @grid-gutter-width;
+        }  
+    }
+    .slider-wrapper > h4 {
+        margin-top: 0;
+    }
+}
+
+#content .sidebar {
+    #filters {
+        padding: 0;
+        border-width: 0;
+    }
+    .filters-wrapper {
+        margin-top: 0; 
+        margin-bottom: 0; 
+        text-align: left;
+        .filters-unveil-button-wrapper {
+            display: none !important;
+        }
+    }
+    .slider-wrapper > h4 {
+        margin-top: @triple-spacing;
+    }
+}  
+ 
+#footer {
+    .filters-wrapper {
+        text-align: center;
+        .filters-unveil-button-wrapper {
+            display: inline-flex;
+            margin-right: -(@basic-spacing);
+        }
+    }
+    #category-filter-hover .filter-section:first-child,
+    .filter-section + .filter-section {
+        border-top-width: 0;
+    }   
+    .filter-section fieldset div {
+        @media (min-width: @screen-xs-min) {
+            width: 50%;
+        }
+    }
+    .advanced-filters-wrapper {
+        padding-bottom: 5px;
+    }
+    #clear-filters {
+        text-align: left;
+    }
+}

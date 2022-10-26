@@ -1,0 +1,116 @@
+.fontUppercase() {
+    font-size: @font-size-small;
+    line-height: @font-size-larger;
+    letter-spacing: @letter-spacing;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.h1() {
+    font-weight: @font-weight-h1;
+    font-size: @font-size-h1;
+    line-height: 38px;
+    margin-top: @penta-spacing;
+    margin-bottom: @double-spacing;
+    @media (min-width: @navigation-breakpoint) {
+        margin-top: 0;
+        margin-bottom: @triple-spacing;
+        font-size: @font-size-h1-large;
+        line-height: 56px; 
+    }   
+}
+
+.h2() {
+    font-weight: @font-weight-h1;
+    font-size: @font-size-h2;
+    line-height: 28px;
+    letter-spacing: 0.8px;
+    margin-top: @penta-spacing;
+    margin-bottom: @triple-spacing;
+    @media (min-width: @navigation-breakpoint) {
+        font-size: @font-size-h2-large;
+        line-height: 38px;
+        letter-spacing: 1.6px;
+    }   
+}
+
+.h3() {
+    font-weight: 600;
+    font-size: @font-size-h3;
+    line-height: 23px;
+    margin-top: @penta-spacing;
+    margin-bottom: @triple-spacing;
+    @media (min-width: @navigation-breakpoint) {
+        font-weight: 600;
+        font-size: @font-size-h3-large;
+        line-height: 28px;
+    }   
+}
+
+.h4() {
+    font-weight: @font-weight-h1;
+    font-size: @font-size-h4;
+    line-height: 19px;
+    margin-top: @penta-spacing;
+    margin-bottom: @triple-spacing;
+    @media (min-width: @navigation-breakpoint) {
+        font-size: @font-size-h3;
+        line-height: 23px;
+    }   
+}
+
+.paragraph() {
+    font-size: @font-size-base;
+    line-height: @line-height-paragraph-mobile;    
+    letter-spacing: 0.4px;
+    @media (min-width: @navigation-breakpoint) {
+        font-size: @font-size-larger;
+        line-height: @line-height-paragraph;
+        letter-spacing: 0.4px;
+    }   
+}
+
+.paragraphThin() {   
+    font-weight: 400;
+    @media (min-width: @navigation-breakpoint) { 
+        font-weight: 400;  
+        letter-spacing: @letter-spacing;     
+    }
+}
+
+.fontSmaller() {
+    font-size: @font-size-base;
+    line-height: 16px;
+    font-weight: 600;
+}
+
+.fontBigger() {    
+    font-size: @font-size-larger;
+    line-height: 24px;
+    letter-spacing: @letter-spacing;
+}
+
+.label() {
+    font-weight: @font-weight-h1;
+    font-size: 10px;
+    line-height: 16px;
+    letter-spacing: @letter-spacing;
+    text-transform: uppercase;  
+    margin-bottom: @basic-spacing;
+    display: inline-block;   
+    @media (min-width: @navigation-breakpoint) { 
+        font-size: @font-size-smaller;
+    }
+}
+
+.labelThin() {
+    font-weight: @font-weight-base;
+    font-size: 10px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    text-transform: none;   
+    margin-bottom: @basic-spacing; 
+    @media (min-width: @navigation-breakpoint) { 
+        font-size: @font-size-smaller;
+    }
+}

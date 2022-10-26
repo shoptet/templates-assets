@@ -1,0 +1,92 @@
+ul.manufacturers-anchors {
+    .list-reset();
+    text-align: center;
+    li {
+        display: inline-block;
+        a {
+            display: block;
+            text-decoration: underline;
+            padding: @basic-spacing;
+            @media (min-width: @screen-md-min) {
+                padding: @double-spacing;
+            }
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+}
+ul.manufacturers {
+    .list-reset();
+    li {
+        list-style: none;
+    }
+    h2 { 
+        margin: 0 0 @line-height-computed 0;
+        font-size: @font-size-x-large;
+        font-weight: 700;
+        text-align: left;
+    }
+    ul {
+        padding: 0;
+        li {
+            padding: @basic-spacing 0;
+        }
+    }
+    > li {
+        padding: @triple-spacing 0;
+        margin: 0;
+        > div {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 @grid-gutter-width;
+            @media (min-width: @screen-sm-min) {
+                max-width: @container-sm;
+                padding: 0 round(@grid-gutter-width / 2);
+            }
+            @media (min-width: @screen-md-min) {
+                max-width: @container-md;
+            }
+            @media (min-width: @screen-lg-min) {
+                max-width: @container-lg;
+                padding: 0 round(@grid-gutter-width * 2);
+                .one-column-body & {
+                    padding: 0 round(@grid-gutter-width * 3);
+                }
+            }
+            @media (min-width: @screen-xl-min) {
+                max-width: @container-xl;
+                padding: 0 round(@grid-gutter-width * 3);
+                .one-column-body & {
+                    padding: 0 round(@grid-gutter-width * 4);
+                }
+            }
+        }
+        a {
+            font-weight: 600;
+        }
+    }
+    @media (min-width: @screen-sm-min) {
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            li {
+                flex: 0 0 50%;
+            }
+        }
+    }
+    @media (min-width: @screen-md-min) {
+        ul {
+            li {
+                flex-basis: 33.333333%;
+            }
+        }
+    }
+    @media (min-width: @screen-lg-min) {
+        ul {
+            li {
+                flex-basis: 25%;
+            }
+        }
+    }
+}
