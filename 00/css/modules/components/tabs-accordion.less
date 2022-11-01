@@ -15,19 +15,18 @@
         .shp-accordion-link {
             font-size: @font-size-h2;
             font-weight: bold;
+            position: relative;
             color: @text-color;
-            display: flex;
+            display: block;
             width: 100%;
-            justify-content: flex-start;
-            align-items: center;
+            padding-right: 30px;
             &::after {
-                justify-self: flex-end;
-                margin-left: auto;
+                font-size: @shp-accordion-link-arrow-font-size;
                 &:extend(.shp-icon);
                 content: @icon-chevron-down-code;
-            }
-            span {
-                white-space: pre;
+                position: absolute;
+                top: 50%;
+                right: 0;
             }
         }
 

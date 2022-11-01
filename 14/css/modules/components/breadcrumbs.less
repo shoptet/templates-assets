@@ -1,0 +1,32 @@
+.breadcrumbs {
+    padding: @grid-gutter-width @double-spacing;
+    .fontUppercase();
+    .category-top & {
+        display: none;
+    }
+    @media (max-width: @navigation-breakpoint-max) {
+        display: none;
+        .category-top & {
+            display: block;
+            text-align: center;
+            padding: @triple-spacing 0;
+        }
+    }
+    .navigation-bullet {
+        padding: 0 @half-basic-spacing;
+        font-weight: 400;
+    }
+}
+
+.navigation-home-icon {
+    display: inline-flex;
+    align-items: center;
+    &::before {
+        &:extend(.shp-icon);
+        content: @icon-home-code;
+    }
+    &::after {
+        &:extend(.shp-icon-shadow);
+        content: @icon-home-code;
+    }
+}

@@ -102,9 +102,6 @@ table.detail-parameters {
             th {
                 .row-header-label {
                     background-color: white;
-                    .question-tooltip {
-                        border-color: @color-primary-hover;
-                    }
                 }
                 &:after {
                     border-top-color: @border-color;
@@ -200,7 +197,7 @@ table.detail-parameters {
     background-color: @gray-lighter;
 }
 
-.p-detail-tabs-wrapper .rate-average-wrap .rate-average {
+.rate-average-wrap .rate-average {
     color: @text-color;
 }
 .p-detail-tabs {
@@ -214,11 +211,15 @@ table.detail-parameters {
 /* category page start */
 .category-header {
     #products-listing-order {
+        color: @text-color;
         .mobile & {
-            border-color: @border-color;
+            border-color: @btn-default-border;
         }
         @media (max-width: 767px) {
-            border-color: @border-color;
+            border-color: @btn-default-border;
+        }
+        &:hover {
+            color: @btn-plain-color-hover;
         }
     }
 }
@@ -407,6 +408,12 @@ ul.manufacturers {
 //checkout
 .cart-table-header {
     color: @text-muted-color;
+}
+
+.cart-table {
+    @media (max-width: @screen-sm-max) {
+        border-bottom-style: none;
+    }
 }
 
 .free-gift-price {

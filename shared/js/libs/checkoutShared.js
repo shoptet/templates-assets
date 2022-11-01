@@ -875,7 +875,7 @@
                     var zasilkovnaBranchId = document.querySelectorAll('.zasilkovna-branch-id');
                     var packetaSelectorBranchName = document.querySelectorAll('.zasilkovna-name');
                     for (var i = 0; i < zasilkovnaBranchId.length; i++) {
-                        if (extendedPoint.carrierId !== undefined){
+                        if (extendedPoint.carrierId !== undefined && extendedPoint.carrierId !== null){
                             zasilkovnaBranchId[i].value = extendedPoint.carrierId + '-' + extendedPoint.id;
                         } else {
                             zasilkovnaBranchId[i].value = extendedPoint.id;

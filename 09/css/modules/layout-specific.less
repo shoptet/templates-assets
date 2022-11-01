@@ -500,16 +500,21 @@ a.btn {
     margin-top: round(@line-height-computed * 2);
 }
 
-/* TODO: copied from Techno, inconsistencies marked by comments */
+.p-thumbnails-wrapper {
+    padding: 0 !important;
+}
+// TODO: copied from Techno, inconsistencies marked by comments
 .p-thumbnails {
     .wide & {
         @media(min-width: @screen-sm-min) {
             position: absolute;
             // left: 0;
-            right: 0;
+            right: -20px;
             // top: 0;
-            bottom: 20px;
-            .size(100px, 330px);
+            //bottom: 20px;
+            bottom: 0;
+            //.size(100px, 330px);
+            .size(100px, 439px);
             margin-bottom: 0;
             > div {
                 .size(100px, 9999em);
@@ -565,10 +570,15 @@ a.btn {
         }
         @media(min-width: @screen-md-min) {
             //height: 460px;
-            height: 380px;
+            height: 377px;
         }
         @media(min-width: @screen-lg-min) {
             //height: 530px;
+            height: 463px;
+        }
+        // Added
+        @media(min-width: @screen-xl-min) {
+            height: 554px;
         }
     }
 }

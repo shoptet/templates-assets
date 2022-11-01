@@ -50,13 +50,17 @@
                                 width: 33.333333%;
                                 min-height: 75px;
                                 > a {
-                                    position: relative;
-                                    width: round(@navigation_image-size + @grid-gutter-width);
-                                    flex-grow: 0;
-                                    flex-shrink: 0;
-                                    flex-basis: auto;
-                                    align-items: center;
                                     padding: round(@grid-gutter-width / 2);
+                                    font-weight: 700;
+                                    width: 100%;
+                                    &.menu-image {
+                                        position: relative;
+                                        width: round(@navigation_image-size + @grid-gutter-width);
+                                        flex-grow: 0;
+                                        flex-shrink: 0;
+                                        flex-basis: auto;
+                                        align-items: center;
+                                    }
                                     img {
                                         display: block;
                                         max-width: @navigation_image-size;

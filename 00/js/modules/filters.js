@@ -354,11 +354,5 @@ $(function () {
             'ShoptetPagePaginationUsed'
         );
     });
-
-    // Filters
-    if ($('.sidebar-right .filters-wrapper').length) {
-        $('.sidebar-right').addClass('has-categories');
-    }
-
     detectFilters();
 });

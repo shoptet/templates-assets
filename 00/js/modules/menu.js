@@ -263,16 +263,19 @@
         });
 
         // Overlay adaptation
-        var hoverTimer;
-        $html.on('mouseenter', '.js-navigation-container', function (e) {
-            hoverTimer = setTimeout(function() {
+        var mouseEnterTimer, mouseLeaveTimer;
+        $html.on('mouseenter', '.js-navigation-container .navigation-in .ext, .menu-helper', function (e) {
+            clearTimeout(mouseLeaveTimer);
+            mouseEnterTimer = setTimeout(function() {
                 $('body').addClass('navigation-hovered');
             }, 200);
         });
 
-        $html.on('mouseleave', '.js-navigation-container', function (e) {
-            clearTimeout(hoverTimer);
-            $('body').removeClass('navigation-hovered');
+        $html.on('mouseleave', '.js-navigation-container .navigation-in .ext, .menu-helper', function (e) {
+            clearTimeout(mouseEnterTimer);
+            mouseLeaveTimer = setTimeout(function() {
+                $('body').removeClass('navigation-hovered');
+            }, 1);
         });
 
     });
