@@ -1,17 +1,13 @@
-/* ========================================================================
- * Bootstrap: carousel.js v3.3.5
+/* Bootstrap: carousel.js v3.3.5
  * http://getbootstrap.com/javascript/#carousel
- * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE) */
 
 
 +function ($) {
   'use strict';
 
   // CAROUSEL CLASS DEFINITION
-  // =========================
 
   var Carousel = function (element, options) {
     this.$element    = $(element)
@@ -171,7 +167,6 @@
 
 
   // CAROUSEL PLUGIN DEFINITION
-  // ==========================
 
   function Plugin(option) {
     return this.each(function () {
@@ -194,7 +189,6 @@
 
 
   // CAROUSEL NO CONFLICT
-  // ====================
 
   $.fn.carousel.noConflict = function () {
     $.fn.carousel = old
@@ -203,7 +197,6 @@
 
 
   // CAROUSEL DATA-API
-  // =================
 
   var clickHandler = function (e) {
     var href

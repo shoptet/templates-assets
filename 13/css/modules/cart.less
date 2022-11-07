@@ -584,7 +584,7 @@ tr.removeable {
         }
         &::before {
             &:extend(.shp-icon);
-            margin-right: .5ex;
+            margin-right: 6px;
             float: left;
             margin-left: -30px;
             line-height: 16px;
@@ -604,6 +604,13 @@ tr.removeable {
     &.discount {
         .price-range::before {
             content: @icon-tag-code;
+            font-size: 16px;
+        }
+
+    }
+    &.gift {
+        .price-range::before {
+            content: @icon-gift-code;
             font-size: 16px;
         }
 

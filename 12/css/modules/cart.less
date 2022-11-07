@@ -317,6 +317,9 @@ ol.cart-header {
 .extra {
     margin-bottom: round(@line-height-computed / 2);
     padding-right: round(@grid-gutter-width / 2);
+    span {
+        vertical-align: middle;
+    }
     &::before {
         &:extend(.shp-icon);
         margin-right: .5ex;
@@ -330,6 +333,12 @@ ol.cart-header {
     &.discount {
         &::before {
             content: @icon-tag-code;
+            font-size: 16px;
+        }
+    }
+    &.gift {
+        &::before {
+            content: @icon-gift-code;
             font-size: 16px;
         }
     }

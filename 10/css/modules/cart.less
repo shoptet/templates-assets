@@ -150,21 +150,45 @@ ol.cart-header {
     }
 }
 
+.extras-wrap {
+    margin-top: round(@line-height-computed / 3);
+    margin-bottom: round(@grid-gutter-width * 2);
+    .advanced-order & {
+        margin-bottom: round(@grid-gutter-width / 4);
+    }
+}
+
 .extra {
     font-size: @font-size-small;
-    &.delivery {
-        margin-bottom: round(@line-height-computed / 4);
+    &.delivery,
+    &.discount,
+    &.gift {
+        margin-bottom: round(@line-height-computed);
         > strong {
             font-size: @font-size-larger;
         }
-        &::before {
-            &:extend(.shp-icon);
-            content: @icon-van-code;
-            margin-right: .5ex;
-            font-size: 20px;
-            vertical-align: top;
-            margin-top: round(@grid-gutter-width / 2);
-        }
+    }
+    &.delivery::before,
+    &.discount::before,
+    &.gift::before {
+        margin-right: 6px;
+        vertical-align: top;
+        margin-top: 9px;
+    }
+    &.delivery::before {
+        &:extend(.shp-icon);
+        content: @icon-van-code;
+        font-size: 20px;
+    }
+    &.discount::before {
+        &:extend(.shp-icon);
+        content: @icon-tag-code;
+        font-size: 18px;
+    }
+    &.gift::before {
+        &:extend(.shp-icon);
+        content: @icon-gift-code;
+        font-size: 18px;
     }
 }
 

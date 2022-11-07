@@ -1,17 +1,13 @@
-/* ========================================================================
- * Bootstrap: tab.js v3.3.5
+/* Bootstrap: tab.js v3.3.5
  * http://getbootstrap.com/javascript/#tabs
- * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE) */
 
 
 +function ($) {
   'use strict';
 
   // TAB CLASS DEFINITION
-  // ====================
 
   var Tab = function (element) {
     // jscs:disable requireDollarBeforejQueryAssignment
@@ -113,7 +109,6 @@
 
 
   // TAB PLUGIN DEFINITION
-  // =====================
 
   function Plugin(option) {
     return this.each(function () {
@@ -132,7 +127,6 @@
 
 
   // TAB NO CONFLICT
-  // ===============
 
   $.fn.tab.noConflict = function () {
     $.fn.tab = old
@@ -141,7 +135,6 @@
 
 
   // TAB DATA-API
-  // ============
 
   var clickHandler = function (e) {
     e.preventDefault()

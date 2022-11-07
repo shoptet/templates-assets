@@ -58,7 +58,7 @@ input[type="checkbox"] {
         text-transform: none;
     }
     [type="checkbox"] + label,
-    [type="radio"] + label,    
+    [type="radio"] + label,
     [type="hidden"] + label {
         font-size: @font-size-base;
         font-weight: 600;
@@ -103,7 +103,7 @@ a.btn {
         justify-content: center;
         align-items: center;
         padding: @double-spacing;
-        
+
     }
     &.btn-cart::before,
     &.add-to-cart-button::before {
@@ -163,18 +163,18 @@ a.btn {
             @media (max-width: @navigation-breakpoint-max) {
                 margin-left: 0;
                 margin-right: 0;
-            }            
+            }
         }
     }
     .sidebar + .content {
         min-width: 0;
-        .full-width { 
+        .full-width {
             width: 100%;
             left: 0;
             right: 0;
             margin-left: 0;
             margin-right: 0;
-        } 
+        }
     }
 }
 
@@ -205,7 +205,7 @@ a.btn {
         border-top-left-radius: @border-radius-base;
         border-bottom-left-radius: @border-radius-base;
     }
-    .increase-tooltip, 
+    .increase-tooltip,
     .decrease-tooltip {
         width: 100%;
         right: 0;
@@ -214,7 +214,7 @@ a.btn {
         font-family: inherit;
         font-size: @quantity-font-size;
     }
-    .increase::before, 
+    .increase::before,
     .decrease::before {
         font-family: inherit;
         font-weight: 600;
@@ -226,7 +226,7 @@ a.btn {
         .product-slider-navigation {
             opacity: 1;
         }
-    }    
+    }
 }
 
 #cboxContent,
@@ -392,7 +392,7 @@ article header h1,
                 font-size: @font-size-small;
             }
         }
-    }  
+    }
 }
 
 /* grey area */
@@ -431,7 +431,7 @@ a.login-btn {
             i {
                 font-size: 24px;
             }
-        }        
+        }
         .login-google-icon  {
             background-size: 24px 24px;
         }
@@ -440,7 +440,7 @@ a.login-btn {
 
 /* registration */
 .id--8, //registration
-.id--4 //login 
+.id--4 //login
 {
     @media (min-width: @screen-sm-min) {
         .content-inner {
@@ -448,7 +448,7 @@ a.login-btn {
             margin-left: auto;
             margin-right: auto;
         }
-        .col-md-8, 
+        .col-md-8,
         .col-md-4 {
             width: 100%;
         }
@@ -459,7 +459,7 @@ a.login-btn {
     #register-form,
     #formLogin {
         margin: round(@line-height-computed * 2) 0 @penta-spacing;
-    }    
+    }
 }
 .id--8 #register-form {
     h4 {
@@ -490,7 +490,7 @@ a.login-btn {
     .register-soc {
         margin: round(@basic-spacing * 3) 0;
     }
-    .stay-in-touch {        
+    .stay-in-touch {
         margin-bottom: round(@basic-spacing * 3);
     }
     .consents {
@@ -513,9 +513,9 @@ a.login-btn {
     .id--8, //registration
     .id--4,
     .type-post {
-        #content {            
+        #content {
             max-width: @content-narrow-width;
-        }        
+        }
         &.one-column-body #content {
             margin-left: auto;
             margin-right: auto;
@@ -562,7 +562,7 @@ a.login-btn {
     border-top-width: 0;
     padding-top: 0;
     margin-bottom: round(@comments-spacing / 2);
-    padding-bottom: round(@comments-spacing / 2); 
+    padding-bottom: round(@comments-spacing / 2);
 }
 
 /* advanced order */
@@ -577,8 +577,11 @@ a.login-btn {
         .icon-discount {
             font-size: @font-size-h1;
         }
+        .icon-gift {
+            font-size: @font-size-h1;
+        }
         i {
-            margin-right: 0.5em;
+            margin-right: 20px;
         }
     }
     a.btn.btn-conversion {
@@ -587,7 +590,7 @@ a.login-btn {
 }
 
 .custom-footer #formLogin,
-.sidebar #formLogin {    
+.sidebar #formLogin {
     .form-group {
         margin-bottom: @basic-spacing;
     }
@@ -608,14 +611,14 @@ a.login-btn {
                     padding-top: 0;
                 }
             }
-            
+
         }
-    }     
+    }
     .social-login-buttons {
         .social-login-buttons-divider span {
             .fontSmaller();
         }
-        a.login-btn.facebook, 
+        a.login-btn.facebook,
         a.login-btn.google {
             height: @grid-gutter-width;
             strong {
@@ -624,7 +627,7 @@ a.login-btn {
                 font-weight: 600;
             }
         }
-    }   
+    }
 }
 
 .custom-footer,

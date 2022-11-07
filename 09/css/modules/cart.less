@@ -158,24 +158,31 @@
 .extras-wrap {
     margin-bottom: round(@grid-gutter-width * 1.5);
 
-    h4 {
-        display: none;
-    }
     .extra {
-        margin-bottom: round(@grid-gutter-width / 2);
+        margin-bottom: round(@grid-gutter-width / 4);
         padding-left: 50px;
-
+        min-height: 36px;
+        &.delivery,
+        &.discount,
+        &.gift,
+        &.cofidis {
+            display: flex;
+            align-items: center;
+            > span {
+                flex-grow: 1;
+            }
+        }
         &:last-of-type {
             margin-bottom: 0;
         }
         &.delivery::before,
         &.discount::before,
+        &.gift::before,
         &.cofidis::before {
-            font-size: 38px;
-            margin-right: round(@grid-gutter-width / 4);
             position: absolute;
+            margin-top: 2px;
             margin-left: -50px;
-            margin-top: round(@grid-gutter-width / 2);
+            font-size: 38px;
         }
         &.delivery::before {
             &:extend(.shp-icon);
@@ -185,11 +192,16 @@
             &:extend(.shp-icon);
             content: @icon-discount-code;
         }
+        &.gift::before {
+            &:extend(.shp-icon);
+            content: @icon-gift-code;
+            font-size: 32px;
+            margin-left: -48px;
+        }
         &.cofidis::before {
             &:extend(.shp-icon);
             content: @icon-calc-code;
             font-size: 32px;
-            padding-top: 4px;
             padding-left: 7px;
         }
     }

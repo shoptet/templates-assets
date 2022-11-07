@@ -1,17 +1,13 @@
-/* ========================================================================
- * Bootstrap: modal.js v3.3.5
+/* Bootstrap: modal.js v3.3.5
  * http://getbootstrap.com/javascript/#modals
- * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE) */
 
 
 +function ($) {
   'use strict';
 
   // MODAL CLASS DEFINITION
-  // ======================
 
   var Modal = function (element, options) {
     this.options             = options
@@ -285,7 +281,6 @@
 
 
   // MODAL PLUGIN DEFINITION
-  // =======================
 
   function Plugin(option, _relatedTarget) {
     return this.each(function () {
@@ -306,7 +301,6 @@
 
 
   // MODAL NO CONFLICT
-  // =================
 
   $.fn.modal.noConflict = function () {
     $.fn.modal = old
@@ -315,7 +309,6 @@
 
 
   // MODAL DATA-API
-  // ==============
 
   $(document).on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
     var $this   = $(this)

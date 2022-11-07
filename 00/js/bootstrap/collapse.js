@@ -1,17 +1,13 @@
-/* ========================================================================
- * Bootstrap: collapse.js v3.3.5
+/* Bootstrap: collapse.js v3.3.5
  * http://getbootstrap.com/javascript/#collapse
- * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE) */
 
 
 +function ($) {
   'use strict';
 
   // COLLAPSE PUBLIC CLASS DEFINITION
-  // ================================
 
   var Collapse = function (element, options) {
     this.$element      = $(element)
@@ -164,7 +160,6 @@
 
 
   // COLLAPSE PLUGIN DEFINITION
-  // ==========================
 
   function Plugin(option) {
     return this.each(function () {
@@ -185,7 +180,6 @@
 
 
   // COLLAPSE NO CONFLICT
-  // ====================
 
   $.fn.collapse.noConflict = function () {
     $.fn.collapse = old
@@ -194,7 +188,6 @@
 
 
   // COLLAPSE DATA-API
-  // =================
 
   $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
     var $this   = $(this)

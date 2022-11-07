@@ -269,7 +269,7 @@ ol.cart-header {
 .extra {
     &::before {
         &:extend(.shp-icon);
-        margin-right: .5ex;
+        margin-right: 6px;
     }
     &.delivery {
         &::before {
@@ -281,6 +281,13 @@ ol.cart-header {
         &::before {
             content: @icon-tag-code;
             font-size: 16px;
+        }
+    }
+    &.gift {
+        &::before {
+            content: @icon-gift-code;
+            font-size: 16px;
+            margin-bottom: 5px;
         }
     }
     &.cofidis {

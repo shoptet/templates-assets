@@ -1,17 +1,13 @@
-/* ========================================================================
- * Bootstrap: popover.js v3.3.5
+/* Bootstrap: popover.js v3.3.5
  * http://getbootstrap.com/javascript/#popovers
- * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE) */
 
 
 +function ($) {
   'use strict';
 
   // POPOVER PUBLIC CLASS DEFINITION
-  // ===============================
 
   var Popover = function (element, options) {
     this.init('popover', element, options)
@@ -30,7 +26,6 @@
 
 
   // NOTE: POPOVER EXTENDS tooltip.js
-  // ================================
 
   Popover.prototype = $.extend({}, $.fn.tooltip.Constructor.prototype)
 
@@ -77,7 +72,6 @@
 
 
   // POPOVER PLUGIN DEFINITION
-  // =========================
 
   function Plugin(option) {
     return this.each(function () {
@@ -98,7 +92,6 @@
 
 
   // POPOVER NO CONFLICT
-  // ===================
 
   $.fn.popover.noConflict = function () {
     $.fn.popover = old

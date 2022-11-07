@@ -221,6 +221,9 @@ function getShoptetProductsList() {
         var settings = {
             url: shoptet.config.fbCAPIUrl,
             type: 'POST',
+            headers: {
+                'X-Shoptet-XHR': 'Shoptet_Coo7ai'
+            },
             data: {
                 payload: payload
             }

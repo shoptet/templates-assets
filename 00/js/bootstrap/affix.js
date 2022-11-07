@@ -1,17 +1,13 @@
-/* ========================================================================
- * Bootstrap: affix.js v3.3.5
+/* Bootstrap: affix.js v3.3.5
  * http://getbootstrap.com/javascript/#affix
- * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE) */
 
 
 +function ($) {
   'use strict';
 
   // AFFIX CLASS DEFINITION
-  // ======================
 
   var Affix = function (element, options) {
     this.options = $.extend({}, Affix.DEFAULTS, options)
@@ -114,7 +110,6 @@
 
 
   // AFFIX PLUGIN DEFINITION
-  // =======================
 
   function Plugin(option) {
     return this.each(function () {
@@ -134,7 +129,6 @@
 
 
   // AFFIX NO CONFLICT
-  // =================
 
   $.fn.affix.noConflict = function () {
     $.fn.affix = old
@@ -143,7 +137,6 @@
 
 
   // AFFIX DATA-API
-  // ==============
 
   $(window).on('load', function () {
     $('[data-spy="affix"]').each(function () {
