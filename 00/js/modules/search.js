@@ -226,19 +226,6 @@ $(function () {
         $(this).parents('.search-form').submit();
     });
 
-    // Open search window by clickin' into sidebar search widget input
-    $html.on('focus', '.search-form input[type="search"]', function(e) {
-        $body.addClass('search-focused');
-        shoptet.common.moveCursorToEnd(e.target);
-        if (
-            shoptet.abilities.feature.focused_search_window
-            && !shoptet.config.orderingProcess.active
-            && !$body.hasClass('search-window-visible')
-        ) {
-            shoptet.global.showPopupWindow('search', true);
-        }
-    });
-
     $html.on('blur', '.search-form input[type="search"]', function() {
         if (!$('.searchWhisperer.active').length) {
             clearSearchFocus();
