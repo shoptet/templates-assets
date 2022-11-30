@@ -550,7 +550,8 @@
                 }
             };
             var calculatedPriceWithVat = prices.shipping.withVat + prices.billing.withVat + prices.cart.withVat;
-            calculatedPriceWithVat = calculatedPriceWithVat.ShoptetRoundForDocument();
+            calculatedPriceWithVat = roundForCart(calculatedPriceWithVat, billingActive);
+
             var calculatedPriceWithoutVat =
                 prices.shipping.withoutVat + prices.billing.withoutVat + prices.cart.withoutVat;
             // It would took complete refactoring to synchronize behavior of price rounding within tpl and js,
@@ -563,6 +564,64 @@
                 undefined, undefined, shoptet.config.decPlacesSystemDefault
             );
         }
+    }
+
+    function roundForCart(price, billing) {
+        price = price.ShoptetRoundForDocument();
+
+        if (isAvailableRoundingSk(price, billing)) {
+            price = price.ShoptetRoundForDocument(5);
+        }
+
+        if (isAvailableRoundingHu(price, billing)) {
+            price = price.ShoptetRoundForDocument(4);
+        }
+
+        return price;
+    }
+
+    function isAvailableRoundingSk(price, billing) {
+        if (shoptet.checkoutShared.currencyCode != 'EUR') {
+            return false;
+        }
+
+        if (Number(shoptet.checkoutShared.deliveryCountryId) != 151) {
+            return false;
+        }
+
+        var roundedPrice = price.ShoptetRoundForDocument(5);
+
+        if (roundedPrice == price) {
+            return false;
+        }
+
+        var billingMethodCode = document.querySelector('#billingId-' + billing).getAttribute('data-payment-type');
+
+        if (billingMethodCode != 'cash' && billingMethodCode != 'cashOnDelivery') {
+            return false;
+        }
+
+        return true;
+    }
+
+    function isAvailableRoundingHu(price, billing) {
+        if (shoptet.checkoutShared.currencyCode != 'HUF') {
+            return false;
+        }
+
+        var roundedPrice = price.ShoptetRoundForDocument(4);
+
+        if (roundedPrice == price) {
+            return false;
+        }
+
+        var billingMethodCode = document.querySelector('#billingId-' + billing).getAttribute('data-payment-type');
+
+        if (billingMethodCode != 'cash' && billingMethodCode != 'cashOnDelivery') {
+            return false;
+        }
+
+        return true;
     }
 
     function afterPriceChange() {

@@ -108,15 +108,38 @@
             + (!positionLeft ? (' ' + symbol) : '')).trim();
     }
 
-    function roundForDocument() {
+    function roundForSk(price) {
+        if (price == 0) {
+            return 0.00;
+        }
+
+        if (Math.abs(price) <= 0.02) {
+            return 0.05 * price / Math.abs(price);
+        }
+
+        return Math.round(price * 100 / 5) / 100 * 5;
+    }
+
+    function roundForHu(price) {
+        return Math.round(price / 5) * 5;
+    }
+
+    function roundForDocument(rounding = null) {
         var number = this;
-        switch (shoptet.config.documentsRounding) {
-            case '1':
+
+        rounding = (rounding !== null) ? rounding : Number(shoptet.config.documentsRounding);
+
+        switch (rounding) {
+            case 1:
                 return Math.ceil(number);
-            case '2' :
+            case 2 :
                 return Math.floor(number);
-            case '3' :
+            case 3 :
                 return Math.round(number);
+            case 4 :
+                return roundForHu(number);
+            case 5 :
+                return roundForSk(number);
             default:
                 return number;
         }
