@@ -159,17 +159,21 @@
             var lastData = $orderForm.serialize();
             $('#order-form input').blur(function() {
                 var data = $(this).closest('form').serialize();
-                if (data != lastData) {
+                if (data !== lastData) {
                     lastData = data;
                     $.ajax({
                         url: '/action/OrderingProcess/step2CustomerAjax/',
                         type: 'POST',
                         data: data,
                         success: function(response) {
+                            response = new AjaxResponse(response);
                             try {
-                                if(response.payload) {
-                                    $('#summary-box').html(response.payload)
-                                    shoptet.checkoutShared.setActiveShippingAndPayments();
+                                response.showNotification();
+                                shoptet.tracking.updateCartDataLayer(response);
+                                shoptet.tracking.updateDataLayerCartInfo(response);
+                                var html = response.getFromPayload('html');
+                                if (html) {
+                                    $('#summary-box').html(html)
                                 }
                             } catch (error) {
                                 console.log(error);
