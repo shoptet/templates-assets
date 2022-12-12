@@ -408,8 +408,11 @@ function getShoptetProductsList() {
     }
 
     function updateCartDataLayer(response) {
-        dataLayer[0].shoptet.cart = response.getFromPayload('cartItems') || [];
-        shoptet.scripts.signalCustomEvent('ShoptetDataLayerUpdated');
+        var cartItems = response.getFromPayload('cartItems');
+        if (cartItems !== null) {
+            dataLayer[0].shoptet.cart = cartItems;
+            shoptet.scripts.signalCustomEvent('ShoptetDataLayerUpdated');
+        }
     }
 
     function updateDataLayerCartInfo(response) {

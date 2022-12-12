@@ -168,11 +168,11 @@
                         success: function(response) {
                             response = new AjaxResponse(response);
                             try {
-                                response.showNotification();
-                                shoptet.tracking.updateCartDataLayer(response);
-                                shoptet.tracking.updateDataLayerCartInfo(response);
                                 var html = response.getFromPayload('html');
                                 if (html) {
+                                    response.showNotification();
+                                    shoptet.tracking.updateCartDataLayer(response);
+                                    shoptet.tracking.updateDataLayerCartInfo(response);
                                     $('#summary-box').html(html)
                                 }
                             } catch (error) {
