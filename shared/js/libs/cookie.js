@@ -57,7 +57,7 @@
             second + parseInt(defaultExpiration.seconds)
         );
         var maxAge = parseInt(defaultExpiration.days) * 24 * 60 * 60;
-        document.cookie = name + '=' + value + '; expires=' + expiration + '; max-age=' + maxAge + '; path=/';
+        document.cookie = name + '=' + value + '; expires=' + expiration.toGMTString() + '; max-age=' + maxAge + '; path=/';
         return true;
     }
 
