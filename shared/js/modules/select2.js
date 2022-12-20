@@ -865,7 +865,7 @@ S2.define('select2/results',[
 
   Results.prototype.render = function () {
     var $results = $(
-      '<ul class="select2-results__options" role="listbox"></ul>'
+      '<ul class="select2-results__options" role="listbox" data-testid="deliveryPoints"></ul>'
     );
 
     if (this.options.get('multiple')) {

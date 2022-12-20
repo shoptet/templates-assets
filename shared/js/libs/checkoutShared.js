@@ -118,7 +118,7 @@
             singleLine = '<div class="recapitulation-single recapitulation-shipping-billing">'
                 + '<span class="recapitulation-shipping-billing-label">'
                 + $activeLine.closest('.shipping-billing-table').attr('data-type')
-                + ':</span> <strong class="recapitulation-shipping-billing-info"><span data-testid="shippingBillingPrice">'
+                + ':</span> <strong class="recapitulation-shipping-billing-info" data-testid="recapDeliveryMethod"><span data-testid="shippingBillingPrice">'
                 + $activeLine.find('.payment-shipping-price').html()
                 + '</span> ' + activeLineText + '</strong></div>';
             $shippingAndBillingSummary.append(singleLine);

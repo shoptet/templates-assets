@@ -958,59 +958,36 @@ table.table.recapitulation-table {
 }
 
 /* buttons */
-.cart-content.summary-wrapper .next-step {
-    margin-top: @triple-spacing;
-}
-
 .consents {
     margin-top: @line-height-computed;
 }
 
+// Shared declarations for the next step element behavior
+.nextStepCartWithSidebar();
+// START: Template-specific declarations for the next step element
 .next-step {
-    display: flex;
-    flex-flow: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.next-step-back {
-    white-space: nowrap;
-    margin: round(@line-height-computed / 2) round(@grid-gutter-width / 2) round(@line-height-computed / 2) 0;
-    width: 100%;
-    text-align: center;
-    .back-shopping-link & {
-        font-weight: 600;
-        &::before {
-            &:extend(.shp-icon);
-            margin-right: 0.5em;
-            content: @icon-chevron-left-code;
-            font-size: @font-size-smaller;
-            vertical-align: inherit;
+    margin-bottom: 0;
+    @media (max-width: @screen-sm-max) {
+        margin-top: @line-height-computed;
+    }
+    @media (min-width: @screen-md-min) {
+        .id--9 & {
+            margin-top: @line-height-computed;
         }
     }
-
-    @media (min-width: @screen-lg-min) {
-        width: auto;
-    }
 }
-
 .next-step-forward,
 .next-step-finish {
-    width: 100%;
-    @media (min-width: @screen-lg-min) {
-        width: auto;
-        &.btn-conversion {
-            padding: @double-spacing;
-        }
-    }
     .id--16 &,
     .id--9 & {
         &::after {
             &:extend(.shp-icon);
             content: @icon-arrow-right-code;
             margin-left: 0.5em;
-            vertical-align: inherit;
         }
     }
 }
+.back-shopping-link {
+    display: none;
+}
+// END: Template-specific declarations for the next step element
