@@ -120,9 +120,16 @@ var validators = {
     },
     fullname: function (elementValue) {
         var isValid = true;
-       if ($(this).attr('id') == 'billFullName' || $(this).attr('id') == 'deliveryFullName') {
-            isValid = /\s/i.test(elementValue.trim());
-           shoptet.validator.message = shoptet.messages['validatorFullName'];
+        if ($(this).attr('id') == 'billFullName' || $(this).attr('id') == 'deliveryFullName') {
+            // hex u00A0, dec 160 NO-BREAK SPACE
+            // hex u2007, dec 8199 FIGURE SPACE
+            // hex u202F, dec 8239 NARROW NO-BREAK SPACE
+            // hex u2060, dec 8288 WORD JOINER
+            // How to test characters listed above?
+            // Take decimal value and create character, e.g. String.fromCharCode(160)
+            var r = new RegExp(/[\u00A0]|[\u2007]|[\u202F]|[\u2060]|[\s]/i);
+            isValid = r.test(elementValue.trim());
+            shoptet.validator.message = shoptet.messages['validatorFullName'];
         }
         return isValid;
     },
