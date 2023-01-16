@@ -30,7 +30,7 @@
     animation: true,
     placement: 'top',
     selector: false,
-    template: '<div class="tooltip" role="tooltip" data-testid="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+    template: '<div class="tooltip" role="tooltip" data-testid="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" data-testid="tooltipText"></div></div>',
     trigger: 'hover focus',
     title: '',
     delay: 0,
