@@ -40,7 +40,7 @@
 
             xmlhttp.onload = function() {
                 if (xmlhttp.status >= 200 && xmlhttp.status < 300) {
-                    var response = new AjaxResponse(xmlhttp.response);
+                    var response = new shoptet.ajax.AjaxResponse(xmlhttp.response);
                     var allowedCallbacks = [
                         'success',
                         'failed',

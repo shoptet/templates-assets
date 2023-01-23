@@ -166,7 +166,7 @@
                         type: 'POST',
                         data: data,
                         success: function(response) {
-                            response = new AjaxResponse(response);
+                            response = new shoptet.ajax.AjaxResponse(response);
                             try {
                                 var html = response.getFromPayload('html');
                                 if (html) {
