@@ -1,10 +1,9 @@
 (function(shoptet) {
 
     function get(cookieName) {
-        var regexp = new RegExp('; ' + cookieName + '=([^;]*);');
-        var match = ('; ' + document.cookie + ';').match(regexp);
+        var match = ('; ' + document.cookie + ';').match(shoptet.dev.getCookieRegExp(cookieName));
         if (cookieName && match) {
-            return unescape(match[1]);
+            return decodeURIComponent(match[1]);
         }
         return false;
     }

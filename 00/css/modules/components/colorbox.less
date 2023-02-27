@@ -25,7 +25,31 @@
         .cboxIframe{background:#fff;}
         #cboxError{padding:50px; border:1px solid #ccc;}
         #cboxLoadedContent{padding:1px;}
-        #cboxLoadingGraphic{background:url('@{imgPath}colorbox/loading.gif') no-repeat center center;}
+        #cboxLoadingGraphic {
+            &::before {
+                content: '';
+                width: 60px;
+                height: 60px;
+                position: absolute;
+                z-index: 1;
+                left: 50%;
+                top: 50%;
+                margin: -30px 0 0 -30px;
+                border: 5px solid;
+                border-radius: 50%;
+                border-color: #fff #ccc #666 #000;
+                animation: loader 0.5s  linear infinite;
+            }
+        }
+
+        @keyframes loader {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
         #cboxLoadingOverlay{background:#fff;}
         #cboxTitle{position:absolute; top:-22px; left:0; color:#000;}
         #cboxCurrent{position:absolute; top:-22px; right:205px; text-indent:-9999px;}

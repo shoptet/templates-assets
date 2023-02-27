@@ -1,24 +1,33 @@
 (function(shoptet) {
 
-    function enableEventsMonitoring() {
-        shoptet.dev.config.monitorEvents = true;
-        console.log('%cEvents monitoring has been enabled.', shoptet.dev.config.log.styles.success);
+    function enableEventsMonitoring(reload = false, expires = {}) {
+        let defaultExpiration = {days: 1};
+        expires = {...defaultExpiration, ...expires};
+        shoptet.cookie.create("monitorJSEvents", 1, expires);
+        console.info('%cEvents monitoring has been enabled,', shoptet.dev.config.log.styles.success);
+        if (reload) {
+            console.info('%creloading...', shoptet.dev.config.log.styles.success);
+            window.location.reload();
+        } else {
+            console.info('%cplease reload the page...', shoptet.dev.config.log.styles.success);
+        }
         return true;
     }
 
     function disableEventsMonitoring() {
-        shoptet.dev.config.monitorEvents = false;
-        console.log('%cEvents monitoring has been disabled.', shoptet.dev.config.log.styles.success);
+        shoptet.cookie.create("monitorJSEvents", 1, {days: -1});
+        console.info('%cEvents monitoring has been disabled, reloading.', shoptet.dev.config.log.styles.success);
+        window.location.reload();
         return true;
     }
 
     function printMonitoringInfo() {
-        console.log(
+        console.info(
             '%c' + shoptet.dev.config.name + ' version ' + shoptet.dev.config.version,
             shoptet.dev.config.log.styles.infoInv
         );
         if (shoptet.dev.config.monitorEvents) {
-            console.log(
+            console.info(
                 '%cEvents monitoring is enabled.',
                 shoptet.dev.config.log.styles.info
             );
@@ -27,7 +36,7 @@
                 shoptet.dev.config.log.styles.shell
             );
         } else {
-            console.log(
+            console.info(
                 '%cEvents monitoring is disabled.',
                 shoptet.dev.config.log.styles.info
             );
@@ -36,10 +45,22 @@
                 shoptet.dev.config.log.styles.shell
             );
         }
+        if (shoptet.dev.config.shoptetDevMode) {
+            console.warn(
+                '%cDevelopment mode is enabled.',
+                shoptet.dev.config.log.styles.fontLarger
+            );
+            if (shoptet.dev.config.suppressRegFn) {
+                console.warn(
+                    '%cExceptions about failed function registering are being suppressed.',
+                    shoptet.dev.config.log.styles.fontLarger
+                );
+            }
+        }
     }
 
     function printEventInfo(key) {
-        console.log(
+        console.info(
             '%cApplied function name:%c '+ key,
             shoptet.dev.config.log.styles.infoInv,
             shoptet.dev.config.log.styles.fontLarger
@@ -54,17 +75,15 @@
         }
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        if (!shoptet.abilities || shoptet.abilities.about.generation !== 3) {
-            return false;
-        }
-        printMonitoringInfo();
-        shoptet.scripts.monitoredFunctions.forEach(function(key) {
-            (function(key) {
-                document.addEventListener(key, shoptet.dev.attachEventInfo);
-            })(key);
-        });
-    });
+    /**
+     * Get RegExp for the particular cookie name
+     *
+     * @param {String} cookieName
+     * cookieName = name of the cookie
+     */
+    function getCookieRegExp(cookieName) {
+        return new RegExp('; ' + cookieName + '=([^;]*);');
+    }
 
     shoptet.dev = shoptet.dev || {};
     shoptet.dev.config = {};
@@ -88,7 +107,7 @@
             }
         },
         fontSize: {
-            larger: '14px'
+            larger: '13px'
         }
     };
     shoptet.dev.config.log.styles = {
@@ -109,19 +128,28 @@
         fontLarger: 'font-size: ' + shoptet.dev.config.log.fontSize.larger,
     };
     shoptet.dev.config.name = "Shoptet developers tools";
-    shoptet.dev.config.version = '0.1.3';
-    shoptet.dev.config.monitorEvents = false;
+    shoptet.dev.config.version = '0.2.0';
+    shoptet.dev.config.monitorEvents = ('; ' + document.cookie + ';').match(getCookieRegExp('monitorJSEvents'));
+    shoptet.dev.config.shoptetDevMode = ('; ' + document.cookie + ';').match(getCookieRegExp('shoptetDevMode'));
+    shoptet.dev.config.suppressRegFn = ('; ' + document.cookie + ';').match(getCookieRegExp('suppressRegFn'));
 
     shoptet.dev.enableEventsMonitoring = enableEventsMonitoring;
     shoptet.dev.disableEventsMonitoring = disableEventsMonitoring;
     shoptet.dev.printMonitoringInfo = printMonitoringInfo;
     shoptet.dev.printEventInfo = printEventInfo;
     shoptet.dev.attachEventInfo = attachEventInfo;
+    shoptet.dev.getCookieRegExp = getCookieRegExp;
 
-    document.addEventListener('DOMContentLoaded', function() {
-        if (shoptet.cookie.get('monitorJSEvents')) {
-            shoptet.dev.enableEventsMonitoring();
-        }
-    });
+    if (!shoptet.abilities || shoptet.abilities.about.generation !== 3) {
+        return false;
+    }
+    shoptet.dev.printMonitoringInfo();
+    if (shoptet.dev.config.monitorEvents) {
+        shoptet.scripts.monitoredFunctions.forEach(function(key) {
+            (function(key) {
+                document.addEventListener(key, shoptet.dev.attachEventInfo);
+            })(key);
+        });
+    }
 
 })(shoptet);

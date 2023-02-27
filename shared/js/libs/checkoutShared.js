@@ -115,7 +115,7 @@
             activeLineText.find('.question-tooltip').remove();
             activeLineText = activeLineText.text();
             var singleLine;
-            singleLine = '<div class="recapitulation-single recapitulation-shipping-billing">'
+            singleLine = '<div class="recapitulation-single recapitulation-shipping-billing" data-testid="recapCartItem">'
                 + '<span class="recapitulation-shipping-billing-label">'
                 + $activeLine.closest('.shipping-billing-table').attr('data-type')
                 + ':</span> <strong class="recapitulation-shipping-billing-info" data-testid="recapDeliveryMethod"><span data-testid="recapItemPrice">'
