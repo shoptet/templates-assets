@@ -13,6 +13,14 @@
         width: 100%;
         padding-top: round(@grid-gutter-width / 4);
         padding-bottom: round(@grid-gutter-width / 4);
+        @media (max-width: @screen-xs) {
+            flex-wrap: wrap;
+            .payment-shipping-price {
+                flex-grow: 1;
+                flex-shrink: 1;
+                flex-basis: auto;
+            }
+        }
         .sublabel {
             display: block;
             font-size: smaller;

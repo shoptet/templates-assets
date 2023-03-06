@@ -82,10 +82,24 @@
                     > div {
                         .prices {
                             padding: 5px 0;
+                            display: flex;
+                            flex-wrap: wrap;
+                            align-items: center;
+                            justify-content: center;
                             .price-final {
+                                flex-basis: 100%;
                                 strong {
                                     font-weight: @font-weight-base;
                                 }
+                            }
+                            .price-standard {
+                                margin-left: 5px;
+                                margin-right: 5px;
+                            }
+                            .price-save {
+                                margin-left: 5px;
+                                margin-right: 5px;
+                                font-size: @font-size-smaller;
                             }
                             .price-additional {
                                 font-size: @font-size-smaller;
