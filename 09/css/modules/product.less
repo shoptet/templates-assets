@@ -15,9 +15,11 @@
         margin-bottom: -1px;
 
         .inner {
-            text-align: center;
             padding: round(@grid-gutter-width / 2);
             height: 100%;
+            @media (min-width: @screen-lg-min) {
+                text-align: center;
+            }
         }
         .img {
             position: relative;
@@ -51,7 +53,8 @@
 
             text-align: left;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
+            margin-top: auto;
         }
         .price {
             font-size: @font-size-larger;
@@ -223,9 +226,19 @@
         width: 50%;
         .inner {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             .descr {
-                align-self: flex-end;
+                flex: 1 1 100%;
+                display: flex;
+                flex-direction: column;
+            }
+            .prices {
+                > div {
+                    flex: 1;
+                    &.tools-wrap {
+                        flex-grow: 0;
+                    }
+                }
             }
         }
         .flags-extra {

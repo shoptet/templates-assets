@@ -5,16 +5,14 @@
     h4 {
         margin: 0 0 round((@line-height-computed) / 2) 0;
     }
-    .search-results-group-list {
+    ul {
+        margin: 0;
+        padding-left: @grid-gutter-width;
         column-width: @search-results-groups-column-width;
         column-count: @search-results-groups-column-count;
         margin-bottom: round((@line-height-computed) / 2);
-        ul {
-            margin: 0;
-            padding-left: @grid-gutter-width;
-            li {
-                list-style-position: outside;
-            }
+        li {
+            list-style-position: outside;
         }
     }
 }

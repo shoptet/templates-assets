@@ -447,6 +447,7 @@
         try {
             if (window.ApplePaySession && window.ApplePaySession.canMakePayments()) {
                 $('.apple-pay').show();
+                $('.radio-wrapper[data-submethod="applepay"]').show();
             }
         } catch (err) {}
     }
