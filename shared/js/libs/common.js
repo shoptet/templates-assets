@@ -55,7 +55,7 @@
                 var formDataEntries = form.entries(), formDataEntry = formDataEntries.next(), pair;
                 while (!formDataEntry.done) {
                     pair = formDataEntry.value;
-                    object[pair[0]] = pair[1];
+                    object[pair[0]] = encodeURIComponent(pair[1]);
                     formDataEntry = formDataEntries.next();
                 }
                 return serializeData(object);
