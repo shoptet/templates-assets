@@ -52,7 +52,9 @@
             'value': $billRegionId.find('option:selected').val()
         });
 
-        setTimeout(function(){ $('.smart-label-wrapper').SmartLabels(); }, 0);
+        if (shoptet.abilities.feature.smart_labels){
+            setTimeout(function(){ $('.smart-label-wrapper').SmartLabels(); }, 0);
+        }
     }
 
 
