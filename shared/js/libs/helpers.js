@@ -195,9 +195,9 @@
             ? toFloat(max) : toFloat(shoptet.config.defaultProductMaxAmount);
 
         if (action.indexOf('increase') !== -1) {
-            value += (min > 1) ? 1 : min;
+            value += (min > 1) ? 1 : ((min != 0) ? min : resolveMinimumAmount(decimals));
         } else {
-            value -= (min > 1) ? 1 : min;
+            value -= (min > 1) ? 1 : ((min != 0) ? min : resolveMinimumAmount(decimals));
         }
 
         value = shoptet.helpers.toFloat(value.toFixed(decimals));
