@@ -222,7 +222,7 @@
                 try {
                     var obj = JSON.parse(responseData);
                     for (const [country, value] of Object.entries(obj)) {
-                        if((country == 'CZ' || country == 'XO') && value.hasOwnProperty('providers')) {
+                        if(value.hasOwnProperty('providers')) {
                             for (const [providers, bank] of Object.entries(value.providers)) {
                                 shoptet.checkoutShared.shoptetPayPIS.PISdata.banks.push(bank);
                             }
