@@ -96,20 +96,12 @@
             font-weight: @headings-font-weight;
             line-height: 1;
         }
-        .order-availability {
-            text-align: right;
-
-            .availability {
+        .order-availability .availability {
                 font-weight: 700;
                 display: block;
                 .availability-amount {
                     white-space: nowrap;
                 }
-            }
-
-            @media(min-width: @screen-md-min) {
-                padding-left: 0;
-            }
         }
         .shipping-availability {
             margin-bottom: @line-height-computed;
@@ -152,7 +144,6 @@
                 text-align: left;
             }
             .p-final-price-wrapper {
-                order: 1;
                 margin-top: @grid-gutter-width;
             }
             .add-to-cart {

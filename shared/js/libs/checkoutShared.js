@@ -182,39 +182,10 @@
     }
 
     /**
-     * Get PIS payment method
-     */
-    function initShoptetPayPIS() {
-        $.ajax({
-            url: '/action/ShoptetPayPaymentData/getPaymentMethodData/',
-            type: 'GET',
-            success: function(responseData) {
-                try {
-                    var obj = JSON.parse(responseData);
-                    for (const [guid, value] of Object.entries(obj)) {
-                        if (value.hasOwnProperty('billingMethod') && value.billingMethod === 'pis') {
-                            if (!!document.querySelector('.radio-wrapper[data-guid="' + guid + '"]')) {
-                                shoptet.checkoutShared.shoptetPayPIS.PISdata = {guid:guid, banks: []};
-                                getPISBanksData();
-                                break;
-                            }
-                        }
-                    }
-                } catch (error) {
-                    console.log('Unable to parse JSON or did not find payment method.', error);
-                }
-            },
-            error: function(error) {
-                hideAllSPayMethods();
-                console.log('Unable to reach payment method endpoint.',error);
-            }
-        });
-    }
-
-    /**
      * Get PIS Bakns list
      */
     function getPISBanksData() {
+        shoptet.checkoutShared.shoptetPayPIS.banks = [];
         $.ajax({
             url: '/action/ShoptetPayPaymentData/getBankProviderData/',
             type: 'GET',
@@ -224,12 +195,12 @@
                     for (const [country, value] of Object.entries(obj)) {
                         if(value.hasOwnProperty('providers')) {
                             for (const [providers, bank] of Object.entries(value.providers)) {
-                                shoptet.checkoutShared.shoptetPayPIS.PISdata.banks.push(bank);
+                                shoptet.checkoutShared.shoptetPayPIS.banks.push(bank);
                             }
                         }
                     }
-                    shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS = document.querySelector( '.radio-wrapper[data-guid="' + shoptet.checkoutShared.shoptetPayPIS.PISdata.guid + '"]' );
-                    renderPIS(shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS, shoptet.checkoutShared.shoptetPayPIS.PISdata);
+                    shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS = document.querySelector( '.radio-wrapper[data-submethod="pis"]' );
+                    renderPIS(shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS, shoptet.checkoutShared.shoptetPayPIS.banks);
                     shoptetPayPISHandlePaymentMethodChange();
                 } catch (error) {
                     console.log('Unable to parse JSON of Bank list.', error);
@@ -246,7 +217,7 @@
      * SPay PIS (platebni tlacitka) hide (remove) all SPay methods
      */
     function hidePISMethod() {
-        document.querySelector('.radio-wrapper[data-guid="' + shoptet.checkoutShared.shoptetPayPIS.PISdata.guid + '"]').remove();
+        document.querySelector('.radio-wrapper[data-guid="pis"]').remove();
         shoptet.checkoutShared.setActiveShippingAndPayments();
     }
 
@@ -267,7 +238,7 @@
         document.addEventListener('ShoptetBillingMethodUpdated', function (ev) {
             if (ev.target === shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS
                 && ev.target.classList.contains('active')) {
-                    showPISModal(shoptet.checkoutShared.shoptetPayPIS.PISdata);
+                    showPISModal(shoptet.checkoutShared.shoptetPayPIS.banks);
             }
         });
         if (shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS
@@ -276,13 +247,13 @@
         }
     }
 
-    function showPISModal(data) {
+    function showPISModal(banks) {
         shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS.querySelector('.pisPaymentMethod').classList.remove('pisPaymentMethod--hidden');
         var t = document.getElementById('template__pisModal');
         var i = document.getElementById('template__pisModalItem');
         var clone = document.importNode(t.content, true);
         var pisSelected = localStorage.getItem('pisSelected');
-        data.banks.forEach(function(bank) {
+        banks.forEach(function(bank) {
             i.content.querySelector('.pisModal__bankLogo').src = bank.logoUrl;
             i.content.querySelector('.pisModal__bankName').innerHTML = bank.name;
             i.content.querySelector('.pisModal__bankItem').setAttribute('data-bank-guid', bank.code);
@@ -304,7 +275,7 @@
 
         clone.querySelector('.pisModal__actions__confirm').addEventListener('click', function(e) {
             localStorage.setItem('pisSelected', e.target.closest('.content-modal').querySelector('.pisModal__bankItem--active').getAttribute('data-bank-guid'));
-            updatePISData(shoptet.checkoutShared.shoptetPayPIS.PISdata);
+            updateBanks(shoptet.checkoutShared.shoptetPayPIS.banks);
             shoptet.modal.close();
         });
 
@@ -320,9 +291,9 @@
     /**
      * SPay PIS (platebni tlacitka) update data
      */
-    function updatePISData(data) {
+    function updateBanks(banks) {
         var pisPaymentMethod = document.querySelector('.pisPaymentMethod');
-        var selectedBank = data.banks.filter(function(bank) {return bank.code === localStorage.getItem('pisSelected')})[0];
+        var selectedBank = banks.filter(function(bank) {return bank.code === localStorage.getItem('pisSelected')})[0];
         if (pisPaymentMethod && selectedBank) {
             pisPaymentMethod.querySelector('.bankSelection__bankName').innerHTML = selectedBank.name;
             pisPaymentMethod.querySelector('.bankSelection__bankLogo').src = selectedBank.logoUrl;
@@ -332,9 +303,9 @@
     /**
      * SPay PIS (platebni tlacitka) render function
      */
-    function renderPIS(paymentMethodPIS, data) {
+    function renderPIS(paymentMethodPIS, banks) {
         var t = document.getElementById('template__pisPayment');
-        var selected = data.banks.find(function (bank) {
+        var selected = banks.find(function (bank) {
             return localStorage.getItem('pisSelected') === bank.code ||
                 (!localStorage.getItem('pisSelected') && bank.isDefault);
         });
@@ -354,10 +325,10 @@
             pisPaymentRow.appendChild(clone);
             paymentMethodPIS.innerHTML = '';
             paymentMethodPIS.appendChild(document.importNode(pisWrapper.content, true));
-            paymentMethodPIS.parentNode.querySelector('.bankSelection__button').addEventListener('click', function(e) { showPISModal(shoptet.checkoutShared.shoptetPayPIS.PISdata); });
+            paymentMethodPIS.parentNode.querySelector('.bankSelection__button').addEventListener('click', function(e) { showPISModal(shoptet.checkoutShared.shoptetPayPIS.banks); });
         } else {
             paymentMethodPIS.appendChild(clone);
-            paymentMethodPIS.querySelector('.bankSelection__button').addEventListener('click', function(e) { showPISModal(shoptet.checkoutShared.shoptetPayPIS.PISdata); });
+            paymentMethodPIS.querySelector('.bankSelection__button').addEventListener('click', function(e) { showPISModal(shoptet.checkoutShared.shoptetPayPIS.banks); });
         }
         shoptet.checkoutShared.shoptetPayPIS.paymentMethodPISdescription = paymentMethodPIS.querySelector('.bankInformation__description');
     }
@@ -1233,8 +1204,8 @@
         shoptet.checkoutShared.setActiveShippingAndPayments();
         shoptet.checkoutShared.displayApplePay();
         shoptet.checkoutShared.setupDeliveryShipping();
-        if (shoptet.checkoutShared.spayPaymentActive) {
-            shoptet.checkoutShared.initShoptetPayPIS();
+        if (shoptet.checkoutShared.spayPaymentActive && !!document.querySelector('.radio-wrapper[data-submethod="pis"]')) {
+            getPISBanksData();
         }
         shoptet.checkoutShared.payu();
         shoptet.checkoutShared.setupExternalShipping();

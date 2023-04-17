@@ -47,6 +47,7 @@ function toggleRequiredAttributes($el, job, preserveNoJsValidation) {
                 $(this).attr('data-original-autocomplete')
             ).val($(this).attr('data-original-value'))
                 .removeAttr('data-original-autocomplete').removeAttr('data-original-value');
+            $(this)[0].dispatchEvent(new Event('change'));
         });
         if (!preserveNoJsValidation) {
             $.each($el.find('.no-js-validation'), function() {

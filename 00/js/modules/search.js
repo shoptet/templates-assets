@@ -268,6 +268,7 @@ $(function () {
                 $('.search-next-wrap').remove();
                 $('#products-found').append(data).fadeIn('slow');
                 $('#products-found img').unveil();
+                shoptet.products.splitWidgetParameters();
                 initTooltips();
                 shoptet.scripts.signalDomLoad('ShoptetDOMPageContentLoaded');
             })

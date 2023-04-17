@@ -262,7 +262,6 @@
             'replacingChosenShippingAndBilling',
             'setActiveShippingAndPayments',
             'checkIsSelectedActive',
-            'initShoptetPayPIS',
             'payu',
             'getStatedValues',
             'setFieldValues',
