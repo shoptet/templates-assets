@@ -224,16 +224,22 @@
 
     $('html').on('click', function(e){
         if(!$(e.target).is('.decrease, .increase, .remove-pcs, .add-pcs')){
-            shoptet.variantsCommon.hideQuantityTooltips();
+            if($('.tooltip').length) {
+                shoptet.variantsCommon.hideQuantityTooltips();
+            }
         }
     })
     
     $('.cart-widget, .product').on('mouseleave', function() {
-        shoptet.variantsCommon.hideQuantityTooltips();
+        if($('.tooltip').length) {
+            shoptet.variantsCommon.hideQuantityTooltips();
+        }
     });
 
     document.addEventListener('ShoptetCartUpdated', function() {
-        shoptet.variantsCommon.hideQuantityTooltips();
+        if($('.tooltip').length) {
+            shoptet.variantsCommon.hideQuantityTooltips();
+        }
     });
 
     function isTouchDevice() {
