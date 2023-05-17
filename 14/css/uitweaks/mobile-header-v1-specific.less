@@ -19,3 +19,14 @@
         }
     }
 }
+
+.site-msg.information {
+    @media (max-width: @navigation-breakpoint-max) { 
+        position: fixed;
+        transition: top @transition-duration / 2;
+        top: 60px;
+        .scrolled-down & {
+            top: 0;
+        }
+    }
+}

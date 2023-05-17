@@ -29,7 +29,9 @@
             $el.addClass('visible');
             toggleRequiredAttributes($el, 'add', false);
             if (scroll) {
-                scrollToEl($el);
+                setTimeout(() => {
+                    scrollToEl($el);
+                }, shoptet.config.animationDuration);
             }
         }
 

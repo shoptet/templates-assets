@@ -297,22 +297,23 @@ var delay = (function () {
 /**
  * Scroll page to element
  *
- * @param {Object} $el
- * $el = HTML element to which the page should scroll
+ * @param {Object} $el HTML element to which the page should scroll
  */
 function scrollToEl($el) {
     var $message = $('.messages .msg');
-    var messageHeight = $message.length ? $message.outerHeight() : 0;
-
+    var $adminBar = $('.admin-bar');
+    var $cartHeader = $('.cart-header');
+    var $header = shoptet.abilities.about.id === '11' && !detectResolution(shoptet.config.breakpoints.sm) && $cartHeader.length ? $cartHeader : $('#header');
     var offset = $el.offset();
-    var margin = ($('#header').css('position') === 'fixed' || shoptet.abilities.feature.fixed_header)
-        ? $('#header').outerHeight()
+    var messageHeight = $message.length
+        ? $message.outerHeight()
         : 0;
-    if ($('.admin-bar').length && detectResolution(shoptet.config.breakpoints.sm)) {
-        var adminBarHeight = $('.admin-bar').height();
-    } else {
-        var adminBarHeight = 0;
-    }
+    var adminBarHeight = $adminBar.length && detectResolution(shoptet.config.breakpoints.sm)
+        ? $adminBar.height()
+        : 0;
+    var margin = ($header.css('position') === 'fixed' || shoptet.abilities.feature.fixed_header)
+        ? $header.outerHeight()
+        : 0;
     $('html, body').stop(true, true).animate(
         {
             scrollTop: offset.top - messageHeight - margin - adminBarHeight - 10
@@ -705,7 +706,7 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
             $('.cookies').remove();
         }, shoptet.config.animationDuration);
-        if ($('.site-msg.information').length) {
+        if ($('.site-msg.information').length && shoptet.abilities.about.id !== '14') {
             $('.site-msg.information').css('bottom', $('.site-msg.information').offset().left);
         }
     });
@@ -1189,7 +1190,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     initDatepickers();
 
-    if ($('.site-msg.information').length && $('.site-msg.cookies').length) {
+    if ($('.site-msg.information').length && $('.site-msg.cookies').length && shoptet.abilities.about.id !== '14') {
         var msgOffset = $('.cookie-ag-wrap').outerHeight() + $('.site-msg.information').offset().left;
         $('.site-msg.information').css('bottom', msgOffset);
     }

@@ -264,7 +264,7 @@ function getShoptetProductsList() {
     function trackGoogleProductDetail(gaData, action) {
         if (typeof gtag === 'function') {
             gtag('event', 'view_item', {
-                "send_to": "analytics",
+                "send_to": shoptet.config.googleAnalytics.route.ua,
                 "items": [
                     {
                         "id": gaData.content_ids[0],
@@ -300,7 +300,7 @@ function getShoptetProductsList() {
 
         if (typeof gtag === 'function') {
             gtag('event', eventName, {
-                "send_to": "analytics",
+                "send_to": shoptet.config.googleAnalytics.route.ua,
                 "items": [
                     {
                         "id": gaData.content_ids[0],
@@ -386,7 +386,7 @@ function getShoptetProductsList() {
 
         if (promo && typeof gtag === 'function') {
             gtag('event', 'select_content', {
-                "send_to": "analytics",
+                "send_to": shoptet.config.googleAnalytics.route.ua,
                 "promotions": [
                     {
                         "id": promo.id,
@@ -400,11 +400,78 @@ function getShoptetProductsList() {
     function trackProductsFromPayload(requestedDocument) {
         var trackingScript = requestedDocument.getElementById('trackingScript');
         if (trackingScript) {
-            var trackingProducts = JSON.parse(
-                trackingScript.getAttribute('data-products')
-            );
-            shoptet.tracking.productsList = $.extend(trackingProducts.products, shoptet.tracking.productsList);
+            shoptet.tracking.processTrackingContainer(trackingScript.getAttribute('data-products'));
         }
+    }
+
+    function processTrackingContainer(trackingContainerJson) {
+        const container = JSON.parse(trackingContainerJson);
+
+        shoptet.tracking.bannersList ||= container.banners;
+        shoptet.tracking.productsList = Object.assign(container.products, shoptet.tracking.productsList);
+
+        shoptet.tracking.trackListings(container.lists);
+    }
+
+    /** @typedef {{ id:string, name:string, price_ids:int[] }} TrackingList */
+
+    /**
+     * @param {TrackingList[]} lists
+     */
+    function trackListings(lists) {
+        for (const list of lists) {
+            const products = list.price_ids
+                .map(priceId => shoptet.tracking.productsList[priceId])
+                .filter(product => !!product);
+
+            if (products.length) {
+                shoptet.tracking.trackGtagViewItemList(list, products);
+            }
+        }
+    }
+
+    /**
+     * @param {TrackingList} list
+     */
+    function trackGtagViewItemList(list, products) {
+        if (typeof gtag !== 'function') {
+            return;
+        }
+
+        const items = products.map(product => {
+            const item = {
+                item_id: String(product.base_id),
+                item_name: product.base_name,
+                item_list_id: list.id,
+                item_list_name: list.name,
+                quantity: 1
+            };
+
+            if (product.manufacturer) {
+                item.item_brand = product.manufacturer;
+            }
+
+            if (product.variant) {
+                item.item_variant = `${product.content_ids[0]}~${product.variant}`;
+            }
+
+            if ('valueWoVat' in product) {
+                item.price = product.valueWoVat;
+            }
+
+            for (const [i, category] of product.category_path.entries()) {
+                item[`item_category${i || ''}`] = category;
+            }
+
+            return item;
+        });
+
+        gtag('event', 'view_item_list', {
+            send_to: shoptet.config.googleAnalytics.route.ga4,
+            item_list_id: list.id,
+            item_list_name: list.name,
+            items
+        });
     }
 
     function updateCartDataLayer(response) {
@@ -441,8 +508,7 @@ function getShoptetProductsList() {
             }
             var trackingContainer = response.getFromPayload('trackingContainer');
             if(trackingContainer !== null) {
-                trackingContainer = JSON.parse(trackingContainer);
-                shoptet.tracking.productsList = $.extend(trackingContainer.products, shoptet.tracking.productsList);
+                shoptet.tracking.processTrackingContainer(trackingContainer);
             }
         }
     }

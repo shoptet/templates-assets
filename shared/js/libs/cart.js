@@ -20,7 +20,7 @@
                 if (count > 99) {
                     count = '99+';
                 } else {
-                    count = Math.round(parseFloat(count));
+                    count = (parseFloat(count) < 1 ? 1 : Math.round(parseFloat(count)));
                 }
                 if (i.length) {
                     i.text(count);
@@ -48,6 +48,7 @@
         shoptet.scripts.signalDomUpdate('ShoptetDOMCartCountUpdated');
     }
 
+
     /**
      * Get cart content by AJAX
      *
@@ -67,9 +68,9 @@
         }
 
         var el, $cartContentWrapper;
-        if ($('#cart-wrapper').length) {
-            // full cart page or extended_ajax_cart
-            el = '#cart-wrapper';
+        if ($('.cart-wrapper').length) {
+            // cart page or extended_ajax_cart
+            el = '.cart-wrapper';
             $cartContentWrapper = $(el).parent();
         } else {
             // simple ajax cart
@@ -78,8 +79,9 @@
         }
 
         var successCallback = function(response) {
-            var response = response.getFromPayload('content');
+            response = response.getFromPayload('content');
             if (response.indexOf('cart-empty') !== -1) {
+                // TODO propagate this functionality to the other templates
                 $('body').addClass('cart-emptied');
             }
             $cartContentWrapper.html(response);
@@ -125,9 +127,7 @@
                     onComplete: function() {
                         $('.colorbox-html-content img').unveil();
                         $('body').removeClass(shoptet.config.bodyClasses);
-                        if ($('.overlay').length > 0) {
-                            $('.overlay').detach();
-                        }
+                        hideSpinner();
                         setTimeout(function() {
                             if (typeof shoptet.productSlider.runProductSlider === 'function') {
                                 shoptet.productSlider.runProductSlider('.advanced-order .product-slider');
@@ -138,9 +138,20 @@
                     }
                 });
             }
+
+            const trackingContainer = response.getFromPayload('trackingContainer');
+            if (trackingContainer) {
+                shoptet.tracking.processTrackingContainer(trackingContainer);
+            }
         };
+        var urlSuffix;
+        if (shoptet.config.orderingProcess.active) {
+            urlSuffix = '?orderingProcessActive=1'
+        } else {
+            urlSuffix = '';
+        }
         shoptet.ajax.makeAjaxRequest(
-            shoptet.config.advancedOrderUrl,
+            shoptet.config.advancedOrderUrl + urlSuffix,
             shoptet.ajax.requestTypes.get,
             '',
             {
@@ -150,26 +161,6 @@
                 'X-Shoptet-XHR': 'Shoptet_Coo7ai'
             }
         );
-    }
-
-
-    /**
-     * This function calls another functions needed to
-     * run after AJAX call is complete
-     *
-     * @param {Object} form
-     * form = form submitted by AJAX
-     * @param {Object} response
-     * form = AJAX response
-     */
-    function functionsForCart(form, response) {
-        shoptet.tracking.handleAction(form, response);
-        if (typeof shoptet.config.showAdvancedOrder !== 'undefined'
-            && !shoptet.config.orderingProcess.active
-            && !$(form).hasClass('js-quantity-form')
-            && !$(form).hasClass('js-remove-form')) {
-                shoptet.cart.getAdvancedOrder();
-        }
     }
 
     /**
@@ -195,7 +186,6 @@
      * el = submitted form or document in case of form is removed by getting new cart content
      */
     function handleCartPostUpdate(action, el) {
-        initTooltips();
         shoptet.scripts.signalCustomEvent(shoptet.common.createEventNameFromFormAction(action), el);
         shoptet.scripts.signalCustomEvent('ShoptetCartUpdated', el);
     }
@@ -209,7 +199,7 @@
      * form = submitted form
      * @param {String} callingFunctions
      * callingFunctions = group of functions which have to be called after submit
-     * @param {Boolean} replaceContent
+     * @param {Boolean|String} replaceContent
      * replaceContent = determines if content wil be replaced with AJAX call result
      * @param {Boolean} displaySpinner
      * displaySpinner = if set to true, the spinner is displayed before and hidden after submit
@@ -227,12 +217,6 @@
         }
 
         var completeCallback = function() {
-            if (typeof shoptet.content.addToNotifier !== 'undefined') {
-                if (response.response.code !== 500) {
-                    response.response.message += ' ' + shoptet.content.addToNotifier;
-                }
-                delete shoptet.content.addToNotifier;
-            }
             body.classList.remove('ajax-pending');
         };
 
@@ -244,22 +228,16 @@
                         shoptet.config.orderingProcess.step === 0
                         || body.classList.contains('cart-window-visible')
                     ) {
-                        if (callingFunctions === 'functionsForCart') {
-                            var cartCallback = function() {
-                                shoptet.cart.functionsForCart(form, response);
-                                // argument "element" is document
-                                // because original form is removed from DOM
-                                // as the cart content is loaded
-                                shoptet.cart.handleCartPostUpdate(action, document);
-                            };
+                        // In that case, the operation was executed either
+                        // in the cart (ordering process) or in opened cart widget (cart-window-visible)
+                        var cartCallback = function() {
+                            // The "element" argument is document,
+                            // because the original form is removed from DOM
+                            // as the cart content is loaded.
+                            shoptet.cart.handleCartPostUpdate(form.getAttribute('action'), document);
                         }
-                        shoptet.cart.getCartContent(true, cartCallback);
                     } else {
                         delete shoptet.events.cartLoaded;
-                        setTimeout(function() {
-                            hideSpinner();
-                        }, shoptet.config.dismissTimeout);
-                        hideSpinner();
                     }
                     break;
                 case true:
@@ -275,19 +253,35 @@
 
             dismissMessages();
 
-            if (callingFunctions === 'functionsForCart' && (typeof cartCallback === 'undefined')) {
-                shoptet.cart.functionsForCart(form, response);
+            if (callingFunctions === 'functionsForCart') {
+                // The function getAdvancedOrder() needs to complete before
+                // the getCartContent() function, while the view keeps
+                // the information about the added product.
+                // Otherwise, the new view will be created, and the information
+                // about the added product will be lost.
+                if (action === shoptet.config.addToCartUrl) {
+                    if (typeof shoptet.config.showAdvancedOrder !== 'undefined'
+                        && !shoptet.cartShared.silentAddition) {
+                        shoptet.cart.getAdvancedOrder();
+                    }
+                    shoptet.cartShared.silentAddition = false;
+                }
+                shoptet.tracking.handleAction(form, response);
+                if (typeof cartCallback === 'function') {
+                    // In that case, the operation was executed either
+                    // in the cart (ordering process) or in opened cart widget,
+                    // so it's necessary to replace the cart content by the fresh one.
+                    // handleCartPostUpdate is executed as a part of cartCallback...
+                    shoptet.cart.getCartContent(true, cartCallback);
+                } else {
+                    // ...otherwise we have to call the function directly
+                    shoptet.cart.handleCartPostUpdate(form.getAttribute('action'), form);
+                    hideSpinner();
+                }
             }
-
             if (callingFunctions === 'functionsForStep1') {
                 shoptet.cart.functionsForStep1();
             }
-
-            // If the cartCallback is defined, function below is executed there
-            if (typeof cartCallback === 'undefined') {
-                shoptet.cart.handleCartPostUpdate(action, form);
-            }
-
         };
 
         var failedCallback = function(response) {
@@ -300,13 +294,15 @@
                     shoptet.config.orderingProcess.step === 0
                     || body.classList.contains('cart-window-visible')
                 ) {
+                    // In that case, the operation was executed either
+                    // in the cart (ordering process) or in opened cart widget (cart-window-visible)
                     var cartCallback = function() {
-                        shoptet.cart.functionsForCart(form, response);
+                        shoptet.tracking.handleAction(form, response);
+                        shoptet.cart.handleCartPostUpdate(form.getAttribute('action'), form);
                     };
                     shoptet.cart.getCartContent(true, cartCallback);
                 } else {
                     delete shoptet.events.cartLoaded;
-                    shoptet.cart.functionsForCart(form, response);
                 }
             }
         };
@@ -478,11 +474,9 @@
                 var value = $amount.length ? shoptet.helpers.toFloat($amount.val()) : 1;
                 if (value > max) {
                     $amount.val(max);
-                    shoptet.content.addToNotifier = shoptet.messages['amountChanged'];
                 }
                 if (value < min) {
                     $amount.val(min);
-                    shoptet.content.addToNotifier = shoptet.messages['amountChanged'];
                 }
                 shoptet.cart.ajaxSubmitForm(
                     $this.attr('action'),

@@ -334,17 +334,19 @@ $(function () {
 
     $html.on('click', 'div.pagination a', function(e) {
         e.preventDefault();
-        var $scrollTarget = false;
+        var scrollTarget = false;
         var ajaxCallback = false;
-        if ($('.products:not(.products-top)').length) {
-            $scrollTarget = $('.products:not(.products-top)');
+        if ($('#products').length) {
+            scrollTarget = '#products';
         } else if ($('#newsWrapper').length) {
-            $scrollTarget = $('#newsWrapper');
+            scrollTarget = '#newsWrapper';
         } else if ($('#ratingWrapper').length) {
-            $scrollTarget = $('#ratingWrapper');
+            scrollTarget = '#ratingWrapper';
         }
-        if ($scrollTarget) {
-            ajaxCallback = scrollToEl($scrollTarget);
+        if (scrollTarget) {
+            ajaxCallback = function () {
+                scrollToEl($(scrollTarget));
+            }
         }
         makeFilterAjaxRequest(
             e.target.getAttribute('href'),

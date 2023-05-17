@@ -226,7 +226,6 @@
             'updateCartButton',
             'getCartContent',
             'getAdvancedOrder',
-            'functionsForCart',
             'functionsForStep1',
             'handleCartPostUpdate',
             'ajaxSubmitForm',
@@ -448,6 +447,9 @@
             'updateGoogleEcommerce',
             'handlePromoClick',
             'trackProductsFromPayload',
+            'trackListings',
+            'trackGtagViewItemList',
+            'processTrackingContainer',
             'updateDataLayerCartInfo'
         ],
         runtime: [

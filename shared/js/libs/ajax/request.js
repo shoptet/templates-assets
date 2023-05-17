@@ -57,6 +57,9 @@
                         });
                     });
                     response.processResult();
+                    // TODO: postpone the notification in the case of the requests chaining,
+                    // TODO: for example in the cart between the initial action and the final
+                    // TODO: loading of the actual cart.
                     response.showNotification();
                     resolve(response);
                 } else {

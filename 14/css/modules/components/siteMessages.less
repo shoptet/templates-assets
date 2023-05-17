@@ -29,9 +29,10 @@
             padding-right: @double-spacing;
         }
         @media (max-width: @navigation-breakpoint-max) { 
-            position: fixed;
+            position: sticky;
             width: 100%;
-            z-index: @z-cookies;
+            z-index: @z-popup;
+            top: 0;
         }
         .close {
             position: relative;

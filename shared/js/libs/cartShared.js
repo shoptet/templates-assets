@@ -36,36 +36,22 @@
         }
 
         if (typeof silent !== 'undefined' && silent) {
-            var completeCallback = function(response) {
-                console.log(response.response);
-            };
-            cartUrlSuffix = '?simple_ajax_cart=1';
-            shoptet.ajax.makeAjaxRequest(
-                configUrl + cartUrlSuffix,
-                shoptet.ajax.requestTypes.post,
-                shoptet.common.serializeForm(form),
-                {
-                    'complete': completeCallback
-                },
-                {
-                    'X-Shoptet-XHR': 'Shoptet_Coo7ai'
-                }
+            shoptet.cartShared.silentAddition = true;
+        }
+        if (shoptet.abilities.about.generation !== 3) {
+            ajaxAddToCart(
+                configUrl,
+                form,
+                !shoptet.cartShared.silentAddition
             );
         } else {
-            if (shoptet.abilities.about.generation !== 3) {
-                ajaxAddToCart(
-                    configUrl,
-                    form
-                );
-            } else {
-                shoptet.cart.ajaxSubmitForm(
-                    configUrl,
-                    form,
-                    'functionsForCart',
-                    'cart',
-                    true
-                );
-            }
+            shoptet.cart.ajaxSubmitForm(
+                configUrl,
+                form,
+                'functionsForCart',
+                'cart',
+                !shoptet.cartShared.silentAddition
+            );
         }
     }
 
@@ -78,6 +64,7 @@
     }
 
     shoptet.cartShared = shoptet.cartShared || {};
+    shoptet.cartShared.silentAddition = false;
     shoptet.scripts.libs.cartShared.forEach(function(fnName) {
         var fn = eval(fnName);
         shoptet.scripts.registerFunction(fn, 'cartShared');

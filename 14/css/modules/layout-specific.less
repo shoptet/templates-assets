@@ -338,6 +338,20 @@ article header h1,
         font-weight: @font-weight-h1;
     }
 }
+
+.widget-parameter-wrapper {
+    .widget-parameter-value {
+        &:first-child {
+            a {
+                padding-left: round(@grid-gutter-width / 4);
+            }
+        }
+    }
+    &.justified {
+        justify-content: center;
+    }
+}
+
 /* search */
 .type-search #content {
     text-align: center;

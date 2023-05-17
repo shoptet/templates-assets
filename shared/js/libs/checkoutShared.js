@@ -217,8 +217,30 @@
      * SPay PIS (platebni tlacitka) hide (remove) all SPay methods
      */
     function hidePISMethod() {
-        document.querySelector('.radio-wrapper[data-guid="pis"]').remove();
+        document.querySelector('.radio-wrapper[data-submethod="pis"]').remove();
         shoptet.checkoutShared.setActiveShippingAndPayments();
+    }
+
+    function shoptetpay() {
+        $.ajax({
+            url: '/action/ShoptetPayPaymentData/getShoptetPayStatus/',
+            type: 'GET',
+            success: function(responseData) {
+                try {
+                    var obj = JSON.parse(responseData);
+                    if (!obj.hasOwnProperty('isHealthy') || obj.isHealthy === false) {
+                        hideAllSPayMethods();
+                    }
+                } catch (error) {
+                    hideAllSPayMethods();
+                    console.log('Shoptet Pay is not healthy.', error);
+                }
+            },
+            error: function(error) {
+                hideAllSPayMethods();
+                console.log('Shoptet Pay is not healthy.', error);
+            }
+        });
     }
 
     /**
@@ -309,6 +331,11 @@
             return localStorage.getItem('pisSelected') === bank.code ||
                 (!localStorage.getItem('pisSelected') && bank.isDefault);
         });
+
+        if (selected == null) {
+            selected = banks[0];
+        }
+
         t.content.querySelector('.bankSelection__bankName').innerHTML = selected.name;
         t.content.querySelector('.bankSelection__bankLogo').src = selected.logoUrl;
         t.content.querySelector('.shoptetpay__pis__code').value = selected.code;
@@ -1204,8 +1231,11 @@
         shoptet.checkoutShared.setActiveShippingAndPayments();
         shoptet.checkoutShared.displayApplePay();
         shoptet.checkoutShared.setupDeliveryShipping();
-        if (shoptet.checkoutShared.spayPaymentActive && !!document.querySelector('.radio-wrapper[data-submethod="pis"]')) {
-            getPISBanksData();
+        if (shoptet.checkoutShared.spayPaymentActive) {
+            shoptetpay();
+            if (!!document.querySelector('.radio-wrapper[data-submethod="pis"]')) {
+                getPISBanksData();
+            }
         }
         shoptet.checkoutShared.payu();
         shoptet.checkoutShared.setupExternalShipping();
