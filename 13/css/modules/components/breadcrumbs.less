@@ -1,16 +1,30 @@
 .breadcrumbs {
     padding-bottom: round(@line-height-computed / 2);
     font-size: @font-size-small;
+    .type-product & {
+        padding-bottom: 0;
+    }
     > span {
         vertical-align: middle;
         a {
             text-decoration: underline;
         }
-
     }
     @media (min-width: @screen-sm-min) {
         padding-left: round(@grid-gutter-width / 2);
         padding-right: round(@grid-gutter-width / 2);
+    }
+    @media (min-width: @screen-md-min) {
+        .type-product & {
+            width: 50%;
+            margin-left: auto;
+            padding-left: 0;
+            padding-bottom: 0;
+        }
+        .aside-indented & {
+            padding-left: 0;
+            padding-right: 0;
+        }
     }
 }
 
