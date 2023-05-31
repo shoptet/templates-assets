@@ -122,6 +122,11 @@ function getShoptetProductsList() {
                 formAction,
                 [
                     shoptet.tracking.trackGoogleCart,
+                    (productData, formAction) => {
+                        if (shoptet.config.googleAnalytics.isGa4Enabled) {
+                            shoptet.tracking.trackGtagCart(productData, formAction, response);
+                        }
+                    },
                     shoptet.tracking.trackFacebookPixel,
                     shoptet.tracking.trackGlamiPixel,
                     shoptet.tracking.updateGoogleEcommerce
@@ -281,6 +286,10 @@ function getShoptetProductsList() {
         shoptet.scripts.signalCustomEvent('ShoptetGoogleProductDetailTracked');
     }
 
+    /**
+     * @deprecated #UA-drop will be removed when we stop support Universal Analytics
+     * @see trackGtagCart
+     */
     function trackGoogleCart(gaData, formAction) {
         var action = shoptet.tracking.resolveTrackingAction(formAction, gaData);
         var eventName = '';
@@ -409,16 +418,27 @@ function getShoptetProductsList() {
 
         shoptet.tracking.bannersList ||= container.banners;
         shoptet.tracking.productsList = Object.assign(container.products, shoptet.tracking.productsList);
+        shoptet.tracking.listingsList ||= new Map();
+
+        for (const list of container.lists) {
+            shoptet.tracking.listingsList.set(`${list.id}#${list.name}`, list);
+        }
 
         shoptet.tracking.trackListings(container.lists);
     }
 
-    /** @typedef {{ id:string, name:string, price_ids:int[] }} TrackingList */
+    /** @typedef {{ id:string, name:string, price_ids:int[], isMainListing:boolean }} TrackingList */
+
+    /** @typedef {{ coupon:(string|null), lastItemDelta:number }} TrackingCartInfo */
 
     /**
      * @param {TrackingList[]} lists
      */
     function trackListings(lists) {
+        if (!shoptet.config.googleAnalytics.isGa4Enabled) {
+            return;
+        }
+
         for (const list of lists) {
             const products = list.price_ids
                 .map(priceId => shoptet.tracking.productsList[priceId])
@@ -438,33 +458,7 @@ function getShoptetProductsList() {
             return;
         }
 
-        const items = products.map(product => {
-            const item = {
-                item_id: String(product.base_id),
-                item_name: product.base_name,
-                item_list_id: list.id,
-                item_list_name: list.name,
-                quantity: 1
-            };
-
-            if (product.manufacturer) {
-                item.item_brand = product.manufacturer;
-            }
-
-            if (product.variant) {
-                item.item_variant = `${product.content_ids[0]}~${product.variant}`;
-            }
-
-            if ('valueWoVat' in product) {
-                item.price = product.valueWoVat;
-            }
-
-            for (const [i, category] of product.category_path.entries()) {
-                item[`item_category${i || ''}`] = category;
-            }
-
-            return item;
-        });
+        const items = products.map(product => createGtagItem(product, list));
 
         gtag('event', 'view_item_list', {
             send_to: shoptet.config.googleAnalytics.route.ga4,
@@ -472,6 +466,125 @@ function getShoptetProductsList() {
             item_list_name: list.name,
             items
         });
+    }
+
+    /**
+     * @param {string} formAction
+     * @see trackGoogleCart
+     */
+    function trackGtagCart(product, formAction, response) {
+        if (typeof gtag !== 'function') {
+            return;
+        }
+
+        const action = shoptet.tracking.resolveTrackingAction(formAction, product);
+
+        if (action !== 'add') {
+            return;
+        }
+
+        const eventParams = {
+            send_to: shoptet.config.googleAnalytics.route.ga4,
+            items: [createGtagItem(
+                product,
+                findProductListing(product),
+                createCartInfo(formAction, response, product)
+            )],
+        };
+
+        if ('valueWoVat' in product) {
+            eventParams.currency = product.currency;
+            eventParams.value = product.valueWoVat;
+        }
+
+        gtag('event', 'add_to_cart', eventParams);
+    }
+
+    /**
+     * @param {(TrackingList|null)} [list=null]
+     * @param {(TrackingCartInfo|null)} [cartInfo=null]
+     */
+    function createGtagItem(product, list = null, cartInfo = null) {
+        const item = {
+            item_id: String(product.base_id),
+            item_name: product.base_name,
+            quantity: 1
+        };
+
+        if (product.manufacturer) {
+            item.item_brand = product.manufacturer;
+        }
+
+        if (product.variant) {
+            item.item_variant = `${product.content_ids[0]}~${product.variant}`;
+        }
+
+        if ('valueWoVat' in product) {
+            item.price = product.valueWoVat;
+        }
+
+        for (const [i, category] of product.category_path.entries()) {
+            item[`item_category${i || ''}`] = category;
+        }
+
+        if (list) {
+            item.item_list_id = list.id;
+            item.item_list_name = list.name;
+        }
+
+        if (cartInfo) {
+            item.quantity = cartInfo.lastItemDelta;
+
+            if (cartInfo.coupon) {
+                item.coupon = cartInfo.coupon;
+            }
+        }
+
+        return item;
+    }
+
+    /**
+     * @param {string} formAction
+     * @returns {TrackingCartInfo}
+     */
+    function createCartInfo(formAction, response, updatedProduct) {
+        const cartInfo = {
+            coupon: null,
+            lastItemDelta: shoptet.tracking.resolveAmount(formAction, updatedProduct),
+        };
+
+        const coupon = response.getFromPayload('discountCoupon');
+
+        if (coupon && coupon.code) {
+            cartInfo.coupon = coupon.code;
+        }
+
+        return cartInfo;
+    }
+
+    /**
+     * @returns {(TrackingList|null)}
+     */
+    function findProductListing(product) {
+        const { listingsList, productsList } = shoptet.tracking;
+
+        if (!(listingsList instanceof Map) || typeof productsList !== 'object') {
+            return null;
+        }
+
+        for (const list of listingsList.values()) {
+            if (!list.isMainListing) {
+                continue;
+            }
+
+            for (const priceId of list.price_ids) {
+                if (productsList[priceId] === product) {
+                    return list;
+                }
+            }
+        }
+
+        return null;
     }
 
     function updateCartDataLayer(response) {

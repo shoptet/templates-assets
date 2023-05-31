@@ -442,6 +442,7 @@
             'trackFacebookPixelApi',
             'trackGlamiPixel',
             'trackGoogleCart',
+            'trackGtagCart',
             'trackGoogleProductDetail',
             'updateCartDataLayer',
             'updateGoogleEcommerce',
@@ -472,6 +473,9 @@
         csrfLink: [
             'getFunctionFromString',
             'loadDataAttributes'
+        ],
+        xyDiscounts: [
+            'updateFlags'
         ]
     };
 

@@ -36,7 +36,6 @@
                     return;
                 }
                 $variant.siblings('.advanced-parameter-inner').addClass('yes-before');
-
             } else {
                 $variant = $(this).find('option:selected');
             }
@@ -49,8 +48,14 @@
                 shoptet.variantsCommon.disableAddingToCart();
                 showMessage(shoptet.variantsCommon.reasonToDisable, 'error', '', false, false);
                 shoptet.scripts.signalCustomEvent('ShoptetVariantUnavailable');
+                if (shoptet.abilities.about.generation > 2) {
+                    shoptet.xyDiscounts.updateFlags(null);
+                }
             } else {
                 shoptet.scripts.signalCustomEvent('ShoptetVariantAvailable');
+                if (shoptet.abilities.about.generation > 2) {
+                    shoptet.xyDiscounts.updateFlags($variant.data('codeid'));
+                }
             }
 
         });

@@ -48,6 +48,10 @@
                     } else {
                         shoptet.variantsSplit.getData(variantCode, 1);
                     }
+                } else {
+                    if (shoptet.abilities.about.generation > 2) {
+                        shoptet.xyDiscounts.updateFlags(null);
+                    }
                 }
             });
 
@@ -120,6 +124,10 @@
                 data.maximumAmount
             );
             shoptet.scripts.signalCustomEvent('ShoptetVariantAvailable');
+
+            if (shoptet.abilities.about.generation > 2) {
+                shoptet.xyDiscounts.updateFlags(data.id);
+            }
         } else {
             // Non existing variant
             shoptet.variantsCommon.reasonToDisable = shoptet.messages['unavailableVariant'];
