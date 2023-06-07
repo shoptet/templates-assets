@@ -444,6 +444,7 @@
             'trackGoogleCart',
             'trackGtagCart',
             'trackGoogleProductDetail',
+            'trackGtagProductDetail',
             'updateCartDataLayer',
             'updateGoogleEcommerce',
             'handlePromoClick',

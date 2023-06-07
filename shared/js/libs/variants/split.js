@@ -83,7 +83,14 @@
                     $form[0],
                     data.id,
                     'detail',
-                    [shoptet.tracking.trackGoogleProductDetail]
+                    [
+                        shoptet.tracking.trackGoogleProductDetail,
+                        (product) => {
+                            if (shoptet.config.googleAnalytics.isGa4Enabled) {
+                                shoptet.tracking.trackGtagProductDetail(product);
+                            }
+                        },
+                    ]
                 );
             }
 

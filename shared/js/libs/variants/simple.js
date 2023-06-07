@@ -88,7 +88,14 @@
                 $form[0],
                 $variant.data('codeid'),
                 'detail',
-                [shoptet.tracking.trackGoogleProductDetail]
+                [
+                    shoptet.tracking.trackGoogleProductDetail,
+                    (product) => {
+                        if (shoptet.config.googleAnalytics.isGa4Enabled) {
+                            shoptet.tracking.trackGtagProductDetail(product);
+                        }
+                    },
+                ]
             );
         }
 

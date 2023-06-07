@@ -266,6 +266,10 @@ function getShoptetProductsList() {
         shoptet.scripts.signalCustomEvent('ShoptetGlamiPixelTracked');
     }
 
+    /**
+     * @deprecated #UA-drop will be removed when we stop support Universal Analytics
+     * @see trackGtagProductDetail
+     */
     function trackGoogleProductDetail(gaData, action) {
         if (typeof gtag === 'function') {
             gtag('event', 'view_item', {
@@ -282,6 +286,29 @@ function getShoptetProductsList() {
                 ]
             });
         }
+
+        shoptet.scripts.signalCustomEvent('ShoptetGoogleProductDetailTracked');
+    }
+
+    /**
+     * @see trackGoogleProductDetail
+     */
+    function trackGtagProductDetail(product) {
+        if (typeof gtag !== 'function') {
+            return;
+        }
+
+        const eventParams = {
+            send_to: shoptet.config.googleAnalytics.route.ga4,
+            items: [createGtagItem(product)],
+        };
+
+        if ('valueWoVat' in product) {
+            eventParams.currency = product.currency;
+            eventParams.value = product.valueWoVat;
+        }
+
+        gtag('event', 'view_item', eventParams);
 
         shoptet.scripts.signalCustomEvent('ShoptetGoogleProductDetailTracked');
     }
