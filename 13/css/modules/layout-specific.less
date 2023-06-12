@@ -1175,70 +1175,36 @@ table.shipping-options-layout {
 .p-thumbnails-horizontal .show360image::before {
     height: 0;
 }
-
-.narrowCTASpace() {
-    flex-wrap: wrap;
-    .p-final-price-wrapper {
-        flex-basis: 100%;
-        flex-grow: 1;
-        flex-shrink: 0;
-    }
-    .add-to-cart-button {                
-        flex-basis: auto;
-        flex-shrink: 1;
-        width: auto;
-        flex-grow: 1;
-    }    
-}
 .p-to-cart-block {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
+    gap: 10px 20px;
     padding: 10px;
     .add-to-cart-button {
-        width: 100%;
+        flex: 1 1 auto;
         white-space: nowrap;
+        padding-left: 24px;
+        padding-right: 24px;
     }
     .add-to-cart {
         float: none;
+        margin-left: auto;
+        padding-top: 0;
+        width: auto;
+        .quantity {
+            margin-right: 0;
+        }
     }
     .p-final-price-wrapper {
         line-height: 200%;
-        margin-right: calc(@grid-gutter-width / 2);
         white-space: nowrap;
+        flex: 0 1 auto;
+        width: auto;
         .price-final-holder {
             font-weight: 600;
         }
-    }
-    @media (max-width: @screen-xs-max) {
-        flex-wrap: wrap;
-        .p-final-price-wrapper {
-            margin-right: 0;
-            width: 50%;
-        }
-        .add-to-cart {
-            width: 50%;
-            justify-content: flex-end;
-            .quantity {
-                margin-right: 0;
-            }
-        }
-        .add-to-cart-button {
-            margin-top: @line-height-computed;
-        }
-    }
-    .desktop.multiple-columns-body & {
-        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
-            .narrowCTASpace();
-        } 
-        @media (min-width: @screen-lg-min) and (max-width: @screen-lg-max) {
-            .narrowCTASpace();
-        }  
-    }
-    .one-column-body & {
-        @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {  
-            .narrowCTASpace();  
-        } 
     }
 }
 

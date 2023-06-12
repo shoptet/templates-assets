@@ -137,6 +137,20 @@ function makeFilterAjaxRequest(url, pushHistoryState, successCallback, element, 
                 var payloadH1Content = $(requestedDocument).find('.header-title').clone();
                 $('.header-title').html(payloadH1Content[0].innerHTML);
             }
+            if ($('.sidebar .category-title').length && $(requestedDocument).find('.sidebar .category-title').length) {
+                var payloadSidebarTitleContent = $(requestedDocument).find('.sidebar .category-title').clone();
+                $('.sidebar .category-title').html(payloadSidebarTitleContent[0].innerHTML);
+            }
+            if ($(requestedDocument).find('.sidebar .category-perex').length) {
+                if (!$('.sidebar .category-perex').length) {
+                    $('.sidebar-inner').append('<div class="category-perex" />');
+                }
+                var payloadSidebarPerexContent = $(requestedDocument).find('.sidebar .category-perex').clone();
+                $('.sidebar .category-perex').html(payloadSidebarPerexContent[0].innerHTML);
+            }
+            if ($('.sidebar .category-perex').length && !$(requestedDocument).find('.sidebar .category-perex').length) {
+                $('.sidebar .category-perex').remove();
+            }
             var $categoryMinValue = $('#categoryMinValue');
             var $categoryMaxValue = $('#categoryMaxValue');
             if ($categoryMinValue.length) {
