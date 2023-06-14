@@ -504,10 +504,17 @@ function getShoptetProductsList() {
             return;
         }
 
-        const action = shoptet.tracking.resolveTrackingAction(formAction, product);
+        let eventName;
 
-        if (action !== 'add') {
-            return;
+        switch (shoptet.tracking.resolveTrackingAction(formAction, product)) {
+            case 'add':
+                eventName = 'add_to_cart';
+                break;
+            case 'remove':
+                eventName = 'remove_from_cart';
+                break;
+            default:
+                return;
         }
 
         const eventParams = {
@@ -524,7 +531,7 @@ function getShoptetProductsList() {
             eventParams.value = product.valueWoVat;
         }
 
-        gtag('event', 'add_to_cart', eventParams);
+        gtag('event', eventName, eventParams);
     }
 
     /**

@@ -114,7 +114,7 @@ function makeFilterAjaxRequest(url, pushHistoryState, successCallback, element, 
         type: 'GET',
         headers: {'X-Shoptet-XHR': 'Shoptet_Coo7ai'},
         dataType: 'html',
-        timeout: 10000,
+        timeout: 20000,
         cache: true,
         success: function(payload) {
             var requestedDocument = shoptet.common.createDocumentFromString(payload);
