@@ -1030,6 +1030,7 @@ document.addEventListener('DOMContentLoaded', function () {
             className: shoptet.modal.config.classSm,
             onComplete: function () {
                 shoptet.validator.initValidator($('form'));
+                shoptet.watchdog.initWatchdog();
             }
         });
     });

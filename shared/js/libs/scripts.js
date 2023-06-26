@@ -466,6 +466,9 @@
         productSlider: [
             'runProductSlider'
         ],
+        watchdog: [
+            'initWatchdog',
+        ],
         csrf: [
             'isTokenExpired',
             'injectToken',

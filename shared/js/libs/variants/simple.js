@@ -5,6 +5,8 @@
         var $variant;
         var $activeOption;
 
+        shoptet.surcharges.initSurcharges();
+
         if ($('.advanced-parameter input').length) {
             $simpleVariants = $('.advanced-parameter input');
             $activeOption = $('.advanced-parameter input:checked');
@@ -42,6 +44,7 @@
 
             shoptet.variantsSimple.switcher($variant);
             shoptet.variantsSimple.loadedVariant = $variant;
+            shoptet.surcharges.updatePrices(e);
 
             shoptet.variantsCommon.reasonToDisable = $variant.attr('data-disable-reason');
             if (shoptet.variantsCommon.reasonToDisable) {
