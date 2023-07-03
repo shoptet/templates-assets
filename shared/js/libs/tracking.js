@@ -300,7 +300,7 @@ function getShoptetProductsList() {
 
         const eventParams = {
             send_to: shoptet.config.googleAnalytics.route.ga4,
-            items: [createGtagItem(product)],
+            items: [createGtagItem(product, 0)],
         };
 
         if ('valueWoVat' in product) {
@@ -454,7 +454,7 @@ function getShoptetProductsList() {
         shoptet.tracking.trackListings(container.lists);
     }
 
-    /** @typedef {{ id:string, name:string, price_ids:int[], isMainListing:boolean }} TrackingList */
+    /** @typedef {{ id:string, name:string, price_ids:int[], isMainListing:boolean, offset:number }} TrackingList */
 
     /** @typedef {{ coupon:(string|null), lastItemDelta:number }} TrackingCartInfo */
 
@@ -485,7 +485,7 @@ function getShoptetProductsList() {
             return;
         }
 
-        const items = products.map(product => createGtagItem(product, list));
+        const items = products.map((product, idx) => createGtagItem(product, list.offset + idx, list));
 
         gtag('event', 'view_item_list', {
             send_to: shoptet.config.googleAnalytics.route.ga4,
@@ -521,6 +521,7 @@ function getShoptetProductsList() {
             send_to: shoptet.config.googleAnalytics.route.ga4,
             items: [createGtagItem(
                 product,
+                0,
                 findProductListing(product),
                 createCartInfo(formAction, response, product)
             )],
@@ -535,14 +536,16 @@ function getShoptetProductsList() {
     }
 
     /**
+     * @param {number} index
      * @param {(TrackingList|null)} [list=null]
      * @param {(TrackingCartInfo|null)} [cartInfo=null]
      */
-    function createGtagItem(product, list = null, cartInfo = null) {
+    function createGtagItem(product, index, list = null, cartInfo = null) {
         const item = {
             item_id: String(product.base_id),
             item_name: product.base_name,
-            quantity: 1
+            quantity: 1,
+            index,
         };
 
         if (product.manufacturer) {
@@ -557,8 +560,9 @@ function getShoptetProductsList() {
             item.price = product.valueWoVat;
         }
 
+        // see GtagItemEntity::jsonSerialize()
         for (const [i, category] of product.category_path.entries()) {
-            item[`item_category${i || ''}`] = category;
+            item[`item_category${i ? i + 1 : ''}`] = category;
         }
 
         if (list) {
