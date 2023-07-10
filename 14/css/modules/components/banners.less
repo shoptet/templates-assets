@@ -48,12 +48,14 @@
             line-height: @font-size-h1-large + @basic-spacing;
             font-weight: @font-weight-h1;
         }
-        @media (min-width: @screen-md-min) {
+       
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
             display: -webkit-box;
             -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;  
-            overflow: auto;
-        }
+            -webkit-box-orient: vertical;
+        
     }
     .extended-banner-link {
         display: flex;
@@ -74,10 +76,15 @@
     .extended-banner-text {
         margin-bottom: calc(@basic-spacing * 4);
         letter-spacing: @letter-spacing;
-        @media (min-width: @screen-md-min) {
-            overflow-y: auto;
+       
             word-break: break-word;
-        }
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        
     }
     &:empty {
         display: none;
@@ -88,7 +95,7 @@
     @media (min-width: @screen-lg-min) {
         width: 40%;
         min-height: 80%;
-        padding: round(@basic-spacing * 10);
+        padding: round(@basic-spacing * 8);
     }
     > span {
         @media (min-width: @screen-lg-min) {
@@ -123,7 +130,7 @@
     }
     .extended-banner-texts .extended-banner-title {
         font-size: @font-size-h2;
-        line-height: @font-size-h2;
+        line-height: @font-size-h2-large;
         @media (min-width: @screen-lg-min) {
             font-size: @font-size-h2-large;
             line-height: @font-size-h2-large + @basic-spacing;
