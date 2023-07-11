@@ -8,7 +8,7 @@
         return false;
     }
 
-    function create(name, value, expires) {
+    function create(name, value, expires, path = '/') {
         if (typeof expires === 'undefined') {
             console.log(
                 '%cCookie expiration is required',
@@ -56,7 +56,7 @@
             second + parseInt(defaultExpiration.seconds)
         );
         var maxAge = parseInt(defaultExpiration.days) * 24 * 60 * 60;
-        document.cookie = name + '=' + value + '; expires=' + expiration.toGMTString() + '; max-age=' + maxAge + '; path=/';
+        document.cookie = name + '=' + value + '; expires=' + expiration.toGMTString() + '; max-age=' + maxAge + '; path=' + path;
         return true;
     }
 

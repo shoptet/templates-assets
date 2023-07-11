@@ -1089,6 +1089,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 shoptet.events.paymentButtonClicked = true;
                 window.location.href = $('#onlinePaymentButton').attr('href');
             }, 5000);
+            shoptet.runtime.resolvePaymentGwRedirectScheduled(true);
+        } else {
+            shoptet.runtime.resolvePaymentGwRedirectScheduled(false);
         }
 
         // Confirm before page unload on recapitulation page with online payment button
@@ -1107,6 +1110,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 return '';
             }
         };
+    } else {
+        shoptet.runtime.resolvePaymentGwRedirectScheduled(false);
     }
 
     if ($('.query-string-param').length) {

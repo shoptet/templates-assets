@@ -64,4 +64,7 @@
         }
     });
 
+    shoptet.events.paymentGwRedirectScheduled = new Promise(resolve => {
+        shoptet.runtime.resolvePaymentGwRedirectScheduled = resolve;
+    });
 })(shoptet);
