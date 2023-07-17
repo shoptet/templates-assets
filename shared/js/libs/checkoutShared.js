@@ -182,25 +182,37 @@
     }
 
     /**
-     * Get PIS Bakns list
+     * Get PIS Banks list
      */
     function getPISBanksData() {
         shoptet.checkoutShared.shoptetPayPIS.banks = [];
+        shoptet.checkoutShared.shoptetPayPIS.countries = [];
         $.ajax({
             url: '/action/ShoptetPayPaymentData/getBankProviderData/',
             type: 'GET',
             success: function(responseData) {
                 try {
                     var obj = JSON.parse(responseData);
+                    shoptet.checkoutShared.shoptetPayPIS.allPISbanks = obj;
+
                     for (const [country, value] of Object.entries(obj)) {
                         if(value.hasOwnProperty('providers')) {
                             for (const [providers, bank] of Object.entries(value.providers)) {
+                                bank.country = country;
                                 shoptet.checkoutShared.shoptetPayPIS.banks.push(bank);
                             }
                         }
                     }
+
+                    shoptet.checkoutShared.shoptetPayPIS.countries = Object.entries(obj).map(([countryCode, countryData]) => ({
+                        code: countryData.code,
+                        name: countryData.name,
+                        bankCount: Object.keys(countryData.providers).length
+                    }));
+
                     shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS = document.querySelector( '.radio-wrapper[data-submethod="pis"]' );
-                    renderPIS(shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS, shoptet.checkoutShared.shoptetPayPIS.banks);
+                    setDefaultCountry();
+                    renderPIS(shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS);
                     shoptetPayPISHandlePaymentMethodChange();
                 } catch (error) {
                     console.log('Unable to parse JSON of Bank list.', error);
@@ -254,13 +266,53 @@
     }
 
     /**
+     * SPay PIS (platebni tlacitka) set default country for bank list
+     *
+     * This function does not accept any arguments.
+     */
+    function setDefaultCountry() {
+        const pisCurrencySelected = localStorage.getItem('pisCurrencySelected');
+        const currency = shoptet.checkoutShared.currencyCode;
+        if (pisCurrencySelected && pisCurrencySelected !== currency) {
+            localStorage.removeItem('pisCountrySelected');
+            localStorage.removeItem('pisBankSelected');
+        }
+        localStorage.setItem('pisCurrencySelected', currency);
+
+        const lang = dataLayer[0].shoptet.language;
+        const pisCountrySelected = localStorage.getItem('pisCountrySelected');
+        if (pisCountrySelected) {
+            shoptet.checkoutShared.shoptetPayPIS.defaultCountry = pisCountrySelected;
+            return;
+        }
+
+        if (currency == 'HUF' || (currency == 'EUR' && lang == 'hu')) {
+            shoptet.checkoutShared.shoptetPayPIS.defaultCountry = 'HU';
+        } else if (currency == 'EUR' && lang == 'sk') {
+            shoptet.checkoutShared.shoptetPayPIS.defaultCountry = 'SK';
+        } else {
+            shoptet.checkoutShared.shoptetPayPIS.defaultCountry = 'CZ';
+        }
+
+        let existsDefaultCountryInJSON = false;
+        shoptet.checkoutShared.shoptetPayPIS.countries.forEach((country) => {
+            if (country.code === shoptet.checkoutShared.shoptetPayPIS.defaultCountry) {
+                existsDefaultCountryInJSON = true;
+            }
+        });
+        if (!existsDefaultCountryInJSON) {
+            shoptet.checkoutShared.shoptetPayPIS.defaultCountry = shoptet.checkoutShared.shoptetPayPIS.countries[0].code;
+        }
+    }
+
+    /**
      * SPay PIS (platebni tlacitka) payment method selection handling
      */
-    function shoptetPayPISHandlePaymentMethodChange() { 
+    function shoptetPayPISHandlePaymentMethodChange() {
         document.addEventListener('ShoptetBillingMethodUpdated', function (ev) {
             if (ev.target === shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS
                 && ev.target.classList.contains('active')) {
-                    showPISModal(shoptet.checkoutShared.shoptetPayPIS.banks);
+                    showPISModal();
             }
         });
         if (shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS
@@ -269,35 +321,68 @@
         }
     }
 
-    function showPISModal(banks) {
+    function showPISModal() {
         shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS.querySelector('.pisPaymentMethod').classList.remove('pisPaymentMethod--hidden');
-        var t = document.getElementById('template__pisModal');
-        var i = document.getElementById('template__pisModalItem');
-        var clone = document.importNode(t.content, true);
-        var pisSelected = localStorage.getItem('pisSelected');
-        banks.forEach(function(bank) {
-            i.content.querySelector('.pisModal__bankLogo').src = bank.logoUrl;
-            i.content.querySelector('.pisModal__bankName').innerHTML = bank.name;
-            i.content.querySelector('.pisModal__bankItem').setAttribute('data-bank-guid', bank.code);
-            pisSelected === bank.code || (!pisSelected && bank.isDefault) ? i.content.querySelector('.pisModal__bankItem').classList.add('pisModal__bankItem--active') : '';
-            clone.querySelector('.pisModal__bankSelection').appendChild(document.importNode(i.content, true));
-            i.content.querySelector('.pisModal__bankItem').classList.remove('pisModal__bankItem--active');
+
+        let t = document.getElementById('template__pisModal');
+        let clone = document.importNode(t.content, true);
+        const pisCountrySelection = clone.querySelector('.pisModal__countrySelection');
+
+        shoptet.checkoutShared.shoptetPayPIS.countries.forEach((country) => {
+            const option = document.createElement("option");
+            option.value = country.code;
+            const banksMessage = country.bankCount === 1 ? shoptet.messages['PIScountryOptionOneBank'] : shoptet.messages['PIScountryOptionMoreBanks'];
+            option.text = country.name + ' • ' + banksMessage.replace("%1", country.bankCount);
+
+            if (country.code == shoptet.checkoutShared.shoptetPayPIS.defaultCountry) {
+                option.selected = true;
+            }
+            pisCountrySelection.appendChild(option);
         });
 
-        [].forEach.call(clone.querySelectorAll('.pisModal__bankItem'), function(item) {
-            item.addEventListener('click', function(e) {
-                e.target.closest('.pisModal__bankSelection').querySelector('.pisModal__bankItem--active').classList.remove('pisModal__bankItem--active');
-                e.target.closest('.pisModal__bankItem').classList.toggle('pisModal__bankItem--active');
-            });
+        let specificCountryCurrency = ['CZK', 'HUF'];
+        specificCountryCurrency.forEach((currency) => {
+            if (currency === shoptet.checkoutShared.currencyCode) {
+                const currencyInfo = clone.querySelector('.pisModal__currencyBankInfo');
+                currencyInfo.innerHTML = shoptet.messages['PIScurrencyInfo' + currency];
+                currencyInfo.classList.remove('js-hidden');
+                pisCountrySelection.classList.add('js-hidden');
+            }
         });
+
+        function showBanksByCountry(country, bankSelection) {
+            let i = document.getElementById('template__pisModalItem');
+            const providers = shoptet.checkoutShared.shoptetPayPIS.allPISbanks[country].providers;
+            let pisBankSelected = localStorage.getItem('pisBankSelected');
+            let isSelectedOrDefaultBank = false;
+            Object.values(providers).forEach((bank) => {
+                i.content.querySelector('.pisModal__bankLogo').src = bank.logoUrl;
+                i.content.querySelector('.pisModal__bankName').innerHTML = bank.name;
+                i.content.querySelector('.pisModal__bankItem').setAttribute('data-bank-guid', bank.code);
+                i.content.querySelector('.pisModal__bankItem').classList.remove('pisModal__bankItem--active');
+
+                if (pisBankSelected === bank.code || (!pisBankSelected && bank.isDefault)) {
+                    i.content.querySelector('.pisModal__bankItem').classList.add('pisModal__bankItem--active');
+                    isSelectedOrDefaultBank = true;
+                }
+                bankSelection.appendChild(document.importNode(i.content, true));
+            });
+            if (!isSelectedOrDefaultBank) {
+                bankSelection.firstElementChild.classList.add('pisModal__bankItem--active');
+            }
+        }
+
+        showBanksByCountry(shoptet.checkoutShared.shoptetPayPIS.defaultCountry, clone.querySelector('.pisModal__bankSelection'));
 
         clone.querySelector('.pisModal__actions__close').addEventListener('click', function(e) {
             shoptet.modal.close();
         });
 
         clone.querySelector('.pisModal__actions__confirm').addEventListener('click', function(e) {
-            localStorage.setItem('pisSelected', e.target.closest('.content-modal').querySelector('.pisModal__bankItem--active').getAttribute('data-bank-guid'));
-            updateBanks(shoptet.checkoutShared.shoptetPayPIS.banks);
+            localStorage.setItem('pisCountrySelected', pisCountrySelection.value);
+            localStorage.setItem('pisBankSelected', e.target.closest('.content-modal').querySelector('.pisModal__bankItem--active').getAttribute('data-bank-guid'));
+            shoptet.checkoutShared.shoptetPayPIS.defaultCountry = pisCountrySelection.value;
+            updateBanks();
             shoptet.modal.close();
         });
 
@@ -308,32 +393,56 @@
             html: clone,
             width: shoptet.modal.config.widthSm,
         });
+
+        const bankSelection = document.querySelector('.pisModal__bankSelection');
+        function handleBankSelection() {
+            var banksInSelection = bankSelection.querySelectorAll('.pisModal__bankItem');
+            banksInSelection.forEach((bank) => {
+                bank.addEventListener('click', function(e) {
+                    const activeBank = bankSelection.querySelector('.pisModal__bankItem--active');
+                    activeBank && activeBank.classList.remove('pisModal__bankItem--active');
+                    e.target.closest('.pisModal__bankItem').classList.add('pisModal__bankItem--active');
+                });
+            });
+        }
+        handleBankSelection();
+
+        pisCountrySelection.addEventListener('change', function() {
+            const selectedCountry = this.value;
+            bankSelection.innerHTML = '';
+            showBanksByCountry(selectedCountry, bankSelection);
+            handleBankSelection();
+        });
     }
 
     /**
      * SPay PIS (platebni tlacitka) update data
      */
-    function updateBanks(banks) {
-        var pisPaymentMethod = document.querySelector('.pisPaymentMethod');
-        var selectedBank = banks.filter(function(bank) {return bank.code === localStorage.getItem('pisSelected')})[0];
+    function updateBanks() {
+        const banks = shoptet.checkoutShared.shoptetPayPIS.allPISbanks[shoptet.checkoutShared.shoptetPayPIS.defaultCountry].providers;
+        const pisPaymentMethod = document.querySelector('.pisPaymentMethod');
+        let selectedBank = Object.values(banks).find(bank =>  bank.code === localStorage.getItem('pisBankSelected'));
+
         if (pisPaymentMethod && selectedBank) {
             pisPaymentMethod.querySelector('.bankSelection__bankName').innerHTML = selectedBank.name;
             pisPaymentMethod.querySelector('.bankSelection__bankLogo').src = selectedBank.logoUrl;
             pisPaymentMethod.querySelector('.shoptetpay__pis__code').value = selectedBank.code;
         }
     }
+
     /**
      * SPay PIS (platebni tlacitka) render function
      */
-    function renderPIS(paymentMethodPIS, banks) {
+    function renderPIS(paymentMethodPIS) {
         var t = document.getElementById('template__pisPayment');
-        var selected = banks.find(function (bank) {
-            return localStorage.getItem('pisSelected') === bank.code ||
-                (!localStorage.getItem('pisSelected') && bank.isDefault);
-        });
+        let banks = shoptet.checkoutShared.shoptetPayPIS.allPISbanks[shoptet.checkoutShared.shoptetPayPIS.defaultCountry].providers;
+
+        let selected = Object.values(banks).find(bank =>
+            bank.code === localStorage.getItem('pisBankSelected') ||
+            (!localStorage.getItem('pisBankSelected') && bank.isDefault));
 
         if (selected == null) {
-            selected = banks[0];
+            selected = Object.values(banks)[0];
         }
 
         t.content.querySelector('.bankSelection__bankName').innerHTML = selected.name;
@@ -352,10 +461,10 @@
             pisPaymentRow.appendChild(clone);
             paymentMethodPIS.innerHTML = '';
             paymentMethodPIS.appendChild(document.importNode(pisWrapper.content, true));
-            paymentMethodPIS.parentNode.querySelector('.bankSelection__button').addEventListener('click', function(e) { showPISModal(shoptet.checkoutShared.shoptetPayPIS.banks); });
+            paymentMethodPIS.querySelector('.bankSelection__button').addEventListener('click', function(e) { showPISModal(); });
         } else {
             paymentMethodPIS.appendChild(clone);
-            paymentMethodPIS.querySelector('.bankSelection__button').addEventListener('click', function(e) { showPISModal(shoptet.checkoutShared.shoptetPayPIS.banks); });
+            paymentMethodPIS.querySelector('.bankSelection__button').addEventListener('click', function(e) { showPISModal(); });
         }
         shoptet.checkoutShared.shoptetPayPIS.paymentMethodPISdescription = paymentMethodPIS.querySelector('.bankInformation__description');
     }
