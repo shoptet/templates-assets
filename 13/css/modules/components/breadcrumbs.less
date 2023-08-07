@@ -1,6 +1,20 @@
 .breadcrumbs {
     padding-bottom: round(@line-height-computed / 2);
     font-size: @font-size-small;
+    .multiple-columns-body.type-product & {
+        @media (min-width: @screen-sm-min) {
+            width: calc(100% - @sidebar-smaller-width);
+            margin-left: auto;
+        }
+        @media (min-width: @screen-md-min) {
+            width: calc(100% - @sidebar-larger-width);
+            padding-left: 20px;
+          }
+        @media (min-width: @screen-lg-min) {
+            width: calc((100% - @sidebar-larger-width) / 2);
+            padding-left: 0px;
+        }
+    }
     .type-product & {
         padding-bottom: 0;
     }
