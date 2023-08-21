@@ -5,6 +5,8 @@
 
         var selector = '.variant-list .hidden-split-parameter, .variant-list .split-parameter';
         var $splitParameters = $(selector);
+        var hasMultipleValuesPerParameter = false;
+        var variantCodeBefore = '';
 
         if ($splitParameters.length) {
             if (shoptet.variantsCommon.hasToDisableCartButton()) {
@@ -31,6 +33,9 @@
                     } else {
                         $(this).parents('.variant-list').addClass('variant-selected');
                     }
+                    if (!hasMultipleValuesPerParameter && $(this).find('input, option').length > 1) {
+                        hasMultipleValuesPerParameter = true;
+                    }
                     parameterValues.push(value);
                 });
 
@@ -43,11 +48,15 @@
                     var variantCode = tempVariantCode.join('-');
 
                     shoptet.variantsCommon.disableAddingToCart();
-                    if($('input:checked, option:selected', this).attr('data-preselected')) {
-                        shoptet.variantsSplit.getData(variantCode, 0);
-                    } else {
-                        shoptet.variantsSplit.getData(variantCode, 1);
+                    // This condition prevents multiple launching of tracking events for same variant if event `change` is triggered for all split parameters by javascript, and not by `change` from user.
+                    if (hasMultipleValuesPerParameter && variantCode != variantCodeBefore) {
+                        if($('input:checked, option:selected', this).attr('data-preselected')) {
+                                shoptet.variantsSplit.getData(variantCode, 0);
+                        } else {
+                            shoptet.variantsSplit.getData(variantCode, 1);
+                        }
                     }
+                    variantCodeBefore = variantCode;
                 } else {
                     if (shoptet.abilities.about.generation > 2) {
                         shoptet.xyDiscounts.updateFlags(null);
@@ -109,7 +118,7 @@
                 shoptet.variantsCommon.reasonToDisable = shoptet.messages['unavailableVariant'];
                 showMessage(shoptet.variantsCommon.reasonToDisable, 'error', '', false, false);
             }
-            
+
             $formAmount.val(
                 data.minimumAmount
             ).data({
@@ -118,15 +127,15 @@
                 'decimals': data.decimalCount
             }).attr({
                 'min': data.minimumAmount,
-                'max': data.maximumAmount,        
+                'max': data.maximumAmount,
             })
-            
+
             var $cofidis = $('#cofidis');
             if ($cofidis.length) {
                 shoptet.cofidis.calculator($('.price-final-holder:visible'), $cofidis);
             }
             shoptet.variantsCommon.updateQuantityTooltips(
-                $form, 
+                $form,
                 data.minimumAmount,
                 data.maximumAmount
             );

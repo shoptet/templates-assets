@@ -365,15 +365,12 @@ function unveilImages() {
 function setCarouselHeight($carousel) {
     $carousel.removeAttr('style');
     var maxHeight = 0;
-    $('.carousel .item').addClass('active');
     $carousel.find('img').each(function () {
         var h = $(this).height();
         if (h > maxHeight) {
             maxHeight = h;
         }
     });
-    $('.carousel .item').removeClass('active');
-    $('.carousel .item:first-child').addClass('active');
     $carousel.css('min-height', maxHeight);
 }
 

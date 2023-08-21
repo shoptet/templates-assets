@@ -1,12 +1,10 @@
 body {
-    font-family: sans-serif;
-    .external-fonts-loaded &,
+    font-family: @template-font, sans-serif;
     &.blank-mode {
         font-family: @template-font, sans-serif;
     }
 }
 
-.external-fonts-loaded,
 .blank-mode {
     font-family: @template-font, sans-serif;
 }
@@ -15,8 +13,7 @@ h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6,
 .cart-table .main-link,
 .cart-related-name {
-    font-family: sans-serif;
-    .external-fonts-loaded &,
+    font-family: @template-headings-font, sans-serif;
     .blank-mode & {
         font-family: @template-headings-font, sans-serif;
     }

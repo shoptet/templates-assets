@@ -117,11 +117,7 @@
      */
     function updateMenu() {
         clearTimeout(shoptet.runtime.updateMenu);
-        if ($('html').hasClass('external-fonts-loaded')) {
-            shoptet.menu.splitMenu();
-        } else {
-            shoptet.runtime.updateMenu = setTimeout(shoptet.menu.updateMenu, 100);
-        }
+        shoptet.menu.splitMenu();
     }
 
     /**

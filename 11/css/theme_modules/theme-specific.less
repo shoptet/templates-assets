@@ -1,19 +1,17 @@
 @header-mobile-color-specific: contrast(@color-header-background, @text-muted-color, #fff);
 
-.external-fonts-loaded {
-    ol.cart-header,
-    .next-step,
-    .price-wrapper,
-    .price-additional,
-    .price-measure,
-    .price-final,
-    .price-save,
-    .price-standard,
-    .btn,
-    .products .name {
+ol.cart-header,
+.next-step,
+.price-wrapper,
+.price-additional,
+.price-measure,
+.price-final,
+.price-save,
+.price-standard,
+.btn,
+.products .name {
         font-family: @template-headings-font, sans-serif;
     }
-}
 
 #navigation {
     @media (max-width: @navigation-breakpoint - 1) {
@@ -192,10 +190,7 @@
 
 #footer {
     h5 {
-        font-family: sans-serif;
-        .external-fonts-loaded & {
-            font-family: @template-font, sans-serif;
-        }
+        font-family: @template-font, sans-serif;
     }
     > .container {
         background-color: @body-bg;

@@ -43,12 +43,10 @@ input[type="checkbox"]+label::after {
 #navigation {
     border-top-color: @border-color;
     background-color: @content-box-bg;
-    .external-fonts-loaded & {
-        font-family: @template-headings-font, sans-serif;
+    font-family: @template-headings-font, sans-serif;
         .menu-level-3 {
             font-family: @template-font, sans-serif;
         }
-    }
     .navigation-in ul li {
         > a > b {
             border-bottom-color: transparent;
@@ -62,9 +60,7 @@ input[type="checkbox"]+label::after {
 }
 
 .menu-helper {
-    .external-fonts-loaded & {
-        font-family: @template-headings-font, sans-serif;
-    }
+    font-family: @template-headings-font, sans-serif;
 }
 
 .navigation-buttons a[data-target="search"],
