@@ -34,6 +34,7 @@
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 text-align: left;
+                line-height: @line-height-larger;
             }
             &::before {
                 &:extend(.shp-icon);
@@ -43,7 +44,7 @@
                 top: 50%;
                 margin-top: -(round(@subcategories_chevron-size / 2));
                 font-size: @subcategories_chevron-size;
-                line-height: @subcategories_chevron-size; 
+                line-height: @subcategories_chevron-size;
             }
             &::after {
                 content: '';
@@ -95,7 +96,7 @@
                 .text {
                     max-height: round(@subcategories_mobile-line-height * 3);
                     font-size: @font-size-base;
-                    line-height: @subcategories_mobile-line-height;
+                    line-height: @line-height-larger;
                 }
             }
         }
