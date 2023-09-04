@@ -6,7 +6,7 @@
  * @param {Number} categoryMaxValue
  * categoryMaxValue = value parsed from HTML element
  */
-var priceFilter = function (categoryMinValue, categoryMaxValue) {
+window.priceFilter = (categoryMinValue, categoryMaxValue) => {
     var
         selectedValues = parseFilterValuesFromContent(),
         selectedMinValue = selectedValues[0],
@@ -104,7 +104,7 @@ var priceFilter = function (categoryMinValue, categoryMaxValue) {
  * @param {String} event
  * event = event which called the function
  */
-function makeFilterAjaxRequest(url, pushHistoryState, successCallback, element, event) {
+window.makeFilterAjaxRequest = (url, pushHistoryState, successCallback, element, event) => {
     showSpinner();
     pushHistoryState = typeof pushHistoryState !== 'undefined' ? pushHistoryState : true;
     shoptet.scripts.signalCustomEvent(event, element);
@@ -217,7 +217,7 @@ function makeFilterAjaxRequest(url, pushHistoryState, successCallback, element, 
  * @param {String} targetLocation
  * targetLocation = location where the element has to be moved
  */
-function moveFilters($el, targetLocation) {
+window.moveFilters = ($el, targetLocation) => {
     if (targetLocation != 'default') {
         $('#filters-wrapper').append($el);
     } else {
@@ -231,7 +231,7 @@ function moveFilters($el, targetLocation) {
  *
  * This function does not accept any arguments.
  */
-function detectFilters() {
+window.detectFilters = () => {
     var $el;
     var $asideFilterLocation = $('.sidebar .box-filters');
     if ($asideFilterLocation.length) {
@@ -254,7 +254,7 @@ function detectFilters() {
  *
  * This function does not accept any arguments.
  */
-var parseFilterValuesFromContent = function () {
+window.parseFilterValuesFromContent = () => {
     var values = [];
     values[0] = $('#min').text().toString();
     values[1] = $('#max').text().toString();
@@ -267,7 +267,7 @@ var parseFilterValuesFromContent = function () {
  * @param {String} selectedMinValue
  * @param {String} selectedMaxValue
  */
-var formatFilterValues = function (selectedMinValue, selectedMaxValue) {
+window.formatFilterValues = (selectedMinValue, selectedMaxValue) => {
 
     var
         reverseNumberMin = '',

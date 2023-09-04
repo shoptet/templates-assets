@@ -1,5 +1,5 @@
 if (shoptet.abilities.feature.top_navigation_menu) {
-    function topMenuFits() {
+    window.topMenuFits = () => {
         var $topMenuWrapper = $('.top-navigation-menu');
         if(!detectResolution(shoptet.config.breakpoints.sm) && !$topMenuWrapper.is(':visible')) {
             return false;
@@ -21,11 +21,11 @@ if (shoptet.abilities.feature.top_navigation_menu) {
         return fits;
     }
 
-    function showTopMenuTrigger() {
+    window.showTopMenuTrigger = () => {
         $('body').addClass('top-menu-trigger-visible');
     }
 
-    function hideTopMenuTrigger() {
+    window.hideTopMenuTrigger = () => {
         $('body').removeClass('top-menu-trigger-visible');
     }
 

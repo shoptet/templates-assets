@@ -1,7 +1,7 @@
 // TODO: move these declarations to filters and unify with 2G
-var categoryMinValue = parseInt($('#categoryMinValue').text());
-var categoryMaxValue = parseInt($('#categoryMaxValue').text());
-var currencyExchangeRate = shoptet.helpers.toFloat($('#currencyExchangeRate').text());
+window.categoryMinValue = parseInt($('#categoryMinValue').text());
+window.categoryMaxValue = parseInt($('#categoryMaxValue').text());
+window.currencyExchangeRate = shoptet.helpers.toFloat($('#currencyExchangeRate').text());
 
 // Colorbox defaults
 // $.colorbox.settings.opacity must be identical as alpha channel of @overlay-bg in theme-variables.less
@@ -38,7 +38,7 @@ shoptet.config.bodyClasses = 'user-action-visible' +
  * @param {Boolean} overlay
  * overlay = if set to true, message is rendered as modal over the overlayed content
  */
-function showMessage(content, type, id, cancel, overlay, parent) {
+window.showMessage = (content, type, id, cancel, overlay, parent) => {
     parent = parent || '.messages';
     if (typeof id === 'undefined') {
         id = '';
@@ -79,7 +79,7 @@ function showMessage(content, type, id, cancel, overlay, parent) {
  *
  * @param {Boolean} action
  */
-function hideMsg(action) {
+window.hideMsg = (action) => {
     $('body').removeClass('msg-visible');
     if (typeof action != 'undefined') {
         $('.msg, .overlay.visible').remove();
@@ -97,7 +97,7 @@ function hideMsg(action) {
  *
  * This function does not accept any arguments.
  */
-function dismissMessages() {
+window.dismissMessages = () => {
     shoptet.runtime.dismiss = setTimeout(function () {
         hideMsg();
     }, shoptet.config.dismissTimeout);
@@ -110,7 +110,7 @@ function dismissMessages() {
  * id = id of element affected by cancelled action,
  * if called without id, function only hide message
  */
-function cancelAction(id) {
+window.cancelAction = (id) => {
     if (typeof id == 'undefined') {
         hideMsg();
     } else {
@@ -125,7 +125,7 @@ function cancelAction(id) {
  *
  * This function does not accept any arguments.
  */
-function showSpinner() {
+window.showSpinner = () => {
     $('body').addClass('spinner-visible').append('<div class="overlay spinner"><div class="loader" /></div>');
 }
 
@@ -134,7 +134,7 @@ function showSpinner() {
  *
  * This function does not accept any arguments.
  */
-function hideSpinner() {
+window.hideSpinner = () => {
     $('.overlay.spinner').addClass('invisible');
     setTimeout(function () {
         $('body').removeClass('spinner-visible');
@@ -147,7 +147,7 @@ function hideSpinner() {
  *
  * This function does not accept any arguments.
  */
-function initTooltips() {
+window.initTooltips = () => {
     $('.tooltip').hide();
     $('.show-tooltip').tooltip({
         html: true,
@@ -161,7 +161,7 @@ function initTooltips() {
  *
  * This function does not accept any arguments.
  */
-function getScrollBarWidth() {
+window.getScrollBarWidth = () => {
     var inner = document.createElement('p');
     inner.style.width = '100%';
     inner.style.height = '200px';
@@ -194,7 +194,7 @@ function getScrollBarWidth() {
  * resolution = value in pixels we want to test,
  * if current resolution is bigger, function returns true
  */
-function detectResolution(resolution) {
+window.detectResolution = (resolution) => {
     return parseInt($(window).width()) + getScrollBarWidth() > resolution;
 }
 
@@ -204,7 +204,7 @@ function detectResolution(resolution) {
  * @param {String} direction
  * direction = direction of scroll
  */
-function detectScrolled(direction) {
+window.detectScrolled = (direction) => {
     if (!shoptet.abilities.feature.fixed_header
         && shoptet.config.mobileHeaderVersion !== '1'
     ) {
@@ -261,7 +261,7 @@ function detectScrolled(direction) {
  * @param {String} hideText
  * hideText = text that has to be to hidden
  */
-function toggleText($el, text, showText, hideText) {
+window.toggleText = ($el, text, showText, hideText) => {
     if (text == hideText) {
         $el.attr('data-text', hideText);
         $el.html(showText);
@@ -277,7 +277,7 @@ function toggleText($el, text, showText, hideText) {
  * @param {Object} $el
  * $el = HTML element which has to be changed
  */
-function toggleContacts($el) {
+window.toggleContacts = ($el) => {
     var text = $el.html();
     var hideText = shoptet.messages['hideContacts'];
     var showText = $el.attr('data-original-text');
@@ -286,7 +286,7 @@ function toggleContacts($el) {
     toggleText($el, text, showText, hideText);
 }
 
-var delay = (function () {
+window.delay = (() => {
     var timer = 0;
     return function (callback, ms) {
         clearTimeout(timer);
@@ -299,7 +299,7 @@ var delay = (function () {
  *
  * @param {Object} $el HTML element to which the page should scroll
  */
-function scrollToEl($el) {
+window.scrollToEl = ($el) => {
     var $message = $('.messages .msg');
     var $adminBar = $('.admin-bar');
     var $cartHeader = $('.cart-header');
@@ -327,7 +327,7 @@ function scrollToEl($el) {
  *
  * This function does not accept any arguments.
  */
-function unveilImages() {
+window.unveilImages = () => {
     var imgResizeDone = 0;
     $('img:not(.js-postpone-lazyload)').unveil(100, function () {
         if ($(this).data('shp-lazy')) {
@@ -362,7 +362,7 @@ function unveilImages() {
  * @param {Object} $carousel
  * $carousel = carousel element
  */
-function setCarouselHeight($carousel) {
+window.setCarouselHeight = ($carousel) => {
     $carousel.removeAttr('style');
     var maxHeight = 0;
     $carousel.find('img').each(function () {
@@ -379,7 +379,7 @@ function setCarouselHeight($carousel) {
  *
  * This function does not accept any arguments.
  */
-function initColorbox() {
+window.initColorbox = () => {
     $('.variant-image a').colorbox({
         maxWidth: shoptet.modal.config.maxWidth,
         maxHeight: shoptet.modal.config.maxHeight
@@ -408,7 +408,7 @@ function initColorbox() {
  *
  * This function does not accept any arguments.
  */
-function addPaddingToOverallWrapper() {
+window.addPaddingToOverallWrapper = () => {
     if (!shoptet.abilities.feature.positioned_footer) {
         return;
     }
@@ -426,7 +426,7 @@ function addPaddingToOverallWrapper() {
  * @param {Object} $video
  * $video = handled video element
  */
-function detectVideoBackground($video) {
+window.detectVideoBackground = ($video) => {
     return $video.length > 0;
 }
 
@@ -436,7 +436,7 @@ function detectVideoBackground($video) {
  * @param {Object} $videoWrapper
  * $videoWrapper = header background video wrapper
  */
-function detectVideoBackgroundHeight($videoWrapper) {
+window.detectVideoBackgroundHeight = ($videoWrapper) => {
     return $videoWrapper.height();
 }
 
@@ -446,7 +446,7 @@ function detectVideoBackgroundHeight($videoWrapper) {
  * @param {Object} $video
  * $video = handled video element
  */
-function pauseVideo($video) {
+window.pauseVideo = ($video) => {
     if (!$video[0].paused) {
         $video[0].pause();
     }
@@ -458,7 +458,7 @@ function pauseVideo($video) {
  * @param {Object} $video
  * $video = handled video element
  */
-function resumeVideo($video) {
+window.resumeVideo = ($video) => {
     if ($video[0].paused) {
         $video[0].play();
     }
@@ -472,7 +472,7 @@ function resumeVideo($video) {
  * @param {Object} $videoWrapper
  * $videoWrapper = header background video wrapper
  */
-function handleWithVideo($video, $videoWrapper) {
+window.handleWithVideo = ($video, $videoWrapper) => {
     var offset = $videoWrapper.offset();
     var scrollTop = $('body').scrollTop();
     if (offset.top + detectVideoBackgroundHeight($videoWrapper) > scrollTop) {
@@ -487,11 +487,11 @@ function handleWithVideo($video, $videoWrapper) {
 /*
  * Move element after selector
  */
-function moveElementAfterSelector($whatSelector, $whereSelector) {
+window.moveElementAfterSelector = ($whatSelector, $whereSelector) => {
     $whatSelector.insertAfter($whereSelector);
 }
 
-function updateQueryStringParameter(key, value) {
+window.updateQueryStringParameter = (key, value) => {
     var url = window.location.href;
     var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
     var separator = url.indexOf('?') !== -1 ? "&" : "?";
@@ -504,9 +504,9 @@ function updateQueryStringParameter(key, value) {
 }
 
 /* Elements available for activating by location hash */
-var availableElementsIds = ['#ratingWrapper'];
-var hashUnveiledElements = [];
-var hashHiddenElements = [];
+window.availableElementsIds = ['#ratingWrapper'];
+window.hashUnveiledElements = [];
+window.hashHiddenElements = [];
 hashUnveiledElements['#ratingWrapper'] = ['#rate-form'];
 hashHiddenElements['#ratingWrapper'] = ['.rate-form-trigger'];
 
@@ -516,7 +516,7 @@ hashHiddenElements['#ratingWrapper'] = ['.rate-form-trigger'];
  * @param {String} elementId
  * tabId = id of activated element
  */
-function unveilElementByHash(elementId) {
+window.unveilElementByHash = (elementId) => {
     if ($(elementId).parents('.tab-pane').length) {
         var $el = $('[data-toggle="tab"][href="#' + $(elementId).attr('data-parent-tab') + '"]');
         $el.tab('show');
@@ -541,7 +541,7 @@ function unveilElementByHash(elementId) {
  *
  * This function does not accept any arguments.
  */
-function locationSearchToObject() {
+window.locationSearchToObject = () => {
     var locationSearch = window.location.search.substring(1).split("&");
     var object = {};
 
@@ -563,7 +563,7 @@ function locationSearchToObject() {
  * @param {Object} $parent
  * $parent = optional parent element
  */
-function getRelativeOffset($el, $parent) {
+window.getRelativeOffset = ($el, $parent) => {
     if (typeof $parent === 'undefined') {
         $parent = $el.parent();
     }
@@ -575,14 +575,14 @@ function getRelativeOffset($el, $parent) {
     return relativeOffset;
 }
 
-function fixTooltipAfterChange(element) {
+window.fixTooltipAfterChange = (element) => {
     $(element).tooltip('fixTitle').tooltip('setContent');
     if ($(element).hasClass('hovered')) {
         $(element).tooltip('show');
     }
 }
 
-function initDatepickers() {
+window.initDatepickers = () => {
     $('.datepicker.birthdate').each(function () {
         var $elem = $(this);
         $elem.datepicker({
@@ -599,7 +599,7 @@ function initDatepickers() {
     })
 }
 
-function resizeEndCallback() {
+window.resizeEndCallback = () => {
     shoptet.products.sameHeightOfProducts();
     setTimeout(function () {
         detectFilters();
@@ -1224,7 +1224,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Necessary for split/simple variants - unify with 2nd gen
-function resolveImageFormat() {
+window.resolveImageFormat = () => {
     return true;
 }
 

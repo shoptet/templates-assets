@@ -6,7 +6,7 @@
 * @param {Object} $searchContainer
 * $searchContainer = HTML container for response
 */
-function fulltextSearch($searchInput, $searchContainer) {
+window.fulltextSearch = ($searchInput, $searchContainer) => {
     var $form = $searchInput.parents('form');
     var xhr;
 
@@ -96,7 +96,7 @@ function fulltextSearch($searchInput, $searchContainer) {
  *
  * This function does not accept any arguments.
  */
-function clearSearchFocus() {
+window.clearSearchFocus = () => {
     setTimeout(function() {
         $('body').removeClass('search-focused');
     }, shoptet.config.animationDuration / 2);
@@ -108,7 +108,7 @@ function clearSearchFocus() {
  * @param {Object} $el
  * $el = HTML element which value has to be checked
  */
-function checkMinimalLength($el) {
+window.checkMinimalLength = ($el) => {
     var passed = true;
     var length = $el.val().length;
     if ((length < 3 && length > 0) || length == 0) {
@@ -124,7 +124,7 @@ function checkMinimalLength($el) {
  *
  * This function does not accept any arguments.
  */
-function detectRecommended() {
+window.detectRecommended = () => {
     return $('.recommended-products .row').length;
 }
 
@@ -133,7 +133,7 @@ function detectRecommended() {
  *
  * This function does not accept any arguments.
  */
-function hideRecommended() {
+window.hideRecommended = () => {
     $('.recommended-products .browse, .recommended-products .indicator').detach();
 }
 
@@ -143,7 +143,7 @@ function hideRecommended() {
  * @param {Boolean|String} className
  * className = false or class name we want to add to indicator
  */
-function updateIndicator(className) {
+window.updateIndicator = (className) => {
     var $indicator = $('.recommended-products .indicator');
     var indicatorClasses = 'indicator-1 indicator-2';
     if (className === false) {
@@ -160,7 +160,7 @@ function updateIndicator(className) {
  * target = accepts 'prev' or 'next', determines which recommended
  * products will be displayed
  */
-function switchRecommended(target) {
+window.switchRecommended = (target) => {
     if (detectRecommended() > 1) {
         var $el = $('.recommended-products .row.active');
         var $arrows = $('.recommended-products .browse');

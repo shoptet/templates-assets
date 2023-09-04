@@ -43,8 +43,9 @@
                     var variantCode = tempVariantCode.join('-');
 
                     shoptet.variantsCommon.disableAddingToCart();
+
                     if($('input:checked, option:selected', this).attr('data-preselected')) {
-                        shoptet.variantsSplit.getData(variantCode, 0);
+                            shoptet.variantsSplit.getData(variantCode, 0);
                     } else {
                         shoptet.variantsSplit.getData(variantCode, 1);
                     }
@@ -64,7 +65,7 @@
         }
     }
 
-    function getData(variantCode, trackGA) {
+    function getData(variantCode, trackProducts) {
         if (shoptet.variantsSplit.necessaryVariantData.hasOwnProperty(variantCode)) {
             // Existing variant
             var data = shoptet.variantsSplit.necessaryVariantData[variantCode];
@@ -72,13 +73,13 @@
             var $formAmount = $('#product-detail-form .amount');
             $form.find('input[name=priceId]').val(data.id);
 
-            shoptet.tracking.trackProducts(
-                $form[0],
-                data.id,
-                'ViewContent',
-                [shoptet.tracking.trackFacebookPixel]
-            );
-            if (trackGA) {
+            if (trackProducts) {
+                shoptet.tracking.trackProducts(
+                    $form[0],
+                    data.id,
+                    'ViewContent',
+                    [shoptet.tracking.trackFacebookPixel]
+                );
                 shoptet.tracking.trackProducts(
                     $form[0],
                     data.id,
@@ -109,7 +110,7 @@
                 shoptet.variantsCommon.reasonToDisable = shoptet.messages['unavailableVariant'];
                 showMessage(shoptet.variantsCommon.reasonToDisable, 'error', '', false, false);
             }
-            
+
             $formAmount.val(
                 data.minimumAmount
             ).data({
@@ -118,15 +119,15 @@
                 'decimals': data.decimalCount
             }).attr({
                 'min': data.minimumAmount,
-                'max': data.maximumAmount,        
+                'max': data.maximumAmount,
             })
-            
+
             var $cofidis = $('#cofidis');
             if ($cofidis.length) {
                 shoptet.cofidis.calculator($('.price-final-holder:visible'), $cofidis);
             }
             shoptet.variantsCommon.updateQuantityTooltips(
-                $form, 
+                $form,
                 data.minimumAmount,
                 data.maximumAmount
             );

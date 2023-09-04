@@ -6,7 +6,7 @@
  * @param {String} key
  * key = key of dataLayer object
  */
-function getShoptetDataLayer(key) {
+window.getShoptetDataLayer = (key) => {
     if (dataLayer[0].shoptet) {
         if (key) {
             return dataLayer[0].shoptet[key];
@@ -22,7 +22,7 @@ function getShoptetDataLayer(key) {
  *
  * This function does not accept any arguments.
  */
-function getShoptetProductsList() {
+window.getShoptetProductsList = () => {
     return shoptet.tracking.productsList;
 }
 
@@ -62,7 +62,7 @@ function getShoptetProductsList() {
                     return FEdataLayer[i].priceId;
                 }
             }
-        } 
+        }
         // Product added
         if (BEdataLayer.length > FEdataLayer.length) {
             for (var i=0;i<BEdataLayer.length;i++) {

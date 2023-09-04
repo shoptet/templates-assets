@@ -549,9 +549,17 @@ a.btn {
     }
 }
 
-@media (max-width: @screen-xs) {
+.variant-image {
+    .flags {
+        min-width: @img-width-sm;
+
+        .variant-table & {
+            left: 0;
+        }
+    }
     .flag {
         font-size: 15px;
+        width: 100%;
     }
 }
 

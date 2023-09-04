@@ -8,7 +8,7 @@
  * add or remove required attributes
  * @param {Boolean} preserveNoJsValidation
  */
-function toggleRequiredAttributes($el, job, preserveNoJsValidation) {
+window.toggleRequiredAttributes = ($el, job, preserveNoJsValidation) => {
     if (job === 'remove') {
         $('[autocomplete="email"]').attr('autocomplete', 'new-email');
         $.each($el.find(':required'), function() {
