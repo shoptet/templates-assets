@@ -141,6 +141,33 @@ ol.cart-header {
     }
 }
 
+.cart-xyDiscount__banner {
+    margin-bottom: round(@line-height-computed / 4);
+    text-transform: none;
+}
+
+.cart-xyDiscount__content {
+    @media (max-width: @screen-md-max) {
+        flex-wrap: nowrap;
+        flex-direction: column;
+    }
+}
+
+.cart-xyDiscount__title {
+    .show-tooltip.acronym {
+        @media (max-width: @screen-md-max) {
+            border-bottom-width: 1px;
+            pointer-events: auto;
+        }
+    }
+}
+
+.cart-xyDiscount__description {
+    @media (max-width: @screen-md-max) {
+        display: none;
+    }
+}
+
 .cart-summary {
     padding-top: round(@grid-gutter-width / 2);
     @media (max-width: @screen-sm-max) {

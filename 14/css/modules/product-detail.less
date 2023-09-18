@@ -107,7 +107,7 @@
         margin-bottom: @double-spacing;
         @media (min-width: @navigation-breakpoint) {
             margin-bottom: @double-spacing;
-        }  
+        }
     }
     .p-gifts-heading {
         text-transform: none;
@@ -123,7 +123,7 @@
             width: 100%;
             border-radius: @border-radius-base;
             margin-bottom: @double-spacing;
-            height: 48px; 
+            height: 48px;
         }
     }
     .advanced-parameter {
@@ -144,7 +144,7 @@
         }
 
     }
-    
+
     .p-price-wrapper {
         text-align: left;
         width: 100%;
@@ -225,18 +225,18 @@
 .p-thumbnails-wrapper {
     margin: @line-height-computed 0;
     .p-thumbnails {
-        @media (max-width: @navigation-breakpoint-max) {         
+        @media (max-width: @navigation-breakpoint-max) {
             height: round(@basic-spacing * 6);
         }
         > div {
-            @media (max-width: @navigation-breakpoint-max) {         
+            @media (max-width: @navigation-breakpoint-max) {
                 height: round(@basic-spacing * 6);
             }
         }
         .p-thumbnails-inner a {
-            margin-right: @penta-spacing;        
-            @media (max-width: @navigation-breakpoint-max) {         
-                margin-right: @basic-spacing;   
+            margin-right: @penta-spacing;
+            @media (max-width: @navigation-breakpoint-max) {
+                margin-right: @basic-spacing;
             }
             &::before {
                 display: none;
@@ -335,7 +335,7 @@
 
 .responsive-nav .hidden-links {
     border-width: 1px;
-    border-style: solid;   
+    border-style: solid;
     padding: @double-spacing;
     border-radius: @border-radius-base;
     border-top-right-radius: 0;
@@ -416,5 +416,73 @@
     padding-top: @penta-spacing;
     &.product-slider-holder {
         padding-top: @penta-spacing;
+    }
+}
+
+.xyDiscount__banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: fit-content;
+    margin: round(@line-height-computed * 2) 0;
+    padding: 12px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: @border-radius-base;
+    font-size: @font-size-base;
+
+    @media (min-width: @screen-sm-min) {
+        gap: round(@line-height-computed);
+        padding: round(@line-height-computed);
+        font-size: @font-size-larger;
+    }
+}
+
+.xyDiscount__icon {
+    align-self: flex-start;
+    border-radius: 50%;
+    padding: 6px;
+    &::before,
+    &::after {
+        &:extend(.shp-icon);
+        font-size: @icon-font-size-base;
+        line-height: 1;
+        letter-spacing: 0;
+    }
+}
+
+.xyDiscount__title {
+    font-weight: 700;
+}
+
+.xyDiscount__description {
+    line-height: 1.4;
+    margin-top: round(@line-height-computed / 4);
+
+    @media (min-width: @screen-sm-min) {
+        margin-top: round(@line-height-computed / 2);
+    }
+
+    p {
+        margin-bottom: round(@line-height-computed / 4);
+
+    }
+    > :last-child {
+        margin-bottom: round(@line-height-computed / 8);
+    }
+}
+
+.xyDiscount__conditions {
+    margin-top: round(@line-height-computed / 4);
+
+    @media (min-width: @screen-sm-min) {
+        margin-top: round(@line-height-computed / 2);
+    }
+
+    a {
+        text-decoration: underline;
+        &:hover {
+            text-decoration: none;
+        }
     }
 }

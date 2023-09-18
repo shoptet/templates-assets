@@ -635,27 +635,14 @@ window.getShoptetProductsList = () => {
 
     function updateDataLayerCartInfo(response) {
         if (typeof dataLayer === 'object') {
-            var leftToFreeShipping = response.getFromPayload('leftToFreeShipping');
-
-            if(leftToFreeShipping !== null) {
-                dataLayer[0].shoptet.cartInfo.leftToFreeShipping = leftToFreeShipping;
-            }
-            var freeShipping = response.getFromPayload('freeShipping');
-            if(freeShipping !== null) {
-                dataLayer[0].shoptet.cartInfo.freeShipping = freeShipping;
-            }
-            var discountCoupon = response.getFromPayload('discountCoupon');
-            if(discountCoupon !== null) {
-                dataLayer[0].shoptet.cartInfo.discountCoupon = discountCoupon;
-            }
-
-            var leftToFreeGift = response.getFromPayload('leftToFreeGift');
-            if(leftToFreeGift !== null) {
-                dataLayer[0].shoptet.cartInfo.leftToFreeGift = leftToFreeGift;
-            }
-            var freeGift = response.getFromPayload('freeGift');
-            if(freeGift !== null) {
-                dataLayer[0].shoptet.cartInfo.freeGift = freeGift;
+            var filteredDataKeys = ['trackingContainer', 'count', 'price'];
+            var cartData = response.getPayload();
+            if (cartData !== null) {
+                for (var key in cartData) {
+                    if (cartData.hasOwnProperty(key) && filteredDataKeys.indexOf(key) === -1) {
+                        dataLayer[0].shoptet.cartInfo[key] = cartData[key];
+                    }
+                }
             }
             var trackingContainer = response.getFromPayload('trackingContainer');
             if(trackingContainer !== null) {

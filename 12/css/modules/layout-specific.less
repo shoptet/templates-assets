@@ -968,6 +968,24 @@ a.btn {
     font-size: 120%;
 }
 
+.xyDiscount__banner {
+    gap: round(@line-height-computed / 2);
+    width: auto;
+    margin: 0;
+    padding: 12px round(@line-height-computed / 2);
+    border-width: 0 0 1px;
+    border-style: solid;
+    font-size: @font-size-base;
+}
+
+.xyDiscount__title {
+    font-size: @font-size-base;
+}
+
+.xyDiscount__description > :last-child {
+    margin-bottom: 0;
+}
+
 .link-icons {
     flex-flow: row;
     justify-content: space-between;
@@ -1570,7 +1588,7 @@ ol.top-products {
 }
 
 .quantity {
-    .increase-tooltip, 
+    .increase-tooltip,
     .decrease-tooltip {
         width: 100%;
         right: 0;

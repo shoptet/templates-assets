@@ -42,10 +42,6 @@
                 flex-direction: row;
             }
         }
-
-        @media(max-width: @screen-sm-max) {
-            &:extend(.detail .descr);
-        }
     }
     .detail-parameters {
         margin-bottom: @grid-gutter-width;
@@ -235,5 +231,53 @@
 .rating {
     > div {
         padding-bottom: @line-height-computed;
+    }
+}
+
+.xyDiscount__banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: fit-content;
+    margin-top: 2 * round(@line-height-computed);
+    padding: 12px;
+    border-width: 1px;
+    border-style: solid;
+    font-size: 13px;
+}
+
+.xyDiscount__icon {
+    align-self: flex-start;
+    border-radius: 50%;
+    padding: 6px;
+    &::before {
+        &:extend(.shp-icon);
+        font-size: @icon-font-size-base;
+        line-height: 1;
+    }
+}
+
+.xyDiscount__title {
+    font-weight: 700;
+    font-size: @font-size-h4;
+}
+
+.xyDiscount__description {
+    margin-top: round(@line-height-computed / 4);
+    p {
+        margin-bottom: round(@line-height-computed / 4);
+    }
+    > :last-child {
+        margin-bottom: round(@line-height-computed / 8);
+    }
+}
+
+.xyDiscount__conditions {
+    margin-top: round(@line-height-computed / 4);
+    a {
+        text-decoration: underline;
+        &:hover {
+            text-decoration: none;
+        }
     }
 }

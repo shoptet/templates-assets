@@ -540,3 +540,58 @@ td .availability-label {
 .p-gift-name {
     margin-left: round(@grid-gutter-width / 2);
 }
+
+.xyDiscount__banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: fit-content;
+    margin-top: round(@line-height-computed);
+    padding: 12px;
+    border-width: 1px;
+    border-style: solid;
+    font-size: 16px;
+
+    @media (min-width: @screen-sm-min) {
+        gap: round(@line-height-computed / 2);
+        padding: round(@line-height-computed / 2);
+        font-size: @font-size-base;
+    }
+}
+
+.xyDiscount__icon {
+    align-self: flex-start;
+    border-radius: 50%;
+    padding: 6px;
+    &::before {
+        &:extend(.shp-icon);
+        font-size: @icon-font-size-base;
+        line-height: 1;
+    }
+}
+
+.xyDiscount__title {
+    font-weight: 700;
+    font-size: @font-size-h4;
+}
+
+.xyDiscount__description {
+    line-height: 1.4;
+    margin-top: round(@line-height-computed / 4);
+    p {
+        margin-bottom: round(@line-height-computed / 4);
+    }
+    > :last-child {
+        margin-bottom: round(@line-height-computed / 8);
+    }
+}
+
+.xyDiscount__conditions {
+    margin-top: round(@line-height-computed / 4);
+    a {
+        text-decoration: underline;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}

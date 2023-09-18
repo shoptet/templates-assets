@@ -90,8 +90,8 @@ select {
 }
 
 .form-control,
-input, 
-select, 
+input,
+select,
 textarea {
     &:focus {
         box-shadow: 0 0 0 0.1em fade(@input-border-focus, 50%);
@@ -513,5 +513,46 @@ a.next-step-back {
     color: @text-muted-color;
     &:hover {
         color: @link-color;
+    }
+}
+
+.xyDiscount__banner {
+    border-color: @border-color;
+}
+
+.xyDiscount__icon {
+    color: #fff;
+    // The color of the banner is defined by the user and stored in the database for each banner
+    background-color: var(--xy-discount-banner-color);
+}
+
+.xyDiscount__title {
+    color: var(--xy-discount-banner-color);
+}
+
+.xyDiscount__conditions a,
+.xyDiscount__conditions a:hover {
+    color: @text-color;
+}
+
+
+.cart-xyDiscount__banner {
+    border-color: @border-color;
+}
+
+.cart-xyDiscount__icon {
+    color: #fff;
+    // The color of the banner is defined by the user and stored in the database for each banner
+    background-color: var(--xy-discount-banner-color);
+}
+
+.cart-xyDiscount__title {
+    color: var(--xy-discount-banner-color);
+}
+
+.cart-table .cart-xyDiscount__banner {
+    .cart-xyDiscount__conditions a,
+    .cart-xyDiscount__conditions a:hover {
+        color: @text-color;
     }
 }
