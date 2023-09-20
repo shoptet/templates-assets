@@ -489,6 +489,8 @@ window.getShoptetProductsList = () => {
 
         gtag('event', 'view_item_list', {
             send_to: shoptet.config.googleAnalytics.route.ga4,
+            page_language: dataLayer[0].shoptet.language,
+            content_group: dataLayer[0].shoptet.pageType,
             item_list_id: list.id,
             item_list_name: list.name,
             items
@@ -519,6 +521,8 @@ window.getShoptetProductsList = () => {
 
         const eventParams = {
             send_to: shoptet.config.googleAnalytics.route.ga4,
+            page_language: dataLayer[0].shoptet.language,
+            content_group: dataLayer[0].shoptet.pageType,
             items: [createGtagItem(
                 product,
                 0,
