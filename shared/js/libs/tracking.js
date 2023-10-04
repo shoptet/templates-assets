@@ -105,6 +105,29 @@ window.getShoptetProductsList = () => {
         return 'ViewContent';
     }
 
+    function trackTikTokPixel(productData, formAction) {
+        if (typeof ttq !== 'object') {
+            return;
+        }
+
+        var trackingAction = shoptet.tracking.resolveTrackingAction(formAction, productData);
+        if (trackingAction !== 'add') {
+            return;
+        }
+
+        ttq.track('AddToCart', {
+            content_type: 'product',
+            quantity: productData.amount,
+            content_name: productData.content_name,
+            content_id: productData.content_id,
+            content_category: productData.content_category,
+            currency: productData.currency,
+            value: productData.valueWoVat
+        });
+
+        shoptet.scripts.signalCustomEvent('ShoptetTikTokPixelTracked');
+    }
+
     function handleAction(form, response) {
         var formAction = shoptet.tracking.getFormAction(form.getAttribute('action'));
         if (!formAction) {
@@ -129,6 +152,7 @@ window.getShoptetProductsList = () => {
                     },
                     shoptet.tracking.trackFacebookPixel,
                     shoptet.tracking.trackGlamiPixel,
+                    shoptet.tracking.trackTikTokPixel,
                     shoptet.tracking.updateGoogleEcommerce
                 ]
             );
