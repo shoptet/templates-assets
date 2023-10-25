@@ -1,4 +1,7 @@
 @import "../../../00/css/uitweaks/shared-imports";
+@import "../modules/layout-variables";
+@import "../theme_modules/theme-variables";
+@import "../../../00/css/uitweaks/mobile-header-v1-common";
 
 @header_search-height: @header-height-xs + @form-control-height + round(@line-height-computed * 0.75);
 @navigation-buttons_icon-size: 40px;
@@ -205,7 +208,7 @@
     }
     > a {
         &::before {
-            &:extend(.shp-icon);
+            .shoptet-icon();
             content: @icon-menu-code;
             width: round(@navigation-buttons_icon-size - @navigation-buttons_icon-padding * 2);
             font-size: 18px;

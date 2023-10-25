@@ -1,3 +1,21 @@
+.header-background-light {
+    --_color-header-text: @text-color;
+    --_color-header-contrast-text: #fff;
+    --_color-header-contrast-bg: @color-primary;
+    --_color-header-menu-border: rgba(0, 0, 0, 0.3);
+    --_color-header-dropdown-border: rgba(0, 0, 0, 0.3);
+    --_color-header-button-border: transparent;
+}
+
+.header-background-dark {
+    --_color-header-text: #fff;
+    --_color-header-contrast-text: #000;
+    --_color-header-contrast-bg: #fff;
+    --_color-header-menu-border: @color-header-background;
+    --_color-header-dropdown-border: rgba(255, 255, 255, 0.3);
+    --_color-header-button-border: rgba(255, 255, 255, 0.3);
+}
+
 #header {
     @media (max-width: @navigation-breakpoint-max) {
         box-shadow: 0 1px 2px rgba(0,0,0,.16);
@@ -20,37 +38,10 @@
 .navigation-buttons {
     .dropdown {
         > button {
-            border-color: contrast(@color-header-background, rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.3));
+            border-color: var(--_color-header-dropdown-border);
             background: transparent;
             color: @header-color;
         }
-    }
-}
-
-.navigation-buttons when (@header-color = @text-color) {
-    a[data-target="cart"] {
-        &,
-        &:hover {
-            i {
-                background-color: @color-primary;
-            }
-        }
-    }
-}
-
-.navigation-in when (@header-color = @text-color) {
-    @media (min-width: @navigation-breakpoint) {
-        ul {
-            &.menu-level-2 {
-                border-color: @border-color;
-            }
-        }
-    }
-}
-
-.menu-helper when (@header-color = @text-color) {
-    > ul {
-        border-color: @border-color;
     }
 }
 
@@ -213,7 +204,7 @@ ol.top-products {
     color: @header-color;
 
     @media (min-width: @navigation-breakpoint) {
-        border: 1px solid contrast(@color-header-background, rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.3));
+        border: 1px solid var(--_color-header-dropdown-border);
     }
 }
 

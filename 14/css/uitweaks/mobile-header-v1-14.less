@@ -1,4 +1,7 @@
 @import "../../../00/css/uitweaks/shared-imports";
+@import "../modules/layout-variables";
+@import "../theme_modules/theme-variables";
+@import "../../../00/css/uitweaks/mobile-header-v1-common";
 
 .overall-wrapper {
     @media (max-width: @navigation-breakpoint-max) {
@@ -21,7 +24,7 @@
 }
 
 .site-msg.information {
-    @media (max-width: @navigation-breakpoint-max) { 
+    @media (max-width: @navigation-breakpoint-max) {
         position: fixed;
         transition: top @transition-duration / 2;
         top: 60px;

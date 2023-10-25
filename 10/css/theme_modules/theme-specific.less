@@ -58,10 +58,10 @@ input[type="checkbox"] {
 }
 
 .header-navigation {
-    background-color: fade(@header-bg-color, 0%);
+    background-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0);
 }
 .scrolled .header-navigation {
-    background-color: fade(@header-bg-color, 90%);
+    background-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.9);
 }
 #header {
     h1,
@@ -75,7 +75,7 @@ input[type="checkbox"] {
 
 #videoWrapper {
     &::before {
-        background-color: fade(@header-bg-color, 40%);
+        background-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.4);
     }
 }
 
@@ -182,7 +182,7 @@ a.recommended-product {
 .banner-wrapper,
 .banner {
     span {
-        background-color: fade(@color-primary, 85%);
+        background-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.85);
     }
 }
 
@@ -532,4 +532,20 @@ ul.discussion {
 
 .cart-xyDiscount__banner {
     background-color: #f9f9f9;
+}
+
+ol.top-products.unified {
+    li {
+        border-bottom-color: darken(@top-products-border-color, 4%);
+    }
+    .box-bg-default & {
+        li {
+            border-bottom-color: darken(@top-products-border-color, 4%);
+        }
+    }
+    .box-bg-variant & {
+        li {
+            border-bottom-color: darken(@top-products-border-color-variant, 4%);
+        }
+    }
 }

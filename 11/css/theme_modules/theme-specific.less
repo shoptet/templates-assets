@@ -1,4 +1,18 @@
-@header-mobile-color-specific: contrast(@color-header-background, @text-muted-color, #fff);
+.header-background-light {
+    --_color-header-mobile-text: @text-muted-color;
+    --_color-header-mobile-link: @color-primary;
+    --_color-header-mobile-contrast-text: #fff;
+    --_color-header-mobile-contrast-bg: @color-primary;
+    --_color-header-mobile-nav-bg: @gray-dark;
+}
+
+.header-background-dark {
+    --_color-header-mobile-text: #fff;
+    --_color-header-mobile-link: #fff;
+    --_color-header-mobile-contrast-text: @text-color;
+    --_color-header-mobile-contrast-bg: #fff;
+    --_color-header-mobile-nav-bg: transparent;
+}
 
 ol.cart-header,
 .next-step,
@@ -88,26 +102,26 @@ ol.cart-header,
     }
 }
 
-.responsive-tools when (@header-mobile-color-specific = #fff) {
+.responsive-tools {
     @media (max-width: @navigation-breakpoint-max) {
         [data-target="search"] {
             &,
             &:hover {
-                color: @header-mobile-color-specific;
+                color: var(--_color-header-mobile-text);
             }
         }
         > a[data-target="navigation"] {
             &,
             &:hover {
                 &::before {
-                    background-color: transparent;
+                    background-color: var(--_color-header-mobile-nav-bg);
                 }
             }
         }
-        .ordering-process & > a[data-target="navigation"] {
+        // Keep specificity low because of legacy projects with v0 header
+        :where(.header-background-dark) .ordering-process & > a[data-target="navigation"] {
             &,
             &:hover {
-                color: #fff;
                 &::before {
                     background-color: @gray-dark;
                 }
@@ -116,15 +130,15 @@ ol.cart-header,
     }
 }
 
-.navigation-buttons when (@header-mobile-color-specific = #fff) {
+.navigation-buttons {
     @media (max-width: @navigation-breakpoint-max) {
         a[data-target="cart"] {
             &,
             &:hover {
-                color: @header-mobile-color-specific;
+                color: var(--_color-header-mobile-link);
                 i {
-                    color: #000;
-                    background-color: @header-mobile-color-specific;
+                    color: var(--_color-header-mobile-contrast-text);
+                    background-color: var(--_color-header-mobile-contrast-bg);
                 }
             }
         }
@@ -181,7 +195,7 @@ ol.cart-header,
             &:hover {
                 color: @link-color;
                 &::after {
-                    background-color: fade(@link-color, 6%);
+                    background-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.06);
                 }
             }
         }

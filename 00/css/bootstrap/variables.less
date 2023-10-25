@@ -33,7 +33,7 @@
 //** Global textual link color.
 @link-color:            @brand-primary;
 //** Link hover color set via `darken()` function.
-@link-hover-color:      darken(@link-color, 15%);
+@link-hover-color:      @link-color; // Original `darken(@link-color, 15%)` is in conflict with CSS variables.
 //** Link hover decoration.
 @link-hover-decoration: underline;
 
@@ -150,7 +150,7 @@
 
 @btn-primary-color:              #fff;
 @btn-primary-bg:                 @brand-primary;
-@btn-primary-border:             darken(@btn-primary-bg, 5%);
+@btn-primary-border:             @btn-primary-bg; // Original `darken(@btn-primary-bg, 5%)` is in conflict with CSS variables.
 
 @btn-success-color:              #fff;
 @btn-success-bg:                 @brand-success;

@@ -1,3 +1,19 @@
+@input-focus-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.2);
+@user-action-window-muted-color: e("hsl(var(--color-tertiary-h), calc(var(--color-tertiary-s) + 6%), calc(var(--color-tertiary-l) + 16%))");
+@user-action-window-muted-color-light: e("hsl(var(--color-tertiary-h), calc(var(--color-tertiary-s) + 6%), calc(var(--color-tertiary-l) + 21%))");
+@user-action-window-muted-color-lightest: e("hsl(var(--color-tertiary-h), calc(var(--color-tertiary-s) + 6%), calc(var(--color-tertiary-l) + 41%))");
+@user-action-window-secondary-bg: e("hsl(var(--color-tertiary-h), calc(var(--color-tertiary-s) + 8%), calc(var(--color-tertiary-l) - 3%))");
+
+.header-background-light {
+    --_color-header: @text-color;
+    --_color-header-border: @border-color;
+}
+
+.header-background-dark {
+    --_color-header: #fff;
+    --_color-header-border: var(--color-header-background);
+}
+
 body {
     &.editor-active,
     &.ordering-process,
@@ -15,9 +31,10 @@ body {
     a {
         color: @accent-link-color;
         &.primary {
-            background-color: darken(@accent-heavy-bg, 5%);
+            background-color: e("hsl(var(--color-tertiary-h), var(--color-tertiary-s), calc(var(--color-tertiary-l) - 5%))");
+            bac
             &:hover {
-                background-color: darken(@accent-heavy-bg-hover, 5%);
+                background-color: e("hsl(var(--color-tertiary-h), var(--color-tertiary-s), calc(var(--color-tertiary-l) - 8%))")
             }
         }
         &.secondary {
@@ -101,15 +118,15 @@ body {
     }
     .form-control {
         border-color: @user-action-window-muted-color;
-        color: lighten(@user-action-window-muted-color, 25%);
+        color: @user-action-window-muted-color-lightest;
         background-color: @user-action-window-secondary-bg;
         box-shadow: inset 0 0 1px rgba(0,0,0,.9);
         &::-moz-placeholder {
-            color: lighten(@user-action-window-muted-color, 5%);
+            color: @user-action-window-muted-color-light;
             opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
         }
-        &:-ms-input-placeholder { color: lighten(@user-action-window-muted-color, 5%); } // Internet Explorer 10+
-        &::-webkit-input-placeholder  { color: lighten(@user-action-window-muted-color, 5%); } // Safari and Chrome
+        &:-ms-input-placeholder { color: @user-action-window-muted-color-light; } // Internet Explorer 10+
+        &::-webkit-input-placeholder  { color: @user-action-window-muted-color-light; } // Safari and Chrome
         &:focus {
             box-shadow: inset 0 0 1px rgba(0,0,0,.9), 0 0 4px @input-focus-color;
         }
@@ -270,10 +287,10 @@ table.table {
 
 .news-item-widget {
     .box-bg-default & {
-        border-bottom-color: darken(@box-bg, 4%);
+        border-bottom-color: e("hsl(var(--color-tertiary-hover-h), calc(var(--color-tertiary-hover-s) - 12%), calc(var(--color-tertiary-hover-l) + 12%))");
     }
     .box-bg-variant & {
-        border-bottom-color: darken(@box-variant-bg, 4%);
+        border-bottom-color: e("hsl(var(--color-tertiary-hover-h), var(--color-tertiary-hover-s), calc(var(--color-tertiary-hover-l) - 4%))");
     }
 }
 
@@ -409,4 +426,20 @@ body.user-action-visible.language-window-visible {
 .main-link-variant,
 .main-link-surcharges {
     margin-top: 0;
+}
+
+ol.top-products.unified {
+    li {
+        border-bottom-color: darken(@top-products-border-color, 4%);
+    }
+    .box-bg-default & {
+        li {
+            border-bottom-color: darken(@top-products-border-color, 4%);
+        }
+    }
+    .box-bg-variant & {
+        li {
+            border-bottom-color: darken(@top-products-border-color-variant, 4%);
+        }
+    }
 }

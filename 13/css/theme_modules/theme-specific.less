@@ -1,3 +1,17 @@
+.header-background-light {
+    --_color-header-text: @text-color;
+    --_color-header-link: @color-primary;
+    --_color-header-contrast-text: #fff;
+    --_color-header-contrast-bg: @color-primary;
+}
+
+.header-background-dark {
+    --_color-header-text: #fff;
+    --_color-header-link: #fff;
+    --_color-header-contrast-text: @text-color;
+    --_color-header-contrast-bg: #fff;
+}
+
 //misc
 input[type="checkbox"]+label::after {
     color: @gray-lighter;

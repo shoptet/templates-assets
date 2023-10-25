@@ -282,7 +282,7 @@ select {
     background-color: @accent-bg;
 }
 .footer-newsletter .consents {
-    color: fade(@text-color, 40%);
+    color: @text-muted-color;
 }
 .blog-wrapper {
     .text {
@@ -373,7 +373,7 @@ ul.manufacturers {
             color: @text-color;
         }
         .price-additional {
-            color: fade(@text-color, 56%);
+            color: @text-muted-color;
         }
     }
 }
@@ -444,7 +444,7 @@ ul.manufacturers {
     }
     .standard-price-label,
     .price-additional {
-        color: fade(@text-color, 56%);
+        color: @text-muted-color;
     }
 }
 .p-detail-full-width {
@@ -492,9 +492,9 @@ ul.manufacturers {
 .variant-table {
     .price-additional,
     .price-standard {
-        color: fade(@text-color, 56%);
+        color: @text-muted-color;
         > span {
-            text-decoration-color: fade(@text-color, 56%);
+            text-decoration-color: @text-muted-color;
         }
     }
     .price-final {
@@ -509,7 +509,7 @@ ul.manufacturers {
         color: @text-color;
         &:hover {
             color: @text-color;
-            background-color: fade(@text-color, 8%);
+            background-color: hsla(var(--color-tertiary-hover-h), var(--color-tertiary-hover-s), var(--color-tertiary-hover-l), 0.08);
         }
     }
 }
@@ -556,13 +556,12 @@ ul.manufacturers {
     color: @text-muted-color;
 }
 .remove-item::before {
-    color: fade(@text-color, 56%);
+    color: @text-muted-color;
 }
 ol.cart-header {
     li.active strong::before {
-        background-color: fade(@step-active-color, 8%);
+        background-color: hsla(var(--color-secondary-h), var(--color-secondary-s), var(--color-secondary-l), 0.08);
         border-color: transparent;
-
     }
     li.completed a::before {
         background-color: fade(@green, 8%);
@@ -574,19 +573,19 @@ ol.cart-header {
         color: @green;
     }
     li:not(.active):not(.completed) a:hover {
-        color: fade(@color-secondary, 80%);
+        color: hsla(var(--color-secondary-h), var(--color-secondary-s), var(--color-secondary-l), 0.8);
     }
 }
 .cart-table {
     border-color: @cart-table-td-border-bottom-color;
     .p-price .price-final {
-        color: fade(@text-color, 56%);
+        color: @text-muted-color;
     }
     .p-total .price-final {
         color: @color-secondary;
     }
     .p-name .main-link-variant {
-        color: fade(@text-color, 40%);
+        color: @text-muted-color;
     }
 }
 .cart-item > div {
@@ -615,7 +614,7 @@ ol.cart-header {
     border-color: @border-color;
     color: @text-color;
     &:hover {
-        background-color: fade(@color-secondary, 8%);
+        background-color: hsla(var(--color-secondary-h), var(--color-secondary-s), var(--color-secondary-l), 0.08);
     }
 }
 
@@ -701,8 +700,8 @@ ol.cart-header {
             border-color: transparent;
             &:hover {
                 color: @color-secondary;
-                background-color: fade(@color-secondary, 8%);
-                border-color: fade(@color-secondary, 8%);
+                background-color: hsla(var(--color-secondary-h), var(--color-secondary-s), var(--color-secondary-l), 0.08);
+                border-color: hsla(var(--color-secondary-h), var(--color-secondary-s), var(--color-secondary-l), 0.08);
             }
         }
         a.pagination-link:hover {
@@ -739,7 +738,7 @@ ol.cart-header {
         li {
             &.active {
                 color: @color-secondary;
-                background-color: fade(@color-secondary, 8%);
+                background-color: hsla(var(--color-secondary-h), var(--color-secondary-s), var(--color-secondary-l), 0.08);
                 &:hover {
                     color: @color-secondary-hover;
                 }
@@ -763,10 +762,10 @@ ol.cart-header {
     table.border {
         thead,
         .client-table-heading {
-            color: fade(@text-color, 40%);
+            color: @text-muted-color;
         }
         tr {
-            border-bottom-color: fade(@text-color, 8%);
+            border-bottom-color: hsla(var(--color-tertiary-hover-h), var(--color-tertiary-hover-s), var(--color-tertiary-hover-l), 0.08);
         }
         @media (max-width: (@screen-lg-min - 1)) {
             tr {

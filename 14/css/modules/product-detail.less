@@ -150,11 +150,17 @@
         width: 100%;
         .price-final {
             display: block;
+            font-size: @font-size-h1;
+            font-weight: @font-weight-h1;
+            line-height: 38px;
+            text-transform: @headings-text-transform;
+            word-wrap: break-word;
             padding: @basic-spacing 0;
-            .h1();
             margin-top: 0;
             margin-bottom: 0;
             @media (min-width: @navigation-breakpoint) {
+                font-size: @font-size-h1-large;
+                line-height: 56px;
                 margin-top: 0;
                 margin-bottom: 0;
             }

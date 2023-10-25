@@ -1,4 +1,16 @@
-@header-mobile-color-specific: contrast(@color-header-background, @btn-plain-color, #fff);
+.header-background-light {
+    --_color-header-mobile-text: @btn-plain-color;
+    --_color-header-mobile-link: @color-primary;
+    --_color-header-mobile-contrast-text: #fff;
+    --_color-header-mobile-contrast-bg: @color-primary;
+}
+
+.header-background-dark {
+    --_color-header-mobile-text: #fff;
+    --_color-header-mobile-link: #fff;
+    --_color-header-mobile-contrast-text: @text-color;
+    --_color-header-mobile-contrast-bg: #fff;
+}
 
 .btn-color(@startColor, @hoverTextColor, @hoverBorderColor, @hoverBgColor) {
     color: @startColor;
@@ -113,24 +125,24 @@ footer {
     }
 }
 
-.navigation-buttons when (@header-mobile-color-specific = #fff) {
+.navigation-buttons {
     @media (max-width: @navigation-breakpoint-max) {
         a[data-target="cart"] {
             &,
             &:hover {
-                color: @header-mobile-color-specific;
+                color: var(--_color-header-mobile-link);
                 i {
-                    color: #000;
-                    background-color: @header-mobile-color-specific;
+                    color: var(--_color-header-mobile-contrast-text);
+                    background-color: var(--_color-header-mobile-contrast-bg);
                 }
             }
         }
     }
 }
 
-a.btn-icon[data-target="search"] when (@header-mobile-color-specific = #fff) {
+a.btn-icon[data-target="search"] {
     @media (max-width: @navigation-breakpoint-max) {
-        color: @header-mobile-color-specific;
+        color: var(--_color-header-mobile-text);
     }
 }
 
@@ -323,7 +335,7 @@ a.btn-icon[data-target="search"] when (@header-mobile-color-specific = #fff) {
 
 @media (min-width: @screen-lg-min) {
     .product:not(.highlight-product):hover .tools-wrap {
-        background-color: fade(@color-primary,90%)
+        background-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.9);
     }
 }
 
