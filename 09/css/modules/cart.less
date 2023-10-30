@@ -214,19 +214,18 @@
     }
 }
 
+.gift-items + .order-summary-item {
+    padding-top: round(@grid-gutter-width / 2);
+}
+
 .gift-items {
     padding-top: round(@grid-gutter-width / 2);
     &+.gift-items {
         padding-top: 0;
-        margin-top: -(2 * @line-height-computed);
         .for-free {
             display: none;
         }
     }
-}
-
-.gift-items + .order-summary-item {
-    padding-top: round(@grid-gutter-width / 2);
 }
 
 .order-summary {
@@ -234,6 +233,9 @@
     justify-content: flex-end;
     width: 100%;
     margin-top: @line-height-computed;
+    &.new-summary-box-temp {
+        display: block;
+    }
 }
 
 // Shared declarations for the next step element behavior
@@ -273,7 +275,11 @@
 }
 .order-recapitulation {
     > div {
+        font-size: @font-size-larger;
         padding: round(@line-height-computed / 2);
+        .new-summary-box-temp & {
+            padding: 0;
+        }
         & + div {
             padding-top: 0;
         }
@@ -281,6 +287,7 @@
             display: block;
             > span {
                 float: right;
+                font-weight: 300;
             }
         }
     }
@@ -418,10 +425,21 @@
 .order-summary-item {
     display: block;
     text-align: right;
+    .new-summary-box-temp & {
+        display: flex;
+        justify-content: space-between;
+        text-align: left;
+        > div + div {
+            flex-shrink: 0;
+        }
+    }
     font-size: @font-size-larger;
     font-weight: 300;
     .price-primary {
         line-height: @font-size-h1;
+    }
+    &.price {
+        margin-top: 40px;
     }
 }
 .summary-thx {
