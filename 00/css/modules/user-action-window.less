@@ -25,27 +25,21 @@
 
 .social-login-buttons {
     @media(min-width: @screen-sm-min) {
-        .clearfixMixin();
-        .form-group {
-            float: left;
-            width: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: round(@line-height-computed / 2) 40px;
+        .social-login-buttons-divider {
+            flex-basis: 100%;
             margin-bottom: 0;
-            padding-right: 20px;
-            & + .form-group {
-                padding-left: 20px;
-                padding-right: 0;
-                text-align: right;
-            }
+        }
+        .form-group {
+            flex-basis: calc(50% - 20px);
+            margin-bottom: 0;
         }
         .sidebar &, #footer & {
+            gap: round(@line-height-computed / 2) 0;
             .form-group {
-                float: none;
-                width: 100%;
-                padding-left: 0;
-                padding-right: 0;
-                + .form-group {
-                    margin-top: round(@line-height-computed / 2);
-                }
+                flex-basis: 100%;
             }
         }
     }

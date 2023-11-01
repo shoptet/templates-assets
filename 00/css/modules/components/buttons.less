@@ -163,7 +163,8 @@ a.login-btn {
     padding-left: 66px;
     text-decoration: none;
     &.facebook,
-    &.google {
+    &.google,
+    &.seznam {
         border-style: solid;
         border-width: 1px;
         border-radius: @btn-border-radius-small;
@@ -176,7 +177,7 @@ a.login-btn {
             padding: 13px 4px;
             line-height: 20px;
         }
-        .login-google-icon,.login-facebook-icon  {
+        .login-google-icon,.login-facebook-icon,.login-seznam-icon  {
             left: 0;
             top: 0;
             position: absolute;
@@ -194,6 +195,12 @@ a.login-btn {
         .login-facebook-icon {
             background: url('data:image/svg+xml;utf8,<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-1{fill:%23fff;}</style></defs><title>flogo-HexRBG-Wht-512</title><path class="cls-1" d="M483.74,0H28.26A28.26,28.26,0,0,0,0,28.26V483.74A28.26,28.26,0,0,0,28.26,512H273.5V314H207V236.5h66.5v-57c0-66.13,40.39-102.14,99.38-102.14,28.25,0,52.54,2.11,59.62,3V149.5l-40.81,0c-32,0-38.19,15.24-38.19,37.62V236.5h76.74l-10,77.5H353.5V512H483.74A28.26,28.26,0,0,0,512,483.74V28.26A28.26,28.26,0,0,0,483.74,0Z"/></svg>') no-repeat center;
             background-size: 28px 28px;
+        }
+    }
+    &.seznam {
+        .login-seznam-icon {
+            background: url("data:image/svg+xml,%3Csvg width='28' height='30' viewBox='0 0 28 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.405731 30C5.80906 30 27.8349 27.425 27.8349 20.5308C27.8349 16.3308 22.2082 14.3275 19.8966 13.6558C15.4916 12.3783 11.9182 11.06 11.9182 9.90417C11.9182 8.74917 14.4216 8.50667 17.1091 7.9125C20.6882 7.12083 22.1941 6.68417 22.1941 4.78083C22.1941 3.54083 21.2416 2.0275 20.7574 1.37583C19.9124 0.24 19.7782 0 19.5024 0C18.9057 0 19.3774 0.7725 12.6432 1.90833C8.3774 2.6275 2.6999 4.54833 2.6999 8.43833C2.6999 12.3275 7.77656 14.1325 12.8599 15.9725C18.0982 17.8683 22.4782 18.5608 22.4782 21.585C22.4782 26.4083 1.77823 29.4525 0.436564 29.6758C-0.190936 29.78 -0.0876025 30 0.405731 30Z' fill='%23ffffff'/%3E%3C/svg%3E%0A") no-repeat center;
+            background-size: 22px 23px;
         }
     }
     #footer &:hover {
