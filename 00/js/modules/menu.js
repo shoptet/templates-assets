@@ -43,6 +43,7 @@
             $('#navigation').addClass('fitted');
         }
         shoptet.menu.splitHelperMenu($('.navigation-in .menu-level-1 > li').length - i);
+        $('#navigation').addClass('visible');
     }
 
     /**

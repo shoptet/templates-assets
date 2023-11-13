@@ -3,6 +3,12 @@
     @media (min-width: @screen-sm-min) {
         top: auto;
     }
+    @media (min-width: @navigation-breakpoint) {
+        visibility: hidden;
+        &.visible {
+            visibility: visible;
+        }
+    }
     @media (max-width: @navigation-breakpoint-max) {
         .navigation-window-visible & {
             width: 100%;

@@ -315,6 +315,12 @@
 
 .widget-parameter-wrapper {
     .widget-parameter-value {
+        .p-detail & {
+            padding-left: 0;
+            &:before {
+                display: none;
+            }
+        }
         &:first-child {
             a {
                 padding-left: round(@grid-gutter-width / 4);

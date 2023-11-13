@@ -272,7 +272,7 @@
      */
     function setDefaultCountry() {
         const pisCurrencySelected = localStorage.getItem('pisCurrencySelected');
-        const currency = shoptet.checkoutShared.currencyCode;
+        const currency = dataLayer[0].shoptet.currency;
         if (pisCurrencySelected && pisCurrencySelected !== currency) {
             localStorage.removeItem('pisCountrySelected');
             localStorage.removeItem('pisBankSelected');
@@ -1072,6 +1072,16 @@
             var glsParcelShopName = '';
             var glsModalOpen = false;
 
+            window.addEventListener('message', function(event) {
+                let ps = event.data.parcelshop;
+                if (typeof ps === undefined) {
+                    return;
+                }
+                glsParcelShopName = ps.detail.name;
+                glsParcelShopId = ps.detail.pclshopid;
+                shoptet.modal.close();
+            });
+
             $document.on('click', '.gls-parcel-shop-choose a', function(e) {
                 e.preventDefault();
                 if (glsModalOpen) {
@@ -1083,9 +1093,6 @@
                     href: glsParcelShopUrl,
                     width : shoptet.modal.config.widthLg,
                     className: shoptet.modal.config.classLg,
-                    onComplete: function() {
-                        shoptet.modal.shoptetResize();
-                    },
                     onCleanup: function() {
                         glsModalOpen = false;
                         if (glsParcelShopId) {
@@ -1098,22 +1105,6 @@
                     }
                 });
             });
-
-            $document.on('click', '.gls-parcel-shop-confirm', function() {
-                shoptet.modal.close();
-            });
-
-            window.glsPSMap_OnSelected_Handler = function(data) {
-                glsParcelShopId = data.pclshopid;
-                glsParcelShopName = data.name;
-                $('#psitems-canvas > div:not(#' + glsParcelShopId + ')')
-                    .removeClass('psSelected').removeClass('psOver');
-                var $confirmWrapper = $('.gls-parcel-shop-confirm-wrapper');
-                if ($confirmWrapper.hasClass('no-display')) {
-                    $('.gls-parcel-shop-confirm-wrapper').removeClass('no-display');
-                    shoptet.modal.shoptetResize();
-                }
-            }
         }
 
         if (typeof dpdParcelShopUrl !== 'undefined') {
