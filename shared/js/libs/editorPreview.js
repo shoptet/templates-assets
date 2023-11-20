@@ -5,6 +5,8 @@ document.addEventListener('click', function(e) {
         e.preventDefault();
         const urlObject = new URL(link.href);
         urlObject.searchParams.set('editorPreview', '');
+
+        sendMessage({type: 'pageIsLoading'});
         window.location.href = urlObject.toString();
     }
 });
@@ -13,6 +15,12 @@ document.addEventListener('click', function(e) {
 window.addEventListener('message', function(e) {
     if (e.data.type === 'reload') {
         window.location.reload();
+    }
+
+    if (e.data.type === 'navigate' && e.data.url) {
+        const urlObject = new URL(e.data.url, window.location.origin);
+        urlObject.searchParams.set('editorPreview', '');
+        window.location.href = urlObject.toString();
     }
 });
 
