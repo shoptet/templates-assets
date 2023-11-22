@@ -115,11 +115,17 @@ window.getShoptetProductsList = () => {
             return;
         }
 
+        let content_id = null;
+
+        if (productData.content_ids.length > 0) {
+            content_id = productData.content_ids[0];
+        }
+
         ttq.track('AddToCart', {
             content_type: 'product',
             quantity: productData.amount,
             content_name: productData.content_name,
-            content_id: productData.content_id,
+            content_id: content_id,
             content_category: productData.content_category,
             currency: productData.currency,
             value: productData.valueWoVat
