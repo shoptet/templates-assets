@@ -1093,6 +1093,9 @@
                     href: glsParcelShopUrl,
                     width : shoptet.modal.config.widthLg,
                     className: shoptet.modal.config.classLg,
+                    onComplete: function() {
+                        shoptet.modal.shoptetResize();
+                    },
                     onCleanup: function() {
                         glsModalOpen = false;
                         if (glsParcelShopId) {
@@ -1267,7 +1270,7 @@
             maxWidth: shoptet.modal.config.maxWidth,
             maxHeight: shoptet.modal.config.maxHeight,
             width: shoptet.modal.config.widthMd,
-            className:shoptet.modal.config.ClassMd,
+            className: shoptet.modal.config.classMd,
             href: href,
             onComplete: function() {
                 $(branchId + ' option[value="' + $(branchInput).val() + '"]').attr('selected', 'selected');

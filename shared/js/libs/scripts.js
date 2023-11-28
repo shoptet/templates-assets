@@ -170,6 +170,7 @@
         'ShoptetDOMContentLoaded',
         'ShoptetDOMRegisterFormLoaded',
         'ShoptetDOMCartContentLoaded',
+        'ShoptetDOMSearchResultsLoaded',
         'ShoptetDOMAdvancedOrderLoaded',
         'ShoptetDOMPageContentLoaded',
         'ShoptetDOMPageMoreProductsLoaded'

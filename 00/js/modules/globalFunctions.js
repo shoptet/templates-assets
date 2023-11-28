@@ -640,6 +640,7 @@ document.addEventListener('DOMContentLoaded', function () {
         shoptet.global.updateSelectedRegions($(this));
         shoptet.global.toggleRegionsWrapper();
         shoptet.validatorZipCode.updateZipValidPattern($(this));
+        shoptet.validatorCompanyId.updateCompanyIdValidPattern();
     });
 
     var hash = window.location.hash;
