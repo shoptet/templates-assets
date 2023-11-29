@@ -576,7 +576,7 @@ window.getShoptetProductsList = () => {
      */
     function createGtagItem(product, index, list = null, cartInfo = null) {
         const item = {
-            item_id: String(product.base_id),
+            item_id: product.content_ids[0],
             item_name: product.base_name,
             quantity: 1,
             index,
