@@ -303,16 +303,12 @@ ol.cart-header {
 .order-summary-item {
     display: table;
     width: 100%;
-    padding: round(@line-height-computed / 2) round(@grid-gutter-width / 2);
+    padding: @line-height-computed 0;
+    margin-bottom: 0;
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-color: #e7e7e7; //theme
     line-height: 1.4;
-    margin-bottom: @line-height-computed;
-    .new-summary-box-temp & {
-        padding: @line-height-computed 0;
-        margin-bottom: 0;
-    }
     > div:not(.price-wrapper) {
         display: table-cell;
         vertical-align: middle;
@@ -326,51 +322,33 @@ ol.cart-header {
         font-weight: 700;
     }
     &.price {
-        margin-bottom: round( @line-height-computed / 2);
-        .new-summary-box-temp & {
-            padding-bottom: 0;
-            border-bottom: none;
-        }
+        padding-bottom: 0;
+        border-bottom: none;
         & + .order-summary-item {
             margin-top: -(round(@line-height-computed / 2));
         }
     }
     &.helper {
-        padding: round(@line-height-computed / 2);
-        .new-summary-box-temp & {
-            padding: @line-height-computed 0;
-        }
+        padding: @line-height-computed 0;
     }
-    .new-summary-box-temp & {
-        &:not(.helper):not(.price) {
-            strong {
-                font-weight: normal;
-            }
+    &:not(.helper):not(.price) {
+        strong {
+            font-weight: normal;
         }
     }
 }
 
 .order-recapitulation {
-    border-top: 1px solid #e7e7e7; //theme
-    .new-summary-box-temp & {
-        border-top: none;
-    }
+    border-top: none;
     > div {
-        padding: round(@line-height-computed / 2) round(@grid-gutter-width / 2) ;
+        padding: @line-height-computed 0;
         border-bottom: 1px solid #e7e7e7; //theme
-        .new-summary-box-temp & {
-            padding: @line-height-computed 0;
-        }
         > strong {
             display: block;
-            .new-summary-box-temp & {
-                font-weight: normal;
-            }
+            font-weight: normal;
             > span {
                 float: right;
-                .new-summary-box-temp & {
-                    font-weight: 700;
-                }
+                font-weight: 700;
             }
         }
     }
