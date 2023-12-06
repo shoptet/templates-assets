@@ -266,10 +266,9 @@
 
     function setClass(str) {
         if (setClass.str !== str) {
-            $box.add($overlay)
+            $box.add($overlay).removeClass(setClass.str).addClass(str);
+            setClass.str = str;
         }
-        $box.removeClass().addClass(str);
-        setClass.str = str;
     }
 
     function getRelated(rel) {

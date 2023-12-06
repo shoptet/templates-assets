@@ -747,10 +747,10 @@ document.addEventListener('DOMContentLoaded', function () {
             width: shoptet.modal.config.widthMd,
             onClosed: function () {
                 $('.site-agreement').remove();
+                $('#cboxOverlay, #colorbox').removeClass('siteAgreement');
             },
             onComplete: function() {
-                $('#cboxOverlay').addClass('siteAgreement');
-                $('#colorbox').addClass('siteAgreement');
+                $('#cboxOverlay, #colorbox').addClass('siteAgreement');
                 shoptet.modal.shoptetResize();
                 $('#colorbox img').on('load', function() {
                     shoptet.modal.shoptetResize();
