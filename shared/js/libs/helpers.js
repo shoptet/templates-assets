@@ -181,7 +181,8 @@
      * callback = optional callback after quantity update
      */
     function updateQuantity(el, min, max, decimals, action, callback) {
-        var value = shoptet.helpers.toFloat(el.value);
+        var value = shoptet.helpers.toFloat($(el).data('quantity') ?? el.value);
+
         if (isNaN(value)) {
             return false;
         }
@@ -195,12 +196,13 @@
             ? toFloat(max) : toFloat(shoptet.config.defaultProductMaxAmount);
 
         if (action.indexOf('increase') !== -1) {
-            value += (min > 1) ? 1 : ((min != 0) ? min : resolveMinimumAmount(decimals));
+            value += (min > 1) ? 1 : min;
         } else {
-            value -= (min > 1) ? 1 : ((min != 0) ? min : resolveMinimumAmount(decimals));
+            value -= (min > 1) ? 1 : min;
         }
 
         value = shoptet.helpers.toFloat(value.toFixed(decimals));
+
         if (value < min) {
             $(el).siblings('.js-decrease-tooltip').tooltip('show');
             $(el).siblings('.js-remove-pcs-tooltip').tooltip().show();
@@ -214,6 +216,7 @@
         }
 
         el.value = value;
+        $(el).data('quantity', value);
 
         if (typeof callback === 'function') {
             callback();
