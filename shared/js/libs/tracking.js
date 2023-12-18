@@ -329,7 +329,6 @@ window.getShoptetProductsList = () => {
         }
 
         const eventParams = {
-            send_to: shoptet.config.googleAnalytics.route.ga4,
             items: [createGtagItem(product, 0)],
         };
 
@@ -338,7 +337,7 @@ window.getShoptetProductsList = () => {
             eventParams.value = product.valueWoVat;
         }
 
-        gtag('event', 'view_item', eventParams);
+        gtag('event', 'view_item', addCommonGtagEventValues(eventParams));
 
         shoptet.scripts.signalCustomEvent('ShoptetGoogleProductDetailTracked');
     }
@@ -517,14 +516,11 @@ window.getShoptetProductsList = () => {
 
         const items = products.map((product, idx) => createGtagItem(product, list.offset + idx, list));
 
-        gtag('event', 'view_item_list', {
-            send_to: shoptet.config.googleAnalytics.route.ga4,
-            page_language: dataLayer[0].shoptet.language,
-            content_group: dataLayer[0].shoptet.pageType,
+        gtag('event', 'view_item_list', addCommonGtagEventValues({
             item_list_id: list.id,
             item_list_name: list.name,
             items
-        });
+        }));
     }
 
     /**
@@ -550,9 +546,6 @@ window.getShoptetProductsList = () => {
         }
 
         const eventParams = {
-            send_to: shoptet.config.googleAnalytics.route.ga4,
-            page_language: dataLayer[0].shoptet.language,
-            content_group: dataLayer[0].shoptet.pageType,
             items: [createGtagItem(
                 product,
                 0,
@@ -566,8 +559,21 @@ window.getShoptetProductsList = () => {
             eventParams.value = product.valueWoVat;
         }
 
-        gtag('event', eventName, eventParams);
+        gtag('event', eventName, addCommonGtagEventValues(eventParams));
     }
+
+    function addCommonGtagEventValues(eventParams) {
+        var commonParams = {
+            send_to: shoptet.config.googleAnalytics.route.ga4,
+            page_language: dataLayer[0].shoptet.language,
+            content_group: dataLayer[0].shoptet.pageType,
+        }
+        if (typeof dataLayer[0].shoptet.traffic_type !== 'undefined') {
+            commonParams.traffic_type = dataLayer[0].shoptet.traffic_type;  
+        }
+        Object.assign(commonParams, eventParams);
+        return commonParams;
+    }    
 
     /**
      * @param {number} index
