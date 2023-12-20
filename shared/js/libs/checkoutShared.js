@@ -1074,7 +1074,7 @@
 
             window.addEventListener('message', function(event) {
                 let ps = event.data.parcelshop;
-                if (typeof ps === undefined) {
+                if (typeof ps === 'undefined') {
                     return;
                 }
                 glsParcelShopName = ps.detail.name;
