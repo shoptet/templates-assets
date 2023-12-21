@@ -15,6 +15,7 @@
                         maxWidth: shoptet.modal.config.maxWidth,
                         onComplete: function() {
                             initTooltips();
+                            shoptet.modal.resize();
                         }
                     });
                 }

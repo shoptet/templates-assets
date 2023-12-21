@@ -7,6 +7,8 @@
      * options = options provided to modal rendering library
      */
     function open(options) {
+        options = options || {};
+        options.reposition = false;
         // we can switch to any other library in future
         $.colorbox(options);
     }
@@ -27,6 +29,8 @@
      * options = dimensions passed to resize function
      */
     function resize(options) {
+        options = options || {};
+        options.reposition = false;
         $.colorbox.resize(options);
         document.dispatchEvent(new Event(shoptet.modal.resizeDoneEvent));
     }

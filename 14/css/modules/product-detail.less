@@ -405,11 +405,17 @@
         border-right-style: solid;
         border-right-width: 1px;
         .row-header-label {
-            display: flex;
-            flex-flow: row;
+            display: block;
+            position: relative;
+            &.has-tooltip {
+                padding-right: 25px;
+            }
             .show-tooltip {
-                order: 3;
-                margin-left: .5em;
+                position: absolute;
+                right: 0;
+                @media (min-width: @screen-sm-min) {
+                    top: 3px;
+                }
             }
         }
     }

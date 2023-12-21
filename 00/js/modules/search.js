@@ -69,8 +69,13 @@ window.fulltextSearch = ($searchInput, $searchContainer) => {
 
     $(document).click(function (e) {
         var $target = $(e.target);
-        if (!$target.is('.js-search-input, .js-try-search-button')) {
+
+        if (!$target.is('.js-search-input, .js-try-search-button, .stay-open') && !$target.parents('.stay-open').length) {
             clearSearchWhisperer($target);
+
+            if ($target.hasClass('search-window-visible')) {
+                shoptet.global.hideContentWindows();
+            }
         }
     });
 

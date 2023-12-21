@@ -131,6 +131,7 @@
                         setTimeout(function() {
                             if (typeof shoptet.productSlider.runProductSlider === 'function') {
                                 shoptet.productSlider.runProductSlider('.advanced-order .product-slider');
+                                $('.advanced-order .product-slider img').unveil();
                             }
                             shoptet.modal.shoptetResize();
                         }, 1);
