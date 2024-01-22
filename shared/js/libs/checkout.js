@@ -161,9 +161,16 @@
         var $orderForm = $('#order-form');
         if ($orderForm.length) {
             var lastData = $orderForm.serialize();
-            $('#order-form input').blur(function() {
+            $('#order-form input, #order-form select').blur(function(e) {
                 var data = $(this).closest('form').serialize();
                 if (data !== lastData) {
+                    if (shoptet.config.onlineVatIdValidation && e.target.id === 'vatId' && e.target.value.trim() !== '') {
+                        shoptet.validator.showValidatorMessage(
+                            $('#vatId'),
+                            shoptet.messages['validatorVatIdWaiting'],
+                            'msg-info'
+                        );
+                    }
                     lastData = data;
                     $.ajax({
                         url: '/action/OrderingProcess/step2CustomerAjax/',
@@ -179,12 +186,45 @@
                                     shoptet.tracking.updateDataLayerCartInfo(response);
                                     $('#summary-box').html(html)
                                 }
+                                if (shoptet.config.onlineVatIdValidation && e.target.id === 'vatId' && e.target.value.trim() !== '') {
+                                    if (response.getFromPayload('vatIdValidationStatus')) {
+                                        shoptet.validator.validatorMessage.hide($('#vatId'));
+                                        shoptet.validator.showValidatorMessage(
+                                            $('#vatId'),
+                                            shoptet.messages['validatorVatIdValid'],
+                                            'msg-ok'
+                                        );
+                                    } else {
+                                        shoptet.validator.validatorMessage.hide($('#vatId'));
+                                        shoptet.validator.showValidatorMessage(
+                                            $('#vatId'),
+                                            shoptet.messages['validatorVatIdInvalid'],
+                                            'msg-error'
+                                        );
+                                    }
+                                }
                             } catch (error) {
                                 console.log(error);
+                                if (shoptet.config.onlineVatIdValidation && e.target.id === 'vatId' && e.target.value.trim() !== '') {
+                                    shoptet.validator.validatorMessage.hide($('#vatId'));
+                                    shoptet.validator.showValidatorMessage(
+                                        $('#vatId'),
+                                        shoptet.messages['validatorVatIdInvalid'],
+                                        'msg-error'
+                                    );
+                                }
                             }
                         },
                         error: function(error) {
                             console.log(error);
+                            if (shoptet.config.onlineVatIdValidation && e.target.id === 'vatId' && e.target.value.trim() !== '') {
+                                shoptet.validator.validatorMessage.hide($('#vatId'));
+                                shoptet.validator.showValidatorMessage(
+                                    $('#vatId'),
+                                    shoptet.messages['validatorVatIdInvalid'],
+                                    'msg-error'
+                                );
+                            }
                         }
                     });
                 }
