@@ -279,7 +279,9 @@
             'setupDeliveryShipping',
             'chooseABranchModal',
             'modalMagic',
-            'initBranchSelect'
+            'initBranchSelect',
+            'twisto',
+            'postDeliveryPoints'
         ],
         validator: [
             'initNewValidator',

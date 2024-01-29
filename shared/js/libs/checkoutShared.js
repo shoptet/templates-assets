@@ -1329,6 +1329,225 @@
         }
     }
 
+    function twisto(twistoData) {
+        var twistoPayload = twistoData.twistoPayload
+        
+        function getValue(name) {
+            obj = $('#'+name);
+            if (obj.length > 0) {
+                return obj.val();
+            } else {
+                return '';
+            }
+        }
+        
+        function getAddress(prefix) {
+            var moreCountries = twistoData.moreCountries
+            var deliveryCountryId = twistoData.deliveryCountryId
+            return {
+                "name" : getValue(prefix + 'FullName'),
+                "street" : getStreet(prefix),
+                "city" : getValue(prefix + 'City'),
+                "zipcode" : getValue(prefix + 'Zip'),
+                "country" : (prefix === 'bill' && moreCountries) ? $("#billCountryId option:selected").data('code') : deliveryCountryId,
+                "phones" : [getPhone()]
+            };
+        }
+        
+        function checkContactInformation(addr) {
+            var phone = getValue('phone');
+            var email = getValue('email');
+        
+            if (phone.length == 0) {
+                alert("Twisto: Prosím zadejte telefonní číslo");
+                return false;
+            }
+            if (email.length == 0) {
+                alert("Twisto: Prosím zadejte e-mailovou adresu");
+                return false;
+            }
+            if (addr.name.length == 0) {
+                alert("Twisto: Prosím zadejte jméno a příjmení");
+                return false;
+            }
+            if (addr.city.length == 0) {
+                alert("Twisto: Prosím zadejte město");
+                return false;
+            }
+            if (addr.street.length == 0) {
+                alert("Twisto: Prosím zadejte ulici");
+                return false;
+            }
+            if (addr.zipcode.length == 0) {
+                alert("Twisto: Prosím zadejte PSČ");
+                return false;
+            }
+            if (addr.country.length == 0) {
+                alert("Twisto: Prosím zadejte zemi");
+                return false;
+            }
+        
+            if (/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i.test(email) === false) {
+                alert("Twisto: e-mail má špatný formát");
+                return false;
+            }
+            return true;
+        }
+        
+        function getPhone() {
+            var phone = getValue('phone');
+            if (phone.indexOf('+420') != -1) {
+                return phone;
+            } else {
+                return '+420'+phone;
+            }
+        }
+        
+        function getStreet(prefix) {
+            var street = getValue(prefix + 'Street') + ' ' + getValue(prefix + 'HouseNumber');
+            return street.trim();
+        }
+        
+        function changeMouseCursorToProgress(restoreInMiliseconds) {
+            $('body').css('cursor', 'progress');
+            if (restoreInMiliseconds) {
+                window.setTimeout(
+                    function() {
+                        $('body').css('cursor', 'inherit');
+                    },
+                    restoreInMiliseconds
+                );
+            }
+        };
+    
+        $('#submit-order').closest('form').submit(function(event, twistoVerificationSuccesfull) {
+            if (twistoVerificationSuccesfull) {
+                return true;
+            }
+            event.preventDefault();
+            twistoPayload.customer.email = getValue('email').toLowerCase();
+            twistoPayload.order.billing_address = getAddress('bill');
+            if (!checkContactInformation(twistoPayload.order.billing_address)) {
+                return false;
+            }
+            if ($('#another-shipping').prop('checked')) {
+                twistoPayload.order.delivery_address = getAddress('delivery');
+                if (!checkContactInformation(twistoPayload.order.delivery_address)) {
+                    return false;
+                }
+            } else {
+                delete twistoPayload.order.delivery_address;
+            }
+    
+            $(this).attr('disabled', 'disabled');
+            changeMouseCursorToProgress(4000);
+            Twisto.check(
+                twistoPayload,
+                function(response) {
+                    if (response.status == 'accepted') {
+                        var $form = $('#submit-order').closest('form');
+                        $form.find('input[name=twisto_transaction_id]').val(response.transaction_id);
+                        var twistoVerificationSuccesfull = true;
+                        $form.trigger('submit', [twistoVerificationSuccesfull]);
+                    } else {
+                        window.location.replace(twistoData.twistoRejectedUrl);
+                    }
+                },
+                function() {
+                    window.location.replace(twistoData.twistoFailedUrl);
+                }
+            );
+        });
+    }
+
+    function postDeliveryPoints(postDeliveryPointsData) {
+        var zipCodes = postDeliveryPointsData.zipCodes
+        var posts = postDeliveryPointsData.posts
+        var diacriticsMap = {
+            "á": "a", "é": "e", "ě": "e", "í": "i", "ý": "y", "ó": "o", "ú": "u", "ů": "u", "ž": "z", "š": "s", "č": "c", "ř": "r", "ď": "d", "ť": "t", "ň": "n", "Á": "A", "É": "E", "Ě": "E", "Í": "I", "Ý": "Y", "Ó": "O", "Ú": "U", "Ů": "U", "Ž": "Z", "Š": "S", "Č": "C", "Ř": "R", "Ď": "D", "Ť": "T", "Ň": "N", "ä": "a", "ĺ": "l", "ľ": "l", "ô": "o", "Ä": "A", "Ľ": "L", "Ĺ": "L", "Ô": "O", "ö": "o", "ő": "o", "ü": "u", "ű": "u", "Ö": "O", "Ő": "O", "Ü": "U", "Ű": "U"
+        };
+        var removeDiacritics = function(str) {
+            var string = "";
+            for (var i = 0; i < str.length; i++) {
+                string += diacriticsMap[str.charAt(i)] || str.charAt(i);
+            }
+            return string;
+        };
+        var shipmentId = postDeliveryPointsData.shipmentId;
+        $(`${postDeliveryPointsData.deliveryPointPrefix}-wrapper .zip-code`).autocomplete({
+            source: zipCodes,
+            open: function() {
+                shoptet.modal.shoptetResize();
+            },
+            select: function(event) {
+                setTimeout(function () {
+                    $(event.target).parents('form').submit();
+                }, 50);
+            }
+        });
+        $(`${postDeliveryPointsData.deliveryPointPrefix}-wrapper .city`).autocomplete({
+            source: function(request, response) {
+                var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                response($.grep(posts, function(value) {
+                    value = value.label || value.value || value;
+                    return matcher.test(value) || matcher.test(removeDiacritics(value));
+                }));
+            },
+            open: function() {
+                shoptet.modal.shoptetResize();
+            },
+            select: function(event) {
+                setTimeout(function () {
+                    $(event.target).parents('form').submit();
+                }, 50);
+            }
+        });
+    
+        $(`${postDeliveryPointsData.deliveryPointPrefix}-form`).submit(function() {
+            $('.cpost-delivery-point-result').addClass('ajax-pending-element');
+            var postData = 'zipCode=' + $.trim($(`${postDeliveryPointsData.deliveryPointPrefix}-wrapper .zip-code`).val());
+            postData += "&postName=" + $.trim($(`${postDeliveryPointsData.deliveryPointPrefix}-wrapper .city`).val());
+            if (shipmentId) {
+                postData += "&shipmentId=" + shipmentId.toString();
+            }
+            $.ajax({
+                url: postDeliveryPointsData.formAction,
+                data: postData,
+                type: 'POST',
+                headers: {
+                    'X-Shoptet-XHR': 'Shoptet_Coo7ai'
+                },
+                success: function(responseData) {
+                    $('.cpost-delivery-point-result').removeClass('ajax-pending-element');
+                    $(`${postDeliveryPointsData.deliveryPointPrefix}-result-table`).html(responseData);
+                    $(`${postDeliveryPointsData.deliveryPointPrefix}-result`).show(0);
+                    $('.cpost-delivery-point-show-opening-hours').click(function(e) {
+                        e.preventDefault();
+                        var $openingHours = $(this).siblings('.cpost-delivery-point-opening-hours') ;
+                        $openingHours.addClass('active');
+                        $(this).hide();
+                        shoptet.modal.shoptetResize();
+                        setTimeout(function() {
+                            scrollToEl($openingHours);
+                        }, 301);
+                    });
+                    if (!detectResolution(768)) {
+                        scrollToEl($(`${postDeliveryPointsData.deliveryPointPrefix}-result`));
+                    }
+                    shoptet.modal.shoptetResize();
+                },
+                error: function() {
+                    $('.cpost-delivery-point-result').removeClass('ajax-pending-element');
+                    showMessage(shoptet.messages['ajaxError'], 'warning', '', false, false);
+                }
+            });
+            $(`${postDeliveryPointsData.deliveryPointPrefix}-wrapper .zip-code`).autocomplete('close');
+            $(`${postDeliveryPointsData.deliveryPointPrefix}-wrapper .city`).autocomplete('close');
+    
+            return false;
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         shoptet.checkoutShared.getStatedValues();
         shoptet.checkoutShared.setActiveShippingAndPayments();

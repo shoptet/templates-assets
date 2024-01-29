@@ -197,6 +197,10 @@ window.getShoptetProductsList = () => {
     }
 
     function trackFacebookPixel(fbPixelData, formAction) {
+        if (!shoptet.config.fbPixelEnabled) {
+          return;
+        }
+
         if (typeof fbq === 'function') {
             var action = shoptet.tracking.resolveTrackingAction(formAction, fbPixelData);
             var eventName;
@@ -569,11 +573,11 @@ window.getShoptetProductsList = () => {
             content_group: dataLayer[0].shoptet.pageType,
         }
         if (typeof dataLayer[0].shoptet.traffic_type !== 'undefined') {
-            commonParams.traffic_type = dataLayer[0].shoptet.traffic_type;  
+            commonParams.traffic_type = dataLayer[0].shoptet.traffic_type;
         }
         Object.assign(commonParams, eventParams);
         return commonParams;
-    }    
+    }
 
     /**
      * @param {number} index
