@@ -518,6 +518,10 @@ window.getShoptetProductsList = () => {
             return;
         }
 
+        if (list.id === 'top10' && document.getElementsByClassName('js-top10').length === 0) {
+          return;
+        }
+
         const items = products.map((product, idx) => createGtagItem(product, list.offset + idx, list));
 
         gtag('event', 'view_item_list', addCommonGtagEventValues({
