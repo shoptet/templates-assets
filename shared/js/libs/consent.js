@@ -117,6 +117,9 @@
     }
 
     function cookiesConsentSubmit(value) {
+        $('.js-siteCookies').remove();
+        shoptet.modal.close();
+
         var possibleAgreements = [
             shoptet.config.cookiesConsentOptAnalytics,
             shoptet.config.cookiesConsentOptPersonalisation
@@ -147,9 +150,6 @@
             console.debug('error setting consent cookie');
             return;
         }
-
-        $('.js-siteCookies').remove();
-        shoptet.modal.close();
     }
 
     document.addEventListener('DOMContentLoaded', function () {

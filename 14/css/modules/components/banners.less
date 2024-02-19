@@ -143,6 +143,7 @@
 .carousel-control {
     width: 10%;
     opacity: 0;
+    pointer-events: none;
     &.left::before,
     &.right::before {
         font-size: @font-size-large;
@@ -162,6 +163,7 @@
     }
     &::before {        
         top: 50px;
+        pointer-events: auto;
         @media (min-width: @screen-xs-min) {
             top: 80px;
         }
