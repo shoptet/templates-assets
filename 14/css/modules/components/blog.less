@@ -1,11 +1,11 @@
 .blog-wrapper {
-    padding: @line-height-computed 0; 
-    @media (min-width: @screen-sm-min) {    
+    padding: @line-height-computed 0;
+    @media (min-width: @screen-sm-min) {
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: stretch;
-        align-items: center;   
+        align-items: center;
     }
     h2 {
         flex: 0 0 100%;
@@ -18,28 +18,28 @@
         position: relative;
         padding: round(@grid-gutter-width / 2) 0;
         margin-bottom: @line-height-computed;
-        @media (min-width: @screen-sm-min) {    
+        @media (min-width: @screen-sm-min) {
             flex-basis: 50%;
-            width: 50%;      
+            width: 50%;
             padding: round(@grid-gutter-width / 2) round(@grid-gutter-width / 4) 0;
             margin-bottom: 0;
-            .multiple-columns-body & {  
+            .multiple-columns-body & {
                 flex-basis: 100%;
                 width: 100%;
-            } 
-            .multiple-columns-body.mobile & {  
-                flex-basis: 50%;
-                width: 50%;
-            }   
-        }
-        @media (min-width: @screen-lg-min) {    
-            flex-basis: 33.333%;
-            width: 33.333%;     
-            .multiple-columns-body & {  
+            }
+            .multiple-columns-body.mobile & {
                 flex-basis: 50%;
                 width: 50%;
             }
-            .multiple-columns-body.mobile & {  
+        }
+        @media (min-width: @screen-lg-min) {
+            flex-basis: 33.333%;
+            width: 33.333%;
+            .multiple-columns-body & {
+                flex-basis: 50%;
+                width: 50%;
+            }
+            .multiple-columns-body.mobile & {
                 flex-basis: 33.333%;
                 width: 33.333%;
             }
@@ -58,17 +58,17 @@
                 border-radius: @border-radius-base;
                 top: round(@grid-gutter-width / 2);
                 right: round(@grid-gutter-width / 4);
-                left: round(@grid-gutter-width / 4); 
+                left: round(@grid-gutter-width / 4);
                 bottom: 0;
                 padding: round(@grid-gutter-width / 2);
                 display: flex;
                 flex-flow: column;
-                justify-content: flex-start;         
-                overflow: hidden;  
+                justify-content: flex-start;
+                overflow: hidden;
                 .transition(all @transition-duration @transition-timing);
             }
             @media (min-width: @screen-md-min) {
-                justify-content: flex-end;  
+                justify-content: flex-end;
             }
         }
         .title {
@@ -80,6 +80,7 @@
                 -webkit-line-clamp: 1;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
+                flex-shrink: 0;
             }
             @media (min-width: @screen-xl-min) {
                 -webkit-line-clamp: 2;
@@ -95,6 +96,7 @@
         }
         .description {
             overflow: auto;
+            line-height: inherit;
         }
         .read-article {
             display: flex;
@@ -111,9 +113,9 @@
         padding: round(@line-height-computed * 3) 0;
     }
     .news-item {
-        @media (min-width: @screen-lg-min) {    
+        @media (min-width: @screen-lg-min) {
             flex-basis: 50%;
-            width: 50%;  
+            width: 50%;
             .one-column-body & {
                 .image + .text {
                     padding: @grid-gutter-width;
@@ -129,5 +131,5 @@
 }
 
 .news-item-detail .btn {
-    margin: 0 @basic-spacing;   
+    margin: 0 @basic-spacing;
 }
