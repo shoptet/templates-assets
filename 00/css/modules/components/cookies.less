@@ -103,7 +103,7 @@ html.cookies-visible {
 
     @media (min-width: @screen-sm-min) {
         display: flex;
-        padding: 24px 24px 14px 24px;
+        padding: 24px;
         max-width: @cookies-bottom-width;
         margin: 0 auto;
 
@@ -166,7 +166,7 @@ html.cookies-visible {
 
         .siteCookies--center & {
             position: absolute;
-            bottom: 0.8em;
+            bottom: 24px;
             max-width: 30%;
         }
     }
@@ -179,14 +179,11 @@ html.cookies-visible {
     display: block;
     text-decoration: none;
     color: var(--cookies-notice-color);
-    background-color: transparent;
     border: 2px solid var(--cookies-notice-color);
-    border-radius: @cookies-border-radius / 4;
     font-weight: bold;
-    box-sizing: border-box;
 
-    &:hover {
-        @media (min-width: @screen-sm-min) {
+    @media (hover: hover) {
+        &:hover {
             background: var(--cookies-notice-link-hover);
             color: #ffffff;
         }
@@ -217,7 +214,6 @@ html.cookies-visible {
     width: 100%;
     background-color: var(--cookies-notice-color);
     color: var(--cookies-notice-background);
-    border-radius: @cookies-border-radius / 4;
     border: 0;
     font-weight: bold;
     margin: 0 auto;
