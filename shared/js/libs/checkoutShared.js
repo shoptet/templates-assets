@@ -903,8 +903,8 @@
                 e.preventDefault();
                 var pointId = $(this).data('point-id');
                 var pointTitle = $(this).data('point-title');
-                var completePointName = shoptet.messages['chosenBranch'] + ': ' + pointTitle + ' ';
-                var changePointLink = $('<a href="#" class="chosen">' + shoptet.messages['change'] + '</a>');
+                var completePointName = '';
+                var changePointLink = $('<a href="#" class="chosen">' + pointTitle + '</a>');
                 $('.personal-collection-choose-branch').html(completePointName).append(changePointLink);
                 $('.personal-collection-point-id').val(pointId);
                 shoptet.modal.close();
@@ -967,8 +967,8 @@
                     function() {
                         var $tr = $(this).closest('tr');
                         var address = $.trim($tr.find('.' + postDeliveryPoints[i].prefix + '-address').html());
-                        var newString = shoptet.messages['chosenPost'] + ' ' + address + ' ';
-                        var $newLink = $('<a href="#" class="chosen">' + shoptet.messages['change'] + '</a>');
+                        var newString = '';
+                        var $newLink = $('<a href="#" class="chosen">' + address + '</a>');
                         $parentsElement.find('.' + postDeliveryPoints[i].prefix + '-choose-post')
                             .html(newString).append($newLink).show(0);
                         if (postDeliveryPoints[i].prefix === 'posta-pont'
@@ -1003,8 +1003,8 @@
             $document.on('submit', '#ulozenka-form', function(e) {
                 e.preventDefault();
                 var name = $('#ulozenka-wrapper .branch-name').text();
-                var newString = shoptet.messages['chosenBranch'] + ': ' + name + ' ';
-                var $newLink = $('<a href="#" class="chosen">' + shoptet.messages['change'] + '</a>');
+                var newString = '';
+                var $newLink = $('<a href="#" class="chosen">' + name + '</a>');
                 $parentsElement.find('.ulozenka-choose').html(newString).append($newLink).show(0);
                 $parentsElement.find('.ulozenka-branch-id').val($('#branchId option:selected').val());
                 shoptet.checkoutShared.modalMagic();
@@ -1219,8 +1219,8 @@
             $document.on('submit', '#ppl-partner-cz-form', function(e) {
                 e.preventDefault();
                 var name = $('#pplPartnerBranchId option:selected').text();
-                var newString = shoptet.messages['chosenBranch'] + ': ' + name + ' ';
-                var $newLink = $('<a href="#" class="chosen">' + shoptet.messages['change'] + '</a>');
+                var newString = '';
+                var $newLink = $('<a href="#" class="chosen">' + name + '</a>');
                 $parentsElement.find('.ppl-choose').html(newString).append($newLink).show(0);
                 $('#ppl-partner-cz-branch-id').val($('#pplPartnerBranchId option:selected').val());
                 shoptet.checkoutShared.modalMagic();
@@ -1331,7 +1331,7 @@
 
     function twisto(twistoData) {
         var twistoPayload = twistoData.twistoPayload
-        
+
         function getValue(name) {
             obj = $('#'+name);
             if (obj.length > 0) {
@@ -1340,7 +1340,7 @@
                 return '';
             }
         }
-        
+
         function getAddress(prefix) {
             var moreCountries = twistoData.moreCountries
             var deliveryCountryId = twistoData.deliveryCountryId
@@ -1353,11 +1353,11 @@
                 "phones" : [getPhone()]
             };
         }
-        
+
         function checkContactInformation(addr) {
             var phone = getValue('phone');
             var email = getValue('email');
-        
+
             if (phone.length == 0) {
                 alert("Twisto: Prosím zadejte telefonní číslo");
                 return false;
@@ -1386,14 +1386,14 @@
                 alert("Twisto: Prosím zadejte zemi");
                 return false;
             }
-        
+
             if (/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i.test(email) === false) {
                 alert("Twisto: e-mail má špatný formát");
                 return false;
             }
             return true;
         }
-        
+
         function getPhone() {
             var phone = getValue('phone');
             if (phone.indexOf('+420') != -1) {
@@ -1402,12 +1402,12 @@
                 return '+420'+phone;
             }
         }
-        
+
         function getStreet(prefix) {
             var street = getValue(prefix + 'Street') + ' ' + getValue(prefix + 'HouseNumber');
             return street.trim();
         }
-        
+
         function changeMouseCursorToProgress(restoreInMiliseconds) {
             $('body').css('cursor', 'progress');
             if (restoreInMiliseconds) {
@@ -1419,7 +1419,7 @@
                 );
             }
         };
-    
+
         $('#submit-order').closest('form').submit(function(event, twistoVerificationSuccesfull) {
             if (twistoVerificationSuccesfull) {
                 return true;
@@ -1438,7 +1438,7 @@
             } else {
                 delete twistoPayload.order.delivery_address;
             }
-    
+
             $(this).attr('disabled', 'disabled');
             changeMouseCursorToProgress(4000);
             Twisto.check(
@@ -1502,7 +1502,7 @@
                 }, 50);
             }
         });
-    
+
         $(`${postDeliveryPointsData.deliveryPointPrefix}-form`).submit(function() {
             $('.cpost-delivery-point-result').addClass('ajax-pending-element');
             var postData = 'zipCode=' + $.trim($(`${postDeliveryPointsData.deliveryPointPrefix}-wrapper .zip-code`).val());
@@ -1543,7 +1543,7 @@
             });
             $(`${postDeliveryPointsData.deliveryPointPrefix}-wrapper .zip-code`).autocomplete('close');
             $(`${postDeliveryPointsData.deliveryPointPrefix}-wrapper .city`).autocomplete('close');
-    
+
             return false;
         });
     }
