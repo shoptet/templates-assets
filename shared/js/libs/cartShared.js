@@ -50,7 +50,8 @@
                 form,
                 'functionsForCart',
                 'cart',
-                !shoptet.cartShared.silentAddition
+                !shoptet.cartShared.silentAddition,
+                document
             );
         }
     }

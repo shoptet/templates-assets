@@ -5,7 +5,9 @@
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: stretch;
-        align-items: center;
+        &--fullNews {
+            align-items: flex-start;
+        }
     }
     h2 {
         flex: 0 0 100%;
@@ -19,8 +21,10 @@
         padding: round(@grid-gutter-width / 2) 0;
         margin-bottom: @line-height-computed;
         @media (min-width: @screen-sm-min) {
+            display: flex;
             flex-basis: 50%;
             width: 50%;
+            min-height: 195px;
             padding: round(@grid-gutter-width / 2) round(@grid-gutter-width / 4) 0;
             margin-bottom: 0;
             .multiple-columns-body & {
@@ -44,15 +48,29 @@
                 width: 33.333%;
             }
         }
+        & > a {
+            @media (min-width: @screen-sm-min) {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+            }
+        }
         .image {
             width: 100%;
+            @media (min-width: @screen-sm-min) {
+                display: flex;
+                height: 100%;
+            }
             img {
                 border-radius: @border-radius-base;
                 width: 100%;
                 height: auto;
+                @media (min-width: @screen-sm-min) {
+                    object-fit: cover;
+                }
             }
         }
-        .image + .text {
+        .text {
             @media (min-width: @screen-sm-min) {
                 position: absolute;
                 border-radius: @border-radius-base;
@@ -71,6 +89,13 @@
                 justify-content: flex-end;
             }
         }
+        &--noImage {
+            .text {
+                @media (min-width: @screen-sm-min) {
+                    position: static;
+                }
+            }
+        }
         .title {
             margin-top: @line-height-computed;
             font-weight: 600;
@@ -87,6 +112,16 @@
             }
             &:hover {
                 text-decoration: none;
+            }
+        }
+        .title-link {
+            display: block;
+            margin-top: @line-height-computed;
+            font-size: @font-size-h2;
+            font-weight: @headings-font-weight;
+            line-height: @font-size-h2-large;
+            @media (min-width: @screen-sm-min) {
+                margin-top: 0;
             }
         }
         time,
@@ -110,6 +145,7 @@
 
 .homepage-blog-wrapper {
     @media (min-width: @screen-sm-min) {
+        align-items: stretch;
         padding: round(@line-height-computed * 3) 0;
     }
     .news-item {

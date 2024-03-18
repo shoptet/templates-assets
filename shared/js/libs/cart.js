@@ -204,11 +204,17 @@
      * replaceContent = determines if content wil be replaced with AJAX call result
      * @param {Boolean} displaySpinner
      * displaySpinner = if set to true, the spinner is displayed before and hidden after submit
+     * @param {Object} eventElement
+     * eventElement = if not set, the form is used as event element
      */
-    function ajaxSubmitForm(action, form, callingFunctions, replaceContent, displaySpinner) {
+    function ajaxSubmitForm(action, form, callingFunctions, replaceContent, displaySpinner, eventElement) {
         var body = document.getElementsByTagName('body')[0];
         if (displaySpinner === true) {
             showSpinner();
+        }
+
+        if (typeof eventElement === 'undefined') {
+            eventElement = form;
         }
 
         var cartUrlSuffix = '';
@@ -276,7 +282,7 @@
                     shoptet.cart.getCartContent(true, cartCallback);
                 } else {
                     // ...otherwise we have to call the function directly
-                    shoptet.cart.handleCartPostUpdate(form.getAttribute('action'), form);
+                    shoptet.cart.handleCartPostUpdate(form.getAttribute('action'), eventElement);
                     hideSpinner();
                 }
             }
@@ -298,8 +304,7 @@
                     // In that case, the operation was executed either
                     // in the cart (ordering process) or in opened cart widget (cart-window-visible)
                     var cartCallback = function() {
-                        shoptet.tracking.handleAction(form, response);
-                        shoptet.cart.handleCartPostUpdate(form.getAttribute('action'), form);
+                        shoptet.cart.handleCartPostUpdate(form.getAttribute('action'), eventElement);
                     };
                     shoptet.cart.getCartContent(true, cartCallback);
                 } else {
