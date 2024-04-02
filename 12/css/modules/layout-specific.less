@@ -1317,11 +1317,8 @@ ul.shp-tabs {
 }
 
 .homepage-texts-wrapper {
-    display: flex;
-    align-items: baseline;
     margin-bottom: @line-height-computed;
     > div {
-        flex: 1 1 auto;
         margin: 0 round(@grid-gutter-width / 4);
     }
     .top-products-wrapper {
@@ -1330,8 +1327,12 @@ ul.shp-tabs {
             min-width: 350px;
         }
     }
-    @media (max-width: @screen-sm-max) {
-        flex-direction: column;
+    @media (min-width: @screen-md-min) {
+        display: flex;
+        align-items: baseline;
+        > div {
+            flex: 1 1 auto;
+        }
     }
     .top-products-wrapper {
         h4 {
@@ -1340,6 +1341,12 @@ ul.shp-tabs {
         }
     }
 
+    // for possibly scrolling overflow table
+    &:has(.top-products-wrapper) .welcome-wrapper {
+        @media (min-width: @screen-md-min) {
+            max-width: calc(100% - 390px);
+        }
+    }
 }
 
 .banners-row {

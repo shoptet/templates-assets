@@ -1222,6 +1222,39 @@ document.addEventListener('DOMContentLoaded', function () {
         shoptet.consent.cookiesConsentSubmit(this.value);
     });
 
+
+    // Fix for fixed-width tables and with overflow
+    const addScrollWrapper = table => {
+        const scrollWrapper = document.createElement('div');
+        scrollWrapper.classList.add('scroll-wrapper');
+        table.parentElement.insertBefore(scrollWrapper, table);
+        scrollWrapper.appendChild(table);
+    }
+
+    const removeScrollWrapper = table => {
+        const scrollWrapper = table.parentElement;
+        scrollWrapper.parentElement.insertBefore(table, scrollWrapper);
+        scrollWrapper.remove();
+    }
+
+    const handleTableOverflow = () => {
+        const tables = document.querySelectorAll('.p-short-description table, .basic-description table, .descr-text table, .description table, .category-perex table, .category__secondDescription table, .type-manufacturer-detail .content table, .welcome table, .type-page article table, .news-item-detail table, .type-posts-listing .content table');
+
+        tables.forEach(table => {
+            const hasScrollWrapper = table.parentElement.classList.contains('scroll-wrapper');
+            const isOverflowing = table.offsetWidth > table.parentElement.offsetWidth;
+
+            if (hasScrollWrapper && !isOverflowing ) {
+                removeScrollWrapper(table);
+            }
+            else if (!hasScrollWrapper && isOverflowing) {
+                addScrollWrapper(table);
+            }
+        });
+    }
+    handleTableOverflow();
+    document.addEventListener('ShoptetDOMPageContentLoaded', () => handleTableOverflow());
+    document.addEventListener('resizeEnd', () => handleTableOverflow());
 });
 
 // Necessary for split/simple variants - unify with 2nd gen
