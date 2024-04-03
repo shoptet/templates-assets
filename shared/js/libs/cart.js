@@ -85,6 +85,20 @@
                 $('body').addClass('cart-emptied');
             }
             $cartContentWrapper.html(response);
+
+            if (shoptet.csrf.enabled) {
+                var selector;
+                if (shoptet.csrf.formsSelector === '') {
+                    selector = 'form';
+                } else {
+                    selector = 'form' + '.' + shoptet.csrf.formsSelector;
+                }
+
+                $cartContentWrapper[0].querySelectorAll(selector).forEach(function(form) {
+                    shoptet.csrf.injectToken(form);
+                });
+            }
+
             $(el + ' img').unveil();
             initColorbox();
             initTooltips();
@@ -120,6 +134,21 @@
         var successCallback = function (response) {
             var content = response.getFromPayload('content');
             if (content !== false) {
+                if (shoptet.csrf.enabled) {
+                    var selector;
+                    if (shoptet.csrf.formsSelector === '') {
+                        selector = 'form';
+                    } else {
+                        selector = 'form' + '.' + shoptet.csrf.formsSelector;
+                    }
+
+                    var $content = $('<div>' + content + '</div>');
+                    $content[0].querySelectorAll(selector).forEach(function(form) {
+                        shoptet.csrf.injectToken(form);
+                    });
+                    content = $content.html();
+                }
+
                 shoptet.modal.open({
                     html: shoptet.content.colorboxHeader + content + shoptet.content.colorboxFooter,
                     width: shoptet.modal.config.widthLg,
@@ -312,6 +341,10 @@
                 }
             }
         };
+
+        if (shoptet.csrf.enabled) {
+            shoptet.csrf.injectToken($(form)[0]);
+        }
 
         shoptet.ajax.makeAjaxRequest(
             action + cartUrlSuffix,

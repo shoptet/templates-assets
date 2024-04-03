@@ -945,7 +945,7 @@
                     $parentsElement = $(this).closest('.radio-wrapper');
                     var url = postDeliveryPoints[i].url;
 
-                    if (postDeliveryPoints[i].prefix === 'sk-post') {
+                    if (['sk-post', 'posta-pont'].includes(postDeliveryPoints[i].prefix)) {
                         url += '?shipmentId=' + $parentsElement.find('input').val();
                     }
 
@@ -971,9 +971,7 @@
                         var $newLink = $('<a href="#" class="chosen">' + address + '</a>');
                         $parentsElement.find('.' + postDeliveryPoints[i].prefix + '-choose-post')
                             .html(newString).append($newLink).show(0);
-                        if (postDeliveryPoints[i].prefix === 'posta-pont'
-                            || postDeliveryPoints[i].prefix === 'sk-post'
-                            ) {
+                        if (['sk-post', 'posta-pont'].includes(postDeliveryPoints[i].prefix)) {
                             var branchId = $.trim($tr.find('.' + postDeliveryPoints[i].prefix + '-branch-id').html());
                             $('#' + postDeliveryPoints[i].prefix + '-hidden').val(branchId);
                         } else {

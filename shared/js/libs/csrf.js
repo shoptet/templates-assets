@@ -7,6 +7,10 @@
     }
 
     function injectToken(f) {
+        if (f.querySelector == undefined) {
+            return;
+        }
+
         let i = f.querySelector('[name=__csrf__]');
         if (i) {
             i.value = shoptet.csrf.token;
