@@ -173,6 +173,20 @@
                 headers: {'X-Shoptet-XHR': 'Shoptet_Coo7ai'},
                 success: function(payload) {
                     var requestedDocument = shoptet.common.createDocumentFromString(payload);
+
+                    if (shoptet.csrf.enabled) {
+                        var selector;
+                        if (shoptet.csrf.formsSelector === '') {
+                            selector = 'form';
+                        } else {
+                            selector = 'form' + '.' + shoptet.csrf.formsSelector;
+                        }
+
+                        $(requestedDocument)[0].querySelectorAll(selector).forEach(function(form) {
+                            shoptet.csrf.injectToken(form);
+                        });
+                    }
+
                     shoptet.tracking.trackProductsFromPayload(requestedDocument);
                     var listing = $(requestedDocument).find('.products-page > .product');
                     var pagination = $(requestedDocument).find('.pagination-wrapper');
