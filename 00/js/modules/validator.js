@@ -321,7 +321,9 @@ shoptet.validator.removeValidatorMessage = function($el) {
 //
 shoptet.validator.validatorMessage = {
     init: function($el) {
-        var id = 'id-' + Math.floor((Math.random() * 1024) + (Math.random() * 2048));
+        do {
+            var id = 'id-' + Math.floor((Math.random() * 1024) + (Math.random() * 2048));
+        } while ($('#' + id).length);
         $('<div class="validator-msg js-validator-msg" id="' + id + '"></div>').appendTo($('body'));
         var $container = $('#' + id);
         $('html').on('click', '#' + id, function() {
