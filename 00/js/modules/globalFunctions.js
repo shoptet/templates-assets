@@ -862,6 +862,9 @@ document.addEventListener('DOMContentLoaded', function () {
     $('#carousel').on('slide.bs.carousel', function () {
         $('#carousel img').each(function () {
             var $this = $(this);
+            if ($this.attr('src')) {
+                return
+            }
             $this.attr('src', $this.attr('data-src'));
         });
     });
