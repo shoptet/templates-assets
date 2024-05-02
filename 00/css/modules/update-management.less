@@ -1,0 +1,22 @@
+.update-preview-active {
+    &::after {
+        content: 'Update preview mode';
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1100;
+        display: flex;
+        color: #000;
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: bold;
+        text-transform: uppercase;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        box-shadow: inset 0 0 0 4px #ffe91c, inset 0 -22px 0 0px #ffe91c;
+        pointer-events: none;
+    }
+}
