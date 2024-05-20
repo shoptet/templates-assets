@@ -712,6 +712,9 @@ select {
     &:first-child {
         margin-top: 0;
     }
+    .blog-wrapper & {
+        margin-top: round(@line-height-computed * 3);
+    }
 }
 
 .welcome-wrapper {
@@ -740,9 +743,9 @@ select {
             flex-basis: 50%;
             width: 50%;
         }
-
-        .read-article {
-            display: none;
+        .title {
+            font-weight: 700;
+            line-height: 1.1;
         }
     }
 }
