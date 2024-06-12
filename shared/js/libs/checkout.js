@@ -125,6 +125,78 @@
         }
     }
 
+    function validateBillingForm(data, vatIdInput, isInitialCheck = false) {
+        if (shoptet.config.onlineVatIdValidation && vatIdInput) {
+            if (vatIdInput.value.trim() === '') {
+                shoptet.validator.validatorMessage.hide($('#vatId'));
+            } else {
+                shoptet.validator.showValidatorMessage(
+                    $('#vatId'),
+                    shoptet.messages['validatorVatIdWaiting'],
+                    'msg-info'
+                );
+            }
+        }
+
+        var shouldUpdateVatIdValidation = shoptet.config.onlineVatIdValidation && vatIdInput && vatIdInput.value.trim() !== '';
+    
+        $.ajax({
+            url: '/action/OrderingProcess/step2CustomerAjax/?isInitialCheck=' + isInitialCheck,
+            type: 'POST',
+            data: data,
+            success: function(response) {
+                response = new shoptet.ajax.AjaxResponse(response);
+                try {
+                    var html = response.getFromPayload('html');
+                    if (html) {
+                        response.showNotification();
+                        shoptet.tracking.updateCartDataLayer(response);
+                        shoptet.tracking.updateDataLayerCartInfo(response);
+                        $('#summary-box').html(html)
+                    }
+                    if (shouldUpdateVatIdValidation) {
+                        if (response.getFromPayload('vatIdValidationStatus')) {
+                            shoptet.validator.validatorMessage.hide($('#vatId'));
+                            shoptet.validator.showValidatorMessage(
+                                $('#vatId'),
+                                shoptet.messages['validatorVatIdValid'],
+                                'msg-ok'
+                            );
+                        } else {
+                            shoptet.validator.validatorMessage.hide($('#vatId'));
+                            shoptet.validator.showValidatorMessage(
+                                $('#vatId'),
+                                shoptet.messages['validatorVatIdInvalid'],
+                                'msg-error'
+                            );
+                        }
+                    }
+                } catch (error) {
+                    console.log(error);
+                    if (shouldUpdateVatIdValidation) {
+                        shoptet.validator.validatorMessage.hide($('#vatId'));
+                        shoptet.validator.showValidatorMessage(
+                            $('#vatId'),
+                            shoptet.messages['validatorVatIdInvalid'],
+                            'msg-error'
+                        );
+                    }
+                }
+            },
+            error: function(error) {
+                console.log(error);
+                if (shouldUpdateVatIdValidation) {
+                    shoptet.validator.validatorMessage.hide($('#vatId'));
+                    shoptet.validator.showValidatorMessage(
+                        $('#vatId'),
+                        shoptet.messages['validatorVatIdInvalid'],
+                        'msg-error'
+                    );
+                }
+            }
+        });
+    }
+
     shoptet.checkout = shoptet.checkout || {};
     shoptet.scripts.libs.checkout.forEach(function(fnName) {
         var fn = eval(fnName);
@@ -157,76 +229,22 @@
             });
         }
 
-        // remember customer data (via ajax)
+        // remember and validate customer data (via ajax)
         var $orderForm = $('#order-form');
         if ($orderForm.length) {
             var lastData = $orderForm.serialize();
+            var vatIdInput = $orderForm.find('#vatId')[0];
+            
+            // validate form on page load only if VAT ID is filled
+            if (shoptet.config.onlineVatIdValidation && vatIdInput?.value.trim() !== '') {
+                validateBillingForm(lastData, vatIdInput, true);
+            }
+
             $('#order-form input, #order-form select').blur(function(e) {
                 var data = $(this).closest('form').serialize();
                 if (data !== lastData) {
-                    if (shoptet.config.onlineVatIdValidation && e.target.id === 'vatId' && e.target.value.trim() !== '') {
-                        shoptet.validator.showValidatorMessage(
-                            $('#vatId'),
-                            shoptet.messages['validatorVatIdWaiting'],
-                            'msg-info'
-                        );
-                    }
                     lastData = data;
-                    $.ajax({
-                        url: '/action/OrderingProcess/step2CustomerAjax/',
-                        type: 'POST',
-                        data: data,
-                        success: function(response) {
-                            response = new shoptet.ajax.AjaxResponse(response);
-                            try {
-                                var html = response.getFromPayload('html');
-                                if (html) {
-                                    response.showNotification();
-                                    shoptet.tracking.updateCartDataLayer(response);
-                                    shoptet.tracking.updateDataLayerCartInfo(response);
-                                    $('#summary-box').html(html)
-                                }
-                                if (shoptet.config.onlineVatIdValidation && e.target.id === 'vatId' && e.target.value.trim() !== '') {
-                                    if (response.getFromPayload('vatIdValidationStatus')) {
-                                        shoptet.validator.validatorMessage.hide($('#vatId'));
-                                        shoptet.validator.showValidatorMessage(
-                                            $('#vatId'),
-                                            shoptet.messages['validatorVatIdValid'],
-                                            'msg-ok'
-                                        );
-                                    } else {
-                                        shoptet.validator.validatorMessage.hide($('#vatId'));
-                                        shoptet.validator.showValidatorMessage(
-                                            $('#vatId'),
-                                            shoptet.messages['validatorVatIdInvalid'],
-                                            'msg-error'
-                                        );
-                                    }
-                                }
-                            } catch (error) {
-                                console.log(error);
-                                if (shoptet.config.onlineVatIdValidation && e.target.id === 'vatId' && e.target.value.trim() !== '') {
-                                    shoptet.validator.validatorMessage.hide($('#vatId'));
-                                    shoptet.validator.showValidatorMessage(
-                                        $('#vatId'),
-                                        shoptet.messages['validatorVatIdInvalid'],
-                                        'msg-error'
-                                    );
-                                }
-                            }
-                        },
-                        error: function(error) {
-                            console.log(error);
-                            if (shoptet.config.onlineVatIdValidation && e.target.id === 'vatId' && e.target.value.trim() !== '') {
-                                shoptet.validator.validatorMessage.hide($('#vatId'));
-                                shoptet.validator.showValidatorMessage(
-                                    $('#vatId'),
-                                    shoptet.messages['validatorVatIdInvalid'],
-                                    'msg-error'
-                                );
-                            }
-                        }
-                    });
+                    validateBillingForm(data, e.target.id === 'vatId' ? e.target : null);
                 }
             });
         }
