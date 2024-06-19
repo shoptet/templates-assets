@@ -132,6 +132,10 @@
 
             var dataString = 'productId=' + $(this).data('productid') + '&score=' + $(this).data('score');
 
+            if ($(this).data('orderGuid')) {
+                dataString += '&orderGuid=' + $(this).data('orderGuid');
+            }
+
             shoptet.ajax.makeAjaxRequest(
                 shoptet.config.rateProduct,
                 shoptet.ajax.requestTypes.post,

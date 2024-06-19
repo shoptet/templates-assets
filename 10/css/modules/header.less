@@ -227,3 +227,11 @@ h2.header-title {
         }
     }
 }
+#navigation {
+    @media (min-width: @navigation-breakpoint) {
+        visibility: hidden;
+        &.visible {
+            visibility: visible;
+        }
+    }
+}
