@@ -139,7 +139,7 @@
         }
 
         var shouldUpdateVatIdValidation = shoptet.config.onlineVatIdValidation && vatIdInput && vatIdInput.value.trim() !== '';
-    
+
         $.ajax({
             url: '/action/OrderingProcess/step2CustomerAjax/?isInitialCheck=' + isInitialCheck,
             type: 'POST',
@@ -234,7 +234,7 @@
         if ($orderForm.length) {
             var lastData = $orderForm.serialize();
             var vatIdInput = $orderForm.find('#vatId')[0];
-            
+
             // validate form on page load only if VAT ID is filled
             if (shoptet.config.onlineVatIdValidation && vatIdInput?.value.trim() !== '') {
                 validateBillingForm(lastData, vatIdInput, true);

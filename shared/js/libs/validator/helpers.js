@@ -10,7 +10,6 @@
  */
 window.toggleRequiredAttributes = ($el, job, preserveNoJsValidation) => {
     if (job === 'remove') {
-        $('[autocomplete="email"]').attr('autocomplete', 'new-email');
         $.each($el.find(':required'), function() {
             $(this).removeAttr('required').attr('data-required', 'required');
             $(this).addClass('js-validate');
@@ -37,7 +36,6 @@ window.toggleRequiredAttributes = ($el, job, preserveNoJsValidation) => {
             });
         }
     } else {
-        $('[autocomplete="new-email"]').attr('autocomplete', 'email');
         $.each($el.find('[data-required]'), function() {
             $(this).removeAttr('data-required').attr('required', 'required');
         });

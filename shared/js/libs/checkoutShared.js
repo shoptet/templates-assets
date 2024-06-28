@@ -1672,6 +1672,12 @@
                 }
             }
         });
+
+        // Prevents clicks on tooltip from propagating to parent shipping or billing methods.
+        // On touch devices, tooltip is displayed, but modal with pick-up points doesn't open.
+        $(".shipping-billing-table .show-tooltip").on("mousedown", function(e) {
+            e.stopPropagation();
+        });
     });
 
 })(shoptet);
