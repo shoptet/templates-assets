@@ -83,7 +83,9 @@
         var sidebarHeight = shoptet.checkout.$checkoutSidebar.height();
         var offset = shoptet.checkout.$checkoutContent.offset();
         var scrollTop = $(document).scrollTop();
-        var headerHeight = shoptet.abilities.feature.fixed_header ? $('#header').height() : 0;
+        var headerHeight = shoptet.abilities.feature.fixed_header
+    ? ($('.header-navigation').length ? $('.header-navigation').height() : $('#header').height())
+    : 0;
         if (windowHeight + scrollTop < document.documentElement.scrollHeight) {
             if ((offset.top < scrollTop + headerHeight) && detectResolution(shoptet.config.breakpoints.md)) {
                 if (windowHeight - headerHeight > sidebarHeight) {
@@ -219,13 +221,7 @@
             });
 
             $('html').bind('contentResized', function() {
-                if (
-                    !compareHeight(shoptet.checkout.$checkoutContent, shoptet.checkout.$checkoutSidebar)
-                ) {
-                    fixSidebar();
-                } else {
-                    shoptet.checkout.$checkoutSidebar.removeAttr('style');
-                }
+                handleWithSidebar();
             });
         }
 

@@ -181,7 +181,7 @@
      * callback = optional callback after quantity update
      */
     function updateQuantity(el, min, max, decimals, action, callback) {
-        var value = shoptet.helpers.toFloat($(el).data('quantity') ?? el.value);
+        var value = shoptet.helpers.toFloat($(el).attr('data-quantity') ?? el.value);
 
         if (isNaN(value)) {
             return false;
