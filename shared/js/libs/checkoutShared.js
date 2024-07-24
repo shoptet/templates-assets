@@ -192,10 +192,9 @@
             type: 'GET',
             success: function(responseData) {
                 try {
-                    var obj = JSON.parse(responseData);
-                    shoptet.checkoutShared.shoptetPayPIS.allPISbanks = obj;
+                    shoptet.checkoutShared.shoptetPayPIS.allPISbanks = responseData;
 
-                    for (const [country, value] of Object.entries(obj)) {
+                    for (const [country, value] of Object.entries(responseData)) {
                         if(value.hasOwnProperty('providers')) {
                             for (const [providers, bank] of Object.entries(value.providers)) {
                                 bank.country = country;
@@ -204,7 +203,7 @@
                         }
                     }
 
-                    shoptet.checkoutShared.shoptetPayPIS.countries = Object.entries(obj).map(([countryCode, countryData]) => ({
+                    shoptet.checkoutShared.shoptetPayPIS.countries = Object.entries(responseData).map(([countryCode, countryData]) => ({
                         code: countryData.code,
                         name: countryData.name,
                         bankCount: Object.keys(countryData.providers).length
@@ -239,8 +238,7 @@
             type: 'GET',
             success: function(responseData) {
                 try {
-                    var obj = JSON.parse(responseData);
-                    if (!obj.hasOwnProperty('isHealthy') || obj.isHealthy === false) {
+                    if (!responseData.hasOwnProperty('isHealthy') || responseData.isHealthy === false) {
                         hideAllSPayMethods();
                     }
                 } catch (error) {
