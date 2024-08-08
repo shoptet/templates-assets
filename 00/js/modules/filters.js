@@ -109,105 +109,107 @@ window.makeFilterAjaxRequest = (url, pushHistoryState, successCallback, element,
     pushHistoryState = typeof pushHistoryState !== 'undefined' ? pushHistoryState : true;
     shoptet.scripts.signalCustomEvent(event, element);
 
-    $.ajax({
-        url: url,
-        type: 'GET',
-        headers: {'X-Shoptet-XHR': 'Shoptet_Coo7ai'},
-        dataType: 'html',
-        timeout: 20000,
-        cache: true,
-        success: function(payload) {
-            var requestedDocument = shoptet.common.createDocumentFromString(payload);
-            shoptet.tracking.trackProductsFromPayload(requestedDocument);
-            var payloadContent = $(requestedDocument).find('#content');
-            var $payloadContentWrapper = $('#content');
-            $payloadContentWrapper.html(payloadContent[0].innerHTML);
-            if ($(requestedDocument).find('#filters').length) {
-                var payloadFilterContent = $(requestedDocument).find('#filters');
-                if (!$('#filters').length) {
-                    $('#category-header').after('<div id="filters" />');
-                }
-                $('#filters').html(payloadFilterContent[0].innerHTML);
-            }
-            if ($(requestedDocument).find('.breadcrumbs').length) {
-                var payloadNavContent = $(requestedDocument).find('.breadcrumbs').clone();
-                $('.breadcrumbs').html(payloadNavContent[0].innerHTML);
-            }
-            if ($(requestedDocument).find('.header-title').length) {
-                var payloadH1Content = $(requestedDocument).find('.header-title').clone();
-                $('.header-title').html(payloadH1Content[0].innerHTML);
-            }
-            if ($('.sidebar .category-title').length && $(requestedDocument).find('.sidebar .category-title').length) {
-                var payloadSidebarTitleContent = $(requestedDocument).find('.sidebar .category-title').clone();
-                $('.sidebar .category-title').html(payloadSidebarTitleContent[0].innerHTML);
-            }
-            if ($(requestedDocument).find('.sidebar .category-perex').length) {
-                if (!$('.sidebar .category-perex').length) {
-                    $('.sidebar-inner').append('<div class="category-perex" />');
-                }
-                var payloadSidebarPerexContent = $(requestedDocument).find('.sidebar .category-perex').clone();
-                $('.sidebar .category-perex').html(payloadSidebarPerexContent[0].innerHTML);
-            }
-            if ($('.sidebar .category-perex').length && !$(requestedDocument).find('.sidebar .category-perex').length) {
-                $('.sidebar .category-perex').remove();
-            }
-            var $categoryMinValue = $('#categoryMinValue');
-            var $categoryMaxValue = $('#categoryMaxValue');
-            if ($categoryMinValue.length) {
-                // TODO: use corresponding shoptet object instead of global variable
-                categoryMinValue = parseInt($categoryMinValue.text());
-            }
-            if ($categoryMaxValue.length) {
-                // TODO: use corresponding shoptet object instead of global variable
-                categoryMaxValue = parseInt($categoryMaxValue.text());
-            }
-            priceFilter(categoryMinValue, categoryMaxValue);
-            $('#content-wrapper img').unveil();
-            detectFilters();
-            initTooltips();
-            hideSpinner();
-            dismissMessages();
-            setTimeout(function () {
-                shoptet.products.sameHeightOfProducts();
-            }, 1000);
-            shoptet.products.splitWidgetParameters();
-            try {
-                if (pushHistoryState) {
-                    if ($('.breadcrumbs').length) {
-                        var $selector = $('.breadcrumbs > span:last');
-                        var current = $selector.find('span').data('title');
-                        var baseTitle = $('#navigation-first').data('basetitle');
-
-                        document.title = current + ' - ' + baseTitle;
-
-                        history.pushState(null, null, $selector.find('meta').attr('content'));
-                    } else {
-                        history.pushState(null, null, url);
-                    }
-                    if ('scrollRestoration' in history) {
-                        history.scrollRestoration = 'auto';
-                    }
-                } else {
-                    document.title = $('meta[property="og:title"]').attr('content');
-                }
-            } catch (err) {
-            }
-            if (typeof (successCallback) === 'function') {
-                successCallback();
-            }
-            shoptet.scripts.signalDomLoad('ShoptetDOMPageContentLoaded', $payloadContentWrapper[0]);
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'X-Shoptet-XHR': 'Shoptet_Coo7ai',
         },
-        error: function () {
-            hideSpinner();
-            $('html, body').animate({
-                scrollTop: 0
-            }, shoptet.config.animationDuration, function () {
-                showMessage(shoptet.messages['ajaxError'], 'warning', '', false, false);
-            });
+        signal: AbortSignal.timeout(20000),
+    }).then(async response => {
+        var requestedDocument = shoptet.common.createDocumentFromString(await response.text());
+        if (response.redirected) {
+            if (!requestedDocument.querySelector('.type-category')) {
+                window.location.href = url;
+                return;
+            }
         }
-    });
-}
-;
+        shoptet.tracking.trackProductsFromPayload(requestedDocument);
+        var payloadContent = $(requestedDocument).find('#content');
+        var $payloadContentWrapper = $('#content');
+        $payloadContentWrapper.html(payloadContent[0].innerHTML);
+        if ($(requestedDocument).find('#filters').length) {
+            var payloadFilterContent = $(requestedDocument).find('#filters');
+            if (!$('#filters').length) {
+                $('#category-header').after('<div id="filters" />');
+            }
+            $('#filters').html(payloadFilterContent[0].innerHTML);
+        }
+        if ($(requestedDocument).find('.breadcrumbs').length) {
+            var payloadNavContent = $(requestedDocument).find('.breadcrumbs').clone();
+            $('.breadcrumbs').html(payloadNavContent[0].innerHTML);
+        }
+        if ($(requestedDocument).find('.header-title').length) {
+            var payloadH1Content = $(requestedDocument).find('.header-title').clone();
+            $('.header-title').html(payloadH1Content[0].innerHTML);
+        }
+        if ($('.sidebar .category-title').length && $(requestedDocument).find('.sidebar .category-title').length) {
+            var payloadSidebarTitleContent = $(requestedDocument).find('.sidebar .category-title').clone();
+            $('.sidebar .category-title').html(payloadSidebarTitleContent[0].innerHTML);
+        }
+        if ($(requestedDocument).find('.sidebar .category-perex').length) {
+            if (!$('.sidebar .category-perex').length) {
+                $('.sidebar-inner').append('<div class="category-perex" />');
+            }
+            var payloadSidebarPerexContent = $(requestedDocument).find('.sidebar .category-perex').clone();
+            $('.sidebar .category-perex').html(payloadSidebarPerexContent[0].innerHTML);
+        }
+        if ($('.sidebar .category-perex').length && !$(requestedDocument).find('.sidebar .category-perex').length) {
+            $('.sidebar .category-perex').remove();
+        }
+        var $categoryMinValue = $('#categoryMinValue');
+        var $categoryMaxValue = $('#categoryMaxValue');
+        if ($categoryMinValue.length) {
+            // TODO: use corresponding shoptet object instead of global variable
+            categoryMinValue = parseInt($categoryMinValue.text());
+        }
+        if ($categoryMaxValue.length) {
+            // TODO: use corresponding shoptet object instead of global variable
+            categoryMaxValue = parseInt($categoryMaxValue.text());
+        }
+        priceFilter(categoryMinValue, categoryMaxValue);
+        $('#content-wrapper img').unveil();
+        detectFilters();
+        initTooltips();
+        hideSpinner();
+        dismissMessages();
+        setTimeout(function () {
+            shoptet.products.sameHeightOfProducts();
+        }, 1000);
+        shoptet.products.splitWidgetParameters();
+        try {
+            if (pushHistoryState) {
+                if ($('.breadcrumbs').length) {
+                    var $selector = $('.breadcrumbs > span:last');
+                    var current = $selector.find('span').data('title');
+                    var baseTitle = $('#navigation-first').data('basetitle');
+
+                    document.title = current + ' - ' + baseTitle;
+
+                    history.pushState(null, null, $selector.find('meta').attr('content'));
+                } else {
+                    history.pushState(null, null, url);
+                }
+                if ('scrollRestoration' in history) {
+                    history.scrollRestoration = 'auto';
+                }
+            } else {
+                document.title = $('meta[property="og:title"]').attr('content');
+            }
+        } catch (err) {
+        }
+        if (typeof (successCallback) === 'function') {
+            successCallback();
+        }
+        shoptet.scripts.signalDomLoad('ShoptetDOMPageContentLoaded', $payloadContentWrapper[0]);
+    }).catch(() => {
+        hideSpinner();
+        $('html, body').animate({
+            scrollTop: 0
+        }, shoptet.config.animationDuration, function () {
+            showMessage(shoptet.messages['ajaxError'], 'warning', '', false, false);
+        });
+    })
+};
 
 /**
  * Move filters to another location
