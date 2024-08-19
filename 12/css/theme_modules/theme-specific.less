@@ -234,3 +234,24 @@ body.user-action-visible.language-window-visible {
 .cart-xyDiscount__banner {
     background-color: #f9f9f9;
 }
+
+.blog-wrapper {
+    justify-content: center;
+
+    .news-item {
+        @media (max-width: @screen-md-max) {
+            &:nth-child(n + 3):last-child {
+                margin-right: auto;
+            }
+        }
+
+        @media (min-width: @screen-lg-min) {
+            flex-basis: 25%;
+            width: 25%;
+
+            &:nth-child(n + 6):last-child {
+                margin-right: auto;
+            }
+        }
+    }
+}

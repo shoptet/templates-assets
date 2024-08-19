@@ -418,3 +418,24 @@ body.user-action-visible.currency-window-visible,
 body.user-action-visible.language-window-visible {
     overflow: auto;
 }
+
+.blog-wrapper {
+    justify-content: center;
+
+    .news-item {
+        @media (max-width: @screen-md-max) {
+            &:nth-child(n + 3):last-child {
+                margin-right: auto;
+            }
+        }
+
+        @media (min-width: @screen-lg-min) {
+            flex-basis: 25%;
+            width: 25%;
+
+            &:nth-child(n + 6):last-child {
+                margin-right: auto;
+            }
+        }
+    }
+}
