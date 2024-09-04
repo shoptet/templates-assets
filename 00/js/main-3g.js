@@ -60,6 +60,7 @@ import './modules/topNavigationMenu';
 import './modules/globalFunctions';
 import './modules/menu';
 import './modules/products';
+import './modules/discussions-and-ratings';
 import './modules/search';
 import './modules/filters';
 import './modules/productInnerSecondImage';

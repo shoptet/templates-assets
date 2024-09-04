@@ -1,6 +1,11 @@
 (function(shoptet) {
 
     document.addEventListener('DOMContentLoaded', function() {
+        const queryParams = new URLSearchParams(window.location.search);
+        if (queryParams.has('update_management_preview')) {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
         var menus = document.querySelectorAll('.admin-bar #bar-menu > li');
         for (var i = 0; i < menus.length; i++) {
             menus[i].addEventListener('mouseenter', function(e) {
