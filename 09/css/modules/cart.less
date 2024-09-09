@@ -282,6 +282,16 @@
         }
     }
 }
+
+.recapitulation-shipping-billing-info--withVat {
+    font-size: @font-size-smaller;
+    line-height: 2;
+    flex-basis: 100%;
+    order: 1;
+    text-align: right;
+    font-weight: 400;
+}
+
 .order-icon {
     font-weight: 400;
     margin-left: 20px;
@@ -414,6 +424,7 @@
 }
 .order-summary-item {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     text-align: left;
     font-size: @font-size-larger;

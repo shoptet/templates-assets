@@ -101,26 +101,42 @@
             }
             var tableCode = $activeLine.closest('.shipping-billing-table').attr('data-type-code');
             var ev;
+            let priceWVDataAttrName
             if (tableCode === 'shipping') {
                 // Shipping
                 ev = 'ShoptetShippingMethodUpdated';
                 shoptet.checkoutShared.activeShipping = $activeLine[0];
+                priceWVDataAttrName = 'shipping-price-wv';
             } else {
                 // Billing
                 ev = 'ShoptetBillingMethodUpdated';
                 shoptet.checkoutShared.activeBilling = $activeLine[0];
+                priceWVDataAttrName = 'billing-price-wv';
             }
             shoptet.scripts.signalCustomEvent(ev);
             var activeLineText = $activeLine.find('.shipping-billing-name').clone();
             activeLineText.find('.question-tooltip').remove();
             activeLineText = activeLineText.text();
             var singleLine;
-            singleLine = '<div class="recapitulation-single recapitulation-shipping-billing" data-testid="recapCartItem">'
-                + '<span class="recapitulation-shipping-billing-label">'
-                + $activeLine.closest('.shipping-billing-table').attr('data-type')
-                + ':</span> <strong class="recapitulation-shipping-billing-info" data-testid="recapDeliveryMethod"><span data-testid="recapItemPrice">'
-                + $activeLine.find('.payment-shipping-price').html()
-                + '</span> ' + activeLineText + '</strong></div>';
+            const priceWV = $activeLine.find('.payment-shipping-price').data(priceWVDataAttrName);
+            singleLine = `<div class="recapitulation-single recapitulation-shipping-billing" data-testid="recapCartItem">
+                <span class="recapitulation-shipping-billing-label">
+                    ${$activeLine.closest('.shipping-billing-table').attr('data-type')}:
+                </span>
+                <strong class="recapitulation-shipping-billing-info" data-testid="recapDeliveryMethod">
+                    <span data-testid="recapItemPrice">
+                        ${$activeLine.find('.payment-shipping-price').html()}
+                    </span>
+                    ${activeLineText}
+                </strong>
+                ${!shoptet.config.defaultVatIncluded && priceWV ? (
+                    `<strong class="recapitulation-shipping-billing-info--withVat" data-testid="recapItemPriceWithVat">
+                        ${priceWV.ShoptetFormatAsCurrency(
+                            undefined, undefined, shoptet.config.decPlacesSystemDefault
+                        )} ${shoptet.messages['withVat']}
+                    </strong>`
+                ) : ''}
+            </div>`;
             $shippingAndBillingSummary.append(singleLine);
         });
         $shippingAndBillingSummary.find('.recapitulation-single:last').addClass('last');
