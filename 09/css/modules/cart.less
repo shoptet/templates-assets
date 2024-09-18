@@ -425,12 +425,19 @@
 .order-summary-item {
     display: flex;
     flex-wrap: wrap;
+    gap: 0 10px;
     justify-content: space-between;
     text-align: left;
     font-size: @font-size-larger;
     font-weight: 300;
-    > div + div {
-        flex-shrink: 0;
+    > div { 
+        &:first-child {
+            flex: 1;
+            text-align: left;
+        }
+        & + div {
+            flex-shrink: 0;
+        }
     }
     .recapitulation-wrapper & {
         display: block;
