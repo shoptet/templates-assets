@@ -1,0 +1,59 @@
+#colorbox.logistics-modal {
+  --logistics-modal-height: calc(100dvh - 20px);
+  --logistics-modal-width: 100vw;
+  --logistics-modal-max-width: calc(100vw - 20px - var(--scrollbar-width, 0px));
+  position: fixed !important;
+  height: var(--logistics-modal-height) !important;
+  width: var(--logistics-modal-width) !important;
+  max-height: var(--logistics-modal-height) !important;
+  max-width: var(--logistics-modal-max-width) !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  box-sizing: border-box;
+  line-height: 0;
+  #cboxWrapper {
+    height: 100% !important;
+    width: 100% !important;
+    max-width: 100%;
+  }
+  #cboxContent {
+    height: var(--logistics-modal-height) !important;
+    width: 100% !important;
+    float: none !important;
+    margin: 0;
+    clear: none;
+    border: none;
+    border-radius: 0;
+    box-sizing: border-box;
+    background: none;
+  }
+  #cboxLoadedContent {
+    height: 100% !important;
+    width: 100% !important;
+    border-radius: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  #cboxLoadingOverlay {
+    border-radius: 0;
+  }
+  #cboxClose {
+    border-radius: 0;
+  }
+}
+body:has(.new-gen-modal) {
+  overflow: hidden;
+}
+.new-gen-modal {
+  position: relative;
+  overflow: hidden;
+  height: var(--logistics-modal-height);
+  line-height: normal;
+  background-color: #fff;
+  iframe {
+    width: 100% !important;
+    height: var(--logistics-modal-height) !important;
+    border: none !important;
+  }
+}

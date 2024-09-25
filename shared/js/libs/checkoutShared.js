@@ -535,7 +535,7 @@
      * This function does not accept any arguments.
      */
     function getStatedValues() {
-        deliveryCountryIdValue = $('#deliveryCountryId').val();
+        deliveryCountryIdValue = $('#deliveryCountryId').val() || shoptet.checkoutShared.deliveryCountries[0].id;
         regionCountryIdValue = $('#deliveryRegionId').val();
         currencyCode = $('#payment-currency').val();
         shoptet.checkoutShared.deliveryCountryId = deliveryCountryIdValue;
@@ -1078,6 +1078,42 @@
                 }
             });
         }
+
+        var newGenChooseOpen = false;
+        $document.on('click', '.new-gen-choose a', function(e) {
+            e.preventDefault();
+            if (newGenChooseOpen) {
+                return;
+            }
+            newGenChooseOpen = true;
+            $parentsElement = $(this).closest('.radio-wrapper');
+            let href = '/action/NewGenWidget/Choose/?code=' + $parentsElement.find('[data-new-gen-code]').data('newGenCode') + '&deliveryCountryId=' + shoptet.checkoutShared.deliveryCountryId;
+            var chosenBranchId = undefined;
+            var chosenBranchName = undefined;
+            shoptet.checkoutShared.chooseBranch = function(branchId, branchName) {
+                chosenBranchId = branchId;
+                chosenBranchName = branchName;
+                shoptet.modal.close();
+            };
+            shoptet.modal.open({
+                href,
+                className: 'logistics-modal',
+                onComplete: () => {
+                    if (typeof logisticsModalOnComplete === 'function') {
+                        logisticsModalOnComplete();
+                    }
+                },
+                onCleanup: () => {
+                    newGenChooseOpen = false;
+                    if (chosenBranchName && chosenBranchId) {
+                        var completeBranchName = chosenBranchName + ' ';
+                        var $newLink = $('<a href="#" class="chosen">' + shoptet.messages['change'] + '</a>');
+                        $parentsElement.find('.new-gen-choose').html(completeBranchName).append($newLink).show(0);
+                        $parentsElement.find('input[name*=shippingMethodBranch]').val(chosenBranchId);
+                    }
+                }
+            })
+        });
 
         if (typeof glsParcelShopUrl !== 'undefined') {
             var glsParcelShopId = '';
@@ -1626,7 +1662,7 @@
                             return;
                         }
                         if (!link.classList.contains('chosen') || e.target instanceof HTMLAnchorElement) {
-                            var ev = new CustomEvent('click', { bubbles: true });
+                            var ev = new CustomEvent('click', { bubbles: true, cancelable: true });
                             link.dispatchEvent(ev);
                         }
                     }
