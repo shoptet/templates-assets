@@ -30,7 +30,7 @@
           return
       }
     
-      let $el = $('#ratingTab .votes-wrap');
+      let $el = $('#ratingTab > .votes-wrap');
       let listingEl = '.votes-wrap > .vote-wrap'
       let loadNextEl = '.load-next-wrap'
       let signalCustomEventName = 'ShoptetProductRatingsRequested';
