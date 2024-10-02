@@ -760,7 +760,8 @@ ol.cart-header {
         }
     }
 }
-.customer-page .content {
+
+:where(.temp_old_clientTables).customer-page .content {
     table.border {
         thead,
         .client-table-heading {
@@ -792,6 +793,29 @@ ol.cart-header {
             background-color: unset;
         }
     }
+}
+
+:where(.temp_new_clientTables).customer-page .content {
+    table {
+        border-color: @border-color;
+        thead,
+        .client-table-heading {
+            color: @text-muted-color;
+        }
+        tr:nth-child(even):not(thead tr) {
+            background-color: @sidebar-bg;
+        }
+        &.table-mobile-enriched {
+            tr {
+                @media (max-width: @screen-md-max) {
+                    background-color: @sidebar-bg;
+                }
+            }
+        }
+    }
+}
+
+.customer-page .content {
     a strong {
         color: @text-color;
     }

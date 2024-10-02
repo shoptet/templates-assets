@@ -192,9 +192,20 @@ label.disabled {
 }
 
 // Customer center
-@media (min-width: @screen-sm-min) {
-    .table-md-50 {
-        width: 50% !important;
+:where(.temp_old_clientTables) {
+    @media (min-width: @screen-sm-min) {
+        .table-md-50 {
+            width: 50% !important;
+        }
+    }
+}
+
+:where(.temp_new_clientTables) {
+    @media (min-width: @screen-md-min) {
+            .table-md-50 {
+            width: auto !important;
+            min-width: 50%;
+        }
     }
 }
 
@@ -202,8 +213,12 @@ label.disabled {
     width: 21%;
 }
 
-.table-th-date {
+:where(.temp_old_clientTables) .table-th-date {
     width: 7%;
+}
+
+:where(.temp_new_clientTables) .table-th-date {
+    width: 12%;
 }
 
 .price-standard,

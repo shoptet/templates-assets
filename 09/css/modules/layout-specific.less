@@ -493,7 +493,7 @@ a.btn {
             right: 0;
             top: 0;
         }
-        .increase-tooltip, 
+        .increase-tooltip,
         .decrease-tooltip {
             width: 100%;
             right: 0;
@@ -585,6 +585,19 @@ a.btn {
         // Added
         @media(min-width: @screen-xl-min) {
             height: 554px;
+        }
+    }
+}
+
+:where(.temp_new_clientTables) {
+    .table-shipping-addresses {
+        td:not(:last-child) {
+            border-right-width: 0;
+
+            @media(min-width: @screen-md-min) {
+                border-right-style: solid;
+                border-right-width: 1px;
+            }
         }
     }
 }

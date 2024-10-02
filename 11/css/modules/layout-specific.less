@@ -655,3 +655,20 @@ a.btn {
     padding-right: round(@grid-gutter-width / 2);
     padding-bottom: 5px;
 }
+
+:where(.temp_new_clientTables) {
+    .co-box.co-registration {
+        padding-right: 0;
+    }
+
+    .table-shipping-addresses {
+        td:not(:last-child) {
+            border-right-width: 0;
+
+            @media(min-width: @screen-lg-min) {
+                border-right-style: solid;
+                border-right-width: 1px;
+            }
+        }
+    }
+}
