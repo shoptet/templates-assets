@@ -1,0 +1,22 @@
+.preauthorization-box {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr auto;
+    padding: round(@line-height-computed / 2);
+    column-gap: 4px;
+    background-color: var(--color-secondary);
+}
+
+.preauthorization-box__title,
+.preauthorization-box__price,
+.preauthorization-box__description {
+    color: @box-price-color;
+}
+
+.preauthorization-box__price {
+    font-size: @price-wrapper-price-primary-font-size;
+}
+
+.preauthorization-box__description {
+    grid-column: span 2 / span 2;
+}

@@ -112,6 +112,7 @@
                 ev = 'ShoptetBillingMethodUpdated';
                 shoptet.checkoutShared.activeBilling = $activeLine[0];
                 priceWVDataAttrName = 'billing-price-wv';
+                togglePreauthorizationBoxBySelectedBillingMethod();
             }
             shoptet.scripts.signalCustomEvent(ev);
             var activeLineText = $activeLine.find('.shipping-billing-name').clone();
@@ -172,6 +173,24 @@
             }
 
             shoptet.checkoutShared.updatePriceSummary(shippingActive, billingActive);
+        }
+    }
+
+    function togglePreauthorizationBoxBySelectedBillingMethod() {
+        var submethod = $(shoptet.checkoutShared.activeBilling).attr('data-submethod');
+
+        if (submethod === 'applepay' || submethod === 'googlepay' || submethod === 'scheme') {
+            if (shoptet.abilities.about.generation === 3) {
+                $('.js-preauthorization-box').addClass('visible');
+            } else {
+                $('.js-preauthorization-box').show();
+            }
+        } else {
+            if (shoptet.abilities.about.generation === 3) {
+                $('.js-preauthorization-box').removeClass('visible');
+            } else {
+                $('.js-preauthorization-box').hide();
+            }
         }
     }
 

@@ -831,6 +831,20 @@ tr.removeable {
     }
 }
 
+.preauthorization-box {
+    margin: @line-height-computed (@double-spacing * -1) @triple-spacing;
+    padding: @double-spacing;
+
+    @media (min-width: @screen-lg-min) {
+        margin: 0 (@grid-gutter-width * -1) @triple-spacing;
+        padding: @double-spacing @grid-gutter-width;
+    }
+}
+
+.preauthorization-box__title {
+    font-size: @font-size-larger;
+}
+
 .order-summary-heading {
     text-align: center;
     margin-top: @grid-gutter-width;

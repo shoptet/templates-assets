@@ -124,18 +124,18 @@
         return Math.round(price / 5) * 5;
     }
 
-    function roundForDocument(rounding = null) {
+    // @see PriceHelper.php::roundForDocumentWithMode()
+    function roundForDocument(rounding = Number(shoptet.config.documentsRounding), documentPriceDecimalPlaces = Number(shoptet.config.documentPriceDecimalPlaces)) {
         var number = this;
-
-        rounding = (rounding !== null) ? rounding : Number(shoptet.config.documentsRounding);
+        var pow = Math.pow(10, documentPriceDecimalPlaces);
 
         switch (rounding) {
             case 1:
-                return Math.ceil(number);
+                return Math.ceil(number * pow) / pow;
             case 2 :
-                return Math.floor(number);
+                return Math.floor(number * pow) / pow;
             case 3 :
-                return Math.round(number);
+                return Math.round(number *  pow) / pow;
             case 4 :
                 return roundForHu(number);
             case 5 :
@@ -232,7 +232,7 @@
             }
         }
     })
-    
+
     $('.cart-widget, .product').on('mouseleave', function() {
         if($('.tooltip').length) {
             shoptet.variantsCommon.hideQuantityTooltips();

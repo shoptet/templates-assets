@@ -449,6 +449,21 @@
         margin-top: 40px;
     }
 }
+
+.preauthorization-box {
+    margin: @grid-gutter-width round(@grid-gutter-width / -4) 0;
+    padding: round(@grid-gutter-width / 2) round(@grid-gutter-width / 4);
+
+    @media (min-width: @screen-sm-min) {
+        margin: @grid-gutter-width round(@grid-gutter-width / -2) 0;
+        padding: round(@grid-gutter-width / 2);
+    }
+}
+
+.preauthorization-box__title {
+    font-size: @font-size-larger;
+}
+
 .summary-thx {
     margin-bottom: @grid-gutter-width;
 }
