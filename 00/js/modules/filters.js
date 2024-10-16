@@ -270,31 +270,8 @@ window.parseFilterValuesFromContent = () => {
  * @param {String} selectedMaxValue
  */
 window.formatFilterValues = (selectedMinValue, selectedMaxValue) => {
-
-    var
-        reverseNumberMin = '',
-        finalNumberMin = '',
-        reverseNumberMax = '',
-        finalNumberMax = '';
-
-    for (var i = selectedMinValue.length; i >= 0; i--) {
-        reverseNumberMin = reverseNumberMin + selectedMinValue.charAt(i);
-    }
-    var formatedNumber = reverseNumberMin.replace(/(.{3})/g, '$1' + shoptet.config.thousandSeparator);
-    for (var i = formatedNumber.length; i >= 0; i--) {
-        finalNumberMin = finalNumberMin + formatedNumber.charAt(i);
-    }
-
-    for (var i = selectedMaxValue.length; i >= 0; i--) {
-        reverseNumberMax = reverseNumberMax + selectedMaxValue.charAt(i);
-    }
-    var formatedMaxNumber = reverseNumberMax.replace(/(.{3})/g, '$1' + shoptet.config.thousandSeparator);
-    for (var i = formatedMaxNumber.length; i >= 0; i--) {
-        finalNumberMax = finalNumberMax + formatedMaxNumber.charAt(i);
-    }
-
-    $('#min').text(finalNumberMin);
-    $('#max').text(finalNumberMax);
+    $('#min').text(Number(selectedMinValue).ShoptetFormatNumber());
+    $('#max').text(Number(selectedMaxValue).ShoptetFormatNumber());
 };
 
 $(function () {

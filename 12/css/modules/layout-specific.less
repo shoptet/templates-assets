@@ -829,6 +829,27 @@ a.btn {
     }
     table.detail-parameters {
         width: auto;
+        tr {
+            th,
+            td {
+                padding-top: 11px;
+                padding-bottom: 11px;
+            }
+            td:has(:where(select, .no-display, .sizeID, .advanced-parameter)) {
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+
+            @media (max-width: @screen-xs-max) {
+                th {
+                    padding-top: 0;
+                    padding-bottom: 0;
+                }
+                td:has(.no-display) {
+                    margin-bottom: 0;
+                }
+            }
+        }
         .shipping-options {
             text-decoration: underline;
             text-transform: none;
@@ -909,7 +930,7 @@ a.btn {
                     th {
                         width: 30%;
                         min-width: auto;
-                        padding-right: 5px;
+                        padding-right: 8px;
                         text-align: left;
                         text-transform: none;
                         .one-column-body & {

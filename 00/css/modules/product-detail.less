@@ -394,15 +394,23 @@ table.detail-parameters {
         tr {
             th,
             td {
-                line-height: 3;
+                padding-top: 14px;
+                padding-bottom: 14px;
+                line-height: 1.444;
                 &.prices {
+                    padding-top: 0;
+                    padding-bottom: 0;
                     line-height: 1.2;
                 }
+            }
+            td:has(:where(select, .no-display, .sizeID, .advanced-parameter)) {
+                padding-top: 0;
+                padding-bottom: 0;
             }
             th {
                 width: 40%;
                 min-width: 190px;
-                padding-right: 5px;
+                padding-right: 8px;
                 text-align: left;
                 text-transform: uppercase;
                 .one-column-body & {
@@ -421,11 +429,19 @@ table.detail-parameters {
                 th,
                 td {
                     display: block;
-                    line-height: @line-height-computed;
                     width: auto;
+                    padding-top: 3px;
+                    padding-bottom: 3px;
                 }
                 td {
                     margin-bottom: round(@line-height-computed / 2);
+                    &:has(:where(select, .no-display, .sizeID)) {
+                        padding-top: 0;
+                        padding-bottom: 0;
+                    }
+                    &:has(:where(.no-display:only-child)) {
+                        margin-bottom: 0;
+                    }
                 }
             }
         }

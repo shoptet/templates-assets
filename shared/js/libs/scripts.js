@@ -328,7 +328,8 @@
             'formatAsCurrency',
             'resolveMinimumAmount',
             'updateQuantity',
-            'isTouchDevice'
+            'isTouchDevice',
+            'enableUpdatePreview'
         ],
         products: [
             'splitWidgetParameters',

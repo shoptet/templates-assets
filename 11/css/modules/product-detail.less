@@ -164,6 +164,10 @@ ul.shp-tabs {
     th,
     td {
         padding-bottom: 5px;
+
+        &:has(.no-display) {
+            padding-bottom: 0;
+        }
     }
     th {
         padding-right: round(@grid-gutter-width / 2);

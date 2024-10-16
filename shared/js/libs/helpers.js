@@ -257,6 +257,11 @@
         return mq(query);
     }
 
+    function enableUpdatePreview(updateCode) {
+      shoptet.cookie.create(`update_management_preview_${updateCode}`, 1, { years: 1 })
+      window.location.reload()
+    }
+
     shoptet.helpers = shoptet.helpers || {};
     shoptet.scripts.libs.helpers.forEach(function(fnName) {
         var fn = eval(fnName);

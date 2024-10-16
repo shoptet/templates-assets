@@ -554,7 +554,7 @@
      * This function does not accept any arguments.
      */
     function getStatedValues() {
-        deliveryCountryIdValue = $('#deliveryCountryId').val() || shoptet.checkoutShared.deliveryCountries[0].id;
+        deliveryCountryIdValue = $('#deliveryCountryId').val() || shoptet.checkoutShared.deliveryCountries?.[0].id;
         regionCountryIdValue = $('#deliveryRegionId').val();
         currencyCode = $('#payment-currency').val();
         shoptet.checkoutShared.deliveryCountryId = deliveryCountryIdValue;
@@ -1553,6 +1553,8 @@
             }
         });
         $(`${postDeliveryPointsData.deliveryPointPrefix}-wrapper .city`).autocomplete({
+            delay: 500,
+            minLength: 3,
             source: function(request, response) {
                 var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
                 response($.grep(posts, function(value) {
