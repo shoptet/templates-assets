@@ -3,54 +3,53 @@ const MOBILE_DEVICE_PARAM = 'isMobileDevice';
 
 const EDITOR_ORIGIN = window.location.origin;
 
-// Apply only if in editor preview mode
-if (shoptet?.editorPreview) {
+// Capture link clicks
+document.addEventListener('click', function (e) {
+  if (!shoptet?.editorPreview) return;
 
-	// Capture link clicks
-	document.addEventListener('click', function (e) {
-		if (e.defaultPrevented) {
+	if (e.defaultPrevented) {
+		return;
+	}
+
+	const link = e.target?.closest('a');
+
+	if (link && link.href) {
+		let url;
+		try {
+			url = new URL(link.href);
+		} catch (e) {
 			return;
 		}
 
-		const link = e.target?.closest('a');
-
-		if (link && link.href) {
-			let url;
-			try {
-				url = new URL(link.href);
-			} catch (e) {
-				return;
-			}
-
-			if (link.target === '_blank') {
-				return;
-			}
-
-			if (!url.origin || url.origin === 'null') {
-				return;
-			}
-
-			if (url.origin !== window.location.origin) {
-				e.preventDefault();
-				return;
-			}
-
-			if (url.pathname === window.location.pathname && url.href.includes('#')) {
-				return;
-			}
-
-			e.preventDefault();
-			const nextUrl = getNextUrl(url);
-			sendMessage({ type: 'pageIsLoading' });
-			window.location.assign(nextUrl);
+		if (link.target === '_blank') {
+			return;
 		}
-	});
 
-	// Capture navigation to another page
-	window.addEventListener('pagehide', function () {
+		if (!url.origin || url.origin === 'null') {
+			return;
+		}
+
+		if (url.origin !== window.location.origin) {
+			e.preventDefault();
+			return;
+		}
+
+		if (url.pathname === window.location.pathname && url.href.includes('#')) {
+			return;
+		}
+
+		e.preventDefault();
+		const nextUrl = getNextUrl(url);
 		sendMessage({ type: 'pageIsLoading' });
-	});
-}
+		window.location.assign(nextUrl);
+	}
+});
+
+// Capture navigation to another page
+window.addEventListener('pagehide', function () {
+	sendMessage({ type: 'pageIsLoading' });
+});
+
 
 // Receive messages
 window.addEventListener('message', function (e) {
@@ -76,6 +75,16 @@ window.addEventListener('message', function (e) {
 		sendMessage({ type: 'pageIsLoading' });
 		window.location.assign(nextUrl);
 	}
+
+  if (e.data.type === 'inspectConfig') {
+    prevConfig = inspectConfig;
+    inspectConfig = { ...inspectConfig, ...e.data.config };
+    toggleInspectMode();
+
+    if (prevConfig.activeElementId !== inspectConfig.activeElementId) {
+      setActiveElement(findElementInView(inspectConfig.activeElementId));
+    }
+  }
 });
 
 // Post messages
@@ -114,4 +123,233 @@ function getNextUrl(urlObject, options) {
 	}
 
 	return urlObject;
+}
+
+/*********************
+ * Inspect mode
+ *********************/
+
+// State
+let inspectConfig = {
+  enabled: false,
+  activeElementId: null,
+  titles: {},
+}
+
+let activeElement = null;
+let hoveredElement = null;
+
+// Shadow DOM overlay
+const overlay = document.createElement('div');
+const shadow = overlay.attachShadow({ mode: 'open' });
+
+const style = document.createElement('style');
+style.textContent = `
+  :host {
+    all: initial;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+    letter-spacing: 0.1px;
+    font-family: 'Inter', sans-serif;
+    display: none;
+  }
+
+  .label-outline {
+    position: absolute;
+    transition: outline 0s;
+  }
+
+  .label-text {
+    position: absolute;
+    background-color: #ffe91c;
+    color: #000;
+    font-weight: 700;
+    padding: 2px 8px;
+    font-size: 12px;
+    line-height: 16px;
+    border-radius: 2px;
+  }
+`;
+
+shadow.appendChild(style);
+
+const labelContainer = document.createElement('div');
+shadow.appendChild(labelContainer);
+document.body.appendChild(overlay);
+
+function toggleInspectMode() {
+  overlay.style.display = inspectConfig.enabled ? 'block' : 'none';
+}
+
+// Lables
+function createOrUpdateLabel(element) {
+  if (!element) return;
+
+  const isActive = element === activeElement;
+  const isHovered = element === hoveredElement;
+  const id = element.dataset.editorid;
+
+  // Handle elements with the same id
+  let index = 0;
+  const elements = document.querySelectorAll(`[data-editorid="${id}"]`);
+  elements.forEach((el, i) => {
+    if (el === element) {
+      index = i;
+    }
+  });
+
+  let labelInfo = shadow.querySelector(`[data-for="${id}"][data-for-index="${index}"]`);
+
+  if (!labelInfo) {
+    labelInfo = document.createElement('div');
+    labelInfo.dataset.for = id;
+    labelInfo.dataset.forIndex = index;
+    labelContainer.appendChild(labelInfo);
+  }
+
+  const rect = element.getBoundingClientRect();
+
+  labelInfo.innerHTML = `
+    <div class="label-outline" style="
+      left: ${rect.left}px;
+      top: ${rect.top}px;
+      width: ${rect.width}px;
+      height: ${rect.height}px;
+      outline-offset: ${isActive ? '-4px' : '-2px'};
+      outline: ${isActive ? '4px solid #ffe91c' : (isHovered ? '2px solid #ffe91c' : 'none')};
+    "></div>
+    <div class="label-text" style="
+      left: ${rect.left + 8}px;
+      bottom: ${window.innerHeight - rect.bottom + 8}px;
+      display: ${isActive || isHovered ? 'block' : 'none'};
+      z-index: ${isHovered ? '100' : '99'};
+    ">${inspectConfig.titles[id]}</div>
+  `;
+}
+
+// Event handlers
+document.body.addEventListener('click', (event) => {
+  if (!inspectConfig.enabled) return;
+
+  const element = event.target.closest('[data-editorid]');
+  if (element && element !== activeElement) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    inspectConfig.activeElementId = element.dataset.editorid;
+    setActiveElement(element);
+  }
+});
+
+document.addEventListener('mouseover', (event) => {
+  if (!inspectConfig.enabled) return;
+
+  const element = event.target.closest('[data-editorid]');
+  if (element) {
+    setHoveredElement(element);
+  } else {
+    setHoveredElement(null);
+  }
+});
+
+function setActiveElement(el) {
+  if (el === activeElement) return;
+
+  const prevActive = activeElement;
+  activeElement = el;
+
+  if (prevActive) createOrUpdateLabel(prevActive);
+  if (activeElement) {
+    createOrUpdateLabel(activeElement);
+    scrollToElement(activeElement);
+    handleSpecialElements(activeElement);
+  }
+
+  sendMessage({ type: 'inspecting', activeElementId: inspectConfig.activeElementId });
+}
+
+function setHoveredElement(el) {
+  const prevHovered = hoveredElement;
+  hoveredElement = el;
+
+  if (prevHovered) createOrUpdateLabel(prevHovered);
+  if (hoveredElement) createOrUpdateLabel(hoveredElement);
+}
+
+function updateAllLabels() {
+  document.querySelectorAll('[data-editorid]').forEach(el => {
+    if (shadow.querySelector(`[data-for="${el.dataset.editorid}"]`)) {
+      createOrUpdateLabel(el);
+    }
+  });
+}
+
+window.addEventListener('scroll', updateAllLabels);
+window.addEventListener('resize', updateAllLabels);
+
+// Positioning functions
+function scrollToElement(element) {
+  const rect = element.getBoundingClientRect();
+  const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+
+  let targetScrollTop;
+  if (rect.top < 0) {
+    targetScrollTop = currentScrollTop + rect.top - 20;
+  } else if (rect.bottom > window.innerHeight) {
+    targetScrollTop = currentScrollTop + rect.bottom - window.innerHeight + 20;
+  } else {
+    return;
+  }
+
+  window.scrollTo({
+    top: targetScrollTop,
+    behavior: 'smooth'
+  });
+}
+
+function findElementInView(id) {
+  const elements = document.querySelectorAll(`[data-editorid="${id}"]`);
+  if (!elements.length) return null;
+
+  const isElementInView = (el) => {
+    const rect = el.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  };
+
+  const visibleElement = Array.from(elements).find(isElementInView);
+  return visibleElement || elements[0];
+}
+
+// Special elements (carousel etc.)
+function handleSpecialElements(element) {
+  handleCarousel(element);
+}
+
+function handleCarousel(element) {
+  if (!$?.fn?.carousel) return;
+
+  $carousel = $('[data-editorid="carousel"]');
+
+  if (!element || !element.dataset.editorid.startsWith('carousel-')) {
+    $carousel.carousel('cycle');
+  } else {
+    element.closest('[data-editorid="carousel"]').querySelectorAll('[data-editorid]').forEach((el, i) => {
+      if (el === element) {
+        $carousel.carousel(i);
+        $carousel.carousel('pause');
+        $carousel.one('slid.bs.carousel', function() {
+          updateAllLabels();
+        })
+      }
+    });
+  }
 }
