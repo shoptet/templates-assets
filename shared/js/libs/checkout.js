@@ -157,12 +157,26 @@
                         $('#summary-box').html(html)
                     }
                     if (shouldUpdateVatIdValidation) {
-                        if (response.getFromPayload('vatIdValidationStatus')) {
+                        if (response.getFromPayload('vatIdValidationStatus') === 2) {
                             shoptet.validator.validatorMessage.hide($('#vatId'));
                             shoptet.validator.showValidatorMessage(
                                 $('#vatId'),
                                 shoptet.messages['validatorVatIdValid'],
                                 'msg-ok'
+                            );
+                        } else if (response.getFromPayload('vatIdValidationStatus') === 4) {
+                            shoptet.validator.validatorMessage.hide($('#vatId'));
+                            shoptet.validator.showValidatorMessage(
+                                $('#vatId'),
+                                shoptet.messages['validatorVatIdInvalidOrderForbid'],
+                                'msg-error'
+                            );
+                        } else if (response.getFromPayload('vatIdValidationStatus') === 5) {
+                            shoptet.validator.validatorMessage.hide($('#vatId'));
+                            shoptet.validator.showValidatorMessage(
+                                $('#vatId'),
+                                shoptet.messages['validatorVatIdInvalidOssRegime'],
+                                'msg-info'
                             );
                         } else {
                             shoptet.validator.validatorMessage.hide($('#vatId'));

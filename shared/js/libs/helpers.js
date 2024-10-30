@@ -195,9 +195,9 @@
         var max = typeof max !== 'undefined'
             ? toFloat(max) : toFloat(shoptet.config.defaultProductMaxAmount);
 
-        if (action.indexOf('increase') !== -1) {
+        if (action === 'increase') {
             value += (min > 1) ? 1 : min;
-        } else {
+        } else if (action === 'decrease') {
             value -= (min > 1) ? 1 : min;
         }
 

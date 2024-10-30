@@ -137,26 +137,28 @@ ul.shp-tabs {
 
 .description-inner {
     padding: 0 round(@grid-gutter-width / 2);
+
     @media (min-width: @screen-md-min) {
         display: flex;
         flex-wrap: wrap;
+        gap: 0 @grid-gutter-width + round(@grid-gutter-width / 4);
         align-items: flex-start;
+    }
+
+    @media (min-width: @screen-lg-min) {
+        flex-wrap: nowrap;
     }
 }
 
 .basic-description {
-    @media (min-width: @screen-lg-min) {
+    @media (min-width: @screen-md-min) {
         flex: 1 1 auto;
-        width: 66.666666%;
-        padding-right: @grid-gutter-width;
     }
 }
 
 .extended-description {
-    @media (min-width: @screen-lg-min) {
-        flex: 0 1 auto;
-        width: 33.333333%;
-        padding-left: round(@grid-gutter-width / 4);
+    @media (min-width: @screen-md-min) {
+        flex: 0 0 calc(33.333333% - round(@grid-gutter-width / 4));
     }
 }
 

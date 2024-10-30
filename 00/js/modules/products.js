@@ -680,6 +680,7 @@
         var $el = $this.parents('.quantity').find('.amount');
         var action = $this.attr('class');
         var callback = false;
+        let triggerChange = true;
         if ($el.parents('.cart-table').length
         || $el.parents('.cart-widget-product-amount').length
         || $this.parents('.ao-product').length
@@ -688,6 +689,7 @@
                 shoptet.cart.updateQuantityInCart($el, shoptet.config.updateQuantityTimeout);
             }
             callback = updateQuantityCallback;
+            triggerChange = false
         }
         shoptet.helpers.updateQuantity(
             $el[0],
@@ -697,6 +699,10 @@
             action,
             callback
         );
+
+        if (triggerChange) {
+            $el[0].dispatchEvent(new Event('change'));
+        }
     }
 
     shoptet.products = shoptet.products || {};

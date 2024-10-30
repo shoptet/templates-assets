@@ -224,7 +224,8 @@
         'ShoptetBaseShippingInfoObtained',
         'ShoptetShippingMethodUpdated',
         'ShoptetBillingMethodUpdated',
-        'ShoptetSurchargesPriceUpdated'
+        'ShoptetSurchargesPriceUpdated',
+        'ShoptetQuantityDiscountUpdated'
     ];
     // TODO: updateCartButton - on cart page unnecessary
     shoptet.scripts.libs = {
@@ -490,6 +491,11 @@
         ],
         xyDiscounts: [
             'updateFlags'
+        ],
+        quantityDiscounts: [
+          'getQuantityDiscountElementByAmount',
+          'calculateQuantityDiscount',
+          'updateQuantityDiscount',
         ]
     };
 
