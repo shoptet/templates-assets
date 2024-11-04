@@ -18,9 +18,14 @@
         justify-content: center;
         align-items: center;
         text-align: center;
+        hyphens: auto;
+        word-break: break-word;
         .price-standard,
         .price-save {
             font-size: @flag-extra-font-size;
+        }
+        &.flag-freeshipping {
+            font-size: @flag-extra-font-size-smaller;
         }
     }
     .p-image-wrapper & {
