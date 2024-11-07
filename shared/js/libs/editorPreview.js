@@ -3,6 +3,8 @@ const MOBILE_DEVICE_PARAM = 'isMobileDevice';
 
 const EDITOR_ORIGIN = window.location.origin;
 
+let lastHover = null;
+
 // Capture link clicks
 document.addEventListener('click', function (e) {
   if (!shoptet?.editorPreview) return;
@@ -84,6 +86,10 @@ window.addEventListener('message', function (e) {
     if (prevConfig.activeElementId !== inspectConfig.activeElementId) {
       setActiveElement(findElementInView(inspectConfig.activeElementId));
     }
+  }
+
+  if (e.data.type === 'inspectHover') {
+    setHoveredElement(findElementInView(e.data.hoverElementId));
   }
 });
 
@@ -251,8 +257,19 @@ document.addEventListener('mouseover', (event) => {
   const element = event.target.closest('[data-editorid]');
   if (element) {
     setHoveredElement(element);
+
+    // use lastHover to prevent sending multiple messages for the same element
+    if (lastHover === null || lastHover !== element.dataset.editorid) {
+      sendMessage({ type: 'inspectHover', hoverElementId: element.dataset.editorid });
+      lastHover = element.dataset.editorid;
+    }
   } else {
     setHoveredElement(null);
+    
+    if (lastHover !== null) {
+      lastHover = null;
+      sendMessage({ type: 'inspectHover', hoverElementId: null });
+    }
   }
 });
 
@@ -338,8 +355,9 @@ function handleCarousel(element) {
   if (!$?.fn?.carousel) return;
 
   $carousel = $('[data-editorid="carousel"]');
+  if (!$carousel.length) return;
 
-  if (!element || !element.dataset.editorid.startsWith('carousel-')) {
+  if (!element || element.dataset.editorid === 'carousel' || !element.closest('[data-editorid="carousel"]')) {
     $carousel.carousel('cycle');
   } else {
     element.closest('[data-editorid="carousel"]').querySelectorAll('[data-editorid]').forEach((el, i) => {

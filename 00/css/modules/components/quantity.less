@@ -1,5 +1,12 @@
 .quantity-form {
     margin: 0;
+    &.error-message {
+        padding: 0;
+    }
+    .error-message:has(&) {
+        margin-top: 0;
+        padding: 0;
+    }
 }
 .quantity {
     position: relative;
@@ -13,6 +20,10 @@
     font-size: @quantity-font-size;
     font-weight: @quantity-font-weight;
     line-height: 1;
+    .error-message & {
+        border: 1px solid @red;
+        box-shadow: 0 0 3px @red;
+    }
     input {
         display: inline-block;
         width: @quantity-input-width;

@@ -1,13 +1,70 @@
 (function (shoptet) {
+    const pDetailInner = document.querySelector('.p-detail-inner')
+    const quantityInput = pDetailInner?.querySelector('.quantity input')
+    const quantityDiscountsFlag = pDetailInner?.querySelector('.js-quantity-discounts__flag')
     const quantityDiscountsTable = document.querySelector('.js-quantity-discounts')
-    const quantityInput = document.querySelector('.p-detail-inner .quantity input')
     const quantityDiscountsSavedAmount = document.querySelector('.js-quantity-discounts__saved-amount')
     const quantityDiscountsItems = document.querySelectorAll('.js-quantity-discounts__item')
+  
+    let productOrigPrice = document.querySelector('.quantity-discounts__table')?.dataset.origPrice
+
+    function onVariantChange(show, newPrice, minimumAmount) {
+        if (!quantityDiscountsTable) {
+            return
+        }
+        if (show) {
+            showQuantityDiscountsFlag();
+            showQuantityDiscountsTable();
+            getQuantityDiscountElementByAmount(minimumAmount)
+            recalculateQuantityDiscountsTable(newPrice)
+        } else {
+            hideQuantityDiscountsFlag();
+            hideQuantityDiscountsTable();
+        }
+    }
+
+    function showQuantityDiscountsFlag() {
+        if (quantityDiscountsFlag) {
+            quantityDiscountsFlag.classList.remove('hidden')
+        }
+    }
+
+    function hideQuantityDiscountsFlag() {
+        if (quantityDiscountsFlag) {
+            quantityDiscountsFlag.classList.add('hidden')
+        }
+    }
+
+    function showQuantityDiscountsTable() {
+        if (quantityDiscountsTable) {
+            quantityDiscountsTable.classList.add('visible')
+        }
+    }
+
+    function hideQuantityDiscountsTable() {
+        if (quantityDiscountsTable) {
+            quantityDiscountsTable.classList.remove('visible')
+        }
+    }
+
+    function recalculateQuantityDiscountsTable(newPrice) {
+        if (newPrice === undefined || isNaN(newPrice) || typeof newPrice !== 'number') {
+            console.error('recalculateQuantityDiscountsTable: Invalid price')
+            return
+        }
+
+        productOrigPrice = newPrice
+        quantityDiscountsItems.forEach((item) => {
+            const priceRatio = item.dataset.priceRatio
+            const price = newPrice * priceRatio
+            item.querySelector('.quantity-discounts__price').textContent = price.ShoptetFormatAsCurrency()
+        })
+    }
 
     function getQuantityDiscountElementByAmount(amount) {
         if (amount === undefined || isNaN(amount) || typeof amount !== 'number') {
-          console.error('getQuantityDiscountElementByAmount: Invalid amount')
-          amount = 1
+            console.error('getQuantityDiscountElementByAmount: Invalid amount')
+            amount = 1
         }
 
         amount = Math.max(...Array.from(quantityDiscountsItems).map(item => parseInt(item.dataset.amount)).filter(item => item <= amount))
@@ -30,14 +87,15 @@
     }
 
     function calculateQuantityDiscount(el) {
-        if (!el.dataset.priceRatio) {
+        if (!el.dataset.priceRatio || !el.dataset.amount) {
             console.error('updateQuantityDiscount: Invalid element')
             return
         }
-        const productPrice = getShoptetDataLayer().product.priceWithVat;
-        const priceRatio = el.dataset.priceRatio;
 
-        return (quantityInput.value * (productPrice - (productPrice * priceRatio))).ShoptetFormatAsCurrency()
+        const productPrice = Number(productOrigPrice)
+        const priceRatio = Number(el.dataset.priceRatio);
+
+        return ((quantityInput?.value || el.dataset.amount) * (productPrice - (productPrice * priceRatio))).ShoptetFormatAsCurrency()
     }
 
     quantityDiscountsTable && quantityInput?.addEventListener('change', () => {
@@ -46,8 +104,11 @@
 
     quantityDiscountsItems.forEach((item) => {
         item.addEventListener('click', () => {
-            quantityInput.value = item.dataset.amount
-            shoptet.helpers.updateQuantity(quantityInput, quantityInput.dataset.min, quantityInput.dataset.max, quantityInput.dataset.decimals, 'change')
+            if (quantityInput) {
+                quantityInput.value = item.dataset.amount
+                shoptet.helpers.updateQuantity(quantityInput, quantityInput.dataset.min, quantityInput.dataset.max, quantityInput.dataset.decimals, 'change')
+            }
+
             updateQuantityDiscount(item)
             shoptet.scripts.signalCustomEvent('ShoptetQuantityDiscountUpdated', item);
         })

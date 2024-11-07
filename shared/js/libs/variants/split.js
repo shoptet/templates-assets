@@ -45,13 +45,14 @@
                     shoptet.variantsCommon.disableAddingToCart();
 
                     if($('input:checked, option:selected', this).attr('data-preselected')) {
-                            shoptet.variantsSplit.getData(variantCode, 0);
+                        shoptet.variantsSplit.getData(variantCode, 0);
                     } else {
                         shoptet.variantsSplit.getData(variantCode, 1);
                     }
                 } else {
                     if (shoptet.abilities.about.generation > 2) {
                         shoptet.xyDiscounts.updateFlags(null);
+                        shoptet.quantityDiscounts.onVariantChange(false);
                     }
                 }
             });
@@ -135,12 +136,16 @@
 
             if (shoptet.abilities.about.generation > 2) {
                 shoptet.xyDiscounts.updateFlags(data.id);
+                shoptet.quantityDiscounts.onVariantChange(!data.quantityDiscountDisabled, Number(data.priceUnformatted), Number(data.minimumAmount));
             }
         } else {
             // Non existing variant
             shoptet.variantsCommon.reasonToDisable = shoptet.messages['unavailableVariant'];
             showMessage(shoptet.messages['unavailableVariant'], 'error', '', false, false);
             shoptet.scripts.signalCustomEvent('ShoptetVariantUnavailable');
+            if (shoptet.abilities.about.generation > 2) {
+                shoptet.quantityDiscounts.onVariantChange(false);
+            }
         }
     }
 

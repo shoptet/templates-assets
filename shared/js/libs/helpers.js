@@ -204,14 +204,20 @@
         value = shoptet.helpers.toFloat(value.toFixed(decimals));
 
         if (value < min) {
-            $(el).siblings('.js-decrease-tooltip').tooltip('show');
-            $(el).siblings('.js-remove-pcs-tooltip').tooltip().show();
-            return false;
-        }else if(value > max) {
-            $(el).siblings('.js-increase-tooltip').tooltip('show');
-            $(el).siblings('.js-add-pcs-tooltip').tooltip().show();
-            return false;
-        }else {
+            if (action === 'decrease') {
+                $(el).siblings('.js-decrease-tooltip').tooltip('show');
+                $(el).siblings('.js-remove-pcs-tooltip').tooltip().show();
+                return false;
+            }
+            value = min;
+        } else if(value > max) {
+            if (action === 'increase') {
+                $(el).siblings('.js-increase-tooltip').tooltip('show');
+                $(el).siblings('.js-add-pcs-tooltip').tooltip().show();
+                return false;
+            }
+            value = max;
+        } else {
             shoptet.variantsCommon.hideQuantityTooltips();
         }
 

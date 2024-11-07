@@ -19,6 +19,7 @@
 .type-glossary .content-wrapper-in,
 .next-to-carousel-banners,
 .type-category .content,
+.type-category .benefitBanner,
 .p-detail-inner,
 .p-detail-tabs-wrapper {
     box-sizing: border-box;
@@ -33,6 +34,11 @@
     @media (min-width: @screen-lg-min) {
         max-width: 1418px;
     }
+}
+
+.type-category .benefitBanner {
+    padding-left: round(@grid-gutter-width / 2);
+    padding-right: round(@grid-gutter-width / 2);
 }
 
 .content {

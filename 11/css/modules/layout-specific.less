@@ -390,6 +390,21 @@ body.user-action-visible {
     }
 }
 
+.quantity {
+    .add-to-cart & {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .quantity-form & {
+        .increase {
+            border-top-right-radius: @quantity-border-radius;
+        }
+        .decrease {
+            border-bottom-right-radius: @quantity-border-radius;
+        }
+    }
+}
+
 .validator-msg,
 .js-validator-msg {
     margin-bottom: 5px;

@@ -493,6 +493,12 @@
             'updateFlags'
         ],
         quantityDiscounts: [
+          'onVariantChange',
+          'showQuantityDiscountsFlag',
+          'hideQuantityDiscountsFlag',
+          'showQuantityDiscountsTable',
+          'hideQuantityDiscountsTable',
+          'recalculateQuantityDiscountsTable',
           'getQuantityDiscountElementByAmount',
           'calculateQuantityDiscount',
           'updateQuantityDiscount',

@@ -57,12 +57,10 @@
             } else {
                 shoptet.scripts.signalCustomEvent('ShoptetVariantAvailable');
                 if (shoptet.abilities.about.generation > 2) {
-                    shoptet.xyDiscounts.updateFlags($variant.data('codeid'));
+                    shoptet.xyDiscounts.updateFlags($variant.attr('data-codeid'));
                 }
             }
-
         });
-
     }
 
     function switcher($variant) {
@@ -118,6 +116,10 @@
             if (variantIndex == 0) {
                 $('.p-detail-inner .default-variant, .p-code .default-variant')
                     .removeClass(shoptet.variantsCommon.noDisplayClasses);
+
+                if (shoptet.abilities.about.generation > 2) {
+                    shoptet.quantityDiscounts.onVariantChange(false);
+                }
             } else {
                 $('.p-detail-inner .choose-variant.' + variantIndex + ', .p-code .choose-variant.' + variantIndex)
                     .removeClass(shoptet.variantsCommon.noDisplayClasses);
@@ -142,6 +144,10 @@
                     $variant.data('min'),
                     $variant.data('max')
                 );
+
+                if (shoptet.abilities.about.generation > 2) {
+                    shoptet.quantityDiscounts.onVariantChange(!$variant.attr('data-quantity-discount-disabled'), Number($variant.attr('data-customerprice')), Number($variant.attr('data-min')));
+                }
             }
         }
         if (typeof shoptet.products.checkDiscountFlag === 'function') {
