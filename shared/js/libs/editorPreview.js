@@ -159,7 +159,7 @@ style.textContent = `
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 100;
+    z-index: 100000;
     letter-spacing: 0.1px;
     font-family: 'Inter', sans-serif;
     display: none;
@@ -233,7 +233,7 @@ function createOrUpdateLabel(element) {
       left: ${rect.left + 8}px;
       bottom: ${window.innerHeight - rect.bottom + 8}px;
       display: ${isActive || isHovered ? 'block' : 'none'};
-      z-index: ${isHovered ? '100' : '99'};
+      z-index: ${isHovered ? '100000' : '99999'};
     ">${inspectConfig.titles[id]}</div>
   `;
 }
@@ -265,7 +265,7 @@ document.addEventListener('mouseover', (event) => {
     }
   } else {
     setHoveredElement(null);
-    
+
     if (lastHover !== null) {
       lastHover = null;
       sendMessage({ type: 'inspectHover', hoverElementId: null });
@@ -362,11 +362,13 @@ function handleCarousel(element) {
   } else {
     element.closest('[data-editorid="carousel"]').querySelectorAll('[data-editorid]').forEach((el, i) => {
       if (el === element) {
-        $carousel.carousel(i);
-        $carousel.carousel('pause');
-        $carousel.one('slid.bs.carousel', function() {
-          updateAllLabels();
-        })
+        setTimeout(() => {
+          $carousel.carousel(i);
+          $carousel.carousel('pause');
+          $carousel.one('slid.bs.carousel', function() {
+            updateAllLabels();
+          });
+        }, 100);
       }
     });
   }
