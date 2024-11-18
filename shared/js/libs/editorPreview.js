@@ -273,6 +273,17 @@ document.addEventListener('mouseover', (event) => {
   }
 });
 
+document.addEventListener('mouseout', (event) => {
+  if (!inspectConfig.enabled) return;
+
+  setHoveredElement(null);
+
+  if (lastHover !== null) {
+    lastHover = null;
+    sendMessage({ type: 'inspectHover', hoverElementId: null });
+  }
+});
+
 function setActiveElement(el) {
   if (el === activeElement) return;
 
