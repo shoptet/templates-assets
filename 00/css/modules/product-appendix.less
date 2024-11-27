@@ -1,0 +1,59 @@
+// TODO: Remove this in FRONTEND-2955 -- START
+:where(body.ums_unify_product_appendix--on) {
+// TODO: Remove this in FRONTEND-2955 -- END
+
+  .product-appendix {
+    color: @text-muted-color;
+  }
+
+  :where(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6) .product-appendix {
+    display: block;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    line-height: 1.4;
+  }
+
+  :where(h1, .h1) .product-appendix {
+    font-size: @font-size-h2;
+  }
+
+  :where(h2, .h2) .product-appendix {
+    font-size: @font-size-h3;
+  }
+
+  :where(h3, .h3) .product-appendix {
+    font-size: @font-size-h4;
+  }
+
+  :where(h4, .h4) .product-appendix {
+    font-size: @font-size-h5;
+  }
+
+  :where(h5, .h5) .product-appendix {
+    font-size: @font-size-h6;
+  }
+
+  :where(h6, .h6) .product-appendix {
+    font-size: @font-size-base;
+  }
+
+  :where(.highlight-product) .product-appendix {
+    overflow: hidden;
+    display: block;
+
+    font-size: @font-size-base;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  :where(.products.products-inline) .p-in-in {
+    min-width: 0;
+  }
+
+  :where(.p-gift-name) .product-appendix {
+    color: inherit;
+  }
+
+// TODO: Remove this in FRONTEND-2955 -- START
+}
+// TODO: Remove this in FRONTEND-2955 -- END

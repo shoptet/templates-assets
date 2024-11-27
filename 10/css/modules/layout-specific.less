@@ -244,11 +244,15 @@ ul {
     }
 }
 
-.category-appendix {
-    display: block;
-    margin-top: 5px;
-    font-size: 11px;
+// TODO: Remove this in FRONTEND-2955 -- START
+:where(body.ums_unify_product_appendix--off) {
+    .category-appendix {
+        display: block;
+        margin-top: 5px;
+        font-size: 11px;
+    }
 }
+// TODO: Remove this in FRONTEND-2955 -- END
 
 .category-header {
     padding-bottom: round(@line-height-computed / 2);

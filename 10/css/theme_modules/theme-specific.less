@@ -457,11 +457,18 @@ ul.discussion {
 }
 
 .cart-widget-product-amount,
-.cart-widget-product-unit,
-.product-appendix,
-.category-appendix {
+.cart-widget-product-unit {
     color: @text-muted-color;
 }
+
+// // TODO: Remove this in FRONTEND-2955 -- START
+:where(body.ums_unify_product_appendix--off) {
+    .product-appendix,
+    .category-appendix {
+        color: @text-muted-color;
+    }
+}
+// TODO: Remove this in FRONTEND-2955 -- END
 
 .p-final-price-wrapper {
     .price-standard {

@@ -296,10 +296,14 @@ ol.top-products {
     }
 }
 
-.category-appendix {
-    font-size: 1.3rem;
-    display: block;
+// TODO: Remove this in FRONTEND-2955 -- START
+:where(body.ums_unify_product_appendix--off) {
+    .category-appendix {
+        font-size: 1.3rem;
+        display: block;
+    }
 }
+// TODO: Remove this in FRONTEND-2955 -- END
 
 .ordering-process .content {
     max-width: 813px;

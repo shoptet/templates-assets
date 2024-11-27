@@ -306,10 +306,14 @@ article header h1,
         font-weight: @font-weight-h1;
         font-size: @font-size-larger;
     }
-    .category-appendix {
-        display: block;
-        font-weight: @font-weight-base;
-    }
+    // // TODO: Remove this in FRONTEND-2955 -- START
+    :where(body.ums_unify_product_appendix--off) & {
+        .category-appendix {
+            display: block;
+            font-weight: @font-weight-base;
+            }
+        }
+    // TODO: Remove this in FRONTEND-2955 -- END
     > div.product {
         .p {
             align-items: flex-start;

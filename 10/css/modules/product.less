@@ -303,12 +303,16 @@
     }
 }
 
-.product-appendix {
-    display: block;
-    margin-top: 5px;
-    margin-bottom: 12px;
-    font-size: 18px;
+// TODO: Remove this in FRONTEND-2955 -- START
+:where(body.ums_unify_product_appendix--off) {
+    .product-appendix {
+        display: block;
+        margin-top: 5px;
+        margin-bottom: 12px;
+        font-size: 18px;
+    }
 }
+// TODO: Remove this in FRONTEND-2955 -- END
 
 .widget-parameter-wrapper {
     .widget-parameter-value {

@@ -248,6 +248,7 @@ document.body.addEventListener('click', (event) => {
     event.stopImmediatePropagation();
     inspectConfig.activeElementId = element.dataset.editorid;
     setActiveElement(element);
+    sendMessage({ type: 'inspecting', activeElementId: inspectConfig.activeElementId });
   }
 });
 
@@ -296,8 +297,6 @@ function setActiveElement(el) {
     scrollToElement(activeElement);
     handleSpecialElements(activeElement);
   }
-
-  sendMessage({ type: 'inspecting', activeElementId: inspectConfig.activeElementId });
 }
 
 function setHoveredElement(el) {
@@ -309,11 +308,8 @@ function setHoveredElement(el) {
 }
 
 function updateAllLabels() {
-  document.querySelectorAll('[data-editorid]').forEach(el => {
-    if (shadow.querySelector(`[data-for="${el.dataset.editorid}"]`)) {
-      createOrUpdateLabel(el);
-    }
-  });
+  if (activeElement) createOrUpdateLabel(activeElement);
+  if (hoveredElement) createOrUpdateLabel(hoveredElement);
 }
 
 window.addEventListener('scroll', updateAllLabels);
@@ -324,13 +320,23 @@ function scrollToElement(element) {
   const rect = element.getBoundingClientRect();
   const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
 
-  let targetScrollTop;
-  if (rect.top < 0) {
-    targetScrollTop = currentScrollTop + rect.top - 20;
-  } else if (rect.bottom > window.innerHeight) {
-    targetScrollTop = currentScrollTop + rect.bottom - window.innerHeight + 20;
-  } else {
+  // Check if element is already fully visible
+  if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
     return;
+  }
+
+  const margin = 20;
+  let targetScrollTop;
+
+  // Check if element can fit entirely in viewport
+  if (rect.height <= window.innerHeight - 2 * margin) {
+    // Element can fit – center it in viewport
+    const elementCenter = rect.top + rect.height / 2;
+    const viewportCenter = window.innerHeight / 2;
+    targetScrollTop = currentScrollTop + elementCenter - viewportCenter;
+  } else {
+    // Element is too tall – just scroll to top with margin
+    targetScrollTop = currentScrollTop + rect.top - margin;
   }
 
   window.scrollTo({

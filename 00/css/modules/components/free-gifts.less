@@ -49,6 +49,11 @@
     padding-left: 20px;
     span {
         display: block;
+        :where(body.ums_unify_product_appendix--on) & {
+            span {
+                display: initial;
+            }
+        }
     }
     .free-gift-amount {
         display: inline;

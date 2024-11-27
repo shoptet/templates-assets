@@ -405,10 +405,14 @@ a.social-icon {
     border-color: @border-color;
 }
 
-.product-appendix,
-.category-appendix {
-    color: @text-muted-color;
+// TODO: Remove this in FRONTEND-2955 -- START
+:where(body.ums_unify_product_appendix--off) {
+    .product-appendix,
+    .category-appendix {
+        color: @text-muted-color;
+    }
 }
+// TODO: Remove this in FRONTEND-2955 -- END
 
 a.link-icon {
     color: @text-muted-color;

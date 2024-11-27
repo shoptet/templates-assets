@@ -304,10 +304,14 @@ select {
     }
 }
 
-.category-appendix,
-.product-appendix {
-    color: @text-muted-color;
+// TODO: Remove this in FRONTEND-2955 -- START
+:where(body.ums_unify_product_appendix--off) {
+    .category-appendix,
+    .product-appendix {
+        color: @text-muted-color;
+    }
 }
+// TODO: Remove this in FRONTEND-2955 -- END
 
 .price-final {
     .pr-list-unit {

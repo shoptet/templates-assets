@@ -323,17 +323,21 @@ ul {
     }
 }
 
-.product-appendix,
-.category-appendix {
-    display: block;
+// // TODO: Remove this in FRONTEND-2955 -- START
+:where(body.ums_unify_product_appendix--off) {
+    .product-appendix,
+    .category-appendix {
+        display: block;
+    }
+    .product-appendix {
+        margin-top: 10px;
+        font-size: 24px;
+    }
+    .category-appendix {
+        font-size: 17px;
+    }
 }
-.product-appendix {
-    margin-top: 10px;
-    font-size: 24px;
-}
-.category-appendix {
-    font-size: 17px;
-}
+// TODO: Remove this in FRONTEND-2955 -- END
 
 #productVideos {
     @media (max-width: @screen-md-max) {

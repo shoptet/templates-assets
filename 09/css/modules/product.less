@@ -281,11 +281,15 @@
     }
 }
 
-.product-appendix {
-    font-size: 1.9rem;
-    display: block;
-    margin-bottom: 12px;
+// TODO: Remove this in FRONTEND-2955 -- START
+:where(body.ums_unify_product_appendix--off) {
+    .product-appendix {
+        font-size: 1.9rem;
+        display: block;
+        margin-bottom: 12px;
+    }
 }
+// TODO: Remove this in FRONTEND-2955 -- END
 
 .widget-parameter-wrapper {
     .widget-parameter-value {
