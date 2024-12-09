@@ -268,6 +268,19 @@
       window.location.reload()
     }
 
+    function isApplePayAvailable() {
+        try {
+            if (window.ApplePaySession && window.ApplePaySession.canMakePayments()) {
+                return true;
+            }
+
+            return false;
+        } catch (err) {
+            return false;
+        }
+    }
+
+
     shoptet.helpers = shoptet.helpers || {};
     shoptet.scripts.libs.helpers.forEach(function(fnName) {
         var fn = eval(fnName);

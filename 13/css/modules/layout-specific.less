@@ -1221,6 +1221,26 @@ table.shipping-options-layout {
             margin-right: 0;
         }
     }
+    .add-to-cart--express-checkout {
+        margin-top: 0;
+
+        @media (min-width: @screen-xs-min) {
+            margin-left: 0;
+        }
+    }
+    .add-to-cart__quantity-label {
+        display: none;
+    }
+    .add-to-cart__buttons-wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: round(@grid-gutter-width / 4) round(@grid-gutter-width / 2);
+        flex: 1 0 100%;
+
+        @media (min-width: @screen-xs-min) {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
     .p-final-price-wrapper {
         line-height: 200%;
         white-space: nowrap;

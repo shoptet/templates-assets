@@ -330,7 +330,8 @@
             'resolveMinimumAmount',
             'updateQuantity',
             'isTouchDevice',
-            'enableUpdatePreview'
+            'enableUpdatePreview',
+            'isApplePayAvailable'
         ],
         products: [
             'splitWidgetParameters',

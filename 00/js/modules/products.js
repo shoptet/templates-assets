@@ -701,7 +701,7 @@
         );
 
         if (triggerChange) {
-            $el[0].dispatchEvent(new Event('change'));
+            $el[0].dispatchEvent(new Event('change', { bubbles: true }));
         }
     }
 
