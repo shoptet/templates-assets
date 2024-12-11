@@ -593,15 +593,13 @@ a.btn {
     }
 }
 
-:where(.temp_new_clientTables) {
-    .table-shipping-addresses {
-        td:not(:last-child) {
-            border-right-width: 0;
+.table-shipping-addresses {
+    td:not(:last-child) {
+        border-right-width: 0;
 
-            @media(min-width: @screen-md-min) {
-                border-right-style: solid;
-                border-right-width: 1px;
-            }
+        @media(min-width: @screen-md-min) {
+            border-right-style: solid;
+            border-right-width: 1px;
         }
     }
 }

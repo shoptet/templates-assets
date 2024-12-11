@@ -1,10 +1,8 @@
 .customer-page {
-    &:where(.temp_new_clientTables) {
-        @media (min-width: @screen-sm-min) {
-            .content {
-                padding: @penta-spacing @grid-gutter-width 0;
-                border-radius: @border-radius-base;
-            }
+    @media (min-width: @screen-sm-min) {
+        .content {
+            padding: @penta-spacing @grid-gutter-width 0;
+            border-radius: @border-radius-base;
         }
     }
 
@@ -52,133 +50,7 @@
 
     }
 
-    &:where(.temp_old_clientTables) .content {
-        margin: @double-spacing;
-        padding: @grid-gutter-width;
-        @media (min-width: @screen-md-min) {
-            margin: 0 0 @double-spacing @grid-gutter-width;
-            padding: @penta-spacing;
-        }
-        .co-box {
-            margin-bottom: @grid-gutter-width;
-        }
-        h1 {
-            .h2();
-            margin-top: 0;
-            text-align: left;
-        }
-        h2 {
-            .h3();
-        }
-        h4 > i {
-            display: none;
-        }
-        table {
-            margin: @double-spacing 0;
-            thead {
-                text-transform: uppercase;
-                font-size: @font-size-smaller;
-                td,
-                th {
-                    vertical-align: bottom;
-                }
-            }
-            tbody {
-                td,
-                th {
-                    vertical-align: middle;
-                }
-            }
-            td,
-            th {
-                padding: @double-spacing @basic-spacing;
-                text-align: left;
-            }
-            &.border {
-                td,
-                th {
-                    border: 0;
-
-                }
-                tr {
-                    border-bottom-width: 1px;
-                    border-bottom-style: solid;
-                }
-                @media (max-width: @screen-md-max) {
-                    .client-table-heading {
-                        display: block;
-                        visibility: visible;
-                        text-transform: uppercase;
-                        font-weight: 700;
-                        font-size: @font-size-smaller;
-                    }
-                    thead {
-                        display: none;
-                        visibility: hidden;
-                    }
-                    tbody tr {
-                        display: flex;
-                        flex-flow: column;
-                        border-bottom-width: 0;
-                        margin-bottom: @triple-spacing;
-                        &:last-child {
-                            margin-bottom: 0;
-                        }
-                        td {
-                            padding: @double-spacing;
-                            .status {
-                                width: auto;
-                                padding: @half-basic-spacing @triple-spacing;
-                            }
-                            &:empty {
-                                display: none;
-                            }
-                        }
-                    }
-                }
-            }
-            &.table-md-50 {
-                border-style: solid;
-                border-width: 1px;
-                border-radius: @border-radius-base;
-                border-collapse: separate;
-                overflow: hidden;
-                width: 100% !important;
-                @media (max-width: @screen-md-max) {
-                    tbody tr {
-                        display: table-row;
-                    }
-                }
-            }
-            &.customer-discussions ul {
-                list-style-type: none;
-                padding: 0;
-                margin: 0;
-                li:first-child,
-                li:nth-child(2) span {
-                    font-weight: bold;
-                }
-            }
-        }
-        .status {
-            display: inline-block;
-            width: 100%;
-            padding: 5px;
-            font-weight: 700;
-            text-align: center;
-            border-radius: @border-radius-base;
-        }
-        #register-form {
-            > .co-box:first-child > .box > h4 {
-                margin-top: 0;
-            }
-            input[type="submit"] {
-                padding: @double-spacing;
-            }
-        }
-    }
-
-    &:where(.temp_new_clientTables) .content {
+    .content {
         margin: @double-spacing 0;
         padding: @grid-gutter-width @double-spacing;
         @media (min-width: @screen-sm-min) {

@@ -4,17 +4,8 @@ li.logout {
     list-style: none;
 }
 
-:where(.temp_old_clientTables) {
-    .client-table-heading {
+.client-table-heading {
+    @media (min-width: @screen-lg-min) {
         display: none;
-        visibility: hidden;
-    }
-}
-
-:where(.temp_new_clientTables) {
-    .client-table-heading {
-        @media (min-width: @screen-lg-min) {
-            display: none;
-        }
     }
 }
