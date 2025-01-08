@@ -192,7 +192,9 @@ function toggleInspectMode() {
   overlay.style.display = inspectConfig.enabled ? 'block' : 'none';
 }
 
-// Lables
+// Labels
+const MIN_INNER_LABEL_HEIGHT = 48;
+
 function createOrUpdateLabel(element) {
   if (!element) return;
 
@@ -219,6 +221,7 @@ function createOrUpdateLabel(element) {
   }
 
   const rect = element.getBoundingClientRect();
+  const labelTextPosition = getLabelTextPosition(rect);
 
   labelInfo.innerHTML = `
     <div class="label-outline" style="
@@ -230,12 +233,38 @@ function createOrUpdateLabel(element) {
       outline: ${isActive ? '4px solid #ffe91c' : (isHovered ? '2px solid #ffe91c' : 'none')};
     "></div>
     <div class="label-text" style="
-      left: ${rect.left + 8}px;
-      bottom: ${window.innerHeight - rect.bottom + 8}px;
+      ${labelTextPosition}
       display: ${isActive || isHovered ? 'block' : 'none'};
       z-index: ${isHovered ? '100000' : '99999'};
     ">${inspectConfig.titles[id]}</div>
   `;
+}
+
+function getPositionCss(position) {
+  return Object.entries(position).map(([key, value]) => `${key}: ${value}px;`).join(' ');
+}
+
+function getLabelTextPosition(rect) {
+  if (rect.height < MIN_INNER_LABEL_HEIGHT) {
+    const left = rect.left;
+
+    if (window.innerHeight - rect.bottom < 24) {
+      // Label would be cut off by the bottom edge, place it above the element
+      return getPositionCss({
+        left,
+        bottom: window.innerHeight - rect.top + 2,
+      });
+    }
+    return getPositionCss({
+      left,
+      top: rect.bottom + 2,
+    });
+  } else {
+    return getPositionCss({
+      left: rect.left + 8,
+      bottom: Math.min(window.innerHeight - 8 - 20, Math.max(8, window.innerHeight - rect.bottom + 8)),
+    });
+  }
 }
 
 // Event handlers

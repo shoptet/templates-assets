@@ -6,6 +6,7 @@
     }
     .site-name {
         margin: 0;
+        line-height: 1.1;
         text-align: center;
         a {
             display: inline-block;
@@ -15,14 +16,18 @@
                 max-height: 60px;
             }
             &.text-logo {
-                padding-top: 4px;
                 padding-left: 4px;
                 font-size: 14px;
+                line-height: 1.4;
                 small {
                     display: block;
                     padding-top: 5px;
                 }
             }
+        }
+
+        &:has(.text-logo) {
+            font-family: var(--template-headings-font), sans-serif;
         }
 	}
     .cart-count {
@@ -50,6 +55,23 @@
             a {
                 img {
                     margin: 0;
+                }
+
+                &.text-logo {
+                    padding-left: 0;
+                    padding-right: 8px;
+
+                    .header__title {
+                        .text-ellipsis(2);
+                    }
+
+                    .motto {
+                        .text-ellipsis(1);
+                    }
+
+                    .header__title:only-child {
+                        -webkit-line-clamp: 3;
+                    }
                 }
             }
         }

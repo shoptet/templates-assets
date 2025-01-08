@@ -130,6 +130,44 @@ article {
         }
     }
 
+    .site-name {
+        a.text-logo {
+            .header__title {
+                -webkit-line-clamp: 2;
+            }
+
+            .motto {
+                margin-top: 0.4em;
+                line-height: 1.3;
+                -webkit-line-clamp: 2;
+
+                @media (max-width: @screen-xs-max) {
+                    -webkit-line-clamp: 1;
+                }
+            }
+
+            .header__title:only-child {
+                -webkit-line-clamp: 3;
+
+                @media (max-width: @screen-xs-max) {
+                    -webkit-line-clamp: 2;
+                }
+            }
+        }
+
+        &:has(.text-logo) {
+            max-width: calc(100% - 165px);
+
+            @media (min-width: @screen-xs-min) {
+                max-width: 450px;
+            }
+
+            @media (min-width: @screen-sm-min) {
+                max-width: none;
+            }
+        }
+    }
+
     .header-bottom {
         position: relative;
         border-width: 1px 0 0;
@@ -137,6 +175,9 @@ article {
     }
 
     .navigation-buttons {
+        flex-grow: 0;
+        margin-left: auto;
+
         a {
             margin-left: 0;
             @media (min-width: @screen-xs-min) and (max-width: @navigation-breakpoint-max) {
@@ -236,6 +277,11 @@ article {
         .site-name {
             a {
                 display: inline-block;
+            }
+
+            &:has(.text-logo) {
+                min-width: auto;
+                max-width: none;
             }
         }
     }

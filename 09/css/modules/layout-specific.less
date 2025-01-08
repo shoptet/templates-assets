@@ -309,6 +309,17 @@ ol.top-products {
     max-width: 813px;
 }
 
+.express-checkout__invoicing #shipping-address .box > .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+
+    @media (min-width: @screen-xs-min) {
+        flex-direction: row;
+        align-items: center;
+        gap: 0;
+    }
+}
+
 
 .menu-helper {
     @media (min-width: @navigation-breakpoint) {

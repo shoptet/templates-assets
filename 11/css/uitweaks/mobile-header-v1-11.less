@@ -45,6 +45,24 @@
             .scrolled-down body:not(.ordering-process):not(.search-window-visible) & {
                 transform: translateY(-100%);
             }
+
+            &:has(.text-logo) {
+                max-width: calc(100% - 165px);
+
+                .header__title,
+                .motto {
+                    .text-ellipsis(1);
+                }
+
+                .header__title:only-child {
+                    -webkit-line-clamp: 2;
+                }
+
+                .motto {
+                    padding-top: 0;
+                }
+            }
+
             > a {
                 display: flex;
                 align-items: center;

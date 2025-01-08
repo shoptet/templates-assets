@@ -52,6 +52,14 @@ body.ordering-process {
     }
 }
 
+#header {
+    @media (min-width: @screen-md-min) {
+        .site-name:has(.text-logo) {
+            max-width: 450px;
+        }
+    }
+}
+
 .co-box {
     border: 1px solid #e7e7e7; //theme
     margin-bottom: @line-height-computed;
@@ -265,6 +273,15 @@ body.ordering-process {
                 max-width: @select-width;
             }
         }
+    }
+}
+
+.express-checkout__invoicing #shipping-address .box > .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+
+    @media (min-width: @screen-xs-min) {
+        gap: 0;
     }
 }
 

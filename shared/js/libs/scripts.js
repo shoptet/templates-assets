@@ -245,6 +245,9 @@
             'removeFromCart',
             'updateQuantityInCart'
         ],
+        expressCheckout: [
+            'initExpressCheckout'
+        ],
         cookie: [
             'get',
             'create'
@@ -315,7 +318,8 @@
             'hideContentWindows',
             'updateSelectedRegions',
             'toggleRegionsWrapper',
-            'restoreDefaultRegionSelect'
+            'restoreDefaultRegionSelect',
+            'toggleAnotherShipping'
         ],
         helpers: [
             'toFloat',

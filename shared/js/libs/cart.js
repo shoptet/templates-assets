@@ -296,7 +296,10 @@
                 // Otherwise, the new view will be created, and the information
                 // about the added product will be lost.
                 if (action === shoptet.config.addToCartUrl) {
-                    if (typeof shoptet.config.showAdvancedOrder !== 'undefined'
+                    if (shoptet.config.expressCheckoutAddToCart) {
+                        shoptet.expressCheckout.initExpressCheckout();
+                        shoptet.config.expressCheckoutAddToCart = undefined;
+                    } else if (typeof shoptet.config.showAdvancedOrder !== 'undefined'
                         && !shoptet.cartShared.silentAddition) {
                         shoptet.cart.getAdvancedOrder();
                     }
@@ -524,6 +527,8 @@
                     'cart',
                     true
                 );
+            } else {
+                shoptet.config.expressCheckoutAddToCart = undefined;
             }
         });
 
@@ -588,13 +593,14 @@
         });
 
         $html.on('change', '#another-shipping', function() {
-            shoptet.checkout.toggleAnotherShipping();
+            const disableScroll = $(this).attr('data-disable-scroll');
+            shoptet.global.toggleAnotherShipping(disableScroll ? false : undefined);
         });
 
         var $anotherShipping = $('#another-shipping');
         if ($anotherShipping.length && $anotherShipping[0].hasAttribute('data-change')) {
             $anotherShipping.prop('checked', true);
-            shoptet.checkout.toggleAnotherShipping(false);
+            shoptet.global.toggleAnotherShipping(false);
         }
     });
 

@@ -18,18 +18,29 @@
                 max-height: 40px;
             }
             &.text-logo {
-                line-height: 100%;
+                display: block;
+                max-width: fit-content;
+                padding-top: round(@line-height-computed / 6);
+                padding-bottom: round(@line-height-computed / 6);
                 padding-left: 4px;
+                font-family: var(--template-headings-font), sans-serif;
                 font-size: 14px;
+                line-height: 100%;
                 text-decoration: none;
-                padding-top: round(@line-height-computed / 4);
-                padding-bottom: round(@line-height-computed / 4);
+                .header__title,
+                .motto {
+                    .text-ellipsis(1);
+                }
                 small {
                     font-size: 60%;
                     display: block;
                     font-weight: 100;
                 }
             }
+        }
+        &:has(.text-logo) {
+            flex-grow: 1;
+            max-width: calc(100% - 130px);
         }
 	}
     @media (max-width: @screen-xs-max) {
@@ -50,9 +61,17 @@
                 img {
                     max-height: 60px;
                 }
+
+                &.text-logo {
+                    font-size: 18px;
+                }
+            }
+            &:has(.text-logo) {
+                max-width: calc(100% - 190px);
             }
         }
     }
+
     @media (min-width: @navigation-breakpoint) {
         min-height: 0;
         .container {
@@ -66,6 +85,13 @@
                 &.text-logo {
                     font-size: 24px;
                 }
+            }
+            &:has(.text-logo) {
+                flex-basis: fit-content;
+                flex-grow: 0;
+                min-width: 200px;
+                max-width: 420px;
+                padding-right: @navigation-link-padding-horizontal-small;
             }
         }
     }

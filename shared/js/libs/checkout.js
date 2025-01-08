@@ -6,57 +6,7 @@
      * This function does not accept any arguments.
      */
     function toggleAnotherShipping(scroll) {
-        if (typeof scroll === 'undefined') {
-            scroll = true;
-        }
-        var $el = $('#shipping-address');
-        var $billCountryId = $('#billCountryId');
-        var $regionSelect = $('.region-select');
-
-        if ($el.hasClass('visible')) {
-            $el.removeClass('visible');
-            toggleRequiredAttributes($el, 'remove', false);
-
-            var defaultCountryVal = $billCountryId.find('option[data-default-option]').val();
-            var defaultRegionVal = $regionSelect.find('option[data-default-option]').val();
-            var $defaultBillRegionId = $('.region-select[data-country=' + defaultCountryVal + ']');
-            $billCountryId.val(defaultCountryVal);
-            $defaultBillRegionId.val(defaultRegionVal);
-            shoptet.global.restoreDefaultRegionSelect($defaultBillRegionId, defaultRegionVal);
-            shoptet.validatorZipCode.updateZipValidPattern($billCountryId);
-            shoptet.validatorCompanyId.updateCompanyIdValidPattern();
-        } else {
-            $el.addClass('visible');
-            toggleRequiredAttributes($el, 'add', false);
-            if (scroll) {
-                setTimeout(() => {
-                    scrollToEl($el);
-                }, shoptet.config.animationDuration);
-            }
-        }
-
-        var $billRegionId = $('#billRegionId');
-        var $billRegionIdInput = $('#billRegionIdInput');
-        var $billCountryIdInput = $('#billCountryIdInput');
-
-        $billCountryId.attr('disabled', !$billCountryId.is(':disabled'));
-        $regionSelect.attr('disabled', $billRegionIdInput.is(':disabled'));
-
-        $billCountryIdInput.attr({
-            'disabled': !$billCountryIdInput.is(':disabled'),
-            'value': $billCountryId.find('option:selected').val()
-        });
-        $billRegionIdInput.attr({
-            'disabled': !$billRegionIdInput.is(':disabled'),
-            'value': $billRegionId.find('option:selected').val()
-        });
-        $('#deliveryRegionId').attr({
-            'value': $billRegionId.find('option:selected').val()
-        });
-
-        if (shoptet.abilities.feature.smart_labels){
-            setTimeout(function(){ $('.smart-label-wrapper').SmartLabels(); }, 0);
-        }
+        shoptet.global.toggleAnotherShipping(scroll);
     }
 
 

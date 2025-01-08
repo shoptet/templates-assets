@@ -69,6 +69,18 @@ input[type="checkbox"] {
     }
 }
 
+.express-checkout__invoicing #shipping-address .box {
+    .form-option-block + .form-group {
+        margin-top: @triple-spacing;
+    }
+
+    @media (min-width: @screen-xs-min) {
+        .form-option-block + .form-group {
+            margin-top: @grid-gutter-width;
+        }
+    }
+}
+
 select {
     border-radius: @border-radius-base;
 }

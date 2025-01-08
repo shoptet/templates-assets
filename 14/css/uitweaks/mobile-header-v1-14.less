@@ -20,6 +20,16 @@
         .scrolled-down & {
             transform: translateY(-100%);
         }
+
+        .header-top .header-top-wrapper:has(.text-logo) {
+            .site-name {
+                max-width: ~"min(calc(100% - 155px), 400px)";
+            }
+
+            .navigation-buttons {
+                max-width: 155px;
+            }
+        }
     }
 }
 

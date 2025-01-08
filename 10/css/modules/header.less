@@ -35,6 +35,8 @@
                 max-height: @header_site-name-height;
             }
             &.text-logo {
+                max-width: none;
+                font-family: var(--template-headings-font), sans-serif;
                 font-size: @font-size-base;
                 text-decoration: none;
                 > span {
@@ -46,6 +48,26 @@
                 small {
                     display: none;
                 }
+
+                :where(body:not(.id-1)) & .motto {
+                    .text-ellipsis(1);
+                }
+            }
+        }
+
+        .header__title {
+            .text-ellipsis(2);
+        }
+
+        &:has(.text-logo) {
+            max-width: clamp(115px, calc(100% - 195px), 450px);
+
+            @media (max-width: @screen-xs-max) {
+                padding-left: 8px;
+            }
+
+            @media (min-width: @screen-xs-min) {
+                max-width: clamp(115px, calc(100% - 235px), 450px);
             }
         }
 	}
@@ -75,11 +97,6 @@
                 img,
                 > span {
                     max-height: 63px;
-                }
-                &.text-logo {
-                    small {
-                        display: block;
-                    }
                 }
             }
         }
