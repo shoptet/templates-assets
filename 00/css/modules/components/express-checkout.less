@@ -210,7 +210,7 @@
     }
 
     @media (min-width: @screen-xs-min) {
-        gap: var(--express-checkout-spacing-xl);
+        gap: var(--express-checkout-spacing-lg);
     }
 }
 
@@ -245,6 +245,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    flex: 0 0 20%;
 }
 
 .express-checkout__product-price-standard {
@@ -394,6 +395,18 @@
 
     @media (min-width: @screen-xs-min) {
         padding-left: 60px;
+    }
+}
+
+.express-checkout__discount--standalone {
+    margin-top: var(--express-checkout-spacing-sm);
+    padding-top: var(--express-checkout-spacing-sm);
+    padding-left: 0;
+    border-top: 1px solid var(--express-checkout-color-gray-light);
+
+    @media (min-width: @screen-xs-min) {
+        margin-top: var(--express-checkout-spacing-base);
+        padding-top: var(--express-checkout-spacing-base);
     }
 }
 

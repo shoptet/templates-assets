@@ -43,7 +43,8 @@
         scriptElements?.forEach(function(element) {
             const allowedSrc = [
                 'https://gw.labshoptetpay.com/',
-                'https://gw.shoptetpay.com/'
+                'https://gw.shoptetpay.com/',
+                'https://payment.shoptetpay.com/'
             ];
             const scriptSrc = element.getAttribute('src');
             if (allowedSrc.every(function(src) {
@@ -114,6 +115,10 @@
             {
                 'success': function(response) {
                     rerenderExpressCheckoutModal(response, initNotLoggedInUser);
+                },
+                'complete': function() {
+                    shoptet.config.expressCheckoutKeepSpinnerVisible = undefined;
+                    hideSpinner();
                 }
             },
             {

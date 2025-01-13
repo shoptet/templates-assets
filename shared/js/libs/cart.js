@@ -297,6 +297,7 @@
                 // about the added product will be lost.
                 if (action === shoptet.config.addToCartUrl) {
                     if (shoptet.config.expressCheckoutAddToCart) {
+                        shoptet.config.expressCheckoutKeepSpinnerVisible = true;
                         shoptet.expressCheckout.initExpressCheckout();
                         shoptet.config.expressCheckoutAddToCart = undefined;
                     } else if (typeof shoptet.config.showAdvancedOrder !== 'undefined'
@@ -315,7 +316,10 @@
                 } else {
                     // ...otherwise we have to call the function directly
                     shoptet.cart.handleCartPostUpdate(form.getAttribute('action'), eventElement);
-                    hideSpinner();
+
+                    if (!shoptet.config.expressCheckoutKeepSpinnerVisible) {
+                        hideSpinner();
+                    }
                 }
             }
             if (callingFunctions === 'functionsForStep1') {
@@ -342,6 +346,8 @@
                 } else {
                     delete shoptet.events.cartLoaded;
                 }
+
+                shoptet.config.expressCheckoutAddToCart = undefined;
             }
         };
 
