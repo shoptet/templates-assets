@@ -330,29 +330,80 @@ a.btn {
         }
     }
 }
-.back-to-shop {
-    &::before {
-        &:extend(.shp-icon);
-        content: @icon-arrow-left-code;
-        margin-right: 1ex;
-        font-size: @font-size-base;
-    }
-}
 
-//windows.less
-.toggle-window-arr {
-    text-align: left;
-    position: absolute;
-    top: 24px;
-    left: round(@grid-gutter-width / 2);
-    span {
-        display: inline;
+// TODO: Remove this in issue 10468 -- START
+:where(body.ums_back_to_shop_buttons--off) {
+    .back-to-shop {
+        &::before {
+            &:extend(.shp-icon);
+            content: @icon-arrow-left-code;
+            margin-right: 1ex;
+            font-size: @font-size-base;
+        }
+    }
+
+    //windows.less
+    .toggle-window-arr {
+        text-align: left;
+        position: absolute;
+        top: 14px;
+        left: round(@grid-gutter-width / 2);
+        span {
+            display: inline;
+        }
+    }
+    .login-window-in .toggle-window-arr::before,
+    .register-window-in .toggle-window-arr::before {
+        display: none;
     }
 }
-.login-window-in .toggle-window-arr::before,
-.register-window-in .toggle-window-arr::before {
-    display: none;
+// TODO: Remove this in issue 10468 -- END
+
+// TODO: Remove this in issue 10468 -- START
+:where(body.ums_back_to_shop_buttons--on) {
+// TODO: Remove this in issue 10468 -- END
+    //windows.less
+    .toggle-window-arr {
+        left: -6px;
+        text-align: left;
+
+        &.btn {
+            text-transform: none;
+        }
+
+        @media(min-width: @screen-sm-min) {
+            left: 14px;
+        }
+    }
+
+    .content-window .toggle-window-arr {
+        left: 0;
+    }
+
+    .sidebar-left .toggle-window-arr {
+        position: static;
+        display: inline-block;
+        width: max-content;
+        max-width: 100%;
+        margin-top: 18px;
+
+        @media(min-width: @screen-sm-min) {
+            margin-left: -26px;
+        }
+
+        @media(min-width: @screen-lg-min) {
+            margin-left: -6px;
+        }
+
+        @media(min-width: @screen-xl-min) {
+            margin-left: -26px;
+        }
+    }
+
+// TODO: Remove this in issue 10468 -- START
 }
+// TODO: Remove this in issue 10468 -- END
+
 .continue-shopping {
     text-align: left;
     &::before {

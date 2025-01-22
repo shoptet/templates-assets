@@ -37,7 +37,7 @@
     ? ($('.header-navigation').length ? $('.header-navigation').height() : $('#header').height())
     : 0;
         if (windowHeight + scrollTop < document.documentElement.scrollHeight) {
-            if ((offset.top < scrollTop + headerHeight) && detectResolution(shoptet.config.breakpoints.md)) {
+            if ((offset.top < scrollTop + headerHeight) && shoptet.layout.detectResolution(shoptet.config.breakpoints.md)) {
                 if (windowHeight - headerHeight > sidebarHeight) {
                     shoptet.checkout.$checkoutSidebar.css({
                         'position': 'relative',
@@ -173,7 +173,7 @@
     shoptet.checkout.handleWithSidebar = handleWithSidebar;
 
     document.addEventListener("DOMContentLoaded", function() {
-        if (detectResolution(shoptet.config.breakpoints.md) && shoptet.checkout.$checkoutSidebar.length) {
+        if (shoptet.layout.detectResolution(shoptet.config.breakpoints.md) && shoptet.checkout.$checkoutSidebar.length) {
             if (
                 !compareHeight(shoptet.checkout.$checkoutContent, shoptet.checkout.$checkoutSidebar)
             ) {

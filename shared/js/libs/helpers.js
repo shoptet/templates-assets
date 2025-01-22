@@ -280,7 +280,6 @@
         }
     }
 
-
     shoptet.helpers = shoptet.helpers || {};
     shoptet.scripts.libs.helpers.forEach(function(fnName) {
         var fn = eval(fnName);

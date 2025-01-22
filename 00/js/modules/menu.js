@@ -82,7 +82,7 @@
         $el.addClass('exp');
         $('body').addClass('submenu-visible');
         $('.has-third-level ul').removeClass('has-more-items').find('.more-items-trigger').detach();
-        if (detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
+        if (shoptet.layout.detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
             var $thirdLevelMenu = $el.find('.has-third-level ul');
             if ($thirdLevelMenu.length) {
                 $('.has-third-level ul').removeClass('has-more-items');
@@ -94,9 +94,6 @@
                         $(this).addClass('has-more-items').append('<span class="more-items-trigger" />');
                     }
                 });
-            }
-            if (shoptet.abilities.feature.images_in_menu) {
-                $el.find('img').trigger('unveil');
             }
         }
     }
@@ -192,7 +189,7 @@
             }
         });
 
-        if (detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
+        if (shoptet.layout.detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
             shoptet.menu.updateMenu();
         }
 
@@ -222,10 +219,10 @@
 
         shoptet.runtime.submenu = false;
 
-        /* Remove version conditional when versioning is removed from the system and leave detectResolution only */
+        /* Remove version conditional when versioning is removed from the system and leave shoptet.layout.detectResolution only */
         $html.on('mouseover', '.menu-level-1 .ext', function () {
             if (shoptet.config.mobileHeaderVersion !== '1'
-                || detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
+                || shoptet.layout.detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
                 var $this = $(this);
                 clearTimeout(shoptet.runtime.submenu);
                 shoptet.runtime.submenu = setTimeout(function() {
@@ -237,7 +234,7 @@
         });
 
         $html.on('mouseleave', '.menu-level-1 .ext', function () {
-            if (detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
+            if (shoptet.layout.detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
                 clearTimeout(shoptet.runtime.submenu);
                 shoptet.menu.hideSubmenu();
             }

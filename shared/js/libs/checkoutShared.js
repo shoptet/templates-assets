@@ -1607,7 +1607,7 @@
                             scrollToEl($openingHours);
                         }, 301);
                     });
-                    if (!detectResolution(768)) {
+                    if (!shoptet.layout.detectResolution(768)) {
                         scrollToEl($(`${postDeliveryPointsData.deliveryPointPrefix}-result`));
                     }
                     shoptet.modal.shoptetResize();

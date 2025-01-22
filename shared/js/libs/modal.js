@@ -54,7 +54,7 @@
             // colorbox.widthMd is default width of colorbox
             width = shoptet.modal.config.widthMd;
         }
-        if (!detectResolution(shoptet.config.breakpoints.lg)) {
+        if (!shoptet.layout.detectResolution(shoptet.config.breakpoints.lg)) {
             var responsiveWidth;
             if (shoptet.abilities.about.generation === 3) {
                 responsiveWidth = $('.content-wrapper').width()

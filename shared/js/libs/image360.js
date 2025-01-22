@@ -6,7 +6,7 @@
         //rotationSpeed - number - sets time interval between clicks for autoplay
         //pixelsPerFrame - number - length in pixels which user has to drag mouse to switch frames
         var config = {
-            rotationSpeed: 100,
+            rotationSpeed: shoptet.config.image360RotationSpeed,
             pixelsPerFrame: 10,
             fullscreenDelay: 300,
             url: '/action/ProductDetail/Get360Images/'

@@ -335,7 +335,10 @@
             'updateQuantity',
             'isTouchDevice',
             'enableUpdatePreview',
-            'isApplePayAvailable'
+            'isApplePayAvailable',
+        ],
+        images: [
+          'unveil'
         ],
         products: [
             'splitWidgetParameters',

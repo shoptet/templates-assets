@@ -602,9 +602,13 @@ ol.cart-header {
     color: @green;
     background-color: fade(@green, 20%);
 }
-.back-shopping-link a {
-    color: @text-color;
+// TODO: Remove this in issue 10468 -- START
+:where(body.ums_back_to_shop_buttons--off) {
+    .back-shopping-link a {
+        color: @text-color;
+    }
 }
+// TODO: Remove this in issue 10468 -- END
 .login-from-cart {
     @media (min-width: unit(@screen-xs-max, px)) {
         color: @text-color;

@@ -412,10 +412,14 @@ ol.top-products {
     text-transform: uppercase;
 }
 
-.login-window .toggle-window-arr::before,
-.register-window .toggle-window-arr::before {
-    display: none;
+// TODO: Remove this in issue 10468 -- START
+:where(body.ums_back_to_shop_buttons--off) {
+    .login-window .toggle-window-arr::before,
+    .register-window .toggle-window-arr::before {
+        display: none;
+    }
 }
+// TODO: Remove this in issue 10468 -- END
 
 .btn,
 a.btn {
@@ -446,6 +450,43 @@ a.btn {
         width: 100%;
     }
 }
+
+// TODO: Remove this in issue 10468 -- START
+:where(body.ums_back_to_shop_buttons--on) {
+// TODO: Remove this in issue 10468 -- END
+    .toggle-window-arr {
+        text-align: left;
+
+        &.btn {
+            font-weight: 400;
+        }
+    }
+
+    .sidebar-left .toggle-window-arr {
+        position: static;
+        display: inline-block;
+        width: max-content;
+        max-width: 100%;
+        margin-top: 12px;
+        margin-bottom: 20px;
+        margin-left: 6px;
+
+        @media(min-width: @screen-sm-min) {
+            margin-top: -6px;
+            margin-left: 0;
+        }
+
+        @media(min-width: @screen-lg-min) {
+            // margin-left: -6px;
+        }
+
+        @media(min-width: @screen-xl-min) {
+            // margin-left: -26px;
+        }
+    }
+// TODO: Remove this in issue 10468 -- START
+}
+// TODO: Remove this in issue 10468 -- END
 
 .cart-count {
     position: relative;

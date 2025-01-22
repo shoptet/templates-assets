@@ -99,7 +99,7 @@
                 });
             }
 
-            $(el + ' img').unveil();
+            shoptet.images.unveil();
             initColorbox();
             initTooltips();
 
@@ -154,13 +154,12 @@
                     width: shoptet.modal.config.widthLg,
                     className: shoptet.modal.config.classLg,
                     onComplete: function() {
-                        $('.colorbox-html-content img').unveil();
+                        shoptet.images.unveil();
                         $('body').removeClass(shoptet.config.bodyClasses);
                         hideSpinner();
                         setTimeout(function() {
                             if (typeof shoptet.productSlider.runProductSlider === 'function') {
                                 shoptet.productSlider.runProductSlider('.advanced-order .product-slider');
-                                $('.advanced-order .product-slider img').unveil();
                             }
                             shoptet.modal.shoptetResize();
                         }, 1);
@@ -280,7 +279,7 @@
                     var payloadContent = $(payload.content).find('#content-wrapper');
                     payloadContent.find('#toplist').remove();
                     $('#content-wrapper').replaceWith(payloadContent);
-                    $('#content-wrapper img').unveil();
+                    shoptet.images.unveil();
                     initColorbox();
                     shoptet.modal.shoptetResize();
                     shoptet.scripts.signalDomLoad('ShoptetDOMPageContentLoaded');
@@ -453,7 +452,7 @@
             e.preventDefault();
             var $tr = $(this).parents('tr').next('.related');
             shoptet.cart.toggleRelatedProducts($tr);
-            $tr.find('img').unveil();
+            shoptet.images.unveil();
         });
 
         // Check discount coupon

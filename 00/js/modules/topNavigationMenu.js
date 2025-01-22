@@ -1,7 +1,7 @@
 if (shoptet.abilities.feature.top_navigation_menu) {
     window.topMenuFits = () => {
         var $topMenuWrapper = $('.top-navigation-menu');
-        if(!detectResolution(shoptet.config.breakpoints.sm) && !$topMenuWrapper.is(':visible')) {
+        if(!shoptet.layout.detectResolution(shoptet.config.breakpoints.sm) && !$topMenuWrapper.is(':visible')) {
             return false;
         }
         var fits = true;

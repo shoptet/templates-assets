@@ -188,9 +188,7 @@
                         sameHeightOfProducts();
                         shoptet.products.splitWidgetParameters();
                         initTooltips();
-                        setTimeout(function() {
-                            $('.products-page img').unveil();
-                        }, 1);
+                        shoptet.images.unveil();
                         history.pushState(null, null, this.url);
                         if ('scrollRestoration' in history) {
                             history.scrollRestoration = 'manual';
@@ -322,7 +320,7 @@
         if ($el.hasClass('p-all')) {
             $el.addClass('inactive');
             var pSwitchable = $el.parents('.browse-p').prev('.p-switchable');
-            pSwitchable.addClass('show-all-related').find('.product').find('img').unveil();
+            pSwitchable.addClass('show-all-related');
             return false;
         }
         var products = $el.parents('.browse-p').prev('.p-switchable').find('.product');
@@ -344,7 +342,7 @@
             if (productsLength - activeProducts - firstActive > 0) {
                 $(products[firstActive]).addClass('inactive').removeClass('active');
                 $(products[firstActive + activeProducts])
-                    .addClass('active').removeClass('inactive').find('img').unveil();
+                    .addClass('active').removeClass('inactive');
             }
             if (productsLength - activeProducts - firstActive > 1) {
                 $el.prev('.p-prev').removeClass('inactive');
@@ -357,7 +355,7 @@
         }
         if ($el.hasClass('p-prev')) {
             if (firstActive + activeProducts <= productsLength) {
-                $(products[firstActive - 1]).addClass('active').removeClass('inactive').find('img').unveil();
+                $(products[firstActive - 1]).addClass('active').removeClass('inactive');
                 $(products[firstActive - 1 + activeProducts]).addClass('inactive').removeClass('active');
             }
             if (firstActive === 1) {
@@ -375,7 +373,7 @@
      */
     function setThumbnailsDirection() {
         if (shoptet.abilities.feature.directional_thumbnails && $('#content.wide').length) {
-            if (detectResolution(shoptet.config.breakpoints.sm)) {
+            if (shoptet.layout.detectResolution(shoptet.config.breakpoints.sm)) {
                 setThumbnails('vertical');
             } else {
                 setThumbnails('horizontal');
@@ -517,7 +515,6 @@
         // Timeout must be set higher than CSS transition duration
         setTimeout(function() {
             checkThumbnails(shoptet.config.thumbnailsDirection, 'set', false);
-            $el.find('img').unveil();
             $('.thumbnail-next, .thumbnail-prev').removeClass('clicked');
         }, shoptet.config.animationDuration)
     }
@@ -615,7 +612,7 @@
             return;
         }
 
-        if (detectResolution(shoptet.config.breakpoints.xl)) {
+        if (shoptet.layout.detectResolution(shoptet.config.breakpoints.xl)) {
             var $sibling = $('.products-block.big .p:not(.big)').first();
             var $siblingsWrapper = $('.products-block.big > div:nth-child(2)');
             var siblingWrapperPadding = parseInt($siblingsWrapper.css('padding-bottom'));
@@ -639,8 +636,8 @@
 
             var breakpoint = shoptet.abilities.config.category.product.same_height_breakpoint;
 
-            if (detectResolution(shoptet.config.breakpoints[breakpoint])) {
-                if (!detectResolution(shoptet.config.breakpoints.xl)) {
+            if (shoptet.layout.detectResolution(shoptet.config.breakpoints[breakpoint])) {
+                if (!shoptet.layout.detectResolution(shoptet.config.breakpoints.xl)) {
                     $('.products-block.big:not(:first) .p:first:not(.big)').addClass('big');
                 }
                 if ($(notBigP).length) {

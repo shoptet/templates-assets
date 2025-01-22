@@ -10,7 +10,7 @@
         });
     }
 
-    function openModal(html, onComplete, options) {
+    function openModal(html, onComplete, onClosed, options) {
         shoptet.modal.open({
             html,
             className: 'express-checkout',
@@ -23,17 +23,18 @@
             },
             onClosed: function() {
                 document.body.style.overflowY = '';
+                onClosed?.();
             },
             ...options,
         });
     }
 
     // General function to rerender express checkout data in modal
-    function rerenderExpressCheckoutModal(response, onComplete, options) {
+    function rerenderExpressCheckoutModal(response, onComplete, onClosed, options) {
         const content = response.getFromPayload('content');
         mainStepHtml = content;
 
-        openModal(content, onComplete, options);
+        openModal(content, onComplete, onClosed, options);
     }
 
 
@@ -68,6 +69,7 @@
                 function() {
                     getPaymentResult(cartId)
                 },
+                undefined,
                 {
                     closeButton: false,
                     overlayClose: false,
@@ -344,10 +346,15 @@
 
                     if (status === 'FINISHED') {
                         const successHtml = document.querySelector('.js-success-template').innerHTML;
-                        openModal(successHtml, function() {
-                            const title = document.querySelector('.js-success-title');
-                            title.textContent = title.textContent.replace('%1', orderInfo?.code ?? orderInfo?.id ?? '');
-                        });
+                        openModal(successHtml,
+                            function() {
+                                const title = document.querySelector('.js-success-title');
+                                title.textContent = title.textContent.replace('%1', orderInfo?.code ?? orderInfo?.id ?? '');
+                            },
+                            function() {
+                                window.location.reload();
+                            },
+                        );
                     }
 
                     if (status === 'FAILED') {
@@ -412,7 +419,7 @@
         }
 
         if (target.classList.contains('js-leave-login-form-step')) {
-            openModal(mainStepHtml, initNotLoggedInUser);
+            initExpressCheckout();
         }
 
         if (target.classList.contains('js-go-to-shipping-step') || target.closest('.js-go-to-shipping-step')) {

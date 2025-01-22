@@ -1,4 +1,3 @@
-import './modules/jquery.unveil';
 import './bootstrap/transition';
 import './bootstrap/carousel';
 import './bootstrap/dropdown';
@@ -26,6 +25,7 @@ import '../../shared/js/libs/common';
 import '../../shared/js/libs/cookie';
 import '../../shared/js/libs/consent';
 import '../../shared/js/libs/helpers';
+import '../../shared/js/libs/images';
 import '../../shared/js/libs/tracking';
 import '../../shared/js/libs/image360';
 import '../../shared/js/libs/stockAvailabilities';
@@ -69,3 +69,4 @@ import './modules/smartLabels';
 import './modules/productSlider';
 import './modules/watchdog';
 import './modules/quantityDiscounts';
+import './modules/unveil';

@@ -9,16 +9,20 @@
             setTimeout(resizeEnd, shoptet.runtime.resize.delta);
         } else {
             shoptet.runtime.resize.timeout = false;
+            const windowChanged = window.innerWidth !== shoptet.runtime.resize.windowWidth;
+            if (windowChanged) {
+                shoptet.layout.clearCache('detectResolution');
+            }
             shoptet.scripts.signalNativeEvent('resizeEnd', document);
-            var window_changed = $(window).width() !== shoptet.runtime.resize.windowWidth;
-            if (window_changed) {
+            if (windowChanged) {
                 resizeEndCallback();
-                shoptet.runtime.resize.windowWidth = $(window).width();
+                shoptet.runtime.resize.windowWidth = window.innerWidth;
             }
 
-            var height = window.innerHeight;
+            const height = window.innerHeight;
             if (height !== shoptet.runtime.resize.windowHeight) {
-                document.documentElement.style.setProperty('--vh', (height * 0.01) + 'px');
+                shoptet.layout.clearCache('vh');
+                document.documentElement.style.setProperty('--vh', `${shoptet.layout.getViewHeight()}px`);
                 shoptet.runtime.resize.windowHeight = height;
             }
         }
@@ -27,7 +31,7 @@
     shoptet.runtime = shoptet.runtime || {};
     shoptet.runtime.setPcsTimeout = false;
     // we need to clear messages after page load
-    shoptet.runtime.dismiss = setTimeout(function() {
+    shoptet.runtime.dismiss = setTimeout(() => {
         hideMsg();
     }, shoptet.config.dismissTimeout);
     shoptet.runtime.resize = {
@@ -41,24 +45,21 @@
     shoptet.runtime.updateMenu = false;
     shoptet.runtime.adminBar = false;
 
-    shoptet.scripts.libs.runtime.forEach(function(fnName) {
-        var fn = eval(fnName);
+    shoptet.scripts.libs.runtime.forEach((fnName) => {
+        const fn = eval(fnName);
         shoptet.scripts.registerFunction(fn, 'runtime');
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        shoptet.runtime.resize.windowWidth = $(window).width();
+    document.addEventListener('DOMContentLoaded', () => {
+        shoptet.runtime.resize.windowWidth = window.innerWidth;
         shoptet.runtime.resize.windowHeight = window.innerHeight;
-        document.documentElement.style.setProperty('--vh',
-            (shoptet.runtime.resize.windowHeight * 0.01) + 'px'
-        );
     });
 
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', () => {
         shoptet.runtime.resize.rtime = new Date();
         if (shoptet.runtime.resize.timeout === false) {
             shoptet.runtime.resize.timeout = true;
-            setTimeout(function() {
+            setTimeout(() => {
                 shoptet.runtime.resizeEnd();
             }, shoptet.runtime.resize.delta);
         }

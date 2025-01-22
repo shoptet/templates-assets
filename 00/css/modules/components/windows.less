@@ -36,20 +36,38 @@
 }
 
 .toggle-window-arr {
-    z-index: @z-base-1;
     position: absolute;
-    left: @line-height-computed;
-    top: 24px;
+    z-index: @z-base-1;
+
+    // TODO: Remove this in issue 10468 -- START
+    :where(body.ums_back_to_shop_buttons--off) & {
+        left: @line-height-computed;
+        top: 24px;
+    }
+    // TODO: Remove this in issue 10468 -- END
+
+    // TODO: Remove this in issue 10468 -- START
+    :where(body.ums_back_to_shop_buttons--on) & {
+    // TODO: Remove this in issue 10468 -- END
+        top: 12px;
+        left: 6px;
+    // TODO: Remove this in issue 10468 -- START
+    }
+    // TODO: Remove this in issue 10468 -- END
+
     text-decoration: none;
+
     span {
         display: none;
     }
+
     &::before {
         &:extend(.shp-icon);
         content: @icon-arrow-left-code;
         margin-right: 1ex;
         font-size: 30px;
     }
+
     @media (min-width: @screen-sm-min) {
         span {
             display: inline;

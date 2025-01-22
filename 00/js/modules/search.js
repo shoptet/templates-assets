@@ -185,7 +185,7 @@ window.switchRecommended = (target) => {
             $arrows.removeClass('inactive');
             $el.removeClass('active');
             $targetEl.addClass('active');
-            $('.recommended-products img').unveil();
+            shoptet.images.unveil();
             if ($targetElSibling.length < 1) {
                 $arrow.addClass('inactive');
                 if (indicatorClassName === 'indicator-prev') {
@@ -250,7 +250,7 @@ $(function () {
     });
 
     $html.on('click', '.js-try-search-button', function() {
-        if (detectResolution(shoptet.abilities.config.navigation_breakpoint) && $('.js-search-input').is(':visible')) {
+        if (shoptet.layout.detectResolution(shoptet.abilities.config.navigation_breakpoint) && $('.js-search-input').is(':visible')) {
             $('.js-search-input').focus();
         } else {
             shoptet.global.showPopupWindow('search', true);
@@ -273,7 +273,7 @@ $(function () {
             success: (function (data, textStatus, xOptions) {
                 $('.search-next-wrap').remove();
                 $('#products-found').append(data).fadeIn('slow');
-                $('#products-found img').unveil();
+                shoptet.images.unveil();
                 shoptet.products.splitWidgetParameters();
                 initTooltips();
                 shoptet.scripts.signalDomLoad('ShoptetDOMPageContentLoaded');

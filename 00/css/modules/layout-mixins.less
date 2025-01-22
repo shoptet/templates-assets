@@ -202,12 +202,31 @@
             .id--17 & {
                 .nextStepRow();
             }
+
+            // TODO: Remove this in issue 10468 -- START
+            :where(body.ums_back_to_shop_buttons--off).id--16 &,
+            :where(body.ums_back_to_shop_buttons--off).id--17 & {
+                .next-step-back {
+                    text-align: right;
+                    padding-right: 1em;
+                }
+            }
+            // TODO: Remove this in issue 10468 -- END
         }
         @media (min-width: @screen-md-min) {
             // Cart
             .id--9 & {
                 .nextStepRow();
             }
+
+            // TODO: Remove this in issue 10468 -- START
+            :where(body.ums_back_to_shop_buttons--off).id--9 & {
+                .next-step-back {
+                    text-align: right;
+                    padding-right: 1em;
+                }
+            }
+            // TODO: Remove this in issue 10468 -- END
         }
     }
 }
@@ -220,19 +239,29 @@
     align-items: stretch;
     margin-bottom: @line-height-computed;
     text-align: center;
-    .next-step-back {
-        text-align: center;
+
+    // TODO: Remove this in issue 10468 -- START
+    :where(body.ums_back_to_shop_buttons--off) {
+        .next-step-back {
+            text-align: center;
+        }
     }
+    // TODO: Remove this in issue 10468 -- END
 }
 
 .nextStepRow() {
     flex-direction: row;
-    justify-content: flex-end;
     align-items: center;
-    .next-step-back {
-        text-align: right;
-        padding-right: 1em;
+    justify-content: flex-end;
+
+    // TODO: Remove this in issue 10468 -- START
+    :where(body.ums_back_to_shop_buttons--off) & {
+        .next-step-back {
+            text-align: right;
+            padding-right: 1em;
+        }
     }
+    // TODO: Remove this in issue 10468 -- END
 }
 
 @order-button-suffix-font-size: 14px;
@@ -246,20 +275,36 @@
             padding: @order-button-padding-vertical @order-button-padding-horizontal;
             line-height: @order-button-line-height;
         }
+
+        // TODO: Remove this in issue 10468 -- START
+        :where(body.ums_back_to_shop_buttons--on) & {
+        // TODO: Remove this in issue 10468 -- END
+            .next-step-back {
+                font-size: max(@order-button-suffix-font-size, @btn-font-size);
+            }
+        // TODO: Remove this in issue 10468 -- START
+        }
+        // TODO: Remove this in issue 10468 -- END
     }
-    .next-step-back {
-        display: inline-block;
-        padding-top: (@order-button-padding-vertical * 1.5 + @btn-border-width);
-        padding-bottom: (@order-button-padding-vertical * 1.5 + @btn-border-width);
-        // TODO: should be used @btn-line-height-lg, but first we have to unify it across templates,
-        // which requires lot of related work, e.g. the quantity component
-        // line-height: @btn-line-height-lg - @btn-padding-vertical;
-        // Consider also the btn-lg padding.
-        line-height: @order-button-line-height - @order-button-padding-vertical;
-        // TODO: increase default font size across our templates
-        font-size: @order-button-suffix-font-size;
-        font-weight: normal;
+
+    // TODO: Remove this in issue 10468 -- START
+    :where(body.ums_back_to_shop_buttons--off) & {
+        .next-step-back {
+            display: inline-block;
+            padding-top: (@order-button-padding-vertical * 1.5 + @btn-border-width);
+            padding-bottom: (@order-button-padding-vertical * 1.5 + @btn-border-width);
+            // TODO: should be used @btn-line-height-lg, but first we have to unify it across templates,
+            // which requires lot of related work, e.g. the quantity component
+            // line-height: @btn-line-height-lg - @btn-padding-vertical;
+            // Consider also the btn-lg padding.
+            line-height: @order-button-line-height - @order-button-padding-vertical;
+            // TODO: increase default font size across our templates
+            font-size: @order-button-suffix-font-size;
+            font-weight: normal;
+        }
     }
+    // TODO: Remove this in issue 10468 -- END
+
     .next-step-finish {
         display: flex;
         flex-direction: column;

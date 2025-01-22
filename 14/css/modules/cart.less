@@ -1040,7 +1040,11 @@ table.table.recapitulation-table {
         }
     }
 }
-.back-shopping-link {
-    display: none;
+// TODO: Remove this in issue 10468 -- START
+:where(body.ums_back_to_shop_buttons--off) {
+    .back-shopping-link {
+        display: none;
+    }
 }
+// TODO: Remove this in issue 10468 -- END
 // END: Template-specific declarations for the next step element

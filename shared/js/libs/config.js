@@ -13,10 +13,6 @@
         typeof shoptet.custom.config.dismissTimeout !== 'undefined' ?
         shoptet.custom.config.dismissTimeout : 6000;
 
-    shoptet.config.unveilTimeout =
-        typeof shoptet.custom.config.unveilTimeout !== 'undefined' ?
-        shoptet.custom.config.unveilTimeout : 1000;
-
     shoptet.config.updateQuantityTimeout =
         typeof shoptet.custom.config.updateQuantityTimeout !== 'undefined' ?
         shoptet.custom.config.updateQuantityTimeout : 1000;
@@ -24,6 +20,10 @@
     shoptet.config.adminBarTimeout =
         typeof shoptet.custom.config.adminBarTimeout !== 'undefined' ?
         shoptet.custom.config.adminBarTimeout : 800;
+
+    shoptet.config.image360RotationSpeed =
+        typeof shoptet.custom.config.image360RotationSpeed !== 'undefined' ?
+        shoptet.custom.config.image360RotationSpeed : 100;
 
 // Must be identically as media query breakpoints in CSS
     shoptet.config.breakpoints = {};

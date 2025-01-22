@@ -167,7 +167,7 @@ window.makeFilterAjaxRequest = (url, pushHistoryState, successCallback, element,
             categoryMaxValue = parseInt($categoryMaxValue.text());
         }
         priceFilter(categoryMinValue, categoryMaxValue);
-        $('#content-wrapper img').unveil();
+        shoptet.images.unveil();
         detectFilters();
         initTooltips();
         hideSpinner();
