@@ -354,6 +354,11 @@
             shoptet.csrf.injectToken($(form)[0]);
         }
 
+        // X+Y hack, ref GREEN-2321
+        var $amount = $(form).find('input.amount');
+        var originalAmount = $amount.val();
+        $amount.val(shoptet.helpers.toFloat($amount.attr('data-quantity') ?? originalAmount));
+
         shoptet.ajax.makeAjaxRequest(
             action + cartUrlSuffix,
             shoptet.ajax.requestTypes.post,
@@ -367,6 +372,8 @@
                 'X-Shoptet-XHR': 'Shoptet_Coo7ai'
             }
         );
+
+        $amount.val(originalAmount);
 
         return false;
     }
@@ -437,6 +444,7 @@
                 || $(this).parents('.cart-widget-product-amount').length
                 || $(this).parents('.ao-product').length
             ) {
+                $(this).attr('data-quantity', $(this).val());
                 shoptet.cart.updateQuantityInCart($(this), shoptet.config.updateQuantityTimeout);
             }
         });

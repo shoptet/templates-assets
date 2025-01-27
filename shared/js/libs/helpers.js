@@ -175,13 +175,13 @@
      * max = maximum allowed amount
      * @param {Number} decimals
      * decimals = allowed decimal places
-     * @param {String} action
+     * @param {'increase'|'decrease'} action - accepts 'increase' or 'decrease'
      * action = accepts 'increase' or 'decrease'
      * @param {Function} callback
      * callback = optional callback after quantity update
      */
     function updateQuantity(el, min, max, decimals, action, callback) {
-        var value = shoptet.helpers.toFloat($(el).attr('data-quantity') ?? el.value);
+        var value = shoptet.helpers.toFloat(el.value);
 
         if (isNaN(value)) {
             return false;
@@ -195,13 +195,15 @@
         var max = typeof max !== 'undefined'
             ? toFloat(max) : toFloat(shoptet.config.defaultProductMaxAmount);
 
-        if (action === 'increase') {
-            value += (min > 1) ? 1 : min;
-        } else if (action === 'decrease') {
-            value -= (min > 1) ? 1 : min;
-        }
+        var quantity = shoptet.helpers.toFloat($(el).attr('data-quantity'));
+        var diff = quantity - value;
 
-        value = shoptet.helpers.toFloat(value.toFixed(decimals));
+        value = updateQuantityInner(value, min, decimals, action);
+
+        if (!isNaN(quantity)) {
+            quantity = updateQuantityInner(quantity, min, decimals, action);
+            value = quantity;
+        }
 
         if (value < min) {
             if (action === 'decrease') {
@@ -221,14 +223,37 @@
             shoptet.variantsCommon.hideQuantityTooltips();
         }
 
+        if (!isNaN(quantity)) {
+            $(el).attr('data-quantity', quantity);
+            value = quantity - diff;
+        }
+
         el.value = value;
-        $(el).data('quantity', value);
 
         if (typeof callback === 'function') {
             callback();
         }
 
         return true;
+    }
+
+    /**
+     * Increase/decrease quantity of products in input
+     *
+     * @param {number} value - current value 
+     * @param {number} min - minimum allowed amount
+     * @param {number} decimals - allowed decimal places
+     * @param {'increase'|'decrease'} action - accepts 'increase' or 'decrease'
+     * @returns {number} - new value
+     */
+    function updateQuantityInner(value, min, decimals, action) {
+        if (action === 'increase') {
+            value += (min > 1) ? 1 : min;
+        } else if (action === 'decrease') {
+            value -= (min > 1) ? 1 : min;
+        }
+
+        return shoptet.helpers.toFloat(value.toFixed(decimals));
     }
 
     $('html').on('click', function(e){
