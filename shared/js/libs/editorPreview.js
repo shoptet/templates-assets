@@ -378,8 +378,12 @@ function findElementInView(id) {
   const elements = document.querySelectorAll(`[data-editorid="${id}"]`);
   if (!elements.length) return null;
 
+  const viewableElements = Array.from(elements).filter(el => isElementViewable(el));
+  if (!viewableElements.length) return null;
+
   const isElementInView = (el) => {
     const rect = el.getBoundingClientRect();
+
     return (
       rect.top >= 0 &&
       rect.left >= 0 &&
@@ -388,13 +392,42 @@ function findElementInView(id) {
     );
   };
 
-  const visibleElement = Array.from(elements).find(isElementInView);
-  return visibleElement || elements[0];
+  const visibleElement = Array.from(viewableElements).find(isElementInView);
+  return visibleElement || viewableElements[0];
+}
+
+function isElementViewable(element) {
+  if (!element) return false;
+
+  if (isCarouselItem(element)) {
+    return true;
+  }
+
+  // Use checkVisibility if supported
+  if ('checkVisibility' in element) {
+    return element.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true });
+  }
+
+  let current = element;
+  while (current) {
+      const style = window.getComputedStyle(current);
+      if (style.display === 'none' || style.visibility === 'hidden') {
+        return false;
+      }
+
+      current = current.parentElement;
+  }
+
+  return true;
 }
 
 // Special elements (carousel etc.)
 function handleSpecialElements(element) {
   handleCarousel(element);
+}
+
+function isCarouselItem (element) {
+  return element.closest('[data-editorid="carousel"]') !== null;
 }
 
 function handleCarousel(element) {
