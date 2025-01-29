@@ -23,7 +23,7 @@
         padding: @penta-spacing;
         position: absolute;
         bottom: 0;
-        left: @grid-gutter-width; 
+        left: @grid-gutter-width;
         width: 64%;
         min-height: 50%;
         border-top-left-radius: @border-radius-base;
@@ -48,14 +48,14 @@
             line-height: @font-size-h1-large + @basic-spacing;
             font-weight: @font-weight-h1;
         }
-       
+
             overflow: hidden;
             text-overflow: ellipsis;
             width: 100%;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-        
+
     }
     .extended-banner-link {
         display: flex;
@@ -76,7 +76,7 @@
     .extended-banner-text {
         margin-bottom: calc(@basic-spacing * 4);
         letter-spacing: @letter-spacing;
-       
+
             word-break: break-word;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -84,7 +84,7 @@
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
-        
+
     }
     &:empty {
         display: none;
@@ -135,7 +135,7 @@
             font-size: @font-size-h2-large;
             line-height: @font-size-h2-large + @basic-spacing;
         }
-    }  
+    }
 }
 .carousel {
     margin-bottom: 0;
@@ -161,7 +161,7 @@
     .carousel:hover & {
         opacity: 1;
     }
-    &::before {        
+    &::before {
         top: 50px;
         pointer-events: auto;
         @media (min-width: @screen-xs-min) {
@@ -181,6 +181,7 @@
 .banner-category {
     text-align: center;
     img {
+        width: 100%;
         margin: auto;
     }
     > a {
@@ -195,7 +196,6 @@
             justify-content: flex-start;
         }
         img {
-            width: 100%;
             @media (min-width: @screen-md-min) {
                 width: 50%;
                 flex: 0 0 50%;
@@ -263,9 +263,9 @@
                     flex: 0 0 100%;
                 }
             }
-            .extended-banner-texts {   
+            .extended-banner-texts {
                 display: none;
-            } 
+            }
         }
     }
     > span {
@@ -319,10 +319,10 @@
     }
     .benefitBanner__picture {
         margin: @double-spacing;
-        height: calc(@basic-spacing * 8); 
+        height: calc(@basic-spacing * 8);
         flex: 0 0 calc(@basic-spacing * 8);
         &:only-child {
-            height: 100%; 
+            height: 100%;
             flex: 0 0 100%;
         }
         img {
