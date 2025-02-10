@@ -657,6 +657,16 @@ select {
 /* product block start */
 @media (min-width: 321px) and (max-width: @screen-xs-max) {
     .columns-mobile-2 .products-block {
+        > div {
+            width: 50%;
+            margin-bottom: 20px;
+            &:nth-child(even) {
+                padding-left: 5px;
+            }
+            &:nth-child(odd) {
+                padding-right: 5px;
+            }
+        }
         .p {
             .name {
                 height: @line-height-computed * 2;

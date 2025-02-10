@@ -615,7 +615,6 @@ a.btn {
 }
 
 @media (min-width: 321px) and (max-width: (@screen-xs-min - 1)) {
-
     .columns-mobile-2 .tab-content {
         padding-left: round(@grid-gutter-width / 8);
         padding-right: round(@grid-gutter-width / 8);
@@ -623,8 +622,7 @@ a.btn {
 
     .columns-mobile-2 .products-block {
         > div {
-            margin-bottom: 0;
-
+            width: 50%;
             &:nth-child(even),
             &:nth-child(odd){
                 padding: round(@grid-gutter-width / 8);

@@ -519,7 +519,6 @@ window.initDatepickers = () => {
 }
 
 window.resizeEndCallback = () => {
-    shoptet.products.sameHeightOfProducts();
     setTimeout(function () {
         detectFilters();
     }, 1000);
@@ -531,7 +530,6 @@ window.resizeEndCallback = () => {
             shoptet.menu.toggleMenu();
         }
     }
-    shoptet.products.sameHeightOfProducts();
     shoptet.products.splitWidgetParameters();
 
     if ($('.carousel').length) {
@@ -609,7 +607,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     shoptet.images.unveil();
     $('body').addClass('unveiled');
-    shoptet.products.sameHeightOfProducts();
     if (detectResolution(shoptet.config.breakpoints.sm) && $('.carousel').length) {
       setCarouselHeight($('.carousel-inner'));
       $('body').addClass('carousel-set');
@@ -939,10 +936,6 @@ if (shoptet.config.ums_back_to_shop_buttons) {
                 scrollEl = accordionLink;
             }
             scrollToEl(scrollEl);
-        }
-
-        if (typeof shoptet.products.sameHeightOfProducts === 'function') {
-            shoptet.products.sameHeightOfProducts();
         }
         shoptet.products.splitWidgetParameters();
     });

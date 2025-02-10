@@ -355,9 +355,6 @@
             'changeStyle',
             'setStyle',
             'returnStyle',
-            'sameHeightOfProductsLoop',
-            'setHeightOfBigProduct',
-            'sameHeightOfProducts',
             'unveilProductVideoTab',
             'changeQuantity'
         ],

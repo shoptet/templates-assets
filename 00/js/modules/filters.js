@@ -172,9 +172,6 @@ window.makeFilterAjaxRequest = (url, pushHistoryState, successCallback, element,
         initTooltips();
         hideSpinner();
         dismissMessages();
-        setTimeout(function () {
-            shoptet.products.sameHeightOfProducts();
-        }, 1000);
         shoptet.products.splitWidgetParameters();
         try {
             if (pushHistoryState) {

@@ -82,8 +82,10 @@
 
         $html.on('click', '.p-main-image', function(e) {
             e.preventDefault();
-            var href = $(this).attr('href').replace(/\/orig\//, '/big/');
-            $('.cbox-gal[href="' + href  + '"]').trigger('click');
+            setTimeout(() => {
+                var href = $(this).attr('href').replace(/\/orig\//, '/big/');
+                $('.cbox-gal[href="' + href  + '"]').trigger('click');
+            });
         });
 
         // Remove quantity box from intro on detail page
@@ -185,7 +187,6 @@
                     if (listing !== null) {
                         $productsWrapper.last().append(listing);
                         $('.pagination-wrapper').replaceWith(pagination);
-                        sameHeightOfProducts();
                         shoptet.products.splitWidgetParameters();
                         initTooltips();
                         shoptet.images.unveil();
@@ -582,73 +583,6 @@
         $('.star-wrap .star.star-on').removeClass('star-on').addClass('star-off');
 
         setStyle($selector);
-    }
-
-    /**
-     * Used for setting same height of products in list
-     *
-     * @param {String} target
-     * target = CSS selector of targeted element
-     */
-    function sameHeightOfProductsLoop(target) {
-        var maxHeight = 0;
-        $(target).each(function() {
-            var currentHeight = $(this).outerHeight();
-            if (currentHeight > maxHeight) {
-                maxHeight = currentHeight;
-            }
-        });
-        $(target).css('height', maxHeight);
-    }
-
-    /**
-     * Used for setting height of big product
-     *
-     * This function does not accept any arguments.
-     */
-    function setHeightOfBigProduct() {
-        var $el = $('.products-block.big .p.big');
-        if (!$el.length) {
-            return;
-        }
-
-        if (shoptet.layout.detectResolution(shoptet.config.breakpoints.xl)) {
-            var $sibling = $('.products-block.big .p:not(.big)').first();
-            var $siblingsWrapper = $('.products-block.big > div:nth-child(2)');
-            var siblingWrapperPadding = parseInt($siblingsWrapper.css('padding-bottom'));
-            var siblingsHeight = $sibling[0].getBoundingClientRect().height;
-            $el.css('min-height', (siblingsHeight * 2) + siblingWrapperPadding);
-        }
-    }
-
-    /**
-     * Set same height of products in products list
-     *
-     * This function does not accept any arguments.
-     */
-    function sameHeightOfProducts() {
-        if (shoptet.abilities.config.category.product.same_height_set)  {
-            var notBigP = '.products-block:not(.big) .p';
-            var bigP = '.products-block.big .p:not(.big)';
-
-            $(bigP).removeAttr('style');
-            $(notBigP).removeAttr('style');
-
-            var breakpoint = shoptet.abilities.config.category.product.same_height_breakpoint;
-
-            if (shoptet.layout.detectResolution(shoptet.config.breakpoints[breakpoint])) {
-                if (!shoptet.layout.detectResolution(shoptet.config.breakpoints.xl)) {
-                    $('.products-block.big:not(:first) .p:first:not(.big)').addClass('big');
-                }
-                if ($(notBigP).length) {
-                    sameHeightOfProductsLoop(notBigP);
-                }
-                if ($(bigP).length) {
-                    sameHeightOfProductsLoop(bigP);
-                }
-            }
-            setHeightOfBigProduct();
-        }
     }
 
     function unveilProductVideoTab(href) {

@@ -179,9 +179,6 @@
         margin-left: round(-@grid-gutter-width / 4);
         margin-right: round(-@grid-gutter-width / 4);
         > div {
-            float: left;
-            width: 50%;
-            padding: 0 round(@grid-gutter-width / 4) round(@grid-gutter-width / 2);
             .p {
                 margin-bottom: 0;
             }
@@ -229,22 +226,7 @@
             }
         }
     }
-    @media (min-width: @screen-sm-min) and (max-width: @screen-lg-max) {
-        &.big {
-            > div {
-                &:first-child {
-                    float: none;
-                    width: 100%;
-                }
-            }
-        }
-    }
     @media (min-width: @screen-xl-min) {
-        margin-left: round(-@grid-gutter-width / 2);
-        margin-right: round(-@grid-gutter-width / 2);
-        > div {
-            padding: 0 round(@grid-gutter-width / 2) @grid-gutter-width;
-        }
         .p {
             .p-bottom {
                 .p-tools {
@@ -269,41 +251,11 @@
             }
         }
     }
-    .columns-3 &,
-    .columns-4 & {
-        @media (min-width: @screen-xl-min) {
-            > div {
-                width: 33.333333%;
-            }
-            &.big {
-                .highlight-product {
-                    width: 66.666666%;
-                }
-            }
-        }
-    }
-    .columns-4 .wide & {
-        @media (min-width: @screen-xl-min) {
-            &.big {
-                > div {
-                    width: 25%;
-                }
-                .highlight-product {
-                    width: 50%;
-                }
-            }
-        }
-    }
 }
 
 @media (min-width: 321px) and (max-width: @screen-xs-max) {
     .columns-mobile-2 .products-block {
-        display: flex;
-        flex-wrap: wrap;
-
-        >div {
-            width: 50%;
-            margin-bottom: 20px;
+        > div {
             .quantity {
                 display: none;
             }
@@ -347,13 +299,6 @@
                     align-self: flex-end;
                 }
             }
-        }
-        >div:nth-child(even) {
-            padding-left: 5px;
-        }
-        >div:nth-child(odd) {
-            padding-right: 5px;
-            clear: both;
         }
     }
 }

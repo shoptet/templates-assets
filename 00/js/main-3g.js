@@ -51,7 +51,6 @@ import '../../shared/js/libs/focus-visible';
 import '../../shared/js/libs/csrf';
 import '../../shared/js/libs/csrfLink';
 import '../../shared/js/libs/xyDiscounts';
-import '../../shared/js/libs/expressCheckout';
 import './modules/validator';
 import './modules/jquery.cloud-zoom.1.0.2';
 import './modules/cloudZoomInit';

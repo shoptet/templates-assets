@@ -1,0 +1,42 @@
+.products-block {
+  display: grid;
+  gap: 20px 10px;
+  margin: 0;
+  padding-bottom: 40px;
+  grid-template-columns: repeat(1, 1fr);
+  @media (min-width: 321px) and (max-width: @screen-xs-max) {
+    .columns-mobile-2 & {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: @screen-sm-min) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  @media (min-width: @screen-xl-min) {
+    gap: 40px;
+    .columns-3 & {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .columns-4 & {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  &.products {
+    &::before,
+    &::after {
+      display: none !important;
+    }
+  }
+  > div {
+    @media (min-width: @screen-sm-min) {
+      &.highlight-product {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+    }
+  }
+  .p {
+    height: 100%;
+  }
+}

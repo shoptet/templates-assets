@@ -18,12 +18,13 @@
             width: '100%',
             onComplete: function() {
                 resetModalHeights();
-                document.body.style.overflowY = 'hidden';
+                document.body.style.overflow = 'hidden';
                 onComplete?.();
             },
             onClosed: function() {
-                document.body.style.overflowY = '';
+                document.body.style.overflow = '';
                 onClosed?.();
+                window.location.reload();
             },
             ...options,
         });
@@ -346,15 +347,10 @@
 
                     if (status === 'FINISHED') {
                         const successHtml = document.querySelector('.js-success-template').innerHTML;
-                        openModal(successHtml,
-                            function() {
-                                const title = document.querySelector('.js-success-title');
-                                title.textContent = title.textContent.replace('%1', orderInfo?.code ?? orderInfo?.id ?? '');
-                            },
-                            function() {
-                                window.location.reload();
-                            },
-                        );
+                        openModal(successHtml, function() {
+                            const title = document.querySelector('.js-success-title');
+                            title.textContent = title.textContent.replace('%1', orderInfo?.code ?? orderInfo?.id ?? '');
+                        });
                     }
 
                     if (status === 'FAILED') {
