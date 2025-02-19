@@ -1,254 +1,287 @@
-(function(shoptet) {
+/// <reference path="./ajax/response.js" />
+// @ts-check
 
-    function get() {
-        var content = shoptet.cookie.get(shoptet.config.cookiesConsentName);
-        if (!content) {
-            return false;
-        }
-        return JSON.parse(content);
+import { ensure, ensureEvery } from '../typeAssertions';
+
+const CONSENT_VALIDITY = 180; // 6 months
+
+(function (shoptet) {
+  const isHTMLInputElement = value => value instanceof HTMLInputElement;
+  const isHTMLScriptElement = value => value instanceof HTMLScriptElement;
+
+  /**
+   * @typedef {{consent: string, cookieId: string}} CookieConsentSettings
+   */
+
+  /** @type {Array<(agreements: Array<string>) => void>} */
+  const acceptEvents = [];
+
+  /**
+   * This function returns the current consent settings or false if the cookie is not set.
+   * @returns {CookieConsentSettings | false}
+   */
+  function get() {
+    const content = shoptet.cookie.get(shoptet.config.cookiesConsentName);
+    if (!content) {
+      return false;
+    }
+    return JSON.parse(content);
+  }
+
+  /**
+   * This function saves the consent settings to the cookie and the backend db.
+   * @param {Array<string>} agreements Array of consent agreements
+   * @returns {boolean}
+   */
+  function set(agreements) {
+    let consentValidity = CONSENT_VALIDITY;
+    if (agreements.length === 0) {
+      agreements.push(shoptet.config.cookiesConsentOptNone);
+      consentValidity = shoptet.config.cookiesConsentRefuseDuration;
     }
 
-    function set(agreements) {
-        var consentValidity = 6 * 30; /* 6 months */
-        var consentAgreements = Object.create(agreements);
-        if (consentAgreements.length == 0) {
-            consentAgreements.push(shoptet.config.cookiesConsentOptNone);
-            consentValidity = shoptet.config.cookiesConsentRefuseDuration;
+    let cookieId = '';
+    for (let i = 0; i < 8; i++) {
+      cookieId += Math.random().toString(32).slice(2, 6);
+    }
+
+    /** @type {CookieConsentSettings} */
+    const cookieData = {
+      consent: agreements.join(','),
+      cookieId: cookieId,
+    };
+    if (
+      !shoptet.cookie.create(shoptet.config.cookiesConsentName, JSON.stringify(cookieData), { days: consentValidity })
+    ) {
+      return false;
+    }
+
+    fetch(shoptet.config.cookiesConsentUrl, {
+      method: shoptet.ajax.requestTypes.post,
+      headers: {
+        'X-Shoptet-XHR': 'Shoptet_Coo7ai',
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(cookieData),
+    }).then(response => {
+      if (response.ok) {
+        console.debug('ajax db saving ok');
+      }
+    });
+
+    if (acceptEvents.length > 0) {
+      acceptEvents.forEach(function (fn) {
+        fn(agreements);
+      });
+    }
+    return true;
+  }
+
+  /**
+   * This function registers a function to be called when the user accepts the consent.
+   * @param {() => void} event Function to be registered
+   */
+  function onAccept(event) {
+    if (typeof event === 'function') {
+      acceptEvents.push(event);
+    }
+  }
+
+  /**
+   * This function checks if the consent is set.
+   * @returns {boolean}
+   */
+  function isSet() {
+    return !!get();
+  }
+
+  /**
+   * This function checks if the given consent is accepted.
+   * @param {string} agreementType
+   * @returns {boolean}
+   */
+  function isAccepted(agreementType) {
+    if (shoptet.config.cookiesConsentIsActive !== 1) {
+      return true;
+    }
+    const cookie = get();
+    if (!cookie || !cookie.consent) {
+      return false;
+    }
+    const allowed = cookie.consent.split(',');
+    return allowed.includes(agreementType);
+  }
+
+  /**
+   * This function opens the consent settings modal.
+   */
+  function openCookiesSettingModal() {
+    document.documentElement.classList.add('cookies-visible');
+    window.showSpinner();
+    setTimeout(() => {
+      /** @type {(response: AjaxResponse) => void} */
+      const successCallback = response => {
+        const requestedDocument = shoptet.common.createDocumentFromString(response.getPayload());
+        let content = requestedDocument.querySelector('.js-cookiesSetting');
+        content.querySelectorAll('.js-cookiesConsentOption').forEach(el => {
+          const input = ensure(el, isHTMLInputElement);
+          if (isAccepted(input.value)) {
+            input.setAttribute('checked', 'checked');
+          }
+        });
+        content = content.innerHTML;
+        window.hideSpinner();
+        shoptet.modal.open({
+          scrolling: true,
+          opacity: '.95',
+          html: shoptet.content.colorboxHeader + content + shoptet.content.colorboxFooter,
+          className: shoptet.modal.config.classMd,
+          width: shoptet.modal.config.widthMd,
+          height: shoptet.modal.config.initialHeight,
+          onComplete: () => {
+            document.querySelector('#cboxContent')?.classList.add('cookiesDialog');
+            shoptet.modal.shoptetResize();
+          },
+          onClosed: () => {
+            document.documentElement.classList.remove('cookies-visible');
+            document.querySelector('#cboxContent')?.classList.remove('cookiesDialog');
+          },
+        });
+        shoptet.scripts.signalDomLoad('ShoptetDOMContentLoaded');
+      };
+      shoptet.ajax.makeAjaxRequest(
+        shoptet.config.cookiesConsentSettingsUrl,
+        shoptet.ajax.requestTypes.get,
+        '',
+        {
+          success: successCallback,
+        },
+        {
+          'X-Shoptet-XHR': 'Shoptet_Coo7ai',
         }
-        var cookieId = '';
-        for (i = 0; i < 8; i++) {
-            cookieId += Math.random().toString(32).substr(2, 4);
-        }
-        var cookieData = {
-            consent: consentAgreements.join(','),
-            cookieId: cookieId
+      );
+    });
+  }
+
+  /**
+   * This function submits the consent settings form.
+   * @param {'all' | 'reject' | 'selection' | 'none'} value Value of the form
+   */
+  function cookiesConsentSubmit(value) {
+    document.querySelector('.js-siteCookies')?.remove();
+    shoptet.modal.close();
+    setTimeout(() => {
+      const possibleAgreements = [
+        shoptet.config.cookiesConsentOptAnalytics,
+        shoptet.config.cookiesConsentOptPersonalisation,
+      ];
+      /** @type {Array<string>} */
+      const agreements = [];
+      switch (value) {
+        case 'all':
+          agreements.push(...possibleAgreements);
+          break;
+        case 'reject':
+          value = 'none';
+          break;
+        case 'selection':
+          document.querySelectorAll('.js-cookiesConsentOption').forEach(el => {
+            const input = ensure(el, isHTMLInputElement);
+            if (input.checked === true && possibleAgreements.includes(input.value)) {
+              agreements.push(input.value);
+            }
+          });
+          break;
+        default:
+          if (value !== 'none') {
+            console.debug('unknown consent action');
+            return;
+          }
+      }
+      if (!set(agreements)) {
+        console.debug('error setting consent cookie');
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    (() => {
+      'use strict';
+      const CookieConsent = function () {
+        const script_selector = 'data-cookiecategory';
+        const _cookieconsent = {};
+
+        _cookieconsent.run = () => {
+          if (isSet()) {
+            const consent = get();
+            if (consent) {
+              const accepted_categories = consent.consent.split(',');
+              const scripts = ensureEvery(
+                Array.from(document.querySelectorAll('script[' + script_selector + ']')),
+                isHTMLScriptElement
+              );
+
+              /** @param {Array<HTMLScriptElement>} scripts, @param {number} index */
+              const _loadScripts = (scripts, index) => {
+                if (index < scripts.length) {
+                  const curr_script = scripts[index];
+                  const curr_script_category = curr_script.getAttribute(script_selector);
+                  if (curr_script_category && accepted_categories.includes(curr_script_category)) {
+                    curr_script.type = 'text/javascript';
+                    curr_script.removeAttribute(script_selector);
+                    let src = curr_script.getAttribute('data-src');
+                    const fresh_script = document.createElement('script');
+                    fresh_script.textContent = curr_script.innerHTML;
+                    ((destination, source) => {
+                      let attr,
+                        attributes = source.attributes;
+                      const len = attributes.length;
+                      for (let i = 0; i < len; i++) {
+                        attr = attributes[i];
+                        if (attr.nodeValue) {
+                          destination.setAttribute(attr.nodeName, attr.nodeValue);
+                        }
+                      }
+                    })(fresh_script, curr_script);
+                    src ? (fresh_script.src = src) : (src = curr_script.src);
+                    if (src) {
+                      fresh_script.onload = () => {
+                        fresh_script.onload = null;
+                        _loadScripts(scripts, ++index);
+                      };
+                    }
+                    curr_script.parentNode?.replaceChild(fresh_script, curr_script);
+                    if (src) return;
+                  }
+                  _loadScripts(scripts, ++index);
+                }
+              };
+              if (scripts.length > 0) {
+                _loadScripts(scripts, 0);
+              }
+            }
+          }
         };
-        if (!shoptet.cookie.create(shoptet.config.cookiesConsentName, JSON.stringify(cookieData), {days: consentValidity})) {
-            return false;
-        }
 
-        $.ajax({
-            type: 'POST',
-            headers: {
-                'X-Shoptet-XHR': 'Shoptet_Coo7ai'
-            },
-            url: shoptet.config.cookiesConsentUrl,
-            data: cookieData,
-            success: function(data) {
-                if (data.code == 200) {
-                    console.debug('ajax db saving ok');
-                }
-            }
-        });
+        return _cookieconsent;
+      };
 
-        if (shoptet.consent.acceptEvents.length > 0) {
-            shoptet.consent.acceptEvents.forEach(function(fn) {
-                fn(agreements);
-            });
-        }
-        return true;
-    }
-
-    function onAccept(event) {
-        if (typeof event === 'function') {
-            shoptet.consent.acceptEvents.push(event);
-        }
-    }
-
-    function isSet() {
-        var cookie = shoptet.consent.get();
-        return (cookie !== false) ? true : false;
-    }
-
-    function isAccepted(agreementType) {
-        if (shoptet.config.cookiesConsentIsActive !== 1) {
-            return true;
-        }
-        var cookie = shoptet.consent.get();
-        if (!cookie.consent) {
-            return false;
-        }
-        var allowed = cookie.consent.split(',');
-        return allowed.includes(agreementType);
-    }
-
-    function openCookiesSettingModal() {
-        $('html').addClass('cookies-visible');
-        showSpinner();
-        setTimeout(() => {
-            var successCallback = function (response) {
-                var requestedDocument = shoptet.common.createDocumentFromString(response.getPayload());
-                var content = $(requestedDocument).find('.js-cookiesSetting');
-                content.find('.js-cookiesConsentOption').each(function () {
-                    if(shoptet.consent.isAccepted(this.value)) {
-                        $(this).attr('checked','checked');
-                    }
-                });
-                content = content.html();
-                hideSpinner();
-                shoptet.modal.open({
-                    scrolling: true,
-                    opacity: '.95',
-                    html: shoptet.content.colorboxHeader + content + shoptet.content.colorboxFooter,
-                    className: shoptet.modal.config.classMd,
-                    width: shoptet.modal.config.widthMd,
-                    height: shoptet.modal.config.initialHeight,
-                    onComplete: function() {
-                        $('#cboxContent').addClass('cookiesDialog');
-                        shoptet.modal.shoptetResize();
-                    },
-                    onClosed: function() {
-                        $('html').removeClass('cookies-visible');
-                        $('#cboxContent').removeClass('cookiesDialog');
-                    }
-                });
-                shoptet.scripts.signalDomLoad('ShoptetDOMContentLoaded');
-            };
-            shoptet.ajax.makeAjaxRequest(
-                shoptet.config.cookiesConsentSettingsUrl,
-                shoptet.ajax.requestTypes.get,
-                '',
-                {
-                    'success': successCallback
-                },
-                {
-                    'X-Shoptet-XHR': 'Shoptet_Coo7ai'
-                }
-            );
-        });
-    }
-
-    function cookiesConsentSubmit(value) {
-        $('.js-siteCookies').remove();
-        shoptet.modal.close();
-        setTimeout(() => {
-            var possibleAgreements = [
-                shoptet.config.cookiesConsentOptAnalytics,
-                shoptet.config.cookiesConsentOptPersonalisation
-            ];
-            var agreements = [];
-            switch(value) {
-                case 'all':
-                    agreements = possibleAgreements;
-                    break;
-                case 'reject':
-                    value = 'none'
-                    break;
-                case 'selection':
-                    $('.js-cookiesConsentOption').each(function () {
-                        if (this.checked == true && possibleAgreements.includes(this.value)) {
-                            agreements.push(this.value);
-                        }
-                    });
-                    break;
-                default:
-                    if (value != 'none') {
-                        console.debug('unknown consent action');
-                        return;
-                    }
-            }
-            if (!shoptet.consent.set(agreements)) {
-                console.debug('error setting consent cookie');
-            }
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        (function() {
-            'use strict';
-            var CookieConsent = function(root) {
-                var script_selector = 'data-cookiecategory';
-                var _cookieconsent = {};
-
-                _cookieconsent.run = function() {
-                    if (shoptet.consent.isSet()) {
-                        var consent = shoptet.consent.get();
-                        if (consent) {
-                            var accepted_categories = consent.consent.split(',');
-                            var scripts = document.querySelectorAll('script[' + script_selector + ']');
-
-                            var _loadScripts = function(scripts, index) {
-                                if(index < scripts.length){
-                                    var curr_script = scripts[index];
-                                    var curr_script_category = curr_script.getAttribute(script_selector);
-                                    if(_inArray(accepted_categories, curr_script_category) > -1){
-                                        curr_script.type = 'text/javascript';
-                                        curr_script.removeAttribute(script_selector);
-                                        var src = curr_script.getAttribute('data-src');
-                                        var fresh_script = _createNode('script');
-                                        fresh_script.textContent = curr_script.innerHTML;
-                                        (function(destination, source){
-                                            var attr, attributes = source.attributes;
-                                            var len = attributes.length;
-                                            for(var i=0; i<len; i++){
-                                                attr = attributes[i];
-                                                destination.setAttribute(attr.nodeName, attr.nodeValue);
-                                            }
-                                        })(fresh_script, curr_script);
-                                        src ? (fresh_script.src = src) : (src = curr_script.src);
-                                        if(src){
-                                            if(fresh_script.readyState) {
-                                                fresh_script.onreadystatechange = function() {
-                                                    if (fresh_script.readyState === "loaded" || fresh_script.readyState === "complete" ) {
-                                                        fresh_script.onreadystatechange = null;
-                                                        _loadScripts(scripts, ++index);
-                                                    }
-                                                };
-                                            } else {
-                                                fresh_script.onload = function(){
-                                                    fresh_script.onload = null;
-                                                    _loadScripts(scripts, ++index);
-                                                };
-                                            }
-                                        }
-                                        curr_script.parentNode.replaceChild(fresh_script, curr_script);
-                                        if(src) return;
-                                    }
-                                    _loadScripts(scripts, ++index);
-                                }
-                            }
-                            _loadScripts(scripts, 0);
-                        }
-                    }
-                }
-
-                var _inArray = function(arr, value) {
-                    var len = arr.length;
-                    for(var i=0; i<len; i++){
-                        if(arr[i] === value)
-                            return i;
-                    }
-                    return -1;
-                }
-
-                var _createNode = function(type){
-                    var el = document.createElement(type);
-                    if(type === 'button'){
-                        el.setAttribute('type', type);
-                    }
-                    return el;
-                }
-
-                return _cookieconsent;
-            }
-
-            var init = 'initCookieConsent';
-            if(typeof window[init] !== 'function'){
-                window[init] = CookieConsent
-            }
-        })();
-        var cc = initCookieConsent();
-        cc.run();
-        shoptet.consent.onAccept(function(agreements) {
-            cc.run();
-        });
+      if (typeof window.initCookieConsent !== 'function') {
+        window.initCookieConsent = CookieConsent;
+      }
+    })();
+    const cc = window.initCookieConsent();
+    cc.run();
+    onAccept(() => {
+      cc.run();
     });
+  });
 
-    shoptet.consent = shoptet.consent || {};
-    shoptet.scripts.libs.consent.forEach(function(fnName) {
-        var fn = eval(fnName);
-        shoptet.scripts.registerFunction(fn, 'consent');
-    });
-    shoptet.consent.acceptEvents = [];
-
+  shoptet.consent = shoptet.consent || {};
+  shoptet.scripts.libs.consent.forEach(function (fnName) {
+    var fn = eval(fnName);
+    shoptet.scripts.registerFunction(fn, 'consent');
+  });
+  shoptet.consent.acceptEvents = acceptEvents;
 })(shoptet);

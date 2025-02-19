@@ -89,13 +89,24 @@
         },
         createImg: function() {
             var img = new Image();
-            var attrs = $(this).data('cbox-img-attrs');
+            var $el = $(this);
+            var attrs = $el.data('cbox-img-attrs');
+            var altText = $el.attr("data-alt");
+
+            if (!altText) {
+                var innerImg = $el.find("img");
+                altText = (innerImg.length
+                    ? innerImg.attr("alt")?.trim()
+                    : "") || shoptet.messages['imageWithoutAlt'];
+            }
 
             if (typeof attrs === 'object') {
                 $.each(attrs, function(key, val){
                     img[key] = val;
                 });
             }
+
+            img.alt = altText;
 
             return img;
         },

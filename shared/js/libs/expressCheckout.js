@@ -110,6 +110,21 @@
         }
     }
 
+    /**
+     * BE responses works in a way that they return code 500 when notifier contains errors.
+     * Because of that FE request is resolved as failed, but it is not actually failed when content is returned.
+     * This function checks if content is returned and if so, it resolves the request as successful.
+     */
+    function resolveFailedRequestWithContent(response, callback) {
+        const content = response.getFromPayload('content');
+
+        if (!content) {
+            return;
+        }
+
+        callback(response);
+    }
+
     function initExpressCheckout() {
         shoptet.ajax.makeAjaxRequest(
             '/action/ExpressCheckout/',
@@ -133,6 +148,11 @@
     function changeProductQuantity(amount, itemId, priceId) {
         clearTimeout(shoptet.runtime.setPcsTimeout);
 
+        function callback(response) {
+            shoptet.variantsCommon.hideQuantityTooltips();
+            rerenderExpressCheckoutModal(response);
+        }
+
         shoptet.runtime.setPcsTimeout = setTimeout(function() {
             showSpinner();
             shoptet.ajax.makeAjaxRequest(
@@ -140,9 +160,11 @@
                 shoptet.ajax.requestTypes.post,
                 `amount=${amount}&itemId=${itemId}&priceId=${priceId}`,
                 {
-                    'success': function(response) {
-                        shoptet.variantsCommon.hideQuantityTooltips();
-                        rerenderExpressCheckoutModal(response);
+                    'success': callback,
+                    'failed': function(response) {
+                        resolveFailedRequestWithContent(response, callback);
+                    },
+                    'complete': function() {
                         hideSpinner();
                     },
                 },
@@ -160,6 +182,9 @@
             `id=${value}`,
             {
                 'success': rerenderExpressCheckoutModal,
+                'failed': function(response) {
+                    resolveFailedRequestWithContent(response, rerenderExpressCheckoutModal);
+                },
             },
             {
                 'X-Shoptet-XHR': 'Shoptet_Coo7ai'
@@ -174,6 +199,9 @@
             `id=${value}`,
             {
                 'success': rerenderExpressCheckoutModal,
+                'failed': function(response) {
+                    resolveFailedRequestWithContent(response, rerenderExpressCheckoutModal);
+                },
             },
             {
                 'X-Shoptet-XHR': 'Shoptet_Coo7ai'
@@ -308,6 +336,9 @@
             `discountCouponCode=${value}`,
             {
                 'success': rerenderExpressCheckoutModal,
+                'failed': function(response) {
+                    resolveFailedRequestWithContent(response, rerenderExpressCheckoutModal);
+                },
             },
             {
                 'X-Shoptet-XHR': 'Shoptet_Coo7ai'
@@ -322,6 +353,9 @@
             '',
             {
                 'success': rerenderExpressCheckoutModal,
+                'failed': function(response) {
+                    resolveFailedRequestWithContent(response, rerenderExpressCheckoutModal);
+                },
             },
             {
                 'X-Shoptet-XHR': 'Shoptet_Coo7ai'

@@ -270,6 +270,7 @@
         }
         $mainImage.show();
         var $mainImageLink = $mainImage.find('a');
+        const mainImgTag = $mainImage[0].querySelector('img');
 
         var currentImage = bigImage.split('/');
         if (typeof currentImage === 'object') {
@@ -278,7 +279,16 @@
             highlightActiveThumbnail(imageName[0]);
         }
 
-        $mainImage.find('img').attr('src', bigImage);
+        const matchingThumbnail = [...document.querySelectorAll(".p-thumbnails-inner .p-thumbnail")].find(thumbnail => thumbnail.getAttribute("href") === bigImage);
+
+        const altText = matchingThumbnail
+            ? matchingThumbnail.querySelector("img")?.alt || shoptet.messages['imageWithoutAlt']
+            : shoptet.messages['imageWithoutAlt'];
+
+        if (mainImgTag) {
+            mainImgTag.src = bigImage;
+            mainImgTag.alt = altText;
+        }
 
         $mainImageLink.attr({
             'href': bigImage,

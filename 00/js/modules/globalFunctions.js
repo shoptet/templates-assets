@@ -9,6 +9,9 @@ $.colorbox.settings.opacity = shoptet.modal.config.opacity;
 $.colorbox.settings.maxWidth = shoptet.modal.config.maxWidth;
 $.colorbox.settings.initialWidth = shoptet.modal.config.widthMd;
 $.colorbox.settings.initialHeight = shoptet.modal.config.initialHeight;
+$.colorbox.settings.previous = shoptet.messages['previous'];
+$.colorbox.settings.next = shoptet.messages['next'];
+$.colorbox.settings.close = shoptet.messages['close'];
 shoptet.config.bodyClasses = 'user-action-visible' +
     ' navigation-window-visible' +
     ' cart-window-visible' +
