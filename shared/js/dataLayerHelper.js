@@ -1,1 +1,1 @@
-import '../../../../libs/googleDataLayerHelper/dataLayerHelper';
+import '../../../../../public/cms/libs/googleDataLayerHelper/dataLayerHelper';

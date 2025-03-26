@@ -2,148 +2,139 @@
 article header h1,
 .content-inner > h1,
 .content > h2 {
-    @media (min-width: @screen-sm-min) {
-        margin-top: 0;
-    }
+  @media (min-width: @screen-sm-min) {
+    margin-top: 0;
+  }
 }
 
 .content-inner > h1,
 .content > h2 {
-    text-align: center;
+  text-align: center;
 }
 
 .category-top {
-    text-align: center;
-    padding-bottom: @line-height-computed; 
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    margin-bottom: @triple-spacing; 
-    
-    @media (min-width: @screen-sm-min) {
-        margin-bottom: @penta-spacing; 
-    }
+  text-align: center;
+  padding-bottom: @line-height-computed;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  margin-bottom: @triple-spacing;
 
-    .pagination-count {
-        padding-top: 0;
-        margin-top: -(@basic-spacing);
-        @media (min-width: @navigation-breakpoint) {
-            margin-top: -(@triple-spacing);
-            margin-bottom: @triple-spacing;
-        }
-        strong {
-            font-weight: 500;
-        }
+  @media (min-width: @screen-sm-min) {
+    margin-bottom: @penta-spacing;
+  }
+
+  .pagination-count {
+    padding-top: 0;
+    margin-top: -(@basic-spacing);
+    @media (min-width: @navigation-breakpoint) {
+      margin-top: -(@triple-spacing);
+      margin-bottom: @triple-spacing;
     }
+    strong {
+      font-weight: 500;
+    }
+  }
 }
 
 .products-top-header {
-    padding-top: round(@line-height-computed * 2); 
-    border-top-width: 1px;
-    border-top-style: solid;
+  padding-top: round(@line-height-computed * 2);
+  border-top-width: 1px;
+  border-top-style: solid;
 }
 
-.products-top {    
-    text-align: left;
-    justify-content: center;        
-    .name {
-        font-weight: @font-weight-h1;
-        font-size: @font-size-larger;
-    }        
-    // TODO: Remove this in FRONTEND-2955 -- START
-    :where(body.ums_unify_product_appendix--off) & {
-        .category-appendix {
-            display: block;
-            font-weight: @font-weight-base;
-        }
+.products-top {
+  text-align: left;
+  justify-content: center;
+  .name {
+    font-weight: @font-weight-h1;
+    font-size: @font-size-larger;
+  }
+  > div.product {
+    .p {
+      align-items: flex-start;
     }
-    // TODO: Remove this in FRONTEND-2955 -- END
-    > div.product {
-        .p {
-            align-items: flex-start;
-        }
-        .aside-indented & {
-            @media (min-width: @screen-lg-min) {
-                width: 25%;
-            }
-        }
+    .aside-indented & {
+      @media (min-width: @screen-lg-min) {
+        width: 25%;
+      }
     }
-    .product.revealed + .button-wrapper {
-        .chevron-down-after {
-            &::after {
-                content: @icon-chevron-up-code;
-            }
-        }
+  }
+  .product.revealed + .button-wrapper {
+    .chevron-down-after {
+      &::after {
+        content: @icon-chevron-up-code;
+      }
     }
-    .button-wrapper {
-        padding-bottom: round(@line-height-computed / 2);
-    }
+  }
+  .button-wrapper {
+    padding-bottom: round(@line-height-computed / 2);
+  }
 }
 
 #category-header {
-    border-radius: @border-radius-base;
-    padding-top: @basic-spacing;
-    label {
-        border-top-left-radius: @border-radius-base;
-        border-top-right-radius: @border-radius-base;
+  border-radius: @border-radius-base;
+  padding-top: @basic-spacing;
+  label {
+    border-top-left-radius: @border-radius-base;
+    border-top-right-radius: @border-radius-base;
+  }
+  input[type='radio'] + label {
+    padding: @double-spacing;
+    font-size: @font-size-larger;
+    line-height: 24px;
+    margin-right: @half-basic-spacing;
+
+    .one-column-body &,
+    .multiple-columns-body.mobile & {
+      @media (min-width: @screen-md-min) {
+        padding: @double-spacing @penta-spacing;
+      }
     }
-    input[type="radio"] + label {
-        padding: @double-spacing;
-        font-size: @font-size-larger;
-        line-height: 24px;
-        margin-right: @half-basic-spacing;
-        
-        .one-column-body &,
-        .multiple-columns-body.mobile & {
-            @media (min-width: @screen-md-min) {
-                padding: @double-spacing @penta-spacing;
-            }
-        }
-        .multiple-columns-body.desktop & {
-            @media (min-width: @screen-xl-min) {
-                padding: @double-spacing @penta-spacing;
-            }        
-        }
+    .multiple-columns-body.desktop & {
+      @media (min-width: @screen-xl-min) {
+        padding: @double-spacing @penta-spacing;
+      }
     }
-    input[type="radio"]:checked + label {
-        font-weight: @font-weight-h1;
-    }
+  }
+  input[type='radio']:checked + label {
+    font-weight: @font-weight-h1;
+  }
 }
 
 .pagination-wrapper {
-    .load-products {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        padding: @double-spacing;
-        .fontSmaller();
-        &::after {
-            &:extend(.shp-icon);
-            content: @icon-ellipsis-h-code;
-            margin-left: 0.5em;
-        }
+  .load-products {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: @double-spacing;
+    .fontSmaller();
+    &::after {
+      &:extend(.shp-icon);
+      content: @icon-ellipsis-h-code;
+      margin-left: 0.5em;
     }
-    .pagination,
-    .pagination-top {
-        font-weight: 600;
-        > strong {
-            font-weight: 600;
-        }
-        .pagination-link,
-        a:last-child {
-            border-width: 1px;
-            border-style: solid;
-            border-radius: @border-radius-base;
-        }
-        .pagination-link {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-        }
+  }
+  .pagination,
+  .pagination-top {
+    font-weight: 600;
+    > strong {
+      font-weight: 600;
     }
+    .pagination-link,
+    a:last-child {
+      border-width: 1px;
+      border-style: solid;
+      border-radius: @border-radius-base;
+    }
+    .pagination-link {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
 
 .category-banners {
-    margin-top: @basic-spacing;
-    margin-bottom: @double-spacing;
+  margin-top: @basic-spacing;
+  margin-bottom: @double-spacing;
 }
-

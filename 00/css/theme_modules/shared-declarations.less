@@ -1,577 +1,601 @@
 body {
+  font-family: @template-font, sans-serif;
+  &.blank-mode {
     font-family: @template-font, sans-serif;
-    &.blank-mode {
-        font-family: @template-font, sans-serif;
-    }
+  }
 }
 
 .blank-mode {
-    font-family: @template-font, sans-serif;
+  font-family: @template-font, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
 .cart-table .main-link,
 .cart-related-name {
+  font-family: @template-headings-font, sans-serif;
+  .blank-mode & {
     font-family: @template-headings-font, sans-serif;
-    .blank-mode & {
-        font-family: @template-headings-font, sans-serif;
-    }
+  }
 }
 
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
-    color: @headings-color;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  color: @headings-color;
 }
 
 body {
-    color: @text-color;
-    background-color: @body-bg;
+  color: @text-color;
+  background-color: @body-bg;
 }
 
 .disabled,
 .inactive {
-    color: @text-muted-color;
+  color: @text-muted-color;
 }
 
 .highlight {
-    color: @color-primary;
+  color: @color-primary;
 }
 
 .red {
-    color: @red;
+  color: @red;
 }
 
 .line {
-    color: @gray;
+  color: @gray;
 }
 
 a,
 .link-like {
-    color: @link-color;
+  color: @link-color;
+  &:hover,
+  &:focus {
+    color: @link-hover-color;
+  }
+  &.conversion {
+    color: @color-secondary;
     &:hover,
     &:focus {
-        color: @link-hover-color;
+      color: @color-secondary-hover;
     }
-    &.conversion {
-        color: @color-secondary;
-        &:hover,
-        &:focus {
-            color: @color-secondary-hover;
-        }
-    }
+  }
 }
 
 #cboxContent {
-    background-color: @colorbox-bg;
+  background-color: @colorbox-bg;
 }
 
 #cboxOverlay {
-    background-color: @colorbox-overlay-bg;
+  background-color: @colorbox-overlay-bg;
 }
 
 #cboxTitle {
-    background-color: @colorbox-title-bg;
+  background-color: @colorbox-title-bg;
 }
 
 .form-control,
 select {
-    border-color: @input-border;
-    color: @input-color-nonfocused;
-    background-color: @input-bg;
-    &:focus {
-        border-color: @input-border-focus;
-        color: @input-color;
-    }
-    &[disabled] {
-        color: @input-color-disabled;
-        background-color: @input-bg-disabled;
-    }
+  border-color: @input-border;
+  color: @input-color-nonfocused;
+  background-color: @input-bg;
+  &:focus {
+    border-color: @input-border-focus;
+    color: @input-color;
+  }
+  &[disabled] {
+    color: @input-color-disabled;
+    background-color: @input-bg-disabled;
+  }
 }
 
 .form-control,
 input,
 select,
 textarea {
-    &:focus {
-        box-shadow: 0 0 0 0.1em fade(@input-border-focus, 50%);
-    }
+  &:focus {
+    box-shadow: 0 0 0 0.1em fade(@input-border-focus, 50%);
+  }
 }
 
 .country-flags {
-    border-width: 1px;
-    border-style: solid;
-    border-color: transparent;
-    border-radius: 3px;
-    &:focus {
-        border-color: @input-border-focus;
-        box-shadow: 0 0 0 0.1em fade(@input-border-focus, 50%);
-    }
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 3px;
+  &:focus {
+    border-color: @input-border-focus;
+    box-shadow: 0 0 0 0.1em fade(@input-border-focus, 50%);
+  }
 }
 
-input[type="checkbox"],
-input[type="radio"] {
+input[type='checkbox'],
+input[type='radio'] {
+  & + label {
+    &::before {
+      border-color: @input-border;
+    }
+    &::after {
+      background-color: @input-border;
+    }
+  }
+  &:disabled {
     & + label {
-        &::before {
-            border-color: @input-border;
-        }
-        &::after {
-            background-color: @input-border;
-        }
+      &::before {
+        border-color: lighten(@input-border, 5%);
+      }
     }
-    &:disabled {
-        & + label {
-            &::before {
-                border-color: lighten(@input-border, 5%);
-            }
-        }
+  }
+  &:checked {
+    & + label {
+      &::before {
+        border-color: @color-primary;
+      }
+      &::after {
+        border-color: @content-box-bg;
+        background-color: @color-primary;
+      }
     }
-    &:checked {
-        & + label {
-            &::before {
-                border-color: @color-primary;
-            }
-            &::after {
-                border-color: @content-box-bg;
-                background-color: @color-primary;
-            }
-        }
+  }
+  &.focus-visible {
+    & + label::before {
+      box-shadow: 0 0 0 0.2em hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.5);
     }
-    &.focus-visible {
-        & + label::before {
-            box-shadow: 0 0 0 0.2em hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.5);
-        }
-    }
+  }
 }
 
 .additional-information {
-    color: @text-muted-color;
+  color: @text-muted-color;
 }
 
 .content-wrapper {
-    background-color: @content-box-bg;
+  background-color: @content-box-bg;
 }
 
 .banner,
 .banner-wrapper,
 .banner-category,
 .carousel-inner {
+  color: @banner-color;
+  a {
     color: @banner-color;
-    a {
-        color: @banner-color;
-    }
+  }
 }
 
 .box {
-    &.box-bg-transparent {
-        background-color: transparent;
+  &.box-bg-transparent {
+    background-color: transparent;
+  }
+  &.box-bg-default {
+    background-color: @box-bg;
+  }
+  &.box-bg-variant {
+    background-color: @box-variant-bg;
+  }
+  &.box-bg-dark {
+    color: @box-dark-color;
+    background-color: @box-dark-bg;
+    h1,
+    h2,
+    h3,
+    h4 {
+      color: @box-dark-color;
     }
-    &.box-bg-default {
-        background-color: @box-bg;
-    }
-    &.box-bg-variant {
-        background-color: @box-variant-bg;
-    }
-    &.box-bg-dark {
-        color: @box-dark-color;
-        background-color: @box-dark-bg;
-        h1,
-        h2,
-        h3,
-        h4 {
-            color: @box-dark-color;
-        }
-    }
+  }
 }
 
 .recommended-products {
-    .next,
-    .prev {
-        color: @text-muted-color;
-        &:hover {
-            color: @text-color;
-        }
+  .next,
+  .prev {
+    color: @text-muted-color;
+    &:hover {
+      color: @text-color;
     }
-    a.recommended-product {
-        color: @text-color;
-    }
-    .original-price {
-        color: @red;
-    }
+  }
+  a.recommended-product {
+    color: @text-color;
+  }
+  .original-price {
+    color: @red;
+  }
 }
 
 .indicator {
-    background-color: @border-color;
-    > div {
-        background-color: @color-primary;
-    }
+  background-color: @border-color;
+  > div {
+    background-color: @color-primary;
+  }
 }
 
 .poll-result {
-    > div {
-        background-color: @color-primary;
-        border-left-color:  @color-primary;
-    }
+  > div {
+    background-color: @color-primary;
+    border-left-color: @color-primary;
+  }
 }
 
 .image360,
 .p-image {
-    border-color: @border-color;
+  border-color: @border-color;
 }
 .p-image:after {
-    background-color: @border-color;
+  background-color: @border-color;
 }
 
 #gradient {
-    .horizontal(@start-color: #555; @end-color: #333; @start-percent: 0%; @end-percent: 100%) {
-        background-image: -webkit-linear-gradient(left, @start-color @start-percent, @end-color @end-percent); // Safari 5.1-6, Chrome 10+
-        background-image: -o-linear-gradient(left, @start-color @start-percent, @end-color @end-percent); // Opera 12
-        background-image: linear-gradient(to right, @start-color @start-percent, @end-color @end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
-        background-repeat: repeat-x;
-        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)", argb(@start-color), argb(@end-color))); // IE9 and down
-    }
+  .horizontal(@start-color: #555; @end-color: #333; @start-percent: 0%; @end-percent: 100%) {
+    background-image: -webkit-linear-gradient(
+      left,
+      @start-color @start-percent,
+      @end-color @end-percent
+    ); // Safari 5.1-6, Chrome 10+
+    background-image: -o-linear-gradient(left, @start-color @start-percent, @end-color @end-percent); // Opera 12
+    background-image: linear-gradient(
+      to right,
+      @start-color @start-percent,
+      @end-color @end-percent
+    ); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+    background-repeat: repeat-x;
+    filter: e(
+      %(
+        "progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",
+        argb(@start-color),
+        argb(@end-color)
+      )
+    ); // IE9 and down
+  }
 }
 
 .breadcrumbs {
-    color: @breadcrumbs-color;
-    background-color: @breadcrumbs-bg;
-    border-color: @breadcrumbs-border;
-    a {
-        color: @breadcrumbs-link-color;
-        &:hover {
-            color: @breadcrumbs-link-color-hover;
-        }
+  color: @breadcrumbs-color;
+  background-color: @breadcrumbs-bg;
+  border-color: @breadcrumbs-border;
+  a {
+    color: @breadcrumbs-link-color;
+    &:hover {
+      color: @breadcrumbs-link-color-hover;
     }
+  }
 }
 
 .price-standard {
-    color: @text-muted-color;
+  color: @text-muted-color;
 }
 
 .price-save {
-    color: @save-price-color;
+  color: @save-price-color;
 }
 
 .flags-extra {
-    .price-standard,
-    .price-save {
-        color: #fff;
-    }
+  .price-standard,
+  .price-save {
+    color: #fff;
+  }
 }
 
 ol.top-products.unified {
-    .sidebar & {
-        li {
-            &.display-image {
-                background-color: @top-products-image-bg;
-            }
-        }
+  .sidebar & {
+    li {
+      &.display-image {
+        background-color: @top-products-image-bg;
+      }
     }
-    a {
-        color: @text-color;
-        .top-products-name {
-            color: @color-primary;
-        }
-        &:hover {
-            .top-products-name {
-                color: @color-primary-hover;
-            }
-        }
+  }
+  a {
+    color: @text-color;
+    .top-products-name {
+      color: @color-primary;
     }
+    &:hover {
+      .top-products-name {
+        color: @color-primary-hover;
+      }
+    }
+  }
 }
 
 .subcategories {
-    li {
-        &::before {
-            background-color: @subcategories-before-bg;
-        }
-        &.divider {
-            background-color: @subcategories-divider-bg;
-        }
+  li {
+    &::before {
+      background-color: @subcategories-before-bg;
     }
+    &.divider {
+      background-color: @subcategories-divider-bg;
+    }
+  }
 }
 
 ol.cart-header {
-    li {
-        a,
-        strong {
-            color: @step-color;
-            background-color: @step-bg;
-        }
-        a {
-            &:hover {
-                color: @step-active-color;
-                background-color: @step-active-bg;
-            }
-        }
-        &.active,
-        &.completed {
-            a,
-            strong {
-                background-color: @step-active-bg;
-            }
-        }
-        &.active {
-            a,
-            strong {
-                color: @step-active-color;
-            }
-        }
-        &.completed {
-            a,
-            strong {
-                color: @step-completed-color;
-            }
-            a {
-                &:hover {
-                    color: @step-active-color-hover;
-                }
-            }
-        }
+  li {
+    a,
+    strong {
+      color: @step-color;
+      background-color: @step-bg;
     }
+    a {
+      &:hover {
+        color: @step-active-color;
+        background-color: @step-active-bg;
+      }
+    }
+    &.active,
+    &.completed {
+      a,
+      strong {
+        background-color: @step-active-bg;
+      }
+    }
+    &.active {
+      a,
+      strong {
+        color: @step-active-color;
+      }
+    }
+    &.completed {
+      a,
+      strong {
+        color: @step-completed-color;
+      }
+      a {
+        &:hover {
+          color: @step-active-color-hover;
+        }
+      }
+    }
+  }
 }
 
 .cart-widget-product {
-    border-bottom-color: @border-color;
+  border-bottom-color: @border-color;
 }
 
 .cart-widget-product-name {
-    > span {
-        color: @color-primary;
-    }
+  > span {
+    color: @color-primary;
+  }
 }
 
 .cart-widget-product-amount,
 .cart-widget-product-unit {
-    color: @text-muted-color;
+  color: @text-muted-color;
 }
 
 .cart-widget-product-delete {
-    button {
-        color: @red;
-    }
+  button {
+    color: @red;
+  }
 }
 
 .flag {
-    color: #fff;
-    &.flag-new {
-        background-color: @flag-new-bg;
-    }
-    &.flag-action {
-        background-color: @flag-action-bg;
-    }
-    &.flag-tip {
-        background-color: @flag-tip-bg;
-    }
-    &.flag-freeshipping {
-        background-color: @flag-freeshipping-bg;
-    }
-    &.flag-gift {
-        background-color: @flag-gift-bg;
-    }
-    &.flag-sleva {
-        background-color: @flag-sleva-bg;
-    }
-    &.flag-pripravujeme {
-        background-color: @flag-pripravujeme-bg;
-    }
-    &.flag-doprodej {
-        background-color: @flag-doprodej-bg;
-    }
-    &.default-variant {
-        background-color: @flag-default-bg;
-    }
-    &.flag-discount {
-        background-color: @flag-discount-bg;
-    }
+  color: #fff;
+  &.flag-new {
+    background-color: @flag-new-bg;
+  }
+  &.flag-action {
+    background-color: @flag-action-bg;
+  }
+  &.flag-tip {
+    background-color: @flag-tip-bg;
+  }
+  &.flag-freeshipping {
+    background-color: @flag-freeshipping-bg;
+  }
+  &.flag-gift {
+    background-color: @flag-gift-bg;
+  }
+  &.flag-sleva {
+    background-color: @flag-sleva-bg;
+  }
+  &.flag-pripravujeme {
+    background-color: @flag-pripravujeme-bg;
+  }
+  &.flag-doprodej {
+    background-color: @flag-doprodej-bg;
+  }
+  &.default-variant {
+    background-color: @flag-default-bg;
+  }
+  &.flag-discount {
+    background-color: @flag-discount-bg;
+  }
 }
 
 .p-code {
-    color: @p-code-color;
+  color: @p-code-color;
 }
 
 a.social-icon {
-    border-color: @social-btn-border;
-    background-color: @social-btn-bg;
-    color: @social-btn-color;
-    &:hover {
-        border-color: @social-btn-border-hover;
-        background-color: @social-btn-bg-hover;
-        color: @social-btn-color-hover;
-    }
+  border-color: @social-btn-border;
+  background-color: @social-btn-bg;
+  color: @social-btn-color;
+  &:hover {
+    border-color: @social-btn-border-hover;
+    background-color: @social-btn-bg-hover;
+    color: @social-btn-color-hover;
+  }
 }
 
 .table-row {
-    border-color: @border-color;
+  border-color: @border-color;
 }
-
-// TODO: Remove this in FRONTEND-2955 -- START
-:where(body.ums_unify_product_appendix--off) {
-    .product-appendix,
-    .category-appendix {
-        color: @text-muted-color;
-    }
-}
-// TODO: Remove this in FRONTEND-2955 -- END
 
 a.link-icon {
-    color: @text-muted-color;
-    &:hover {
-        color: @link-color;
-    }
+  color: @text-muted-color;
+  &:hover {
+    color: @link-color;
+  }
 }
 
 .variant-not-chosen .variant-list:not(.variant-selected) select {
-    border-color: @red;
-    box-shadow: 0 0 3px @red;
+  border-color: @red;
+  box-shadow: 0 0 3px @red;
 }
 
 .qrcode {
-    border-color: @qrcode-border-color;
+  border-color: @qrcode-border-color;
 }
 
 .navigation-buttons {
-    a {
-        &[data-target="cart"] {
-            color: @navigation-button-cart-color;
-            background-color: @navigation-button-cart-bg;
-            &:hover {
-                color: @navigation-button-cart-color-hover;
-                background-color: @navigation-button-cart-bg-hover;
-            }
-        }
-        &[data-target="search"] {
-            color: @navigation-button-search-color;
-            background-color: @navigation-button-search-bg;
-            &:hover {
-                color: @navigation-button-search-color-hover;
-                background-color: @navigation-button-search-bg-hover;
-            }
-        }
-        &[data-target="login"] {
-            color: @navigation-button-login-color;
-            background-color: @navigation-button-login-bg;
-            &:hover {
-                color: @navigation-button-login-color-hover;
-                background-color: @navigation-button-login-bg-hover;
-            }
-        }
-        &[data-target="navigation"] {
-            color: @navigation-button-navigation-color;
-            background-color: @navigation-button-navigation-bg;
-            &:hover {
-                color: @navigation-button-navigation-color-hover;
-                background-color: @navigation-button-navigation-bg-hover;
-            }
-            .navigation-window-visible & {
-                color: @navigation-color-small;
-                background-color: @navigation-bg-small;
-                &:hover {
-                    color: @navigation-color-small;
-                    background-color: @navigation-bg-small;
-                }
-            }
-        }
+  a {
+    &[data-target='cart'] {
+      color: @navigation-button-cart-color;
+      background-color: @navigation-button-cart-bg;
+      &:hover {
+        color: @navigation-button-cart-color-hover;
+        background-color: @navigation-button-cart-bg-hover;
+      }
     }
-    > a {
-        &[data-target="cart"] {
-            i {
-                color: @cart-count-color;
-                background-color: @cart-count-bg;
-            }
-        }
+    &[data-target='search'] {
+      color: @navigation-button-search-color;
+      background-color: @navigation-button-search-bg;
+      &:hover {
+        color: @navigation-button-search-color-hover;
+        background-color: @navigation-button-search-bg-hover;
+      }
     }
+    &[data-target='login'] {
+      color: @navigation-button-login-color;
+      background-color: @navigation-button-login-bg;
+      &:hover {
+        color: @navigation-button-login-color-hover;
+        background-color: @navigation-button-login-bg-hover;
+      }
+    }
+    &[data-target='navigation'] {
+      color: @navigation-button-navigation-color;
+      background-color: @navigation-button-navigation-bg;
+      &:hover {
+        color: @navigation-button-navigation-color-hover;
+        background-color: @navigation-button-navigation-bg-hover;
+      }
+      .navigation-window-visible & {
+        color: @navigation-color-small;
+        background-color: @navigation-bg-small;
+        &:hover {
+          color: @navigation-color-small;
+          background-color: @navigation-bg-small;
+        }
+      }
+    }
+  }
+  > a {
+    &[data-target='cart'] {
+      i {
+        color: @cart-count-color;
+        background-color: @cart-count-bg;
+      }
+    }
+  }
 }
 
 .p-gift-name {
-    a,
-    a:hover,
-    a:focus {
-        color: @gift-name-color;
-    }
+  a,
+  a:hover,
+  a:focus {
+    color: @gift-name-color;
+  }
 }
 
 .required-asterisk:after {
-    color: @red;
+  color: @red;
 }
 
 // TODO: Remove this in issue 10468 -- START
 :where(body.ums_back_to_shop_buttons--off) {
-    a.next-step-back {
-        color: @text-muted-color;
-        &:hover {
-            color: @link-color;
-        }
+  a.next-step-back {
+    color: @text-muted-color;
+    &:hover {
+      color: @link-color;
     }
+  }
 }
 // TODO: Remove this in issue 10468 -- END
 
 // TODO: Remove this in issue 10468 -- START
 :where(body.ums_back_to_shop_buttons--on) {
-// TODO: Remove this in issue 10468 -- END
-    .next-step-back,
-    a.next-step-back {
-        color: @text-muted-color;
-    }
+  // TODO: Remove this in issue 10468 -- END
+  .next-step-back,
+  a.next-step-back {
+    color: @text-muted-color;
+  }
 
-    .user-action-in .toggle-window-arr {
-        color: @link-color;
-    }
+  .user-action-in .toggle-window-arr {
+    color: @link-color;
+  }
 
-    .next-step-back,
-    a.next-step-back,
-    .toggle-window-arr,
-    a.toggle-window-arr {
-        background-color: transparent;
-        border-color: transparent;
+  .next-step-back,
+  a.next-step-back,
+  .toggle-window-arr,
+  a.toggle-window-arr {
+    background-color: transparent;
+    border-color: transparent;
 
-        &:hover {
-            color: @link-color;
-            background-color: transparent;
-            border-color: transparent;
-        }
+    &:hover {
+      color: @link-color;
+      background-color: transparent;
+      border-color: transparent;
     }
-// TODO: Remove this in issue 10468 -- START
+  }
+  // TODO: Remove this in issue 10468 -- START
 }
 // TODO: Remove this in issue 10468 -- END
 
 .xyDiscount__banner {
-    border-color: @border-color;
+  border-color: @border-color;
 }
 
 .xyDiscount__icon {
-    color: #fff;
-    // The color of the banner is defined by the user and stored in the database for each banner
-    background-color: var(--xy-discount-banner-color);
+  color: #fff;
+  // The color of the banner is defined by the user and stored in the database for each banner
+  background-color: var(--xy-discount-banner-color);
 }
 
 .xyDiscount__title {
-    color: var(--xy-discount-banner-color);
+  color: var(--xy-discount-banner-color);
 }
 
 .xyDiscount__conditions a,
 .xyDiscount__conditions a:hover {
-    color: @text-color;
+  color: @text-color;
 }
 
-
 .cart-xyDiscount__banner {
-    border-color: @border-color;
+  border-color: @border-color;
 }
 
 .cart-xyDiscount__icon {
-    color: #fff;
-    // The color of the banner is defined by the user and stored in the database for each banner
-    background-color: var(--xy-discount-banner-color);
+  color: #fff;
+  // The color of the banner is defined by the user and stored in the database for each banner
+  background-color: var(--xy-discount-banner-color);
 }
 
 .cart-xyDiscount__title {
-    color: var(--xy-discount-banner-color);
+  color: var(--xy-discount-banner-color);
 }
 
 .cart-table .cart-xyDiscount__banner {
-    .cart-xyDiscount__conditions a,
-    .cart-xyDiscount__conditions a:hover {
-        color: @text-color;
-    }
+  .cart-xyDiscount__conditions a,
+  .cart-xyDiscount__conditions a:hover {
+    color: @text-color;
+  }
 }

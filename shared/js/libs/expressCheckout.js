@@ -380,8 +380,8 @@
                     }
 
                     if (status === 'FINISHED') {
-                        const successHtml = document.querySelector('.js-success-template').innerHTML;
-                        openModal(successHtml, function() {
+                        const confirmationHtml = response.getFromPayload('confirmationHtml');
+                        openModal(confirmationHtml, function() {
                             const title = document.querySelector('.js-success-title');
                             title.textContent = title.textContent.replace('%1', orderInfo?.code ?? orderInfo?.id ?? '');
                         });

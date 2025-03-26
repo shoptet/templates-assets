@@ -80,6 +80,7 @@
 
         var successCallback = function(response) {
             response = response.getFromPayload('content');
+
             if (response.indexOf('cart-empty') !== -1) {
                 // TODO propagate this functionality to the other templates
                 $('body').addClass('cart-emptied');
@@ -522,10 +523,18 @@
                 var $this = $(this);
                 var $amount = $this.find('.amount');
                 var decimals = $amount.data('decimals') || 0;
-                var max =
+                var max, min;
+
+                if (shoptet.config.ums_product_quantity) {
+                    max = shoptet.helpers.toFloat($amount.attr('max')) || shoptet.config.defaultProductMaxAmount;
+                    min = shoptet.helpers.toFloat($amount.attr('min')) || shoptet.helpers.resolveMinimumAmount(decimals);
+                } else {
+                    var max =
                     shoptet.helpers.toFloat($amount.data('max')) || shoptet.config.defaultProductMaxAmount;
-                var min =
+                    var min =
                     shoptet.helpers.toFloat($amount.data('min')) || shoptet.helpers.resolveMinimumAmount(decimals);
+                }
+
                 var value = $amount.length ? shoptet.helpers.toFloat($amount.val()) : 1;
                 if (value > max) {
                     $amount.val(max);

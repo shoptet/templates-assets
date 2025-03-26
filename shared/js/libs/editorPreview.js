@@ -202,6 +202,16 @@ function createOrUpdateLabel(element) {
   const isHovered = element === hoveredElement;
   const id = element.dataset.editorid;
 
+  // this enables to have multiple elements with the same id (e.g. viewport-dependent elements)
+  // once one is hidden, if another is visible, it will be highlighted
+  if (isActive) {
+    const currentlyVisible = findElementInView(id);
+    if (currentlyVisible && findElementInView(id) !== element) {
+      setActiveElement(currentlyVisible);
+      return;
+    }
+  }
+
   // Handle elements with the same id
   let index = 0;
   const elements = document.querySelectorAll(`[data-editorid="${id}"]`);
@@ -267,11 +277,17 @@ function getLabelTextPosition(rect) {
   }
 }
 
+// Blacklist for elements that should not trigger inspect mode
+const INSPECT_MODE_ELEMENTS_BLACKLIST = ['.product-slider-navigation'];
+
 // Event handlers
 document.body.addEventListener('click', (event) => {
   if (!inspectConfig.enabled) return;
 
-  const element = event.target.closest('[data-editorid]');
+  // Ignore the clicks on a blacklisted elements or their children
+  if (INSPECT_MODE_ELEMENTS_BLACKLIST.some(selector => event.target.closest(selector))) return;
+
+  const element = event.target.closest(`[data-editorid]${isMobileView() ? '' : ':not([data-editormobileonly])'}`);
   if (element && element !== activeElement) {
     event.preventDefault();
     event.stopImmediatePropagation();
@@ -284,7 +300,7 @@ document.body.addEventListener('click', (event) => {
 document.addEventListener('mouseover', (event) => {
   if (!inspectConfig.enabled) return;
 
-  const element = event.target.closest('[data-editorid]');
+  const element = event.target.closest(`[data-editorid]${isMobileView() ? '' : ':not([data-editormobileonly])'}`);
   if (element) {
     setHoveredElement(element);
 
@@ -323,7 +339,14 @@ function setActiveElement(el) {
   if (prevActive) createOrUpdateLabel(prevActive);
   if (activeElement) {
     createOrUpdateLabel(activeElement);
-    scrollToElement(activeElement);
+    // We don't know the exact position of the carousel item (because of the carousel animation),
+    // so we scroll to the carousel container instead
+    if (isCarouselItem(activeElement)) {
+      const container = activeElement.closest('[data-editorid="carousel"]');
+      scrollToElement(container);
+    } else {
+      scrollToElement(activeElement);
+    }
     handleSpecialElements(activeElement);
   }
 }
@@ -375,7 +398,7 @@ function scrollToElement(element) {
 }
 
 function findElementInView(id) {
-  const elements = document.querySelectorAll(`[data-editorid="${id}"]`);
+  const elements = document.querySelectorAll(`[data-editorid="${id}"]${isMobileView() ? '' : ':not([data-editormobileonly])'}`);
   if (!elements.length) return null;
 
   const viewableElements = Array.from(elements).filter(el => isElementViewable(el));
@@ -451,4 +474,10 @@ function handleCarousel(element) {
       }
     });
   }
+}
+
+// since the data-editormobileonly is used in Classic theme only, we use the same selector as Classic does. If it
+// were to be used elsewhere, more research should be done on how the mobile view is handled in various themes.
+function isMobileView() {
+	return window.matchMedia('(max-width: 767px)').matches;
 }

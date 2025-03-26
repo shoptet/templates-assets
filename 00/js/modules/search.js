@@ -41,6 +41,7 @@ window.fulltextSearch = ($searchInput, $searchContainer) => {
                             $searchContainer.addClass('active');
                             $('body').addClass('search-focused');
                         }
+                        shoptet.images.unveil();
                         shoptet.scripts.signalDomLoad('ShoptetDOMSearchResultsLoaded');
                     })
                     .fail(function () {
@@ -66,6 +67,35 @@ window.fulltextSearch = ($searchInput, $searchContainer) => {
             shoptet.products.changeQuantity($(e.target));
         }
     });
+
+    $searchContainer.click(function(e) {
+        let $target = $(e.target);
+
+        if (!$target.hasClass('whisperer-trigger')) {
+            e.stopPropagation();
+        }
+
+        if ($target.hasClass('js-searchWhisperer__button')) {
+            e.preventDefault();
+            $form.submit();
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        let button = e.target.closest(".searchWhisperer .increase, .searchWhisperer .decrease");
+        if (button) {
+            e.preventDefault();
+            e.stopPropagation();
+            shoptet.products.changeQuantity($(button));
+            return;
+        }
+
+        let input = e.target.closest(".searchWhisperer .amount");
+        if (input) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    }, true);
 
     $(document).click(function (e) {
         var $target = $(e.target);

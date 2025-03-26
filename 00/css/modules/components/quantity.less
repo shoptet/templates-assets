@@ -42,7 +42,7 @@
         &[type='number'] {
             -moz-appearance: textfield;
         }
-        &[type='number']::-webkit-outer-spin-button, 
+        &[type='number']::-webkit-outer-spin-button,
         &[type='number']::-webkit-inner-spin-button {
             -webkit-appearance: none;
             margin: 0;
@@ -52,6 +52,14 @@
     .decrease {
         position: absolute;
         .size(@quantity-trigger-width, @quantity-trigger-height);
+
+        // TODO: Remove this in issue 11049 -- START
+        :where(body.ums_product_quantity--on) & {
+        // TODO: Remove this in issue 11049 -- END
+            padding: 0;
+        // TODO: Remove this in issue 11049 -- START
+        }
+        // TODO: Remove this in issue 11049 -- END
         cursor: pointer;
         &::before {
             &:extend(.shp-icon);
@@ -91,7 +99,7 @@
     .tooltip-inner {
         width: max-content;
     }
-    .increase-tooltip, 
+    .increase-tooltip,
     .decrease-tooltip {
         position: absolute;
         top: 0;
@@ -99,3 +107,15 @@
         right: @quantity-decrease-right;
     }
 }
+
+// TODO: Remove this in issue 11049 -- START
+:where(body.ums_product_quantity--on) {
+// TODO: Remove this in issue 11049 -- END
+    .increase__sign,
+    .decrease__sign {
+        display: none;
+        font-size: @quantity-trigger-font-size;
+    }
+// TODO: Remove this in issue 11049 -- START
+}
+// TODO: Remove this in issue 11049 -- END

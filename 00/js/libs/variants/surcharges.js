@@ -1,24 +1,23 @@
-(function(shoptet) {
-
+(function (shoptet) {
   function initSurcharges() {
     var surchargeSelector = '.surcharge-list .surcharge-parameter';
     var surcharges = document.querySelectorAll(surchargeSelector);
     var dataLayer, savePriceRatio;
     try {
-        dataLayer = getShoptetDataLayer();
+      dataLayer = getShoptetDataLayer();
     } catch (error) {
-        dataLayer = false;
+      dataLayer = false;
     }
     if (dataLayer) {
-        savePriceRatio = dataLayer.customer.priceRatio;
+      savePriceRatio = dataLayer.customer.priceRatio;
     }
     if (savePriceRatio) {
       shoptet.surcharges.customerPriceRatio = savePriceRatio;
     }
     if (surcharges.length) {
-        surcharges.forEach(function(elem) {
-            elem.addEventListener('change', shoptet.surcharges.updatePrices);
-        })
+      surcharges.forEach(function (elem) {
+        elem.addEventListener('change', shoptet.surcharges.updatePrices);
+      });
     }
   }
 
@@ -26,26 +25,22 @@
     var activeOptions = wrapper.querySelectorAll('select.surcharge-parameter option:checked');
     shoptet.surcharges.totalSurchargeFinalPrice = 0;
     shoptet.surcharges.totalSurchargeAdditionalPrice = 0;
-    activeOptions.forEach(function(activeOption) {
-        var valueId = activeOption.value;
-        if (valueId && !shoptet.surcharges.values.hasOwnProperty(valueId)) {
-            shoptet.surcharges.values[valueId] = {};
-            var finalPrice = activeOption.getAttribute('data-surcharge-final-price');
-            var additionalPrice = activeOption.getAttribute('data-surcharge-additional-price');
-            shoptet.surcharges.values[valueId].finalPrice =
-                finalPrice === null ? 0 : parseFloat(finalPrice);
-            shoptet.surcharges.values[valueId].additionalPrice =
-                additionalPrice === null ? 0 : parseFloat(additionalPrice);
-        }
+    activeOptions.forEach(function (activeOption) {
+      var valueId = activeOption.value;
+      if (valueId && !shoptet.surcharges.values.hasOwnProperty(valueId)) {
+        shoptet.surcharges.values[valueId] = {};
+        var finalPrice = activeOption.getAttribute('data-surcharge-final-price');
+        var additionalPrice = activeOption.getAttribute('data-surcharge-additional-price');
+        shoptet.surcharges.values[valueId].finalPrice = finalPrice === null ? 0 : parseFloat(finalPrice);
+        shoptet.surcharges.values[valueId].additionalPrice = additionalPrice === null ? 0 : parseFloat(additionalPrice);
+      }
 
-        for (var property in shoptet.surcharges.values) {
-            if (property === valueId) {
-                shoptet.surcharges.totalSurchargeFinalPrice
-                    += shoptet.surcharges.values[property].finalPrice;
-                shoptet.surcharges.totalSurchargeAdditionalPrice
-                    += shoptet.surcharges.values[property].additionalPrice;
-            }
+      for (var property in shoptet.surcharges.values) {
+        if (property === valueId) {
+          shoptet.surcharges.totalSurchargeFinalPrice += shoptet.surcharges.values[property].finalPrice;
+          shoptet.surcharges.totalSurchargeAdditionalPrice += shoptet.surcharges.values[property].additionalPrice;
         }
+      }
     });
   }
 
@@ -79,10 +74,12 @@
     shoptet.scripts.signalCustomEvent('ShoptetSurchargesPriceUpdated', e.target);
   }
 
+  shoptet.scripts.libs.surcharges = ['initSurcharges', 'updatePrices', 'getSurchargePrices', 'writePrices'];
+
   shoptet.surcharges = shoptet.surcharges || {};
-  shoptet.scripts.libs.surcharges.forEach(function(fnName) {
-      var fn = eval(fnName);
-      shoptet.scripts.registerFunction(fn, 'surcharges');
+  shoptet.scripts.libs.surcharges.forEach(function (fnName) {
+    var fn = eval(fnName);
+    shoptet.scripts.registerFunction(fn, 'surcharges');
   });
 
   shoptet.surcharges.values = {};

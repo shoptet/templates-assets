@@ -494,10 +494,13 @@
 
 .express-checkout__info-shipping-inner {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     flex: 1 1 auto;
     gap: var(--express-checkout-spacing-md);
+}
+
+.express-checkout__info-shipping-image {
+    max-width: 48px;
 }
 
 .express-checkout__info-shipping-name {
@@ -507,7 +510,7 @@
 }
 
 .express-checkout__info-shipping-price {
-    margin: 0;
+    margin: 0 0 0 auto;
     color: var(--express-checkout-color-green);
     white-space: nowrap;
 
@@ -677,12 +680,9 @@
 }
 
 .express-checkout__shipping-billing-item {
+    justify-content: flex-start !important;
     margin-right: 0 !important;
-
-    &.billing {
-        justify-content: flex-start !important;
-        gap: var(--express-checkout-spacing-md);
-    }
+    gap: var(--express-checkout-spacing-md);
 }
 
 .express-checkout__shipping-billing-item-image {
@@ -694,6 +694,7 @@
 }
 
 .express-checkout__shipping-billing-item-price {
+    margin-left: auto;
     color: var(--express-checkout-color-green);
 
     &.is-free {

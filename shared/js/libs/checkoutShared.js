@@ -628,7 +628,8 @@
                 shoptet.checkoutShared.externalShippingDetails[e.detail.code].price.withouVat
                     = e.detail.price.withoutVat;
 
-                priceHolder.innerHTML = e.detail.price.withVat.ShoptetFormatAsCurrency(
+                var price = shoptet.config.defaultVatIncluded ? e.detail.price.withVat : e.detail.price.withoutVat;
+                priceHolder.innerHTML = price.ShoptetFormatAsCurrency(
                     undefined, undefined, shoptet.config.decPlacesSystemDefault
                 );
                 priceHolder.setAttribute('data-shipping-price-wv', e.detail.price.withVat);

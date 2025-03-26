@@ -111,8 +111,10 @@ ol.cart-header {
     }
 }
 
+// TODO: Remove this in issue 11049 -- START
+:where(body.ums_product_quantity--off) {
 @media (max-width: @screen-xs) {
-    .ordering-process {
+    &.ordering-process {
         .quantity-form {
             .quantity {
                 padding: 0 36px;
@@ -140,6 +142,47 @@ ol.cart-header {
         }
     }
 }
+}
+// TODO: Remove this in issue 11049 -- END
+
+// TODO: Remove this in issue 11049 -- START
+:where(body.ums_product_quantity--on) {
+// TODO: Remove this in issue 11049 -- END
+@media (max-width: @screen-xs-max) {
+    // TODO: Remove only `&` !!! in issue 11049
+    &.ordering-process {
+        .quantity-form {
+            .quantity {
+                padding: 0 36px;
+                input {
+                    width: 50px;
+                    text-align: center;
+                }
+                .increase,
+                .decrease {
+                    .square(36px);
+                    top: 0;
+                    &::before {
+                        line-height: 36px;
+                    }
+                }
+                .decrease {
+                    right: auto;
+                    left: 0;
+                    border-style: none solid none none;
+                    border-bottom-right-radius: 0;
+                }
+                .increase-tooltip,
+                .decrease-tooltip {
+                    right: 40%;
+                }
+            }
+        }
+    }
+}
+// TODO: Remove this in issue 11049 -- START
+}
+// TODO: Remove this in issue 11049 -- END
 
 .cart-xyDiscount__banner {
     margin-bottom: round(@line-height-computed / 4);
@@ -916,4 +959,3 @@ table.table.recapitulation-table {
 .order-complete-links {
     padding-bottom: 30px;
 }
-

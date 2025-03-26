@@ -33,18 +33,27 @@
             );
         });
 
-        $html.on('click', '.quantity span', function() {
-            changeQuantity($(this));
-        });
-
-        $html.on('keydown', '.quantity span', function(e) {
-            var keyNum = e.which || e.keyCode;
-            var keyName = e.key;
-            if(keyNum === 13 || keyName === 'Enter' || keyNum === 32 || keyName === ' '){
+        if (shoptet.config.ums_product_quantity) {
+            $(document).on("click keydown", ".quantity .increase, .quantity .decrease", function (e) {
+                if (e.type === "click" || (e.type === "keydown" && (e.key === "Enter" || e.key === " "))) {
+                    changeQuantity($(this));
+                    return false;
+                }
+            });
+        } else {
+            $html.on('click', '.quantity span', function() {
                 changeQuantity($(this));
-                return false;
-            }
-        });
+            });
+
+            $html.on('keydown', '.quantity span', function(e) {
+                var keyNum = e.which || e.keyCode;
+                var keyName = e.key;
+                if(keyNum === 13 || keyName === 'Enter' || keyNum === 32 || keyName === ' '){
+                    changeQuantity($(this));
+                    return false;
+                }
+            });
+        }
 
         if ($('#ogImage').length) {
             $('#ogImage').appendTo('head');
@@ -617,10 +626,18 @@
      *
      * This function does not accept any arguments.
      */
-    function changeQuantity($this){
-        var $el = $this.parents('.quantity').find('.amount');
-        var action = $this.attr('class');
-        var callback = false;
+    function changeQuantity($this) {
+        let $el, action;
+        let callback = false;
+
+        if (shoptet.config.ums_product_quantity) {
+            $el = $this.closest('.quantity').find('.amount');
+            action = $this.hasClass("increase") ? "increase" : "decrease";
+        } else {
+            $el = $this.parents('.quantity').find('.amount');
+            action = $this.attr('class');
+        }
+
         let triggerChange = true;
         if ($el.parents('.cart-table').length
         || $el.parents('.cart-widget-product-amount').length
@@ -632,14 +649,26 @@
             callback = updateQuantityCallback;
             triggerChange = false
         }
-        shoptet.helpers.updateQuantity(
-            $el[0],
-            $el.data('min'),
-            $el.data('max'),
-            $el.data('decimals'),
-            action,
-            callback
-        );
+
+        if (shoptet.config.ums_product_quantity) {
+            shoptet.helpers.updateQuantity(
+                $el[0],
+                $el.attr('min'),
+                $el.attr('max'),
+                $el.attr('data-decimals'),
+                action,
+                callback
+            );
+        } else {
+            shoptet.helpers.updateQuantity(
+                $el[0],
+                $el.data('min'),
+                $el.data('max'),
+                $el.data('decimals'),
+                action,
+                callback
+            );
+        }
 
         if (triggerChange) {
             $el[0].dispatchEvent(new Event('change', { bubbles: true }));
