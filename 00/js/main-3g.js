@@ -65,7 +65,7 @@ import './modules/search';
 import './modules/filters';
 import './modules/productInnerSecondImage';
 import './modules/smartLabels';
-import './modules/productSlider';
+import './modules/slider';
 import './modules/watchdog';
 import './modules/quantityDiscounts';
 import './modules/unveil';

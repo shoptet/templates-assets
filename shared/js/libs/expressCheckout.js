@@ -16,6 +16,7 @@
             className: 'express-checkout',
             maxWidth: '550px',
             width: '100%',
+            speed: 0,
             onComplete: function() {
                 resetModalHeights();
                 document.body.style.overflow = 'hidden';
@@ -125,7 +126,11 @@
         callback(response);
     }
 
-    function initExpressCheckout() {
+    function initExpressCheckout(disableSpinner) {
+        if (!disableSpinner) {
+            window.showSpinner();
+        }
+
         shoptet.ajax.makeAjaxRequest(
             '/action/ExpressCheckout/',
             shoptet.ajax.requestTypes.get,
@@ -136,7 +141,7 @@
                 },
                 'complete': function() {
                     shoptet.config.expressCheckoutKeepSpinnerVisible = undefined;
-                    hideSpinner();
+                    window.hideSpinner();
                 }
             },
             {
@@ -154,7 +159,7 @@
         }
 
         shoptet.runtime.setPcsTimeout = setTimeout(function() {
-            showSpinner();
+            window.showSpinner();
             shoptet.ajax.makeAjaxRequest(
                 '/action/ExpressCheckout/setCartItemAmount/',
                 shoptet.ajax.requestTypes.post,
@@ -164,9 +169,7 @@
                     'failed': function(response) {
                         resolveFailedRequestWithContent(response, callback);
                     },
-                    'complete': function() {
-                        hideSpinner();
-                    },
+                    'complete': window.hideSpinner,
                 },
                 {
                     'X-Shoptet-XHR': 'Shoptet_Coo7ai'
@@ -176,6 +179,7 @@
     }
 
     function updateShippingMethod(value) {
+        window.showSpinner();
         shoptet.ajax.makeAjaxRequest(
             '/action/ExpressCheckout/updateShippingMethod/',
             shoptet.ajax.requestTypes.post,
@@ -185,6 +189,7 @@
                 'failed': function(response) {
                     resolveFailedRequestWithContent(response, rerenderExpressCheckoutModal);
                 },
+                'complete': window.hideSpinner,
             },
             {
                 'X-Shoptet-XHR': 'Shoptet_Coo7ai'
@@ -193,6 +198,7 @@
     }
 
     function updateBillingMethod(value) {
+        window.showSpinner();
         shoptet.ajax.makeAjaxRequest(
             '/action/ExpressCheckout/updateBillingMethod/',
             shoptet.ajax.requestTypes.post,
@@ -202,6 +208,7 @@
                 'failed': function(response) {
                     resolveFailedRequestWithContent(response, rerenderExpressCheckoutModal);
                 },
+                'complete': window.hideSpinner,
             },
             {
                 'X-Shoptet-XHR': 'Shoptet_Coo7ai'
@@ -261,6 +268,7 @@
     function updateInvoicingData(form) {
         const data = new URLSearchParams(new FormData(form)).toString();
 
+        window.showSpinner();
         shoptet.ajax.makeAjaxRequest(
             '/action/ExpressCheckout/updateInvoicingData/',
             shoptet.ajax.requestTypes.post,
@@ -276,6 +284,7 @@
 
                     rerenderExpressCheckoutModal(response);
                 },
+                'complete': window.hideSpinner,
             },
             {
                 'X-Shoptet-XHR': 'Shoptet_Coo7ai'
@@ -330,6 +339,7 @@
             shoptet.validator.removeErrorMessage(input);
         }
 
+        window.showSpinner();
         shoptet.ajax.makeAjaxRequest(
             '/action/ExpressCheckout/addDiscountCoupon/',
             shoptet.ajax.requestTypes.post,
@@ -339,6 +349,7 @@
                 'failed': function(response) {
                     resolveFailedRequestWithContent(response, rerenderExpressCheckoutModal);
                 },
+                'complete': window.hideSpinner,
             },
             {
                 'X-Shoptet-XHR': 'Shoptet_Coo7ai'
@@ -347,6 +358,7 @@
     }
 
     function removeDiscountCoupon() {
+        window.showSpinner();
         shoptet.ajax.makeAjaxRequest(
             '/action/ExpressCheckout/removeDiscountCoupon/',
             shoptet.ajax.requestTypes.post,
@@ -356,6 +368,7 @@
                 'failed': function(response) {
                     resolveFailedRequestWithContent(response, rerenderExpressCheckoutModal);
                 },
+                'complete': window.hideSpinner,
             },
             {
                 'X-Shoptet-XHR': 'Shoptet_Coo7ai'
@@ -412,6 +425,7 @@
             return;
         }
 
+        window.showSpinner();
         shoptet.ajax.makeAjaxRequest(
             '/action/ExpressCheckout/confirmOrder/',
             shoptet.ajax.requestTypes.post,
@@ -427,7 +441,8 @@
 
                     const targetUrl = response.getFromPayload('targetUrl');
                     window.location.href = targetUrl;
-                }
+                },
+                'complete': window.hideSpinner,
             },
             {
                 'X-Shoptet-XHR': 'Shoptet_Coo7ai'
@@ -510,7 +525,22 @@
         const quantityElement = target.closest('.js-product-quantity');
 
         if (quantityElement && target.classList.contains('amount')) {
-            changeProductQuantity(target.value, quantityElement.dataset.itemid, quantityElement.dataset.priceid);
+            const quantityUpdated = event.detail?.quantityUpdated;
+
+            /**
+             * There are two cases when updating quantity:
+             * 1. User clicks on plus/minus button in quantity input
+             *  - We get information if quantity was updated - there are checks for min/max quantity - quantityUpdated is boolean
+             *  - If quantity was not updated, we don't call changeProductQuantity
+             * 2. User types in quantity input manually
+             *  - We don't get information if quantity was updated - quantityUpdated is undefined
+             *  - In this case we update quantity anyway, because we don't check min/max quantity when typing manually - BE covers this
+             *
+             * See cms/templates/frontend_templates/00/js/modules/products.js, function changeQuantity
+             */
+            if (quantityUpdated || typeof quantityUpdated === 'undefined') {
+                changeProductQuantity(target.value, quantityElement.dataset.itemid, quantityElement.dataset.priceid);
+            }
         }
 
         if (target.classList.contains('js-shipping-method-radio') && target.checked) {

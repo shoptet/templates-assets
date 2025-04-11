@@ -650,8 +650,9 @@
             triggerChange = false
         }
 
+        let quantityUpdated = false;
         if (shoptet.config.ums_product_quantity) {
-            shoptet.helpers.updateQuantity(
+            quantityUpdated = shoptet.helpers.updateQuantity(
                 $el[0],
                 $el.attr('min'),
                 $el.attr('max'),
@@ -660,7 +661,7 @@
                 callback
             );
         } else {
-            shoptet.helpers.updateQuantity(
+            quantityUpdated = shoptet.helpers.updateQuantity(
                 $el[0],
                 $el.data('min'),
                 $el.data('max'),
@@ -671,7 +672,7 @@
         }
 
         if (triggerChange) {
-            $el[0].dispatchEvent(new Event('change', { bubbles: true }));
+            $el[0].dispatchEvent(new CustomEvent('change', { bubbles: true, detail: { quantityUpdated } }));
         }
     }
 

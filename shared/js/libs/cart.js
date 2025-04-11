@@ -159,9 +159,7 @@
                         $('body').removeClass(shoptet.config.bodyClasses);
                         hideSpinner();
                         setTimeout(function() {
-                            if (typeof shoptet.productSlider.runProductSlider === 'function') {
-                                shoptet.productSlider.runProductSlider('.advanced-order .product-slider');
-                            }
+                            shoptet.slider.runProductSlider('.advanced-order .product-slider');
                             shoptet.modal.shoptetResize();
                         }, 1);
                         shoptet.scripts.signalDomLoad('ShoptetDOMAdvancedOrderLoaded');
@@ -298,7 +296,7 @@
                 if (action === shoptet.config.addToCartUrl) {
                     if (shoptet.config.expressCheckoutAddToCart) {
                         shoptet.config.expressCheckoutKeepSpinnerVisible = true;
-                        shoptet.expressCheckout.initExpressCheckout();
+                        shoptet.expressCheckout.initExpressCheckout(true);
                         shoptet.config.expressCheckoutAddToCart = undefined;
                     } else if (typeof shoptet.config.showAdvancedOrder !== 'undefined'
                         && !shoptet.cartShared.silentAddition) {
