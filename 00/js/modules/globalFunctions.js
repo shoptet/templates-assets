@@ -708,42 +708,20 @@ document.addEventListener('DOMContentLoaded', function () {
     shoptet.global.hideContentWindows();
   });
 
-  // TODO: Remove this in issue 10468 -- START
-  if (shoptet.config.ums_back_to_shop_buttons) {
-    // TODO: Remove this in issue 10468 -- END
-    $('html').on('touchend click', '.toggle-window', function (e) {
-      if ((e.type === 'touchend' || !$(this).attr('data-redirect')) && !$(this).hasClass('languagesMenu__box')) {
-        e.preventDefault();
-      }
-      if ($(this).hasClass('hide-content-windows')) {
-        shoptet.global.hideContentWindows();
-        return;
-      }
-      var target = $(this).attr('data-target');
-      if (!$(this).hasClass('hovered') || target === 'navigation') {
-        shoptet.global.showPopupWindow(target, true);
-      }
-      $(this).removeClass('hovered');
-    });
-
-    // TODO: Remove this in issue 10468 -- START
-  } else {
-    $('html').on('touchend click', '.toggle-window, .toggle-window-arr, .toggle-trigger', function (e) {
-      if ((e.type === 'touchend' || !$(this).attr('data-redirect')) && !$(this).hasClass('languagesMenu__box')) {
-        e.preventDefault();
-      }
-      if ($(this).hasClass('hide-content-windows')) {
-        shoptet.global.hideContentWindows();
-        return;
-      }
-      var target = $(this).attr('data-target');
-      if (!$(this).hasClass('hovered') || target === 'navigation') {
-        shoptet.global.showPopupWindow(target, true);
-      }
-      $(this).removeClass('hovered');
-    });
-  }
-  // TODO: Remove this in issue 10468 -- END
+  $('html').on('touchend click', '.toggle-window', function (e) {
+    if ((e.type === 'touchend' || !$(this).attr('data-redirect')) && !$(this).hasClass('languagesMenu__box')) {
+      e.preventDefault();
+    }
+    if ($(this).hasClass('hide-content-windows')) {
+      shoptet.global.hideContentWindows();
+      return;
+    }
+    var target = $(this).attr('data-target');
+    if (!$(this).hasClass('hovered') || target === 'navigation') {
+      shoptet.global.showPopupWindow(target, true);
+    }
+    $(this).removeClass('hovered');
+  });
 
   var hidePopupWindow;
   $('html').on('mouseenter', '.popup-widget, .hovered-nav, .menu-helper', function () {

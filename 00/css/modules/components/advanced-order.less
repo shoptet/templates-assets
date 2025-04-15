@@ -73,25 +73,19 @@
     }
 }
 
-// TODO: Remove this in issue 10468 -- START
-:where(body.ums_back_to_shop_buttons--on) {
-// TODO: Remove this in issue 10468 -- END
-    .advancedOrder__buttons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: round(@grid-gutter-width / 4) round(@grid-gutter-width / 2);
-        justify-content: center;
+.advancedOrder__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: round(@grid-gutter-width / 4) round(@grid-gutter-width / 2);
+    justify-content: center;
 
-        margin-top: round(@grid-gutter-width / 2);
-        margin-bottom: round(@grid-gutter-width / 2);
+    margin-top: round(@grid-gutter-width / 2);
+    margin-bottom: round(@grid-gutter-width / 2);
 
-        @media (min-width: @screen-lg-min) {
-            margin-top: round(@grid-gutter-width);
-        }
+    @media (min-width: @screen-lg-min) {
+        margin-top: round(@grid-gutter-width);
     }
-// TODO: Remove this in issue 10468 -- START
 }
-// TODO: Remove this in issue 10468 -- END
 
 .ao-product {
     display: flex;

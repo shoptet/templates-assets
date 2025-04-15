@@ -520,45 +520,28 @@ a.link-icon {
   color: @red;
 }
 
-// TODO: Remove this in issue 10468 -- START
-:where(body.ums_back_to_shop_buttons--off) {
-  a.next-step-back {
-    color: @text-muted-color;
-    &:hover {
-      color: @link-color;
-    }
-  }
+.next-step-back,
+a.next-step-back {
+  color: @text-muted-color;
 }
-// TODO: Remove this in issue 10468 -- END
 
-// TODO: Remove this in issue 10468 -- START
-:where(body.ums_back_to_shop_buttons--on) {
-  // TODO: Remove this in issue 10468 -- END
-  .next-step-back,
-  a.next-step-back {
-    color: @text-muted-color;
-  }
+.user-action-in .toggle-window-arr {
+  color: @link-color;
+}
 
-  .user-action-in .toggle-window-arr {
+.next-step-back,
+a.next-step-back,
+.toggle-window-arr,
+a.toggle-window-arr {
+  background-color: transparent;
+  border-color: transparent;
+
+  &:hover {
     color: @link-color;
-  }
-
-  .next-step-back,
-  a.next-step-back,
-  .toggle-window-arr,
-  a.toggle-window-arr {
     background-color: transparent;
     border-color: transparent;
-
-    &:hover {
-      color: @link-color;
-      background-color: transparent;
-      border-color: transparent;
-    }
   }
-  // TODO: Remove this in issue 10468 -- START
 }
-// TODO: Remove this in issue 10468 -- END
 
 .xyDiscount__banner {
   border-color: @border-color;
