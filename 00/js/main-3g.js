@@ -31,6 +31,7 @@ import '../../shared/js/libs/image360';
 import '../../shared/js/libs/stockAvailabilities';
 import './libs/variants/surcharges';
 import './libs/variants/common';
+import './libs/variants/variantsData';
 import './libs/variants/simple';
 import './libs/variants/split';
 import './libs/variants/unavailable';

@@ -33,6 +33,7 @@
         $variant = $(this);
         $variant.parents('.variant-list').find('.advanced-parameter-inner').removeClass('yes-before');
         if (e.type === 'ShoptetSelectedParametersReset') {
+          shoptet.variantsData.fetchData(undefined);
           return;
         }
         $variant.siblings('.advanced-parameter-inner').addClass('yes-before');
@@ -57,6 +58,11 @@
         if (shoptet.abilities.about.generation > 2) {
           shoptet.xyDiscounts.updateFlags($variant.attr('data-codeid'));
         }
+      }
+      if (shoptet.abilities.about.generation > 2) {
+        shoptet.variantsData.fetchData(
+          $variant.attr('data-index') !== '0' ? Number($variant.attr('data-codeid')) : undefined
+        );
       }
     });
   }

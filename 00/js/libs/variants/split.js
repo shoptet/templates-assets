@@ -48,10 +48,12 @@
           } else {
             shoptet.variantsSplit.getData(variantCode, 1);
           }
+          shoptet.variantsData.fetchData(shoptet.variantsSplit.necessaryVariantData[variantCode]?.id ?? undefined);
         } else {
           if (shoptet.abilities.about.generation > 2) {
             shoptet.xyDiscounts.updateFlags(null);
             shoptet.quantityDiscounts.onVariantChange(false);
+            shoptet.variantsData.fetchData(undefined);
           }
         }
       });
