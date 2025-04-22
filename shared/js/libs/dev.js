@@ -1,7 +1,7 @@
 /// <reference path="./cookie.js" />
 // @ts-check
 
-const LOG_TO_CONSOLE = false; // Enable this feature after you inform partners about this way of logging deprecated features.
+const LOG_TO_CONSOLE = true;
 
 const CONFIG_NAME = 'Shoptet developers tools';
 const CONFIG_VERSION = '0.2.0';
@@ -148,22 +148,21 @@ const SUPPRESS_REG_FN_COOKIE = 'suppressRegFn';
       if (replaceWith || customMessage) {
         const message = customMessage ?? `Please use %c${replaceWith}%c instead.`;
         console.warn(
-          `[Deprecated]: Function %c${functionName}%c is deprecated and will be removed after ${deadline}. ${message}`,
+          `[Deprecated]: Function %c${functionName}%c is deprecated and will be removed after ${deadline}. ${message} Contact your Partner to fix this issue.`,
           consoleStyle.fontBold,
           consoleStyle.default,
-          consoleStyle.fontBold,
-          consoleStyle.default
+          ...(!!customMessage ? [] : [consoleStyle.fontBold, consoleStyle.default])
         );
       } else {
         console.warn(
-          `[Deprecated]: Function %c${functionName}%c is deprecated and will be removed after ${deadline}.`,
+          `[Deprecated]: Function %c${functionName}%c is deprecated and will be removed after ${deadline}. Contact your Partner to fix this issue.`,
           consoleStyle.fontBold,
           consoleStyle.default
         );
       }
     } else {
       console.error(
-        `[Deprecated]: Function %c${functionName}%c has been removed and will no longer work in future versions.`,
+        `[Deprecated]: Function %c${functionName}%c has been removed and will no longer work in future versions. Contact your Partner to fix this issue.`,
         consoleStyle.fontBold,
         consoleStyle.default
       );
