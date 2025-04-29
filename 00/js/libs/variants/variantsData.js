@@ -32,8 +32,17 @@ const isHTMLElement = value => value instanceof HTMLElement;
       return;
     }
 
-    //  @ts-expect-error Shoptet global functions are not defined yet.
-    const productId = window.getShoptetDataLayer('product').id;
+    let dataLayer;
+    try {
+      //  @ts-expect-error Shoptet global functions are not defined yet.
+      dataLayer = window.getShoptetDataLayer();
+    } catch (error) {
+      console.error('Error fetching dataLayer:', error);
+      return;
+    }
+
+    const productId = dataLayer.product.id;
+
     dataLoading = true;
     shoptet.ajax.makeAjaxRequest(
       `/action/productDetail/getProductVariants/?productId=${productId}`,
