@@ -72,17 +72,27 @@
                                         background-color: transparent;
                                     }
                                 }
+
                                 > div {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: round(@line-height-computed / 4) 0;
+
                                     width: calc(100% - round(@navigation_image-size + @grid-gutter-width));
+
+                                    line-height: 1.2;
+
                                     > a {
-                                        padding: 0 0 round(@line-height-computed / 4);
+                                        padding: 0;
                                         font-weight: 700;
                                     }
+
                                     > ul {
-                                        line-height: @navigation_third-level-item-height;
-                                        max-height: round(@navigation_third-level-item-height * 2);
                                         overflow: hidden;
                                         display: inline-block;
+                                        max-height: 2.6em;
+                                        line-height: 1.3;
+
                                         > li {
                                             display: inline-block;
                                             > a {

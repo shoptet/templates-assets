@@ -49,7 +49,7 @@
             }
             .menu-level-2 a {
                 font-weight: 500;
-            }            
+            }
             &.exp {
                 padding-bottom: @double-spacing;
             }
@@ -66,7 +66,7 @@
         }
         a {
             @media (min-width: @navigation-breakpoint) {
-                border-radius: @border-radius-base; 
+                border-radius: @border-radius-base;
             }
         }
         @media (min-width: @navigation-breakpoint) {
@@ -77,22 +77,22 @@
                     > a {
                         padding: 0;
                         width: round(@navigation_image-size);
-                    } 
+                    }
                     > div {
                         width: calc(100% - @navigation_image-size);
                         padding-left: @basic-spacing * 3;
                         > a {
                             font-size: @font-size-h3;
-                            line-height: @font-size-h3-large;
-                            padding-bottom: @basic-spacing * 1.5 ;
+                            padding-bottom: @basic-spacing;
                         }
                         > ul {
-                            max-height: round(@navigation_third-level-item-height * 5) + @penta-spacing;
+                            max-height: 10.5em;
+                            font-size: @font-size-smaller;
+                            line-height: 1.4;
                             > li  {
                                 display: block;
                                 padding: round(@basic-spacing / 2) 0;
                                 > a {
-                                    font-size: @font-size-smaller;
                                     font-weight: 500;
                                 }
                             }
@@ -105,7 +105,6 @@
                                         &::before {
                                             content: '\2026';
                                             vertical-align: top;
-                                            line-height: 1;
                                         }
                                     }
                                     li {
@@ -117,7 +116,7 @@
                                 }
                             }
                         }
-                    }  
+                    }
                 }
             }
         }
@@ -171,7 +170,7 @@
                 }
             }
         }
-    
+
         .submenu-visible &.exp {
             > ul {
                 @media (min-width: @navigation-breakpoint) {
@@ -184,7 +183,7 @@
         }
     }
 }
-    
+
 .navigation-close {
     display: none;
 }
@@ -198,7 +197,7 @@
     @media (min-width: @navigation-breakpoint) {
         > ul {
             border-width: 1px;
-            border-style: solid;   
+            border-style: solid;
             padding: @basic-spacing @double-spacing;
             border-radius: @border-radius-base;
             border-top-right-radius: 0;
