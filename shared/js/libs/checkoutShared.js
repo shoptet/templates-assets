@@ -1114,7 +1114,8 @@
             }
             newGenChooseOpen = true;
             $parentsElement = $(this).closest('.radio-wrapper');
-            let href = '/action/NewGenWidget/Choose/?code=' + $parentsElement.find('[data-new-gen-code]').data('newGenCode') + '&deliveryCountryId=' + shoptet.checkoutShared.deliveryCountryId;
+            const shippingMethodId = $parentsElement.find('input').val();
+            let href = '/action/NewGenWidget/Choose/?code=' + $parentsElement.find('[data-new-gen-code]').data('newGenCode') + '&deliveryCountryId=' + shoptet.checkoutShared.deliveryCountryId + '&shippingMethodId=' + shippingMethodId;
             var chosenBranchId = undefined;
             var chosenBranchName = undefined;
             shoptet.checkoutShared.chooseBranch = function(branchId, branchName) {
