@@ -1,85 +1,81 @@
+// This script is supposed to be used as type="module"
+
 const EDITOR_PARAM = 'editorPreview';
 const MOBILE_DEVICE_PARAM = 'isMobileDevice';
-
 const EDITOR_ORIGIN = window.location.origin;
 
-let lastHover = null;
+const isEditorPreview = new URLSearchParams(window.location.search).has(EDITOR_PARAM);
 
 // Capture link clicks
-document.addEventListener('click', function (e) {
-  if (!shoptet?.editorPreview) return;
+window.addEventListener('click', function (e) {
+  if (!isEditorPreview) return;
 
-	if (e.defaultPrevented) {
-		return;
-	}
+  if (e.defaultPrevented) {
+    return;
+  }
 
-	const link = e.target?.closest('a');
+  const link = e.target?.closest('a');
 
-	if (link && link.href) {
-		let url;
-		try {
-			url = new URL(link.href);
-		} catch (e) {
-			return;
-		}
+  if (link && link.href) {
+    let url;
+    try {
+      url = new URL(link.href);
+    } catch (e) {
+      return;
+    }
 
-		if (link.target === '_blank') {
-			return;
-		}
+    if (link.target === '_blank') return;
 
-		if (!url.origin || url.origin === 'null') {
-			return;
-		}
+    if (!url.origin || url.origin === 'null') return;
 
-		if (url.origin !== window.location.origin) {
-			e.preventDefault();
-			return;
-		}
+    if (url.origin !== window.location.origin) {
+      e.preventDefault();
+      return;
+    }
 
-		if (url.pathname === window.location.pathname && url.href.includes('#')) {
-			return;
-		}
+    if (url.pathname === window.location.pathname && url.href.includes('#')) {
+      return;
+    }
 
-		e.preventDefault();
-		const nextUrl = getNextUrl(url);
-		sendMessage({ type: 'pageIsLoading' });
-		window.location.assign(nextUrl);
-	}
+    e.preventDefault();
+    const nextUrl = getNextUrl(url);
+    sendMessage({ type: 'pageIsLoading' });
+    window.location.assign(nextUrl);
+  }
 });
 
 // Capture navigation to another page
 window.addEventListener('pagehide', function () {
-	sendMessage({ type: 'pageIsLoading' });
+  sendMessage({ type: 'pageIsLoading' });
 });
-
 
 // Receive messages
 window.addEventListener('message', function (e) {
-	if (e.origin !== EDITOR_ORIGIN) {
-		return;
-	}
+  if (e.origin !== EDITOR_ORIGIN) {
+    return;
+  }
 
-	if (e.data.type === 'reload') {
-		const nextUrl = getNextUrl(new URL(window.location.href), e.data.options);
-		sendMessage({ type: 'pageIsLoading' });
+  if (e.data.type === 'reload') {
+    const nextUrl = getNextUrl(new URL(window.location.href), e.data.options);
+    sendMessage({ type: 'pageIsLoading' });
 
-		// Use location.reload where possible to maintain scroll position
-		if (nextUrl.href === window.location.href) {
-			window.location.reload();
-		} else {
-			window.location.replace(nextUrl);
-		}
-	}
+    // Use location.reload where possible to maintain scroll position
+    if (nextUrl.href === window.location.href) {
+      window.location.reload();
+    } else {
+      window.location.replace(nextUrl);
+    }
+  }
 
-	if (e.data.type === 'navigate') {
-		const url = new URL(e.data.url, window.location.origin);
-		const nextUrl = getNextUrl(url);
-		sendMessage({ type: 'pageIsLoading' });
-		window.location.assign(nextUrl);
-	}
+  if (e.data.type === 'navigate') {
+    const url = new URL(e.data.url, window.location.origin);
+    const nextUrl = getNextUrl(url);
+    sendMessage({ type: 'pageIsLoading' });
+    window.location.assign(nextUrl);
+  }
 
   if (e.data.type === 'inspectConfig') {
-    prevConfig = inspectConfig;
+    const prevConfig = inspectConfig;
     inspectConfig = { ...inspectConfig, ...e.data.config };
     toggleInspectMode();
 
@@ -95,12 +91,12 @@ window.addEventListener('message', function (e) {
 
 // Post messages
 sendMessage({
-	type: 'pageLoaded',
-	pageType: shoptet?.editorPreview?.pageType ?? 'not-editable',
+  type: 'pageLoaded',
+  pageType: isEditorPreview ? (window.shoptet.editorPreview?.pageType ?? 'homepage') : 'not-editable',
 });
 
 function sendMessage(message) {
-	window.parent.postMessage(message, EDITOR_ORIGIN);
+  window.parent.postMessage(message, EDITOR_ORIGIN);
 }
 
 /**
@@ -109,26 +105,26 @@ function sendMessage(message) {
  * @returns {URL}
  */
 function getNextUrl(urlObject, options) {
-	const currentUrlObject = new URL(window.location.href);
+  const currentUrlObject = new URL(window.location.href);
 
-	// Preserve edit mode
-	urlObject.searchParams.set(EDITOR_PARAM, '');
+  // Preserve edit mode
+  urlObject.searchParams.set(EDITOR_PARAM, '');
 
-	// Preserve current device mode if not specified
-	if (!options?.deviceMode && currentUrlObject.searchParams.has(MOBILE_DEVICE_PARAM)) {
-		urlObject.searchParams.set(MOBILE_DEVICE_PARAM, '');
-	}
+  // Preserve current device mode if not specified
+  if (!options?.deviceMode && currentUrlObject.searchParams.has(MOBILE_DEVICE_PARAM)) {
+    urlObject.searchParams.set(MOBILE_DEVICE_PARAM, '');
+  }
 
-	// Set device mode if specified
-	if (options?.deviceMode) {
-		if (options.deviceMode === 'mobile') {
-			urlObject.searchParams.set(MOBILE_DEVICE_PARAM, '');
-		} else {
-			urlObject.searchParams.delete(MOBILE_DEVICE_PARAM);
-		}
-	}
+  // Set device mode if specified
+  if (options?.deviceMode) {
+    if (options.deviceMode === 'mobile') {
+      urlObject.searchParams.set(MOBILE_DEVICE_PARAM, '');
+    } else {
+      urlObject.searchParams.delete(MOBILE_DEVICE_PARAM);
+    }
+  }
 
-	return urlObject;
+  return urlObject;
 }
 
 /*********************
@@ -140,10 +136,11 @@ let inspectConfig = {
   enabled: false,
   activeElementId: null,
   titles: {},
-}
+};
 
 let activeElement = null;
 let hoveredElement = null;
+let lastHover = null;
 
 // Shadow DOM overlay
 const overlay = document.createElement('div');
@@ -240,7 +237,7 @@ function createOrUpdateLabel(element) {
       width: ${rect.width}px;
       height: ${rect.height}px;
       outline-offset: ${isActive ? '-4px' : '-2px'};
-      outline: ${isActive ? '4px solid #ffe91c' : (isHovered ? '2px solid #ffe91c' : 'none')};
+      outline: ${isActive ? '4px solid #ffe91c' : isHovered ? '2px solid #ffe91c' : 'none'};
     "></div>
     <div class="label-text" style="
       ${labelTextPosition}
@@ -251,7 +248,9 @@ function createOrUpdateLabel(element) {
 }
 
 function getPositionCss(position) {
-  return Object.entries(position).map(([key, value]) => `${key}: ${value}px;`).join(' ');
+  return Object.entries(position)
+    .map(([key, value]) => `${key}: ${value}px;`)
+    .join(' ');
 }
 
 function getLabelTextPosition(rect) {
@@ -281,23 +280,30 @@ function getLabelTextPosition(rect) {
 const INSPECT_MODE_ELEMENTS_BLACKLIST = ['.product-slider-navigation'];
 
 // Event handlers
-document.body.addEventListener('click', (event) => {
-  if (!inspectConfig.enabled) return;
+document.body.addEventListener(
+  'click',
+  event => {
+    if (!inspectConfig.enabled) return;
 
-  // Ignore the clicks on a blacklisted elements or their children
-  if (INSPECT_MODE_ELEMENTS_BLACKLIST.some(selector => event.target.closest(selector))) return;
+    const target = event.target;
+    if (!(target instanceof Element)) return;
 
-  const element = event.target.closest(`[data-editorid]${isMobileView() ? '' : ':not([data-editormobileonly])'}`);
-  if (element && element !== activeElement) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    inspectConfig.activeElementId = element.dataset.editorid;
-    setActiveElement(element);
-    sendMessage({ type: 'inspecting', activeElementId: inspectConfig.activeElementId });
-  }
-});
+    // Ignore the clicks on a blacklisted elements or their children
+    if (INSPECT_MODE_ELEMENTS_BLACKLIST.some(selector => target.closest(selector))) return;
 
-document.addEventListener('mouseover', (event) => {
+    const element = target.closest(`[data-editorid]${isMobileView() ? '' : ':not([data-editormobileonly])'}`);
+    if (element && element !== activeElement) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      inspectConfig.activeElementId = element.dataset.editorid;
+      setActiveElement(element);
+      sendMessage({ type: 'inspecting', activeElementId: inspectConfig.activeElementId });
+    }
+  },
+  true
+);
+
+document.addEventListener('mouseover', event => {
   if (!inspectConfig.enabled) return;
 
   const element = event.target.closest(`[data-editorid]${isMobileView() ? '' : ':not([data-editormobileonly])'}`);
@@ -319,7 +325,7 @@ document.addEventListener('mouseover', (event) => {
   }
 });
 
-document.addEventListener('mouseout', (event) => {
+document.addEventListener('mouseout', event => {
   if (!inspectConfig.enabled) return;
 
   setHoveredElement(null);
@@ -393,18 +399,20 @@ function scrollToElement(element) {
 
   window.scrollTo({
     top: targetScrollTop,
-    behavior: 'smooth'
+    behavior: 'smooth',
   });
 }
 
 function findElementInView(id) {
-  const elements = document.querySelectorAll(`[data-editorid="${id}"]${isMobileView() ? '' : ':not([data-editormobileonly])'}`);
+  const elements = document.querySelectorAll(
+    `[data-editorid="${id}"]${isMobileView() ? '' : ':not([data-editormobileonly])'}`
+  );
   if (!elements.length) return null;
 
   const viewableElements = Array.from(elements).filter(el => isElementViewable(el));
   if (!viewableElements.length) return null;
 
-  const isElementInView = (el) => {
+  const isElementInView = el => {
     const rect = el.getBoundingClientRect();
 
     return (
@@ -433,12 +441,12 @@ function isElementViewable(element) {
 
   let current = element;
   while (current) {
-      const style = window.getComputedStyle(current);
-      if (style.display === 'none' || style.visibility === 'hidden') {
-        return false;
-      }
+    const style = window.getComputedStyle(current);
+    if (style.display === 'none' || style.visibility === 'hidden') {
+      return false;
+    }
 
-      current = current.parentElement;
+    current = current.parentElement;
   }
 
   return true;
@@ -449,35 +457,38 @@ function handleSpecialElements(element) {
   handleCarousel(element);
 }
 
-function isCarouselItem (element) {
+function isCarouselItem(element) {
   return element.closest('[data-editorid="carousel"]') !== null;
 }
 
 function handleCarousel(element) {
   if (!$?.fn?.carousel) return;
 
-  $carousel = $('[data-editorid="carousel"]');
+  const $carousel = $('[data-editorid="carousel"]');
   if (!$carousel.length) return;
 
   if (!element || element.dataset.editorid === 'carousel' || !element.closest('[data-editorid="carousel"]')) {
     $carousel.carousel('cycle');
   } else {
-    element.closest('[data-editorid="carousel"]').querySelectorAll('[data-editorid]').forEach((el, i) => {
-      if (el === element) {
-        setTimeout(() => {
-          $carousel.carousel(i);
-          $carousel.carousel('pause');
-          $carousel.one('slid.bs.carousel', function() {
-            updateAllLabels();
-          });
-        }, 100);
-      }
-    });
+    element
+      .closest('[data-editorid="carousel"]')
+      .querySelectorAll('[data-editorid]')
+      .forEach((el, i) => {
+        if (el === element) {
+          setTimeout(() => {
+            $carousel.carousel(i);
+            $carousel.carousel('pause');
+            $carousel.one('slid.bs.carousel', function () {
+              updateAllLabels();
+            });
+          }, 100);
+        }
+      });
   }
 }
 
 // since the data-editormobileonly is used in Classic theme only, we use the same selector as Classic does. If it
 // were to be used elsewhere, more research should be done on how the mobile view is handled in various themes.
 function isMobileView() {
-	return window.matchMedia('(max-width: 767px)').matches;
+  return window.matchMedia('(max-width: 767px)').matches;
 }
