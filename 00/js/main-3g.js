@@ -58,6 +58,8 @@ import './modules/cloudZoomInit';
 import './modules/tabsAccordion';
 import './modules/tabsResponsive';
 import './modules/topNavigationMenu';
+import './modules/popups';
+import './modules/cookieBar';
 import './modules/globalFunctions';
 import './modules/menu';
 import './modules/products';

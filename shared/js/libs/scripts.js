@@ -256,14 +256,9 @@
     validatorPhone: ['validateNumber'],
     validatorZipCode: ['validateZipCode', 'updateZipValidPattern'],
     validatorCompanyId: ['validateCompanyId', 'updateCompanyIdValidPattern'],
-    global: [
-      'showPopupWindow',
-      'hideContentWindows',
-      'updateSelectedRegions',
-      'toggleRegionsWrapper',
-      'restoreDefaultRegionSelect',
-      'toggleAnotherShipping',
-    ],
+    global: ['updateSelectedRegions', 'toggleRegionsWrapper', 'restoreDefaultRegionSelect', 'toggleAnotherShipping'],
+    popups: ['showPopupWindow', 'hideContentWindows', 'showWindow', 'hidePopupWindowCallback'],
+    cookieBar: ['setCookieBarVisibility'],
     helpers: [
       'toFloat',
       'toLocaleFloat',

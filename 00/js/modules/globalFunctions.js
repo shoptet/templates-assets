@@ -12,21 +12,6 @@ $.colorbox.settings.initialHeight = shoptet.modal.config.initialHeight;
 $.colorbox.settings.previous = shoptet.messages['previous'];
 $.colorbox.settings.next = shoptet.messages['next'];
 $.colorbox.settings.close = shoptet.messages['close'];
-shoptet.config.bodyClasses =
-  'user-action-visible' +
-  ' navigation-window-visible' +
-  ' cart-window-visible' +
-  ' search-window-visible' +
-  ' login-window-visible' +
-  ' currency-window-visible' +
-  ' language-window-visible' +
-  ' register-window-visible' +
-  ' menu-helper-visible' +
-  ' submenu-visible' +
-  ' navigation-hovered' +
-  ' top-navigation-menu-visible' +
-  ' categories-window-visible' +
-  ' search-focused';
 
 /**
  * Function for displaying information messages
@@ -703,84 +688,6 @@ document.addEventListener('DOMContentLoaded', function () {
     e.stopPropagation();
   });
 
-  $('html').on('click', '.hide-content-windows', function (e) {
-    e.preventDefault();
-    shoptet.global.hideContentWindows();
-  });
-
-  $('html').on('touchend click', '.toggle-window', function (e) {
-    if ((e.type === 'touchend' || !$(this).attr('data-redirect')) && !$(this).hasClass('languagesMenu__box')) {
-      e.preventDefault();
-    }
-    if ($(this).hasClass('hide-content-windows')) {
-      shoptet.global.hideContentWindows();
-      return;
-    }
-    var target = $(this).attr('data-target');
-    if (!$(this).hasClass('hovered') || target === 'navigation') {
-      shoptet.global.showPopupWindow(target, true);
-    }
-    $(this).removeClass('hovered');
-  });
-
-  var hidePopupWindow;
-  $('html').on('mouseenter', '.popup-widget, .hovered-nav, .menu-helper', function () {
-    clearTimeout(hidePopupWindow);
-  });
-
-  $('html').on('mouseleave', '.popup-widget, .hovered-nav', function () {
-    if ($(this).hasClass('login-widget') || $(this).hasClass('register-widget')) {
-      if ($(this).find('input:focus').length) {
-        return false;
-      }
-    }
-    if ($(this).hasClass('stay-open')) {
-      return false;
-    }
-    hidePopupWindow = setTimeout(function () {
-      $('body').removeClass(shoptet.config.bodyClasses);
-    }, shoptet.config.animationDuration);
-    $(this).removeClass('hovered');
-  });
-
-  $('html').on('mouseenter', '.toggle-window[data-hover="true"]', function (e) {
-    $(this).addClass('hovered');
-    e.preventDefault();
-    clearTimeout(hidePopupWindow);
-    var target = $(this).attr('data-target');
-    if (!$('body').hasClass(target + '-window-visible')) {
-      var show = target === 'cart' && !$(this).hasClass('full') ? false : true;
-      shoptet.global.showPopupWindow(target, show);
-    }
-  });
-
-  $('html').on('mouseleave', '.toggle-window[data-hover="true"]', function () {
-    if (shoptet.layout.detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
-      hidePopupWindow = setTimeout(function () {
-        $('body').removeClass(shoptet.config.bodyClasses);
-      }, shoptet.config.animationDuration);
-    }
-  });
-
-  // Close all windows with ESC key
-  var escClasses = '';
-  escClasses += '.user-action-visible, ';
-  escClasses += '.top-navigation-menu-visible, ';
-  escClasses += '.user-action-visible input:focus';
-  $('html').on('keyup', escClasses, function (e) {
-    if (e.keyCode === shoptet.common.keyCodes.escape) {
-      if ($('.menu-helper-visible').length) {
-        $('.menu-helper').focus();
-      }
-      $('body').removeClass(shoptet.config.bodyClasses);
-      if ($('.overlay').length > 0) {
-        $('.overlay').detach();
-      }
-      if ($('.msg').length > 0) {
-        hideMsg();
-      }
-    }
-  });
   $('html').on('keyup', 'input, textarea', function (e) {
     e.stopPropagation();
   });
@@ -1183,116 +1090,6 @@ window.resolveImageFormat = () => {
 
 (function (shoptet) {
   /**
-   * Hide window displayed by user interaction
-   *
-   * @param {String} target
-   * target = part of selector of affected HTML element
-   */
-  function hideContentWindows(target) {
-    var classesToRemove = shoptet.config.bodyClasses;
-    if (typeof target !== 'undefined') {
-      classesToRemove = classesToRemove.replace(target, '');
-    }
-    $('body').removeClass(classesToRemove);
-  }
-
-  /**
-   * Helper function for displaying/hiding user action windows on hover
-   *
-   * @param {String} target
-   * target = part of selector of affected HTML element
-   * @param {Boolean} show
-   * show = when set to true, function will only hide other windows (used for empty cart)
-   *
-   */
-  function showPopupWindow(target, show) {
-    shoptet.global.hideContentWindows(target);
-
-    if (!show) {
-      return false;
-    }
-
-    if (target === 'cart') {
-      //hide EU cookies
-      if (!shoptet.layout.detectResolution(shoptet.config.breakpoints.md)) {
-        $('.cookies').hide();
-      }
-      if (typeof shoptet.events.cartLoaded === 'undefined') {
-        shoptet.events.cartLoaded = true;
-        $('body').addClass('ajax-pending');
-        var callback = function () {
-          // Track FB pixel for templates with extended AJAX cart
-          if (typeof shoptet.content.initiateCheckoutData !== 'undefined') {
-            if (typeof fbq !== 'undefined') {
-              fbq('track', 'InitiateCheckout', shoptet.content.initiateCheckoutData);
-              delete shoptet.content.initiateCheckoutData;
-            }
-          }
-          $('body').removeClass('ajax-pending');
-        };
-        setTimeout(function () {
-          shoptet.cart.getCartContent(false, callback);
-        }, 0);
-      }
-    }
-
-    if (target === 'navigation') {
-      if (!$('body').hasClass('navigation-window-visible')) {
-        setTimeout(function () {
-          $(document).trigger('menuUnveiled');
-        }, shoptet.config.animationDuration);
-      }
-    }
-    var currentTarget = target + '-window-visible';
-    if ($('body').hasClass(currentTarget)) {
-      $('body').removeClass('user-action-visible');
-    } else {
-      $('body').addClass('user-action-visible');
-    }
-
-    $('body').toggleClass(target + '-window-visible');
-
-    if (target === 'search' && $('body').hasClass('search-window-visible')) {
-      setTimeout(function () {
-        $('.js-search-main .js-search-input:visible').focus();
-      }, shoptet.config.animationDuration);
-    } else {
-      $('.js-search-main .js-search-input').blur();
-      clearSearchFocus();
-    }
-
-    if (target === 'register') {
-      if ($('.user-action-register .loader').length) {
-        var successCallback = function (response) {
-          var requestedDocument = shoptet.common.createDocumentFromString(response.getPayload());
-          var content = $(requestedDocument).find('#register-form');
-          $('.user-action-register .loader').remove();
-          content.appendTo('.place-registration-here');
-          if (!$('#additionalInformation').hasClass('visible')) {
-            toggleRequiredAttributes($('#additionalInformation'), 'remove', false);
-          }
-          shoptet.validator.initValidator($('#register-form'));
-          initDatepickers();
-          initTooltips();
-          shoptet.scripts.signalDomLoad('ShoptetDOMRegisterFormLoaded');
-        };
-        shoptet.ajax.makeAjaxRequest(
-          shoptet.config.registerUrl,
-          shoptet.ajax.requestTypes.get,
-          '',
-          {
-            success: successCallback,
-          },
-          {
-            'X-Shoptet-XHR': 'Shoptet_Coo7ai',
-          }
-        );
-      }
-    }
-    shoptet.images.unveil();
-  }
-
-  /**
    * Update regions by clickin' on "Another shipping" in ordering process
    *
    * @param {Object} $el
@@ -1357,12 +1154,6 @@ window.resolveImageFormat = () => {
     shoptet.global.toggleRegionsWrapper();
   }
 
-  shoptet.global = shoptet.global || {};
-  shoptet.scripts.libs.global.forEach(function (fnName) {
-    var fn = eval(fnName);
-    shoptet.scripts.registerFunction(fn, 'global');
-  });
-
   /**
    * Toggle another shipping address in 2nd step of order
    *
@@ -1423,4 +1214,19 @@ window.resolveImageFormat = () => {
       }, 0);
     }
   }
+
+  shoptet.global = shoptet.global || {};
+  shoptet.global.showPopupWindow = (target, show) => {
+    shoptet.dev.deprecated('2025-12-31', 'shoptet.global.showPopupWindow()', 'shoptet.popups.showPopupWindow()');
+    return shoptet.popups.showPopupWindow(target, show);
+  };
+  shoptet.global.hideContentWindows = target => {
+    shoptet.dev.deprecated('2025-12-31', 'shoptet.global.hideContentWindows()', 'shoptet.popups.hideContentWindows()');
+    return shoptet.popups.hideContentWindows(target);
+  };
+
+  shoptet.scripts.libs.global.forEach(fnName => {
+    const fn = eval(fnName);
+    shoptet.scripts.registerFunction(fn, 'global');
+  });
 })(shoptet);
