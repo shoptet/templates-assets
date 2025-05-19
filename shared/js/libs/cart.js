@@ -236,7 +236,7 @@
      */
     function ajaxSubmitForm(action, form, callingFunctions, replaceContent, displaySpinner, eventElement) {
         var body = document.getElementsByTagName('body')[0];
-        if (displaySpinner === true) {
+        if (displaySpinner) {
             showSpinner();
         }
 
@@ -298,11 +298,9 @@
                         shoptet.config.expressCheckoutKeepSpinnerVisible = true;
                         shoptet.expressCheckout.initExpressCheckout(true);
                         shoptet.config.expressCheckoutAddToCart = undefined;
-                    } else if (typeof shoptet.config.showAdvancedOrder !== 'undefined'
-                        && !shoptet.cartShared.silentAddition) {
+                    } else if (typeof shoptet.config.showAdvancedOrder !== 'undefined' && displaySpinner) {
                         shoptet.cart.getAdvancedOrder();
                     }
-                    shoptet.cartShared.silentAddition = false;
                 }
                 shoptet.tracking.handleAction(form, response);
                 if (typeof cartCallback === 'function') {

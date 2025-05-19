@@ -47,20 +47,11 @@
       }
     }
 
-    if (typeof silent !== 'undefined' && silent) {
-      shoptet.cartShared.silentAddition = true;
-    }
     if (shoptet.abilities.about.generation !== 3) {
-      window.ajaxAddToCart(configUrl, form, !shoptet.cartShared.silentAddition);
+      //  @ts-expect-error Shoptet global functions are not defined yet.
+      window.ajaxAddToCart(configUrl, form, !silent);
     } else {
-      shoptet.cart.ajaxSubmitForm(
-        configUrl,
-        form,
-        'functionsForCart',
-        'cart',
-        !shoptet.cartShared.silentAddition,
-        document
-      );
+      shoptet.cart.ajaxSubmitForm(configUrl, form, 'functionsForCart', 'cart', !silent, document);
     }
   }
 
@@ -83,9 +74,9 @@
   }
 
   shoptet.cartShared = shoptet.cartShared || {};
-  shoptet.cartShared.silentAddition = false;
   shoptet.scripts.libs.cartShared.forEach(function (fnName) {
     var fn = eval(fnName);
     shoptet.scripts.registerFunction(fn, 'cartShared');
   });
+  // @ts-expect-error Shoptet object is not defined yet.
 })(shoptet);
