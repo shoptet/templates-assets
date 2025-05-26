@@ -471,10 +471,16 @@ a.btn {
 @media (max-width: @screen-xs) {
   .category-header .dropdown {
     .dropdown-menu {
-      label,
-      strong {
+      label {
         padding: @btn-padding-sm;
       }
+      // TODO: Remove this in issue 15718 -- START
+      :where(body.ums_a11y_category_page--off) & {
+        strong {
+          padding: @btn-padding-sm;
+        }
+      }
+      // TODO: Remove this in issue 15718 -- END
     }
     button {
       padding: @btn-padding-sm;

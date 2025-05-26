@@ -369,18 +369,37 @@ article header h1,
 .category-header {
   border-radius: @border-radius-base;
   padding-top: @basic-spacing;
-  label {
-    border-top-left-radius: @border-radius-base;
-    border-top-right-radius: @border-radius-base;
+  // TODO: Remove this in issue 15718 -- START
+  :where(body.ums_a11y_category_page--off) & {
+    label {
+      border-top-left-radius: @border-radius-base;
+      border-top-right-radius: @border-radius-base;
+    }
   }
-  input[type='radio'] + label {
-    padding: @double-spacing @penta-spacing;
-    font-size: @font-size-larger;
-    line-height: 24px;
-    margin-right: @half-basic-spacing;
-  }
-  input[type='radio']:checked + label {
-    font-weight: @font-weight-h1;
+  // TODO: Remove this in issue 15718 -- END
+  input[type='radio'] {
+    + label {
+      padding: @double-spacing @penta-spacing;
+      font-size: @font-size-larger;
+      line-height: 24px;
+      margin-right: @half-basic-spacing;
+      border-top-left-radius: @border-radius-base;
+      border-top-right-radius: @border-radius-base;
+    }
+    // TODO: Remove this in issue 15718 -- START
+    :where(body.ums_a11y_category_page--off) & {
+      &:checked + label {
+        font-weight: @font-weight-h1;
+      }
+    }
+    :where(body.ums_a11y_category_page--on) & {
+      // TODO: Remove this in issue 15718 -- END
+      &.active + label {
+        font-weight: @font-weight-h1;
+      }
+      // TODO: Remove this in issue 15718 -- START
+    }
+    // TODO: Remove this in issue 15718 -- END
   }
 }
 

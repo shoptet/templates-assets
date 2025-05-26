@@ -1,27 +1,45 @@
 .category-header {
-    text-align: right;
-
-    .dropdown {
-        display: inline-block;
-
-        button {
-            font-weight: 700;
+  text-align: right;
+  .dropdown {
+    display: inline-block;
+    button {
+      font-weight: 700;
+      // TODO: Remove this in issue 15718 -- START
+      :where(body.ums_a11y_category_page--on) & {
+        // TODO: Remove this in issue 15718 -- END
+        text-transform: uppercase;
+        span {
+          text-transform: none;
+          @media (min-width: @screen-sm) {
+            font-weight: normal;
+          }
         }
-
-        .dropdown-menu {
-            left: auto;
-            right: 0;
-
-            label,
-            strong {
-                display: block;
-                line-height: 1.5;
-                padding: 3px 20px;
-                white-space: nowrap;
-            }
-            label {
-                font-weight: normal;
-            }
-        }
+        // TODO: Remove this in issue 15718 -- START
+      }
+      // TODO: Remove this in issue 15718 -- END
     }
+    .dropdown-menu {
+      left: auto;
+      right: 0;
+      label {
+        display: block;
+        line-height: 1.5;
+        padding: 3px 20px;
+        white-space: nowrap;
+      }
+      // TODO: Remove this in issue 15718 -- START
+      :where(body.ums_a11y_category_page--off) & {
+        strong {
+          display: block;
+          line-height: 1.5;
+          padding: 3px 20px;
+          white-space: nowrap;
+        }
+        label {
+          font-weight: normal;
+        }
+      }
+      // TODO: Remove this in issue 15718 -- END
+    }
+  }
 }

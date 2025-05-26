@@ -1,21 +1,21 @@
 .category-header {
-    padding-bottom: @line-height-computed;
-    margin-bottom: @line-height-computed;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
+  padding-bottom: @line-height-computed;
+  margin-bottom: @line-height-computed;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  label {
+    display: block;
+  }
+  @media (max-width: @screen-xs-max) {
+    display: none;
+    .filters-visible & {
+      display: block;
+    }
+  }
+  @media (min-width: @screen-sm-min) {
     label {
-        display: block;
+      display: inline-block;
+      padding-right: 1ex;
     }
-    @media (max-width: @screen-xs-max) {
-        display: none;
-        .filters-visible & {
-            display: block;
-        }
-    }
-    @media (min-width: @screen-sm-min) {
-        label {
-            display: inline-block;
-            padding-right: 1ex;
-        }
-    }
+  }
 }

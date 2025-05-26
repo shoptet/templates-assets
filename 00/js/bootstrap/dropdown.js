@@ -105,8 +105,7 @@
       return $this.trigger('click')
     }
 
-    var desc = ' li:not(.disabled):visible a'
-    var $items = $parent.find('.dropdown-menu' + desc)
+    var $items = $parent.find('.dropdown-menu li:not(.disabled):visible a, .dropdown-menu li:not(.disabled):visible[tabindex="0"], .dropdown-menu input[type="radio"]')
 
     if (!$items.length) return
 
