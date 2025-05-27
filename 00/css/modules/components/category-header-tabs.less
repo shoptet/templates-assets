@@ -1,41 +1,45 @@
 .category-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-bottom: @line-height-computed;
-  font-size: 0;
-  form {
-    flex: 0 1 auto;
-  }
-  div {
-    display: none;
-  }
-  input[type='radio'] + label {
-    display: inline-block;
-    margin-right: 1px;
-    margin-top: 1px;
-    padding-left: round(@grid-gutter-width / 4);
-    padding-right: round(@grid-gutter-width / 4);
-    padding-top: round(@line-height-computed / 2);
-    padding-bottom: round(@line-height-computed / 2);
-    font-size: @font-size-base;
-    &::before,
-    &::after {
-      display: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: @line-height-computed;
+    font-size: 0;
+    form {
+        flex: 0 1 auto;
     }
-  }
-  @media (min-width: @screen-sm-min) {
     div {
-      display: block;
-      flex: 1 0 auto;
-      text-align: right;
-      padding-left: round(@grid-gutter-width / 2);
-      padding-right: round(@grid-gutter-width / 2);
-      font-size: @font-size-smaller;
+        display: none;
     }
-    input[type='radio'] + label {
-      padding-left: round(@grid-gutter-width / 2);
-      padding-right: round(@grid-gutter-width / 2);
+    input[type="radio"] {
+        + label {
+            display: inline-block;
+            margin-right: 1px;
+            margin-top: 1px;
+            padding-left: round(@grid-gutter-width / 4);
+            padding-right: round(@grid-gutter-width / 4);
+            padding-top: round(@line-height-computed / 2);
+            padding-bottom: round(@line-height-computed / 2);
+            font-size: @font-size-base;
+            &::before,
+            &::after {
+                display: none;
+            }
+        }
     }
-  }
+    @media (min-width: @screen-sm-min) {
+        div {
+            display: block;
+            flex: 1 0 auto;
+            text-align: right;
+            padding-left: round(@grid-gutter-width / 2);
+            padding-right: round(@grid-gutter-width / 2);
+            font-size: @font-size-smaller;
+        }
+        input[type="radio"] {
+            + label {
+                padding-left: round(@grid-gutter-width / 2);
+                padding-right: round(@grid-gutter-width / 2);
+            }
+        }
+    }
 }

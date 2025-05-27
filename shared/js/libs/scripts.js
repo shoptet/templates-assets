@@ -297,7 +297,6 @@
       'unveilProductVideoTab',
       'changeQuantity',
     ],
-    ...(shoptet.config.ums_a11y_category_page ? { productSorting: ['initProductSorting'] } : []),
     menu: [
       'toggleMenu',
       'splitMenu',

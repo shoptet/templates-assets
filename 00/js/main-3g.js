@@ -66,7 +66,6 @@ import './modules/products';
 import './modules/discussions-and-ratings';
 import './modules/search';
 import './modules/filters';
-import './modules/productSorting';
 import './modules/productInnerSecondImage';
 import './modules/smartLabels';
 import './modules/slider';
