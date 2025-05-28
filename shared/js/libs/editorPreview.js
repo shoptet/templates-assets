@@ -80,6 +80,7 @@ window.addEventListener('message', function (e) {
     toggleInspectMode();
 
     if (prevConfig.activeElementId !== inspectConfig.activeElementId) {
+      scrollToSubstituteElement(inspectConfig.activeElementId);
       setActiveElement(findElementInView(inspectConfig.activeElementId));
     }
   }
@@ -372,6 +373,9 @@ function updateAllLabels() {
 
 window.addEventListener('scroll', updateAllLabels);
 window.addEventListener('resize', updateAllLabels);
+if ($?.fn?.on) {
+  $('[role="tab"]').on('shown.bs.tab', updateAllLabels);
+}
 
 // Positioning functions
 function scrollToElement(element) {
@@ -383,7 +387,7 @@ function scrollToElement(element) {
     return;
   }
 
-  const margin = 20;
+  const margin = element.dataset.editorid.startsWith('homepageProductGroup-') ? 100 : 40;
   let targetScrollTop;
 
   // Check if element can fit entirely in viewport
@@ -430,7 +434,7 @@ function findElementInView(id) {
 function isElementViewable(element) {
   if (!element) return false;
 
-  if (isCarouselItem(element)) {
+  if (isCarouselItem(element) || isTabItem(element)) {
     return true;
   }
 
@@ -455,6 +459,7 @@ function isElementViewable(element) {
 // Special elements (carousel etc.)
 function handleSpecialElements(element) {
   handleCarousel(element);
+  handleTabs(element);
 }
 
 function isCarouselItem(element) {
@@ -484,6 +489,36 @@ function handleCarousel(element) {
           }, 100);
         }
       });
+  }
+}
+
+function isTabItem(element) {
+  return element.closest('[role="tabpanel"]') !== null;
+}
+
+function handleTabs(element) {
+  if (!$?.fn?.tab) return;
+
+  const tabContent = element.closest('[role="tabpanel"]');
+  if (!tabContent) return;
+
+  const tab = document.querySelector(`[role="tab"][href="#${tabContent.id}"]`);
+  if (!tab) return;
+
+  const $tab = $(tab);
+  $tab.one('shown.bs.tab', function () {
+    scrollToElement(element);
+  });
+  $tab.tab('show');
+}
+
+// Some data-editorid are not inspectable (do not have a corresponding element in the DOM), so we scroll to a substitute element at least
+function scrollToSubstituteElement(id) {
+  if (id === 'homepageProductGroups') {
+    const homepageProductGroup = document.querySelector('[data-editorid^="homepageProductGroup-"]');
+    if (homepageProductGroup) {
+      scrollToElement(homepageProductGroup);
+    }
   }
 }
 
