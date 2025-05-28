@@ -109,24 +109,11 @@ select {
   }
 }
 
-.form-control,
-input,
-select,
-textarea {
-  &:focus {
-    box-shadow: 0 0 0 0.1em fade(@input-border-focus, 50%);
-  }
-}
-
 .country-flags {
   border-width: 1px;
   border-style: solid;
   border-color: transparent;
   border-radius: 3px;
-  &:focus {
-    border-color: @input-border-focus;
-    box-shadow: 0 0 0 0.1em fade(@input-border-focus, 50%);
-  }
 }
 
 input[type='checkbox'],
@@ -157,11 +144,22 @@ input[type='radio'] {
       }
     }
   }
-  &.focus-visible {
-    & + label::before {
-      box-shadow: 0 0 0 0.2em hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.5);
-    }
-  }
+}
+
+// [1] Safari does not apply :focus-visible when navigating radio buttons with arrow keys.
+// We add the .focus-visible class manually as a Safari-specific patch to ensure consistent styling.
+:focus-visible,
+input[type="radio"]:focus-visible + label,
+input[type="radio"].focus-visible + label, // [1]
+input[type="checkbox"]:focus-visible + label,
+input[type="checkbox"].focus-visible + label, // [1]
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex="0"]:focus-visible {
+  outline: 3px solid var(--colors-focus-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 8px var(--colors-focus-secondary);
 }
 // TODO: Remove this in issue 15718 -- START
 :where(body.ums_a11y_category_page--on) & {
@@ -217,6 +215,14 @@ input[type='radio'] {
   // TODO: Remove this in issue 15718 -- START
 }
 // TODO: Remove this in issue 15718 -- END
+
+a:hover:focus-visible:not(:active) {
+  outline: 3px solid var(--colors-focus-primary);
+}
+
+#colorbox:focus-visible {
+  box-shadow: none;
+}
 
 .additional-information {
   color: @text-muted-color;

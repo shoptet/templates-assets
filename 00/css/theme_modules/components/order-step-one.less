@@ -33,14 +33,8 @@ input[type="radio"] {
 .radio-wrapper {
     border-color: @radio-wrapper-border;
     background-color: @radio-wrapper-bg;
-    &.active {
-        label {
-            > span {
-                b {
-                    color: @color-primary;
-                }
-            }
-        }
+    input[type="radio"]:checked + label > span b {
+        color: @color-primary;
     }
     &.apple-pay {
         display: none;
@@ -58,7 +52,7 @@ input[type="radio"] {
 }
 
 .cart-hide-unselected-options .radio-wrapper {
-    &.selected-option { 
-        border-bottom-color: transparent;   
-    }   
+    &.selected-option {
+        border-bottom-color: transparent;
+    }
 }
