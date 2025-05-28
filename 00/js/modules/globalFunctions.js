@@ -52,7 +52,7 @@ window.showMessage = (content, type, id, cancel, overlay, parent) => {
   }
 
   var message =
-    '<div class="msg msg-' + type + '" role="alert"><div class="container"><span data-testid="notifierMessage">';
+    '<div class="msg msg-' + type + '" role="alert" data-testid="notifierMessage"><div class="container"><span>';
   message += content + cancel + '</span></div></div>';
 
   $(message).prependTo(parent);
