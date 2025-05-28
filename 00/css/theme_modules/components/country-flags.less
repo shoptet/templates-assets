@@ -10,7 +10,7 @@
     .country-flags.active & {
         background-color: @input-bg;
         &.country-flag-preferred {
-            background-color: lighten(@input-bg-disabled, 3%);
+            background-color: lighten(#eee, 3%);
             &:not(.selected):hover {
                 background-color: @input-bg-disabled;
             }
@@ -19,7 +19,7 @@
     .country-flags.active &.selected,
     .country-flags.active &.suggested,
     .country-flags.active &:hover {
-        background-color: lighten(@input-bg-disabled, 3%);
+        background-color: lighten(#eee, 3%);
     }
     .country-flags.active &.selected {
         border-bottom-color: @border-color;
