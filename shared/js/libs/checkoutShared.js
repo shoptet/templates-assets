@@ -244,6 +244,13 @@
                         bankCount: Object.keys(countryData.providers).length
                     }));
 
+                    const bankCountTotal = shoptet.checkoutShared.shoptetPayPIS.countries.reduce((acc, country) => acc + country.bankCount, 0);
+
+                    if (bankCountTotal === 0) {
+                        hidePISMethod();
+                        return;
+                    }
+
                     shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS = document.querySelector( '.radio-wrapper[data-submethod="pis"]' );
                     setDefaultCountry();
                     renderPIS(shoptet.checkoutShared.shoptetPayPIS.paymentMethodPIS);
