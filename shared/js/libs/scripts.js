@@ -274,9 +274,9 @@
       'isTouchDevice',
       'enableUpdatePreview',
       'isApplePayAvailable',
-      ...(shoptet.config.ums_product_quantity
-        ? ['announceQuantityLimits', 'announceToScreenReader', 'enforceAndAnnounceLimits']
-        : []),
+      'announceQuantityLimits',
+      'announceToScreenReader',
+      'enforceAndAnnounceLimits',
     ],
     images: ['unveil'],
     products: [

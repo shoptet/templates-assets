@@ -305,29 +305,17 @@
     }
   }
 
-  // TODO: Remove this in issue 11049 -- START
-  :where(body.ums_product_quantity--on) & {
-    // TODO: Remove this in issue 11049 -- END
-    .amount {
-      border-radius: 0;
-    }
-    // TODO: Remove this in issue 11049 -- START
+  .amount {
+    border-radius: 0;
   }
-  // TODO: Remove this in issue 11049 -- END
 }
 
-// TODO: Remove this in issue 11049 -- START
-:where(body.ums_product_quantity--on) {
-  // TODO: Remove this in issue 11049 -- END
-  .products-block .p .p-tools .quantity {
-    .increase,
-    .decrease {
-      width: @quantity-trigger-width;
-    }
+.products-block .p .p-tools .quantity {
+  .increase,
+  .decrease {
+    width: @quantity-trigger-width;
   }
-  // TODO: Remove this in issue 11049 -- START
 }
-// TODO: Remove this in issue 11049 -- END
 
 .widget-parameter-wrapper {
   .widget-parameter-value {

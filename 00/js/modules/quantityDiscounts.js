@@ -105,15 +105,10 @@
     quantityDiscountsItems.forEach((item) => {
         item.addEventListener('click', () => {
             if (quantityInput) {
-                if (shoptet.config.ums_product_quantity) {
-                    decimals = quantityInput.dataset.decimals || 0;
-                    quantityInput.value = Number(item.dataset.amount).toFixed(decimals);
-                    getQuantityDiscountElementByAmount(Number(quantityInput.value))
-                    shoptet.helpers.enforceAndAnnounceLimits(quantityInput);
-                } else {
-                    quantityInput.value = item.dataset.amount
-                    shoptet.helpers.updateQuantity(quantityInput, quantityInput.dataset.min, quantityInput.dataset.max, quantityInput.dataset.decimals, 'change')
-                }
+                decimals = quantityInput.dataset.decimals || 0;
+                quantityInput.value = Number(item.dataset.amount).toFixed(decimals);
+                getQuantityDiscountElementByAmount(Number(quantityInput.value))
+                shoptet.helpers.enforceAndAnnounceLimits(quantityInput);
             }
 
             updateQuantityDiscount(item)

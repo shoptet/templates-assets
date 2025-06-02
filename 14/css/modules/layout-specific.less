@@ -233,34 +233,18 @@ a.btn {
     font-size: @quantity-font-size;
   }
 
-  // TODO: Remove this in issue 11049 -- START
-  :where(body.ums_product_quantity--off) & {
-    .increase::before,
-    .decrease::before {
-      font-family: inherit;
-      font-weight: 600;
-    }
+  .increase::before,
+  .decrease::before {
+    display: none;
   }
-  // TODO: Remove this in issue 11049 -- END
 
-  // TODO: Remove this in issue 11049 -- START
-  :where(body.ums_product_quantity--on) & {
-    // TODO: Remove this in issue 11049 -- END
-    .increase::before,
-    .decrease::before {
-      display: none;
-    }
-
-    .increase__sign,
-    .decrease__sign {
-      display: block;
-      font-family: inherit;
-      font-size: @quantity-trigger-font-size;
-      font-weight: 600;
-    }
-    // TODO: Remove this in issue 11049 -- START
+  .increase__sign,
+  .decrease__sign {
+    display: block;
+    font-family: inherit;
+    font-size: @quantity-trigger-font-size;
+    font-weight: 600;
   }
-  // TODO: Remove this in issue 11049 -- END
 }
 
 .product-slider-holder {

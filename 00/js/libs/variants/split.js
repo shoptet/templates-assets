@@ -96,34 +96,20 @@
         showMessage(shoptet.variantsCommon.reasonToDisable, 'error', '', false, false);
       }
 
-      if (shoptet.config.ums_product_quantity) {
-        if (data) {
-          const decimals = Number(data.decimalCount) || 0;
-          const stepValue = 10 ** -decimals;
-          const minAmount = Number(data.minimumAmount) || stepValue;
-          const maxAmount = Number(data.maximumAmount) || shoptet.config.defaultProductMaxAmount;
-          const quantityInput = document.querySelector('#product-detail-form .amount');
+      if (data) {
+        const decimals = Number(data.decimalCount) || 0;
+        const stepValue = 10 ** -decimals;
+        const minAmount = Number(data.minimumAmount) || stepValue;
+        const maxAmount = Number(data.maximumAmount) || shoptet.config.defaultProductMaxAmount;
+        const quantityInput = document.querySelector('#product-detail-form .amount');
 
-          if (quantityInput) {
-            quantityInput.value = minAmount.toFixed(decimals);
-            quantityInput.setAttribute('min', minAmount.toFixed(decimals));
-            quantityInput.setAttribute('max', maxAmount.toFixed(decimals));
-            quantityInput.setAttribute('step', stepValue);
-            quantityInput.setAttribute('data-decimals', decimals);
-          }
+        if (quantityInput) {
+          quantityInput.value = minAmount.toFixed(decimals);
+          quantityInput.setAttribute('min', minAmount.toFixed(decimals));
+          quantityInput.setAttribute('max', maxAmount.toFixed(decimals));
+          quantityInput.setAttribute('step', stepValue);
+          quantityInput.setAttribute('data-decimals', decimals);
         }
-      } else {
-        $formAmount
-          .val(data.minimumAmount)
-          .data({
-            min: data.minimumAmount,
-            max: data.maximumAmount,
-            decimals: data.decimalCount,
-          })
-          .attr({
-            min: data.minimumAmount,
-            max: data.maximumAmount,
-          });
       }
 
       var $cofidis = $('#cofidis');

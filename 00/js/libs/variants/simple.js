@@ -121,36 +121,22 @@
           shoptet.variantsCommon.noDisplayClasses
         );
 
-        if (shoptet.config.ums_product_quantity) {
-          const variantElement = $variant[0];
+        const variantElement = $variant[0];
 
-          if (variantElement) {
-            const decimals = Number(variantElement.dataset.decimals) || 0;
-            const stepValue = 10 ** -decimals;
-            const minAmount = Number(variantElement.dataset.min) || stepValue;
-            const maxAmount = Number(variantElement.dataset.max) || shoptet.config.defaultProductMaxAmount;
-            const quantityInput = document.querySelector('.add-to-cart .amount');
+        if (variantElement) {
+          const decimals = Number(variantElement.dataset.decimals) || 0;
+          const stepValue = 10 ** -decimals;
+          const minAmount = Number(variantElement.dataset.min) || stepValue;
+          const maxAmount = Number(variantElement.dataset.max) || shoptet.config.defaultProductMaxAmount;
+          const quantityInput = document.querySelector('.add-to-cart .amount');
 
-            if (quantityInput) {
-              quantityInput.value = minAmount.toFixed(decimals);
-              quantityInput.setAttribute('min', minAmount.toFixed(decimals));
-              quantityInput.setAttribute('max', maxAmount.toFixed(decimals));
-              quantityInput.setAttribute('step', stepValue);
-              quantityInput.setAttribute('data-decimals', decimals);
-            }
+          if (quantityInput) {
+            quantityInput.value = minAmount.toFixed(decimals);
+            quantityInput.setAttribute('min', minAmount.toFixed(decimals));
+            quantityInput.setAttribute('max', maxAmount.toFixed(decimals));
+            quantityInput.setAttribute('step', stepValue);
+            quantityInput.setAttribute('data-decimals', decimals);
           }
-        } else {
-          $('.add-to-cart .amount')
-            .val($variant.data('min'))
-            .attr({
-              min: $variant.data('min'),
-              max: $variant.data('max'),
-            })
-            .data({
-              min: $variant.data('min'),
-              max: $variant.data('max'),
-              decimals: $variant.data('decimals'),
-            });
         }
 
         var $cofidis = $('#cofidis');

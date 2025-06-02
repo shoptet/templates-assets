@@ -33,27 +33,12 @@
             );
         });
 
-        if (shoptet.config.ums_product_quantity) {
-            $(document).on("click keydown", ".quantity .increase, .quantity .decrease", function (e) {
-                if (e.type === "click" || (e.type === "keydown" && (e.key === "Enter" || e.key === " "))) {
-                    changeQuantity($(this));
-                    return false;
-                }
-            });
-        } else {
-            $html.on('click', '.quantity span', function() {
+        $(document).on("click keydown", ".quantity .increase, .quantity .decrease", function (e) {
+            if (e.type === "click" || (e.type === "keydown" && (e.key === "Enter" || e.key === " "))) {
                 changeQuantity($(this));
-            });
-
-            $html.on('keydown', '.quantity span', function(e) {
-                var keyNum = e.which || e.keyCode;
-                var keyName = e.key;
-                if(keyNum === 13 || keyName === 'Enter' || keyNum === 32 || keyName === ' '){
-                    changeQuantity($(this));
-                    return false;
-                }
-            });
-        }
+                return false;
+            }
+        });
 
         if ($('#ogImage').length) {
             $('#ogImage').appendTo('head');
@@ -630,13 +615,8 @@
         let $el, action;
         let callback = false;
 
-        if (shoptet.config.ums_product_quantity) {
-            $el = $this.closest('.quantity').find('.amount');
-            action = $this.hasClass("increase") ? "increase" : "decrease";
-        } else {
-            $el = $this.parents('.quantity').find('.amount');
-            action = $this.attr('class');
-        }
+        $el = $this.closest('.quantity').find('.amount');
+        action = $this.hasClass("increase") ? "increase" : "decrease";
 
         let triggerChange = true;
         if ($el.parents('.cart-table').length
@@ -651,25 +631,14 @@
         }
 
         let quantityUpdated = false;
-        if (shoptet.config.ums_product_quantity) {
-            quantityUpdated = shoptet.helpers.updateQuantity(
-                $el[0],
-                $el.attr('min'),
-                $el.attr('max'),
-                $el.attr('data-decimals'),
-                action,
-                callback
-            );
-        } else {
-            quantityUpdated = shoptet.helpers.updateQuantity(
-                $el[0],
-                $el.data('min'),
-                $el.data('max'),
-                $el.data('decimals'),
-                action,
-                callback
-            );
-        }
+        quantityUpdated = shoptet.helpers.updateQuantity(
+            $el[0],
+            $el.attr('min'),
+            $el.attr('max'),
+            $el.attr('data-decimals'),
+            action,
+            callback
+        );
 
         if (triggerChange) {
             $el[0].dispatchEvent(new CustomEvent('change', { bubbles: true, detail: { quantityUpdated } }));

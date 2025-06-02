@@ -262,166 +262,78 @@
     }
   }
 
-  if (shoptet.config.ums_product_quantity) {
-    /**
-     * Increase/decrease quantity of products in input by buttons next to it
-     * Min and max values are passed by native attributes
-     * Decimals are passed by data-attributes
-     * @param {HTMLInputElement} el input field that have to be updated
-     * @param {number | undefined} min minimum allowed amount
-     * @param {number | undefined} max maximum allowed amount
-     * @param {number | undefined} decimals allowed decimal places
-     * @param {'increase' | 'decrease'} action accepts 'increase' or 'decrease'
-     * @param {() => void} [callback] optional callback after quantity update (optional)
-     * @returns {boolean}
-     */
-    function updateQuantity(el, min, max, decimals, action, callback) {
-      let value = toFloat(el.value);
-      if (isNaN(value)) return false;
+  /**
+   * Increase/decrease quantity of products in input by buttons next to it
+   * Min and max values are passed by native attributes
+   * Decimals are passed by data-attributes
+   * @param {HTMLInputElement} el input field that have to be updated
+   * @param {number | undefined} min minimum allowed amount
+   * @param {number | undefined} max maximum allowed amount
+   * @param {number | undefined} decimals allowed decimal places
+   * @param {'increase' | 'decrease'} action accepts 'increase' or 'decrease'
+   * @param {() => void} [callback] optional callback after quantity update (optional)
+   * @returns {boolean}
+   */
+  function updateQuantity(el, min, max, decimals, action, callback) {
+    let value = toFloat(el.value);
+    if (isNaN(value)) return false;
 
-      decimals = toFloat(decimals ?? 0);
-      min = toFloat(min ?? resolveMinimumAmount(decimals));
-      max = toFloat(max ?? shoptet.config.defaultProductMaxAmount);
-      const step = toFloat(el.getAttribute('step') || '1');
+    decimals = toFloat(decimals ?? 0);
+    min = toFloat(min ?? resolveMinimumAmount(decimals));
+    max = toFloat(max ?? shoptet.config.defaultProductMaxAmount);
+    const step = toFloat(el.getAttribute('step') || '1');
 
-      let quantity = toFloat(el.dataset.quantity || '');
-      let diff = quantity - value;
+    let quantity = toFloat(el.dataset.quantity || '');
+    let diff = quantity - value;
 
-      value = calculateQuantity(value, step, decimals, action);
+    value = calculateQuantity(value, step, decimals, action);
 
-      if (!isNaN(quantity)) {
-        quantity = calculateQuantity(quantity, step, decimals, action);
-        value = quantity;
-      }
-
-      if (value < min) {
-        if (action === 'decrease') {
-          announceQuantityLimits(el, 'decrease');
-          return false;
-        }
-        value = min;
-      } else if (value > max) {
-        if (action === 'increase') {
-          announceQuantityLimits(el, 'increase');
-          return false;
-        }
-        value = max;
-      } else {
-        shoptet.variantsCommon.hideQuantityTooltips();
-      }
-
-      if (!isNaN(quantity)) {
-        $(el).attr('data-quantity', quantity);
-        value = quantity - diff;
-      }
-
-      announceToScreenReader(`${shoptet.messages['newQuantity']} ${value}`);
-      el.value = value.toFixed(decimals);
-
-      if (typeof callback === 'function') callback();
-      return true;
+    if (!isNaN(quantity)) {
+      quantity = calculateQuantity(quantity, step, decimals, action);
+      value = quantity;
     }
 
-    /**
-     * Calculate new quantity based on action
-     *
-     * @param {number} value - current value
-     * @param {number} step - step size for increasing/decreasing
-     * @param {number} decimals - allowed decimal places
-     * @param {'increase'|'decrease'} action - accepts 'increase' or 'decrease'
-     * @returns {number} - new value
-     */
-    function calculateQuantity(value, step, decimals, action) {
-      value = toFloat((action === 'increase' ? value + step : value - step).toFixed(decimals));
-      return value;
-    }
-
-    // TODO: Remove this in issue 11049 -- START
-  } else {
-    /**
-     * Increase/decrease quantity of products in input by clickin' on arrows.
-     * Decimals, min and max values are passed by data-attributes
-     * @param {HTMLInputElement} el input field that have to be updated
-     * @param {number | undefined} min minimum allowed amount
-     * @param {number | undefined} max maximum allowed amount
-     * @param {number | undefined} decimals allowed decimal places
-     * @param {'increase' | 'decrease'} action accepts 'increase' or 'decrease'
-     * @param {() => void} [callback] optional callback after quantity update (optional)
-     * @returns {boolean}
-     */
-    function updateQuantity(el, min, max, decimals, action, callback) {
-      let value = toFloat(el.value);
-
-      if (isNaN(value)) {
+    if (value < min) {
+      if (action === 'decrease') {
+        announceQuantityLimits(el, 'decrease');
         return false;
       }
-
-      decimals = typeof decimals !== 'undefined' ? toFloat(decimals) : 0;
-
-      min = typeof min !== 'undefined' ? toFloat(min) : resolveMinimumAmount(decimals);
-      max = typeof max !== 'undefined' ? toFloat(max) : toFloat(shoptet.config.defaultProductMaxAmount);
-
-      let quantity = toFloat(el.dataset.quantity || '');
-      const diff = quantity - value;
-
-      value = updateQuantityInner(value, min, decimals, action);
-
-      if (!isNaN(quantity)) {
-        quantity = updateQuantityInner(quantity, min, decimals, action);
-        value = quantity;
-      }
-
-      if (value < min) {
-        if (action === 'decrease') {
-          $(el).siblings('.js-decrease-tooltip').tooltip('show');
-          $(el).siblings('.js-remove-pcs-tooltip').tooltip().show();
-          return false;
-        }
-        value = min;
-      } else if (value > max) {
-        if (action === 'increase') {
-          $(el).siblings('.js-increase-tooltip').tooltip('show');
-          $(el).siblings('.js-add-pcs-tooltip').tooltip().show();
-          return false;
-        }
-        value = max;
-      } else {
-        shoptet.variantsCommon.hideQuantityTooltips();
-      }
-
-      if (!isNaN(quantity)) {
-        el.dataset.quantity = String(quantity);
-        value = quantity - diff;
-      }
-
-      el.value = String(value);
-
-      if (typeof callback === 'function') {
-        callback();
-      }
-
-      return true;
-    }
-
-    /**
-     * Increase/decrease quantity of products in input
-     * @param {number} value - current value
-     * @param {number} min - minimum allowed amount
-     * @param {number} decimals - allowed decimal places
-     * @param {'increase' | 'decrease'} action accepts 'increase' or 'decrease'
-     * @returns {number}
-     */
-    function updateQuantityInner(value, min, decimals, action) {
+      value = min;
+    } else if (value > max) {
       if (action === 'increase') {
-        value += min > 1 ? 1 : min;
-      } else if (action === 'decrease') {
-        value -= min > 1 ? 1 : min;
+        announceQuantityLimits(el, 'increase');
+        return false;
       }
-
-      return toFloat(value.toFixed(decimals));
+      value = max;
+    } else {
+      shoptet.variantsCommon.hideQuantityTooltips();
     }
+
+    if (!isNaN(quantity)) {
+      $(el).attr('data-quantity', quantity);
+      value = quantity - diff;
+    }
+
+    announceToScreenReader(`${shoptet.messages['newQuantity']} ${value}`);
+    el.value = value.toFixed(decimals);
+
+    if (typeof callback === 'function') callback();
+    return true;
   }
-  // TODO: Remove this in issue 11049 -- END
+
+  /**
+   * Calculate new quantity based on action
+   *
+   * @param {number} value - current value
+   * @param {number} step - step size for increasing/decreasing
+   * @param {number} decimals - allowed decimal places
+   * @param {'increase'|'decrease'} action - accepts 'increase' or 'decrease'
+   * @returns {number} - new value
+   */
+  function calculateQuantity(value, step, decimals, action) {
+    value = toFloat((action === 'increase' ? value + step : value - step).toFixed(decimals));
+    return value;
+  }
 
   /**
    * Announce quantity limits via tooltip and screen reader
@@ -528,14 +440,12 @@
     }, 10);
   }
 
-  if (shoptet.config.ums_product_quantity) {
-    document.addEventListener('DOMContentLoaded', () => {
-      document.addEventListener('input', event => {
-        if (!(event.target instanceof HTMLInputElement) || !event.target.classList.contains('amount')) return;
-        enforceAndAnnounceLimits(event.target, event);
-      });
+  document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('input', event => {
+      if (!(event.target instanceof HTMLInputElement) || !event.target.classList.contains('amount')) return;
+      enforceAndAnnounceLimits(event.target, event);
     });
-  }
+  });
 
   $('html').on('click', function (e) {
     if (!$(e.target).is('.decrease, .increase, .remove-pcs, .add-pcs, .quantity-discounts__item')) {
