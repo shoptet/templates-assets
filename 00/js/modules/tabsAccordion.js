@@ -1,6 +1,6 @@
 /*
 <div class="shp-accordion{$activeTab}">
-    <a href="#tabName" class="shp-accordion-link">{t}Tab Name{/t}</a>
+    <a href="#tabName" class="shp-accordion-link">{tc}Tab Name{/tc}</a>
     <div class="shp-accordion-content"> tab content </div>
 </div>
 */
