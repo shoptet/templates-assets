@@ -101,6 +101,13 @@ input[type='checkbox'] {
       color: @color-tertiary-hover;
     }
   }
+  .banner .banner-wrapper p a {
+    color: @link-color;
+
+    &:hover {
+      color: @link-hover-color;
+    }
+  }
   #filters {
     color: @text-color;
   }
@@ -177,12 +184,8 @@ a.recommended-product {
   }
 }
 
-.banner-category,
-.banner-wrapper,
-.banner {
-  span {
-    background-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.85);
-  }
+.extended-banner-texts span {
+  background-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.85);
 }
 
 .banner-category,

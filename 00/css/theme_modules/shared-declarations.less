@@ -236,9 +236,16 @@ a:hover:focus-visible:not(:active) {
 .banner-wrapper,
 .banner-category,
 .carousel-inner {
-  color: @banner-color;
   a {
     color: @banner-color;
+  }
+
+  p a {
+    color: @link-color;
+
+    &:hover {
+      color: @link-hover-color;
+    }
   }
 }
 
