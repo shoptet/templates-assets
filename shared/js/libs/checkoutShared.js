@@ -927,6 +927,21 @@
         }
     }
 
+    /** 
+     * @param {{pickupPointWidget: {id: number, name: string}, selectedShippingMethodId: number}} data
+     */
+    function setPickupPoint(data) {
+        const newLink = document.createElement('a');
+        newLink.href = '#';
+        newLink.className = 'chosen';
+        newLink.textContent = shoptet.messages.change;
+
+        const shippingElement = document.getElementById('shipping-' + data.selectedShippingMethodId) ?? document.querySelector('.radio-wrapper[data-id="shipping-' + data.selectedShippingMethodId + '"]');
+        shippingElement.querySelector('.new-widget-choose').innerHTML = data.pickupPointWidget.name + ' ' + newLink.outerHTML;
+        shippingElement.querySelector('input[name*=shippingMethodBranch]').value = data.pickupPointWidget.id;
+        shippingElement.dispatchEvent(new Event('mousedown'));
+    }
+
     /**
      * Attach event listeners and add functionality for elements in checkout
      *
@@ -934,6 +949,47 @@
      */
     function setupDeliveryShipping() {
         var $document = $(document);
+
+        $document.on('click', '.new-widget-choose a', function(e) {
+            e.preventDefault();
+
+            window.showSpinner()
+
+            fetch(`/action/NewGenWidget/Choose/?shippingMethodId=${$(this).closest('.radio-wrapper').find('input').val()}`)
+                .then(response => response.text())
+                .then(html => {
+                    let dialog = document.querySelector('.new-logistics-widget')
+                    const iframe = document.createElement('iframe');
+                    const dataDocument = new DOMParser().parseFromString(html, "text/html");
+
+                    iframe.src = dataDocument.querySelector('iframe')?.src;
+
+                    if (dialog) {
+                        dialog.querySelector('iframe')?.remove();
+                    } else {
+                        dialog = document.createElement('dialog');
+                        dialog.classList.add('new-logistics-widget');
+                        document.body.appendChild(dialog);
+
+                        const style = dataDocument.querySelector('style');
+                        if (style) {
+                            const styleEl = document.createElement('style');
+                            styleEl.textContent = style.textContent;
+                            document.head.appendChild(styleEl);
+                        }
+
+                        const script = dataDocument.querySelector('script')
+                        if (script) {
+                            const scriptEl = document.createElement('script')
+                            scriptEl.textContent = script.textContent
+                            document.body.appendChild(scriptEl)
+                        }
+                    }
+                    dialog.appendChild(iframe);
+                    dialog.show();
+                })
+        });
+
         if (typeof personalCollectionUrl !== 'undefined') {
             $document.on('click', '.personal-collection-choose-branch a', function(e) {
                 e.preventDefault();

@@ -243,6 +243,7 @@
       'initBranchSelect',
       'twisto',
       'postDeliveryPoints',
+      'setPickupPoint',
     ],
     validator: [
       'initNewValidator',
