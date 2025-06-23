@@ -271,13 +271,9 @@
       'formatNumber',
       'formatAsCurrency',
       'resolveMinimumAmount',
-      'updateQuantity',
       'isTouchDevice',
       'enableUpdatePreview',
       'isApplePayAvailable',
-      'announceQuantityLimits',
-      'announceToScreenReader',
-      'enforceAndAnnounceLimits',
     ],
     images: ['unveil'],
     products: [

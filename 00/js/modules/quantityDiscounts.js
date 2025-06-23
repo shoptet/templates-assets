@@ -108,7 +108,7 @@
                 decimals = quantityInput.dataset.decimals || 0;
                 quantityInput.value = Number(item.dataset.amount).toFixed(decimals);
                 getQuantityDiscountElementByAmount(Number(quantityInput.value))
-                shoptet.helpers.enforceAndAnnounceLimits(quantityInput);
+                shoptet.quantity.enforceAndAnnounceLimits(quantityInput);
             }
 
             updateQuantityDiscount(item)

@@ -631,7 +631,7 @@
         }
 
         let quantityUpdated = false;
-        quantityUpdated = shoptet.helpers.updateQuantity(
+        quantityUpdated = shoptet.quantity.updateQuantity(
             $el[0],
             $el.attr('min'),
             $el.attr('max'),
