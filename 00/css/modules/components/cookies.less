@@ -15,23 +15,8 @@
 }
 
 html.cookies-visible {
-    min-height: 100vh;
-    @media (min-width: @screen-sm-min) {
-        min-height: unset;
-    }
-
-    body {
-        width: 100%;
-        overflow: hidden;
-        position: fixed;
-
-        @media (min-width: @screen-sm-min) {
-            position: unset;
-            width: unset;
-        }
-        .siteCookies {
-            display: none;
-        }
+    .siteCookies {
+        display: none;
     }
 }
 
@@ -142,6 +127,10 @@ html.cookies-visible {
             text-decoration: none;
             color: var(--cookies-notice-color);
         }
+
+        &:focus {
+            color: var(--cookies-notice-color);
+        }
     }
 
     @media (min-width: @screen-sm-min) {
@@ -178,6 +167,7 @@ html.cookies-visible {
     text-decoration: none;
     color: var(--cookies-notice-color);
     border: 2px solid var(--cookies-notice-color);
+    background: none;
     font-weight: bold;
 
     @media (hover: hover) {
@@ -248,20 +238,6 @@ html.cookies-visible {
 #cboxContent.cookiesDialog {
     border-radius: @cookies-border-radius / 2;
     background-color: #f8fafb;
-
-    @media (max-width: @screen-xs-max) {
-        position: fixed;
-        left: 10px;
-        right: 10px;
-        top: 10px;
-        bottom: 10px;
-        height: auto !important;
-        margin: 0 auto;
-        #cboxLoadedContent {
-            height: 100% !important;
-            padding: 0;
-        }
-    }
 }
 
 .template-14 #cboxContent.cookiesDialog .colorbox-html-content {

@@ -133,12 +133,10 @@ const CONSENT_VALIDITY = 180; // 6 months
         content = content.innerHTML;
         window.hideSpinner();
         shoptet.modal.open({
-          scrolling: true,
-          opacity: '.95',
+          opacity: '.8',
           html: shoptet.content.colorboxHeader + content + shoptet.content.colorboxFooter,
           className: shoptet.modal.config.classMd,
           width: shoptet.modal.config.widthMd,
-          height: shoptet.modal.config.initialHeight,
           onComplete: () => {
             document.querySelector('#cboxContent')?.classList.add('cookiesDialog');
             shoptet.modal.shoptetResize();
