@@ -150,6 +150,7 @@
     'ShoptetDOMAdvancedOrderLoaded',
     'ShoptetDOMPageContentLoaded',
     'ShoptetDOMPageMoreProductsLoaded',
+    'ShoptetDOMExpressCheckoutLoaded',
   ];
   shoptet.scripts.availableDOMUpdateEvents = ['ShoptetDOMCartCountUpdated'];
   // TODO: standardize format of "validatedFormSubmit"

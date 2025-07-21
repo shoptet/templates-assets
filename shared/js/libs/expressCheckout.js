@@ -168,6 +168,18 @@ import { ensure } from '../typeAssertions';
     listenForPaymentFinished();
   }
 
+  function signalExpressCheckoutLoaded() {
+    const gwRoot = document.getElementById('stpGwRoot');
+
+    if (gwRoot) {
+      gwRoot.addEventListener('shoptet-pay-gw:layoutStable', function () {
+        shoptet.scripts.signalDomLoad('ShoptetDOMExpressCheckoutLoaded');
+      });
+    } else {
+      shoptet.scripts.signalDomLoad('ShoptetDOMExpressCheckoutLoaded');
+    }
+  }
+
   function handleApplePayBillingMethodVisibility() {
     if (shoptet.helpers.isApplePayAvailable()) {
       const applePayMethod = document.querySelector('[data-submethod="applepay"]');
@@ -207,7 +219,10 @@ import { ensure } from '../typeAssertions';
       {
         /** @param {SuccessResponse} response  */
         success: function (response) {
-          rerenderExpressCheckoutModal(response, initNotLoggedInUser);
+          rerenderExpressCheckoutModal(response, function () {
+            initNotLoggedInUser();
+            signalExpressCheckoutLoaded();
+          });
         },
         complete: function () {
           shoptet.config.expressCheckoutKeepSpinnerVisible = undefined;
