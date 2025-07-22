@@ -927,7 +927,7 @@
         }
     }
 
-    /** 
+    /**
      * @param {{pickupPointWidget: {id: number, name: string}, selectedShippingMethodId: number}} data
      */
     function setPickupPoint(data) {
@@ -1015,344 +1015,6 @@
             });
 
         }
-        if (!shoptet.config.ums_logistics_unify_pickup_points) { // todo remove this block after UMS is finished
-            var postDeliveryPoints = [];
-            if (typeof naPostuUrl !== 'undefined') {
-                postDeliveryPoints.push({
-                    prefix: 'na-postu',
-                    url: naPostuUrl
-                });
-            }
-            if (typeof doBalikovnyUrl !== 'undefined') {
-                postDeliveryPoints.push({
-                    prefix: 'do-balikovny',
-                    url: doBalikovnyUrl
-                });
-            }
-            if (typeof hupostPostaPontUrl !== 'undefined') {
-                postDeliveryPoints.push({
-                    prefix: 'posta-pont',
-                    url: hupostPostaPontUrl
-                });
-            }
-            if (typeof skPostUrl !== 'undefined') {
-                postDeliveryPoints.push({
-                    prefix: 'sk-post',
-                    url: skPostUrl
-                });
-            }
-
-            for (var i = 0; i < postDeliveryPoints.length; i++) {
-                (function (i) {
-                    $document.on('click', '.' + postDeliveryPoints[i].prefix + '-choose-post a', function (e) {
-                        e.preventDefault();
-                        $parentsElement = $(this).closest('.radio-wrapper');
-                        var url = postDeliveryPoints[i].url;
-
-                        if (['sk-post', 'posta-pont'].includes(postDeliveryPoints[i].prefix)) {
-                            url += '?shipmentId=' + $parentsElement.find('input').val();
-                        }
-
-                        window.clickedElement = $(this);
-                        shoptet.modal.open({
-                            maxWidth: shoptet.modal.config.maxWidth,
-                            href: url,
-                            width: shoptet.modal.config.widthMd,
-                            className: shoptet.modal.config.classMd,
-                            onComplete: function () {
-                                shoptet.modal.shoptetResize();
-                            }
-                        });
-                    });
-                    $document.on(
-                        'click',
-                        '#' + postDeliveryPoints[i].prefix + '-result .'
-                        + postDeliveryPoints[i].prefix + '-choose-button',
-                        function () {
-                            var $tr = $(this).closest('tr');
-                            var address = $.trim($tr.find('.' + postDeliveryPoints[i].prefix + '-address').html());
-                            var newString = '';
-                            var $newLink = $('<a href="#" class="chosen">' + address + '</a>');
-                            $parentsElement.find('.' + postDeliveryPoints[i].prefix + '-choose-post')
-                                .html(newString).append($newLink).show(0);
-                            if (['sk-post', 'posta-pont'].includes(postDeliveryPoints[i].prefix)) {
-                                var branchId = $.trim($tr.find('.' + postDeliveryPoints[i].prefix + '-branch-id').html());
-                                $('#' + postDeliveryPoints[i].prefix + '-hidden').val(branchId);
-                            } else {
-                                var zipCode = $.trim($tr.find('.' + postDeliveryPoints[i].prefix + '-zip-code').html());
-                                $('#' + postDeliveryPoints[i].prefix + '-hidden').val(zipCode);
-                            }
-                            shoptet.modal.close();
-                        }
-                    );
-                })(i);
-            }
-
-            if (typeof ulozenkaUrl !== 'undefined') {
-
-                $document.on('click', '.ulozenka-choose a', function (e) {
-                    e.preventDefault();
-                    $parentsElement = $(this).closest('.radio-wrapper');
-                    shoptet.checkoutShared.chooseABranchModal(
-                        ulozenkaUrl + '?id=' + $parentsElement.find('.ulozenka-choose-branch').attr('value')
-                        + '&deliveryCountryId=' + $('#deliveryCountryId').val(),
-                        '#ulozenka-wrapper',
-                        '#branchId',
-                        '.ulozenka-branch-id'
-                    );
-                });
-
-                $document.on('submit', '#ulozenka-form', function (e) {
-                    e.preventDefault();
-                    var name = $('#ulozenka-wrapper .branch-name').text();
-                    var newString = '';
-                    var $newLink = $('<a href="#" class="chosen">' + name + '</a>');
-                    $parentsElement.find('.ulozenka-choose').html(newString).append($newLink).show(0);
-                    $parentsElement.find('.ulozenka-branch-id').val($('#branchId option:selected').val());
-                    shoptet.checkoutShared.modalMagic();
-                });
-
-                $document.on('change', '#branchId', function () {
-                    var id = $('option:selected', this).val();
-                    if ($.trim(id) != '') {
-                        $('#ulozenka-form .branch-saved').removeClass('branch-saved-visible');
-                        $('#ulozenka-form .js-branch-loader').removeClass('no-display');
-                        $.ajax({
-                            url: '/action/Ulozenka/getBranchInformation/?id=' + id,
-                            type: 'GET',
-                            success: function (responseData) {
-                                $('#ulozenka-wrapper .detail-information').html(responseData);
-                                $('#ulozenka-form .js-branch-loader').addClass('no-display');
-                                $('#ulozenka-form .branch-saved').addClass('branch-saved-visible');
-                                $('#ulozenka-form').submit();
-                                shoptet.modal.shoptetResize();
-                            },
-                            error: function () {
-                                showMessage(shoptet.messages['ajaxError'], 'warning', '', false, false);
-                                $('#ulozenka-form .js-branch-loader').addClass('no-display');
-                            }
-                        });
-                    }
-                });
-
-            }
-
-            if (typeof zasilkovnaUrl !== 'undefined') {
-                function handlePacketaPoint(extendedPoint) {
-                    shoptet.checkoutShared.packeta.selectedBranch = extendedPoint;
-                    if (extendedPoint) {
-                        var zasilkovnaBranchId = document.querySelectorAll('.zasilkovna-branch-id');
-                        var packetaSelectorBranchName = document.querySelectorAll('.zasilkovna-name');
-                        for (var i = 0; i < zasilkovnaBranchId.length; i++) {
-                            if (extendedPoint.carrierId !== undefined && extendedPoint.carrierId !== null) {
-                                zasilkovnaBranchId[i].value = extendedPoint.carrierId + '-' + extendedPoint.id;
-                            } else {
-                                zasilkovnaBranchId[i].value = extendedPoint.id;
-                            }
-                        }
-                        for (var i = 0; i < packetaSelectorBranchName.length; i++) {
-                            packetaSelectorBranchName[i].innerHTML = extendedPoint.name;
-                        }
-                    }
-                }
-                $document.on('click', '.zasilkovna-choose a', function (e) {
-                    e.preventDefault();
-                    shoptet.checkoutShared.packeta = shoptet.checkoutShared.packeta || {};
-                    shoptet.checkoutShared.packeta.widgetOptions = shoptet.checkoutShared.packeta.widgetOptions || {};
-                    if (shoptet.checkoutShared.packeta.widgetOptions.apiKey) {
-                        Packeta.Widget.pick(
-                            shoptet.checkoutShared.packeta.widgetOptions.apiKey,
-                            handlePacketaPoint,
-                            shoptet.checkoutShared.packeta.widgetOptions
-                        );
-                    }
-                });
-            }
-
-            if (typeof glsParcelShopUrl !== 'undefined') {
-                var glsParcelShopId = '';
-                var glsParcelShopName = '';
-                var glsModalOpen = false;
-
-                window.addEventListener('message', function (event) {
-                    let ps = event.data.parcelshop;
-                    if (typeof ps === 'undefined') {
-                        return;
-                    }
-                    glsParcelShopName = ps.detail.name;
-                    glsParcelShopId = ps.detail.pclshopid;
-                    shoptet.modal.close();
-                });
-
-                $document.on('click', '.gls-parcel-shop-choose a', function (e) {
-                    e.preventDefault();
-                    if (glsModalOpen) {
-                        return;
-                    }
-                    glsModalOpen = true;
-                    $parentsElement = $(this).closest('.radio-wrapper');
-                    shoptet.modal.open({
-                        href: glsParcelShopUrl,
-                        width: shoptet.modal.config.widthLg,
-                        className: shoptet.modal.config.classLg,
-                        onComplete: function () {
-                            shoptet.modal.shoptetResize();
-                        },
-                        onCleanup: function () {
-                            glsModalOpen = false;
-                            if (glsParcelShopId) {
-                                var completeBranchName = glsParcelShopName + ' ';
-                                var $newLink = $('<a href="#" class="chosen">' + shoptet.messages['change'] + '</a>');
-                                $parentsElement.find('.gls-parcel-shop-choose')
-                                    .html(completeBranchName).append($newLink).show(0);
-                                $('input#gls-parcel-shop-hidden').val(glsParcelShopId);
-                            }
-                        }
-                    });
-                });
-            }
-
-            if (typeof dpdParcelShopUrl !== 'undefined') {
-
-                $document.on('click', '.dpd-cz-parcel-shop-choose a', function (e) {
-                    e.preventDefault();
-                    $parentsElement = $(this).closest('.radio-wrapper');
-                    shoptet.checkoutShared.chooseABranchModal(
-                        dpdParcelShopUrl,
-                        '#dpd-cz-parcel-shop-wrapper',
-                        '#dpdParcelShopBranchId',
-                        '#dpd-cz-branch-id'
-                    );
-                });
-
-                $document.on('submit', '#dpd-cz-parcel-shop-form', function (e) {
-                    e.preventDefault();
-                    var branchName = $('#dpd-cz-parcel-shop-wrapper .branch-name').text();
-                    var branchStreet = $('#dpd-cz-parcel-shop-wrapper .branch-street').text();
-                    var branchCity = $('#dpd-cz-parcel-shop-wrapper .branch-city').text();
-                    var branchZip = $('#dpd-cz-parcel-shop-wrapper .branch-zip').text();
-                    var completeBranchName = shoptet.messages['chosenBranch'] + ': '
-                        + branchCity + ' ' + branchName + ' (' + branchStreet + ', ' + branchZip + ' ' + branchCity + ') ';
-                    var $newLink = $('<a href="#" class="chosen">' + shoptet.messages['change'] + '</a>');
-                    $parentsElement.find('.dpd-cz-parcel-shop-choose').html(completeBranchName).append($newLink).show(0);
-                    $('#dpd-cz-branch-id').val($('#dpdParcelShopBranchId option:selected').val());
-                    shoptet.checkoutShared.modalMagic();
-                });
-
-                $document.on('change', '#dpdParcelShopBranchId', function () {
-                    var id = $('option:selected', this).val();
-                    if ($.trim(id) !== '') {
-                        $('#dpd-cz-parcel-shop-form .branch-saved').removeClass('branch-saved-visible');
-                        $('#dpd-cz-parcel-shop-form .js-branch-loader').removeClass('no-display');
-                        $.ajax({
-                            url: '/action/DpdParcelShop/getBranchInformation/?id=' + id,
-                            type: 'GET',
-                            success: function (responseData) {
-                                $('#dpd-cz-parcel-shop-wrapper .detail-information').html(responseData);
-                                $('#dpd-cz-parcel-shop-form .js-branch-loader').addClass('no-display');
-                                shoptet.modal.shoptetResize();
-                                $('#dpd-cz-parcel-shop-form .branch-saved').addClass('branch-saved-visible');
-                                $('#dpd-cz-parcel-shop-form').submit();
-                            },
-                            error: function () {
-                                showMessage(shoptet.messages['ajaxError'], 'warning', '', false, false);
-                                $('#dpd-cz-parcel-shop-form .js-branch-loader').addClass('no-display');
-                            }
-                        });
-                    }
-                });
-
-            }
-
-            if (typeof isDpdOnSaturday !== 'undefined') {
-                $document.on('click', '.dpd-check-zip a', function (event) {
-                    event.preventDefault();
-                    $('#dpd-zip-check-modal .dpd-zip-check-result').hide();
-                    $('#dpd-zip-check-text').val('');
-                    $('#dpd-zip-check-modal').show();
-                    shoptet.modal.open({
-                        maxWidth: shoptet.modal.config.maxWidth,
-                        width: shoptet.modal.config.widthLg,
-                        className: shoptet.modal.config.classLg,
-                        inline: true,
-                        href: '#dpd-zip-check-modal',
-                        onClosed: function () {
-                            $('#dpd-zip-check-modal').hide();
-                        }
-                    });
-                });
-
-                $('#dpd-zip-check-modal form').on('submit', function (event) {
-                    event.preventDefault();
-                    $('#dpd-zip-check-modal .dpd-zip-check-result').hide();
-                    var zip = $('#dpd-zip-check-text').val();
-                    if (zip !== '') {
-                        $.ajax({
-                            url: '/action/DpdPrivate/checkSaturdayZipCode/?zipCode=' + zip,
-                            success: function (response) {
-                                if (response == '1') {
-                                    $('#dpd-zip-check-valid').show();
-                                } else {
-                                    $('#dpd-zip-check-invalid').show();
-                                }
-
-                                shoptet.modal.shoptetResize();
-                            },
-                            error: function () {
-                            }
-                        });
-                    }
-
-                });
-            }
-
-            if (typeof pplPartnerUrl !== 'undefined') {
-                $document.on('click', '.ppl-choose a', function (e) {
-                    e.preventDefault();
-                    $parentsElement = $(this).closest('.radio-wrapper');
-                    shoptet.checkoutShared.chooseABranchModal(
-                        pplPartnerUrl + '?deliveryCountryId=' + $('#deliveryCountryId').val(),
-                        '#ppl-partner-cz-wrapper',
-                        '#pplPartnerBranchId',
-                        '#ppl-partner-cz-branch-id'
-                    );
-                });
-
-                $document.on('submit', '#ppl-partner-cz-form', function (e) {
-                    e.preventDefault();
-                    var name = $('#pplPartnerBranchId option:selected').text();
-                    var newString = '';
-                    var $newLink = $('<a href="#" class="chosen">' + name + '</a>');
-                    $parentsElement.find('.ppl-choose').html(newString).append($newLink).show(0);
-                    $('#ppl-partner-cz-branch-id').val($('#pplPartnerBranchId option:selected').val());
-                    shoptet.checkoutShared.modalMagic();
-                });
-
-                $document.on('change', '#pplPartnerBranchId', function () {
-                    var id = $('option:selected', this).val();
-                    if ($.trim(id) != '') {
-                        $('#ppl-partner-cz-form .branch-saved').removeClass('branch-saved-visible');
-                        $('#ppl-partner-cz-form .js-branch-loader').removeClass('no-display');
-                        $.ajax({
-                            url: '/action/PplPartner/getBranchInformation/?id=' + id + '&deliveryCountryId=' + $('#deliveryCountryId').val(),
-                            type: 'GET',
-                            success: function (responseData) {
-                                $('#ppl-partner-cz-wrapper .detail-information').html(responseData);
-                                $('#ppl-partner-cz-form .js-branch-loader').addClass('no-display');
-                                shoptet.modal.shoptetResize();
-                                $('#ppl-partner-cz-form .branch-saved').addClass('branch-saved-visible');
-                                $('#ppl-partner-cz-form').submit();
-                            },
-                            error: function () {
-                                showMessage(shoptet.messages['ajaxError'], 'warning', '', false, false);
-                                $('#ppl-partner-cz-form .js-branch-loader').addClass('no-display');
-                            }
-                        });
-                    }
-                });
-
-            }
-        }
 
         var newGenChooseOpen = false;
         $document.on('click', '.new-gen-choose a', function(e) {
@@ -1391,67 +1053,65 @@
             })
         });
 
-        if (shoptet.config.ums_logistics_unify_pickup_points) {
-            $document.on('click', '.pickup-point-choose a', function (e) {
+        $document.on('click', '.pickup-point-choose a', function (e) {
+            e.preventDefault();
+            $parentsElement = $(this).closest('.radio-wrapper');
+            let shippingMethodId = shoptet.checkoutShared.activeShipping.querySelector('input[data-guid]').getAttribute('value');
+            let deliveryCountryId = $('#deliveryCountryId').val();
+            shoptet.checkoutShared.chooseABranchModal(
+                '/action/PickupPoint/?&methodId=' + shippingMethodId + (isNaN(deliveryCountryId) ?  '' : '&deliveryCountryId=' + deliveryCountryId),
+                '#shipping-' + shippingMethodId + '-wrapper',
+                '#shipping-' + shippingMethodId + '-pickupPointId',
+                '#shipping-' + shippingMethodId + '-pickupPointId-selected'
+            );
+
+            $document.on('submit', '#shipping-' + shippingMethodId + '-form', function(e) {
+                e.preventDefault();
+                let name = $('#shipping-' + shippingMethodId + '-pickupPointId option:selected').text();
+                let newString = '';
+                let $newLink = $('<a href="#" class="chosen">' + name + '</a>');
+                $parentsElement.find('.pickup-point-choose').html(newString).append($newLink).show(0);
+                $('#shipping-' + shippingMethodId + '-pickupPointId-selected').val($('#shipping-' + shippingMethodId + '-pickupPointId option:selected').val());
+                shoptet.checkoutShared.modalMagic();
+            });
+
+            $document.on('click', '.' + shippingMethodId + '-choose-pickup-point a', function (e) {
                 e.preventDefault();
                 $parentsElement = $(this).closest('.radio-wrapper');
-                let shippingMethodId = shoptet.checkoutShared.activeShipping.querySelector('input[data-guid]').getAttribute('value');
-                let deliveryCountryId = $('#deliveryCountryId').val();
-                shoptet.checkoutShared.chooseABranchModal(
-                    '/action/PickupPoint/?&methodId=' + shippingMethodId + (isNaN(deliveryCountryId) ?  '' : '&deliveryCountryId=' + deliveryCountryId),
-                    '#shipping-' + shippingMethodId + '-wrapper',
-                    '#shipping-' + shippingMethodId + '-pickupPointId',
-                    '#shipping-' + shippingMethodId + '-pickupPointId-selected'
-                );
+                var url = '/action/PickupPoint/Search/?id=' + id + '&methodId=' + shippingMethodId + (isNaN(deliveryCountryId) ? '' : '&deliveryCountryId=' + deliveryCountryId);
 
-                $document.on('submit', '#shipping-' + shippingMethodId + '-form', function(e) {
-                    e.preventDefault();
-                    let name = $('#shipping-' + shippingMethodId + '-pickupPointId option:selected').text();
-                    let newString = '';
-                    let $newLink = $('<a href="#" class="chosen">' + name + '</a>');
-                    $parentsElement.find('.pickup-point-choose').html(newString).append($newLink).show(0);
-                    $('#shipping-' + shippingMethodId + '-pickupPointId-selected').val($('#shipping-' + shippingMethodId + '-pickupPointId option:selected').val());
-                    shoptet.checkoutShared.modalMagic();
-                });
-
-                $document.on('click', '.' + shippingMethodId + '-choose-pickup-point a', function (e) {
-                    e.preventDefault();
-                    $parentsElement = $(this).closest('.radio-wrapper');
-                    var url = '/action/PickupPoint/Search/?id=' + id + '&methodId=' + shippingMethodId + (isNaN(deliveryCountryId) ? '' : '&deliveryCountryId=' + deliveryCountryId);
-
-                    window.clickedElement = $(this);
-                    shoptet.modal.open({
-                        maxWidth: shoptet.modal.config.maxWidth,
-                        href: url,
-                        width: shoptet.modal.config.widthMd,
-                        className: shoptet.modal.config.classMd,
-                        onComplete: function () {
-                            if (!shoptet.layout.detectResolution(768)) {
-                                scrollToEl($(`${postDeliveryPointsData.deliveryPointPrefix}-result`));
-                            }
-
-                            shoptet.modal.shoptetResize();
+                window.clickedElement = $(this);
+                shoptet.modal.open({
+                    maxWidth: shoptet.modal.config.maxWidth,
+                    href: url,
+                    width: shoptet.modal.config.widthMd,
+                    className: shoptet.modal.config.classMd,
+                    onComplete: function () {
+                        if (!shoptet.layout.detectResolution(768)) {
+                            scrollToEl($(`${postDeliveryPointsData.deliveryPointPrefix}-result`));
                         }
-                    });
-                });
-                $document.on(
-                    'click',
-                    '#' + shippingMethodId + '-result .'
-                    + shippingMethodId + '-choose-button',
-                    function () {
-                        var $tr = $(this).closest('tr');
-                        var address = $.trim($tr.find('.' + shippingMethodId + '-selected-name').html());
-                        var newString = '';
-                        var $newLink = $('<a href="#" class="chosen">' + address + '</a>');
-                        $parentsElement.find('.pickup-point-choose').html(newString).append($newLink).show(0);
-                        var branchId = $.trim($tr.find('.' + shippingMethodId + '-selected-external-id').html());
-                        $('#shipping-' + shippingMethodId + '-pickupPointId-selected').val(branchId);
 
-                        shoptet.modal.close();
+                        shoptet.modal.shoptetResize();
                     }
-                );
+                });
             });
-        }
+            $document.on(
+                'click',
+                '#' + shippingMethodId + '-result .'
+                + shippingMethodId + '-choose-button',
+                function () {
+                    var $tr = $(this).closest('tr');
+                    var address = $.trim($tr.find('.' + shippingMethodId + '-selected-name').html());
+                    var newString = '';
+                    var $newLink = $('<a href="#" class="chosen">' + address + '</a>');
+                    $parentsElement.find('.pickup-point-choose').html(newString).append($newLink).show(0);
+                    var branchId = $.trim($tr.find('.' + shippingMethodId + '-selected-external-id').html());
+                    $('#shipping-' + shippingMethodId + '-pickupPointId-selected').val(branchId);
+
+                    shoptet.modal.close();
+                }
+            );
+        });
     }
 
     /**
