@@ -200,17 +200,7 @@ function createOrUpdateLabel(element) {
   const isHovered = element === hoveredElement;
   const id = element.dataset.editorid;
 
-  // this enables to have multiple elements with the same id (e.g. viewport-dependent elements)
-  // once one is hidden, if another is visible, it will be highlighted
-  if (isActive) {
-    const currentlyVisible = findElementInView(id);
-    if (currentlyVisible && findElementInView(id) !== element) {
-      setActiveElement(currentlyVisible);
-      return;
-    }
-  }
-
-  // Handle elements with the same id
+  // Assign a unique index to each element with the same data-editorid
   let index = 0;
   const elements = document.querySelectorAll(`[data-editorid="${id}"]`);
   elements.forEach((el, i) => {
