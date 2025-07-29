@@ -115,6 +115,13 @@
                     y = (sImg.outerHeight() - ch);
                 }
 
+                if (zoomImage.width <= sImg.outerWidth()) {
+                  x = zoomImage.width / 2 - sImg.outerWidth() / 2;
+                }
+                if (zoomImage.height <= sImg.outerHeight()) {
+                  y = zoomImage.height / 2 - sImg.outerHeight() / 2;
+                }
+
                 lens.css({
                     left: x,
                     top: y
@@ -133,6 +140,10 @@
                 } else {
                     zoomDiv.css('display','none');
                 }
+            } else {
+              const X = sImg.outerWidth() / 2 - zoomImage.width / 2;
+              const Y = sImg.outerHeight() / 2 - zoomImage.height / 2;
+              zoomDiv?.css('background-position', (X + 'px ') + (Y + 'px'));
             }
             controlTimer = setTimeout(function () {
                 ctx.controlLoop();
@@ -231,16 +242,18 @@
                 cw = (sImg.outerWidth() / zoomImage.width) * zoomDiv.width();
                 ch = (sImg.outerHeight() / zoomImage.height) * zoomDiv.height();
 
-                // Attach mouse, initially invisible to prevent first frame glitch
-                lens = jWin.append(format("<div class='cloud-zoom-lens' style='display:none;z-index:1;position:absolute;width:%0px;height:%1px;'></div>", cw, ch)).find(':last');
+                if (zoomImage.width > sImg.outerWidth() || zoomImage.height > sImg.outerHeight()) {
+                    // Attach mouse, initially invisible to prevent first frame glitch
+                    lens = jWin.append(format("<div class='cloud-zoom-lens' style='display:none;z-index:1;position:absolute;width:%0px;height:%1px;'></div>", cw, ch)).find(':last');
 
-                $mouseTrap.css('cursor', lens.css('cursor'));
+                    $mouseTrap.css('cursor', lens.css('cursor'));
+                }
 
                 var noTrans = false;
 
                 // Init tint layer if needed. (Not relevant if using inside mode)
                 if (opts.tint) {
-                    lens.css('background', 'url("' + sImg.attr('src') + '")');
+                    lens?.css('background', 'url("' + sImg.attr('src') + '")');
                     $tint = jWin.append(format('<div style="display:none;position:absolute; left:0px; top:0px; width:%0px; height:%1px; background-color:%2;" />', sImg.outerWidth(), sImg.outerHeight(), opts.tint)).find(':last');
                     $tint.css('opacity', opts.tintOpacity);
                     noTrans = true;
@@ -248,7 +261,7 @@
 
                 }
                 if (opts.softFocus) {
-                    lens.css('background', 'url("' + sImg.attr('src') + '")');
+                    lens?.css('background', 'url("' + sImg.attr('src') + '")');
                     softFocus = jWin.append(format('<div style="position:absolute;display:none;top:2px; left:2px; width:%0px; height:%1px;" />', sImg.outerWidth() - 2, sImg.outerHeight() - 2, opts.tint)).find(':last');
                     softFocus.css('background', 'url("' + sImg.attr('src') + '")');
                     softFocus.css('opacity', 0.5);
@@ -256,9 +269,9 @@
                     softFocus.fadeIn(500);
                 }
                 if (!noTrans) {
-                    lens.css('opacity', opts.lensOpacity);
+                    lens?.css('opacity', opts.lensOpacity);
                 }
-                if ( opts.position !== 'inside' ) { lens.fadeIn(500); }
+                if ( opts.position !== 'inside' ) { lens?.fadeIn(500); }
 
                 // Start processing.
                 zw.controlLoop();
