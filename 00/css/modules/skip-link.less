@@ -1,3 +1,7 @@
+.skip-link__wrapper {
+  position: relative;
+}
+
 .skip-link {
   transition: none;
   &:focus {
@@ -12,4 +16,14 @@
     color: #000000;
     font-size: 18px;
   }
+}
+
+.skip-link--end:focus {
+  top: auto;
+  bottom: 0;
+}
+
+.skip-link__target:focus-visible {
+  outline: 0;
+  box-shadow: none;
 }

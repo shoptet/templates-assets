@@ -368,6 +368,7 @@
     modal: ['open', 'close', 'resize', 'shoptetResize'],
     slider: ['runSlider', 'runProductSlider'],
     watchdog: ['initWatchdog'],
+    skipLinks: ['initSkipLinks'],
     csrf: ['isTokenExpired', 'injectToken', 'validateToken'],
     csrfLink: ['getFunctionFromString', 'loadDataAttributes'],
     xyDiscounts: ['updateFlags'],

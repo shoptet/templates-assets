@@ -75,3 +75,4 @@ import './modules/slider';
 import './modules/watchdog';
 import './modules/quantityDiscounts';
 import './modules/unveil';
+import './modules/skipLinks';

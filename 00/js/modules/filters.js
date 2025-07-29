@@ -171,6 +171,7 @@ window.makeFilterAjaxRequest = (url, pushHistoryState, successCallback, element,
       hideSpinner();
       dismissMessages();
       shoptet.products.splitWidgetParameters();
+      shoptet.skipLinks.initSkipLinks();
       try {
         if (pushHistoryState) {
           if ($('.breadcrumbs').length) {
@@ -279,6 +280,9 @@ $(function () {
   // History navigation
   if ($('.filters').length) {
     window.onpopstate = function () {
+      if (location.hash) {
+        return;
+      }
       makeFilterAjaxRequest(location.href, false, false, document, 'ShoptetPageFiltersRecalledFromHistory');
     };
   }

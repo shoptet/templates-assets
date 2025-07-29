@@ -41,4 +41,5 @@
     var fn = eval(fnName);
     shoptet.scripts.registerFunction(fn, 'screenReader');
   });
+  // @ts-expect-error Shoptet object is not defined yet.
 })(shoptet);
