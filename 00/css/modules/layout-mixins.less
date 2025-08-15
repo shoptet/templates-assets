@@ -47,6 +47,10 @@
     overflow: hidden;
     transform: scaleY(0) scaleX(0);
     transform-origin: center;
+    .transition(transform @transition-duration @transition-timing);
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
 }
 
 .js-hidden-visible() {
@@ -58,6 +62,9 @@
     transform: scaleY(1) scaleX(1);
     transform-origin: center;
     .transition(all @transition-duration @transition-timing);
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
 }
 
 .checkbox-radio-style() {

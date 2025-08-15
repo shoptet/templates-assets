@@ -47,18 +47,6 @@ iframe {
   max-width: 100%;
 }
 
-.js-hidden {
-  height: 0;
-  overflow: hidden;
-  transform: scaleY(0);
-  transform-origin: top;
-  .transition(transform @transition-duration @transition-timing);
-  &.visible {
-    height: auto;
-    transform: scaleY(1);
-  }
-}
-
 .container {
   @media (max-width: @screen-xs-max) {
     padding-left: 10px;
