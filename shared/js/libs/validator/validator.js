@@ -80,7 +80,11 @@
         message.classList.add('js-validator-msg');
         message.classList.add('msg-error');
         message.setAttribute('data-type', messageType);
-        message.innerHTML = shoptet.messages[messageType];
+        if (element.required) {
+          message.textContent = shoptet.messages.validator[`${element.name}Required`] ?? shoptet.messages[messageType]
+        } else {
+          message.innerHTML = shoptet.messages[messageType];
+        }
         elementWrapper.insertAdjacentElement('beforeend', message);
 
         var errorAddEvent = new CustomEvent('shoptetAddErrorMessage', {

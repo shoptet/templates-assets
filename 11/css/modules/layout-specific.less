@@ -144,11 +144,19 @@ h4,
     }
 }
 
+// TODO: Remove this in issue #20873 -- START
 .discussion-form,
 .discussion,
-.rate-wrapper,
 .votes-wrap,
-.add-comment,
+.add-comment {
+    :where(.ums_discussion_rating_forms--off) & {
+        max-width: @common_page-content-max-width;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+// TODO: Remove this in issue #20873 -- END
+.rate-wrapper,
 .welcome div,
 .welcome h1 {
     max-width: @common_page-content-max-width;

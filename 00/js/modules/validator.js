@@ -75,10 +75,15 @@ var validators = {
                 if (!$(this).is(':checked')) {
                     isValid = false;
                     var specialMessage = $(this).attr('data-special-message');
-                    if (specialMessage) {
-                        shoptet.validator.message = shoptet.messages[specialMessage];
+                    var newMessage = shoptet.messages.validator[`${$(this).attr('name').split('[')[0]}Required`]
+                    if ($(this).attr('required') && !!newMessage) {
+                        shoptet.validator.message = newMessage
                     } else {
-                        shoptet.validator.message = shoptet.messages['validatorCheckbox'];
+                        if (specialMessage) {
+                            shoptet.validator.message = shoptet.messages[specialMessage];
+                        } else {
+                            shoptet.validator.message = shoptet.messages['validatorCheckbox'];
+                        }
                     }
                 }
             } else if (!elementValue.trim()) {

@@ -9,6 +9,10 @@
       $discussionForm.addClass('visible-permanent');
       moveElementAfterSelector($('.discussion-form'), $(this));
 
+      $discussionForm[0].querySelectorAll('.js-validate-required').forEach(el => {
+        shoptet.validator.removeErrorMessage(el, shoptet.validatorRequired.messageType);
+      })
+
       $('.discussion-form input[name="parentId"]').remove();
       if($(this).attr('data-id')) {
           $('<input name="parentId" value="' + $(this).data('id') + '" type="hidden">')

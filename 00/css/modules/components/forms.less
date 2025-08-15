@@ -220,9 +220,14 @@ input {
     }
 }
 
-.required-asterisk:after {
+.required-asterisk:not(.required-asterisk--before):after,
+.required-asterisk--after:after {
     content: "*";
     padding-left: 0.5ch;
+}
+.required-asterisk--before:before {
+    content: "*";
+    padding-right: 0.5ch;
 }
 
 .form-control,
@@ -245,5 +250,11 @@ input, select, textarea {
         .js-error-field + & {
             top: calc(50%);
         }
+    }
+}
+
+.discussionContainer form {
+    :where(.ums_discussion_rating_forms--on) & { // TODO: Remove this wrapper in issue #20873
+        max-width: 440px;
     }
 }

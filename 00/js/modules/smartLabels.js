@@ -24,13 +24,14 @@ if (shoptet.abilities.feature.smart_labels){
                 'password',
                 'number',
                 'email',
-                'select'
+                'select',
+                'textarea'
             ];
 
             return this.each(function(){
 
                 var element = $(this), //.smart-label-wrapper
-                    input = element.find('input, select');
+                    input = element.find('input, select, textarea');
 
                 // if .smart-label-wrapper has valid elements
                 if (typeof input[0] !== "undefined") {
@@ -41,6 +42,12 @@ if (shoptet.abilities.feature.smart_labels){
                     if (input[0].nodeName == 'SELECT') {
                         var att = document.createAttribute("type");
                         att.value = "select";
+                        input[0].setAttributeNode(att);
+                    }
+
+                    if (input[0].nodeName == 'TEXTAREA') {
+                        var att = document.createAttribute("type");
+                        att.value = "textarea";
                         input[0].setAttributeNode(att);
                     }
 
