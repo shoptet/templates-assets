@@ -201,6 +201,8 @@
         return roundForHu(number);
       case 5:
         return roundForSk(number);
+      case 6:
+        return Math.round(number);
       default:
         return number;
     }

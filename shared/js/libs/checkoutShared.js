@@ -723,17 +723,20 @@
     }
 
     function roundForCart(price, billing) {
-        price = price.ShoptetRoundForDocument();
 
         if (isAvailableRoundingSk(price, billing)) {
-            price = price.ShoptetRoundForDocument(5);
+            return price.ShoptetRoundForDocument(5);
         }
 
         if (isAvailableRoundingHu(price, billing)) {
-            price = price.ShoptetRoundForDocument(4);
+            return price.ShoptetRoundForDocument(4);
         }
 
-        return price;
+        if (isAvailableRoundingCz(price, billing)) {
+            return price.ShoptetRoundForDocument(6);
+        }
+
+        return price.ShoptetRoundForDocument();
     }
 
     function isAvailableRoundingSk(price, billing) {
@@ -745,9 +748,7 @@
             return false;
         }
 
-        var roundedPrice = price.ShoptetRoundForDocument(5);
-
-        if (roundedPrice == price) {
+        if (price.ShoptetRoundForDocument(5) == price.ShoptetRoundForDocument()) {
             return false;
         }
 
@@ -767,9 +768,9 @@
 
         var roundedPrice = price.ShoptetRoundForDocument(4);
 
-        if (roundedPrice == price) {
-            return false;
-        }
+      if (price.ShoptetRoundForDocument(4) == price.ShoptetRoundForDocument()) {
+        return false;
+      }
 
         var billingMethodCode = document.querySelector('#billingId-' + billing).getAttribute('data-payment-type');
 
@@ -778,6 +779,24 @@
         }
 
         return true;
+    }
+
+    function isAvailableRoundingCz(price, billing) {
+      if (shoptet.checkoutShared.currencyCode != 'CZK') {
+        return false;
+      }
+
+      if (price.ShoptetRoundForDocument(6) == price.ShoptetRoundForDocument()) {
+        return false;
+      }
+
+      var billingMethodCode = document.querySelector('#billingId-' + billing).getAttribute('data-payment-type');
+
+      if (billingMethodCode != 'cash' && billingMethodCode != 'cashOnDelivery') {
+        return false;
+      }
+
+      return true;
     }
 
     function afterPriceChange() {
