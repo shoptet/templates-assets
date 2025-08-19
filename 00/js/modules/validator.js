@@ -22,51 +22,6 @@ shoptet.validator.invalidEmails = [
     'seznma.cz',
     'sznam.cz'
 ];
-var transformers = {
-    'titlecase-words': function (elementValue) {
-        var words = elementValue.split(/\s+/);
-        for (var i = 0; i < words.length; ++i) {
-            var word = words[i];
-            words[i] = word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
-        }
-        var transformed = words.join(' ');
-        return transformed;
-    },
-    'uppercase-first': function (elementValue) {
-        var transformed = elementValue.charAt(0).toUpperCase() + elementValue.substr(1);
-        return transformed;
-    }
-};
-var transform = function () {
-    var elementValue = new String($(this).val());
-    var dataTransform = $(this).attr('data-transform');
-    if (dataTransform in transformers) {
-        var elementValue = elementValue.trim();
-        if (elementValue) {
-            if (!$(this).data('transformed')) {
-                var transformed = transformers[dataTransform](elementValue);
-                $(this).val(transformed);
-                if (elementValue !== transformed) {
-                    $(this).data('transformed', elementValue !== transformed);
-                    // transform message doesn't overwrite validation message
-                    if (!$(this).is('.warning-field, .error-field')) {
-                        shoptet.validator.showValidatorMessage(
-                            $(this),
-                            shoptet.messages['validatorTextWasTransformed'],
-                            'msg-info'
-                        );
-                    }
-                    shoptet.scripts.signalCustomEvent('ShoptetValidationTransform', this);
-                }
-            }
-        } else {
-            $(this).data('transformed', false);
-        }
-    } else {
-        throw new Error('Unknown transformation.');
-    }
-};
-var softWarning = false;
 var validators = {
     required: function (elementValue) {
         var isValid = true;
@@ -163,34 +118,14 @@ var validate = function(isSubmit) {
             for (var validator in validators) {
                 isValid = validators[validator].call(this, elementValue);
                 if (!isValid) {
-                    if (!$(this).attr('data-warning')) {
-                        var softWarning = false;
-                        break;
-                    } else {
-                        var softWarning = true;
-                        isValid = true;
-                    }
+                    break;
                 }
             }
         }
     }
     if (isValid) {
         $(this).removeClass('error-field');
-        $(this).removeClass('warning-field');
         shoptet.validator.removeValidatorMessage($(this));
-
-        if (softWarning) {
-            $(this).addClass('warning-field');
-            if (typeof shoptet.validator.message !== 'undefined') {
-                shoptet.validator.showValidatorMessage(
-                    $(this),
-                    shoptet.validator.message,
-                    'msg-warning'
-                );
-            }
-            shoptet.scripts.signalCustomEvent('ShoptetValidationWarning', $(this)[0]);
-            softWarning = false;
-        }
     } else {
         $(this).addClass('error-field');
         if (typeof shoptet.validator.message !== 'undefined') {
@@ -232,7 +167,7 @@ shoptet.validator.shoptetFormValidator = {
                 var isSubmit = false;
                 return validate.call($(this), isSubmit);
             });
-            $currentForm.find('[data-transform]').blur(transform);
+
         }
         settings = settings || {};
         $currentForm.data('validatorSettings', settings);
