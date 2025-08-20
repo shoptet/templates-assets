@@ -1,3 +1,5 @@
+export const isHTMLElement = el => el instanceof HTMLElement;
+
 /**
  * Function to ensure that a value satisfies a condition (predicate).
  * If the condition is not satisfied, an error is thrown.

@@ -1,3 +1,5 @@
+import { ensure, ensureEvery, isHTMLElement, maybe } from '../../../shared/js/typeAssertions';
+
 // TODO: move these declarations to filters and unify with 2G
 window.categoryMinValue = parseInt($('#categoryMinValue').text());
 window.categoryMaxValue = parseInt($('#categoryMaxValue').text());
@@ -272,20 +274,37 @@ window.scrollToEl = $el => {
 
 /**
  * Set carousel height to be equal like highest image to prevent element jump after fade
- *
- * @param {Object} $carousel
- * $carousel = carousel element
+ * @param {string} selector carousel selector
  */
-window.setCarouselHeight = $carousel => {
-  $carousel.removeAttr('style');
-  var maxHeight = 0;
-  $carousel.find('img').each(function () {
-    var h = $(this).height();
-    if (h > maxHeight) {
-      maxHeight = h;
+window.setCarouselHeight = selector => {
+  if (typeof selector === 'object') {
+    selector = selector.selector;
+    shoptet.dev.deprecated(
+      '2025-12-31',
+      'setCarouselHeight($element)',
+      undefined,
+      'Please use only selector as an argument, e.g. setCarouselHeight(".carousel-inner").'
+    );
+  }
+  const carousel = maybe(document.querySelector(selector), isHTMLElement);
+  if (!carousel) return;
+  const wrapper = ensure(carousel.parentElement, isHTMLElement);
+  const wrapperWidth = wrapper.clientWidth;
+
+  let maxHeight = 0;
+  carousel.querySelectorAll('img').forEach(image => {
+    const w = image.width;
+    const h = image.height;
+    const realHeight = (h * wrapperWidth) / w;
+    if (realHeight > maxHeight) {
+      maxHeight = realHeight;
     }
   });
-  $carousel.css('min-height', maxHeight);
+
+  carousel.style.minHeight = maxHeight + 'px';
+  ensureEvery(Array.from(wrapper.querySelectorAll('.carousel-control')), isHTMLElement).forEach(el => {
+    el.style.maxHeight = maxHeight + 'px';
+  });
 };
 
 /**
@@ -528,7 +547,7 @@ window.resizeEndCallback = () => {
   shoptet.products.splitWidgetParameters();
 
   if ($('.carousel').length) {
-    setCarouselHeight($('.carousel-inner'));
+    setCarouselHeight('.carousel-inner');
   }
   shoptet.modal.shoptetResize();
   addPaddingToOverallWrapper();
@@ -603,8 +622,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   shoptet.images.unveil();
   $('body').addClass('unveiled');
-  if (detectResolution(shoptet.config.breakpoints.sm) && $('.carousel').length) {
-    setCarouselHeight($('.carousel-inner'));
+  if ($('.carousel').length) {
+    setCarouselHeight('.carousel-inner');
     $('body').addClass('carousel-set');
   }
 
