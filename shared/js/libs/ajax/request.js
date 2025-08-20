@@ -1,6 +1,8 @@
 /// <reference path="./response.js" />
 // @ts-check
 
+import { preserveEditorPreviewUrl } from '../themeEditor/lib';
+
 (function (shoptet) {
   const requestTypes = Object.freeze({
     get: 'GET',
@@ -21,7 +23,9 @@
   function makeAjaxRequest(url, type, data, callbacks = {}, header = {}) {
     return new Promise(function (resolve, reject) {
       const xmlhttp = new XMLHttpRequest();
-      xmlhttp.open(type, url, true);
+      const requestUrl = preserveEditorPreviewUrl(url);
+
+      xmlhttp.open(type, requestUrl, true);
 
       if (header && header.hasOwnProperty('X-Shoptet-XHR')) {
         if (header['X-Shoptet-XHR'] === 'Shoptet_Coo7ai') {

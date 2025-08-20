@@ -1,10 +1,10 @@
 // This script is supposed to be used as type="module"
 
-const EDITOR_PARAM = 'editorPreview';
-const MOBILE_DEVICE_PARAM = 'isMobileDevice';
+import { detectEditorPreview, getNextUrl } from './lib';
+
 const EDITOR_ORIGIN = window.location.origin;
 
-const isEditorPreview = new URLSearchParams(window.location.search).has(EDITOR_PARAM);
+const isEditorPreview = detectEditorPreview();
 
 // Capture link clicks
 window.addEventListener('click', function (e) {
@@ -98,34 +98,6 @@ sendMessage({
 
 function sendMessage(message) {
   window.parent.postMessage(message, EDITOR_ORIGIN);
-}
-
-/**
- * @param {URL} urlObject
- * @param {{deviceMode: 'mobile' | 'desktop'}} [options]
- * @returns {URL}
- */
-function getNextUrl(urlObject, options) {
-  const currentUrlObject = new URL(window.location.href);
-
-  // Preserve edit mode
-  urlObject.searchParams.set(EDITOR_PARAM, '');
-
-  // Preserve current device mode if not specified
-  if (!options?.deviceMode && currentUrlObject.searchParams.has(MOBILE_DEVICE_PARAM)) {
-    urlObject.searchParams.set(MOBILE_DEVICE_PARAM, '');
-  }
-
-  // Set device mode if specified
-  if (options?.deviceMode) {
-    if (options.deviceMode === 'mobile') {
-      urlObject.searchParams.set(MOBILE_DEVICE_PARAM, '');
-    } else {
-      urlObject.searchParams.delete(MOBILE_DEVICE_PARAM);
-    }
-  }
-
-  return urlObject;
 }
 
 /*********************
