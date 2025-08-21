@@ -288,20 +288,20 @@ window.setCarouselHeight = selector => {
   }
   const carousel = maybe(document.querySelector(selector), isHTMLElement);
   if (!carousel) return;
-  const wrapper = ensure(carousel.parentElement, isHTMLElement);
-  const wrapperWidth = wrapper.clientWidth;
 
   let maxHeight = 0;
+  const carouselWidth = carousel.clientWidth;
   carousel.querySelectorAll('img').forEach(image => {
     const w = image.width;
     const h = image.height;
-    const realHeight = (h * wrapperWidth) / w;
+    const realHeight = (h * carouselWidth) / w;
     if (realHeight > maxHeight) {
       maxHeight = realHeight;
     }
   });
 
   carousel.style.minHeight = maxHeight + 'px';
+  const wrapper = ensure(carousel.parentElement, isHTMLElement);
   ensureEvery(Array.from(wrapper.querySelectorAll('.carousel-control')), isHTMLElement).forEach(el => {
     el.style.maxHeight = maxHeight + 'px';
   });
