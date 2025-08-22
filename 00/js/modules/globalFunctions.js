@@ -291,7 +291,7 @@ window.setCarouselHeight = selector => {
 
   let maxHeight = 0;
   const carouselWidth = carousel.clientWidth;
-  carousel.querySelectorAll('img').forEach(image => {
+  carousel.querySelectorAll('.item > a > img, .item > img').forEach(image => {
     const w = image.width;
     const h = image.height;
     const realHeight = (h * carouselWidth) / w;
