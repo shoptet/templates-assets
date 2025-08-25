@@ -1388,8 +1388,8 @@
 
         $(`${postDeliveryPointsData.deliveryPointPrefix}-form`).submit(function() {
             $('.cpost-delivery-point-result').addClass('ajax-pending-element');
-            var postData = 'zipCode=' + $.trim($(`${postDeliveryPointsData.deliveryPointPrefix}-wrapper .zip-code`).val());
-            postData += "&postName=" + $.trim($(`${postDeliveryPointsData.deliveryPointPrefix}-wrapper .city`).val());
+            var postData = 'zipCode=' + encodeURIComponent($.trim($(`${postDeliveryPointsData.deliveryPointPrefix}-wrapper .zip-code`).val()));
+            postData += "&postName=" + encodeURIComponent($.trim($(`${postDeliveryPointsData.deliveryPointPrefix}-wrapper .city`).val()));
             if (shipmentId) {
                 postData += "&shipmentId=" + shipmentId.toString();
             }
