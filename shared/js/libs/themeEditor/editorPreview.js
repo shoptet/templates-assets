@@ -172,6 +172,10 @@ function createOrUpdateLabel(element) {
   const isHovered = element === hoveredElement;
   const id = element.dataset.editorid;
 
+  if (!inspectConfig.titles[id]) {
+    return;
+  }
+
   // Assign a unique index to each element with the same data-editorid
   let index = 0;
   const elements = document.querySelectorAll(`[data-editorid="${id}"]`);
