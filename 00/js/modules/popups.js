@@ -339,38 +339,52 @@ const REGISTER_FORM = 'register-form';
     });
   };
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const toggleWindowElements = ensureEvery(Array.from(document.querySelectorAll('.toggle-window')), isHTMLElement);
+  document.addEventListener('click', e => {
+    const targetEl = maybe(e.target, isHTMLElement);
+    const el = maybe(targetEl?.closest('.toggle-window'), isHTMLElement);
+    if (!el) return;
+    if (!el.dataset.redirect && !el.classList.contains('languagesMenu__box')) {
+      e.preventDefault();
+    }
+    showWindow(el, false);
+  });
 
-    toggleWindowElements.forEach(el => {
-      el.addEventListener('touchend', event => {
-        if (!el.classList.contains('languagesMenu__box')) {
-          event.preventDefault();
+  document.addEventListener(
+    'touchend',
+    e => {
+      const targetEl = maybe(e.target, isHTMLElement);
+      const el = maybe(targetEl?.closest('.toggle-window'), isHTMLElement);
+      if (!el) return;
+      if (!el.classList.contains('languagesMenu__box')) {
+        e.preventDefault();
+      }
+      showWindow(el, false);
+    },
+    { passive: false }
+  );
+
+  document.addEventListener('keydown', e => {
+    const targetEl = maybe(e.target, isHTMLElement);
+    const el = maybe(targetEl?.closest('.toggle-window'), isHTMLElement);
+    if (!el) return;
+    switch (e.key) {
+      case 'Enter':
+        if (isHTMLAnchorElement(el)) {
+          const hrefAttr = el.getAttribute('href')?.trim();
+          const hasRedirect = el.dataset.redirect === 'true';
+          if (hasRedirect && hrefAttr && hrefAttr !== '#') {
+            e.preventDefault();
+            window.location.href = el.href;
+            return;
+          }
         }
-        showWindow(el, false);
-      });
-      el.addEventListener('click', event => {
-        if (!el.dataset.redirect && !el.classList.contains('languagesMenu__box')) {
-          event.preventDefault();
-        }
-        showWindow(el, false);
-      });
-      el.addEventListener('keydown', event => {
-        switch (event.key) {
-          case 'Enter':
-            if (isHTMLAnchorElement(el) && el.href) {
-              event.preventDefault();
-              window.location.href = el.href;
-              return;
-            }
-          case ' ':
-          case 'ArrowDown':
-            event.preventDefault();
-            showWindow(el, true);
-            break;
-        }
-      });
-    });
+      // fall through
+      case ' ':
+      case 'ArrowDown':
+        e.preventDefault();
+        showWindow(el, true);
+        break;
+    }
   });
 
   shoptet.config.bodyClasses = bodyClasses.join(' ');
