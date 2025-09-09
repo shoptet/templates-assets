@@ -416,6 +416,21 @@ a.btn {
   }
 }
 
+@container (width > 32em) {
+  .payment-info {
+    flex-basis: calc(100% - 210px);
+  }
+
+  .payment-shipping-price {
+    flex-basis: 110px;
+  }
+
+  .radio-wrapper:not(:has(.payment-logo)) .payment-info,
+  .shipping-options-popup .shipping-row:not(:has(.payment-logo)) .payment-info {
+    max-width: calc(100% - 120px);
+  }
+}
+
 .navigation-in {
   @media (min-width: @screen-xs-min) and (max-width: @navigation-breakpoint) {
     padding-left: 60px;

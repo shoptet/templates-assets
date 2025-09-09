@@ -1,18 +1,30 @@
 .shipping-options-popup {
+    container-type: inline-size;
+
     .shipping-row {
         display: flex;
-        align-items: center;
+        flex-wrap: wrap;
+        gap: 5px 10px;
+        align-items: flex-start;
+        justify-content: space-between;
+
         padding: 15px 0;
-        line-height: 1em;
+
+        line-height: @payment-shipping-line-height;
+
         border-bottom: 1px solid rgba(0,0,0,0.1);
-        .payment-logo {
-            width: auto;
-        }
     }
+
     .extra.delivery {
         margin-top: 20px;
     }
 }
+
+.shipping-row:not(:has(.payment-logo)) .payment-info {
+    flex-basis: auto;
+    max-width: calc(100% - @payment-info-narrow-px);
+}
+
 .shipping-options {
     display: inline-block;
 }

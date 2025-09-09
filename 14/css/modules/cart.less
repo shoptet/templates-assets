@@ -678,30 +678,43 @@ tr.removeable {
 }
 
 .shipping-billing-table .radio-wrapper {
-    border-bottom-width: 0;
-    padding-left: 0;
     padding-right: 0;
-    @media (min-width: (@cart-table-breakpoint - 1)) {
-        padding-left: @triple-spacing;
-        padding-right: @triple-spacing;
-    }
+    padding-left: 0;
+    border-bottom-width: 0;
+
     input[type="radio"] + label {
         padding-top: round(@penta-spacing / 2);
         padding-bottom: round(@penta-spacing / 2);
-        @media (max-width: @screen-xs) {
-            flex-wrap: wrap;
-            .payment-shipping-price {
-                flex-grow: 1;
-                flex-shrink: 1;
-                flex-basis: auto;
-            }
+
+        &::before {
+            top: calc(0.77em + 12px);
         }
-        .payment-shipping-price {
-            flex-basis: 150px;
+
+        &::after {
+            top: calc(0.77em + 16px);
         }
+    }
+
+    @media (min-width: (@cart-table-breakpoint - 1)) {
+        padding-right: @triple-spacing;
+        padding-left: @triple-spacing;
     }
 }
 
+@container (width > 48em) {
+    .payment-shipping-price {
+        flex-basis: 15cqw;
+    }
+
+    .payment-info {
+        flex-basis: calc(82cqw - 100px);
+    }
+
+    .radio-wrapper:not(:has(.payment-logo)) .payment-info,
+    .shipping-options-popup .shipping-row:not(:has(.payment-logo)) .payment-info {
+        max-width: calc(82cqw - 10px);
+    }
+}
 
 .ordering-process .co-box {
     @media (min-width: @screen-sm-min) {
