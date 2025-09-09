@@ -455,10 +455,10 @@ window.unveilElementByHash = elementId => {
     $el.tab('show');
   }
   if ($(hashUnveiledElements[elementId]).length) {
-    for (i = 0; i < $(hashUnveiledElements[elementId]).length; i++) {
+    for (let i = 0; i < $(hashUnveiledElements[elementId]).length; i++) {
       $(hashUnveiledElements[elementId][i]).removeClass('js-hidden');
     }
-    for (i = 0; i < $(hashHiddenElements[elementId]).length; i++) {
+    for (let i = 0; i < $(hashHiddenElements[elementId]).length; i++) {
       $(hashHiddenElements[elementId][i]).addClass('js-hidden');
     }
   }
@@ -575,7 +575,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var hash = window.location.hash;
   if (hash.length) {
-    for (i = 0; i < availableElementsIds.length; i++) {
+    for (let i = 0; i < availableElementsIds.length; i++) {
       availableElementsIds[i];
       if (availableElementsIds[i] === hash) {
         if ($(hash).length) {
