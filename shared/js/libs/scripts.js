@@ -275,6 +275,8 @@
       'isTouchDevice',
       'enableUpdatePreview',
       'isApplePayAvailable',
+      'findFirstFocusable',
+      'focusFirst',
     ],
     images: ['unveil'],
     products: [

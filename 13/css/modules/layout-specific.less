@@ -640,29 +640,45 @@ select {
   background-image: url("data:image/svg+xml,%3Csvg width='45' height='20' viewBox='0 0 45 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30.9363 5.30092L23 12.1038L15.0637 5.30092C14.8465 5.11383 14.5616 4.99993 14.2501 4.99993C13.5597 4.99993 13 5.55962 13 6.25005C13 6.62897 13.1686 6.96852 13.4349 7.19778L13.4365 7.19915L22.1864 14.699C22.4036 14.8861 22.6885 15.0001 23 15.0001C23.3115 15.0001 23.5964 14.8862 23.8153 14.6977L23.8136 14.699L32.5635 7.19915C32.8314 6.96852 33 6.62895 33 6.25003C33 5.5596 32.4403 4.99991 31.7499 4.99991C31.4384 4.99991 31.1535 5.11383 30.9346 5.30227L30.9362 5.3009L30.9363 5.30092Z' fill='black'/%3E%3C/svg%3E%0A");
 }
 
-.pagination-wrapper .pagination-loader {
-  margin: 0 0 @line-height-computed;
+// TODO: Remove this in issue 19942 -- START
+:where(body.ums_a11y_pagination--off) {
+  .pagination-wrapper .pagination-loader {
+    margin: 0 0 @line-height-computed;
 
-  @media (min-width: @screen-md-max) {
-    margin: 0;
+    @media (min-width: @screen-md-max) {
+      margin: 0;
+    }
   }
-}
 
-.pagination-top > strong,
-.pagination-top > a,
-.pagination a {
-  border-radius: 0;
-}
-.pagination-top {
-  > strong {
-    margin: 0;
-    padding-right: 10px;
-    transition: all 0.3s ease-out;
+  .pagination-top > strong,
+  .pagination-top > a,
+  .pagination a {
+    border-radius: 0;
   }
-  a {
-    margin: 0 0 0 2px;
+  .pagination-top {
+    > strong {
+      margin: 0;
+      padding-right: 10px;
+      transition: all 0.3s ease-out;
+    }
+    a {
+      margin: 0 0 0 2px;
+    }
   }
 }
+// TODO: Remove this in issue 19942 -- END
+
+// TODO: Remove this in issue 19942 -- START
+:where(body.ums_a11y_pagination--on) {
+  // TODO: Remove this in issue 19942 -- END
+  .itemsTotal {
+    @media (min-width: @screen-sm-min) {
+      display: none;
+    }
+  }
+  // TODO: Remove this in issue 19942 -- START
+}
+// TODO: Remove this in issue 19942 -- END
 
 /* product block start */
 @media (min-width: 321px) and (max-width: @screen-xs-max) {
@@ -1904,8 +1920,6 @@ table.shipping-options-layout {
     }
   }
 }
-
-// This prevents shift of the banner, .products-page, .pagination-wrapper, .category__secondDescription below the left floated sidebar on the category page
 
 .flags {
   &.flags-extra {

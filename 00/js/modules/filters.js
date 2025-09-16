@@ -306,23 +306,56 @@ $(function () {
     makeFilterAjaxRequest(e.target.getAttribute('href'), true, false, e.target, 'ShoptetPageFiltersCleared');
   });
 
-  $html.on('click', 'div.pagination a', function (e) {
-    e.preventDefault();
-    var scrollTarget = false;
-    var ajaxCallback = false;
-    if ($('#products').length) {
-      scrollTarget = '#products';
-    } else if ($('#newsWrapper').length) {
-      scrollTarget = '#newsWrapper';
-    } else if ($('#ratingWrapper').length) {
-      scrollTarget = '#ratingWrapper';
-    }
-    if (scrollTarget) {
-      ajaxCallback = function () {
-        scrollToEl($(scrollTarget));
-      };
-    }
-    makeFilterAjaxRequest(e.target.getAttribute('href'), true, ajaxCallback, e.target, 'ShoptetPagePaginationUsed');
-  });
+  if (shoptet.config.ums_a11y_pagination) {
+    const loadingAnnouncer = shoptet.screenReader.createLoadingAnnouncer();
+    $html.on('click', '.pagination__link', function (e) {
+      e.preventDefault();
+      var ajaxCallback = false;
+      var wrapper = null;
+
+      if ($('#products').length) {
+        wrapper = '#products';
+      } else if ($('#newsWrapper').length) {
+        wrapper = '#newsWrapper';
+      } else if ($('#ratingsList').length) {
+        wrapper = '#ratingsList';
+      } else if ($('#glossary-listing').length) {
+        wrapper = '#glossary-listing';
+      }
+
+      if (wrapper) {
+        loadingAnnouncer.begin($(wrapper)[0]);
+        ajaxCallback = function () {
+          loadingAnnouncer.end();
+          const listingWrapper = $(wrapper)[0];
+          if (!listingWrapper) return;
+          let target =
+            shoptet.helpers.findFirstFocusable(listingWrapper) || listingWrapper.firstElementChild || listingWrapper;
+          if (!(target instanceof HTMLElement)) target = listingWrapper;
+          shoptet.helpers.focusFirst(target, true, true);
+        };
+      }
+      makeFilterAjaxRequest(e.target.getAttribute('href'), true, ajaxCallback, e.target, 'ShoptetPagePaginationUsed');
+    });
+  } else {
+    $html.on('click', 'div.pagination a', function (e) {
+      e.preventDefault();
+      var scrollTarget = false;
+      var ajaxCallback = false;
+      if ($('#products').length) {
+        scrollTarget = '#products';
+      } else if ($('#newsWrapper').length) {
+        scrollTarget = '#newsWrapper';
+      } else if ($('#ratingWrapper').length) {
+        scrollTarget = '#ratingWrapper';
+      }
+      if (scrollTarget) {
+        ajaxCallback = function () {
+          scrollToEl($(scrollTarget));
+        };
+      }
+      makeFilterAjaxRequest(e.target.getAttribute('href'), true, ajaxCallback, e.target, 'ShoptetPagePaginationUsed');
+    });
+  }
   detectFilters();
 });

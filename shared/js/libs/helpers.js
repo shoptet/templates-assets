@@ -1,5 +1,7 @@
 // @ts-check
 
+import { isHTMLElement, maybe, ensure } from '../../../shared/js/typeAssertions';
+
 (function (shoptet) {
   /**
    * This function replaces decimal separator of given value with a dot to make it a valid float.
@@ -262,6 +264,68 @@
     } catch (err) {
       return false;
     }
+  }
+
+  /**
+   * Finds the first focusable element within the given wrapper.
+   * @param {HTMLElement} wrapper
+   * @returns {HTMLElement|null}
+   */
+  function findFirstFocusable(wrapper) {
+    if (!wrapper) return null;
+    const focusableSelectors = [
+      'a[href]:not([tabindex="-1"])',
+      'button:not([tabindex="-1"])',
+      'input:not([type="hidden"]):not([disabled]):not([tabindex="-1"])',
+      'select:not([disabled]):not([tabindex="-1"])',
+      'textarea:not([disabled]):not([tabindex="-1"])',
+      '[tabindex]:not([tabindex="-1"])',
+    ].join(', ');
+    return wrapper.querySelector(focusableSelectors);
+  }
+
+  /**
+   * Focuses either the root element or (if tryInside=true) the first focusable
+   * descendant inside it. If the target element is not naturally focusable
+   * (tabIndex < 0), a temporary tabindex="-1" is added and removed on blur.
+   *
+   * @param {HTMLElement} root Element to focus or search within.
+   * @param {boolean} [tryInside=false] If true, focus the first focusable descendant of `root`.
+   * @param {boolean} [scrollToEl=false] If true, scroll to the target before focusing (smooth).
+   * @returns {void}
+   */
+  function focusFirst(root, tryInside = false, scrollToEl = false) {
+    ensure(root, isHTMLElement);
+
+    /** @type {HTMLElement|undefined} */
+    let target;
+
+    if (tryInside && typeof findFirstFocusable === 'function') {
+      target = maybe(findFirstFocusable(root), isHTMLElement);
+    }
+
+    if (!target) {
+      target = root;
+    }
+
+    let addedTabindex = false;
+    if (target.tabIndex < 0) {
+      target.setAttribute('tabindex', '-1');
+      addedTabindex = true;
+    }
+
+    requestAnimationFrame(() => {
+      if (scrollToEl) {
+        shoptet.scroll.scrollToEl(target);
+        target.focus({ preventScroll: true });
+      } else {
+        target.focus();
+      }
+
+      if (addedTabindex) {
+        target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true });
+      }
+    });
   }
 
   $('html').on('click', function (e) {

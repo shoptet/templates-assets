@@ -1739,3 +1739,19 @@ ol.top-products {
     right: 0;
   }
 }
+
+// TODO: Remove this in issue 19942 -- START
+:where(body.ums_a11y_pagination--on) {
+  // TODO: Remove this in issue 19942 -- END
+  .btn.loadMore__button,
+  a.btn.goToTop__button {
+    padding: 3px 26px;
+    font-weight: 400;
+  }
+
+  .pagination__link:hover {
+    border-width: 2px;
+  }
+  // TODO: Remove this in issue 19942 -- START
+}
+// TODO: Remove this in issue 19942 -- END

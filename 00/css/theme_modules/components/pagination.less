@@ -1,19 +1,45 @@
-.pagination-link {
-    color: @pagination-link-color;
-    background-color: @pagination-link-bg;
-    &:hover {
-        color: @pagination-link-color-hover;
-        background-color: @pagination-link-bg-hover;
+// TODO: Remove this in issue 19942 -- START
+:where(body.ums_a11y_pagination--off) {
+    .pagination-link {
+        color: @old-pagination-link-color;
+        background-color: @old-pagination-link-bg;
+        &:hover {
+            color: @old-pagination-link-color-hover;
+            background-color: @old-pagination-link-bg-hover;
+        }
+    }
+
+    .pagination-current {
+        color: @old-pagination-link-color-current;
+        background-color: @old-pagination-link-bg-current;
+    }
+
+    .pagination-top {
+        strong {
+            color: @link-color;
+        }
     }
 }
+// TODO: Remove this in issue 19942 -- END
 
-.pagination-current {
-    color: @pagination-link-color-current;
-    background-color: @pagination-link-bg-current;
-}
 
-.pagination-top {
-    strong {
-        color: @link-color;
+// TODO: Remove this in issue 19942 -- START
+:where(body.ums_a11y_pagination--on) {
+// TODO: Remove this in issue 19942 -- END
+    .pagination .pagination__list .pagination__link,
+    a.btn.goToTop__button,
+    .btn.loadMore__button {
+        color: @pagination-link-color;
+        background-color: @pagination-link-bg;
+        border-color: @pagination-link-border-color;
+
+        &:hover,
+        &:focus-visible {
+            color: @pagination-link-color-hover;
+            background-color: @pagination-link-bg-hover;
+            border-color: @pagination-link-border-color-hover;
+        }
     }
+// TODO: Remove this in issue 19942 -- START
 }
+// TODO: Remove this in issue 19942 -- END

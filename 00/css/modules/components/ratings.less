@@ -30,7 +30,7 @@
             margin-left: round(@grid-gutter-width / 2);
             margin-top: 0;
             .stars {
-                margin-bottom: round(@line-height-computed / 8); 
+                margin-bottom: round(@line-height-computed / 8);
             }
         }
     }
@@ -145,7 +145,11 @@
     }
 }
 
-.load-next-wrap {
-    text-align: center;
-    margin: @line-height-computed 0;
+// TODO: Remove this in issue 19942 -- START
+:where(body.ums_a11y_pagination--off) {
+    .load-next-wrap {
+        text-align: center;
+        margin: @line-height-computed 0;
+    }
 }
+// TODO: Remove this in issue 19942 -- END

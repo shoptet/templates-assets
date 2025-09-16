@@ -21,7 +21,11 @@
     margin-top: 0;
 }
 
-.search-next-wrap {
-    text-align: center;
-    margin: @line-height-computed 0;
+// TODO: Remove this in issue 19942 -- START
+:where(body.ums_a11y_pagination--off) {
+    .search-next-wrap {
+        text-align: center;
+        margin: @line-height-computed 0;
+    }
 }
+// TODO: Remove this in issue 19942 -- END

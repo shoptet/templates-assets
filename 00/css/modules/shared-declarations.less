@@ -88,8 +88,15 @@
     margin: @line-height-computed 0;
 }
 
+
 html {
+    scroll-behavior: smooth;
+    scroll-padding-top: max(var(--scroll-offset, 0px), var(--scroll-extra-offset));
     height: 100%;
+
+    @media (prefers-reduced-motion: reduce) {
+        scroll-behavior: auto;
+    }
 }
 
 body {
@@ -451,4 +458,17 @@ iframe[name="google_conversion_frame"] {
 
 .discussionContainer {
     margin-bottom: 16px;
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 800ms ease-out;
+
+  &.start {
+    opacity: 1;
+  }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
 }

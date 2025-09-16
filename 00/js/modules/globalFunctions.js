@@ -242,37 +242,6 @@ window.delay = (() => {
 })();
 
 /**
- * Scroll page to element
- *
- * @param {Object} $el HTML element to which the page should scroll
- */
-window.scrollToEl = $el => {
-  var $message = $('.messages .msg');
-  var $adminBar = $('.admin-bar');
-  var $cartHeader = $('.cart-header');
-  var $header =
-    shoptet.abilities.about.id === '11' &&
-    !shoptet.layout.detectResolution(shoptet.config.breakpoints.sm) &&
-    $cartHeader.length
-      ? $cartHeader
-      : $('#header');
-  var offset = $el.offset();
-  var messageHeight = $message.length ? $message.outerHeight() : 0;
-  var adminBarHeight =
-    $adminBar.length && shoptet.layout.detectResolution(shoptet.config.breakpoints.sm) ? $adminBar.height() : 0;
-  var margin =
-    $header.css('position') === 'fixed' || shoptet.abilities.feature.fixed_header ? $header.outerHeight() : 0;
-  $('html, body')
-    .stop(true, true)
-    .animate(
-      {
-        scrollTop: offset.top - messageHeight - margin - adminBarHeight - 10,
-      },
-      shoptet.config.animationDuration
-    );
-};
-
-/**
  * Set carousel height to be equal like highest image to prevent element jump after fade
  * @param {string} selector carousel selector
  */
@@ -559,6 +528,8 @@ window.resizeEndCallback = () => {
       shoptet.checkout.handleWithSidebar();
     }
   }
+
+  document.documentElement.style.setProperty('--scroll-offset-runtime', `${shoptet.layout.getScrollOffset(10)}px`);
 };
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -1002,30 +973,32 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  $('html').on('click', '.js-scroll-top', function (e) {
-    e.preventDefault();
-    var $target;
-    var $trigger = $(this);
-    if (typeof $trigger.attr('data-target') !== 'undefined') {
-      $target = $($trigger.attr('data-target'));
-    } else {
-      if ($('#products').length) {
-        $target = $('#products');
-      } else if ($('#newsWrapper').length) {
-        $target = $('#newsWrapper');
-      } else if ($('#ratingWrapper').length) {
-        $target = $('#ratingWrapper');
-      } else if ($('.products').length) {
-        $target = $('.products');
+  if (!shoptet.config.ums_a11y_pagination) {
+    $('html').on('click', '.js-scroll-top', function (e) {
+      e.preventDefault();
+      var $target;
+      var $trigger = $(this);
+      if (typeof $trigger.attr('data-target') !== 'undefined') {
+        $target = $($trigger.attr('data-target'));
+      } else {
+        if ($('#products').length) {
+          $target = $('#products');
+        } else if ($('#newsWrapper').length) {
+          $target = $('#newsWrapper');
+        } else if ($('#ratingWrapper').length) {
+          $target = $('#ratingWrapper');
+        } else if ($('.products').length) {
+          $target = $('.products');
+        }
       }
-    }
 
-    if ($target.length === 0) {
-      return false;
-    }
+      if ($target.length === 0) {
+        return false;
+      }
 
-    scrollToEl($target);
-  });
+      scrollToEl($target);
+    });
+  }
 
   $('html').on('click', '.toggle-coupon-input-button', function (e) {
     $(this).next('.discount-coupon').slideToggle();
