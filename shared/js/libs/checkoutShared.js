@@ -132,9 +132,15 @@
                 </strong>
                 ${!shoptet.config.defaultVatIncluded && priceWV ? (
                     `<strong class="recapitulation-shipping-billing-info--withVat" data-testid="recapItemPriceWithVat">
-                        ${priceWV.ShoptetFormatAsCurrency(
-                            undefined, undefined, shoptet.config.decPlacesSystemDefault
-                        )} ${shoptet.messages['withVat']}
+                        ${
+                      shoptet.config.showPriceWithoutVat
+                        ? shoptet.messages['withoutVat']
+                        : `${priceWV.ShoptetFormatAsCurrency(
+                          undefined,
+                          undefined,
+                          shoptet.config.decPlacesSystemDefault
+                        )} ${shoptet.messages['withVat']}`
+                    }
                     </strong>`
                 ) : ''}
             </div>`;
