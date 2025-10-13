@@ -28,15 +28,16 @@ export function preserveEditorPreviewUrl(url) {
 
 /**
  * @param {URL} urlObject URL object to be modified
- * @param {{deviceMode: 'mobile' | 'desktop'}} [options]
+ * @param {{previewId: string | null, deviceMode: 'mobile' | 'desktop'}} [options]
  * @returns {URL}
  */
 export function getNextUrl(urlObject, options) {
   const currentUrlObject = new URL(window.location.href);
   const nextUrlObject = new URL(urlObject.href);
+  const previewId = options ? options.previewId : currentUrlObject.searchParams.get(EDITOR_PARAM);
 
   // Preserve edit mode
-  nextUrlObject.searchParams.set(EDITOR_PARAM, '');
+  nextUrlObject.searchParams.set(EDITOR_PARAM, previewId ?? '');
 
   // Preserve current device mode if not specified
   if (!options?.deviceMode && currentUrlObject.searchParams.has(MOBILE_DEVICE_PARAM)) {

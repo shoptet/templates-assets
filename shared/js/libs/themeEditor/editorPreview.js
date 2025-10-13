@@ -59,12 +59,12 @@ window.addEventListener('message', function (e) {
     const nextUrl = getNextUrl(new URL(window.location.href), e.data.options);
     sendMessage({ type: 'pageIsLoading' });
 
-    // Use location.reload where possible to maintain scroll position
-    if (nextUrl.href === window.location.href) {
-      window.location.reload();
-    } else {
-      window.location.replace(nextUrl);
+    // Modify URL in-place if next URL is different
+    if (nextUrl.href !== window.location.href) {
+      window.history.replaceState({}, '', nextUrl);
     }
+
+    window.location.reload();
   }
 
   if (e.data.type === 'navigate') {
