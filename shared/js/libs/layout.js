@@ -5,11 +5,12 @@ import { ensure } from '../typeAssertions';
 (function (shoptet) {
   const isNumber = value => typeof value === 'number';
 
-  /** @type {{vh?: number, scrollBarWidth?: number, detectResolution?: Record<number, boolean>}} */
+  /** @type {{vh?: number, scrollBarWidth?: number, detectResolution?: Record<number, boolean>, showApplePay?: boolean}} */
   const state = {
     vh: undefined,
     scrollBarWidth: undefined,
     detectResolution: undefined,
+    showApplePay: undefined,
   };
 
   /**
@@ -82,14 +83,43 @@ import { ensure } from '../typeAssertions';
     return state.detectResolution[resolution];
   }
 
+  /**
+   * This function checks if the Apple Pay is available in the browser.
+   * @returns {boolean}
+   */
+  function showApplePay() {
+    const cache = state.showApplePay;
+    if (cache !== undefined) {
+      return cache;
+    }
+
+    try {
+      // @ts-expect-error Global ApplePaySession has not been defined
+      if (window.ApplePaySession && window.ApplePaySession.canMakePayments()) {
+        state.showApplePay = true;
+      } else {
+        state.showApplePay = false;
+      }
+    } catch {
+      state.showApplePay = false;
+    }
+
+    return state.showApplePay;
+  }
+
   document.documentElement.style.setProperty('--scrollbar-width', `${getScrollBarWidth()}px`);
   document.documentElement.style.setProperty('--vh', `${getViewHeight()}px`);
+
+  if (showApplePay()) {
+    document.documentElement.classList.add('apple-pay-available');
+  }
 
   shoptet.layout = shoptet.layout || {};
   shoptet.layout.clearCache = clearCache;
   shoptet.layout.getScrollBarWidth = getScrollBarWidth;
   shoptet.layout.getViewHeight = getViewHeight;
   shoptet.layout.detectResolution = detectResolution;
+  shoptet.layout.showApplePay = showApplePay;
 
   // Backward compatibility for Shoptet Partners
   window.getScrollBarWidth = getScrollBarWidth;

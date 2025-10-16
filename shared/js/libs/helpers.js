@@ -251,22 +251,6 @@ import { isHTMLElement, maybe, ensure } from '../../../shared/js/typeAssertions'
   }
 
   /**
-   * This function checks if the Apple Pay is available in the browser.
-   * @returns {boolean}
-   */
-  function isApplePayAvailable() {
-    try {
-      if (window.ApplePaySession && window.ApplePaySession.canMakePayments()) {
-        return true;
-      }
-
-      return false;
-    } catch (err) {
-      return false;
-    }
-  }
-
-  /**
    * Finds the first focusable element within the given wrapper.
    * @param {HTMLElement} wrapper
    * @returns {HTMLElement|null}
@@ -357,4 +341,9 @@ import { isHTMLElement, maybe, ensure } from '../../../shared/js/typeAssertions'
     var fn = eval(fnName);
     shoptet.scripts.registerFunction(fn, 'helpers');
   });
+
+  shoptet.helpers.isApplePayAvailable = () => {
+    shoptet.dev.deprecated('2025-12-31', 'shoptet.helpers.isApplePayAvailable()', 'shoptet.layout.showApplePay()');
+    return shoptet.layout.showApplePay();
+  };
 })(shoptet);

@@ -36,11 +36,11 @@ input[type="radio"] {
     input[type="radio"]:checked + label > span b {
         color: @color-primary;
     }
-    &.apple-pay {
-        display: none;
-    }
+    &.apple-pay,
     &[data-submethod="applepay"] {
-        display: none;
+        html:not(.apple-pay-available) & {
+            display: none;
+        }
     }
 }
 

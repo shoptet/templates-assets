@@ -596,10 +596,19 @@
         }
     }
 
-    function displayApplePay() {
-        if (shoptet.helpers.isApplePayAvailable()) {
-            $('.apple-pay').show();
-            $('.radio-wrapper[data-submethod="applepay"]').show();
+    function removeApplePay() {
+        if (shoptet.layout.showApplePay()) return;
+
+        const applePayMethods = document.querySelectorAll('.radio-wrapper[data-submethod="applepay"], .apple-pay');
+        let isApplePayDefault = false;
+        applePayMethods.forEach(method => {
+            if (method.classList.contains('active')) {
+              isApplePayDefault = true;
+            }
+            method.remove();
+        })
+        if (isApplePayDefault) {
+            shoptet.checkoutShared.setActiveShippingAndPayments();
         }
     }
 
@@ -1440,7 +1449,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         shoptet.checkoutShared.getStatedValues();
         shoptet.checkoutShared.setActiveShippingAndPayments();
-        shoptet.checkoutShared.displayApplePay();
+        shoptet.checkoutShared.removeApplePay();
         shoptet.checkoutShared.setupDeliveryShipping();
         if (shoptet.checkoutShared.spayPaymentActive) {
             shoptetpay();
@@ -1529,6 +1538,8 @@
         var fn = eval(fnName);
         shoptet.scripts.registerFunction(fn, 'checkoutShared');
     });
+
+    shoptet.checkoutShared.displayApplePay = () => shoptet.dev.deprecated('2025-12-31', 'shoptet.checkoutShared.displayApplePay()', undefined, 'This function is no longer needed.');
 
     shoptet.checkoutShared.shoptetPayPIS = shoptet.checkoutShared.shoptetPayPIS || {};
 

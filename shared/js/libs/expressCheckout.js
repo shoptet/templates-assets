@@ -153,7 +153,7 @@ import { ensure } from '../typeAssertions';
       return;
     }
 
-    if (shoptet.helpers.isApplePayAvailable()) {
+    if (shoptet.layout.showApplePay()) {
       withApplePay.classList.add('visible');
       withoutApplePay.classList.remove('visible');
     } else {
@@ -181,7 +181,7 @@ import { ensure } from '../typeAssertions';
   }
 
   function handleApplePayBillingMethodVisibility() {
-    if (shoptet.helpers.isApplePayAvailable()) {
+    if (shoptet.layout.showApplePay()) {
       const applePayMethod = document.querySelector('[data-submethod="applepay"]');
       applePayMethod?.setAttribute('style', 'display: block;');
     }
