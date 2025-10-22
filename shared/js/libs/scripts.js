@@ -223,6 +223,7 @@
       'callShippingBillingRelations',
       'changePaymentRelations',
       'replacingChosenShippingAndBilling',
+      'handleGopayInstrumentSelection',
       'setActiveShippingAndPayments',
       'checkIsSelectedActive',
       'payu',

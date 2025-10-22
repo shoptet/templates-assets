@@ -263,9 +263,9 @@
                 return false;
             } else {
                 if (
-                    $('#deliveryCountryId').val() != deliveryCountryIdValue
+                    $('#deliveryCountryId').val() != shoptet.checkoutShared.deliveryCountryId
                     ||
-                    $('#payment-currency').val() != currencyCode
+                    $('#payment-currency').val() != shoptet.checkoutShared.currencyCode
                 ) {
                     var $parentForm = $(this).parents('form');
                     shoptet.cart.ajaxSubmitForm(

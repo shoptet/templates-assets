@@ -1,3 +1,6 @@
+import { ensure } from '../../../shared/js/typeAssertions';
+const isHTMLInputElement = item => item instanceof HTMLInputElement; 
+
 (function(shoptet) {
 
     /**
@@ -50,7 +53,7 @@
             $('#order-billing-methods .radio-wrapper').addClass('inactive-child');
             $('.billing-name').addClass('inactive');
             $('.billing-name').removeClass('active');
-            var $radios = $('input[name="billingId"], input[name="gopayPayInstrument"]');
+            var $radios = $('input[name="billingId"]');
             $radios.prop('disabled', true);
             $('.table-payu').css('display', 'none');
 
@@ -65,13 +68,6 @@
                 $activeBilling.removeClass('inactive').addClass('active');
                 $activeBilling.parents('.radio-wrapper').removeClass('inactive-child');
             });
-            // Checked GoPay inputs switches billingId attriute of hidden input
-            if ($('#order-billing-methods .radio-wrapper.active').find('input[name="gopayPayInstrument"]').length) {
-                $('.gopay-billing').attr('name', 'billingId');
-            } else {
-                $('.gopay-billing').removeAttr('name');
-                $('input[name="gopayPayInstrument"]').prop('checked', false);
-            }
             // Payu table and inputs behavior
             if (!$('#payu-template label').hasClass('inactive')) {
                 $('.table-payu').css('display', 'block');
@@ -113,6 +109,7 @@
                 shoptet.checkoutShared.activeBilling = $activeLine[0];
                 priceWVDataAttrName = 'billing-price-wv';
                 togglePreAuthorizationBoxBySelectedBillingMethod();
+                shoptet.checkoutShared.handleGopayInstrumentSelection();
             }
             shoptet.scripts.signalCustomEvent(ev);
             var activeLineText = $activeLine.find('.shipping-billing-name').clone();
@@ -562,17 +559,34 @@
     }
 
     /**
+     * GoPay handling
+     * Used in ordering process, step 1
+     *
+     * GoPay checkboxes need to be under the same group name "billingId" as the rest
+     * of the billing methods, but they also need to specify the pay instrument.
+     *
+     * This function adds a hidden input with the pay instrument on the order form
+     * submission.
+     */
+    function handleGopayInstrumentSelection() {
+        const selectedBillingCheckbox = ensure(document.querySelector('input[name="billingId"]:checked'), isHTMLInputElement);
+        const selectedBillingCheckboxPayInstrument = selectedBillingCheckbox.dataset.payInstrument;
+        if (!selectedBillingCheckboxPayInstrument) {
+            return;
+        }
+        const gopayInstrumentField = ensure(document.getElementById('gopayPayInstrument'), isHTMLInputElement);
+        gopayInstrumentField.value = selectedBillingCheckboxPayInstrument;
+    }
+
+    /**
      * Used in ordering process
      *
      * This function does not accept any arguments.
      */
     function getStatedValues() {
-        deliveryCountryIdValue = $('#deliveryCountryId').val() || shoptet.checkoutShared.deliveryCountries?.[0].id;
-        regionCountryIdValue = $('#deliveryRegionId').val();
-        currencyCode = $('#payment-currency').val();
-        shoptet.checkoutShared.deliveryCountryId = deliveryCountryIdValue;
-        shoptet.checkoutShared.regionCountryId = regionCountryIdValue;
-        shoptet.checkoutShared.currencyCode = currencyCode;
+        shoptet.checkoutShared.deliveryCountryId = $('#deliveryCountryId').val() || shoptet.checkoutShared.deliveryCountries?.[0].id;
+        shoptet.checkoutShared.regionCountryId = $('#deliveryRegionId').val();
+        shoptet.checkoutShared.currencyCode = $('#payment-currency').val();
         shoptet.scripts.signalCustomEvent('ShoptetBaseShippingInfoObtained');
     }
 
@@ -1027,7 +1041,7 @@
         if (typeof personalCollectionUrl !== 'undefined') {
             $document.on('click', '.personal-collection-choose-branch a', function(e) {
                 e.preventDefault();
-                var $parentsElement = $(this).closest('.radio-wrapper');
+                let $parentsElement = $(this).closest('.radio-wrapper');
                 $parentsElement.find('.personal-collection-choose-branch[name="shippingId"]').prop('checked', true);
                 shoptet.checkoutShared.chooseABranchModal(
                     personalCollectionUrl,
@@ -1057,7 +1071,7 @@
                 return;
             }
             newGenChooseOpen = true;
-            $parentsElement = $(this).closest('.radio-wrapper');
+            let $parentsElement = $(this).closest('.radio-wrapper');
             const shippingMethodId = $parentsElement.find('input').val();
             let href = '/action/NewGenWidget/Choose/?code=' + $parentsElement.find('[data-new-gen-code]').data('newGenCode') + '&deliveryCountryId=' + shoptet.checkoutShared.deliveryCountryId + '&shippingMethodId=' + shippingMethodId;
             var chosenBranchId = undefined;
@@ -1089,7 +1103,7 @@
 
         $document.on('click', '.pickup-point-choose a', function (e) {
             e.preventDefault();
-            $parentsElement = $(this).closest('.radio-wrapper');
+            let $parentsElement = $(this).closest('.radio-wrapper');
             let shippingMethodId = shoptet.checkoutShared.activeShipping.querySelector('input[data-guid]').getAttribute('value');
             let deliveryCountryId = $('#deliveryCountryId').val();
             shoptet.checkoutShared.chooseABranchModal(
@@ -1111,7 +1125,7 @@
 
             $document.on('click', '.' + shippingMethodId + '-choose-pickup-point a', function (e) {
                 e.preventDefault();
-                $parentsElement = $(this).closest('.radio-wrapper');
+                let $parentsElement = $(this).closest('.radio-wrapper');
                 var url = '/action/PickupPoint/Search/?id=' + id + '&methodId=' + shippingMethodId + (isNaN(deliveryCountryId) ? '' : '&deliveryCountryId=' + deliveryCountryId);
 
                 window.clickedElement = $(this);
