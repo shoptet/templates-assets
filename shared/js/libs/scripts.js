@@ -298,6 +298,7 @@
       'changeQuantity',
     ],
     ...(shoptet.config.ums_a11y_category_page ? { productSorting: ['initProductSorting'] } : []),
+    ...(shoptet.config.ums_a11y_category_page ? { topProducts: ['initTopProducts'] } : []),
     menu: [
       'toggleMenu',
       'splitMenu',

@@ -90,7 +90,11 @@ h4,
     &::after {
         &:extend(.shp-icon);;
         font-size: @font-size-smaller;
-        margin-left: .5ex;
+        // TODO: Remove this in issue 15718 -- START
+        :where(body.ums_a11y_category_page--off) & {
+            margin-left: .5ex;
+        }
+        // TODO: Remove this in issue 15718 -- END
     }
     &.chevron-down-after {
         &::after {
@@ -113,6 +117,28 @@ h4,
         }
     }
 }
+
+// TODO: Remove this in issue 15718 -- START
+:where(body.ums_a11y_category_page--on) {
+// TODO: Remove this in issue 15718 -- END
+    .toggle-top-products {
+        align-items: center;
+    }
+
+    .listSorting__controls {
+        column-gap: 1px;
+    }
+
+    .listSorting__control {
+        margin-top: 1px;
+        border: none;
+        border-radius: 0;
+        line-height: 1.4285;
+    }
+
+// TODO: Remove this in issue 15718 -- START
+}
+// TODO: Remove this in issue 15718 -- END
 
 .browse-p {
     position: relative;

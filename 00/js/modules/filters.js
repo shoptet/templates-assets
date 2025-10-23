@@ -172,6 +172,9 @@ window.makeFilterAjaxRequest = (url, pushHistoryState, successCallback, element,
       dismissMessages();
       shoptet.products.splitWidgetParameters();
       shoptet.skipLinks.initSkipLinks();
+      if (shoptet.config.ums_a11y_category_page) {
+        shoptet.topProducts.initTopProducts();
+      }
       try {
         if (pushHistoryState) {
           if ($('.breadcrumbs').length) {

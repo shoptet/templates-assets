@@ -66,6 +66,7 @@ import './modules/cookieBar';
 import './modules/globalFunctions';
 import './modules/menu';
 import './modules/products';
+import './modules/topProducts';
 import './modules/discussions-and-ratings';
 import './modules/search';
 import './modules/filters';

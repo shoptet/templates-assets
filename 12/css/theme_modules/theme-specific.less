@@ -231,6 +231,27 @@ body.user-action-visible.language-window-visible {
     overflow: auto;
 }
 
+// TODO: Remove this in issue 15718 -- START
+:where(body.ums_a11y_category_page--on) {
+// TODO: Remove this in issue 15718 -- END
+    .listSorting__control {
+        background: #f5f5f5;
+
+        &:hover,
+        &:focus-visible {
+            background: #e7e7e7;
+        }
+    }
+
+    .listSorting__control--current,
+    .listSorting__control--current:focus-visible {
+        background: #fff;
+        border-bottom-color: #fff;
+    }
+  // TODO: Remove this in issue 15718 -- START
+}
+// TODO: Remove this in issue 15718 -- END
+
 .cart-xyDiscount__banner {
     background-color: #f9f9f9;
 }

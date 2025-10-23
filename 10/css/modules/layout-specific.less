@@ -254,18 +254,48 @@ ul {
   }
 }
 
-.category-header {
-  padding-bottom: round(@line-height-computed / 2);
-  label {
-    padding: 1ex;
-  }
-  @media (max-width: @screen-xs-max) {
-    display: none;
-    .filters-visible & {
-      display: block;
+// TODO: Remove this in issue 15718 -- START
+:where(body.ums_a11y_category_page--off) {
+  .category-header {
+    padding-bottom: round(@line-height-computed / 2);
+    label {
+      padding: 1ex;
+    }
+    @media (max-width: @screen-xs-max) {
+      display: none;
+      .filters-visible & {
+        display: block;
+      }
     }
   }
 }
+// TODO: Remove this in issue 15718 -- END
+
+// TODO: Remove this in issue 15718 -- START
+:where(body.ums_a11y_category_page--on) {
+  // TODO: Remove this in issue 15718 -- END
+  .category-header {
+    border-radius: 22px;
+  }
+
+  .listSorting__control {
+    padding: 11px 24px;
+
+    line-height: 1.429;
+    text-align: left;
+
+    border: 1px solid transparent;
+    border-radius: 22px;
+
+    transition: background-color 0.3s ease-out;
+
+    @media (min-width: @screen-md-min) {
+      white-space: nowrap;
+    }
+  }
+  // TODO: Remove this in issue 15718 -- START
+}
+// TODO: Remove this in issue 15718 -- END
 
 .category-perex:first-child {
   margin-top: floor(@line-height-computed / 2);

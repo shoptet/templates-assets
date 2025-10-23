@@ -336,6 +336,28 @@ ul {
   }
 }
 
+// TODO: Remove this in issue 15718 -- START
+:where(body.ums_a11y_category_page--on) {
+  .listSorting__control {
+    padding: 7px 16px;
+
+    line-height: 1.556;
+    text-align: left;
+
+    border: 1px solid transparent;
+    border-radius: 0;
+
+    transition: background-color 0.25s ease-out;
+
+    @media (min-width: @screen-md-min) {
+      padding: 15px 23px;
+      white-space: nowrap;
+    }
+  }
+  // TODO: Remove this in issue 15718 -- START
+}
+// TODO: Remove this in issue 15718 -- END
+
 #productVideos {
   @media (max-width: @screen-md-max) {
     iframe {

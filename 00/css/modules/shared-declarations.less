@@ -264,7 +264,19 @@ iframe[name="google_conversion_frame"] {
         &:extend(.shp-icon);
         vertical-align: initial;
         font-size: @chevron-font-size;
-        margin-left: .5ex;
+        // TODO: Remove this in issue 15718 -- START
+        :where(body.ums_a11y_category_page--off) & {
+            margin-left: .5ex;
+        }
+        // TODO: Remove this in issue 15718 -- END
+
+        // TODO: Remove this in issue 15718 -- START
+        :where(body.ums_a11y_category_page--on) & {
+        // TODO: Remove this in issue 15718 -- END
+            margin-left: .5em;
+        // TODO: Remove this in issue 15718 -- START
+        }
+        // TODO: Remove this in issue 15718 -- END
     }
     &.chevron-down-after {
         &::after {

@@ -1,21 +1,85 @@
-.category-header {
-  padding-bottom: @line-height-computed;
-  margin-bottom: @line-height-computed;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  label {
-    display: block;
-  }
-  @media (max-width: @screen-xs-max) {
-    display: none;
-    .filters-visible & {
+// TODO: Remove this entire file in issue 15718
+:where(body.ums_a11y_category_page--off) {
+  .category-header {
+    padding-bottom: @line-height-computed;
+    margin-bottom: @line-height-computed;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    label {
       display: block;
     }
+    @media (max-width: @screen-xs-max) {
+      display: none;
+      .filters-visible & {
+        display: block;
+      }
+    }
+    @media (min-width: @screen-sm-min) {
+      label {
+        display: inline-block;
+        padding-right: 1ex;
+      }
+    }
   }
-  @media (min-width: @screen-sm-min) {
-    label {
-      display: inline-block;
-      padding-right: 1ex;
+}
+
+:where(body.ums_a11y_category_page--on) {
+  .category-header {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: round(@grid-gutter-width / 2);
+    align-items: center;
+
+    margin-bottom: @line-height-computed;
+  }
+
+  .listSorting__controls {
+    display: flex;
+    flex-wrap: wrap;
+
+    margin-block: 0;
+    padding-left: 0;
+
+    list-style: none;
+  }
+
+  .listSorting__control {
+    display: block;
+
+    padding: round(@line-height-computed / 2) round(@grid-gutter-width / 4);
+
+    font-size: @font-size-base;
+
+    appearance: none;
+    background-color: transparent;
+
+    &:focus-visible {
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (min-width: @screen-sm-min) {
+      padding-inline: round(@grid-gutter-width / 2);
+    }
+  }
+
+  .listSorting__control--current {
+    pointer-events: none;
+  }
+
+  .listItemsTotal {
+    display: none;
+
+    @media (min-width: @screen-sm-min) {
+      display: block;
+      flex: 1 0 auto;
+
+      padding-right: round(@grid-gutter-width / 2);
+      padding-block: round(@line-height-computed / 2);
+
+      font-size: @font-size-smaller;
+      line-height: 1.5;
+      text-align: right;
     }
   }
 }

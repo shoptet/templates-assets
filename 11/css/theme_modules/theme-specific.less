@@ -336,15 +336,16 @@ ol.cart-header,
 
 .category-header {
   background-color: @sidebar-bg;
-  input[type='radio'] {
-    + label {
-      &:hover {
-        color: @color-primary;
-        background-color: @content-box-bg;
+  // TODO: Remove this in issue 15718 -- START
+  :where(body.ums_a11y_category_page--off) & {
+    input[type='radio'] {
+      + label {
+        &:hover {
+          color: @color-primary;
+          background-color: @content-box-bg;
+        }
       }
-    }
-    // TODO: Remove this in issue 15718 -- START
-    :where(body.ums_a11y_category_page--off) & {
+
       &:checked {
         + label {
           color: @color-primary;
@@ -352,17 +353,24 @@ ol.cart-header,
         }
       }
     }
-    :where(body.ums_a11y_category_page--on) & {
-      // TODO: Remove this in issue 15718 -- END
-      &.active + label {
-        color: @color-primary;
-        background-color: @content-box-bg;
-      }
-      // TODO: Remove this in issue 15718 -- START
-    }
-    // TODO: Remove this in issue 15718 -- END
   }
 }
+
+:where(body.ums_a11y_category_page--on) {
+  // TODO: Remove this in issue 15718 -- END
+  .listSorting__control {
+    background-color: transparent;
+  }
+
+  .listSorting__control--current,
+  .listSorting__control:hover,
+  .listSorting__control:focus-visible {
+    color: @color-primary;
+    background-color: @content-box-bg;
+  }
+  // TODO: Remove this in issue 15718 -- START
+}
+// TODO: Remove this in issue 15718 -- END
 
 .p-detail-info {
   color: @text-muted-color;

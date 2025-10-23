@@ -700,20 +700,22 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Show/hide more in top products
-  $('html').on('click', '.products-top .button-wrapper .toggle-top-products', function (e) {
-    e.preventDefault();
-    var $this = $(this);
-    if ($this.parents().siblings('.inactive').length) {
-      $this.parents().siblings('.inactive').addClass('revealed').removeClass('inactive');
-    } else {
-      $this.parents().siblings('.revealed').addClass('inactive').removeClass('revealed');
-    }
-    var text = $this.text();
-    var hideText = text;
-    var showText = $this.attr('data-text');
-    toggleText($this, text, showText, hideText);
-  });
+  if (!shoptet.config.ums_a11y_category_page) {
+    // Show/hide more in top products
+    $('html').on('click', '.products-top .button-wrapper .toggle-top-products', function (e) {
+      e.preventDefault();
+      var $this = $(this);
+      if ($this.parents().siblings('.inactive').length) {
+        $this.parents().siblings('.inactive').addClass('revealed').removeClass('inactive');
+      } else {
+        $this.parents().siblings('.revealed').addClass('inactive').removeClass('revealed');
+      }
+      var text = $this.text();
+      var hideText = text;
+      var showText = $this.attr('data-text');
+      toggleText($this, text, showText, hideText);
+    });
+  }
 
   $('html').on('click', '.cancel-action', function (e) {
     e.preventDefault();

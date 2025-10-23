@@ -286,72 +286,41 @@ article header h1,
   text-align: center;
 }
 
-.products-top-header {
-  padding-top: round(@line-height-computed * 2);
-  border-top-width: 1px;
-  border-top-style: solid;
-}
-
-.products-top {
-  text-align: left;
-  justify-content: center;
-  .name {
-    font-weight: @font-weight-h1;
-    font-size: @font-size-larger;
-  }
-  > div.product {
-    .p {
-      align-items: flex-start;
-    }
-  }
-  .product.revealed + .button-wrapper {
-    .chevron-down-after {
-      &::after {
-        content: @icon-chevron-up-code;
+// TODO: Remove this in issue 15718 -- START
+:where(body.ums_a11y_category_page--off) {
+  .products-top {
+    .product.revealed + .button-wrapper {
+      .chevron-down-after {
+        &::after {
+          content: @icon-chevron-up-code;
+        }
       }
     }
-  }
-  .button-wrapper {
-    padding-bottom: round(@line-height-computed / 2);
-  }
-}
 
-.category-header {
-  border-radius: @border-radius-base;
-  padding-top: @basic-spacing;
-  // TODO: Remove this in issue 15718 -- START
-  :where(body.ums_a11y_category_page--off) & {
+    .button-wrapper {
+      padding-bottom: round(@line-height-computed / 2);
+    }
+  }
+
+  .category-header {
+    border-radius: @border-radius-base;
+    padding-top: @basic-spacing;
     label {
       border-top-left-radius: @border-radius-base;
       border-top-right-radius: @border-radius-base;
     }
-  }
-  // TODO: Remove this in issue 15718 -- END
-  input[type='radio'] {
-    + label {
+    input[type='radio'] + label {
       padding: @double-spacing @penta-spacing;
       font-size: @font-size-larger;
       line-height: 24px;
       margin-right: @half-basic-spacing;
-      border-top-left-radius: @border-radius-base;
-      border-top-right-radius: @border-radius-base;
     }
-    // TODO: Remove this in issue 15718 -- START
-    :where(body.ums_a11y_category_page--off) & {
-      &:checked + label {
-        font-weight: @font-weight-h1;
-      }
+    input[type='radio']&:checked + label {
+      font-weight: @font-weight-h1;
     }
-    :where(body.ums_a11y_category_page--on) & {
-      // TODO: Remove this in issue 15718 -- END
-      &.active + label {
-        font-weight: @font-weight-h1;
-      }
-      // TODO: Remove this in issue 15718 -- START
-    }
-    // TODO: Remove this in issue 15718 -- END
   }
 }
+// TODO: Remove this in issue 15718 -- END
 
 .widget-parameter-wrapper {
   .widget-parameter-value {
