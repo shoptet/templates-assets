@@ -22,7 +22,7 @@
         if (typeof data === "object") {
             try {
                 var params = [];
-                for (key in data) {
+                for (const key in data) {
                     params.push(key + '=' + data[key]);
                 }
                 return params.join('&');

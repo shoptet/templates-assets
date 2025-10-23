@@ -600,7 +600,7 @@ const isHTMLInputElement = item => item instanceof HTMLInputElement;
         if (!$fields) {
             return false;
         }
-        for (key in $fields) {
+        for (const key in $fields) {
             if ($fields.hasOwnProperty(key)) {
                 if (document.getElementById(key)) {
                     var field = $('#'+key);
