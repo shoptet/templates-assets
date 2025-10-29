@@ -62,12 +62,25 @@
             if (response.getFromPayload('isValidForRegion')) {
                 el.value = response.getFromPayload('nationalNumber');
                 shoptet.validator.removeErrorMessage(el, shoptet.validatorPhone.messageType);
+                shoptet.validator.removeErrorMessage(el, shoptet.validatorPhone.messageTypeSuggestedRegion);
                 shoptet.validator.removeErrorMessage(el, shoptet.validatorRequired.messageType);
             } else {
-                shoptet.validator.addErrorMessage(
-                    el,
-                    shoptet.validatorPhone.messageType
-                );
+                var suggestedRegions = response.getFromPayload('suggestedRegions');
+                var messageType = shoptet.validatorPhone.messageType;
+
+                if (suggestedRegions && suggestedRegions.length > 0) {
+                    messageType = shoptet.validatorPhone.messageTypeSuggestedRegion;
+                    var regionsList = suggestedRegions.join(', ');
+                    if (!shoptet.validatorPhone.messageTemplate) {
+                        shoptet.validatorPhone.messageTemplate = shoptet.messages[messageType];
+                    }
+                    shoptet.messages[messageType] = shoptet.validatorPhone.messageTemplate.replace('%1', regionsList);
+                    shoptet.validator.addErrorMessage(el, messageType);
+                    shoptet.validator.removeErrorMessage(el, shoptet.validatorPhone.messageType);
+                } else {
+                    shoptet.validator.addErrorMessage(el, messageType);
+                    shoptet.validator.removeErrorMessage(el, shoptet.validatorPhone.messageTypeSuggestedRegion);
+                }
                 shoptet.scripts.signalCustomEvent('ShoptetValidationError', el);
             }
             el.classList.remove('js-validated-field');
@@ -112,6 +125,7 @@
     });
     shoptet.validatorPhone.validateUrl = '/action/ShoptetValidatePhone/index/';
     shoptet.validatorPhone.messageType = 'validatorInvalidPhoneNumber';
+    shoptet.validatorPhone.messageTypeSuggestedRegion = 'validatorInvalidPhoneNumberSuggestedRegion';
     shoptet.validatorPhone.validators = {
         phoneInputs: {
             elements: document.getElementsByClassName('js-validate-phone'),
