@@ -1,5 +1,5 @@
 import { ensure } from '../../../shared/js/typeAssertions';
-const isHTMLInputElement = item => item instanceof HTMLInputElement; 
+const isHTMLInputElement = item => item instanceof HTMLInputElement;
 
 (function(shoptet) {
 
@@ -1243,7 +1243,7 @@ const isHTMLInputElement = item => item instanceof HTMLInputElement;
         var twistoPayload = twistoData.twistoPayload
 
         function getValue(name) {
-            obj = $('#'+name);
+            const obj = $('#'+name);
             if (obj.length > 0) {
                 return obj.val();
             } else {
