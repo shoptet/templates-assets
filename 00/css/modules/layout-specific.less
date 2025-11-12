@@ -463,18 +463,31 @@ a.btn {
   }
 }
 
-@container (width > 32em) {
-  .payment-info {
-    flex-basis: calc(100% - 210px);
+.radio-wrapper input[type='radio'] + label {
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.radio-wrapper .payment-info {
+  max-width: 100%;
+}
+
+.radio-wrapper .payment-shipping-price {
+  flex-basis: auto;
+}
+
+@container (width > 17em) {
+  .radio-wrapper input[type='radio'] + label {
+    flex-direction: row;
+    justify-content: space-between;
   }
 
-  .payment-shipping-price {
-    flex-basis: 110px;
+  .radio-wrapper .payment-info {
+    max-width: calc(100% - @payment-info-narrow-px);
   }
 
-  .radio-wrapper:not(:has(.payment-logo)) .payment-info,
-  .shipping-options-popup .shipping-row:not(:has(.payment-logo)) .payment-info {
-    max-width: calc(100% - 120px);
+  .radio-wrapper .payment-shipping-price {
+    flex-basis: @payment-shipping-price-width;
   }
 }
 

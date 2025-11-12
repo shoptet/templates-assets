@@ -3,6 +3,7 @@
 @radio-after-px: 10px - (@checkbox-outer-width / 2) + round((@checkbox-outer-width - @checkbox-inner-width) / 2);
 
 .radio-wrapper {
+    container-type: inline-size;
     padding-right: round(@grid-gutter-width / 4);
     padding-left: round(@grid-gutter-width / 4);
     border-bottom-style: solid;
@@ -13,7 +14,7 @@
     }
 
     input[type="radio"] + label {
-        container-type: inline-size;
+
         display: flex;
         flex-wrap: wrap;
         gap: 5px 10px;
@@ -43,8 +44,8 @@
     }
 }
 
-@payment-info-narrow-px: 10px + @payment-shipping-price-width;
-@payment-info-wide-px: 80px + 2 * 10px + @payment-shipping-price-width;
+@payment-info-narrow-px: ~'10px - ' @payment-shipping-price-width;
+@payment-info-wide-px: ~'100px - ' @payment-shipping-price-width;
 
 .payment-info {
     flex: 1 1 auto;
@@ -61,7 +62,7 @@
     }
 }
 
-@container (width > 24em) {
+@container (width > 27em) {
     .payment-info {
         flex-basis: calc(100% - @payment-info-wide-px);
     }
@@ -78,7 +79,7 @@
     }
 }
 
-@container (width > 24em) {
+@container (width > 27em) {
     .payment-logo {
         flex-basis: 80px;
         order: unset;
