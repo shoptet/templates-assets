@@ -719,7 +719,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   $('html').on('click', '.cancel-action', function (e) {
     e.preventDefault();
-    id = $(this).attr('data-id');
+    const id = $(this).attr('data-id');
     if (id === '') {
       cancelAction();
     } else {

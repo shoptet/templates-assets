@@ -5,7 +5,7 @@
     $html.on('click', '.js-discussion-container .add-comment', function() {
       $('.js-discussion-container .add-comment').show();
       $(this).hide();
-      $discussionForm = $('.discussion-form');
+      const $discussionForm = $('.discussion-form');
       $discussionForm.addClass('visible-permanent');
       moveElementAfterSelector($('.discussion-form'), $(this));
 

@@ -70,11 +70,7 @@
 
   function getExistingOptions(el) {
     var existingOptions = [];
-    if (el.tagName === 'SELECT') {
-      options = el.options;
-    } else {
-      options = el.querySelectorAll('.advanced-parameter');
-    }
+    const options = el.tagName === 'SELECT' ? el.options : el.querySelectorAll('.advanced-parameter');
     for (var i = 0; i < options.length; i++) {
       var option = options[i];
       if (!option.getAttribute('data-choose')) {
@@ -248,7 +244,7 @@
       }
     });
 
-    resetLink = document.getElementById('jsSplitVariantsReset');
+    const resetLink = document.getElementById('jsSplitVariantsReset');
     if (resetLink) {
       resetLink.addEventListener('click', function (e) {
         e.preventDefault();
