@@ -47,8 +47,6 @@ class Slider {
 
     this.resolveSlidesNumber();
 
-    this.prevPerPage = this.perPage;
-
     const el =
       typeof this.config.selector === 'string' ? document.querySelector(this.config.selector) : this.config.selector;
     this.element = ensure(el, isHTMLElement);
@@ -646,12 +644,6 @@ class Slider {
    */
   resizeHandler() {
     this.resolveSlidesNumber();
-
-    if (this.prevPerPage === this.perPage) {
-      return;
-    }
-
-    this.prevPerPage = this.perPage;
 
     if (this.currentSlide + this.perPage > this.innerElements.length) {
       this.currentSlide = this.innerElements.length <= this.perPage ? 0 : this.innerElements.length - this.perPage;

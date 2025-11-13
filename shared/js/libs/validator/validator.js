@@ -21,7 +21,7 @@
                             currentValidator['elements'][innerKey],
                             event
                         );
-                        if (currentValidator['fireEvent'] && currentValidator['elements'][innerKey].value.length > 0) {
+                        if (currentValidator['fireEvent']) {
                             if (!(currentValidator['fireOneEvent'] && index > 0)) {
                                 if (shoptet.scripts.availableCustomEvents.indexOf(event) !== -1) {
                                     shoptet.scripts.signalCustomEvent(event, currentValidator['elements'][innerKey]);
