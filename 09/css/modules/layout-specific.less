@@ -558,9 +558,20 @@ a.btn {
   }
   // TODO: Remove this in issue 15718 -- END
 
-  .flag-wrap .flag {
-    font-size: 12px;
+  // TODO: Remove this in issue -- 26631 -- START
+  :where(body.ums_flags_display_unification--on) {
+    // TODO: Remove this in issue -- 26631 -- END
+    .flags-default .flag {
+      font-size: 12px;
+    }
+    // TODO: Remove this in issue -- 26631 -- START
   }
+  :where(body.ums_flags_display_unification--off) {
+    .flag-wrap .flag {
+      font-size: 12px;
+    }
+  }
+  // TODO: Remove this in issue -- 26631 -- END
   .filters {
     margin-top: 30px;
   }
