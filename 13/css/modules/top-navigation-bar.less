@@ -199,6 +199,9 @@
     display: none;
     align-items: center;
     padding: @top-navigation-bar_icon-padding round(@grid-gutter-width / 2);
+    &:lang(ro) {
+        padding-right: 0;
+    }
     &::after {
         &:extend(.shp-icon);
         content: @icon-chevron-down-code;
