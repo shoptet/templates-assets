@@ -4,12 +4,19 @@
 }
 
 .rate-wrapper.unveil-wrapper {
-    margin-bottom: @grid-gutter-width;
+    :where(.ums_discussion_rating_forms--on) & { // TODO: Remove this wrapper in issue #20873
+        container-type: inline-size;
+        container-name: rateWrapper;
+    }
     .tab-content & {
-        margin-bottom: round(@line-height-computed);
+        :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this in issue #20873
+            margin-bottom: round(@line-height-computed);
+        }
     }
     .rate-wrap {
-        display: flex;
+        :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this in issue #20873
+            display: flex;
+        }
     }
     .rate-star-wrap {
         display: flex;
@@ -17,20 +24,32 @@
         flex-grow: 1;
         justify-content: space-around;
         height: 100%;
-        margin-top: round(@grid-gutter-width / 4);
+        :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this in issue #20873
+            margin-top: round(@grid-gutter-width / 4);
+        }
+        :where(.ums_discussion_rating_forms--on) & { // TODO: Remove this wrapper in issue #20873
+            margin-left: round(@grid-gutter-width / 2);
+        }
         .stars {
             display: block;
-            margin-bottom: round(@line-height-computed / 4);
+            :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this in issue #20873
+                margin-bottom: round(@line-height-computed / 4);
+            }
+            :where(.ums_discussion_rating_forms--on) & { // TODO: Remove this wrapper in issue #20873
+                margin-bottom: round(@line-height-computed / 8);
+            }
             width: 100%;
         }
         .stars-label {
             line-height: inherit;
         }
-        @media (min-width: @screen-xs-min) {
-            margin-left: round(@grid-gutter-width / 2);
-            margin-top: 0;
-            .stars {
-                margin-bottom: round(@line-height-computed / 8);
+        :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this in issue #20873
+            @media (min-width: @screen-xs-min) {
+                margin-left: round(@grid-gutter-width / 2);
+                margin-top: 0;
+                .stars {
+                    margin-bottom: round(@line-height-computed / 8);
+                }
             }
         }
     }
@@ -82,31 +101,87 @@
         }
     }
     .rate-average-wrap {
-        display: flex;
-        flex-direction: column;
         line-height: 1;
+        :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this in issue #20873
+            display: flex;
+            flex-direction: column;
+        }
+        :where(.ums_discussion_rating_forms--on) & { // TODO: Remove this wrapper in issue #20873
+            margin-bottom: round(@grid-gutter-width / 2);
+        }
+    }
+    &.rate-wrapper-in-description .rate-average-wrap {
+        :where(.ums_discussion_rating_forms--on) & { // TODO: Remove this wrapper in issue #20873
+            margin-bottom: 0;
+        }
     }
     .rate-average-inner {
         display: flex;
-        flex-direction: column;
-        & + .add-comment {
-            margin-top: round(@line-height-computed * 1.5);
+        :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this in issue #20873
+            flex-direction: column;
         }
-        @media (min-width: @screen-xs-min) {
-           flex-direction: row;
-           align-items: center;
-           & + .add-comment {
-               margin-top: 0;
-           }
+        & + .add-comment {
+            :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this in issue #20873
+                margin-top: round(@line-height-computed * 1.5);
+            }
+        }
+        :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this in issue #20873
+            @media (min-width: @screen-xs-min) {
+                flex-direction: row;
+                align-items: center;
+                & + .add-comment {
+                    margin-top: 0;
+                }
+            }
+        }
+        :where(.ums_discussion_rating_forms--on) & { // TODO: Remove this wrapper in issue #20873
+            .stars {
+            display: flex;
+            height: 24px;
+            margin: 0 0 10px;
+            }
+            .star {
+            .square(24px);
+            line-height: 1;
+            margin: 0;
+                &::before {
+                    font-size: 16px;
+                    line-height: 24px;
+                    text-align: center;
+                }
+            }
         }
     }
     .rate-average {
         font-size: 350%;
     }
     .add-comment {
-        display: flex;
-        align-items: flex-end;
-        flex-grow: 1;
+        :where(.ums_discussion_rating_forms--off)  & { // TODO: Remove this in issue #20873
+            display: flex;
+            align-items: flex-end;
+            flex-grow: 1;
+        }
+        :where(.ums_discussion_rating_forms--on) & { // TODO: Remove this wrapper in issue #20873
+            margin-top: round(@line-height-computed * 1.5);
+        }
+    }
+}
+
+@container rateWrapper (width > 400px) {
+    :where(.ums_discussion_rating_forms--on) { // TODO: Remove this wrapper in issue #20873
+        .rate-wrapper.unveil-wrapper {
+            .rate-wrap {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0 round(@grid-gutter-width / 2);
+            }
+            .rate-average-wrap {
+                margin-bottom: 0;
+            }
+            .add-comment {
+                margin-top: 0;
+            }
+        }
     }
 }
 
@@ -122,26 +197,28 @@
     }
 }
 
-.add-comment {
-    font-weight: 700;
-    cursor: pointer;
-    .rating-icon {
-        display: flex;
-        align-items: baseline;
+:where(.ums_discussion_rating_forms--off)  & { // TODO: Remove this in issue #20873
+    .add-comment {
+        font-weight: 700;
+        cursor: pointer;
+        .rating-icon {
+            display: flex;
+            align-items: baseline;
 
-        &::before {
-            &:extend(.shp-icon);
-            content: @icon-rating-code;
-            margin-right: round(@grid-gutter-width / 6);
+            &::before {
+                &:extend(.shp-icon);
+                content: @icon-rating-code;
+                margin-right: round(@grid-gutter-width / 6);
+            }
         }
-    }
-    .comment-icon::before {
-        &:extend(.shp-icon);
-        content: @icon-comment-code;
-        margin-right: round(@grid-gutter-width / 4);
-    }
-    &.btn {
-        font-weight: 400;
+        .comment-icon::before {
+            &:extend(.shp-icon);
+            content: @icon-comment-code;
+            margin-right: round(@grid-gutter-width / 4);
+        }
+        &.btn {
+            font-weight: 400;
+        }
     }
 }
 

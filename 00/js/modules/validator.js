@@ -26,7 +26,10 @@ var validators = {
     required: function (elementValue) {
         var isValid = true;
         if ($(this).attr('required') || $(this).hasClass('required')) {
-            if ($(this).attr('type') == 'checkbox') {
+            if ($(this).attr('name') === 'score') {
+                // Has separate validation below
+                isValid = true
+            } else if ($(this).attr('type') == 'checkbox') {
                 if (!$(this).is(':checked')) {
                     isValid = false;
                     var specialMessage = $(this).attr('data-special-message');
@@ -43,7 +46,12 @@ var validators = {
                 }
             } else if (!elementValue.trim()) {
                 isValid = false;
-                shoptet.validator.message = shoptet.messages['validatorRequired'];
+                var newMessage = shoptet.messages.validator[`${$(this).attr('id')}Required`]
+                if ($(this).attr('required') && !!newMessage) {
+                    shoptet.validator.message = newMessage
+                } else {
+                    shoptet.validator.message = shoptet.messages['validatorRequired'];
+                }
             }
         }
         return isValid;
@@ -106,6 +114,20 @@ var validators = {
         if ($(this).attr('id') == 'billHouseNumber') {
             isValid = /^[0-9][0-9A-Za-z\s\/\-]{0,14}$/.test(elementValue.trim());
             shoptet.validator.message = shoptet.messages['validatorHouseNumber'];
+        }
+        return isValid;
+    },
+    score: function (elementValue) {
+      var isValid = true;  
+      // TODO: Remove the ums check in issue #20873
+        if (shoptet.config.discussion_rating_forms && $(this).attr('name') === 'score') {
+            isValid = false
+            shoptet.validator.message = shoptet.messages.validator.scoreRequired;
+            $(this).closest('.rating-stars-group').find('.msg-error').remove()
+            $(this).closest('.rating-stars-group').find('input[name="score"]').removeClass('error-field');
+            if ($(this).closest('form').has('input[name="score"]:checked').length) {
+                isValid = true
+            }
         }
         return isValid;
     }

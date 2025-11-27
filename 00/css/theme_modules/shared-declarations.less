@@ -149,6 +149,8 @@ input[type='radio'] {
 // [1] Safari does not apply :focus-visible when navigating radio buttons with arrow keys.
 // We add the .focus-visible class manually as a Safari-specific patch to ensure consistent styling.
 :focus-visible,
+label:has(input[type="radio"]:focus-visible),
+label:has(input[type="radio"].focus-visible), // [1]
 input[type="radio"]:focus-visible + label,
 input[type="radio"].focus-visible + label, // [1]
 input[type="checkbox"]:focus-visible + label,

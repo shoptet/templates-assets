@@ -230,6 +230,13 @@ input {
     padding-right: 0.5ch;
 }
 
+.form-legend {
+  text-align: right;
+  #content & {
+    margin-bottom: 0;
+  }
+}
+
 .form-control,
 input, select, textarea {
     outline: 0;
@@ -253,7 +260,8 @@ input, select, textarea {
     }
 }
 
-.discussionContainer form {
+.discussionContainer .discussion-form form,
+.rate-wrapper form {
     :where(.ums_discussion_rating_forms--on) & { // TODO: Remove this wrapper in issue #20873
         max-width: 440px;
     }

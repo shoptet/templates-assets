@@ -1722,27 +1722,35 @@ table.shipping-options-layout {
 
 // rating tab
 
-.add-comment .rating-icon {
-  text-decoration: underline;
-  &:before {
-    content: '';
-    margin: 0;
+:where(.ums_discussion_rating_forms--off) & {
+  // TODO: Remove this in issue #20873
+  .add-comment .rating-icon {
+    text-decoration: underline;
+    &:before {
+      content: '';
+      margin: 0;
+    }
   }
 }
-
-.rate-average-wrap {
-  .stars {
-    height: 30px;
+.rate-wrapper.unveil-wrapper.rate-wrapper-in-description {
+  :where(.ums_discussion_rating_forms--on) & {
+    // TODO: Remove this wrapper in issue #20873
+    margin-bottom: @line-height-computed * 2;
   }
-  .stars a,
-  .stars span {
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    margin-right: 5px;
-    &:before {
+  .rate-average-wrap {
+    .stars {
+      height: 30px;
+    }
+    .stars a,
+    .stars span {
+      width: 30px;
+      height: 30px;
       line-height: 30px;
-      font-size: 30px;
+      margin-right: 5px;
+      &:before {
+        line-height: 30px;
+        font-size: 30px;
+      }
     }
   }
 }
@@ -1751,34 +1759,40 @@ table.shipping-options-layout {
   .rate-list {
     margin-bottom: 5px;
   }
-  .rate-average-inner {
-    @media (max-width: @screen-sm-max) and (min-width: @screen-xs-min) {
-      margin-bottom: 33px;
-    }
-    .multiple-columns-body & {
-      @media (max-width: @screen-sm-max) and (min-width: @screen-sm-min) {
-        flex-direction: column;
-        align-items: flex-start;
+  :where(.ums_discussion_rating_forms--off) & {
+    // TODO: Remove this in issue #20873
+    .rate-average-inner {
+      @media (max-width: @screen-sm-max) and (min-width: @screen-xs-min) {
+        margin-bottom: 33px;
+      }
+      .multiple-columns-body & {
+        @media (max-width: @screen-sm-max) and (min-width: @screen-sm-min) {
+          flex-direction: column;
+          align-items: flex-start;
+        }
       }
     }
-  }
-  .rate-star-wrap {
-    .multiple-columns-body & {
-      @media (max-width: @screen-sm-max) and (min-width: @screen-sm-min) {
-        margin-left: 0;
-        margin-top: 10px;
+    .rate-star-wrap {
+      .multiple-columns-body & {
+        @media (max-width: @screen-sm-max) and (min-width: @screen-sm-min) {
+          margin-left: 0;
+          margin-top: 10px;
+        }
       }
     }
   }
 }
 
 .rate-wrap {
-  margin-bottom: @line-height-computed * 2;
   @media (max-width: @navigation-breakpoint-max) {
-    flex-flow: column;
+    :where(.ums_discussion_rating_forms--off) & {
+      // TODO: Remove this in issue #20873
+      margin-bottom: @line-height-computed * 2;
+      flex-flow: column;
 
-    .rate-average-wrap {
-      margin-bottom: @line-height-computed;
+      .rate-average-wrap {
+        margin-bottom: @line-height-computed;
+      }
     }
   }
 }

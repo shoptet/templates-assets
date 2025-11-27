@@ -1,4 +1,7 @@
-export const isHTMLElement = el => el instanceof HTMLElement;
+export const isHTMLElement = value => value instanceof HTMLElement;
+export const isHTMLFormElement = value => value instanceof HTMLFormElement;
+export const isHTMLInputElement = value => value instanceof HTMLInputElement;
+export const isHTMLLabelElement = value => value instanceof HTMLLabelElement;
 
 /**
  * Function to ensure that a value satisfies a condition (predicate).

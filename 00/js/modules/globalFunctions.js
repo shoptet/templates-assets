@@ -438,6 +438,7 @@ window.unveilElementByHash = elementId => {
   });
 };
 
+// TODO: Remove this in issue #20873 -- START
 /**
  * Convert location.search string to JS object
  *
@@ -456,6 +457,7 @@ window.locationSearchToObject = () => {
 
   return object;
 };
+// TODO: Remove this in issue #20873 -- END
 
 /**
  * Get offset of an element relative to its parent
@@ -944,8 +946,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // TODO: Remove this in issue #20873 -- START
   var search = window.location.search;
-  if (search.length) {
+  if (search.length && !shoptet.config.discussion_rating_forms) {
     var searchValues = locationSearchToObject();
     if (searchValues.email) {
       $('input[name="email"]').val(searchValues.email);
@@ -974,6 +977,7 @@ document.addEventListener('DOMContentLoaded', function () {
       $('input[name="score"]').val(numberOfStars);
     }
   }
+  // TODO: Remove this in issue #20873 -- END
 
   if (!shoptet.config.ums_a11y_pagination) {
     $('html').on('click', '.js-scroll-top', function (e) {

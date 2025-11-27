@@ -173,6 +173,7 @@ h4,
 // TODO: Remove this in issue #20873 -- START
 .discussion-form,
 .discussion,
+.rate-wrapper,
 .votes-wrap,
 .add-comment {
     :where(.ums_discussion_rating_forms--off) & {
@@ -182,7 +183,6 @@ h4,
     }
 }
 // TODO: Remove this in issue #20873 -- END
-.rate-wrapper,
 .welcome div,
 .welcome h1 {
     max-width: @common_page-content-max-width;
@@ -190,9 +190,11 @@ h4,
     margin-right: auto;
 }
 
-.rate-average-wrap {
-    .add-comment {
-        margin-left: 0;
+:where(.ums_discussion_rating_forms--off)  & { // TODO: Remove this in issue #20873
+    .rate-average-wrap {
+        .add-comment {
+            margin-left: 0;
+        }
     }
 }
 

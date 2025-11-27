@@ -107,18 +107,22 @@
             shoptet.variantsCommon.handleBrowserValueRestoration();
         }
 
-        $('#ratingTab .rate-form-trigger').click(function() {
-            $('.rate-list[data-score="5"]').addClass('current')
-                .find('.star').addClass('star-on').removeClass('star-off');
+        // TODO: Remove this in issue #20873 -- START
+        if (!shoptet.config.discussion_rating_forms) {
+            $('#ratingTab .rate-form-trigger').click(function() {
+                $('.rate-list[data-score="5"]').addClass('current')
+                    .find('.star').addClass('star-on').removeClass('star-off');
 
-            $('.rate-list .star').click(function() {
-                var $a = $(this);
-                var score = $a.parents('.rate-list').data('score');
+                $('.rate-list .star').click(function() {
+                    var $a = $(this);
+                    var score = $a.parents('.rate-list').data('score');
 
-                changeStyle(score);
-                setStyle($('.star-wrap .star:nth-child(' + score + ')'));
+                    changeStyle(score);
+                    setStyle($('.star-wrap .star:nth-child(' + score + ')'));
+                });
             });
-        });
+        }
+        // TODO: Remove this in issue #20873 -- END
 
         $('.productRatingAction').on('click',function() {
             var successCallback = function(response) {
