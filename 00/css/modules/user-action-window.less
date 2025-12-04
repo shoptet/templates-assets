@@ -45,39 +45,46 @@
     }
 }
 
-.user-action-login,
-.user-action-register {
-    z-index: @z-base-minus-1;
-    position: relative;
-    height: 0;
-    margin-right: auto;
-    margin-left: auto;
-    display: none;
-}
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--off) {
+    .user-action-login,
+    .user-action-register {
+        z-index: @z-base-minus-1;
+        position: relative;
+        height: 0;
+        margin-right: auto;
+        margin-left: auto;
+        display: none;
+    }
 
-.user-action-login {
-    max-width: 680px;
-    .login-window-visible & {
+    .user-action-login {
+        max-width: 680px;
+    }
+
+    &.login-window-visible .user-action-login {
         z-index: @z-base-1;
         height: auto;
         display: block;
     }
-}
 
-.user-action-register {
-    text-align: left;
-    .box {
-        &.box-sm {
-            padding-left: 0;
-            padding-right: 0;
+    .user-action-register {
+        text-align: left;
+        .box {
+            &.box-sm {
+                padding-left: 0;
+                padding-right: 0;
+            }
         }
     }
-    .register-window-visible & {
+
+    &.register-window-visible .user-action-register {
         z-index: @z-base-1;
         height: auto;
         display: block;
     }
+
 }
+// TODO: Remove this in issue 25868 -- END
 
 .login-wrapper {
     text-align: left;
@@ -108,9 +115,10 @@
             text-align: left;
         }
     }
-    .sidebar & {
-        @media (min-width: @screen-xs-min) {
-            margin-bottom: 0;
-        }
+}
+
+.sidebar .login-wrapper {
+    @media (min-width: @screen-xs-min) {
+        margin-bottom: 0;
     }
 }

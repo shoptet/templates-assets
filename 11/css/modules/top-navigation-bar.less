@@ -146,6 +146,24 @@
     }
 }
 
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--on) {
+// TODO: Remove this in issue 25868 -- END
+  .top-nav-button-login {
+    padding: 4px 6px;
+    line-height: 1.5;
+    border: 1px solid transparent;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--color-primary);
+      outline-offset: -2px;
+    }
+  }
+// TODO: Remove this in issue 25868 -- START
+}
+// TODO: Remove this in issue 25868 -- END
+
 .responsive-tools {
     display: flex;
     flex-wrap: wrap;

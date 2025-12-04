@@ -470,58 +470,75 @@ a.link-icon {
   border-color: @qrcode-border-color;
 }
 
-.navigation-buttons {
-  a {
-    &[data-target='cart'] {
-      color: @navigation-button-cart-color;
-      background-color: @navigation-button-cart-bg;
-      &:hover {
-        color: @navigation-button-cart-color-hover;
-        background-color: @navigation-button-cart-bg-hover;
-      }
-    }
-    &[data-target='search'] {
-      color: @navigation-button-search-color;
-      background-color: @navigation-button-search-bg;
-      &:hover {
-        color: @navigation-button-search-color-hover;
-        background-color: @navigation-button-search-bg-hover;
-      }
-    }
-    &[data-target='login'] {
-      color: @navigation-button-login-color;
-      background-color: @navigation-button-login-bg;
-      &:hover {
-        color: @navigation-button-login-color-hover;
-        background-color: @navigation-button-login-bg-hover;
-      }
-    }
-    &[data-target='navigation'] {
-      color: @navigation-button-navigation-color;
-      background-color: @navigation-button-navigation-bg;
-      &:hover {
-        color: @navigation-button-navigation-color-hover;
-        background-color: @navigation-button-navigation-bg-hover;
-      }
-      .navigation-window-visible & {
-        color: @navigation-color-small;
-        background-color: @navigation-bg-small;
-        &:hover {
-          color: @navigation-color-small;
-          background-color: @navigation-bg-small;
-        }
-      }
-    }
+.navigation-buttons a[data-target='cart'] {
+  color: @navigation-button-cart-color;
+  background-color: @navigation-button-cart-bg;
+  &:hover {
+    color: @navigation-button-cart-color-hover;
+    background-color: @navigation-button-cart-bg-hover;
   }
-  > a {
-    &[data-target='cart'] {
-      i {
-        color: @cart-count-color;
-        background-color: @cart-count-bg;
-      }
+}
+
+.navigation-buttons a[data-target='search'] {
+  color: @navigation-button-search-color;
+  background-color: @navigation-button-search-bg;
+  &:hover {
+    color: @navigation-button-search-color-hover;
+    background-color: @navigation-button-search-bg-hover;
+  }
+}
+
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--off) {
+  .navigation-buttons a[data-target='login'] {
+    color: @navigation-button-login-color;
+    background-color: @navigation-button-login-bg;
+    &:hover {
+      color: @navigation-button-login-color-hover;
+      background-color: @navigation-button-login-bg-hover;
     }
   }
 }
+// TODO: Remove this in issue 25868 -- END
+
+.navigation-buttons a[data-target='navigation'] {
+  color: @navigation-button-navigation-color;
+  background-color: @navigation-button-navigation-bg;
+  &:hover {
+    color: @navigation-button-navigation-color-hover;
+    background-color: @navigation-button-navigation-bg-hover;
+  }
+}
+
+.navigation-window-visible .navigation-buttons a[data-target='navigation'] {
+  color: @navigation-color-small;
+  background-color: @navigation-bg-small;
+  &:hover {
+    color: @navigation-color-small;
+    background-color: @navigation-bg-small;
+  }
+}
+
+.navigation-buttons a[data-target='cart'] i {
+  color: @cart-count-color;
+  background-color: @cart-count-bg;
+}
+
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--on) {
+  // TODO: Remove this in issue 25868 -- END
+  .top-nav-button-login {
+    color: @navigation-button-login-color;
+    background-color: @navigation-button-login-bg;
+
+    &:hover {
+      color: @navigation-button-login-color-hover;
+      background-color: @navigation-button-login-bg-hover;
+    }
+  }
+  // TODO: Remove this in issue 25868 -- START
+}
+// TODO: Remove this in issue 25868 -- END
 
 .p-gift-name {
   a,
@@ -541,9 +558,13 @@ a.next-step-back {
   color: @text-muted-color;
 }
 
-.user-action-in .toggle-window-arr {
-  color: @link-color;
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--off) {
+  .user-action-in .toggle-window-arr {
+    color: @link-color;
+  }
 }
+// TODO: Remove this in issue 25868 -- END
 
 .next-step-back,
 a.next-step-back,

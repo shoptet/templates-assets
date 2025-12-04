@@ -147,3 +147,14 @@
     font-weight: 700;
     text-transform: none;
 }
+
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--on) {
+// TODO: Remove this in issue 25868 -- END
+.top-nav-button-account::before {
+        content: @icon-login-code;
+        &:extend(.shp-icon);
+    }
+// TODO: Remove this in issue 25868 -- START
+}
+// TODO: Remove this in issue 25868 -- END

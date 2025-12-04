@@ -24,6 +24,18 @@
     z-index: @z-pupup-minus-1;
 }
 
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--on) {
+// TODO: Remove this in issue 25868 -- END
+    .top-nav-button-login {
+        @media (max-width: @navigation-breakpoint-max) {
+            display: none;
+        }
+    }
+// TODO: Remove this in issue 25868 -- START
+}
+// TODO: Remove this in issue 25868 -- END
+
 .popup-widget {
     @media (max-width: @navigation-breakpoint-max) {
         &.cart-widget,

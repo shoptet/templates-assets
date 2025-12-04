@@ -110,25 +110,29 @@ h3,
   }
 }
 
-// Login
-.user-action-login {
-  max-width: 440px;
-  .social-login-buttons .form-group {
-    flex-basis: 100%;
-  }
-}
-
-@media (min-width: @screen-sm-min) {
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--off) {
+  // Login
   .user-action-login {
-    .login-heading {
-      margin-bottom: round(@grid-gutter-width * 1.5);
+    max-width: 440px;
+    .social-login-buttons .form-group {
+      flex-basis: 100%;
     }
-    .tab-content {
-      width: 80%;
-      margin: 0 auto;
+  }
+
+  @media (min-width: @screen-sm-min) {
+    .user-action-login {
+      .login-heading {
+        margin-bottom: round(@grid-gutter-width * 1.5);
+      }
+      .tab-content {
+        width: 80%;
+        margin: 0 auto;
+      }
     }
   }
 }
+// TODO: Remove this in issue 25868 -- END
 
 .compact-form {
   .btn-arrow-right {
@@ -409,10 +413,6 @@ ol.top-products {
 
 .toggle-window.menu-trigger {
   display: block;
-}
-
-.toggle-window-arr {
-  text-transform: uppercase;
 }
 
 .btn,

@@ -333,9 +333,11 @@ $(function () {
           const listingWrapper = $(wrapper)[0];
           if (!listingWrapper) return;
           let target =
-            shoptet.helpers.findFirstFocusable(listingWrapper) || listingWrapper.firstElementChild || listingWrapper;
+            shoptet.focusManagement.findFirstFocusable(listingWrapper) ||
+            listingWrapper.firstElementChild ||
+            listingWrapper;
           if (!(target instanceof HTMLElement)) target = listingWrapper;
-          shoptet.helpers.focusFirst(target, true, true);
+          shoptet.focusManagement.focusFirst(target, true, true);
         };
       }
       makeFilterAjaxRequest(e.target.getAttribute('href'), true, ajaxCallback, e.target, 'ShoptetPagePaginationUsed');

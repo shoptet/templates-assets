@@ -1,0 +1,93 @@
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--on) {
+  // TODO: Remove this in issue 25868 -- END
+  .top-navigation-bar {
+    display: none;
+
+    @media (min-width: @screen-sm-min) {
+      display: block;
+    }
+  }
+
+  .top-navigation-bar-right a,
+  .top-navigation-bar-right strong,
+  .top-nav-button {
+    display: block;
+    padding-block: 15px;
+    color: @accent-link-color;
+  }
+
+  .top-nav-button {
+    text-transform: uppercase;
+    appearance: none;
+    background: none;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .top-navigation-bar-right a,
+  .top-nav-button {
+    padding-inline: 10px;
+
+    &:hover,
+    &:focus-visible {
+      color: @accent-link-color;
+    }
+
+    &:focus-visible {
+      z-index: 9999;
+    }
+  }
+
+  .top-nav-button-logout {
+    background-color: @navigation-button-login-bg;
+
+    &:hover {
+      background-color: @navigation-button-login-bg-hover;
+    }
+  }
+
+  .top-nav-button-login,
+  .top-nav-button-logout {
+    &::before {
+      margin-right: 1ex;
+      font-size: 12px;
+      &:extend(.shp-icon);
+    }
+  }
+
+  .top-nav-button-logout::before {
+    content: @icon-unlock-code;
+  }
+
+  .top-nav-button-register,
+  .top-nav-button-account {
+    background-color: @accent-bg;
+
+    &:hover {
+      background-color: @accent-bg-hover;
+    }
+  }
+
+  @media (min-width: @screen-sm-min) {
+    .top-navigation-bar-right {
+      float: right;
+      display: flex;
+      .clearfixMixin();
+    }
+
+    .top-navigation-bar-right a,
+    .top-nav-button {
+      padding-inline: 15px;
+    }
+  }
+
+  @media (min-width: @screen-md-min) {
+    .top-navigation-bar-right a,
+    .top-nav-button {
+      padding-inline: 20px;
+    }
+  }
+  // TODO: Remove this in issue 25868 -- START
+}
+// TODO: Remove this in issue 25868 -- END

@@ -1,14 +1,31 @@
-.navigation-buttons {
-    @media (max-width: @navigation-breakpoint-max) {
-        .dropdown,
-        .languagesMenu {
-            display: none;
-        }
-        a[data-target="login"] {
-            display: none;
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--off) {
+    .navigation-buttons {
+        @media (max-width: @navigation-breakpoint-max) {
+            .dropdown,
+            .languagesMenu {
+                display: none;
+            }
+            a[data-target="login"] {
+                display: none;
+            }
         }
     }
 }
+// TODO: Remove this in issue 25868 -- END
+
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--on) {
+// TODO: Remove this in issue 25868 -- END
+    .navigation-buttons .dropdown,
+    .navigation-buttons .languagesMenu {
+        @media (max-width: @navigation-breakpoint-max) {
+            display: none;
+        }
+    }
+// TODO: Remove this in issue 25868 -- START
+}
+// TODO: Remove this in issue 25868 -- END
 
 .navigation-in {
     @media (max-width: @navigation-breakpoint-max) {

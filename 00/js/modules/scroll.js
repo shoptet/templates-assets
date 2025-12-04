@@ -18,12 +18,11 @@ function scrollToEl($el) {
   const rootStyle = document.documentElement.style;
   rootStyle.setProperty('--scroll-extra-offset', `${messageHeight + 10}px`);
 
-  const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const behavior = prefersReduced ? 'auto' : 'smooth';
+  const behavior = shoptet.a11y.reducedMotion ? 'auto' : 'smooth';
 
   requestAnimationFrame(() => {
     el.scrollIntoView({ behavior, block: 'start', inline: 'nearest' });
-    setTimeout(() => rootStyle.removeProperty('--scroll-extra-offset'), prefersReduced ? 0 : 700);
+    setTimeout(() => rootStyle.removeProperty('--scroll-extra-offset'), shoptet.a11y.reducedMotion ? 0 : 700);
   });
 }
 

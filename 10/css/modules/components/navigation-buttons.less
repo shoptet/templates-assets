@@ -11,37 +11,205 @@
     .transition(right @transition-duration @transition-timing);
 }
 
-.navigation-buttons {
-    position: relative;
-    float: right;
-    text-align: right;
-    > div {
-        display: inline-block;
-        padding-top: 15px;
-        padding-bottom: 13px;
-        line-height: 35px;
-        vertical-align: top;
-        > span {
-            display: none;
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--off) {
+    .navigation-buttons {
+        position: relative;
+        float: right;
+        text-align: right;
+        > div {
+            display: inline-block;
+            padding-top: 15px;
+            padding-bottom: 13px;
+            line-height: 35px;
+            vertical-align: top;
+            > span {
+                display: none;
+            }
+            &.open {
+                &::before {
+                    .dropdownArrow();
+                }
+            }
+            .dropdown-menu {
+                margin: 0;
+                border: 0;
+                border-radius: 0;
+            }
+            button {
+                border: 0;
+                line-height: @line-height-base;
+                background: none;
+                .appearance('none');
+            }
         }
-        &.open {
+        > a {
+            position: relative;
+            vertical-align: middle;
+            display: inline-block;
+            .size(32px, 55px);
+            padding-top: 10px;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 42px;
+            text-align: center;
+            text-decoration: none;
+            .transition(font-size @transition-duration / 2 @transition-timing);
             &::before {
+                &:extend(.shp-icon);
+            }
+            &[data-target="login"] {
+                &::before {
+                    content: @icon-login-code;
+                }
+            }
+            &[data-target="search"] {
+                &::before {
+                    content: @icon-search-code;
+                }
+            }
+            &[data-target="cart"] {
+                font-size: 21px;
+                &.full {
+                    cursor: pointer;
+                }
+                &::before {
+                    content: @icon-cart-code;
+                }
+            }
+            &[data-target="navigation"] {
+                &::before {
+                    content: @icon-menu-code;
+                }
+            }
+        }
+        @media (min-width: @screen-xs-min) {
+            > a {
+                width: 42px;
+            }
+        }
+        @media (min-width: @screen-sm-min) {
+            .dropdown {
+                &:hover {
+                    .dropdown-menu {
+                        display: block;
+                    }
+                }
+            }
+            > div {
+                &.dropdown:hover {
+                    &::before {
+                        .dropdownArrow();
+                    }
+                }
+            }
+        }
+    }
+
+    @media (min-width: @screen-sm-min) {
+        &.login-window-visible,
+        &.register-window-visible {
+            .navigation-buttons > a[data-target="login"] {
+                font-size: 32px;
+            }
+        }
+        &.search-window-visible .navigation-buttons > a[data-target="search"] {
+            font-size: 24px;
+
+        }
+        &.cart-window-visible .navigation-buttons > a[data-target="cart"] {
+            font-size: 32px;
+        }
+
+        &.navigation-window-visible .navigation-buttons > a[data-target="navigation"] {
+            font-size: 32px;
+        }
+    }
+
+    @media (min-width: @navigation-breakpoint) {
+        .navigation-buttons > a {
+            margin-left: 10px;
+            &[data-target="navigation"] {
+                .js-hidden-hidden();
+                margin-left: 0;
+            }
+        }
+        &.scrolled .navigation-buttons > a {
+            &[data-target="navigation"] {
+                .js-hidden-visible();
+                display: inline-block;
+                margin-left: 10px;
+            }
+        }
+        &.navigation-window-visible {
+            .navigation-buttons > a {
+                &[data-target="navigation"] {
+                    &::before {
+                        content: @icon-close-code;
+                    }
+                }
+            }
+        }
+    }
+}
+// TODO: Remove this in issue 25868 -- END
+
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--on) {
+// TODO: Remove this in issue 25868 -- END
+    .navigation-buttons {
+        position: relative;
+        float: right;
+        text-align: right;
+
+        > div {
+            display: inline-block;
+            padding-top: 15px;
+            padding-bottom: 13px;
+            line-height: 35px;
+            vertical-align: top;
+
+            > span {
+                display: none;
+            }
+
+            &.open::before {
+                .dropdownArrow();
+            }
+
+            .dropdown-menu {
+                margin: 0;
+                border: 0;
+                border-radius: 0;
+            }
+
+            button {
+                border: 0;
+                line-height: @line-height-base;
+                background: none;
+                appearance: none;
+            }
+        }
+
+        @media (min-width: @screen-sm-min) {
+            .dropdown:hover .dropdown-menu {
+                display: block;
+            }
+
+            > div.dropdown:hover::before {
                 .dropdownArrow();
             }
         }
-        .dropdown-menu {
-            margin: 0;
-            border: 0;
-            border-radius: 0;
-        }
-        button {
-            border: 0;
-            line-height: @line-height-base;
-            background: none;
-            .appearance('none');
-        }
     }
-    > a {
+
+    .top-nav-button {
+        padding: 0;
+        appearance: none;
+        border: 0;
+    }
+
+    .navigation-buttons > a,
+    .top-nav-button {
         position: relative;
         vertical-align: middle;
         display: inline-block;
@@ -53,101 +221,97 @@
         text-align: center;
         text-decoration: none;
         .transition(font-size @transition-duration / 2 @transition-timing);
+
         &::before {
             &:extend(.shp-icon);
         }
-        &[data-target="login"] {
-            &::before {
-                content: @icon-login-code;
-            }
-        }
-        &[data-target="search"] {
-            &::before {
-                content: @icon-search-code;
-            }
-        }
-        &[data-target="cart"] {
-            font-size: 21px;
-            &.full {
-                cursor: pointer;
-            }
-            &::before {
-                content: @icon-cart-code;
-            }
-        }
-        &[data-target="navigation"] {
-            &::before {
-                content: @icon-menu-code;
-            }
-        }
-    }
-    @media (min-width: @screen-xs-min) {
-        > a {
+
+        @media (min-width: @screen-xs-min) {
             width: 42px;
         }
-    }
-    @media (min-width: @screen-sm-min) {
-        .dropdown {
-            &:hover {
-                .dropdown-menu {
-                    display: block;
-                }
-            }
-        }
-        > div {
-            &.dropdown:hover {
-                &::before {
-                    .dropdownArrow();
-                }
-            }
-        }
-        > a {
-            &[data-target="login"] {
-                .login-window-visible &,
-                .register-window-visible & {
-                    font-size: 32px;
-                }
-            }
-            &[data-target="search"] {
-                .search-window-visible & {
-                    font-size: 24px;
-                }
-            }
-            &[data-target="cart"] {
-                .cart-window-visible & {
-                    font-size: 32px;
-                }
-            }
-            &[data-target="navigation"] {
-                .navigation-window-visible & {
-                    font-size: 32px;
-                }
-            }
-        }
-    }
-    @media (min-width: @navigation-breakpoint) {
-        > a {
+
+        @media (min-width: @navigation-breakpoint) {
             margin-left: 10px;
-            &[data-target="navigation"] {
-                .js-hidden-hidden();
-                margin-left: 0;
-            }
         }
-        .scrolled & > a {
-            &[data-target="navigation"] {
+    }
+
+    .top-nav-button-login {
+        line-height: 0;
+        &::before {
+            content: @icon-login-code;
+        }
+    }
+
+    &.login-window-visible .top-nav-button-login {
+        @media (min-width: @screen-sm-min) {
+            font-size: 32px;
+        }
+    }
+
+    .navigation-buttons [data-target="search"] {
+        &::before {
+            content: @icon-search-code;
+        }
+    }
+
+    &.search-window-visible .navigation-buttons [data-target="search"] {
+        @media (min-width: @screen-sm-min) {
+            font-size: 24px;
+        }
+    }
+
+
+    .navigation-buttons [data-target="cart"] {
+        font-size: 21px;
+
+        &::before {
+            content: @icon-cart-code;
+        }
+
+        &.full {
+            cursor: pointer;
+        }
+    }
+
+    &.cart-window-visible .navigation-buttons [data-target="cart"] {
+        @media (min-width: @screen-sm-min) {
+            font-size: 32px;
+        }
+    }
+
+    .navigation-buttons [data-target="navigation"] {
+        &::before {
+            content: @icon-menu-code;
+        }
+
+        @media (min-width: @navigation-breakpoint) {
+            .js-hidden-hidden();
+            margin-left: 0;
+        }
+    }
+
+    &.navigation-window-visible .navigation-buttons [data-target="navigation"] {
+        &::before {
+            content: @icon-close-code;
+        }
+
+        @media (min-width: @screen-sm-min) {
+            font-size: 32px;
+        }
+    }
+// TODO: Remove this in issue 25868 -- START
+}
+// TODO: Remove this in issue 25868 -- END
+
+
+.scrolled {
+    :where(body.ums_a11y_login--on) { // TODO: Remove this wrapper in issue 25868
+        .navigation-buttons [data-target="navigation"] {
+            @media (min-width: @navigation-breakpoint) {
                 .js-hidden-visible();
                 display: inline-block;
                 margin-left: 10px;
             }
         }
-    }
-    .navigation-window-visible & {
-        > a {
-            &[data-target="navigation"] {
-                &::before {
-                    content: @icon-close-code;
-                }
-            }
-        }
-    }
+    } // TODO: Remove this wrapper in issue 25868
 }

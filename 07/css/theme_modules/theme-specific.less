@@ -27,24 +27,29 @@ body {
     background-color: @accent-heavy-bg;
 }
 
-.top-navigation-bar-right {
-    a {
-        color: @accent-link-color;
-        &.primary {
-            background-color: e("hsl(var(--color-tertiary-h), var(--color-tertiary-s), calc(var(--color-tertiary-l) - 5%))");
-            bac
-            &:hover {
-                background-color: e("hsl(var(--color-tertiary-h), var(--color-tertiary-s), calc(var(--color-tertiary-l) - 8%))")
+// TODO: Remove this in issue 25868 -- END
+
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--off) {
+    .top-navigation-bar-right {
+        a {
+            color: @accent-link-color;
+            &.primary {
+                background-color: e('hsl(var(--color-tertiary-h), var(--color-tertiary-s), calc(var(--color-tertiary-l) - 5%))');
+                &:hover {
+                    background-color: e('hsl(var(--color-tertiary-h), var(--color-tertiary-s), calc(var(--color-tertiary-l) - 8%))');
+                }
             }
-        }
-        &.secondary {
-            background-color: @accent-bg;
-            &:hover {
-                background-color: @accent-bg-hover;
+            &.secondary {
+                background-color: @accent-bg;
+                &:hover {
+                    background-color: @accent-bg-hover;
+                }
             }
         }
     }
 }
+// TODO: Remove this in issue 25868 -- END
 
 #categories {
     .box-bg-default & {
@@ -112,36 +117,40 @@ body {
     color: @footer-secondary-color;
 }
 
-.user-action {
-    color: @user-action-window-color;
-    background-color: @user-action-window-bg;
-    h2,
-    h3,
-    h4 {
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--off) {
+    .user-action {
         color: @user-action-window-color;
-    }
-    a {
-        color: @user-action-window-link-color;
-    }
-    .form-control {
-        border-color: @user-action-window-muted-color;
-        color: @user-action-window-muted-color-lightest;
-        background-color: @user-action-window-secondary-bg;
-        box-shadow: inset 0 0 1px rgba(0,0,0,.9);
-        &::-moz-placeholder {
-            color: @user-action-window-muted-color-light;
-            opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+        background-color: @user-action-window-bg;
+        h2,
+        h3,
+        h4 {
+            color: @user-action-window-color;
         }
-        &:-ms-input-placeholder { color: @user-action-window-muted-color-light; } // Internet Explorer 10+
-        &::-webkit-input-placeholder  { color: @user-action-window-muted-color-light; } // Safari and Chrome
-        &:focus {
-            box-shadow: inset 0 0 1px rgba(0,0,0,.9), 0 0 4px @input-focus-color;
+        a {
+            color: @user-action-window-link-color;
         }
-    }
-    .box.box-bg-default {
-        background: none;
+        .form-control {
+            border-color: @user-action-window-muted-color;
+            color: @user-action-window-muted-color-lightest;
+            background-color: @user-action-window-secondary-bg;
+            box-shadow: inset 0 0 1px rgba(0,0,0,.9);
+            &::-moz-placeholder {
+                color: @user-action-window-muted-color-light;
+                opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+            }
+            &:-ms-input-placeholder { color: @user-action-window-muted-color-light; } // Internet Explorer 10+
+            &::-webkit-input-placeholder  { color: @user-action-window-muted-color-light; } // Safari and Chrome
+            &:focus {
+                box-shadow: inset 0 0 1px rgba(0,0,0,.9), 0 0 4px @input-focus-color;
+            }
+        }
+        .box.box-bg-default {
+            background: none;
+        }
     }
 }
+// TODO: Remove this in issue 25868 -- END
 
 .p {
     background-color: @product-bg;
@@ -229,9 +238,6 @@ body {
 // TODO: Remove this in issue 15718 -- END
 
 // Content window
-.toggle-window-arr {
-    color: @text-color;
-}
 .content-window-in {
     background-color: @content-box-bg;
 }

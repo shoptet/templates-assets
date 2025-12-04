@@ -319,7 +319,7 @@ $(function () {
                         shoptet.images.unveil();
                         loadingAnnouncer.end();
                         hideSpinner();
-                        shoptet.helpers.focusFirst($newListing[0], true);
+                        shoptet.focusManagement.focusFirst($newListing[0], true);
                     }
                     shoptet.scripts.signalDomLoad('ShoptetDOMPageContentLoaded');
                 })

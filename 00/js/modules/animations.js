@@ -10,8 +10,7 @@ import { isHTMLElement, ensureEvery } from '../../../shared/js/typeAssertions';
  * @param {number} [cleanupMs=900] - Timeout (ms) to remove classes
  */
 function fadeIn(el, cleanupMs = 900) {
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!el || reduce) return;
+  if (!el || shoptet.a11y.reducedMotion) return;
 
   /** @type {HTMLElement[]} */
   const items = isHTMLElement(el) ? [el] : ensureEvery(Array.from(el), isHTMLElement);

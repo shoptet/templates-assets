@@ -275,8 +275,6 @@
       'resolveMinimumAmount',
       'isTouchDevice',
       'enableUpdatePreview',
-      'findFirstFocusable',
-      'focusFirst',
     ],
     images: ['unveil'],
     products: [

@@ -1,35 +1,28 @@
 .user-action {
-    .user-action-in {
-        > div {
-            display: none;
-        }
+    .user-action-in > div {
+        display: none;
     }
     .login-window-visible & {
-        .user-action-in {
-            > div.user-action-login {
-                display: block;
-            }
-        }
-    }
-    .register-window-visible & {
-        .user-action-in {
-            > div.user-action-register {
-                display: block;
-            }
+        .user-action-in > div.user-action-login {
+            display: block;
         }
     }
     .search-window-visible & {
-        .user-action-in {
-            > div.user-action-search {
-                display: block;
-            }
+        .user-action-in > div.user-action-search {
+            display: block;
         }
     }
     .cart-window-visible & {
-        .user-action-in {
-            > div.user-action-cart {
-                display: block;
-            }
+        .user-action-in > div.user-action-cart {
+            display: block;
         }
     }
 }
+
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--off) {
+    .register-window-visible .user-action .user-action-in > div.user-action-register {
+        display: block;
+    }
+}
+// TODO: Remove this in issue 25868 -- END

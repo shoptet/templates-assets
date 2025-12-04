@@ -35,27 +35,70 @@
     overflow: auto;
 }
 
-.toggle-window-arr {
-    position: absolute;
-    z-index: @z-base-1;
-    top: 12px;
-    left: 6px;
-    text-decoration: none;
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--off) {
+    .toggle-window-arr {
+        position: absolute;
+        z-index: @z-base-1;
+        top: 12px;
+        left: 6px;
+        text-decoration: none;
 
-    span {
-        display: none;
-    }
-
-    &::before {
-        &:extend(.shp-icon);
-        content: @icon-arrow-left-code;
-        margin-right: 1ex;
-        font-size: 30px;
-    }
-
-    @media (min-width: @screen-sm-min) {
         span {
-            display: inline;
+            display: none;
+        }
+
+        &::before {
+            &:extend(.shp-icon);
+            content: @icon-arrow-left-code;
+            margin-right: 1ex;
+            font-size: 30px;
+        }
+
+        @media (min-width: @screen-sm-min) {
+            span {
+                display: inline;
+            }
         }
     }
 }
+// TODO: Remove this in issue 25868 -- END
+
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--on) {
+// TODO: Remove this in issue 25868 -- END
+    .toggle-window-arr {
+        padding: 20px;
+        text-decoration: none;
+
+        span {
+            display: none;
+        }
+
+        &::before {
+            &:extend(.shp-icon);
+            content: @icon-arrow-left-code;
+            margin-right: 1ex;
+            font-size: 30px;
+        }
+
+        @media (min-width: @screen-sm-min) {
+            span {
+                display: inline;
+            }
+        }
+    }
+
+    .content-window-in .toggle-window-arr {
+        position: absolute;
+        z-index: @z-base-1;
+        top: 8px;
+        left: 0;
+
+        @media (min-width: @screen-sm-min) {
+            left: 20px;
+        }
+    }
+// TODO: Remove this in issue 25868 -- START
+}
+// TODO: Remove this in issue 25868 -- END

@@ -90,7 +90,7 @@
                 }
                 loadingAnnouncer.end();
                 hideSpinner();
-                shoptet.helpers.focusFirst($newListing[0]);
+                shoptet.focusManagement.focusFirst($newListing[0]);
               }
               shoptet.scripts.signalDomLoad(signalDomLoadName, $listingWrapper[0]);
             })

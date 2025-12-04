@@ -77,51 +77,55 @@
     }
 }
 
-.top-navigation-bar-right {
-    a,
-    strong {
-        display: block;
-        padding-top: 15px;
-        padding-bottom: 15px;
-    }
-    a {
-        padding-left: 10px;
-        padding-right: 10px;
-        &.login,
-        &.logout {
-            &::before {
-                &:extend(.shp-icon);
-                margin-right: 1ex;
-            }
-        }
-        &.login {
-            &::before {
-                font-size: 12px;
-                content: @icon-login-code;
-            }
-        }
-        &.logout {
-            &::before {
-                content: @icon-unlock-code;
-            }
-        }
-    }
-    @media (min-width: @screen-sm-min) {
-        .clearfixMixin();
-        float: right;
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--off) {
+    .top-navigation-bar-right {
         a,
         strong {
-            float: left;
+            display: block;
+            padding-top: 15px;
+            padding-bottom: 15px;
         }
         a {
-            padding-left: 15px;
-            padding-right: 15px;
+            padding-left: 10px;
+            padding-right: 10px;
+            &.login,
+            &.logout {
+                &::before {
+                    &:extend(.shp-icon);
+                    margin-right: 1ex;
+                }
+            }
+            &.login {
+                &::before {
+                    font-size: 12px;
+                    content: @icon-login-code;
+                }
+            }
+            &.logout {
+                &::before {
+                    content: @icon-unlock-code;
+                }
+            }
         }
-    }
-    @media (min-width: @screen-md-min) {
-        a {
-            padding-left: 20px;
-            padding-right: 20px;
+        @media (min-width: @screen-sm-min) {
+            .clearfixMixin();
+            float: right;
+            a,
+            strong {
+                float: left;
+            }
+            a {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+        @media (min-width: @screen-md-min) {
+            a {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
         }
     }
 }
+// TODO: Remove this in issue 25868 -- END

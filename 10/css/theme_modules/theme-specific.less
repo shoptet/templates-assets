@@ -251,10 +251,14 @@ a.recommended-product {
   }
 }
 
-// Content window
-.toggle-window-arr {
-  color: @text-color;
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--off) {
+  // Content window
+  .toggle-window-arr {
+    color: @text-color;
+  }
 }
+// TODO: Remove this in issue 25868 -- END
 
 .back-shopping {
   color: @text-color;

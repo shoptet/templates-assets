@@ -1,0 +1,202 @@
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--off) {
+  .navigation-buttons {
+    font-size: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+    justify-self: flex-end;
+    .transition(right @transition-duration @transition-timing);
+    a {
+      position: relative;
+      display: inline-block;
+      .square(40px);
+      font-size: @navigation_navigation-buttons-font-size-1;
+      line-height: 38px;
+      text-align: center;
+      text-decoration: none;
+      &::before {
+        &:extend(.shp-icon);
+      }
+      &[data-target='search'] {
+        &::before {
+          content: @icon-search-code;
+        }
+      }
+      &[data-target='cart'] {
+        &::before {
+          content: @icon-cart-code;
+        }
+      }
+      &[data-target='navigation'] {
+        &::before {
+          content: @icon-menu-code;
+        }
+      }
+      &[data-target='login'] {
+        &::before {
+          content: @icon-login-code;
+        }
+      }
+    }
+    &.id--9 {
+      // cart
+      display: none;
+    }
+  }
+
+  @media (min-width: @screen-xs-min) {
+    .navigation-buttons a {
+      .square(60px);
+      font-size: @navigation_navigation-buttons-font-size-2;
+      line-height: 56px;
+    }
+    &.navigation-window-visible .navigation-buttons {
+      right: @navigation_navigation-buttons-right-1;
+      margin-right: @navigation_navigation-buttons-margin-right-1;
+      a {
+        &[data-target='navigation'] {
+          &::before {
+            content: @icon-close-code;
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: @screen-sm-min) and (max-width: (@navigation-breakpoint - 1)) {
+    .navigation-buttons {
+      top: @navigation_navigation-buttons-top-1;
+    }
+    &.navigation-window-visible .navigation-buttons {
+      top: @navigation_navigation-buttons-top-1;
+    }
+    .scrolled & .navigation-buttons {
+      top: 0;
+    }
+  }
+
+  @media (min-width: @navigation-breakpoint) {
+    .navigation-buttons {
+      position: relative;
+      right: auto;
+      top: auto;
+      flex-grow: 0;
+      padding-left: round(@grid-gutter-width / 2);
+      a {
+        .square(@navigation-height);
+        line-height: @navigation-height;
+      }
+    }
+  }
+}
+// TODO: Remove this in issue 25868 -- END
+
+// TODO: Remove this in issue 25868 -- START
+:where(body.ums_a11y_login--on) {
+  // TODO: Remove this in issue 25868 -- END
+  .navigation-buttons {
+    font-size: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+    justify-self: flex-end;
+    .transition(right @transition-duration @transition-timing);
+  }
+
+  @media (min-width: @screen-xs-min) {
+    &.navigation-window-visible .navigation-buttons {
+      right: @navigation_navigation-buttons-right-1;
+      margin-right: @navigation_navigation-buttons-margin-right-1;
+    }
+  }
+
+  @media (min-width: @screen-sm-min) and (max-width: (@navigation-breakpoint - 1)) {
+    .navigation-buttons {
+      top: @navigation_navigation-buttons-top-1;
+    }
+
+    &.navigation-window-visible .navigation-buttons {
+      top: @navigation_navigation-buttons-top-1;
+    }
+
+    .scrolled & .navigation-buttons {
+      top: 0;
+    }
+  }
+
+  @media (min-width: @navigation-breakpoint) {
+    .navigation-buttons {
+      position: relative;
+      top: auto;
+      right: auto;
+      flex-grow: 0;
+      padding-left: round(@grid-gutter-width / 2);
+    }
+  }
+
+  .navigation-buttons a,
+  .top-nav-button-login {
+    position: relative;
+    display: inline-block;
+    .square(40px);
+    font-size: @navigation_navigation-buttons-font-size-1;
+    line-height: 38px;
+    text-align: center;
+    text-decoration: none;
+
+    &::before {
+      &:extend(.shp-icon);
+    }
+
+    @media (min-width: @screen-xs-min) {
+      .square(60px);
+      font-size: @navigation_navigation-buttons-font-size-2;
+      line-height: 56px;
+    }
+
+    @media (min-width: @navigation-breakpoint) {
+      .square(@navigation-height);
+      line-height: @navigation-height;
+    }
+  }
+
+  .navigation-buttons a[data-target='search']::before {
+    content: @icon-search-code;
+  }
+
+  .navigation-buttons a[data-target='cart']::before {
+    content: @icon-cart-code;
+  }
+
+  .navigation-buttons a[data-target='navigation']::before {
+    content: @icon-menu-code;
+  }
+
+  .top-nav-button {
+    appearance: none;
+    border: 0;
+  }
+
+  .top-nav-button-login::before {
+    content: @icon-login-code;
+  }
+
+  &.navigation-window-visible .navigation-buttons a[data-target='navigation']::before {
+    content: @icon-close-code;
+  }
+  // TODO: Remove this in issue 25868 -- START
+}
+// TODO: Remove this in issue 25868 -- END

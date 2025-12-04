@@ -1,0 +1,93 @@
+html:has(.dialog--modal[open]) {
+  overflow: hidden;
+}
+
+.dialog {
+  padding: 0;
+}
+
+.dialog--fullscreen {
+  overflow: clip;
+  width: 100dvw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+
+  &::backdrop {
+    background-color: transparent;
+    transition: none;
+  }
+}
+
+.dialog__wrapper {
+  scroll-behavior: smooth;
+  overflow: auto;
+  padding: var(--dialog-wrapper-padding);
+  background: var(--dialog-bg-color, #fff);
+}
+
+:where(.dialog--fullscreen) .dialog__wrapper {
+  transform: translateX(-100%);
+  height: 100%;
+  transition: var(--dialog-transition);
+}
+
+.dialog.is-visible .dialog__wrapper {
+  transform: translateX(0);
+}
+
+.dialog__content {
+  margin: 0 auto;
+  padding: var(--dialog-content-padding);
+  color: @text-color;
+  text-align: left;
+}
+
+.dialog__content--form {
+  max-width: var(--dialog-content-form-max-width, 440px);
+}
+
+:where(.dialog__header) .dialog__heading--login {
+  text-align: center;
+}
+
+[data-dialog-id],
+[data-dialog-close] {
+  * {
+    pointer-events: none;
+  }
+}
+
+.dialog__close--arrow {
+  position: fixed;
+  z-index: 1;
+  inset: 0 0 auto;
+  padding-top: 8px;
+  background-color: var(--dialog-bg-color);
+  transform: translateX(-100%);
+  transition: var(--dialog-transition);
+
+  @media (min-width: @screen-sm-min) {
+    padding-left: 20px;
+  }
+}
+
+:where(.dialog__close--arrow) .toggle-window-arr {
+  display: block;
+}
+
+:where(.dialog.is-visible) .dialog__close--arrow {
+  transform: translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog[open],
+  .dialog[open] * {
+    scroll-behavior: auto;
+    transition: none;
+    animation: none;
+  }
+}
