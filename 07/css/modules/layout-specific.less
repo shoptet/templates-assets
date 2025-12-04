@@ -114,30 +114,24 @@ ul {
   }
 }
 
-// TODO: Remove this in issue 19942 -- START
-:where(body.ums_a11y_pagination--on) {
-  // TODO: Remove this in issue 19942 -- END
-  a.btn.goToTop__button,
-  .btn.loadMore__button {
-    padding-top: 7px;
-    padding-bottom: 7px;
+a.btn.goToTop__button,
+.btn.loadMore__button {
+  padding-top: 7px;
+  padding-bottom: 7px;
 
-    @media (min-width: @screen-xl-min) {
-      padding-top: 13px;
-      padding-bottom: 13px;
-    }
+  @media (min-width: @screen-xl-min) {
+    padding-top: 13px;
+    padding-bottom: 13px;
   }
-
-  .pagination .pagination__link,
-  .pagination__currentPage {
-    @media (min-width: @screen-xl-min) {
-      height: 3.2222em;
-      min-height: 3.2222em;
-    }
-  }
-  // TODO: Remove this in issue 19942 -- START
 }
-// TODO: Remove this in issue 19942 -- END
+
+.pagination .pagination__link,
+.pagination__currentPage {
+  @media (min-width: @screen-xl-min) {
+    height: 3.2222em;
+    min-height: 3.2222em;
+  }
+}
 
 .box {
   margin-bottom: @line-height-computed;

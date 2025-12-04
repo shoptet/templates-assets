@@ -400,18 +400,11 @@ h4,
     }
 }
 
-// TODO: Remove this in issue 19942 -- START
-:where(body.ums_a11y_pagination--on) {
-// TODO: Remove this in issue 19942 -- END
-    .itemsTotal {
-        @media (min-width: @screen-sm-min) {
-            display: none;
-        }
+.itemsTotal {
+    @media (min-width: @screen-sm-min) {
+        display: none;
     }
-// TODO: Remove this in issue 19942 -- START
 }
-// TODO: Remove this in issue 19942 -- END
-
 
 .sidebar .categories {
     margin-left: -(round(@grid-gutter-width / 2));

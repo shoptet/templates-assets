@@ -298,69 +298,42 @@ $(function () {
     makeFilterAjaxRequest(e.target.getAttribute('data-url'), true, false, e.target, 'ShoptetPageFilterValueChange');
   });
 
-  if (!shoptet.config.ums_a11y_category_page) {
-    $html.on('click', 'div.category-header input', function (e) {
-      makeFilterAjaxRequest(e.target.getAttribute('data-url'), true, false, e.target, 'ShoptetPageSortingChanged');
-    });
-  }
-
   $html.on('click', 'p#clear-filters a', function (e) {
     e.preventDefault();
     makeFilterAjaxRequest(e.target.getAttribute('href'), true, false, e.target, 'ShoptetPageFiltersCleared');
   });
 
-  if (shoptet.config.ums_a11y_pagination) {
-    const loadingAnnouncer = shoptet.screenReader.createLoadingAnnouncer();
-    $html.on('click', '.pagination__link', function (e) {
-      e.preventDefault();
-      var ajaxCallback = false;
-      var wrapper = null;
+  const loadingAnnouncer = shoptet.screenReader.createLoadingAnnouncer();
+  $html.on('click', '.pagination__link', function (e) {
+    e.preventDefault();
+    var ajaxCallback = false;
+    var wrapper = null;
 
-      if ($('#products').length) {
-        wrapper = '#products';
-      } else if ($('#newsWrapper').length) {
-        wrapper = '#newsWrapper';
-      } else if ($('#ratingsList').length) {
-        wrapper = '#ratingsList';
-      } else if ($('#glossary-listing').length) {
-        wrapper = '#glossary-listing';
-      }
+    if ($('#products').length) {
+      wrapper = '#products';
+    } else if ($('#newsWrapper').length) {
+      wrapper = '#newsWrapper';
+    } else if ($('#ratingsList').length) {
+      wrapper = '#ratingsList';
+    } else if ($('#glossary-listing').length) {
+      wrapper = '#glossary-listing';
+    }
 
-      if (wrapper) {
-        loadingAnnouncer.begin($(wrapper)[0]);
-        ajaxCallback = function () {
-          loadingAnnouncer.end();
-          const listingWrapper = $(wrapper)[0];
-          if (!listingWrapper) return;
-          let target =
-            shoptet.focusManagement.findFirstFocusable(listingWrapper) ||
-            listingWrapper.firstElementChild ||
-            listingWrapper;
-          if (!(target instanceof HTMLElement)) target = listingWrapper;
-          shoptet.focusManagement.focusFirst(target, true, true);
-        };
-      }
-      makeFilterAjaxRequest(e.target.getAttribute('href'), true, ajaxCallback, e.target, 'ShoptetPagePaginationUsed');
-    });
-  } else {
-    $html.on('click', 'div.pagination a', function (e) {
-      e.preventDefault();
-      var scrollTarget = false;
-      var ajaxCallback = false;
-      if ($('#products').length) {
-        scrollTarget = '#products';
-      } else if ($('#newsWrapper').length) {
-        scrollTarget = '#newsWrapper';
-      } else if ($('#ratingWrapper').length) {
-        scrollTarget = '#ratingWrapper';
-      }
-      if (scrollTarget) {
-        ajaxCallback = function () {
-          scrollToEl($(scrollTarget));
-        };
-      }
-      makeFilterAjaxRequest(e.target.getAttribute('href'), true, ajaxCallback, e.target, 'ShoptetPagePaginationUsed');
-    });
-  }
+    if (wrapper) {
+      loadingAnnouncer.begin($(wrapper)[0]);
+      ajaxCallback = function () {
+        loadingAnnouncer.end();
+        const listingWrapper = $(wrapper)[0];
+        if (!listingWrapper) return;
+        let target =
+          shoptet.focusManagement.findFirstFocusable(listingWrapper) ||
+          listingWrapper.firstElementChild ||
+          listingWrapper;
+        if (!(target instanceof HTMLElement)) target = listingWrapper;
+        shoptet.focusManagement.focusFirst(target, true, true);
+      };
+    }
+    makeFilterAjaxRequest(e.target.getAttribute('href'), true, ajaxCallback, e.target, 'ShoptetPagePaginationUsed');
+  });
   detectFilters();
 });

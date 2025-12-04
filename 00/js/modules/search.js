@@ -288,68 +288,42 @@ $(function () {
     });
 
     // Load more search results
-    if (shoptet.config.ums_a11y_pagination) {
-        const loadingAnnouncer = shoptet.screenReader.createLoadingAnnouncer();
-        $html.on('click', '.js-loadMore__button--productsSearch', function(e) {
-            const $listingWrapper = $('#products-found .products');
-            showSpinner();
-            loadingAnnouncer.begin($listingWrapper[0]);
+    const loadingAnnouncer = shoptet.screenReader.createLoadingAnnouncer();
+    $html.on('click', '.js-loadMore__button--productsSearch', function(e) {
+        const $listingWrapper = $('#products-found .products');
+        showSpinner();
+        loadingAnnouncer.begin($listingWrapper[0]);
 
-            const $el = $(this);
-            var offset = $el.data('offset');
-            var string = $el.data('string');
-            $.ajax({
-                url: '/action/productSearch/ajaxNextContent?string=' + encodeURIComponent(string) + '&offset=' + offset,
-                headers: {'X-Shoptet-XHR': 'Shoptet_Coo7ai'},
-                async: true,
-                timeout: 150800,
-                dataType: 'html',
-                success: (function (payload) {
-                    const requestedDocument = shoptet.common.createDocumentFromString(payload);
-                    const $newListing = $(requestedDocument).find('.products > .product');
-                    const $newListingControls = $(requestedDocument).find('.listingControls');
+        const $el = $(this);
+        var offset = $el.data('offset');
+        var string = $el.data('string');
+        $.ajax({
+            url: '/action/productSearch/ajaxNextContent?string=' + encodeURIComponent(string) + '&offset=' + offset,
+            headers: {'X-Shoptet-XHR': 'Shoptet_Coo7ai'},
+            async: true,
+            timeout: 150800,
+            dataType: 'html',
+            success: (function (payload) {
+                const requestedDocument = shoptet.common.createDocumentFromString(payload);
+                const $newListing = $(requestedDocument).find('.products > .product');
+                const $newListingControls = $(requestedDocument).find('.listingControls');
 
-                    if ($newListing?.length > 0) {
-                        $listingWrapper.append($newListing);
-                        shoptet.animations.fadeIn($newListing);
-                        $('.listingControls').replaceWith($newListingControls);
+                if ($newListing?.length > 0) {
+                    $listingWrapper.append($newListing);
+                    shoptet.animations.fadeIn($newListing);
+                    $('.listingControls').replaceWith($newListingControls);
 
-                        shoptet.products.splitWidgetParameters();
-                        initTooltips();
-                        shoptet.images.unveil();
-                        loadingAnnouncer.end();
-                        hideSpinner();
-                        shoptet.focusManagement.focusFirst($newListing[0], true);
-                    }
-                    shoptet.scripts.signalDomLoad('ShoptetDOMPageContentLoaded');
-                })
-            });
-        });
-    } else {
-        $html.on('click', '#loadNextSearchResults', function(e) {
-            e.preventDefault();
-            $(this).after('<div class="loader static accented" />');
-            $(this).remove();
-            var offset = $(e.target).data('offset');
-            var string = $(e.target).data('string');
-            $.ajax({
-                url: '/action/productSearch/ajaxNextContent?string=' + string + '&offset=' + offset,
-                headers: {'X-Shoptet-XHR': 'Shoptet_Coo7ai'},
-                async: true,
-                timeout: 150800,
-                dataType: 'html',
-                success: (function (data, textStatus, xOptions) {
-                    $('.search-next-wrap').remove();
-                    $('#products-found').append(data).fadeIn('slow');
-                    shoptet.images.unveil();
                     shoptet.products.splitWidgetParameters();
                     initTooltips();
-                    shoptet.scripts.signalDomLoad('ShoptetDOMPageContentLoaded');
-                })
-            });
+                    shoptet.images.unveil();
+                    loadingAnnouncer.end();
+                    hideSpinner();
+                    shoptet.focusManagement.focusFirst($newListing[0], true);
+                }
+                shoptet.scripts.signalDomLoad('ShoptetDOMPageContentLoaded');
+            })
         });
-    }
-
+    });
 
     // Display groups in search results
     $html.on('click', '.display-results-group', function(e) {

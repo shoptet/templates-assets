@@ -24,22 +24,6 @@ article header h1,
   }
 }
 
-// TODO: Remove this in issue 19942 -- START
-:where(body.ums_a11y_pagination--off) {
-  .category-top .pagination-count {
-    padding-top: 0;
-    margin-top: -(@basic-spacing);
-    @media (min-width: @navigation-breakpoint) {
-      margin-top: -(@triple-spacing);
-      margin-bottom: @triple-spacing;
-    }
-    strong {
-      font-weight: 500;
-    }
-  }
-}
-// TODO: Remove this in issue 19942 -- END
-
 .products-top-header {
   padding-top: round(@line-height-computed * 2);
   border-top-style: solid;
@@ -174,43 +158,6 @@ article header h1,
   // TODO: Remove this in issue 15718 -- START
 }
 // TODO: Remove this in issue 15718 -- END
-
-// TODO: Remove this in issue 19942 -- START
-:where(body.ums_a11y_pagination--off) {
-  .pagination-wrapper {
-    .load-products {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      padding: @double-spacing;
-      .fontSmaller();
-      &::after {
-        &:extend(.shp-icon);
-        content: @icon-ellipsis-h-code;
-        margin-left: 0.5em;
-      }
-    }
-    .pagination,
-    .pagination-top {
-      font-weight: 600;
-      > strong {
-        font-weight: 600;
-      }
-      .pagination-link,
-      a:last-child {
-        border-width: 1px;
-        border-style: solid;
-        border-radius: @border-radius-base;
-      }
-      .pagination-link {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-      }
-    }
-  }
-}
-// TODO: Remove this in issue 19942 -- END
 
 .category-banners {
   margin-top: @basic-spacing;

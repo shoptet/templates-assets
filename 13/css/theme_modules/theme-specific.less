@@ -312,45 +312,10 @@ table.detail-parameters {
     }
 }
 
-// TODO: Remove this in issue 19942 -- START
-:where(body.ums_a11y_pagination--on) {
-// TODO: Remove this in issue 19942 -- END
-    .pagination__link:hover {
-        border-width: @btn-border-width;
-        border-style: @btn-border-style;
-    }
-// TODO: Remove this in issue 19942 -- START
+.pagination__link:hover {
+    border-width: @btn-border-width;
+    border-style: @btn-border-style;
 }
-// TODO: Remove this in issue 19942 -- END
-
-// TODO: Remove this in issue 19942 -- START
-:where(body.ums_a11y_pagination--off) {
-    .pagination-top {
-        > strong,
-        .pagination-link {
-            background-color: @gray;
-        }
-        &:hover {
-            > strong,
-            .pagination-link {
-                background-color: darken(@gray, 10%);
-                color: @text-color;
-            }
-        }
-    }
-    .pagination a {
-        background-color: @gray;
-        &:hover {
-            background-color: darken(@gray, 10%);
-            color: @text-color;
-        }
-    }
-    .pagination a.pagination-link {
-        background-color: transparent;
-    }
-}
-// TODO: Remove this in issue 19942 -- END
-
 /* category page end */
 
 

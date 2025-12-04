@@ -426,40 +426,29 @@ ul {
   padding-bottom: round(@grid-gutter-width / 2);
 }
 
-// TODO: Remove this in issue 19942 -- START
-:where(body.ums_a11y_pagination--on) {
-  // TODO: Remove this in issue 19942 -- END
-  .goToTop__button::before {
-    margin-bottom: 0.28em;
-  } // TODO: Remove this in issue 19942 -- START
+.goToTop__button::before {
+  margin-bottom: 0.28em;
 }
-// TODO: Remove this in issue 19942 -- END
 
 @container listingControls (min-width: 68.2rem) {
-  // TODO: Remove this in issue 19942 -- START
-  :where(body.ums_a11y_pagination--on) {
-    // TODO: Remove this in issue 19942 -- END
-    .goToTop {
-      flex-basis: 33%;
-      justify-content: flex-start;
-      order: 1;
-    }
-
-    .listingControls:has(.goToTop, .pagination) .loadMore {
-      flex-basis: 33%;
-      order: 2;
-    }
-
-    .loadMore__button {
-      width: auto;
-    }
-
-    .pagination {
-      flex-basis: 33%;
-      justify-content: flex-end;
-      order: 4;
-    }
-    // TODO: Remove this in issue 19942 -- START
+  .goToTop {
+    flex-basis: 33%;
+    justify-content: flex-start;
+    order: 1;
   }
-  // TODO: Remove this in issue 19942 -- END
+
+  .listingControls:has(.goToTop, .pagination) .loadMore {
+    flex-basis: 33%;
+    order: 2;
+  }
+
+  .loadMore__button {
+    width: auto;
+  }
+
+  .pagination {
+    flex-basis: 33%;
+    justify-content: flex-end;
+    order: 4;
+  }
 }

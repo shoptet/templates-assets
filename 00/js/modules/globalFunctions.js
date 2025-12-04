@@ -988,33 +988,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   // TODO: Remove this in issue #20873 -- END
 
-  if (!shoptet.config.ums_a11y_pagination) {
-    $('html').on('click', '.js-scroll-top', function (e) {
-      e.preventDefault();
-      var $target;
-      var $trigger = $(this);
-      if (typeof $trigger.attr('data-target') !== 'undefined') {
-        $target = $($trigger.attr('data-target'));
-      } else {
-        if ($('#products').length) {
-          $target = $('#products');
-        } else if ($('#newsWrapper').length) {
-          $target = $('#newsWrapper');
-        } else if ($('#ratingWrapper').length) {
-          $target = $('#ratingWrapper');
-        } else if ($('.products').length) {
-          $target = $('.products');
-        }
-      }
-
-      if ($target.length === 0) {
-        return false;
-      }
-
-      scrollToEl($target);
-    });
-  }
-
   $('html').on('click', '.toggle-coupon-input-button', function (e) {
     $(this).next('.discount-coupon').slideToggle();
     $(this).toggleClass('discount-coupon-visible');

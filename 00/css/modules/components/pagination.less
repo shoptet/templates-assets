@@ -1,336 +1,188 @@
-// TODO: Remove this in issue 19942 -- START
-// and remove tokens starting with "old-pagination"
-:where(body.ums_a11y_pagination--off) {
-    .pagination,
-    .pagination-loader,
-    .pagination-top {
-        min-width: 33.33%;
+.listingControls {
+  container-name: listingControls;
+  container-type: inline-size;
+  display: flex;
+  flex-wrap: wrap;
+  gap: @line-height-computed 0;
+  align-items: center;
+  justify-content: center;
 
-        @media (max-width: @screen-md-max) {
-            min-width: 100%;
-            text-align: center;
-        }
-    }
-
-    .pagination-loader {
-        margin: 10px 0;
-    }
-
-    .pagination,
-    .pagination-top {
-        font-size: 0;
-        line-height: 0;
-        > a,
-        > strong {
-            display: inline-block;
-            .square(@old-pagination-link-size);
-            min-width: @old-pagination-link-size;
-            margin-right: 1px;
-            margin-left: 5px;
-            border-radius: @old-pagination-link-border-radius;
-            text-align: center;
-            text-decoration: none;
-            font-size: @font-size-base;
-            line-height: @old-pagination-link-size;
-        }
-        > strong {
-            font-weight: 400;
-        }
-    }
-
-    .pagination-link {
-        &.prev,
-        &.next,
-        &.up {
-            &::before {
-                &:extend(.shp-icon);
-                font-size: @old-pagination-arrow-font-size;
-            }
-        }
-        &.prev {
-            &::before {
-                content: @icon-chevron-left-code;
-            }
-        }
-        &.next {
-            &::before {
-                content: @icon-chevron-right-code;
-            }
-        }
-        &.up {
-            &::before {
-                content: @icon-chevron-up-code;
-            }
-        }
-        &:hover {
-            text-decoration: none;
-        }
-    }
-
-    .pagination-top {
-        text-transform: uppercase;
-        > strong {
-            width: auto;
-            cursor: pointer;
-        }
-        @media (max-width: @screen-md-max) {
-            order: 3;
-            padding-top: @line-height-computed;
-        }
-    }
-
-    .pagination-wrapper {
-        margin-top: @line-height-computed;
-        margin-bottom: @line-height-computed;
-        .pagination {
-            text-align: @old-pagination-text-align;
-            @media (max-width: @screen-md-max) {
-                text-align: center;
-            }
-        }
-        @media (min-width: @screen-sm-min) {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-
-            .pagination-loader {
-                text-align: center;
-                margin-bottom: @line-height-computed;
-            }
-        }
-        @media (max-width: @screen-md-max) {
-            display: flex;
-            flex-direction: column;
-        }
-        @media (min-width: @screen-md-max) {
-            .pagination-loader {
-                margin: 0;
-            }
-        }
-        @media (min-width: 321px) and (max-width: @screen-xs-max) {
-            clear: both;
-        }
-    }
-
-    .pagination-count {
-        width: 100%;
-        text-align: center;
-        padding-top: @line-height-computed;
-    }
+  margin-top: @line-height-computed;
+  margin-bottom: round(@line-height-computed * 1.5);
 }
-// TODO: Remove this in issue 19942 -- END
 
-
-// TODO: Remove this in issue 19942 -- START
-:where(body.ums_a11y_pagination--on) {
-// TODO: Remove this in issue 19942 -- END
-    .listingControls {
-        container-name: listingControls;
-        container-type: inline-size;
-        display: flex;
-        flex-wrap: wrap;
-        gap: @line-height-computed 0;
-        align-items: center;
-        justify-content: center;
-
-        margin-top: @line-height-computed;
-        margin-bottom: round(@line-height-computed * 1.5);
-    }
-
-    .loadMore,
-    .goToTop,
-    .pagination,
-    .itemsTotal {
-        flex: 0 0 100%;
-    }
-
-    .loadMore {
-        display: flex;
-        justify-content: center;
-    }
-
-    .loadMore__button--products {
-        width: 100%;
-
-        @media (min-width: @screen-sm-min) {
-            width: auto;
-        }
-    }
-
-    .pagination {
-        display: flex;
-        justify-content: center;
-        font-size: @font-size-base;
-        line-height: @pagination-link-size;
-    }
-
-    .pagination__list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        justify-content: center;
-
-        margin: 0;
-        padding: 0;
-
-        list-style: none;
-    }
-
-    .pagination .pagination__link,
-    .pagination__currentPage {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        aspect-ratio: 1;
-        height: @pagination-link-size;
-        min-height: @pagination-link-size;
-        padding: 0;
-
-        text-decoration: none;
-
-        border-radius: @pagination-link-border-radius;
-    }
-
-    .pagination__link:hover {
-        border-style: @btn-border-style;
-        border-width: @btn-border-width;
-    }
-
-    .pagination__currentPage {
-        font-weight: 400;
-    }
-
-    .pagination__link--prev,
-    .pagination__link--next {
-        &::before {
-            font-size: @pagination-arrow-font-size;
-
-            &:extend(.shp-icon);
-        }
-
-        &:hover {
-            text-decoration: none;
-        }
-    }
-
-    .pagination__link--prev::before {
-        content: @icon-chevron-left-code;
-    }
-
-    .pagination__link--next::before {
-        content: @icon-chevron-right-code;
-    }
-
-    .goToTop {
-        display: flex;
-        justify-content: center;
-    }
-
-    .goToTop__button::before {
-        content: @icon-chevron-up-code;
-        margin-right: 0.5em;
-        font-size: @pagination-arrow-font-size;
-
-        &:extend(.shp-icon);
-    }
-
-    .itemsTotal {
-        text-align: center;
-    }
-// TODO: Remove this in issue 19942 -- START
+.loadMore,
+.goToTop,
+.pagination,
+.itemsTotal {
+  flex: 0 0 100%;
 }
-// TODO: Remove this in issue 19942 -- END
+
+.loadMore {
+  display: flex;
+  justify-content: center;
+}
+
+.loadMore__button--products {
+  width: 100%;
+
+  @media (min-width: @screen-sm-min) {
+    width: auto;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  font-size: @font-size-base;
+  line-height: @pagination-link-size;
+}
+
+.pagination__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.pagination .pagination__link,
+.pagination__currentPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  aspect-ratio: 1;
+  height: @pagination-link-size;
+  min-height: @pagination-link-size;
+  padding: 0;
+
+  text-decoration: none;
+
+  border-radius: @pagination-link-border-radius;
+}
+
+.pagination__link:hover {
+  border-style: @btn-border-style;
+  border-width: @btn-border-width;
+}
+
+.pagination__currentPage {
+  font-weight: 400;
+}
+
+.pagination__link--prev,
+.pagination__link--next {
+  &::before {
+    font-size: @pagination-arrow-font-size;
+
+    &:extend(.shp-icon);
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.pagination__link--prev::before {
+  content: @icon-chevron-left-code;
+}
+
+.pagination__link--next::before {
+  content: @icon-chevron-right-code;
+}
+
+.goToTop {
+  display: flex;
+  justify-content: center;
+}
+
+.goToTop__button::before {
+  content: @icon-chevron-up-code;
+  margin-right: 0.5em;
+  font-size: @pagination-arrow-font-size;
+
+  &:extend(.shp-icon);
+}
+
+.itemsTotal {
+  text-align: center;
+}
 
 @container listingControls (min-width: 57rem) {
-    // TODO: Remove this in issue 19942 -- START
-    :where(body.ums_a11y_pagination--on) {
-    // TODO: Remove this in issue 19942 -- END
-        .loadMore {
-            order: 1;
-        }
+  .loadMore {
+    order: 1;
+  }
 
-        .goToTop {
-            flex-basis: auto;
-            order: 2;
-            margin-right: auto;
-        }
+  .goToTop {
+    flex-basis: auto;
+    order: 2;
+    margin-right: auto;
+  }
 
-        .pagination {
-            flex-basis: auto;
-            order: 3;
-            margin-left: auto;
-        }
+  .pagination {
+    flex-basis: auto;
+    order: 3;
+    margin-left: auto;
+  }
 
-        .itemsTotal {
-            order: 4;
-        }
-    // TODO: Remove this in issue 19942 -- START
-    }
-    // TODO: Remove this in issue 19942 -- END
+  .itemsTotal {
+    order: 4;
+  }
 }
 
 @container listingControls (min-width: 84rem) {
-    // TODO: Remove this in issue 19942 -- START
-    :where(body.ums_a11y_pagination--on) {
-    // TODO: Remove this in issue 19942 -- END
-        .goToTop {
-            flex-basis: 33%;
-            justify-content: flex-start;
-            order: 1;
-        }
+  .goToTop {
+    flex-basis: 33%;
+    justify-content: flex-start;
+    order: 1;
+  }
 
-        .listingControls:has(.goToTop, .pagination) .loadMore {
-            flex-basis: 33%;
-            order: 2;
-        }
+  .listingControls:has(.goToTop, .pagination) .loadMore {
+    flex-basis: 33%;
+    order: 2;
+  }
 
-        .pagination {
-            flex-basis: 33%;
-            justify-content: flex-end;
-            order: 4;
-        }
-    // TODO: Remove this in issue 19942 -- START
-    }
-    // TODO: Remove this in issue 19942 -- END
+  .pagination {
+    flex-basis: 33%;
+    justify-content: flex-end;
+    order: 4;
+  }
 }
 
-// TODO: Remove this in issue 19942 -- START
-:where(body.ums_a11y_pagination--on) {
-// TODO: Remove this in issue 19942 -- END
-    // This pagination is only in the customer section
-    .pagination-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        gap: round(@grid-gutter-width / 8) round(@grid-gutter-width / 2);
-        align-items: center;
-        justify-content: space-between;
+// This pagination is only in the customer section
+.pagination-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: round(@grid-gutter-width / 8) round(@grid-gutter-width / 2);
+  align-items: center;
+  justify-content: space-between;
 
-        margin-top: @line-height-computed;
-        margin-bottom: @line-height-computed;
+  margin-top: @line-height-computed;
+  margin-bottom: @line-height-computed;
 
-        .pagination {
-            display: flex;
-            flex-basis: fit-content;
-            flex-wrap: wrap;
-            gap: round(@grid-gutter-width / 8);
+  .pagination {
+    display: flex;
+    flex-basis: fit-content;
+    flex-wrap: wrap;
+    gap: round(@grid-gutter-width / 8);
 
-            > * {
-                flex-basis: auto;
-                padding: round(@grid-gutter-width / 4);
-                line-height: 1;
-            }
-
-            @media (max-width: @screen-md-max) {
-                justify-content: flex-start;
-            }
-        }
+    > * {
+      flex-basis: auto;
+      padding: round(@grid-gutter-width / 4);
+      line-height: 1;
     }
 
-    .pagination-total {
-        margin-bottom: 0;
+    @media (max-width: @screen-md-max) {
+      justify-content: flex-start;
     }
-// TODO: Remove this in issue 19942 -- START
+  }
 }
-// TODO: Remove this in issue 19942 -- END
+
+.pagination-total {
+  margin-bottom: 0;
+}

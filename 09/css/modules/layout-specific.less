@@ -272,20 +272,14 @@ ol.top-products {
   }
 }
 
-// TODO: Remove this in issue 19942 -- START
-:where(body.ums_a11y_pagination--on) {
-  // TODO: Remove this in issue 19942 -- END
-  .listingControls {
-    margin-top: round(@line-height-computed * 1.5);
-  }
-
-  .pagination__link,
-  .pagination__currentPage {
-    font-weight: @btn-font-weight;
-  }
-  // TODO: Remove this in issue 19942 -- START
+.listingControls {
+  margin-top: round(@line-height-computed * 1.5);
 }
-// TODO: Remove this in issue 19942 -- END
+
+.pagination__link,
+.pagination__currentPage {
+  font-weight: @btn-font-weight;
+}
 
 // Branch selection
 .ordering-process {

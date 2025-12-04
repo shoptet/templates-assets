@@ -727,42 +727,6 @@ ol.cart-header {
   }
 }
 
-// TODO: Remove this in issue 19942 -- START
-:where(body.ums_a11y_pagination--off) {
-  .pagination-wrapper {
-    .load-products {
-      background-color: @btn-special-bg;
-      border-color: @btn-special-border;
-      color: @btn-special-color;
-      &:hover {
-        background-color: @btn-special-bg-hover;
-        border-color: @btn-special-bg-hover;
-        color: @btn-special-color-hover;
-      }
-    }
-    .pagination,
-    .pagination-top {
-      > strong {
-        color: @text-muted-color;
-      }
-      a:last-child {
-        border-color: transparent;
-        &:hover {
-          color: @color-secondary;
-          background-color: hsla(var(--color-secondary-h), var(--color-secondary-s), var(--color-secondary-l), 0.08);
-          border-color: hsla(var(--color-secondary-h), var(--color-secondary-s), var(--color-secondary-l), 0.08);
-        }
-      }
-      a.pagination-link:hover {
-        color: @color-secondary;
-        background-color: transparent;
-        border-color: @color-secondary;
-      }
-    }
-  }
-}
-// TODO: Remove this in issue 19942 -- END
-
 .ui-slider-handle {
   &::before {
     color: rgba(255, 255, 255, 0.4);
