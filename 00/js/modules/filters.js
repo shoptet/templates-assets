@@ -194,13 +194,14 @@ window.makeFilterAjaxRequest = (url, pushHistoryState, successCallback, element,
         } else {
           document.title = $('meta[property="og:title"]').attr('content');
         }
-      } catch (err) {}
+      } catch {}
       if (typeof successCallback === 'function') {
         successCallback();
       }
       shoptet.scripts.signalDomLoad('ShoptetDOMPageContentLoaded', $payloadContentWrapper[0]);
     })
-    .catch(() => {
+    .catch(err => {
+      console.error('AJAX request failed: ', err);
       hideSpinner();
       $('html, body').animate(
         {
