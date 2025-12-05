@@ -156,6 +156,7 @@
                     className: shoptet.modal.config.classLg,
                     onComplete: function() {
                         shoptet.images.unveil();
+                        initTooltips();
                         $('body').removeClass(shoptet.config.bodyClasses);
                         hideSpinner();
                         setTimeout(function() {

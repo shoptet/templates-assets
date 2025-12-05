@@ -42,6 +42,7 @@ window.fulltextSearch = ($searchInput, $searchContainer) => {
                             $('body').addClass('search-focused');
                         }
                         shoptet.images.unveil();
+                        initTooltips();
                         shoptet.scripts.signalDomLoad('ShoptetDOMSearchResultsLoaded');
                     })
                     .fail(function () {
