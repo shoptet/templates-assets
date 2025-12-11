@@ -1,17 +1,24 @@
-.js-validator-msg {
+:where(.ums_forms_redesign--off) & {
+  // TODO: Remove this file in issue #26651
+  .js-validator-msg {
     margin-top: 5px;
     @media (min-width: 480px) {
-        margin-left: @form-group-label-width;
-
-        .no-label &,
-        .no-indent &,
-        .compact-form &,
-        .vote-form & {
-            margin-left: 0;            
-        }
+      margin-left: @form-group-label-width;
     }
-}
+  }
 
-.user-action .js-validator-msg {
+  .no-label,
+  .no-indent,
+  .compact-form,
+  .vote-form {
+    .js-validator-msg {
+      @media (min-width: 480px) {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .user-action .js-validator-msg {
     text-align: left;
+  }
 }

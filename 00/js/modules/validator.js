@@ -46,7 +46,7 @@ var validators = {
                 }
             } else if (!elementValue.trim()) {
                 isValid = false;
-                var newMessage = shoptet.messages.validator[`${$(this).attr('id')}Required`]
+                var newMessage = shoptet.messages.validator[`${$(this).attr('name')}Required`]
                 if ($(this).attr('required') && !!newMessage) {
                     shoptet.validator.message = newMessage
                 } else {
@@ -118,7 +118,7 @@ var validators = {
         return isValid;
     },
     score: function (elementValue) {
-      var isValid = true;  
+      var isValid = true;
       // TODO: Remove the ums check in issue #20873
         if (shoptet.config.discussion_rating_forms && $(this).attr('name') === 'score') {
             isValid = false
@@ -159,6 +159,7 @@ var validate = function(isSubmit) {
         }
         shoptet.scripts.signalCustomEvent('ShoptetValidationError', $(this)[0]);
     }
+    shoptet.modal.resize();
     return isValid;
 };
 

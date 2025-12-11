@@ -236,8 +236,11 @@ a.btn.goToTop__button,
   }
 }
 
-#register-form .submit-wrapper {
-  margin-top: round(@line-height-computed / 2);
+:where(.ums_forms_redesign--off) & {
+  // TODO: Remove this file in issue #26651
+  #register-form .submit-wrapper {
+    margin-top: round(@line-height-computed / 2);
+  }
 }
 
 .html-code {
@@ -584,15 +587,20 @@ a.btn {
   }
 }
 
-.form-group {
-  margin-bottom: @form-group-margin-bottom;
-  fieldset + &,
-  .form-option-block + & {
-    margin-top: @form-group-margin-bottom;
+:where(.ums_forms_redesign--off) & {
+  // TODO: Remove this in issue #26651
+  .form-group {
+    margin-bottom: @form-group-margin-bottom;
+    @media (min-width: @screen-xs-min) {
+      label {
+        line-height: @line-height-base;
+      }
+    }
   }
-  @media (min-width: @screen-xs-min) {
-    label {
-      line-height: @line-height-base;
+  fieldset,
+  .form-option-block {
+    + .form-group {
+      margin-top: @form-group-margin-bottom;
     }
   }
 }

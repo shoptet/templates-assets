@@ -48,6 +48,12 @@
             margin: 0;
         }
     }
+    label {
+      :where(.ums_forms_redesign--on) & {
+        // TODO: Remove this wrapper in issue #26651
+        margin: 0;
+      }
+    }
     .increase,
     .decrease {
         cursor: pointer;

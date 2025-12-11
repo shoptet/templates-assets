@@ -1,5 +1,6 @@
+:where(.ums_forms_redesign--off) & { // TODO: Remove this file in issue #26651
 
-.form-group {
+    .form-group {
     label {
         display: block;
         margin-bottom: 5px;
@@ -39,4 +40,6 @@
         left: calc(@form-group-label-width + @select-width - @form-group-tooltip-position-left);
         top: calc(@form-control-height / 2);
     }
+}
+
 }

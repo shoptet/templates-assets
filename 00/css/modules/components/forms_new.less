@@ -1,0 +1,295 @@
+:where(.ums_forms_redesign--on) & {
+  // TODO: Remove this wrapper in issue #26651
+  fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .form-control {
+    display: block;
+    width: 100%;
+    padding: var(--form-controls-padding-y) var(--form-controls-padding-x);
+    font-size: var(--form-controls-font-size);
+    line-height: var(--form-controls-line-height);
+    color: var(--colors-foregrounds-content-secondary);
+    background-color: var(--colors-forms-background);
+    border: var(--form-controls-border-width) var(--form-controls-border-style) var(--colors-forms-border);
+    border-radius: var(--form-controls-border-radius);
+    box-shadow: none;
+    transition: all var(--transition-duration) var(--transition-timing);
+    &:focus {
+      color: var(--colors-foregrounds-content-primary);
+      border-color: var(--colors-forms-activated);
+    }
+    &[disabled] {
+      color: var(--colors-foregrounds-content-secondary);
+      background-color: var(--colors-forms-disabled);
+    }
+    &.error-field,
+    &.js-error-field {
+      border-color: var(--colors-forms-critical);
+      box-shadow: 0 0 0 1px var(--colors-forms-critical);
+    }
+  }
+
+  .form-control-wrapper {
+    position: relative;
+    &--with-note {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  .form-group {
+    position: relative;
+    margin-bottom: var(--form-groups-margin);
+    &:has(.form-group-tooltip) .form-control {
+      padding-right: calc(var(--form-group-tooltip-size) + 2 * var(--form-controls-padding-x));
+    }
+    td {
+      padding: 0.25rem 0.5rem;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+    .js-validator-msg,
+    .validator-msg,
+    .msg-error {
+      font-size: var(--form-group-labels-font-size);
+      line-height: var(--form-group-labels-line-height);
+      margin-top: var(--form-groups-gap);
+    }
+    .msg-error {
+      color: var(--colors-forms-critical);
+      display: flex;
+      &::before {
+        &:extend(.shp-icon);
+        content: @icon-error-code;
+        font-size: var(--form-group-error-icons-size);
+        margin-right: 0.5ch;
+        line-height: 1;
+      }
+    }
+    .login-button {
+      width: 100%;
+      height: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  fieldset,
+  .form-option-block {
+    + .form-group {
+      margin-top: var(--form-groups-margin);
+    }
+  }
+
+  .submit-wrapper {
+    margin-top: var(--form-groups-margin);
+  }
+
+  .form-control.short {
+    width: var(--form-fields-width-xs);
+  }
+
+  textarea.form-control {
+    height: var(--form-field-textareas-height);
+  }
+
+  select,
+  select.form-control,
+  .select2-selection {
+    padding: var(--form-controls-padding-y) var(--form-controls-padding-x);
+    padding-right: var(--selects-padding-right);
+    appearance: none;
+    background-image: var(--selects-bg-image);
+    background-repeat: no-repeat;
+    background-position: right center;
+  }
+
+  label {
+    cursor: pointer;
+  }
+
+  label,
+  .label {
+    font-size: var(--form-group-labels-font-size);
+    line-height: var(--form-group-labels-line-height);
+    display: inline-block;
+    margin-bottom: var(--form-groups-gap);
+  }
+
+  input[type='checkbox'],
+  input[type='radio'] {
+    .sr-only();
+    & + label {
+      position: relative;
+      display: inline-block;
+      padding-top: 0;
+      padding-bottom: 0;
+      padding-left: calc(var(--form-fields-checkbox-size) + 1.4ch);
+      line-height: calc(var(--form-fields-checkbox-size) * 1.45);
+      &::after,
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        display: block;
+      }
+      &::after {
+        background-color: var(--colors-forms-border);
+      }
+      &::before {
+        left: 0;
+        width: var(--form-fields-checkbox-size);
+        height: var(--form-fields-checkbox-size);
+        background-color: var(--colors-forms-background);
+        border: var(--form-controls-border-width) var(--form-controls-border-style) var(--colors-forms-border);
+        border-color: var(--colors-forms-border);
+      }
+    }
+    &:checked {
+      & + label {
+        &::after {
+          left: calc((var(--form-fields-checkbox-size) - var(--form-fields-checkbox-inner-size)) / 2);
+          width: var(--form-fields-checkbox-inner-size);
+          height: var(--form-fields-checkbox-inner-size);
+          background-color: var(--color-primary);
+          border: var(--form-controls-border-width) var(--form-controls-border-style) var(--colors-forms-border);
+          border-color: var(--colors-surface-primary);
+        }
+        &::before {
+          border-color: var(--color-primary);
+        }
+      }
+    }
+    &:disabled {
+      & + label {
+        cursor: not-allowed;
+        &::before {
+          border-color: var(--colors-forms-disabled);
+        }
+      }
+    }
+    &.error-field,
+    &.js-error-field {
+      & + label {
+        &::before {
+          border-color: var(--colors-forms-critical);
+        }
+      }
+    }
+  }
+
+  input[type='radio'] {
+    & + label {
+      &::after,
+      &::before {
+        border-radius: var(--form-field-radio-inputs-border-radius);
+      }
+    }
+  }
+
+  input[type='search'] {
+    box-sizing: border-box;
+  }
+
+  input {
+    &[type='checkbox'],
+    &[type='radio'],
+    &[type='text'],
+    &[type='email'],
+    &[type='search'] {
+      appearance: none;
+    }
+  }
+
+  .form-group-tooltip {
+    position: absolute;
+    top: var(--form-group-tooltip-top);
+    right: var(--form-controls-padding-x);
+  }
+
+  .required-asterisk::before,
+  .required-asterisk::after {
+    color: var(--colors-forms-critical);
+  }
+
+  .required-asterisk:not(.required-asterisk--before)::after,
+  .required-asterisk--after::after {
+    content: '*';
+    padding-left: 0.5ch;
+  }
+
+  .required-asterisk--before::before {
+    content: '*';
+    padding-right: 0.5ch;
+  }
+
+  .form-legend {
+    text-align: right;
+  }
+
+  #content .form-legend {
+    margin: 0;
+  }
+
+  .js-validator-msg,
+  .validator-msg {
+    .user-action & {
+      text-align: left;
+    }
+  }
+
+  #company-info {
+    margin-bottom: var(--form-groups-margin);
+  }
+
+  .co-basic-information .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--form-groups-margin) 0;
+  }
+
+  .login-form .alternative-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--form-groups-gap);
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .watchdog-form,
+  .subscribe-form,
+  .contact-form,
+  .product-question-form,
+  .shipping-address-form,
+  .login-form,
+  .registration-form,
+  .newsletter-unsubscribe-form,
+  .forgotten-password-form,
+  .rating-form,
+  .discussion-form,
+  .external-service-login-form,
+  .external-service-content-form {
+    // TODO: Remove this wrapper in issue #26651
+    width: var(--forms-width);
+    max-width: var(--forms-max-width);
+    margin-bottom: var(--form-groups-margin);
+  }
+}
+
+.discussionContainer form,
+.rate-wrapper form {
+  :where(.ums_discussion_rating_forms--on.ums_forms_redesign--off) & {
+    // TODO: Remove this in issue #20873
+    max-width: var(--forms-width);
+  }
+}

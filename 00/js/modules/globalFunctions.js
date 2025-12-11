@@ -859,10 +859,13 @@ document.addEventListener('DOMContentLoaded', function () {
     e.preventDefault();
     shoptet.modal.open({
       href: $(this).attr('href'),
-      width: shoptet.modal.config.widthSm,
-      className: shoptet.modal.config.classSm,
+      width: shoptet.config.ums_forms_redesign ? undefined : shoptet.modal.config.widthSm,
+      className: shoptet.config.ums_forms_redesign ? undefined : shoptet.modal.config.classSm,
       onComplete: function () {
         shoptet.validator.initValidator($('form'));
+        if (shoptet.config.ums_forms_redesign) {
+          shoptet.validator.handleValidators(shoptet.validatorRequired.validators);
+        }
         shoptet.watchdog.initWatchdog();
       },
     });

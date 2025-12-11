@@ -244,6 +244,9 @@
     align-items: center;
     padding-top: 5px;
     padding-bottom: 5px;
+    :where(.ums_forms_redesign--on) & { // TODO: Remove this wrapper in issue #26651
+        margin-bottom: calc(var(--form-groups-gap) * 2);
+    }
 }
 
 .filter-count {

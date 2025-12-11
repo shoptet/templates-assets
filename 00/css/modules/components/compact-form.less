@@ -1,4 +1,14 @@
 .compact-form {
+    :where(.ums_forms_redesign--on) & { // TODO: Remove this wrapper in issue #26651
+        display: flex;
+        fieldset {
+            display: contents;
+        }
+        .form-control {
+            border-right: none;
+        }
+    }
+    :where(.ums_forms_redesign--off) & { // TODO: Remove this in issue #26651
     position: relative;
     .form-control {
         padding-right: @compact-form-input-padding;
@@ -26,4 +36,5 @@
         }
     }
 
+    }
 }

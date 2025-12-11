@@ -1,19 +1,35 @@
 .question-tooltip {
-    display: inline-block;
-    vertical-align: baseline;
-    .square(18px);
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 50%;
-    font-size: 14px;
-    line-height: 16px;
-    text-align: center;
+  display: inline-block;
+  vertical-align: baseline;
+  .square(18px);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 50%;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  :where(.ums_forms_redesign--on) & {
+    // TODO: Remove this wrapper in issue #26651
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--colors-foregrounds-content-inverted);
+  }
 }
 
 .form-group-tooltip {
+  :where(.ums_forms_redesign--on) & {
+    // TODO: Remove this wrapper in issue #26651
+    min-width: var(--form-group-tooltip-size);
+    min-height: var(--form-group-tooltip-size);
+    font-size: var(--form-controls-font-size);
+    line-height: var(--form-group-tooltip-line-height);
+  }
+  :where(.ums_forms_redesign--off) & {
+    // TODO: Remove this in issue #26651
     @media (max-width: @screen-sm-max) {
-        .square(22px);
-        font-size: 16px;
-        line-height: 20px;
+      .square(22px);
+      font-size: 16px;
+      line-height: 20px;
     }
+  }
 }

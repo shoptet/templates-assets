@@ -38,20 +38,26 @@
     &.msg-info {
         color: @state-info-bg;
     }
+    :where(.ums_forms_redesign--off) & {
+    // TODO: Remove this in issue #26651
     &.msg-error {
         color: @state-danger-bg
+    }
     }
     &.msg-warning {
         color: @state-warning-bg
     }
 }
 
-.form-control.error-field,
-.form-control.js-error-field {
-    border-color: @state-danger-bg;
-    &:focus {
+:where(.ums_forms_redesign--off) & {
+    // TODO: Remove this in issue #26651
+    .form-control.error-field,
+    .form-control.js-error-field {
         border-color: @state-danger-bg;
-        box-shadow: 0 0 0 0.1em fade(@state-danger-bg, 25%);
+        &:focus {
+            border-color: @state-danger-bg;
+            box-shadow: 0 0 0 0.1em fade(@state-danger-bg, 25%);
+        }
     }
 }
 
@@ -63,7 +69,10 @@
     }
 }
 
-.error-field + label,
-.js-error-field + label {
-    border-color: @state-danger-bg;
+:where(.ums_forms_redesign--off) & {
+  // TODO: Remove this in issue #26651
+    .error-field + label,
+    .js-error-field + label {
+        border-color: @state-danger-bg;
+    }
 }

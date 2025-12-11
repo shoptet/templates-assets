@@ -1,18 +1,25 @@
 .phone-combined-input {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    select {
-        display: none;
-    }
-    input,
-    .country-flags {
-        flex-grow: 0;
-    }
-    input {
-        width: 100%;
-    }
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  :where(.ums_forms_redesign--on) & {
+    // TODO: Remove this wrapper in issue #26651
+    width: 100%;
+  }
+  select {
+    display: none;
+  }
+  input,
+  .country-flags {
+    flex-grow: 0;
+  }
+  input {
+    width: 100%;
+  }
+  :where(.ums_forms_redesign--off) & {
+    // TODO: Remove this in issue #26651
     @media (min-width: @screen-xs-min) {
-        max-width: @select-width;
+      max-width: @select-width;
     }
+  }
 }

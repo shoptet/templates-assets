@@ -43,8 +43,13 @@
         .search-form {
             display: none;
             .search-window-visible & {
-                display: block;
                 margin: round(@grid-gutter-width / 2) 0;
+                :where(.ums_forms_redesign--on)& { // TODO: Remove this wrapper in issue #26651
+                    display: flex;
+                }
+                :where(.ums_forms_redesign--off)& { // TODO: Remove this in issue #26651
+                    display: block;
+                }
             }
         }
     }

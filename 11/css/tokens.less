@@ -43,4 +43,72 @@
 
   --scroll-offset: var(--scroll-offset-override, var(--scroll-offset-runtime, 0px));
   --scroll-extra-offset: 0px;
+
+  --forms-width: 440px;
+  --forms-max-width: 100%;
+
+  --form-fields-width-xs: 120px;
+  --form-fields-width-sm: 220px;
+  --form-fields-width-md: 320px;
+  --form-fields-width-lg: 440px;
+
+  --form-field-textareas-height: 140px;
+
+  --form-field-radio-inputs-border-radius: 100%;
+
+  --form-fields-checkbox-size: 14px;
+  --form-fields-checkbox-inner-size: 10px;
+
+  --buttons-font-size: 14px;
+  --buttons-line-height: 1.72;
+  --buttons-padding-y: 5px;
+  --buttons-padding-x: 15px;
+  --buttons-border-width: 1px;
+
+  --form-controls-font-size: 16px;
+  --form-controls-line-height: 1.625;
+  --form-controls-border-width: 1px;
+  --form-controls-border-style: solid;
+  --form-controls-border-radius: 0;
+  --form-controls-padding-y: 10px;
+  --form-controls-padding-x: 12px;
+
+  --form-groups-position: relative;
+  --form-groups-margin: 12px;
+  --form-groups-gap: 4px;
+
+  --form-group-labels-font-size: 14px;
+  --form-group-labels-line-height: 1.45;
+
+  --form-group-tooltip-size: 22px;
+  --form-group-tooltip-line-height: 1.25;
+  --form-group-tooltip-top: calc(
+    (
+        var(--form-controls-font-size) * var(--form-controls-line-height) + 2 * var(--form-controls-padding-y) +
+          var(--form-controls-border-width) * 2 - var(--form-group-tooltip-size)
+      ) / 2
+  );
+
+  --form-group-error-icons-size: 18px;
+
+  --selects-padding-right: 58px;
+  --selects-bg-image: url("data:image/svg+xml,%3Csvg width='46' height='46' viewBox='0 0 36 36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0H46V46H0V0Z' fill='%23F6F6F6'/%3E%3Cpath d='M17.9998 21.8C17.7898 21.8 17.5898 21.72 17.4298 21.57L12.4298 16.57C12.1198 16.26 12.1198 15.75 12.4298 15.44C12.7398 15.13 13.2498 15.13 13.5598 15.44L17.9998 19.87L22.4298 15.44C22.7398 15.13 23.2498 15.13 23.5598 15.44C23.8698 15.75 23.8698 16.26 23.5598 16.57L18.5598 21.57C18.4098 21.72 18.2098 21.8 17.9998 21.8Z' fill='%23919191'/%3E%3C/svg%3E%0A");
+
+  --transition-duration: 0.3s;
+  --transition-timing: ease-out;
+
+  // ----------------
+  // Classic specific
+  --inline-form-group-labels-font-size: 14px;
+  --inline-form-group-labels-line-height: 1.6;
+  --inline-form-group-labels-width: 184px;
+  --inline-form-group-labels-padding-y: calc(
+    (
+        var(--form-controls-font-size) * var(--form-controls-line-height) + 2 * var(--form-controls-padding-y) +
+          var(--form-controls-border-width) * 2 - var(--inline-form-group-labels-font-size) *
+          var(--inline-form-group-labels-line-height)
+      ) / 2
+  );
+
+  --inline-form-group-controls-width: var(--form-fields-width-md);
 }

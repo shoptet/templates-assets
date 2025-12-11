@@ -10,6 +10,10 @@
     label {
       display: flex;
       align-items: center;
+      :where(.ums_forms_redesign--on) & {
+        // TODO: Remove this wrapper in issue #26651
+        margin: 0;
+      }
       .transition(background-color @transition-duration @transition-timing);
 
       img {

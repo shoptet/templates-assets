@@ -94,18 +94,21 @@ a,
   background-color: @colorbox-title-bg;
 }
 
-.form-control,
-select {
-  border-color: @input-border;
-  color: @input-color-nonfocused;
-  background-color: @input-bg;
-  &:focus {
-    border-color: @input-border-focus;
-    color: @input-color;
-  }
-  &[disabled] {
-    color: @input-color-disabled;
-    background-color: @input-bg-disabled;
+:where(.ums_forms_redesign--off) & {
+  // TODO: Remove this in issue #26651
+  .form-control,
+  select {
+    border-color: @input-border;
+    color: @input-color-nonfocused;
+    background-color: @input-bg;
+    &:focus {
+      border-color: @input-border-focus;
+      color: @input-color;
+    }
+    &[disabled] {
+      color: @input-color-disabled;
+      background-color: @input-bg-disabled;
+    }
   }
 }
 
@@ -116,31 +119,34 @@ select {
   border-radius: 3px;
 }
 
-input[type='checkbox'],
-input[type='radio'] {
-  & + label {
-    &::before {
-      border-color: @input-border;
-    }
-    &::after {
-      background-color: @input-border;
-    }
-  }
-  &:disabled {
+:where(.ums_forms_redesign--off) & {
+  // TODO: Remove this in issue #26651
+  input[type='checkbox'],
+  input[type='radio'] {
     & + label {
       &::before {
-        border-color: lighten(@input-border, 5%);
-      }
-    }
-  }
-  &:checked {
-    & + label {
-      &::before {
-        border-color: @color-primary;
+        border-color: @input-border;
       }
       &::after {
-        border-color: @content-box-bg;
-        background-color: @color-primary;
+        background-color: @input-border;
+      }
+    }
+    &:disabled {
+      & + label {
+        &::before {
+          border-color: lighten(@input-border, 5%);
+        }
+      }
+    }
+    &:checked {
+      & + label {
+        &::before {
+          border-color: @color-primary;
+        }
+        &::after {
+          border-color: @content-box-bg;
+          background-color: @color-primary;
+        }
       }
     }
   }
@@ -548,9 +554,12 @@ a.link-icon {
   }
 }
 
-.required-asterisk::before,
-.required-asterisk::after {
-  color: @red;
+:where(.ums_forms_redesign--off) {
+  // Remove this in issue #26651
+  .required-asterisk::before,
+  .required-asterisk::after {
+    color: @red;
+  }
 }
 
 .next-step-back,

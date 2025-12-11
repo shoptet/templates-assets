@@ -69,6 +69,7 @@
                 },
             });
             element.dispatchEvent(errorRemoveEvent);
+            shoptet.modal.resize();
         }
     }
 
@@ -81,7 +82,7 @@
         message.classList.add('msg-error');
         message.setAttribute('data-type', messageType);
         if (element.required) {
-          message.textContent = shoptet.messages.validator[`${element.id}Required`] ?? shoptet.messages[messageType]
+          message.textContent = shoptet.messages.validator[`${element.name}Required`] ?? shoptet.messages[messageType]
         } else {
           message.innerHTML = shoptet.messages[messageType];
         }
@@ -94,6 +95,7 @@
             },
         });
         element.dispatchEvent(errorAddEvent);
+        shoptet.modal.resize();
     }
 
     document.addEventListener('DOMContentLoaded', function() {

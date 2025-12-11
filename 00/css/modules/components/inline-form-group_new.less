@@ -1,0 +1,50 @@
+:where(.ums_forms_redesign--on) {
+  // TODO: Remove only ums class in issue #26651
+  .inline-form-fields .cart-content .co-box h2 {
+    @media (min-width: @screen-xs-min) {
+      padding-left: var(--inline-form-group-labels-width);
+    }
+  }
+
+  .form-group--inline {
+    @media (min-width: @screen-xs-min) {
+      display: flex;
+      label,
+      .label {
+        margin: 0;
+        flex-shrink: 0;
+        width: var(--inline-form-group-labels-width);
+        font-size: var(--inline-form-group-labels-font-size);
+        line-height: var(--inline-form-group-labels-line-height);
+        padding: var(--inline-form-group-labels-padding-y) 0;
+        &.confirmation,
+        &.whole-width {
+          width: 100%;
+        }
+      }
+
+      .form-control {
+        width: 100%;
+        max-width: var(--inline-form-group-controls-width);
+      }
+
+      .form-control.short {
+        max-width: var(--form-fields-width-xs);
+      }
+
+      .form-control-wrapper {
+        width: 100%;
+        max-width: var(--inline-form-group-controls-width);
+      }
+
+      .phone-combined-input {
+        @media (min-width: @screen-xs-min) {
+          max-width: var(--inline-form-group-controls-width);
+          .form-control {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

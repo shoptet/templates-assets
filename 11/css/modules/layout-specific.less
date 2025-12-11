@@ -161,11 +161,15 @@ h4,
         .id--8 & {
             max-width: none;
         }
-        .id--4 & {
+    }
+    .one-column-body & {
+        margin: auto;
+    }
+}
+:where(.ums_forms_redesign--off).id--4 { // TODO: Remove this in issue #26651
+    .content-inner {
+        @media (min-width: @screen-lg-min) {
             max-width: 400px;
-        }
-        .one-column-body & {
-            margin: auto;
         }
     }
 }
@@ -518,6 +522,7 @@ body.user-action-visible {
     }
 }
 
+:where(.ums_forms_redesign--off) & { // TODO: Remove this in issue #26651
 .validator-msg,
 .js-validator-msg {
     margin-bottom: 5px;
@@ -545,6 +550,7 @@ body.user-action-visible {
     .popup-widget-inner & {
         margin-left: 0;
     }
+}
 }
 
 ul.manufacturers {

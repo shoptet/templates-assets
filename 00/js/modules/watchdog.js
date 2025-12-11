@@ -36,6 +36,7 @@
                 $('#drop').prop('checked', false);
                 $('#drop').siblings('.disclaimer').addClass('hidden');
                 $(this).val('');
+                shoptet.modal.resize();
                 return;
             }
             if(priceUnder > actualPrice ) {
@@ -44,6 +45,7 @@
                 switchCheckboxProp('#drop', false);
                 $('#drop').prop('checked', true);
             }
+            shoptet.modal.resize();
         });
 
         /**
@@ -137,43 +139,43 @@
                 shoptet.modal.close();
             }
         }
-        
+
         function watchdogDataHandler() {
             watchdogCodeId = $('#product-detail-form input[name="priceId"]').val();
             var $simpleHolder = $('#watchdog-data');
-        
+
             if($simpleHolder.data('simpleholder') == 'TRUE') {
-        
+
                 actualPrice = $simpleHolder.data('customerprice');
                 hasPromotion = $simpleHolder.data('haspromotion');
                 onStock = $simpleHolder.data('stock');
                 changeDisclaimerVisibility();
                 loadExistingData();
             } else {
-        
+
                 var $simpleVariants = $('#watchdog-simple-variants-select');
                 $simpleVariants.find("option[data-index='0']").remove();
                 var selectedVariantIndex = $('#watchdog-simple-variants-select').find('option[data-codeid="' + watchdogCodeId + '"]').data('index');
                 $simpleVariants.find("option[data-index='" + (selectedVariantIndex > 0 ? selectedVariantIndex : 1) + "']").prop('selected', true);
-        
+
                 $simpleVariants.change(function() {
-        
+
                     var $activeOption = $('#watchdog-simple-variants-select option:selected');
                     if ($activeOption.attr('data-codeid')) {
                         watchdogCodeId = $activeOption.attr('data-codeid');
                         actualPrice = $activeOption.data('customerprice');
                         hasPromotion = $activeOption.data('haspromotion');
                         onStock = $activeOption.data('stock');
-        
+
                         changeDisclaimerVisibility();
                         loadExistingData();
                     }
                 });
-        
+
                 $simpleVariants.change();
             }
         }
-        
+
         function loadExistingData() {
             var watchdogData = {
                 pricelistCodeId: watchdogCodeId
@@ -191,35 +193,37 @@
                 if (response.isFailed()) {
                     return false;
                 }
-        
+
                 var onStockPayload = response.getFromPayload('onStock');
                 $('#onStock').prop('checked', onStockPayload == true);
-        
+
                 var hasPromotionPayload = response.getFromPayload('hasPromotion');
                 $('#hasPromotion').prop('checked', hasPromotionPayload == true);
-        
+
                 var priceUnderPayload = response.getFromPayload('priceUnder');
                 $('#priceUnder').val(priceUnderPayload > 0 ? priceUnderPayload : '');
                 $('#drop').prop('checked', priceUnderPayload > 0);
-        
+
                 var existingEmailPayload = response.getFromPayload('email');
                 $('#watchdog-form').find('.notificationEmail').val(existingEmailPayload);
-        
+
                 if(onStockPayload || hasPromotionPayload || priceUnderPayload || existingEmailPayload) {
                     $('#watchdog-reset').removeClass('hide');
                 }
+                shoptet.modal.resize();
             });
         }
-        
+
         function changeDisclaimerVisibility() {
             switchCheckboxProp('#hasPromotion', hasPromotion);
-        
+
             switchCheckboxProp('#onStock', onStock == shoptet.config.inStockAvailabilityId);
-        
+
             var priceUnder = parseInt($('#priceUnder').val());
             switchCheckboxProp('#drop', actualPrice < priceUnder);
+            shoptet.modal.resize();
         }
-        
+
         function switchCheckboxProp(elementID, isDisabled) {
             if (isDisabled) {
                 $(elementID).prop('disabled', true).prop('checked', false);
@@ -228,6 +232,7 @@
                 $(elementID).prop('disabled', false);
                 $(elementID).siblings('.disclaimer').addClass('hidden');
             }
+            shoptet.modal.resize();
         }
     }
 
