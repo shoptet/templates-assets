@@ -65,6 +65,7 @@ import './modules/topNavigationMenu';
 import './modules/popups';
 import './modules/dialogs';
 import './modules/cookieBar';
+import './modules/tooltips';
 import './modules/globalFunctions';
 import './modules/menu';
 import './modules/products';

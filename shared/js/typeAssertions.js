@@ -1,7 +1,19 @@
-export const isHTMLElement = value => value instanceof HTMLElement;
-export const isHTMLFormElement = value => value instanceof HTMLFormElement;
-export const isHTMLInputElement = value => value instanceof HTMLInputElement;
-export const isHTMLLabelElement = value => value instanceof HTMLLabelElement;
+// @ts-check
+
+/** @type {(value: unknown) => value is number} */
+export const isNumber = value => typeof value === 'number';
+/** @type {(el: unknown) => el is HTMLElement} */
+export const isHTMLElement = el => el instanceof HTMLElement;
+/** @type {(el: unknown) => el is HTMLButtonElement} */
+export const isHTMLButtonElement = el => el instanceof HTMLButtonElement;
+/** @type {(el: unknown) => el is HTMLDivElement} */
+export const isHTMLDivElement = el => el instanceof HTMLDivElement;
+/** @type {(el: unknown) => el is HTMLFormElement} */
+export const isHTMLFormElement = el => el instanceof HTMLFormElement;
+/** @type {(el: unknown) => el is HTMLInputElement} */
+export const isHTMLInputElement = el => el instanceof HTMLInputElement;
+/** @type {(el: unknown) => el is HTMLLabelElement} */
+export const isHTMLLabelElement = el => el instanceof HTMLLabelElement;
 
 /**
  * Function to ensure that a value satisfies a condition (predicate).
@@ -95,4 +107,13 @@ export function ensureEvery(values, condition) {
  */
 export function maybe(value, condition) {
   return condition(value) ? value : undefined;
+}
+
+/**
+ * @template {object} T
+ * @param {T} obj
+ * @returns {Array<keyof T>}
+ */
+export function typedKeys(obj) {
+  return /** @type {Array<keyof T>} */ (Object.keys(obj));
 }

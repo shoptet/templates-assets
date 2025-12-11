@@ -1,0 +1,59 @@
+:root {
+  --tooltip-bubble-arrow-size: 5px;
+  --tooltip-bubble-background: black;
+  --tooltip-bubble-color: white;
+  --tooltip-bubble-padding: 4px 8px;
+  --tooltip-bubble-z-index: 999999;
+  --tooltip-bubble-max-width: ~'min(21em, calc(100vw - 20px))';
+  --tooltip-bubble-border-radius: 4px;
+  --tooltip-bubble-left-position: 50%;
+  --tooltip-bubble-top-position: 100%;
+
+  --tooltip-bubble-arrow-left-position: 50%;
+  --tooltip-bubble-arrow-top-position: 100%;
+  --tooltip-bubble-arrow-transform: translateX(-50%);
+
+  --tooltip-decoration: underline;
+  --tooltip-decoration-style: dashed;
+}
+
+.show-tooltip_new {
+  text-decoration: var(--tooltip-decoration);
+  text-decoration-style: var(--tooltip-decoration-style);
+  * {
+    pointer-events: none;
+  }
+}
+button.show-tooltip_new {
+  text-decoration: none;
+}
+
+.tooltip_bubble {
+  visibility: hidden;
+  position: absolute;
+  left: var(--tooltip-bubble-left-position);
+  top: var(--tooltip-bubble-top-position);
+  z-index: var(--tooltip-bubble-z-index);
+  background: var(--tooltip-bubble-background);
+  color: var(--tooltip-bubble-color);
+  padding: var(--tooltip-bubble-padding);
+  border-radius: var(--tooltip-bubble-border-radius);
+  max-width: var(--tooltip-bubble-max-width);
+}
+
+.tooltip_bubble--hidden {
+  display: none;
+}
+
+.tooltip_bubble--visible {
+  visibility: visible;
+}
+
+.tooltip_bubble__arrow {
+  left: var(--tooltip-bubble-arrow-left-position);
+  top: var(--tooltip-bubble-arrow-top-position);
+  position: absolute;
+  border: var(--tooltip-bubble-arrow-size) solid transparent;
+  border-top-color: var(--tooltip-bubble-background);
+  transform: var(--tooltip-bubble-arrow-transform);
+}
