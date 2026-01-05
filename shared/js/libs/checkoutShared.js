@@ -1596,4 +1596,33 @@ const isHTMLInputElement = item => item instanceof HTMLInputElement;
         });
     });
 
+    function toggleUnregulatedCardWarning() {
+      let isCompanyShopping = $('#company-shopping').is(':checked');
+      let $warningBox = $('.js-unregulated-card-warning');
+
+      if ($warningBox.length) {
+        if (isCompanyShopping) {
+          $warningBox.removeClass('js-hidden');
+          if (shoptet.abilities.about.generation === 3) {
+            $warningBox.addClass('visible');
+          } else {
+            $warningBox.show();
+          }
+        } else {
+          $warningBox.addClass('js-hidden');
+          if (shoptet.abilities.about.generation === 3) {
+            $warningBox.removeClass('visible');
+          } else {
+            $warningBox.hide();
+          }
+        }
+    }
+  }
+  console.log('yolo tady!!');
+  $(document).on('change', '#company-shopping', function() {
+    toggleUnregulatedCardWarning();
+  });
+
+  toggleUnregulatedCardWarning();
+
 })(shoptet);

@@ -104,7 +104,7 @@
                         response.showNotification();
                         shoptet.tracking.updateCartDataLayer(response);
                         shoptet.tracking.updateDataLayerCartInfo(response);
-                        $('#summary-box').html(html)
+                        $('#summary-box').html(html);
                     }
                     if (shouldUpdateVatIdValidation) {
                         if (response.getFromPayload('vatIdValidationStatus') === 2) {
