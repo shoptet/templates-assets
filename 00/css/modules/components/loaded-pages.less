@@ -88,6 +88,19 @@ a.cpost-delivery-point-show-opening-hours {
     }
 }
 
+.pickup-point-modal-notice {
+    &, .question-tooltip {
+        color: var(--colors-state-informative, #3531ff);
+    }
+    .question-tooltip {
+        border-color: var(--colors-state-informative, #3531ff);
+        background-color: transparent;
+    }
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
 .pickup-point-opening-hours {
   display: none;
   &.active {
