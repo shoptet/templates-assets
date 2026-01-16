@@ -703,51 +703,49 @@ const isHTMLInputElement = item => item instanceof HTMLInputElement;
             cartPriceWithoutVat = document.createElement('span');
         }
         var shippingPriceNotSpecified = shippingPrice.classList.contains('shipping-price-not-specified');
-        if (shippingPriceNotSpecified) {
-            if (!shippingPrice.getAttribute('data-preserve-value')) {
+        if (shippingPriceNotSpecified && !shippingPrice.getAttribute('data-preserve-value')) {
                 cartPriceWithVat.innerHTML = shoptet.messages.specifyShippingMethod;
                 cartPriceWithoutVat.innerHTML = shoptet.messages.specifyShippingMethod;
+                return;
+        }
+        var prices = {
+            shipping: {
+                withVat: shoptet.checkoutShared.getPriceFromElement(shippingPrice, 'data-shipping-price-wv'),
+                withoutVat: shoptet.checkoutShared.getPriceFromElement(shippingPrice, 'data-shipping-price-wov'),
+                vat: shoptet.checkoutShared.getPriceFromElement(shippingPrice, 'data-shipping-price-vat')
+            },
+            billing: {
+                withVat: shoptet.checkoutShared.getPriceFromElement(billingPrice, 'data-billing-price-wv'),
+                withoutVat: shoptet.checkoutShared.getPriceFromElement(billingPrice, 'data-billing-price-wov'),
+                vat: shoptet.checkoutShared.getPriceFromElement(billingPrice, 'data-billing-price-vat')
+            },
+            cart: {
+                withVat: shoptet.checkoutShared.getPriceFromElement(cartPriceWithVat, 'data-price-total-wv'),
+                withoutVat: shoptet.checkoutShared.getPriceFromElement(cartPriceWithoutVat, 'data-price-total-wov'),
+                vat: shoptet.checkoutShared.getPriceFromElement(cartPriceWithVat, 'data-price-total-vat'),
+                preauthorized: preauthorizedPrice ? shoptet.checkoutShared.getPriceFromElement(preauthorizedPrice, 'data-preauthorized-price') : undefined,
             }
-        } else {
-            var prices = {
-                shipping: {
-                    withVat: shoptet.checkoutShared.getPriceFromElement(shippingPrice, 'data-shipping-price-wv'),
-                    withoutVat: shoptet.checkoutShared.getPriceFromElement(shippingPrice, 'data-shipping-price-wov'),
-                    vat: shoptet.checkoutShared.getPriceFromElement(shippingPrice, 'data-shipping-price-vat')
-                },
-                billing: {
-                    withVat: shoptet.checkoutShared.getPriceFromElement(billingPrice, 'data-billing-price-wv'),
-                    withoutVat: shoptet.checkoutShared.getPriceFromElement(billingPrice, 'data-billing-price-wov'),
-                    vat: shoptet.checkoutShared.getPriceFromElement(billingPrice, 'data-billing-price-vat')
-                },
-                cart: {
-                    withVat: shoptet.checkoutShared.getPriceFromElement(cartPriceWithVat, 'data-price-total-wv'),
-                    withoutVat: shoptet.checkoutShared.getPriceFromElement(cartPriceWithoutVat, 'data-price-total-wov'),
-                    vat: shoptet.checkoutShared.getPriceFromElement(cartPriceWithVat, 'data-price-total-vat'),
-                    preauthorized: preauthorizedPrice ? shoptet.checkoutShared.getPriceFromElement(preauthorizedPrice, 'data-preauthorized-price') : undefined,
-                }
-            };
-            var calculatedPriceWithVat = prices.shipping.withVat + prices.billing.withVat + prices.cart.withVat;
-            calculatedPriceWithVat = roundForCart(calculatedPriceWithVat, billingActive);
+        };
+        var calculatedPriceWithVat = prices.shipping.withVat + prices.billing.withVat + prices.cart.withVat;
+        calculatedPriceWithVat = roundForCart(calculatedPriceWithVat, billingActive);
 
-            var calculatedPriceWithoutVat =
-                prices.shipping.withoutVat + prices.billing.withoutVat + prices.cart.withoutVat;
-            // It would took complete refactoring to synchronize behavior of price rounding within tpl and js,
-            // that's why the line below is commented
-            //calculatedPriceWithoutVat = calculatedPriceWithoutVat.ShoptetRoundForDocument();
-            cartPriceWithVat.innerHTML = calculatedPriceWithVat.ShoptetFormatAsCurrency(
-                undefined, undefined, shoptet.config.decPlacesSystemDefault
-            );
-            cartPriceWithoutVat.innerHTML = calculatedPriceWithoutVat.ShoptetFormatAsCurrency(
-                undefined, undefined, shoptet.config.decPlacesSystemDefault
-            );
+        var calculatedPriceWithoutVat =
+            prices.shipping.withoutVat + prices.billing.withoutVat + prices.cart.withoutVat;
+        // It would took complete refactoring to synchronize behavior of price rounding within tpl and js,
+        // that's why the line below is commented
+        //calculatedPriceWithoutVat = calculatedPriceWithoutVat.ShoptetRoundForDocument();
+        cartPriceWithVat.innerHTML = calculatedPriceWithVat.ShoptetFormatAsCurrency(
+            undefined, undefined, shoptet.config.decPlacesSystemDefault
+        );
+        cartPriceWithoutVat.innerHTML = calculatedPriceWithoutVat.ShoptetFormatAsCurrency(
+            undefined, undefined, shoptet.config.decPlacesSystemDefault
+        );
 
-            if (preauthorizedPrice && prices.cart.preauthorized !== undefined) {
-                var calculatedPreauthorizedPrice = prices.shipping.withVat + prices.billing.withVat + prices.cart.preauthorized;
-                calculatedPreauthorizedPrice = roundForCart(calculatedPreauthorizedPrice, billingActive);
+        if (preauthorizedPrice && prices.cart.preauthorized !== undefined) {
+            var calculatedPreauthorizedPrice = prices.shipping.withVat + prices.billing.withVat + prices.cart.preauthorized;
+            calculatedPreauthorizedPrice = roundForCart(calculatedPreauthorizedPrice, billingActive);
 
-                preauthorizedPrice.innerHTML = calculatedPreauthorizedPrice.ShoptetFormatAsCurrency();
-            }
+            preauthorizedPrice.innerHTML = calculatedPreauthorizedPrice.ShoptetFormatAsCurrency();
         }
     }
 
@@ -969,6 +967,10 @@ const isHTMLInputElement = item => item instanceof HTMLInputElement;
                 });
             } catch (ex) {
                 console.error(ex);
+            }
+            var priceHandler = wrapper.querySelector('.payment-shipping-price');
+            if (priceHandler.getAttribute('data-preserve-value')) {
+                shoptet.checkoutShared.afterPriceChange();
             }
         } else {
             shoptet.checkoutShared.afterPriceChange();
@@ -1618,7 +1620,6 @@ const isHTMLInputElement = item => item instanceof HTMLInputElement;
         }
     }
   }
-  console.log('yolo tady!!');
   $(document).on('change', '#company-shopping', function() {
     toggleUnregulatedCardWarning();
   });
