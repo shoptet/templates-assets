@@ -44,7 +44,9 @@
     }
 }
 
-.top-nav-button-login {
+.top-nav-button-login,
+:where(body.ums_a11y_login--on) a.top-nav-button-account {
+// TODO: Remove :where(body.ums_a11y_login--on) in issue 25868
     display: none;
 
     @media (min-width: @screen-sm-min) {

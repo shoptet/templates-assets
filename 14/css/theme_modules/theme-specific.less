@@ -157,7 +157,9 @@ select {
 .navigation-buttons a[data-target='cart'],
 .navigation-buttons a[data-target='search'] {
   color: @color-tertiary-hover;
-  &:hover {
+
+  &:hover,
+  &:focus-visible {
     color: @color-secondary;
   }
 }

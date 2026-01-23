@@ -41,10 +41,13 @@ ol.cart-header,
   border-top-color: @border-color;
   border-bottom-color: @border-color;
   background-color: @content-box-bg;
+
   a,
   .dropdown button {
     color: @text-muted-color;
-    &:hover {
+
+    &:hover,
+    &:focus-visible {
       color: @link-color;
     }
   }

@@ -147,6 +147,17 @@
     }
   }
 
+  .top-nav-button {
+    color: @navigation-color;
+    appearance: none;
+    border: 0;
+
+    &:hover,
+    &:focus-visible {
+      color: @navigation-color-hover;
+    }
+  }
+
   .navigation-buttons a,
   .top-nav-button-login {
     position: relative;
@@ -183,11 +194,6 @@
 
   .navigation-buttons a[data-target='navigation']::before {
     content: @icon-menu-code;
-  }
-
-  .top-nav-button {
-    appearance: none;
-    border: 0;
   }
 
   .top-nav-button-login::before {
