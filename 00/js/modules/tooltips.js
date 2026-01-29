@@ -67,7 +67,7 @@ function positionTooltip(button) {
   );
 }
 
-/** @type {ShoptetFunction<"tooltips", "showTooltip">} */
+/** @type {ShoptetType<"tooltips", "showTooltip">} */
 function showTooltip(button, announceToScreenReader = false) {
   const tooltipBubble = getTooltipBubble();
 
@@ -94,7 +94,7 @@ function showTooltip(button, announceToScreenReader = false) {
   });
 }
 
-/** @type {ShoptetFunction<"tooltips", "hideTooltip">} */
+/** @type {ShoptetType<"tooltips", "hideTooltip">} */
 function hideTooltip(force = false) {
   const tooltipBubble = getTooltipBubble();
 
@@ -115,7 +115,7 @@ function hideTooltip(force = false) {
   }
 }
 
-/** @type {ShoptetFunction<"tooltips", "updateTooltipBubbleContent">} */
+/** @type {ShoptetType<"tooltips", "updateTooltipBubbleContent">} */
 function updateTooltipBubbleContent(newContent) {
   const tooltipBubble = getTooltipBubble();
 
@@ -125,7 +125,7 @@ function updateTooltipBubbleContent(newContent) {
   }
 }
 
-/** @type {ShoptetFunction<"tooltips", "repositionTooltipBubble">} */
+/** @type {ShoptetType<"tooltips", "repositionTooltipBubble">} */
 function repositionTooltipBubble() {
   if (openTrigger) {
     positionTooltip(openTrigger);
@@ -157,7 +157,7 @@ function getTooltipBubble() {
   return tooltipBubbleElement ?? createTooltipBubble();
 }
 
-/** @type {ShoptetFunction<"tooltips", "initTooltips">} */
+/** @type {ShoptetType<"tooltips", "initTooltips">} */
 function initTooltips() {
   const tooltipBubble = getTooltipBubble();
 

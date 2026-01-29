@@ -610,8 +610,8 @@ const isHTMLInputElement = item => item instanceof HTMLInputElement;
         }
     }
 
-    function removeApplePay() {
-        if (shoptet.layout.showApplePay()) return;
+    function removeApplePay(skipCheck = false) {
+        if (shoptet.layout.showApplePay() || (!skipCheck && shoptet.config.initApplePaySdk)) return;
 
         const applePayMethods = document.querySelectorAll('.radio-wrapper[data-submethod="applepay"], .apple-pay');
         let isApplePayDefault = false;
