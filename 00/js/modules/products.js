@@ -268,18 +268,18 @@
      * bigImage = New big image url
      */
     function replaceImage(bigImage) {
-        var $mainImage = $('.p-image-wrapper .p-image');
+        const $mainImage = $('.p-image-wrapper .p-image');
         if ($('.image360').length) {
             $('.image360').hide();
         }
         $mainImage.show();
-        var $mainImageLink = $mainImage.find('a');
+        const $mainImageLink = $mainImage.find('a');
         const mainImgTag = $mainImage[0].querySelector('img');
 
-        var currentImage = bigImage.split('/');
+        const currentImage = bigImage.split('/');
         if (typeof currentImage === 'object') {
-            var lastItem = currentImage[currentImage.length - 1];
-            var imageName = lastItem.split('?');
+            const lastItem = currentImage[currentImage.length - 1];
+            const imageName = lastItem.split('?');
             highlightActiveThumbnail(imageName[0]);
         }
 
@@ -296,7 +296,8 @@
 
         $mainImageLink.attr({
             'href': bigImage,
-            'data-href': bigImage.replace(/\/big\//, '/orig/')
+            'data-href': bigImage.replace(/\/big\//, '/orig/'),
+            'data-alt': altText
         });
         if ($('.cloud-zoom').length) {
             clearTimeout(shoptet.runtime.cloudZoom);
