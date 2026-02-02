@@ -112,7 +112,15 @@ var validators = {
     billHouseNumber: function (elementValue) {
         var isValid = true;
         if ($(this).attr('id') == 'billHouseNumber') {
-            isValid = /^[0-9][0-9A-Za-z\s\/\-]{0,14}$/.test(elementValue.trim());
+            /**
+             * Regex explanation:
+             * (?=.{1,15}$) → ensures the trimmed input has a total length of 1 to 15 characters
+             * [\p{L}. ]* → optional prefix: letters (incl. diacritics/Unicode letters), dot (.), and a regular space
+             * \d → requires at least one digit to appear (the first mandatory digit)
+             * [\d\p{L} /-]* → after that digit, allows only: digits, letters (incl. diacritics/Unicode letters), regular space, /, and -
+             * u flag → required for Unicode property escapes like \p{L} to work correctly
+             */
+            isValid = /^(?=.{1,15}$)[\p{L}. ]*\d[\d\p{L} /-]*$/u.test(elementValue.trim());
             shoptet.validator.message = shoptet.messages['validatorHouseNumber'];
         }
         return isValid;
