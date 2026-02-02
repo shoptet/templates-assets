@@ -269,6 +269,8 @@ window.setCarouselHeight = selector => {
     }
   });
 
+  if (maxHeight === 0) return;
+
   carousel.style.minHeight = maxHeight + 'px';
   const wrapper = ensure(carousel.parentElement, isHTMLElement);
   ensureEvery(Array.from(wrapper.querySelectorAll('.carousel-control')), isHTMLElement).forEach(el => {
