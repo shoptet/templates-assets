@@ -1036,7 +1036,7 @@ const isHTMLInputElement = item => item instanceof HTMLInputElement;
                         }
                     }
                     dialog.appendChild(iframe);
-                    dialog.show();
+                    dialog.showModal();
                 })
         });
 
