@@ -343,12 +343,17 @@ ul.manufacturers {
 }
 /* manufacturer list page end */
 
+
 /* aside start */
-.sidebar-inner {
-    > div {
-        border-color: @border-color;
+// TODO: Remove this in issue 23351 -- START
+:where(body.ums_page_element_headings--off) {
+    .sidebar-inner {
+        > div {
+            border-color: @border-color;
+        }
     }
 }
+// TODO: Remove this in issue 23351 -- END
 
 //top 10
 .top-products {
@@ -371,6 +376,9 @@ ul.manufacturers {
 #footer {
     background-color: @gray-lighter;
 }
+
+// TODO: Remove this in issue 23351 -- START
+:where(body.ums_page_element_headings--off) {
 .footer-rows {
     .news-item-widget {
         h5 {
@@ -378,6 +386,9 @@ ul.manufacturers {
         }
     }
 }
+}
+// TODO: Remove this in issue 23351 -- END
+
 .footer-bottom {
     background-color: #fff;
 }

@@ -1251,10 +1251,16 @@ a.btn {
   padding-bottom: round(@line-height-computed * 1.5);
   border-top-width: 1px;
   border-top-style: solid;
-  h4 {
-    font-weight: 500;
-    font-size: @font-size-h3;
+
+  // TODO: Remove this in issue 23351 -- START
+  :where(body.ums_page_element_headings--off) & {
+    h4 {
+      font-weight: 500;
+      font-size: @font-size-h3;
+    }
   }
+  // TODO: Remove this in issue 23351 -- END
+
   @media (max-width: @screen-xs-max) {
     .instagram-widget {
       margin: 0 auto;

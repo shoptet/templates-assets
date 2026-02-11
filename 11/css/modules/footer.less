@@ -11,10 +11,16 @@
         padding-left: 0;
         list-style: none;
     }
-    h4 {
-        margin-top: 0;
-        text-transform: uppercase;
+
+    // TODO: Remove this in issue 23351 -- START
+    :where(body.ums_page_element_headings--off) & {
+        h4 {
+            margin-top: 0;
+            text-transform: uppercase;
+        }
     }
+    // TODO: Remove this in issue 23351 -- END
+
     @media (min-width: @screen-lg-min) {
         .site-name {
             display: block;
@@ -53,9 +59,15 @@
     padding-top: (@footer_custom-footer-padding-top / 2);
     border-top-style: solid;
     border-top-width: 1px;
-    h5 {
-        line-height: @line-height-base;
+
+    // TODO: Remove this in issue 23351 -- START
+    :where(body.ums_page_element_headings--off) {
+        h5 {
+            line-height: @line-height-base;
+        }
     }
+    // TODO: Remove this in issue 23351 -- END
+
     ul {
         li {
             padding-bottom: 6px;

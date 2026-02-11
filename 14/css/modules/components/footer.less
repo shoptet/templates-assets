@@ -25,7 +25,7 @@
             margin-top: @double-spacing;
             border-top-left-radius: @border-radius-base;
             border-bottom-left-radius: @border-radius-base;
-        }    
+        }
     }
     .form-control {
         padding-right: 130px;
@@ -86,7 +86,7 @@
         @media (min-width: @screen-lg-min) {
             width: 25%;
             flex-basis: 25%;
-        }        
+        }
     }
     ul {
         list-style: none;
@@ -126,18 +126,22 @@
         line-height: 24px;
         font-weight: 700;
     }
-    h4 {
-        margin-bottom: @double-spacing;
-        > span:after {
-            content: '';
-            border-style: solid;
-            border-width: 2px;
-            border-radius: @border-radius-base;
-            display: block;
-            width: round(@basic-spacing * 5);
-            margin: @double-spacing 0;
+    // TODO: Remove this in issue 23351 -- START
+    :where(body.ums_page_element_headings--off) & {
+        h4 {
+            margin-bottom: @double-spacing;
+            > span:after {
+                content: '';
+                border-style: solid;
+                border-width: 2px;
+                border-radius: @border-radius-base;
+                display: block;
+                width: round(@basic-spacing * 5);
+                margin: @double-spacing 0;
+            }
         }
     }
+    // TODO: Remove this in issue 23351 -- END
     .news-item-widget {
         margin-bottom: @double-spacing;
     }
@@ -145,7 +149,7 @@
 .system-footer + .footer-rows .custom-footer > div {
     @media (min-width: @screen-sm-min) {
         padding-top: @line-height-computed;
-    }    
+    }
 }
 .contact-box {
     ul li {

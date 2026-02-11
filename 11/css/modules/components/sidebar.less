@@ -1,16 +1,23 @@
 .sidebar-inner {
-    padding: round(@grid-gutter-width / 2);
-    > div {
-        margin: 0;
-        border-bottom-style: solid;
-        border-bottom-width: 1px;
-        padding: @line-height-computed 0;
-        h4 {
-            margin-top: 0;
-        }
-        &:last-child {
-            padding-bottom: 0;
-            border-bottom-style: none;
-        }
-    }
+	padding: round(@grid-gutter-width / 2);
+
+	> div {
+		margin: 0;
+		padding: @line-height-computed 0;
+		border-bottom-style: solid;
+		border-bottom-width: 1px;
+
+		&:last-child {
+			padding-bottom: 0;
+			border-bottom-style: none;
+		}
+	}
 }
+
+// TODO: Remove this in issue 23351 -- START
+:where(body.ums_page_element_headings--off) {
+	.sidebar-inner h4 {
+		margin-top: 0;
+	}
+}
+// TODO: Remove this in issue 23351 -- END

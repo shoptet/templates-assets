@@ -69,11 +69,17 @@ p {
 h4,
 .h4 {
     margin-bottom: @line-height-computed;
+
+    // TODO: Remove this in issue 23351 -- START
     .sidebar & {
-        font-size: @font-size-base;
-        font-weight: 600;
-        text-transform: uppercase;
+        :where(body.ums_page_element_headings--off) & {
+            font-size: @font-size-base;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
     }
+    // TODO: Remove this in issue 23351 -- END
+
     &.homepage-group-title {
         margin-top: round(@line-height-computed * 3);
         font-size: @font-size-h1;

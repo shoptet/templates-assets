@@ -14,16 +14,20 @@ body {
   }
 }
 
-.sidebar {
-  h4 {
-    span {
-      background-color: @content-box-bg;
-    }
-    &::before {
-      background-color: @border-color;
+// TODO: Remove this in issue 23351 -- START
+:where(body.ums_page_element_headings--off) {
+  .sidebar {
+    h4 {
+      span {
+        background-color: @content-box-bg;
+      }
+      &::before {
+        background-color: @border-color;
+      }
     }
   }
 }
+// TODO: Remove this in issue 23351 -- END
 
 input[type='checkbox'] {
   .filters & {

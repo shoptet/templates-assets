@@ -1,0 +1,39 @@
+// TODO: Remove this in issue 23351 -- START
+:where(body.ums_page_element_headings--on) {
+  // TODO: Remove this in issue 23351 -- END
+  .pageElement__heading {
+    margin-bottom: @line-height-computed;
+    text-transform: uppercase;
+  }
+
+  :where(.sidebar) .pageElement__heading {
+    font-size: @font-size-base;
+    font-weight: 600;
+  }
+
+  .pageElement__subHeading {
+    margin-bottom: round(@line-height-computed / 2);
+  }
+
+  :where(.footer) .pageElement__subHeading {
+    line-height: @line-height-base;
+  }
+
+  :where(.footer) .newsItemWidget__heading {
+    font-family: var(--template-font), sans-serif;
+    line-height: @line-height-base;
+    text-transform: none;
+  }
+
+  // filter headings /TODO: Remove this in issue for filters
+  .sidebar :where(.filter-section) {
+    h4,
+    .h4 {
+      font-size: @font-size-base;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
+  // TODO: Remove this in issue 23351 -- START
+}
+// TODO: Remove this in issue 23351 -- END

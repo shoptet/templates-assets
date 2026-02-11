@@ -890,13 +890,17 @@ ol.top-products {
   color: @text-color;
 }
 #footer {
-  h4 {
-    color: @color-secondary;
-    > span:after {
-      border-color: #fff;
-      background-color: #fff;
+  // TODO: Remove this in issue 23351 -- START
+  :where(body.ums_page_element_headings--off) & {
+    h4 {
+      color: @color-secondary;
+      > span:after {
+        border-color: #fff;
+        background-color: #fff;
+      }
     }
   }
+  // TODO: Remove this in issue 23351 -- END
   a {
     color: @text-color;
   }

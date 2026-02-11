@@ -2177,21 +2177,27 @@ ul.manufacturers {
     }
   }
 }
-.sidebar-inner {
-  padding-bottom: @line-height-computed;
-  > div.box-sm {
-    margin: @line-height-computed 0 0 0;
-    border-style: solid;
-    border-width: 1px;
-    padding: round(@grid-gutter-width / 2);
 
-    h4 {
-      margin-top: 0;
-      text-align: left;
-      font-size: @navigation-element-font-size;
+// TODO: Remove this in issue 23351 -- START
+:where(body.ums_page_element_headings--off) {
+  .sidebar-inner {
+    padding-bottom: @line-height-computed;
+    > div.box-sm {
+      margin: @line-height-computed 0 0 0;
+      border-style: solid;
+      border-width: 1px;
+      padding: round(@grid-gutter-width / 2);
+
+      h4 {
+        margin-top: 0;
+        text-align: left;
+        font-size: @navigation-element-font-size;
+      }
     }
   }
 }
+// TODO: Remove this in issue 23351 -- END
+
 .box.box-sm.box-filters {
   padding: round(@grid-gutter-width / 2);
   .filter-sections {
@@ -2288,12 +2294,17 @@ ul.manufacturers {
   padding-bottom: 0;
 }
 .footer-rows {
-  h4 {
-    margin-bottom: @line-height-computed * 1.5;
-    @media (max-width: @screen-xs-max) {
-      margin-bottom: @line-height-computed;
+  // TODO: Remove this in issue 23351 -- START
+  :where(body.ums_page_element_headings--off) & {
+    h4 {
+      margin-bottom: @line-height-computed * 1.5;
+      @media (max-width: @screen-xs-max) {
+        margin-bottom: @line-height-computed;
+      }
     }
   }
+  // TODO: Remove this in issue 23351 -- END
+
   ul {
     margin: 0;
     padding: 0;
@@ -2303,17 +2314,21 @@ ul.manufacturers {
       padding-bottom: @contact-box-li-padding-bottom;
     }
   }
-  .news-item-widget {
-    padding-top: @contact-box-li-padding-top;
-    padding-bottom: @contact-box-li-padding-bottom;
-    margin: 0;
-    h5 {
-      font-weight: normal;
-      &.with-short-description {
-        font-weight: bold;
+  // TODO: Remove this in issue 23351 -- START
+  :where(body.ums_page_element_headings--off) & {
+    .news-item-widget {
+      padding-top: @contact-box-li-padding-top;
+      padding-bottom: @contact-box-li-padding-bottom;
+      margin: 0;
+      h5 {
+        font-weight: normal;
+        &.with-short-description {
+          font-weight: bold;
+        }
       }
     }
   }
+  // TODO: Remove this in issue 23351 -- END
   .custom-footer {
     padding-bottom: @line-height-computed;
   }
