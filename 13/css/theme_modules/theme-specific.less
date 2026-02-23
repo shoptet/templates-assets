@@ -234,41 +234,27 @@ table.detail-parameters {
     }
 }
 
-// TODO: Remove this in issue 15718 -- START
-:where(body.ums_a11y_category_page--off) {
-    .category-header .dropdown .dropdown-menu label:hover {
-        color: @btn-plain-color-hover;
+.sortingToggle,
+.listSorting__control {
+    background-color: transparent;
+
+    &:hover,
+    &:focus-visible {
+        color: var(--color-secondary);
     }
 }
-// TODO: Remove this in issue 15718 -- END
 
-// TODO: Remove this in issue 15718 -- START
-:where(body.ums_a11y_category_page--on) {
-// TODO: Remove this in issue 15718 -- END
-    .sortingToggle,
-    .listSorting__control {
-        background-color: transparent;
+.listSorting__controls--dropdown {
+    border-color: @border-color;
 
-        &:hover,
-        &:focus-visible {
-            color: var(--color-secondary);
-        }
+    @media (min-width: @screen-sm) {
+        .box-shadow(0 6px 12px rgba(0,0,0,0.175));
     }
-
-    .listSorting__controls--dropdown {
-        border-color: @border-color;
-
-        @media (min-width: @screen-sm) {
-            .box-shadow(0 6px 12px rgba(0,0,0,0.175));
-        }
-    }
-
-    .listSorting__control--current:focus-visible {
-        color: @text-color;
-    }
-// TODO: Remove this in issue 15718 -- START
 }
-// TODO: Remove this in issue 15718 -- END
+
+.listSorting__control--current:focus-visible {
+    color: @text-color;
+}
 
 
 .filters-wrapper {

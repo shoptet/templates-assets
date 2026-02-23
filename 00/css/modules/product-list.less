@@ -122,33 +122,12 @@
         display: flex;
         flex-wrap: wrap;
         > div {
-            // TODO: Remove this in issue 15718 -- START
-            :where(body.ums_a11y_category_page--off) & {
-                display: none;
-            }
-            // TODO: Remove this in issue 15718 -- END
             flex-grow: 0;
             flex-shrink: 0;
             padding-left: round(@grid-gutter-width / 4);
             padding-right: round(@grid-gutter-width / 4);
             border-style: none;
 
-            // TODO: Remove this in issue 15718 -- START
-            :where(body.ums_a11y_category_page--off) & {
-                &:first-child,
-                &:nth-child(2) {
-                    display: flex;
-                }
-            }
-            // TODO: Remove this in issue 15718 -- END
-
-            // TODO: Remove this in issue 15718 -- START
-            :where(body.ums_a11y_category_page--off) & {
-                &.button-wrapper {
-                        display: none;
-                    }
-                }
-            // TODO: Remove this in issue 15718 -- END
             .p {
                 display: flex;
                 flex-wrap: wrap;
@@ -257,17 +236,6 @@
             > div {
                 display: block;
                 width: 33.333333%;
-                // TODO: Remove this in issue 15718 -- START
-                :where(body.ums_a11y_category_page--off) & {
-                    &.button-wrapper {
-                        display: block;
-                        width: 100%;
-                        max-width: none;
-                        margin: 0 auto;
-                        text-align: center;
-                    }
-                }
-                // TODO: Remove this in issue 15718 -- END
             }
         }
         &:not(.products-top) {

@@ -851,17 +851,6 @@ select {
 }
 
 .products-top {
-  // TODO: Remove this in issue 15718 -- START
-  :where(body.ums_a11y_category_page--off) & {
-    .product.revealed + .button-wrapper {
-      .chevron-down-after {
-        &::after {
-          content: @icon-chevron-up-code;
-        }
-      }
-    }
-  }
-  // TODO: Remove this in issue 15718 -- END
   &.products-inline {
     .p {
       height: 100%;
@@ -874,20 +863,14 @@ select {
   }
 }
 
-// TODO: Remove this in issue 15718 -- START
-:where(body.ums_a11y_category_page--on) {
-  // TODO: Remove this in issue 15718 -- END
-  .toggle-top-products {
-    align-items: center;
-    font-weight: @btn-font-weight;
+.toggle-top-products {
+  align-items: center;
+  font-weight: @btn-font-weight;
 
-    &.chevron-down-after::after {
-      margin-top: 0.4em;
-    }
+  &.chevron-down-after::after {
+    margin-top: 0.4em;
   }
-  // TODO: Remove this in issue 15718 -- START
 }
-// TODO: Remove this in issue 15718 -- END
 
 .container-narrow {
   max-width: 100%;
@@ -907,215 +890,94 @@ select {
   }
 }
 
-// TODO: Remove this in issue 15718 -- START
-:where(body.ums_a11y_category_page--off) {
-  .category-header {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+.category-header {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 16px;
+  align-items: center;
+  justify-content: space-between;
 
-    .products-listing-order-heading {
-      @media (min-width: @screen-sm) {
-        font-weight: normal;
-      }
-      &::before {
-        &:extend(.shp-icon);
-        content: @icon-sort-code;
-        margin-right: 5px;
-      }
-    }
+  margin-bottom: @line-height-computed;
+}
 
-    .dropdown-menu {
-      top: 100%;
-    }
-    .dropdown {
-      .icon-chevron-down {
-        vertical-align: middle;
-      }
-      &.open {
-        .icon-chevron-down {
-          &::before {
-            content: @icon-chevron-up-code;
-          }
-        }
-      }
-      button {
-        text-transform: none;
-        font-size: @font-size-base;
-      }
-    }
+.listSorting {
+  display: block;
+  width: 100%;
 
-    @media (max-width: @screen-xs-max) {
-      margin-bottom: @line-height-computed;
-      .category-header-pagination {
-        display: none;
-      }
-      form,
-      .dropdown {
-        display: block;
-        width: 100%;
-      }
-      .dropdown-backdrop {
-        position: relative;
-      }
-      #products-listing-order {
-        width: 100%;
-        border-width: 1px;
-        border-style: solid;
-        text-align: left;
-        font-size: @font-size-base;
-        .icon-chevron-down {
-          float: right;
-          line-height: inherit;
-        }
-      }
-      .dropdown-menu {
-        position: relative;
-        width: 100%;
-        border-top-width: 0;
-        label {
-          padding: round(@line-height-computed / 2);
-        }
-        strong {
-          padding: round(@line-height-computed / 2);
-        }
-      }
-    }
-  }
-  &.mobile .category-header {
-    margin-bottom: @line-height-computed;
-    .category-header-pagination {
-      display: none;
-    }
-    form,
-    .dropdown {
-      display: block;
-      width: 100%;
-    }
-    .dropdown-backdrop {
-      position: relative;
-    }
-    #products-listing-order {
-      width: 100%;
-      border-width: 1px;
-      border-style: solid;
-      text-align: left;
-      font-size: @font-size-base;
-      .icon-chevron-down {
-        float: right;
-        line-height: inherit;
-      }
-    }
-    .dropdown-menu {
-      position: relative;
-      width: 100%;
-      border-top-width: 0;
-      label {
-        padding: round(@line-height-computed / 2);
-      }
-      strong {
-        padding: round(@line-height-computed / 2);
-      }
-    }
+  @media (min-width: @screen-sm) {
+    width: auto;
   }
 }
-// TODO: Remove this in issue 15718 -- END
 
-// TODO: Remove this in issue 15718 -- START
-:where(body.ums_a11y_category_page--on) {
-  // TODO: Remove this in issue 15718 -- END
-  .category-header {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 16px;
-    align-items: center;
-    justify-content: space-between;
+.sortingToggle {
+  position: relative;
 
-    margin-bottom: @line-height-computed;
+  width: 100%;
+  padding: 15px 32px;
+
+  font-size: @font-size-base;
+  font-weight: 700;
+  line-height: 1.375;
+
+  border: 1px solid var(--color-secondary);
+  border-radius: 0;
+
+  .icon-sort,
+  .icon-chevron-down {
+    position: absolute;
   }
 
-  .listSorting {
-    display: block;
-    width: 100%;
+  .icon-sort {
+    left: 11px;
+    margin-top: 2px;
 
     @media (min-width: @screen-sm) {
-      width: auto;
+      left: 0;
     }
   }
 
-  .sortingToggle {
-    position: relative;
-
-    width: 100%;
-    padding: 15px 32px;
-
-    font-size: @font-size-base;
-    font-weight: 700;
-    line-height: 1.375;
-
-    border: 1px solid var(--color-secondary);
-    border-radius: 0;
-
-    .icon-sort,
-    .icon-chevron-down {
-      position: absolute;
-    }
-
-    .icon-sort {
-      left: 11px;
-      margin-top: 2px;
-
-      @media (min-width: @screen-sm) {
-        left: 0;
-      }
-    }
-
-    .icon-chevron-down {
-      right: 10px;
-    }
-
-    @media (min-width: @screen-sm) {
-      padding-left: 21px;
-      font-weight: @btn-font-weight;
-      border-color: transparent;
-    }
+  .icon-chevron-down {
+    right: 10px;
   }
 
-  .listSorting__controls {
-    padding: 8px;
+  @media (min-width: @screen-sm) {
+    padding-left: 21px;
+    font-weight: @btn-font-weight;
+    border-color: transparent;
   }
-
-  .listSorting__controls--dropdown {
-    border-top-width: 0;
-
-    @media (min-width: @screen-sm) {
-      position: absolute;
-      right: 0;
-      border-top-width: 1px;
-    }
-  }
-
-  .listSorting__control {
-    display: block;
-    padding: 4px 16px;
-    line-height: 1.5;
-  }
-
-  .listSorting__control--current {
-    font-weight: 700;
-  }
-
-  .category-header-pagination {
-    display: none;
-
-    @media (min-width: @screen-sm) {
-      display: block;
-    }
-  }
-  // TODO: Remove this in issue 15718 -- START
 }
-// TODO: Remove this in issue 15718 -- END
+
+.listSorting__controls {
+  padding: 8px;
+}
+
+.listSorting__controls--dropdown {
+  border-top-width: 0;
+
+  @media (min-width: @screen-sm) {
+    position: absolute;
+    right: 0;
+    border-top-width: 1px;
+  }
+}
+
+.listSorting__control {
+  display: block;
+  padding: 4px 16px;
+  line-height: 1.5;
+}
+
+.listSorting__control--current {
+  font-weight: 700;
+}
+
+.category-header-pagination {
+  display: none;
+
+  @media (min-width: @screen-sm) {
+    display: block;
+  }
+}
 
 .subcategories.with-image .divider {
   padding: 0;

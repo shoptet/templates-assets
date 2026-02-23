@@ -164,17 +164,13 @@ window.makeFilterAjaxRequest = (url, pushHistoryState, successCallback, element,
       priceFilter(categoryMinValue, categoryMaxValue);
       shoptet.images.unveil();
       detectFilters();
-      if (shoptet.config.ums_a11y_category_page) {
-        shoptet.productSorting.initProductSorting();
-      }
+      shoptet.productSorting.initProductSorting();
       initTooltips();
       hideSpinner();
       dismissMessages();
       shoptet.products.splitWidgetParameters();
       shoptet.skipLinks.initSkipLinks();
-      if (shoptet.config.ums_a11y_category_page) {
-        shoptet.topProducts.initTopProducts();
-      }
+      shoptet.topProducts.initTopProducts();
       try {
         if (pushHistoryState) {
           if ($('.breadcrumbs').length) {

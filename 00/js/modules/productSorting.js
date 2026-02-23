@@ -177,18 +177,15 @@ function sort(btn) {
   window.makeFilterAjaxRequest(url, true, callback, btn, 'ShoptetPageSortingChanged');
 }
 
-//  @ts-expect-error Shoptet object is not defined yet.
-if (shoptet.config.ums_a11y_category_page) {
-  document.addEventListener('DOMContentLoaded', () => {
-    initProductSorting();
-  });
+document.addEventListener('DOMContentLoaded', () => {
+  initProductSorting();
+});
 
-  (function (shoptet) {
-    shoptet.productSorting = shoptet.productSorting || {};
-    shoptet.scripts.libs.productSorting.forEach(fnName => {
-      const fn = eval(fnName);
-      shoptet.scripts.registerFunction(fn, 'productSorting');
-    });
-    //  @ts-expect-error Shoptet object is not defined yet.
-  })(shoptet);
-}
+(function (shoptet) {
+  shoptet.productSorting = shoptet.productSorting || {};
+  shoptet.scripts.libs.productSorting.forEach(fnName => {
+    const fn = eval(fnName);
+    shoptet.scripts.registerFunction(fn, 'productSorting');
+  });
+  //  @ts-expect-error Shoptet object is not defined yet.
+})(shoptet);

@@ -482,76 +482,52 @@ a.btn {
   display: none;
 }
 
-// TODO: Remove this in issue 15718 -- START
-:where(body.ums_a11y_category_page--on) {
-  // TODO: Remove this in issue 15718 -- END
-  .category-header {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .listSorting {
-    display: block;
-  }
-
-  .sortingToggle {
-    padding: round(@line-height-computed / 2);
-    line-height: 1.875;
-    border: none;
-
-    .icon-sort {
-      margin-top: 1px;
-    }
-  }
-
-  .sortingToggle__value {
-    text-transform: uppercase;
-  }
-
-  .listSorting__controls {
-    padding: 8px;
-  }
-
-  .listSorting__controls--dropdown {
-    position: absolute;
-    right: 0;
-  }
-
-  .listSorting__control {
-    display: block;
-
-    width: 100%;
-    padding: 8px 20px;
-
-    line-height: 1.5;
-    text-align: left;
-    white-space: nowrap;
-
-    border: none;
-  }
-  // TODO: Remove this in issue 15718 -- START
+.category-header {
+  display: flex;
+  justify-content: flex-end;
 }
-// TODO: Remove this in issue 15718 -- END
+
+.listSorting {
+  display: block;
+}
+
+.sortingToggle {
+  padding: round(@line-height-computed / 2);
+  line-height: 1.875;
+  border: none;
+
+  .icon-sort {
+    margin-top: 1px;
+  }
+}
+
+.sortingToggle__value {
+  text-transform: uppercase;
+}
+
+.listSorting__controls {
+  padding: 8px;
+}
+
+.listSorting__controls--dropdown {
+  position: absolute;
+  right: 0;
+}
+
+.listSorting__control {
+  display: block;
+
+  width: 100%;
+  padding: 8px 20px;
+
+  line-height: 1.5;
+  text-align: left;
+  white-space: nowrap;
+
+  border: none;
+}
 
 @media (max-width: @screen-xs) {
-  // TODO: Remove this in issue 15718 -- START
-  :where(body.ums_a11y_category_page--off) {
-    .category-header .dropdown {
-      .dropdown-menu {
-        label {
-          padding: @btn-padding-sm;
-        }
-        strong {
-          padding: @btn-padding-sm;
-        }
-      }
-      button {
-        padding: @btn-padding-sm;
-      }
-    }
-  }
-  // TODO: Remove this in issue 15718 -- END
-
   .flags-default .flag {
     font-size: 12px;
   }

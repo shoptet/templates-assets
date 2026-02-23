@@ -132,15 +132,13 @@ function initTopProducts() {
   unregisterListeners = registerTopProductsListeners({ ...els, defaultVisibleCount });
 }
 
-if (shoptet.config.ums_a11y_category_page) {
-  document.addEventListener('DOMContentLoaded', initTopProducts);
+document.addEventListener('DOMContentLoaded', initTopProducts);
 
-  (function (shoptet) {
-    shoptet.topProducts = shoptet.topProducts || {};
-    shoptet.scripts.libs.topProducts.forEach(fnName => {
-      const fn = eval(fnName);
-      shoptet.scripts.registerFunction(fn, 'topProducts');
-    });
-    //  @ts-expect-error Shoptet object is not defined yet.
-  })(shoptet);
-}
+(function (shoptet) {
+  shoptet.topProducts = shoptet.topProducts || {};
+  shoptet.scripts.libs.topProducts.forEach(fnName => {
+    const fn = eval(fnName);
+    shoptet.scripts.registerFunction(fn, 'topProducts');
+  });
+  //  @ts-expect-error Shoptet object is not defined yet.
+})(shoptet);

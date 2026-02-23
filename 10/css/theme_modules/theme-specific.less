@@ -217,35 +217,21 @@ a.recommended-product {
 }
 
 // Filter
-// TODO: Remove this in issue 15718 -- START
-:where(body.ums_a11y_category_page--off) {
-  .category-header {
-    border-bottom-color: @border-color;
-  }
+.category-header {
+  background-color: #f6f6f6;
 }
-// TODO: Remove this in issue 15718 -- END
 
-// TODO: Remove this in issue 15718 -- START
-:where(body.ums_a11y_category_page--on) {
-  // TODO: Remove this in issue 15718 -- END
-  .category-header {
-    background-color: #f6f6f6;
-  }
-
-  .listSorting__control:hover,
-  .listSorting__control:focus-visible {
-    background-color: #ccc;
-  }
-
-  .listSorting__control--current,
-  .listSorting__control--current:focus-visible {
-    color: var(--color-primary);
-    background-color: #fff;
-    border-color: var(--color-primary);
-  }
-  // TODO: Remove this in issue 15718 -- START
+.listSorting__control:hover,
+.listSorting__control:focus-visible {
+  background-color: #ccc;
 }
-// TODO: Remove this in issue 15718 -- END
+
+.listSorting__control--current,
+.listSorting__control--current:focus-visible {
+  color: var(--color-primary);
+  background-color: #fff;
+  border-color: var(--color-primary);
+}
 
 .filter-section {
   label {

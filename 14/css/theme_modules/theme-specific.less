@@ -645,52 +645,27 @@ ol.cart-header {
   border-top-color: @border-color;
 }
 
-// TODO: Remove this in issue 15718 -- START
-:where(body.ums_a11y_category_page--off) {
-  #category-header {
-    background-color: @sidebar-bg;
-    input[type='radio'] {
-      + label:hover {
-        color: @color-secondary;
-        background-color: @content-box-bg;
-      }
-      &:checked + label {
-        color: @text-color;
-        background-color: @tab-link-bg-active;
-        box-shadow: 4px 0 4px -2px rgba(0, 0, 0, 0.09);
-      }
-    }
+.category-header {
+  background-color: @sidebar-bg;
+}
+
+.listSorting__control {
+  flex-wrap: wrap;
+  column-gap: round(@grid-gutter-width / 4);
+
+  &:hover,
+  &:focus-visible {
+    color: @color-secondary;
+    background-color: @content-box-bg;
   }
 }
-// TODO: Remove this in issue 15718 -- END
 
-// TODO: Remove this in issue 15718 -- START
-:where(body.ums_a11y_category_page--on) {
-  // TODO: Remove this in issue 15718 -- END
-  .category-header {
-    background-color: @sidebar-bg;
-  }
-
-  .listSorting__control {
-    flex-wrap: wrap;
-    column-gap: round(@grid-gutter-width / 4);
-
-    &:hover,
-    &:focus-visible {
-      color: @color-secondary;
-      background-color: @content-box-bg;
-    }
-  }
-
-  .listSorting__control--current,
-  .listSorting__control--current:focus-visible {
-    color: @text-color;
-    background-color: @tab-link-bg-active;
-    box-shadow: 4px 0 4px -2px rgba(0, 0, 0, 0.09);
-  }
-  // TODO: Remove this in issue 15718 -- START
+.listSorting__control--current,
+.listSorting__control--current:focus-visible {
+  color: @text-color;
+  background-color: @tab-link-bg-active;
+  box-shadow: 4px 0 4px -2px rgba(0, 0, 0, 0.09);
 }
-// TODO: Remove this in issue 15718 -- END
 
 .filters-wrapper .filters-unveil-button-wrapper {
   i {

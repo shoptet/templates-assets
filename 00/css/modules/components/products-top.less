@@ -1,16 +1,10 @@
 .products-top {
-    // TODO: Remove this in issue 15718 -- START
-    :where(body.ums_a11y_category_page--off) & {
-        margin-bottom: @line-height-computed;
-    }
-    // TODO: Remove this in issue 15718 -- END
-
     > div {
         .transition(all @transition-duration @transition-timing);
         &.inactive {
             position: absolute;
-            height: 0;
             overflow: hidden;
+            height: 0;
             .scale(0);
         }
         &.revealed {
@@ -19,43 +13,37 @@
     }
 }
 
-// TODO: Remove this in issue 15718 -- START
-:where(body.ums_a11y_category_page--on) {
-// TODO: Remove this in issue 15718 -- END
-    .products-top-wrapper {
-        margin-bottom: @line-height-computed;
+.products-top-wrapper {
+    margin-bottom: @line-height-computed;
 
-        .button-wrapper {
-            text-align: center;
-        }
-
-        &:not(.has-inactive):not(.has-revealed) .button-wrapper {
-            display: none;
-        }
+    .button-wrapper {
+        text-align: center;
     }
 
-    .toggle-top-products {
-        display: inline-flex;
-        align-items: baseline;
-
-        color: @link-color;
-        text-transform: none;
-
-        appearance: none;
-        background: transparent;
-        border-color: transparent;
-
-        &:hover,
-        &:focus {
-            color: @link-hover-color;
-            background: transparent;
-        }
-
-        &[aria-expanded="true"]::after {
-            transform-origin: center center;
-            transform: rotate(180deg);
-        }
+    &:not(.has-inactive):not(.has-revealed) .button-wrapper {
+        display: none;
     }
-// TODO: Remove this in issue 15718 -- START
 }
-// TODO: Remove this in issue 15718 -- END
+
+.toggle-top-products {
+    display: inline-flex;
+    align-items: baseline;
+
+    color: @link-color;
+    text-transform: none;
+
+    appearance: none;
+    background: transparent;
+    border-color: transparent;
+
+    &:hover,
+    &:focus {
+        color: @link-hover-color;
+        background: transparent;
+    }
+
+    &[aria-expanded="true"]::after {
+        transform-origin: center center;
+        transform: rotate(180deg);
+    }
+}
