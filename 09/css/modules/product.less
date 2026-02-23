@@ -211,32 +211,16 @@
       border-width: 0 1px;
     }
   }
-  // TODO: Remove this in issue -- 26631 -- START
-  :where(body.ums_flags_display_unification--off) & {
-    .flag-wrap {
-      position: absolute;
-      top: round(@grid-gutter-width / 4);
-      left: round(@grid-gutter-width / 4);
-      display: flex;
-      flex-wrap: wrap;
-    }
-  }
-  // TODO: Remove this in issue -- 26631 -- END
 }
-// TODO: Remove this in issue -- 26631 -- START
-:where(body.ums_flags_display_unification--on) {
-  // TODO: Remove this in issue -- 26631 -- END
-  .flags-default,
-  .flags-inline {
-    position: absolute;
-    top: round(@grid-gutter-width / 4);
-    display: flex;
-    flex-wrap: wrap;
-    z-index: @z-base-1;
-  }
-  // TODO: Remove this in issue -- 26631 -- START
+
+.flags-default,
+.flags-inline {
+  position: absolute;
+  top: round(@grid-gutter-width / 4);
+  display: flex;
+  flex-wrap: wrap;
+  z-index: @z-base-1;
 }
-// TODO: Remove this in issue -- 26631 -- END
 
 @media (min-width: 321px) and (max-width: @screen-xs-max) {
   .columns-mobile-2 .products-block > div {
@@ -279,9 +263,7 @@
 .price-standard-wrapper-placeholder {
   display: none;
 }
-// TODO: Remove this in issue -- 26631 -- START
-.flag-wrap,
-// TODO: Remove this in issue -- 26631 -- END
+
 .flags-inline,
 .flags-default,
 .flags-block,
