@@ -213,7 +213,7 @@
       'removeItemFromCart',
       'toggleRelatedProducts',
     ],
-    cartShared: ['addToCart', 'removeFromCart', 'updateQuantityInCart'],
+    cartShared: ['addToCart', 'isDeliveryIntoBoxRestricted', 'removeFromCart', 'updateQuantityInCart'],
     expressCheckout: ['initExpressCheckout'],
     cookie: ['get', 'create'],
     consent: ['get', 'set', 'isSet', 'isAccepted', 'onAccept', 'openCookiesSettingModal', 'cookiesConsentSubmit'],
