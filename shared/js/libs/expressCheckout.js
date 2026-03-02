@@ -205,6 +205,18 @@ import { ensure } from '../typeAssertions';
   }
 
   /**
+   * @param {string} [data]
+   */
+  function getFormDataWithCsrfToken(data) {
+    const csrfToken = shoptet.csrf.enabled ? `__csrf__=${encodeURIComponent(shoptet.csrf.token)}` : '';
+    if (data === '') {
+      return csrfToken;
+    }
+
+    return `${data}&${csrfToken}`;
+  }
+
+  /**
    * @param {boolean} [disableSpinner]
    */
   function initExpressCheckout(disableSpinner) {
@@ -254,7 +266,7 @@ import { ensure } from '../typeAssertions';
       shoptet.ajax.makeAjaxRequest(
         '/action/ExpressCheckout/setCartItemAmount/',
         shoptet.ajax.requestTypes.post,
-        `amount=${amount}&itemId=${itemId}&priceId=${priceId}`,
+        getFormDataWithCsrfToken(`amount=${amount}&itemId=${itemId}&priceId=${priceId}`),
         {
           success: callback,
           /** @param {FailedResponse} response */
@@ -278,7 +290,7 @@ import { ensure } from '../typeAssertions';
     shoptet.ajax.makeAjaxRequest(
       '/action/ExpressCheckout/updateShippingMethod/',
       shoptet.ajax.requestTypes.post,
-      `id=${value}`,
+      getFormDataWithCsrfToken(`id=${value}`),
       {
         success: rerenderExpressCheckoutModal,
         /** @param {FailedResponse} response  */
@@ -301,7 +313,7 @@ import { ensure } from '../typeAssertions';
     shoptet.ajax.makeAjaxRequest(
       '/action/ExpressCheckout/updateBillingMethod/',
       shoptet.ajax.requestTypes.post,
-      `id=${value}`,
+      getFormDataWithCsrfToken(`id=${value}`),
       {
         success: rerenderExpressCheckoutModal,
         /** @param {FailedResponse} response */
@@ -382,7 +394,7 @@ import { ensure } from '../typeAssertions';
     shoptet.ajax.makeAjaxRequest(
       '/action/ExpressCheckout/updateInvoicingData/',
       shoptet.ajax.requestTypes.post,
-      data,
+      getFormDataWithCsrfToken(shoptet.common.serializeData(data)),
       {
         /** @param {SuccessResponse} response */
         success: function (response) {
@@ -455,7 +467,7 @@ import { ensure } from '../typeAssertions';
     shoptet.ajax.makeAjaxRequest(
       '/action/ExpressCheckout/addDiscountCoupon/',
       shoptet.ajax.requestTypes.post,
-      `discountCouponCode=${value}`,
+      getFormDataWithCsrfToken(`discountCouponCode=${value}`),
       {
         success: rerenderExpressCheckoutModal,
         /** @param {FailedResponse} response */
@@ -475,7 +487,7 @@ import { ensure } from '../typeAssertions';
     shoptet.ajax.makeAjaxRequest(
       '/action/ExpressCheckout/removeDiscountCoupon/',
       shoptet.ajax.requestTypes.post,
-      '',
+      getFormDataWithCsrfToken(''),
       {
         success: rerenderExpressCheckoutModal,
         /** @param {FailedResponse} response */
@@ -569,7 +581,7 @@ import { ensure } from '../typeAssertions';
     shoptet.ajax.makeAjaxRequest(
       '/action/ExpressCheckout/confirmOrder/',
       shoptet.ajax.requestTypes.post,
-      '',
+      getFormDataWithCsrfToken(''),
       {
         /** @param {SuccessResponse} response */
         success: function (response) {
