@@ -2,9 +2,15 @@
 
 import { detectEditorPreview, getNextUrl } from './lib';
 
-const EDITOR_ORIGIN = window.location.origin;
-
 const isEditorPreview = detectEditorPreview();
+
+const editorOrigin = (function () {
+  try {
+    return new URL(window.shoptet.editorPreview?.editorUrl).origin;
+  } catch (e) {
+    return window.location.origin;
+  }
+})();
 
 // Capture link clicks
 window.addEventListener('click', function (e) {
@@ -51,7 +57,7 @@ window.addEventListener('pagehide', function () {
 
 // Receive messages
 window.addEventListener('message', function (e) {
-  if (e.origin !== EDITOR_ORIGIN) {
+  if (e.origin !== editorOrigin) {
     return;
   }
 
@@ -97,7 +103,7 @@ sendMessage({
 });
 
 function sendMessage(message) {
-  window.parent.postMessage(message, EDITOR_ORIGIN);
+  window.parent.postMessage(message, editorOrigin);
 }
 
 /*********************
