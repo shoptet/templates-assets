@@ -188,7 +188,7 @@
     }
 }
 
-#content ol.cart-header {
+ol.cart-header {
     padding: 0;
     margin: 0 @double-spacing @triple-spacing;
     list-style: none;
@@ -207,6 +207,7 @@
             font-size: @font-size-larger;
             flex-flow: column;
             text-align: center;
+            border-radius: @border-radius-base;
             @media (min-width: @screen-md-min) {
                 flex-flow: row;
                 text-align: left;
@@ -241,6 +242,24 @@
                     font-size: @font-size-h3-large;
                 }
             }
+        }
+
+        &,
+        &.completed {
+            a:hover,
+            a:focus-visible {
+                color: var(--colors-foregrounds-content-primary);
+            }
+        }
+
+        &.active strong::before {
+            background-color: color-mix(in srgb, @step-active-color 8%, #fff);
+            border-color: color-mix(in srgb, @step-active-color 8%, #fff);
+        }
+
+        &.completed a::before {
+            background-color: color-mix(in srgb, @step-completed-color 8%, #fff);
+            border-color: color-mix(in srgb, @step-completed-color 8%, #fff);
         }
     }
 }

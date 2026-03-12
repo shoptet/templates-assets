@@ -1,7 +1,4 @@
 /* layout */
-body {
-  color: @color-tertiary-hover;
-}
 .search-window-visible {
   &::before {
     background-color: rgba(0, 0, 0, 0.65);
@@ -27,13 +24,12 @@ select {
 }
 
 .quantity {
-  border-color: @text-color;
   .decrease,
   .increase {
-    border-color: @text-color;
-  }
-  .decrease {
-    background-color: transparent;
+    &:hover,
+    &:focus-visible {
+      background-color: var(--colors-surface-tertiary);
+    }
   }
 }
 
@@ -116,7 +112,7 @@ select {
 }
 
 .searchWhisperer__products {
-  background: @color-tertiary;
+  background: var(--color-tertiary);
 
   .searchWhisperer__products__listItem {
     border-bottom-color: @border-color;
@@ -148,7 +144,7 @@ select {
 }
 
 .searchWhisperer__additionalResults {
-  background: @color-tertiary;
+  background: var(--color-tertiary);
 }
 
 /* menu */
@@ -187,7 +183,7 @@ select {
   }
   @media (max-width: unit(@navigation-breakpoint-max, px)) {
     .exp {
-      background-color: @color-tertiary;
+      background-color: var(--color-tertiary);
     }
   }
 }
@@ -260,7 +256,7 @@ select {
 .benefit-banners-full-width {
   color: @accent-color;
   @media (min-width: @screen-sm-min) {
-    background-color: @accent-bg;
+    background-color: transparent;
   }
   a {
     color: @text-color;
@@ -273,7 +269,7 @@ select {
 .homepage-banners-full-width,
 .store-rating-full-width,
 .banner-category {
-  background-color: @color-tertiary;
+  background-color: var(--colors-surface-secondary);
 }
 .latest-contribution {
   a {
@@ -291,7 +287,7 @@ select {
   }
 }
 .footer-newsletter-full-width {
-  background-color: @accent-bg;
+  background-color: transparent;
 }
 .footer-newsletter .consents {
   color: @text-muted-color;
@@ -322,7 +318,7 @@ select {
   }
 }
 .rate-wrapper {
-  background-color: @color-tertiary;
+  background-color: var(--colors-surface-secondary);
   .rate-average,
   .rate-value {
     color: @color-secondary;
@@ -331,7 +327,7 @@ select {
 .votes-wrap.admin-response,
 .discussion-form,
 .discussionContainer > .discussion > .vote-wrap:nth-child(2n + 1) {
-  background-color: @color-tertiary;
+  background-color: var(--colors-surface-secondary);
 }
 :where(.ums_discussion_rating_forms--off) & {
   // TODO: Remove this in issue #20873
@@ -379,6 +375,10 @@ ul.manufacturers {
   color: @breadcrumbs-link-color;
 }
 
+:where(.customer-page) .breadcrumbs a {
+  color: color-mix(in srgb, @breadcrumbs-link-color, #000 3%);
+}
+
 /* product list */
 .product .p {
   .image {
@@ -411,7 +411,7 @@ ul.manufacturers {
     color: transparent;
     background-color: transparent;
     &::before {
-      color: @border-color;
+      color: var(--colors-foregrounds-icons-primary);
       background-color: transparent;
     }
     &:hover {
@@ -464,9 +464,9 @@ ul.manufacturers {
   }
 }
 .p-detail-full-width {
-  background: @color-tertiary;
-  #tab-content {
-    background: #fff;
+  background: var(--colors-surface-secondary);
+  .tab-content {
+    background: var(--colors-surface-white);
     box-shadow: 0px 8px 8px 0 rgba(0, 0, 0, 0.08);
   }
 }
@@ -499,7 +499,7 @@ ul.manufacturers {
 .tab-content .detail-parameters {
   border-color: @border-color;
   tr:nth-child(2n + 1) {
-    background-color: @color-tertiary;
+    background-color: var(--colors-surface-secondary);
   }
   th {
     border-right-color: @border-color;
@@ -525,12 +525,7 @@ ul.manufacturers {
     color: @text-color;
     &:hover {
       color: @text-color;
-      background-color: hsla(
-        var(--color-tertiary-hover-h),
-        var(--color-tertiary-hover-s),
-        var(--color-tertiary-hover-l),
-        0.08
-      );
+      background-color: color-mix(in srgb, var(--colors-surface-secondary), #000 5%);
     }
   }
 }
@@ -570,7 +565,7 @@ ul.manufacturers {
 .extras-wrapper {
   [class^='icon-'],
   [class*=' icon-'] {
-    color: @color-primary-hover;
+    color: var(--colors-foregrounds-icons-primary);
   }
 }
 .price-wrapper .price-secondary,
@@ -580,24 +575,7 @@ ul.manufacturers {
 .remove-item::before {
   color: @text-muted-color;
 }
-ol.cart-header {
-  li.active strong::before {
-    background-color: hsla(var(--color-secondary-h), var(--color-secondary-s), var(--color-secondary-l), 0.08);
-    border-color: transparent;
-  }
-  li.completed a::before {
-    background-color: fade(@green, 8%);
-    border-color: transparent;
-    color: @step-completed-color;
-  }
-  li.completed a:hover,
-  li.completed a:hover::before {
-    color: @green;
-  }
-  li:not(.active):not(.completed) a:hover {
-    color: hsla(var(--color-secondary-h), var(--color-secondary-s), var(--color-secondary-l), 0.8);
-  }
-}
+
 .cart-table {
   border-color: @cart-table-td-border-bottom-color;
   .p-price .price-final {
@@ -618,9 +596,9 @@ ol.cart-header {
   color: @color-secondary;
 }
 .payment-success-icon {
-  border-color: @green;
-  color: @green;
-  background-color: fade(@green, 20%);
+  border-color: var(--colors-state-success);
+  color: var(--colors-state-success);
+  background-color: color-mix(in srgb, var(--colors-state-success), #fff 80%);
 }
 .login-from-cart {
   @media (min-width: unit(@screen-xs-max, px)) {
@@ -632,7 +610,9 @@ ol.cart-header {
 .subcategories li a {
   border-color: @border-color;
   color: @text-color;
-  &:hover {
+
+  &:hover,
+  &:focus-visible {
     background-color: hsla(var(--color-secondary-h), var(--color-secondary-s), var(--color-secondary-l), 0.08);
   }
 }
@@ -756,7 +736,7 @@ ol.cart-header {
     border-color: @border-color;
     thead,
     .client-table-heading {
-      color: @text-muted-color;
+      color: var(--colors-foregrounds-content-secondary);
     }
     tr:nth-child(even):not(thead tr) {
       background-color: @sidebar-bg;
@@ -805,8 +785,8 @@ ol.cart-header {
 
 /* sidebar */
 .sidebar {
-  background-color: @sidebar-bg;
-  border-color: @border-color;
+  background-color: transparent;
+  border-color: transparent;
   .box {
     border-color: @border-color;
   }
@@ -814,6 +794,11 @@ ol.cart-header {
   .subscribe-form .consents a {
     color: @text-muted-color;
   }
+}
+
+.sidebar-inner {
+  background-color: @sidebar-bg;
+  border-color: @border-color;
 }
 
 ol.top-products {
@@ -845,7 +830,7 @@ ol.top-products {
 }
 .footer-bottom-full-width,
 .footer-bottom {
-  background-color: #fff;
+  background-color: @footer-bg;
 }
 #footer .footer-bottom,
 #footer .footer-bottom a {
@@ -853,12 +838,12 @@ ol.top-products {
 }
 .footer-rows .rate-wrapper {
   .star::before {
-    color: #fff;
+    color: var(--color-secondary);
   }
 }
 .footer-rows .vote-rating,
 .footer-rows .vote-admin-response {
-  color: #fff;
+  color: @text-color;
 }
 .footer-rows li a,
 #footer .filter-total-count {
@@ -879,10 +864,24 @@ ol.top-products {
   a {
     color: @text-color;
   }
+
+  .btn-default,
+  .btn-primary:hover,
+  .login-btn.facebook,
+  .social-icon:hover,
+  .social-icon:focus-visible {
+    color: var(--colors-foregrounds-content-inverted);
+  }
+
   .password-helper a {
     color: @color-secondary;
   }
 }
+
+.footer-links a {
+  color: @text-color;
+}
+
 .eet-message-inner {
   color: @text-muted-color;
 }
@@ -892,5 +891,5 @@ ol.top-products {
 }
 
 .cart-xyDiscount__banner {
-  background-color: #f9f9f9;
+  background-color: var(--colors-surface-secondary);
 }

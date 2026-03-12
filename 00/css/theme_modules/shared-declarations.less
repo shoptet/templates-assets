@@ -134,7 +134,7 @@ a,
     &:disabled {
       & + label {
         &::before {
-          border-color: lighten(@input-border, 5%);
+          border-color: color-mix(in srgb, @input-border, #000 5%);
         }
       }
     }
@@ -424,15 +424,6 @@ ol.cart-header {
   &.flag-gift {
     background-color: @flag-gift-bg;
   }
-  &.flag-sleva {
-    background-color: @flag-sleva-bg;
-  }
-  &.flag-pripravujeme {
-    background-color: @flag-pripravujeme-bg;
-  }
-  &.flag-doprodej {
-    background-color: @flag-doprodej-bg;
-  }
   &.default-variant {
     background-color: @flag-default-bg;
   }
@@ -449,7 +440,8 @@ a.social-icon {
   border-color: @social-btn-border;
   background-color: @social-btn-bg;
   color: @social-btn-color;
-  &:hover {
+  &:hover,
+  &:focus-visible {
     border-color: @social-btn-border-hover;
     background-color: @social-btn-bg-hover;
     color: @social-btn-color-hover;

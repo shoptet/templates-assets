@@ -541,14 +541,15 @@ a.login-btn {
   }
   .social-login-buttons {
     .social-login-buttons-divider span {
+      color: @text-color;
       .fontSmaller();
     }
     a.login-btn.facebook,
     a.login-btn.google,
     a.login-btn.seznam {
-      height: @grid-gutter-width;
+      height: @btn-line-height-lg;
       strong {
-        line-height: @grid-gutter-width;
+        line-height: @btn-line-height-lg;
         font-size: @font-size-base;
         font-weight: 600;
       }

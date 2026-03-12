@@ -3,10 +3,10 @@ input[type="radio"] {
     .radio-wrapper & {
         & + label {
             &::before {
-                border-color: darken(@input-border, 10%);
+                border-color: color-mix(in srgb, @input-border, #000 17%);
             }
             &::after {
-                background-color: darken(@input-border, 10%);
+                background-color: color-mix(in srgb, @input-border, #000 17%);
             }
         }
         &:disabled {
