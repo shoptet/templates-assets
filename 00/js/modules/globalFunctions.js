@@ -543,21 +543,6 @@ window.resizeEndCallback = () => {
   document.documentElement.style.setProperty('--scroll-offset-runtime', `${shoptet.layout.getScrollOffset(10)}px`);
 };
 
-/**
- * @returns {{ email: string, fullName: string, preselectStars: string }}
- */
-export function resolvePrefillValues() {
-  // @ts-expect-error Shoptet object types are not defined
-  const rating = shoptet.rating ?? {};
-  const searchParams = locationSearchToObject();
-
-  return {
-    email: rating.buyerEmail ?? searchParams.email ?? '',
-    fullName: rating.buyerFullName ?? searchParams.buyerName ?? '',
-    preselectStars: rating.preselectStars ?? searchParams.preselectStars ?? '',
-  };
-}
-
 document.addEventListener('DOMContentLoaded', function () {
   if ($('.regions-wrapper').length) {
     shoptet.global.toggleRegionsWrapper();
@@ -961,15 +946,15 @@ document.addEventListener('DOMContentLoaded', function () {
   // TODO: Remove this in issue #20873 -- START
   var search = window.location.search;
   if (search.length && !shoptet.config.discussion_rating_forms) {
-    var prefillValues = resolvePrefillValues();
-    if (prefillValues.email) {
-      $('input[name="email"]').val(prefillValues.email);
+    var searchValues = locationSearchToObject();
+    if (searchValues.email) {
+      $('input[name="email"]').val(searchValues.email);
     }
-    if (prefillValues.fullName) {
-      $('input[name="fullName"]').val(prefillValues.fullName);
+    if (searchValues.buyerName) {
+      $('input[name="fullName"]').val(searchValues.buyerName);
     }
-    if (prefillValues.preselectStars) {
-      var numberOfStars = parseInt(prefillValues.preselectStars);
+    if (searchValues.preselectStars) {
+      var numberOfStars = parseInt(searchValues.preselectStars);
 
       $('.star-wrap .star').removeClass('star-on current').addClass('star-off');
       $('.rate-list').removeClass('current');
