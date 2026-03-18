@@ -583,3 +583,14 @@ a.login-btn {
     }
   }
 }
+
+.price-standard,
+.price-save {
+  .empty {
+    visibility: hidden;
+  }
+}
+
+.p-price-wrapper:has(.price-standard .empty:not(.no-display)) .standard-price-label {
+  visibility: hidden;
+}
