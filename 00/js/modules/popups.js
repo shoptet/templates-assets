@@ -299,6 +299,12 @@ let lastPopupTrigger = null;
 
   ensureEvery(Array.from(document.querySelectorAll('.toggle-window[data-hover="true"]')), isHTMLElement).forEach(el => {
     el.addEventListener('mouseenter', e => {
+      if (
+        shoptet.helpers.isTouchDevice() ||
+        !shoptet.layout.detectResolution(shoptet.abilities.config.navigation_breakpoint)
+      ) {
+        return;
+      }
       e.preventDefault();
       el.classList.add('hovered');
       clearTimeout(hidePopupWindow);
@@ -310,12 +316,16 @@ let lastPopupTrigger = null;
       }
     });
     el.addEventListener('mouseleave', () => {
-      if (shoptet.layout.detectResolution(shoptet.abilities.config.navigation_breakpoint)) {
-        hidePopupWindow = setTimeout(() => {
-          hidePopupWindowCallback();
-          document.body.classList.remove(...bodyClasses);
-        }, shoptet.config.animationDuration);
+      if (
+        shoptet.helpers.isTouchDevice() ||
+        !shoptet.layout.detectResolution(shoptet.abilities.config.navigation_breakpoint)
+      ) {
+        return;
       }
+      hidePopupWindow = setTimeout(() => {
+        hidePopupWindowCallback();
+        document.body.classList.remove(...bodyClasses);
+      }, shoptet.config.animationDuration);
     });
   });
 
