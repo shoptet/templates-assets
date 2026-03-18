@@ -944,17 +944,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // TODO: Remove this in issue #20873 -- START
-  var search = window.location.search;
-  if (search.length && !shoptet.config.discussion_rating_forms) {
-    var searchValues = locationSearchToObject();
-    if (searchValues.email) {
-      $('input[name="email"]').val(searchValues.email);
-    }
-    if (searchValues.buyerName) {
-      $('input[name="fullName"]').val(searchValues.buyerName);
-    }
-    if (searchValues.preselectStars) {
-      var numberOfStars = parseInt(searchValues.preselectStars);
+  if (!shoptet.config.discussion_rating_forms) {
+    const searchParams = new URLSearchParams(window.location.search);
+    const preselectStars = searchParams.get('preselectStars');
+
+    if (preselectStars) {
+      var numberOfStars = parseInt(preselectStars);
 
       $('.star-wrap .star').removeClass('star-on current').addClass('star-off');
       $('.rate-list').removeClass('current');
