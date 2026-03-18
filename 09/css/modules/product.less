@@ -54,7 +54,7 @@
       display: flex;
       align-items: flex-end;
       margin-top: auto;
-      @media (max-width: @screen-xs-max) {
+      @media (max-width: @screen-md-max) {
         flex-wrap: wrap;
       }
     }
@@ -71,16 +71,24 @@
     }
     .tools-wrap {
       text-align: right;
-
-      @media (max-width: @screen-xs-max) {
+      @media (max-width: @screen-md-max) {
         display: contents;
         .tools {
           width: 33.333333%;
+          padding: 0 20px;
         }
         .availability {
           display: block !important;
-          padding: 0 10px;
+          padding: 0 20px;
           font-weight: 700;
+        }
+      }
+      @media (max-width: @screen-xs-max) {
+        .tools {
+          padding: 0 10px;
+        }
+        .availability {
+          padding: 0 10px;
         }
       }
 
@@ -93,7 +101,7 @@
       }
     }
     .availability {
-      @media (min-width: @screen-sm-min) {
+      @media (min-width: @screen-lg-min) {
         display: none;
         font-weight: 700;
         font-size: 12px;
