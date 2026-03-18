@@ -163,7 +163,16 @@ a.btn-icon[data-target='search'] {
     color: @text-color-lighter;
   }
   .availability {
-    color: @body-bg;
+    color: var(--product-availability-color, @text-color);
+    span {
+      color: @text-color;
+    }
+    @media (min-width: @screen-sm-min) {
+      color: @body-bg;
+      span {
+        color: @body-bg;
+      }
+    }
   }
   .btn {
     .btn-color(@body-bg, @color-primary, @body-bg, @body-bg);
