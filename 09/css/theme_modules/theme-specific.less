@@ -164,13 +164,15 @@ a.btn-icon[data-target='search'] {
   }
   .availability {
     color: var(--product-availability-color, @text-color);
-    span {
+    .availability-amount {
       color: @text-color;
     }
     @media (min-width: @screen-lg-min) {
-      color: @body-bg;
-      span {
+      .products-block & {
         color: @body-bg;
+        .availability-amount {
+          color: @body-bg;
+        }
       }
     }
   }
