@@ -1,12 +1,26 @@
+@import "../../00/css/tokens";
 @import "tokens";
 @import "../../00/css/modules/bootstrap";
 @import "../../00/css/modules/layout-mixins";
 @import "modules/layout-variables";
 @import "modules/variables-specific";
 
+// Theme
+@import 'theme_modules/theme-variables';
+@import "../../00/css/theme_modules/shared-modules";
+@import "../../00/css/theme_modules/components/shared-components";
+@import "../../00/css/theme_modules/shared-declarations";
+@import "../../00/css/theme_modules/components/popup-widgets";
+@import "../../00/css/theme_modules/components/tabs-accordion";
+@import "../../00/css/theme_modules/components/product-slider";
+@import "../../00/css/theme_modules/components/whisperer-extended";
+
 // Modules and components shared between all 3rd generation templates
 @import "../../00/css/modules/shared-modules";
 @import "../../00/css/modules/components/shared-components";
+
+// Theme specific
+@import 'theme_modules/theme-specific';
 
 // Template specific components
 @import "../../00/css/modules/components/banner";
@@ -53,13 +67,3 @@
 @import "modules/layout-specific";
 @import "modules/components/product-slider";
 
-// Theme
-@import 'theme_modules/theme-variables';
-@import "../../00/css/theme_modules/shared-modules";
-@import "../../00/css/theme_modules/components/shared-components";
-@import "../../00/css/theme_modules/shared-declarations";
-@import "../../00/css/theme_modules/components/popup-widgets";
-@import "../../00/css/theme_modules/components/tabs-accordion";
-@import "../../00/css/theme_modules/components/product-slider";
-@import "../../00/css/theme_modules/components/whisperer-extended";
-@import 'theme_modules/theme-specific';

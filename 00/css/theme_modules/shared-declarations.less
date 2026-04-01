@@ -59,11 +59,11 @@ body {
 }
 
 .red {
-  color: @red;
+  color: var(--colors-state-danger, #d63500);
 }
 
 .line {
-  color: @gray;
+  color: var(--colors-surface-tertiary, #cfcfcf);
 }
 
 a,
@@ -214,13 +214,13 @@ a:hover:focus-visible:not(:active) {
     background-color: @box-variant-bg;
   }
   &.box-bg-dark {
-    color: @box-dark-color;
-    background-color: @box-dark-bg;
+    color: var(--colors-foregrounds-content-inverted, #fff);
+    background-color: var(--color-tertiary);
     h1,
     h2,
     h3,
     h4 {
-      color: @box-dark-color;
+      color: var(--colors-foregrounds-content-inverted, #fff);
     }
   }
 }
@@ -237,7 +237,7 @@ a:hover:focus-visible:not(:active) {
     color: @text-color;
   }
   .original-price {
-    color: @red;
+    color: var(--colors-state-danger, #d63500);
   }
 }
 
@@ -403,7 +403,7 @@ ol.cart-header {
 
 .cart-widget-product-delete {
   button {
-    color: @red;
+    color: var(--colors-state-danger, #d63500);
   }
 }
 
@@ -460,8 +460,8 @@ a.link-icon {
 }
 
 .variant-not-chosen .variant-list:not(.variant-selected) select {
-  border-color: @red;
-  box-shadow: 0 0 3px @red;
+  border-color: var(--colors-state-danger, #d63500);
+  box-shadow: 0 0 3px var(--colors-state-danger, #d63500);
 }
 
 .qrcode {
@@ -551,7 +551,7 @@ a.link-icon {
   // Remove this in issue #26651
   .required-asterisk::before,
   .required-asterisk::after {
-    color: @red;
+    color: var(--colors-state-danger, #d63500);
   }
 }
 

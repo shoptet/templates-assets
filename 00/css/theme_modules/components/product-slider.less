@@ -19,7 +19,7 @@
         background-color: transparent;
 
         &::before {
-            color: @border-color;
+            color: var(--colors-foregrounds-icons-primary);
             background-color: transparent;
         }
 
@@ -30,14 +30,14 @@
             }
         }
 
-        @media (max-width: @navigation-breakpoint-max) { 
+        @media (max-width: @navigation-breakpoint-max) {
             &::before {
-                background-color: #fff;
+                background-color: var(--colors-surface-white);
             }
-            
+
             &:hover {
                 &::before {
-                    background-color: #fff;
+                    background-color: var(--colors-surface-white);
                 }
             }
         }

@@ -2,7 +2,8 @@
     background-color: @navigation-bg-small;
     a {
         color: @navigation-color-small;
-        &:hover {
+        &:hover,
+        &:focus-visible {
             color: @navigation-color-small-hover;
         }
     }
@@ -15,7 +16,9 @@
         background-color: @navigation-bg;
         a {
             color: @navigation-color;
-            &:hover {
+
+            &:hover,
+            &:focus-visible {
                 color: @navigation-color-hover;
             }
         }
@@ -28,7 +31,8 @@
                 }
                 a {
                     color: @navigation-menu-level-2-color;
-                    &:hover {
+                    &:hover,
+                    &:focus-visible {
                         color: @navigation-menu-level-2-color-hover;
                     }
                 }
@@ -37,7 +41,8 @@
                         &::before {
                             background-color: @navigation-menu-level-2-color;
                         }
-                        &:hover {
+                        &:hover,
+                        &:focus-visible {
                             &::before {
                                 background-color: @navigation-menu-level-2-color-hover;
                             }
@@ -54,7 +59,8 @@
                     color: @navigation-item-color;
                 }
                 &.exp > a,
-                > a:hover {
+                > a:hover,
+                > a:focus-visible {
                     background-color: @navigation-item-bg-hover;
                     color: @navigation-item-color-hover;
                 }
@@ -66,7 +72,8 @@
             > ul {
                 a {
                     color: @color-primary;
-                    &:hover {
+                    &:hover,
+                    &:focus-visible {
                         color: @color-primary-hover;
                     }
                 }

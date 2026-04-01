@@ -1,20 +1,20 @@
 .header-background-light {
-    --_color-header-text: @text-color;
-    --_color-header-link: @color-primary;
-    --_color-header-contrast-text: #fff;
-    --_color-header-contrast-bg: @color-primary;
+    --_color-header-text: var(--colors-foregrounds-content-primary);
+    --_color-header-link: var(--color-primary);
+    --_color-header-contrast-text: var(--colors-foregrounds-content-inverted);
+    --_color-header-contrast-bg: var(--color-primary);
 }
 
 .header-background-dark {
-    --_color-header-text: #fff;
-    --_color-header-link: #fff;
-    --_color-header-contrast-text: @text-color;
-    --_color-header-contrast-bg: #fff;
+    --_color-header-text: var(--colors-foregrounds-content-inverted);
+    --_color-header-link: var(--colors-foregrounds-content-inverted);
+    --_color-header-contrast-text: var(--colors-foregrounds-content-primary);
+    --_color-header-contrast-bg: var(--colors-surface-white);
 }
 
 //misc
 input[type="checkbox"]+label::after {
-    color: @gray-lighter;
+    color: var(--colors-foregrounds-content-inverted);
 }
 
 /* header start */
@@ -23,8 +23,8 @@ input[type="checkbox"]+label::after {
 }
 
 .top-navigation-bar {
-    background-color: @gray-lighter;
-    border-color: @gray-lighter;
+    background-color: var(--colors-surface-secondary);
+    border-color: var(--colors-surface-secondary);
 }
 
 .top-nav-button,
@@ -36,7 +36,7 @@ input[type="checkbox"]+label::after {
 .dropdown-menu,
 .languagesMenu ul {
     border-color: @border-color;
-    background: #fff;
+    background: var(--colors-surface-white);
     li {
         a {
             &::before {
@@ -95,15 +95,6 @@ input[type="checkbox"]+label::after {
     }
 }
 
-.breadcrumbs {
-    a, span {
-        color: @text-muted-color;
-        &:hover {
-            color: @text-muted-color;
-        }
-    }
-}
-
 .stars-label {
     color: @text-color;
 }
@@ -113,7 +104,7 @@ table.detail-parameters {
         tr {
             th {
                 .row-header-label {
-                    background-color: white;
+                    background-color: var(--colors-surface-white);
                 }
                 &:after {
                     border-top-color: @border-color;
@@ -134,7 +125,7 @@ table.detail-parameters {
 .extended-banner-text,
 .extended-banner-link {
     background-color: transparent;
-    color: #fff;
+    color: var(--colors-foregrounds-content-inverted);
 }
 /* content end */
 
@@ -162,12 +153,16 @@ table.detail-parameters {
         font-family: @template-headings-font, sans-serif;
     }
     .price-additional {
-        color: @text-muted-color;
+        color: var(--colors-foregrounds-content-secondary);
     }
 }
 
+:where(.p-final-price-wrapper) .price-standard {
+    color: var(--colors-foregrounds-content-secondary);
+}
+
 .p-to-cart-block {
-    background-color: @gray-lighter;
+    background-color: var(--colors-surface-secondary);
 }
 
 #product-detail-form .advanced-parameter-inner {
@@ -178,15 +173,15 @@ table.detail-parameters {
     &.yes-before {
         border-color: @border-color;
         &::before {
-            background-color: white;
-            border-color: black;
-            color: black;
+            background-color: var(--colors-surface-white);
+            border-color: var(--colors-foregrounds-content-primary-dark);
+            color: var(--colors-foregrounds-content-primary-dark);
         }
     }
 }
 
 .quantity {
-    background: #fff;
+    background: var(--colors-surface-white);
     .decrease,
     .increase {
         &:hover {
@@ -206,7 +201,7 @@ table.detail-parameters {
 
 .hidden-links,
 .hidden-links .shp-tab-link {
-    background-color: @gray-lighter;
+    background-color: var(--colors-surface-secondary);
 }
 
 .rate-average-wrap .rate-average {
@@ -242,7 +237,7 @@ table.detail-parameters {
 
     &:hover,
     &:focus-visible {
-        color: var(--color-secondary);
+        color: var(--color-primary);
     }
 }
 
@@ -362,7 +357,7 @@ ul.manufacturers {
 
 /* footer start */
 #footer {
-    background-color: @gray-lighter;
+    background-color: @footer-bg;
 }
 
 // TODO: Remove this in issue 23351 -- START
@@ -378,7 +373,7 @@ ul.manufacturers {
 // TODO: Remove this in issue 23351 -- END
 
 .footer-bottom {
-    background-color: #fff;
+    background-color: var(--colors-surface-primary);
 }
 /* footer end */
 
@@ -413,9 +408,9 @@ ul.manufacturers {
 
 .cart-widget-product-delete {
     button {
-        color: @gray-dark;
+        color: var(--colors-foregrounds-content-secondary);
         &:hover {
-            color: @red;
+            color: var(--colors-state-danger);
         }
     }
 }
@@ -439,7 +434,7 @@ ul.manufacturers {
 }
 
 .free-gift-price {
-    color: @green;
+    color: var(--colors-state-success);
 }
 
 .cart-table .p-price .price-final,
@@ -472,7 +467,7 @@ ol.cart-header {
         a,
         strong {
             &::before {
-                background-color: #fff;
+                background-color: var(--colors-surface-white);
                 border-color: @border-color;
             }
             span {
@@ -565,7 +560,7 @@ ol.cart-header {
 }
 
 #checkoutContent .helper {
-    background: @gray-lighter;
+    background: var(--colors-surface-secondary);
     a {
         color: @text-color;
     }
@@ -576,7 +571,7 @@ ol.cart-header {
         tr {
             th {
                 .row-header-label {
-                    background-color: white;
+                    background-color: var(--colors-surface-white);
                 }
                 &:after {
                     border-top-color: @border-color;
@@ -640,5 +635,13 @@ ol.cart-header {
 }
 
 .cart-xyDiscount__banner {
-    background-color: #f9f9f9;
+    background-color: var(--colors-surface-secondary);
+}
+
+.ajax-pending .cart-widget::before {
+    @media (min-width: @screen-md-min) {
+        background-color: var(--colors-surface-white);
+        border-color: var(--color-primary);
+        border-right-color: transparent;
+    }
 }
