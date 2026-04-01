@@ -100,6 +100,7 @@ window.addEventListener('message', function (e) {
 sendMessage({
   type: 'pageLoaded',
   pageType: isEditorPreview ? (window.shoptet.editorPreview?.pageType ?? 'homepage') : 'not-editable',
+  language: window.shoptet.editorPreview?.language ?? null,
 });
 
 function sendMessage(message) {
