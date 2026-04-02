@@ -1,17 +1,17 @@
 .header-background-light {
-    --_color-header-text: @text-color;
-    --_color-header-contrast-text: #fff;
-    --_color-header-contrast-bg: @color-primary;
+    --_color-header-text: var(--colors-foregrounds-content-primary-dark);
+    --_color-header-contrast-text: var(--colors-foregrounds-content-inverted);
+    --_color-header-contrast-bg: var(--color-primary);
     --_color-header-menu-border: rgba(0, 0, 0, 0.3);
     --_color-header-dropdown-border: rgba(0, 0, 0, 0.3);
     --_color-header-button-border: transparent;
 }
 
 .header-background-dark {
-    --_color-header-text: #fff;
-    --_color-header-contrast-text: #000;
-    --_color-header-contrast-bg: #fff;
-    --_color-header-menu-border: @color-header-background;
+    --_color-header-text: var(--colors-foregrounds-content-inverted);
+    --_color-header-contrast-text: var(--colors-foregrounds-content-primary-dark);
+    --_color-header-contrast-bg: var(--colors-surface-white);
+    --_color-header-menu-border: var(--color-header-background);
     --_color-header-dropdown-border: rgba(255, 255, 255, 0.3);
     --_color-header-button-border: rgba(255, 255, 255, 0.3);
 }
@@ -89,7 +89,7 @@ ol.cart-header {
 //orderStep1
 .radio-wrapper {
     &.active {
-      background-color: #fafafa;
+      background-color: var(--colors-surface-secondary);
     }
 }
 
@@ -169,8 +169,8 @@ ol.cart-header {
 ol.top-products {
     li {
         &::before {
+            color: var(--colors-foregrounds-content-inverted);
             background-color: @color-primary;
-            color: #fff;
         }
         a {
             color: @text-color;
@@ -217,7 +217,7 @@ ol.top-products {
 
     &:hover {
         color: @tab-link-color;
-        background-color: @tab-link-bg;
+        background-color: var(--colors-surface-secondary);
     }
 }
 
@@ -231,23 +231,8 @@ body.user-action-visible.language-window-visible {
     overflow: auto;
 }
 
-.listSorting__control {
-    background: #f5f5f5;
-
-    &:hover,
-    &:focus-visible {
-        background: #e7e7e7;
-    }
-}
-
-.listSorting__control--current,
-.listSorting__control--current:focus-visible {
-    background: #fff;
-    border-bottom-color: #fff;
-}
-
 .cart-xyDiscount__banner {
-    background-color: #f9f9f9;
+    background-color: var(--colors-surface-secondary);
 }
 
 .blog-wrapper {

@@ -25,14 +25,14 @@
 }
 
 .languagesMenu__header--name {
-    color: #000000;
+    color: var(--colors-foregrounds-content-primary-dark, #000);
 }
 
 .languagesMenu__box.open .languagesMenu__header  {
     color: @header-color;
 }
 
-.languagesMenu__list__link--currency:before {
+.languagesMenu__list__link--currency::before {
     content: "\2022";
     color: @header-color;
     font-weight: bold;
