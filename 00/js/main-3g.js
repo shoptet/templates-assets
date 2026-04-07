@@ -84,3 +84,4 @@ import './modules/skipLinks';
 import './modules/scroll';
 import './modules/animations';
 import './modules/ratingStars';
+import './modules/ratingSubpage';

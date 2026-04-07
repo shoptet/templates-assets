@@ -331,7 +331,7 @@
 .products-related {
   .p {
     .p-desc,
-    .stars-wrapper,
+    :where(.ums_discussion_rating_forms--off) & .stars-wrapper,
     .availability,
     .flags-inline,
     .price-standard-wrapper {
@@ -349,7 +349,7 @@
 .products-related {
   position: relative;
   margin-bottom: round(@line-height-computed * 2);
-  &:after {
+  &::after {
     content: '';
     position: absolute;
     right: 0;

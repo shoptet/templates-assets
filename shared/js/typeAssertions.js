@@ -2,6 +2,8 @@
 
 /** @type {(value: unknown) => value is number} */
 export const isNumber = value => typeof value === 'number';
+/** @type {(value: unknown) => value is string} */
+export const isString = value => typeof value === 'string';
 /** @type {(el: unknown) => el is HTMLElement} */
 export const isHTMLElement = el => el instanceof HTMLElement;
 /** @type {(el: unknown) => el is HTMLButtonElement} */

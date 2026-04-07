@@ -1,69 +1,165 @@
-.stars-wrapper {
-    display: flex;
-    justify-content: @stars-wrapper-justify;
-    align-items: center;
-    .p-detail & {
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--off) {
+    .stars-wrapper {
+        display: flex;
+        justify-content: @stars-wrapper-justify;
+        align-items: center;
+    }
+    .p-detail .stars-wrapper {
         margin: @stars-wrapper-detail-margin;
         justify-content: flex-start;
     }
 }
+// TODO: Remove this in issue 20873 -- END
+
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--on) {
+// TODO: Remove this in issue 20873 -- END
+    .stars-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 8px;
+        align-items: center;
+    }
+
+    .p-detail .stars-wrapper {
+        margin: @stars-wrapper-detail-margin;
+    }
+// TODO: Remove this in issue 20873 -- START
+}
+// TODO: Remove this in issue 20873 -- END
+
 .stars-placeholder,
 .p .stars-wrapper {
     height: @star-height;
     margin: @stars-wrapper-category-margin;
 }
+
 .stars-placeholder {
     display: block;
 }
-.stars {
-    position: relative;
-    flex: 0 0 auto;
-    display: inline-block;
-    .size(@star-width * 5, @star-height);
-    margin-right: round(@star-width / 4);
-    a {
-        text-decoration: none;
-    }
-    a,
-    span {
+
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--off) {
+    .stars {
         position: relative;
-        float: left;
-        .size(@star-width, @star-height);
-        line-height: @star-height;
+        flex: 0 0 auto;
+        display: inline-block;
+        .size(@star-width * 5, @star-height);
+        margin-right: round(@star-width / 4);
+        a {
+            text-decoration: none;
+        }
+        a,
+        span {
+            position: relative;
+            float: left;
+            .size(@star-width, @star-height);
+            line-height: @star-height;
+            &::before {
+                &:extend(.shp-icon);
+                position: absolute;
+                left: 0;
+                top: 0;
+                .square(100%);
+                font-size: @star-font-size;
+                line-height: @star-font-size;
+            }
+            &.star-on {
+                &::before {
+                    content: @icon-star-on-code
+                }
+            }
+            &.star-off {
+                &::before {
+                    content: @icon-star-off-code;
+                }
+            }
+            &.star-half {
+                &::before {
+                    content: @icon-star-half-code;
+                }
+            }
+            &.is-active {
+                cursor: pointer;
+            }
+        }
+    }
+}
+// TODO: Remove this in issue 20873 -- END
+
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--on) {
+// TODO: Remove this in issue 20873 -- END
+    .stars {
+        display: flex;
+        flex: 0 0 auto;
+        gap: @star-gap;
+        height: @star-font-size;
+    }
+
+    .star {
         &::before {
             &:extend(.shp-icon);
-            position: absolute;
-            left: 0;
-            top: 0;
-            .square(100%);
+            display: block;
             font-size: @star-font-size;
             line-height: @star-font-size;
         }
-        &.star-on {
-            &::before {
-                content: @icon-star-on-code
-            }
+        &.star-on::before {
+            content: @icon-star-on-code
         }
-        &.star-off {
-            &::before {
-                content: @icon-star-off-code;
-            }
+        &.star-off::before {
+            content: @icon-star-off-code;
         }
-        &.star-half {
-            &::before {
-                content: @icon-star-half-code;
-            }
+        &.star-half::before {
+            content: @icon-star-half-code;
         }
         &.is-active {
             cursor: pointer;
         }
     }
-}
 
-.stars-label {
-    flex: 0 0 auto;
-    line-height: @star-font-size;
-    a& {
-        cursor: pointer;
+    #footer .vote-wrap a:hover {
+        text-decoration: none;
+
+        .vote-product-name {
+            text-decoration: underline;
+        }
+    }
+// TODO: Remove this in issue 20873 -- START
+}
+// TODO: Remove this in issue 20873 -- END
+
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--off) {
+    .stars-label {
+        flex: 0 0 auto;
+        line-height: @star-font-size;
+        a& {
+            cursor: pointer;
+        }
     }
 }
+// TODO: Remove this in issue 20873 -- END
+
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--on) {
+// TODO: Remove this in issue 20873 -- END
+    .stars-label,
+    .stars-link,
+    .stars-wrapper .btn--link {
+        line-height: 1.4;
+    }
+
+    .starsLabel--productDetail {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    :where(.rate-wrap) .votes {
+        margin-top: @rate-wrap-margin-top;
+    }
+// TODO: Remove this in issue 20873 -- START
+}
+// TODO: Remove this in issue 20873 -- END

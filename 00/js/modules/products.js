@@ -108,7 +108,7 @@
         }
 
         // TODO: Remove this in issue #20873 -- START
-        if (!shoptet.config.discussion_rating_forms) {
+        if (!shoptet.config.ums_discussion_rating_forms) {
             $('#ratingTab .rate-form-trigger').click(function() {
                 $('.rate-list[data-score="5"]').addClass('current')
                     .find('.star').addClass('star-on').removeClass('star-off');
@@ -121,35 +121,36 @@
                     setStyle($('.star-wrap .star:nth-child(' + score + ')'));
                 });
             });
+
+
+            $('.productRatingAction').on('click',function() {
+                var successCallback = function(response) {
+                    $(".stars-wrapper").html(response.getPayload());
+                    initTooltips();
+                };
+
+                var dataString = 'productId=' + $(this).data('productid') + '&score=' + $(this).data('score');
+
+                if ($(this).data('orderGuid')) {
+                    dataString += '&orderGuid=' + $(this).data('orderGuid');
+                }
+
+                shoptet.ajax.makeAjaxRequest(
+                    shoptet.config.rateProduct,
+                    shoptet.ajax.requestTypes.post,
+                    dataString,
+                    {
+                        'success': successCallback
+                    },
+                    {
+                        'X-Shoptet-XHR': 'Shoptet_Coo7ai'
+                    }
+                );
+
+                return false;
+            });
         }
         // TODO: Remove this in issue #20873 -- END
-
-        $('.productRatingAction').on('click',function() {
-            var successCallback = function(response) {
-                $(".stars-wrapper").html(response.getPayload());
-                initTooltips();
-            };
-
-            var dataString = 'productId=' + $(this).data('productid') + '&score=' + $(this).data('score');
-
-            if ($(this).data('orderGuid')) {
-                dataString += '&orderGuid=' + $(this).data('orderGuid');
-            }
-
-            shoptet.ajax.makeAjaxRequest(
-                shoptet.config.rateProduct,
-                shoptet.ajax.requestTypes.post,
-                dataString,
-                {
-                    'success': successCallback
-                },
-                {
-                    'X-Shoptet-XHR': 'Shoptet_Coo7ai'
-                }
-            );
-
-            return false;
-        });
 
         // load new products dynamically
         const loadingAnnouncer = shoptet.screenReader.createLoadingAnnouncer();

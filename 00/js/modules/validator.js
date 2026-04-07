@@ -128,8 +128,8 @@ var validators = {
     score: function (elementValue) {
       var isValid = true;
       // TODO: Remove the ums check in issue #20873
-        if (shoptet.config.discussion_rating_forms && $(this).attr('name') === 'score') {
-            isValid = false
+        if (shoptet.config.ums_discussion_rating_forms && $(this).attr('name') === 'score') {
+            isValid = false;
             shoptet.validator.message = shoptet.messages.validator.scoreRequired;
             $(this).closest('.rating-stars-group').find('.msg-error').remove()
             $(this).closest('.rating-stars-group').find('input[name="score"]').removeClass('error-field');

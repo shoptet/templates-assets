@@ -24,18 +24,22 @@
 @header_search-height-sm: @header-height-sm + @form-control-height;
 
 //misc
-.btn,
-a.btn,
-.btn.btn-conversion,
-a.btn.btn-conversion {
-  font-weight: 900;
-  text-transform: none;
-  &.btn-cart {
-    &::before {
-      &:extend(.shp-icon);
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--off) {
+  .btn,
+  a.btn,
+  .btn.btn-conversion,
+  a.btn.btn-conversion {
+    font-weight: 900;
+    text-transform: none;
+    &.btn-cart {
+      &::before {
+        &:extend(.shp-icon);
+      }
     }
   }
 }
+// TODO: Remove this in issue 20873 -- END
 
 .advancedOrder__buttons .next-step-back {
   font-weight: 600;
@@ -814,19 +818,21 @@ select {
 
 /* product detail page start */
 
-.ratings-and-brand {
-  display: flex;
-  flex-flow: column;
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--off) {
+  .ratings-and-brand {
+    display: flex;
+    flex-flow: column;
 
-  .stars a {
-    padding-right: 5px;
+    .stars a {
+      padding-right: 5px;
+    }
+
+    a {
+      text-decoration: underline;
+    }
   }
-
-  a {
-    text-decoration: underline;
-  }
-
-  .narrow & {
+  .narrow .ratings-and-brand {
     @media (min-width: @screen-lg) {
       flex-flow: row;
       .stars-wrapper {
@@ -837,7 +843,7 @@ select {
       }
     }
   }
-  .wide & {
+  .wide .ratings-and-brand {
     @media (min-width: @screen-md) {
       flex-flow: row;
       .stars-wrapper {
@@ -849,6 +855,52 @@ select {
     }
   }
 }
+// TODO: Remove this in issue 20873 -- END
+
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--on) {
+  // TODO: Remove this in issue 20873 -- END
+  .ratings-and-brand {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+
+    .stars-wrapper {
+      margin: 0;
+    }
+  }
+
+  :where(.shipping-options-layout .shipping-options-row) .shipping-options,
+  .ratings-and-brand .stars-link {
+    color: @text-color;
+    text-decoration: underline;
+
+    &:hover,
+    &:focus-visible {
+      color: @link-hover-color;
+    }
+  }
+
+  .brand-wrapper-manufacturer-name a {
+    text-decoration: underline;
+  }
+
+  .starsLabel--productDetail {
+    gap: 8px 4px;
+    margin-right: 8px;
+  }
+
+  .rateAverage__link {
+    display: flex;
+  }
+
+  .rate-wrapper-in-description .rate-average-inner .rateAverage__link .stars {
+    margin-top: 0;
+  }
+
+  // TODO: Remove this in issue 20873 -- START
+}
+// TODO: Remove this in issue 20873 -- END
 
 .products-top {
   &.products-inline {
@@ -1550,8 +1602,8 @@ table.shipping-options-layout {
 
 // rating tab
 
-:where(.ums_discussion_rating_forms--off) & {
-  // TODO: Remove this in issue #20873
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--off) {
   .add-comment .rating-icon {
     text-decoration: underline;
     &:before {
@@ -1559,29 +1611,55 @@ table.shipping-options-layout {
       margin: 0;
     }
   }
-}
-.rate-wrapper.unveil-wrapper.rate-wrapper-in-description {
-  :where(.ums_discussion_rating_forms--on) & {
-    // TODO: Remove this wrapper in issue #20873
-    margin-bottom: @line-height-computed * 2;
+
+  .rate-wrapper.unveil-wrapper.rate-wrapper-in-description {
+    .rate-average-wrap {
+      .stars {
+        height: 30px;
+      }
+      .stars a,
+      .stars span {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        margin-right: 5px;
+        &:before {
+          line-height: 30px;
+          font-size: 30px;
+        }
+      }
+    }
   }
-  .rate-average-wrap {
+}
+// TODO: Remove this in issue 20873 -- END
+
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--on) {
+  // TODO: Remove this in issue 20873 -- END
+  .rate-wrapper-in-description {
+    margin-bottom: @line-height-computed;
+
     .stars {
       height: 30px;
+      margin-top: 0;
     }
-    .stars a,
-    .stars span {
-      width: 30px;
-      height: 30px;
-      line-height: 30px;
-      margin-right: 5px;
-      &:before {
+  }
+
+  .unveil-wrapper.rate-wrapper-in-description {
+    .rate-average-wrap {
+      .stars {
+        height: 30px;
+      }
+
+      .star::before {
         line-height: 30px;
         font-size: 30px;
       }
     }
   }
+  // TODO: Remove this in issue 20873 -- START
 }
+// TODO: Remove this in issue 20873 -- END
 
 .rate-wrapper.unveil-wrapper {
   .rate-list {
@@ -1629,38 +1707,90 @@ table.shipping-options-layout {
   display: none;
 }
 
-.content {
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--off) {
+  .content {
+    .vote-wrap {
+      margin-bottom: @line-height-computed * 1.5;
+      padding-top: @line-height-computed * 1.5;
+    }
+  }
+
   .vote-wrap {
+    .vote-header {
+      display: block;
+      margin-bottom: 0;
+      .vote-rating {
+        display: flex;
+        justify-content: space-between;
+        .vote-delimeter {
+          display: none;
+        }
+      }
+      .vote-time {
+        font-size: @font-size-base;
+      }
+      .vote-name {
+        margin-bottom: 10px;
+      }
+      .vote-title {
+        margin-bottom: 0;
+      }
+    }
+    .vote-content {
+      margin-top: 15px;
+    }
+  }
+}
+// TODO: Remove this in issue 20873 -- END
+
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--on) {
+  // TODO: Remove this in issue 20873 -- END
+  .ratingsList .vote-wrap,
+  .discussion .vote-wrap {
     margin-bottom: @line-height-computed * 1.5;
     padding-top: @line-height-computed * 1.5;
   }
-}
 
-.vote-wrap {
-  .vote-header {
+  .vote-wrap .vote-header {
     display: block;
     margin-bottom: 0;
-    .vote-rating {
-      display: flex;
-      justify-content: space-between;
-      .vote-delimeter {
-        display: none;
-      }
-    }
-    .vote-time {
-      font-size: @font-size-base;
-    }
-    .vote-name {
-      margin-bottom: 10px;
-    }
-    .vote-title {
-      margin-bottom: 0;
-    }
   }
-  .vote-content {
+
+  .vote-wrap .vote-header .vote-rating {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .sidebar .vote-rating,
+  .footer .vote-rating {
+    min-height: 22px;
+  }
+
+  .vote-wrap .vote-header .vote-time {
+    font-size: @font-size-base;
+  }
+
+  .vote-wrap .vote-header .vote-title {
+    margin-bottom: 0;
+  }
+
+  .ratingsList .vote-name,
+  .discussion .vote-name {
+    margin-bottom: 10px;
+  }
+
+  .vote-delimeter {
+    display: none;
+  }
+
+  .vote-wrap .vote-content {
     margin-top: 15px;
   }
+  // TODO: Remove this in issue 20873 -- START
 }
+// TODO: Remove this in issue 20873 -- END
 
 .vote-form {
   padding-bottom: @line-height-computed;

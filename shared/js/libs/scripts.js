@@ -199,6 +199,9 @@
     'ShoptetBillingMethodUpdated',
     'ShoptetSurchargesPriceUpdated',
     'ShoptetQuantityDiscountUpdated',
+    'ShoptetRatingStarsUnveiled',
+    'ShoptetRatingModalOpened',
+    'ShoptetRatingUpdated',
   ];
   // TODO: updateCartButton - on cart page unnecessary
   shoptet.scripts.libs = {

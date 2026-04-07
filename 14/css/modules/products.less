@@ -55,9 +55,9 @@
                         -webkit-box-orient: vertical;
                         overflow: hidden;
                         letter-spacing: 0.4px;
-                        height: @line-height-paragraph-mobile * 2;    
+                        height: @line-height-paragraph-mobile * 2;
                         @media (min-width: @navigation-breakpoint) {
-                            height: @line-height-paragraph * 2;    
+                            height: @line-height-paragraph * 2;
                         }
                     }
                 }
@@ -72,13 +72,15 @@
                         justify-content: center;
                     }
                     .star-list {
-                        display: flex;
-                        width: 100%;
-                        justify-content: center;
-                        align-items: center;
-                        margin: 0;
-                        .star {
-                            margin: 0 5px;
+                        :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this in issue #20873
+                            display: flex;
+                            width: 100%;
+                            justify-content: center;
+                            align-items: center;
+                            margin: 0;
+                            .star {
+                                margin: 0 5px;
+                            }
                         }
                     }
                 }
@@ -109,14 +111,14 @@
                                 font-size: @font-size-smaller;
                             }
                         }
-                        .p-tools {   
-                            padding: round(@grid-gutter-width / 2) 0 0;                         
+                        .p-tools {
+                            padding: round(@grid-gutter-width / 2) 0 0;
                             .pr-action {
                                 width: 100%;
                                 .quantity {
                                     display: none;
                                 }
-                            }      
+                            }
                             .btn.btn-primary {
                                 display: inline-flex;
                                 justify-content: center;
@@ -124,7 +126,7 @@
                                 i {
                                     margin-left: .5em;
                                 }
-                            } 
+                            }
                             .add-to-cart-button {
                                 &::before {
                                     display: none;
@@ -132,7 +134,7 @@
                                 i {
                                     margin-right: .5em;
                                 }
-                            }                     
+                            }
                         }
                         .p-desc {
                             padding: @basic-spacing 0 0;
@@ -142,19 +144,19 @@
                         }
                     }
                 }
-            }            
+            }
             .p-code {
                 display: block;
-                text-transform: uppercase;   
+                text-transform: uppercase;
                 font-size: @font-size-smaller;
                 line-height: 16px;
-                font-weight: 700; 
+                font-weight: 700;
                 letter-spacing: @letter-spacing;
                 text-align: right;
                 order: 2;
-            }            
+            }
         }
-    }  
+    }
 }
 
 .products-inline:not(.products-top) {
@@ -167,7 +169,7 @@
         padding: round(@grid-gutter-width / 4) 0;
         .quantity {
             margin-right: 5px;
-            .increase, 
+            .increase,
             .decrease,
             input {
                 height: 52px;
@@ -189,3 +191,13 @@
         margin-right: 5px;
     }
 }
+
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--on) {
+// TODO: Remove this in issue 20873 -- END
+    :where(.products-inline .p-in) .stars {
+        gap: 2px;
+    }
+// TODO: Remove this in issue 20873 -- START
+}
+// TODO: Remove this in issue 20873 -- END

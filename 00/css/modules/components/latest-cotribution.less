@@ -88,26 +88,52 @@
     align-items: center;
     margin-bottom: round(@line-height-computed / 4);
     font-size: @font-size-larger;
-    .stars {
-        width: round(@latest-contribution_star-size * 5);
-        height: @latest-contribution_star-size;
-        margin-right: 0;
-    }
-    .star {
-        width: @latest-contribution_star-size;
-        height: @latest-contribution_star-size;
-        &::before {
-            font-size: round(@latest-contribution_star-size - 2);
-        }
-    }
+
     > i {
         padding: 0 round(@grid-gutter-width / 4);
         font-style: normal;
     }
+
+    :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this in issue #20873
+        .stars {
+            width: round(@latest-contribution_star-size * 5);
+            height: @latest-contribution_star-size;
+            margin-right: 0;
+        }
+        .star {
+            width: @latest-contribution_star-size;
+            height: @latest-contribution_star-size;
+            &::before {
+                font-size: round(@latest-contribution_star-size - 2);
+            }
+        }
+    }
+
     @media (max-width: @screen-xs-min) {
-      display: block;
-      .stars {
-          display: block;
-      }
+        display: block;
+        .stars {
+            :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this in issue #20873
+                display: block;
+            }
+        }
     }
 }
+
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--on) {
+// TODO: Remove this in issue 20873 -- END
+    .latest-contribution-info {
+        @latest-contribution_star-size: 16px;
+        .stars {
+            gap: 2px;
+            height: @latest-contribution_star-size + 2;
+        }
+
+        .star::before {
+            font-size: @latest-contribution_star-size;
+            line-height: @latest-contribution_star-size;
+        }
+    }
+// TODO: Remove this in issue 20873 -- START
+}
+// TODO: Remove this in issue 20873 -- END

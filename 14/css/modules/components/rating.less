@@ -9,7 +9,8 @@
 }
 
 .p-detail,
-.content-inner {
+.content-inner,
+:where(.ratingDialog) {
     .no-ratings-message {
         text-align: center;
     }
@@ -81,24 +82,40 @@
                 .rate-star-wrap {
                     margin: 0;
                     .stars {
-                        margin: @line-height-computed 0;
-                        height: @font-size-h1;
-                        a {
-                            width: @font-size-h1;
+                        :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this in issue #20873
+                            margin: @line-height-computed 0;
                             height: @font-size-h1;
-                            line-height: @font-size-h1;
-                            font-size: @font-size-h1;
-                            margin: 0 5px;
+
+                            a {
+                                width: @font-size-h1;
+                                height: @font-size-h1;
+                                line-height: @font-size-h1;
+                                font-size: @font-size-h1;
+                                margin: 0 5px;
+                            }
+                            a::before,
+                            span::before {
+                                font-size: @font-size-h1;
+                                line-height: @font-size-h1;
+                            }
                         }
-                        a::before,
-                        span::before {
-                            font-size: @font-size-h1;
-                            line-height: @font-size-h1;
+
+                        :where(.ums_discussion_rating_forms--on) & { // TODO: Remove this wrapper in issue #20873
+                            gap: 10px;
+                            justify-content: center;
+                            height: @font-size-h1;
+                            margin: @line-height-computed 0;
+
+                            span::before {
+                                font-size: @font-size-h1;
+                                line-height: @font-size-h1;
+                            }
                         }
                     }
+
                     .stars-label {
-                        text-align: center;
                         line-height: 24px;
+                        text-align: center;
                     }
                 }
             }
@@ -167,10 +184,16 @@
                         justify-content: center;
                     }
                     .stars {
-                        width: auto;
-                        margin-right: 0;
-                        .star {
-                            margin-left: @half-basic-spacing;
+                        :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this wrapper in issue #20873
+                            width: auto;
+                            margin-right: 0;
+                            .star {
+                                margin-left: @half-basic-spacing;
+                            }
+                        }
+
+                        :where(.ums_discussion_rating_forms--on) & { // TODO: Remove this wrapper in issue #20873
+                            gap: @half-basic-spacing;
                         }
                     }
                 }
@@ -289,14 +312,17 @@
         margin-bottom: 0;
     }
     .vote-rating {
-        .stars {
-            width: auto;
-            .star {
-                margin-right: @basic-spacing;
+        :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this wrapper in issue #20873
+            .stars {
+                width: auto;
+                .star {
+                    margin-right: @basic-spacing;
+                }
             }
-        }
-        .vote-delimeter {
-            padding-left: 0;
+
+            .vote-delimeter {
+                padding-left: 0;
+            }
         }
     }
     .vote-wrap .vote-header {
@@ -304,6 +330,30 @@
         line-height: inherit;
     }
 }
+
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--on) {
+// TODO: Remove this in issue 20873 -- END
+    :where(.sidebar .vote-rating) .stars,
+    :where(.footer-rows .vote-rating) .stars {
+        gap: 0 @basic-spacing;
+    }
+
+    .p-detail-inner .stars-wrapper {
+        gap: 4px 12px;
+    }
+
+    .p-detail-inner .stars-wrapper .stars--productDetail {
+        margin-right: 0;
+    }
+
+    :where(.rate-wrapper.unveil-wrapper) .starsLabel--productDetail {
+        justify-content: center;
+    }
+// TODO: Remove this in issue 20873 -- START
+}
+// TODO: Remove this in issue 20873 -- END
+
 @container rateWrapper (width > 400px) {
     .rate-wrapper.unveil-wrapper {
         :where(.ums_discussion_rating_forms--on)  & { // TODO: Remove this wrapper in issue #20873

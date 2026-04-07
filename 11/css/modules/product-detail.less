@@ -135,6 +135,29 @@
     }
 }
 
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--on) {
+// TODO: Remove this in issue 20873 -- END
+ .p-detail-info .stars-wrapper {
+    flex-shrink: 1;
+
+    &::before {
+        padding-right: 0;
+    }
+  }
+
+  :where(.p-detail-info) .stars-wrapper .stars-link {
+    color: var(--color-primary);
+
+    &:hover,
+    &:focus-visible {
+        color: var(--color-primary-hover);
+    }
+  }
+  // TODO: Remove this in issue 20873 -- START
+}
+// TODO: Remove this in issue 20873 -- END
+
 .availability-value {
     margin-bottom: @line-height-computed;
     font-size: 22px;

@@ -11,8 +11,12 @@ if (shoptet.abilities.feature.tabs_accordion) {
 
         $(".shp-accordion-link").click(function(e) {
             var href = e.target.getAttribute('href');
-            $(this).parent().toggleClass("active");
+            var $accordion = $(this).parent();
+            $accordion.toggleClass("active");
             $(this).next(".shp-accordion-content").slideToggle();
+
+            var isActive = $accordion.hasClass("active");
+            $(this).attr('aria-expanded', isActive ? 'true' : 'false');
 
             if (href === '#productVideos') {
                 shoptet.products.unveilProductVideoTab(href);

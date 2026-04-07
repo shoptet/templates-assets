@@ -763,6 +763,22 @@ a.btn {
   }
 }
 
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--on) {
+  // TODO: Remove this in issue 20873 -- END
+  :where(.p-detail-inner .stars-wrapper) .stars-link {
+    font-weight: 700;
+    text-decoration: underline;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+    }
+  }
+  // TODO: Remove this in issue 20873 -- START
+}
+// TODO: Remove this in issue 20873 -- END
+
 .p-detail-tabs-wrapper {
   border-top-style: none;
   border-top-width: 0;

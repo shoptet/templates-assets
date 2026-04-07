@@ -761,6 +761,24 @@ document.addEventListener('DOMContentLoaded', function () {
   initColorbox();
 
   // Tabs
+  function focusTabPanel(panel) {
+    if (!panel) return;
+
+    const heading = panel.querySelector('h2, h3');
+
+    if (heading && heading.offsetParent !== null) {
+      if (!heading.hasAttribute('tabindex')) {
+        heading.setAttribute('tabindex', '-1');
+      }
+      heading.focus();
+    } else {
+      if (!panel.hasAttribute('tabindex')) {
+        panel.setAttribute('tabindex', '-1');
+      }
+      panel.focus();
+    }
+  }
+
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     var href = e.target.getAttribute('href');
     var external = e.target.getAttribute('data-external');
@@ -799,12 +817,17 @@ document.addEventListener('DOMContentLoaded', function () {
     if (external) {
       if (isTab) {
         $('.shp-tabs > li').removeClass('active');
-        $('.shp-tabs > li > a[href="' + href + '"]')
-          .parents('li')
-          .addClass('active');
+        var $currentTabLink = $('.shp-tabs > li > a[href="' + href + '"]');
+        $currentTabLink.parents('li').addClass('active');
+
+        $('.shp-tabs > li > a[data-toggle="tab"]').attr('aria-expanded', 'false');
+        $currentTabLink.attr('aria-expanded', 'true');
       } else if (isAccordion) {
         accordionLink.closest('.shp-accordion').addClass('active');
         accordionLink.next('.shp-accordion-content').show();
+
+        $('.shp-accordion-link').attr('aria-expanded', 'false');
+        accordionLink.attr('aria-expanded', 'true');
       }
     }
 
@@ -823,6 +846,8 @@ document.addEventListener('DOMContentLoaded', function () {
       scrollToEl(scrollEl);
     }
     shoptet.products.splitWidgetParameters();
+
+    focusTabPanel(document.querySelector(href));
   });
 
   // Unveil videos in active tab
@@ -944,7 +969,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // TODO: Remove this in issue #20873 -- START
-  if (!shoptet.config.discussion_rating_forms) {
+  if (!shoptet.config.ums_discussion_rating_forms) {
     const searchParams = new URLSearchParams(window.location.search);
     const preselectStars = searchParams.get('preselectStars');
 

@@ -102,9 +102,12 @@
             display: block;
         }
     }
+
     .product {
         .stars-wrapper {
-            justify-content: center;
+            :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this in issue #20873
+                justify-content: center;
+            }
         }
     }
     @media (max-width: @screen-xs-max) {
@@ -174,6 +177,26 @@
         }
     }
 }
+
+// TODO: Remove this in issue 20873 -- START
+:where(.ums_discussion_rating_forms--on) {
+  // TODO: Remove this in issue 20873 -- END
+    :where(.stars-wrapper) .stars-link,
+    :where(.stars-wrapper) .btn--link {
+        font-weight: 700;
+    }
+
+    :where(.stars-wrapper) .stars-link,
+    :where(.stars-wrapper) .btn--link,
+    :where(.p-details) .shipping-options {
+        &:hover,
+        &:focus-visible {
+            color: color-mix(in srgb, var(--color-primary) 75%, #000 25%);
+        }
+    }
+  // TODO: Remove this in issue 20873 -- START
+}
+// TODO: Remove this in issue 20873 -- END
 
 .p-detail-inner .flag {
     width: clamp(7em, 8vw, 9em);
