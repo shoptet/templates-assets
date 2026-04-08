@@ -113,10 +113,12 @@ function openRatingModal() {
       window.initTooltips();
       shoptet.modal.resize();
 
-      const form = ensure(document.querySelector('#dialogFormRating'), isHTMLFormElement);
-      shoptet.validator.initValidator($(form));
+      const form = maybe(document.querySelector('#dialogFormRating'), isHTMLFormElement);
+      if (form) {
+        shoptet.validator.initValidator($(form));
+        shoptet.ratingStars.initRatingStars(form);
+      }
 
-      shoptet.ratingStars.initRatingStars(form);
       announcer.end();
       shoptet.scripts.signalCustomEvent('ShoptetRatingModalOpened', trigger);
     },
