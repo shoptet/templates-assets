@@ -132,33 +132,67 @@ a.btn.goToTop__button,
     min-height: 3.2222em;
   }
 }
-
-.box {
-  margin-bottom: @line-height-computed;
-  h4 {
-    &:first-of-type {
-      margin-top: 0;
-    }
-  }
-  &.box-sm {
-    padding: round(@line-height-computed / 2);
-  }
-  &.box-md {
-    padding: @line-height-computed;
-  }
-  &.box-squeeze {
-    padding: 0;
-  }
-  &.client-center-box {
-    a {
-      text-decoration: none;
-      &:hover {
-        text-decoration: underline;
+:where(body.ums_homepage_cart_checkout_headings--on) {
+  .box {
+    margin-bottom: @line-height-computed;
+    h2.h4,
+    h4 {
+      &:first-of-type {
+        margin-top: 0;
       }
     }
-    ul {
-      li {
-        list-style-position: initial;
+    &.box-sm {
+      padding: round(@line-height-computed / 2);
+    }
+    &.box-md {
+      padding: @line-height-computed;
+    }
+    &.box-squeeze {
+      padding: 0;
+    }
+    &.client-center-box {
+      a {
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      ul {
+        li {
+          list-style-position: initial;
+        }
+      }
+    }
+  }
+}
+:where(body.ums_homepage_cart_checkout_headings--off) {
+  .box {
+    margin-bottom: @line-height-computed;
+    h4 {
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
+    &.box-sm {
+      padding: round(@line-height-computed / 2);
+    }
+    &.box-md {
+      padding: @line-height-computed;
+    }
+    &.box-squeeze {
+      padding: 0;
+    }
+    &.client-center-box {
+      a {
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      ul {
+        li {
+          list-style-position: initial;
+        }
       }
     }
   }
@@ -264,15 +298,24 @@ a.btn.goToTop__button,
     }
   }
 }
-
-.welcome {
-  .clearfixMixin();
-  margin-bottom: round(@line-height-computed * 2);
-  h1 {
-    text-align: center;
+:where(body.ums_homepage_cart_checkout_headings--on) {
+  .welcome {
+    .clearfixMixin();
+    margin-bottom: round(@line-height-computed * 2);
+    .h1 {
+      text-align: center;
+    }
   }
 }
-
+:where(body.ums_homepage_cart_checkout_headings--off) {
+  .welcome {
+    .clearfixMixin();
+    margin-bottom: round(@line-height-computed * 2);
+    h1 {
+      text-align: center;
+    }
+  }
+}
 .wide {
   @media (min-width: @screen-xl-min) {
     .welcome > div,

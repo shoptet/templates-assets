@@ -547,14 +547,28 @@ ul.manufacturers {
     background-color: @sidebar-bg;
   }
 }
-.checkout-box-wrapper,
-.summary-wrapper,
-.order-summary-inner,
-.cart-summary {
-  h4 {
-    color: @color-secondary;
+
+:where(body.ums_homepage_cart_checkout_headings--on) {
+  .checkout-box-wrapper,
+  .summary-wrapper,
+  .order-summary-inner,
+  .cart-summary {
+    h2 {
+      color: @color-secondary;
+    }
   }
 }
+:where(body.ums_homepage_cart_checkout_headings--off) {
+  .checkout-box-wrapper,
+  .summary-wrapper,
+  .order-summary-inner,
+  .cart-summary {
+    h4 {
+      color: @color-secondary;
+    }
+  }
+}
+
 .extras-wrapper .extra span strong {
   color: @color-secondary;
 }

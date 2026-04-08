@@ -147,53 +147,116 @@
     }
 }
 
-h1.header-title,
-h2.header-title {
-    display: flex;
-    width: 100%;
-    height: round((@line-height-base * 2 * @header_header-title-font-size-mobile) + @line-height-computed * 2);
-    clear: both;
-    text-align: center;
-    margin: 0;
-    padding-top: @line-height-computed;
-    padding-bottom: @line-height-computed;
-    font-size: @header_header-title-font-size-mobile;
-    line-height: @line-height-base;
-    .js-hidden-visible();
-    > span {
-        display: block;
-        align-self: center;
+:where(body.ums_homepage_cart_checkout_headings--on) {
+    h2.header-title,
+    div.header-title {
+        display: flex;
+        font-family: @template-headings-font, sans-serif;
         width: 100%;
-        max-height: round(@line-height-base * 2 * @header_header-title-font-size-mobile);
-        overflow: hidden;
-        padding-left: round(@grid-gutter-width / 2);
-        padding-right: round(@grid-gutter-width / 2);
-        span {
-            border: 1px solid blue;
-            vertical-align: middle;
+        height: round((@line-height-base * 2 * @header_header-title-font-size-mobile) + @line-height-computed * 2);
+        clear: both;
+        text-align: center;
+        margin: 0;
+        padding-top: @line-height-computed;
+        padding-bottom: @line-height-computed;
+        font-size: @header_header-title-font-size-mobile;
+        line-height: @line-height-base;
+        .js-hidden-visible();
+        > span {
+            display: block;
+            align-self: center;
+            width: 100%;
             max-height: round(@line-height-base * 2 * @header_header-title-font-size-mobile);
+            overflow: hidden;
+            padding-left: round(@grid-gutter-width / 2);
+            padding-right: round(@grid-gutter-width / 2);
+            span {
+                vertical-align: middle;
+                max-height: round(@line-height-base * 2 * @header_header-title-font-size-mobile);
+            }
+        }
+        @media (min-width: @screen-sm-min) {
+            height: round((@line-height-base * 2 * @header_header-title-font-size-tablet) + @line-height-computed * 2);
+            font-size: @header_header-title-font-size-tablet;
+            > span {
+                max-height: round(@line-height-base * 2 * @header_header-title-font-size-tablet);
+            }
+        }
+        @media (min-width: @screen-lg-min) {
+            height: round((@line-height-base * 2 * @header_header-title-font-size-desktop) + @line-height-computed * 2);
+            font-size: @header_header-title-font-size-desktop;
+            > span {
+                max-height: round(@line-height-base * 2 * @header_header-title-font-size-desktop);
+            }
         }
     }
-    @media (min-width: @screen-sm-min) {
-        height: round((@line-height-base * 2 * @header_header-title-font-size-tablet) + @line-height-computed * 2);
-        font-size: @header_header-title-font-size-tablet;
-        > span {
-            max-height: round(@line-height-base * 2 * @header_header-title-font-size-tablet);
-        }
-        .type-index & {
-            height: round((@line-height-base * 2 * @header_header-title-font-size-tablet) + @line-height-computed * 4);
-            padding-top: round(@line-height-computed * 2);
-            padding-bottom: round(@line-height-computed * 2);
+    &.type-index {
+        h2.header-title,
+        div.header-title {
+            @media (min-width: @screen-sm-min) {
+                height: round((@line-height-base * 2 * @header_header-title-font-size-tablet) + @line-height-computed * 4);
+                padding-top: round(@line-height-computed * 2);
+                padding-bottom: round(@line-height-computed * 2);
+            }
+            @media (min-width: @screen-lg-min) {
+                height: round((@line-height-base * 2 * @header_header-title-font-size-desktop) + @line-height-computed * 4);
+            }
         }
     }
-    @media (min-width: @screen-lg-min) {
-        height: round((@line-height-base * 2 * @header_header-title-font-size-desktop) + @line-height-computed * 2);
-        font-size: @header_header-title-font-size-desktop;
+}
+:where(body.ums_homepage_cart_checkout_headings--off) {
+    h1.header-title,
+    h2.header-title {
+        display: flex;
+        width: 100%;
+        height: round((@line-height-base * 2 * @header_header-title-font-size-mobile) + @line-height-computed * 2);
+        clear: both;
+        text-align: center;
+        margin: 0;
+        padding-top: @line-height-computed;
+        padding-bottom: @line-height-computed;
+        font-size: @header_header-title-font-size-mobile;
+        line-height: @line-height-base;
+        .js-hidden-visible();
         > span {
-            max-height: round(@line-height-base * 2 * @header_header-title-font-size-desktop);
+            display: block;
+            align-self: center;
+            width: 100%;
+            max-height: round(@line-height-base * 2 * @header_header-title-font-size-mobile);
+            overflow: hidden;
+            padding-left: round(@grid-gutter-width / 2);
+            padding-right: round(@grid-gutter-width / 2);
+            span {
+                vertical-align: middle;
+                max-height: round(@line-height-base * 2 * @header_header-title-font-size-mobile);
+            }
         }
-        .type-index & {
-            height: round((@line-height-base * 2 * @header_header-title-font-size-desktop) + @line-height-computed * 4);
+        @media (min-width: @screen-sm-min) {
+            height: round((@line-height-base * 2 * @header_header-title-font-size-tablet) + @line-height-computed * 2);
+            font-size: @header_header-title-font-size-tablet;
+            > span {
+                max-height: round(@line-height-base * 2 * @header_header-title-font-size-tablet);
+            }
+        }
+        @media (min-width: @screen-lg-min) {
+            height: round((@line-height-base * 2 * @header_header-title-font-size-desktop) + @line-height-computed * 2);
+            font-size: @header_header-title-font-size-desktop;
+            > span {
+                max-height: round(@line-height-base * 2 * @header_header-title-font-size-desktop);
+            }
+        }
+    }
+    &.type-index {
+        h1.header-title,
+        h2.header-title {
+            @media (min-width: @screen-sm-min) {
+                height: round((@line-height-base * 2 * @header_header-title-font-size-tablet) + @line-height-computed * 4);
+                padding-top: round(@line-height-computed * 2);
+                padding-bottom: round(@line-height-computed * 2);
+            }
+            @media (min-width: @screen-lg-min) {
+                height: round((@line-height-base * 2 * @header_header-title-font-size-desktop) + @line-height-computed * 4);
+            }
         }
     }
 }

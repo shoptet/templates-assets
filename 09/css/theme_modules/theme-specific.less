@@ -247,12 +247,23 @@ a.btn-icon[data-target='search'] {
   border-color: @border-color;
 }
 
+:where(body.ums_homepage_cart_checkout_headings--on) {
+  .box .order-summary-inner {
+    h2 {
+      border-bottom-color: @border-color;
+      font-weight: 600;
+      padding-bottom: round(@line-height-computed / 2);
+      margin-bottom: round(@line-height-computed / 2);
+    }
+  }
+}
 .box {
   h4 {
     border-bottom-color: @border-color;
     font-weight: 600;
   }
 }
+
 .dropdown-menu {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
 }

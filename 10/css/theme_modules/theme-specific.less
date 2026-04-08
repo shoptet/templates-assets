@@ -5,11 +5,23 @@ body {
   }
 }
 
-.h4,
-.welcome h1 {
-  .type-index & {
-    &::before {
-      background-color: @color-tertiary;
+:where(body.ums_homepage_cart_checkout_headings--on) {
+  &.type-index {
+    .h4,
+    .welcome .h1 {
+      &::before {
+        background-color: @color-tertiary;
+      }
+    }
+  }
+}
+:where(body.ums_homepage_cart_checkout_headings--off) {
+  &.type-index {
+    .h4,
+    .welcome h1 {
+      &::before {
+        background-color: @color-tertiary;
+      }
     }
   }
 }
@@ -307,10 +319,20 @@ ol.cart-header {
   color: @color-primary;
 }
 
-.order-summary-inner {
-  border-color: @border-color;
-  h4 {
-    border-bottom-color: @border-color;
+:where(body.ums_homepage_cart_checkout_headings--on) {
+  .order-summary-inner {
+    border-color: @border-color;
+    h2 {
+      border-bottom-color: @border-color;
+    }
+  }
+}
+:where(body.ums_homepage_cart_checkout_headings--off) {
+  .order-summary-inner {
+    border-color: @border-color;
+    h4 {
+      border-bottom-color: @border-color;
+    }
   }
 }
 

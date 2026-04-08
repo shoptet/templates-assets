@@ -9,21 +9,43 @@ h3,
   font-weight: @headings-font-weight;
 }
 
-.h4,
-.welcome h1 {
-  .type-index .content-wrapper & {
-    position: relative;
-    margin-bottom: @line-height-computed;
-    padding-bottom: @line-height-computed;
-    font-size: 26px;
-    text-align: center;
-    &::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      margin-left: -55px;
-      .size(110px, 2px);
+:where(body.ums_homepage_cart_checkout_headings--on) {
+  &.type-index .content-wrapper {
+    .h4,
+    .welcome .h1 {
+      position: relative;
+      margin-bottom: @line-height-computed;
+      padding-bottom: @line-height-computed;
+      font-size: 26px;
+      text-align: center;
+      &::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        margin-left: -55px;
+        .size(110px, 2px);
+      }
+    }
+  }
+}
+:where(body.ums_homepage_cart_checkout_headings--off) {
+  &.type-index .content-wrapper {
+    .h4,
+    .welcome h1 {
+      position: relative;
+      margin-bottom: @line-height-computed;
+      padding-bottom: @line-height-computed;
+      font-size: 26px;
+      text-align: center;
+      &::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        margin-left: -55px;
+        .size(110px, 2px);
+      }
     }
   }
 }

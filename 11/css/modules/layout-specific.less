@@ -182,11 +182,21 @@ h4,
     }
 }
 // TODO: Remove this in issue #20873 -- END
-.welcome div,
-.welcome h1 {
-    max-width: @common_page-content-max-width;
-    margin-left: auto;
-    margin-right: auto;
+:where(body.ums_homepage_cart_checkout_headings--on) {
+    .welcome div,
+    .welcome .h1 {
+        max-width: @common_page-content-max-width;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+:where(body.ums_homepage_cart_checkout_headings--off) {
+    .welcome div,
+    .welcome h1 {
+        max-width: @common_page-content-max-width;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 :where(.ums_discussion_rating_forms--off)  & { // TODO: Remove this in issue #20873
@@ -280,10 +290,21 @@ h4,
     }
 }
 
-.welcome {
-    .clearfixMixin();
-    h1 {
-        margin-top: 0;
+:where(body.ums_homepage_cart_checkout_headings--on) {
+    .welcome {
+        .clearfixMixin();
+        .h1 {
+            margin-top: 0;
+            margin-bottom: 0.67em;
+        }
+    }
+}
+:where(body.ums_homepage_cart_checkout_headings--off) {
+    .welcome {
+        .clearfixMixin();
+        h1 {
+            margin-top: 0;
+        }
     }
 }
 

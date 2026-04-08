@@ -187,10 +187,19 @@ ol.cart-header {
     }
 }
 
-.order-summary h4 {
-    margin: 0;
-    padding: round(@line-height-computed / 2);
+:where(body.ums_homepage_cart_checkout_headings--on) {
+    .order-summary h2 {
+        margin: 0;
+        padding: round(@line-height-computed / 2);
+    }
 }
+:where(body.ums_homepage_cart_checkout_headings--off) {
+    .order-summary h4 {
+        margin: 0;
+        padding: round(@line-height-computed / 2);
+    }
+}
+
 .order-summary-item {
     display: flex;
     flex-wrap: wrap;
