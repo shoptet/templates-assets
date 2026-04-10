@@ -83,8 +83,12 @@
         font-size: @font-size-h4;
         }
 
-        .vote-rating:not(:has(.vote-name)) .vote-delimeter {
-            display: none;
+        .vote-rating:not(:has(.vote-name)) {
+            min-height: @font-size-h4 * 1.2;
+
+            .vote-delimeter {
+                display: none;
+            }
         }
     }
 // TODO: Remove this in issue 20873 -- START
