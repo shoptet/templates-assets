@@ -1,15 +1,15 @@
 .header-background-light {
-  --_color-header-mobile-text: @btn-plain-color;
-  --_color-header-mobile-link: @color-primary;
-  --_color-header-mobile-contrast-text: #fff;
-  --_color-header-mobile-contrast-bg: @color-primary;
+  --_color-header-mobile-text: var(--colors-foregrounds-content-secondary);
+  --_color-header-mobile-link: var(--color-primary);
+  --_color-header-mobile-contrast-text: var(--colors-foregrounds-content-inverted);
+  --_color-header-mobile-contrast-bg: var(--color-primary);
 }
 
 .header-background-dark {
-  --_color-header-mobile-text: #fff;
-  --_color-header-mobile-link: #fff;
-  --_color-header-mobile-contrast-text: @text-color;
-  --_color-header-mobile-contrast-bg: #fff;
+  --_color-header-mobile-text: var(--colors-foregrounds-content-inverted);
+  --_color-header-mobile-link: var(--colors-foregrounds-content-inverted);
+  --_color-header-mobile-contrast-text: var(--colors-foregrounds-content-primary-dark);
+  --_color-header-mobile-contrast-bg: var(--colors-foregrounds-content-inverted);
 }
 
 .btn-color(@startColor, @hoverTextColor, @hoverBorderColor, @hoverBgColor) {
@@ -17,24 +17,18 @@
   border-color: @startColor;
   background-color: transparent;
 
-  &:focus {
-    color: @startColor;
-  }
-  &:hover {
+  &:hover,
+  &:focus-visible {
     color: @hoverTextColor;
     border-color: @hoverBorderColor;
     background-color: @hoverBgColor;
-
-    &:focus {
-      color: @hoverTextColor;
-    }
   }
 }
 
 .password-helper a,
 .cart-price,
 .cart-count {
-  color: @gray-dark;
+  color: var(--colors-foregrounds-content-quaternary);
 
   &:hover {
     color: @color-primary;
@@ -58,13 +52,13 @@ footer {
 
   h4 a,
   h5 a {
-    color: @gray-dark;
+    color: var(--colors-foregrounds-content-quaternary);
   }
   p {
-    color: @gray-dark;
+    color: var(--colors-foregrounds-content-quaternary);
   }
   a {
-    color: @gray-dark;
+    color: var(--colors-foregrounds-content-quaternary);
 
     &:hover {
       color: @color-primary;
@@ -73,32 +67,32 @@ footer {
 }
 
 .subscribe-form .btn {
-  .btn-color(@body-bg, @body-bg, @body-bg, @color-primary);
+  .btn-color(var(--colors-foregrounds-content-inverted), var(--colors-foregrounds-content-inverted), var(--colors-foregrounds-content-inverted), var(--color-primary));
 
-  background-color: @gray-dark;
+  background-color: var(--colors-surface-quaternary);
 
   &::before {
-    color: @body-bg;
+    color: var(--colors-foregrounds-content-inverted);
   }
 }
 
 // Windows
 .user-action,
 .content-window {
-  background-color: @body-bg;
+  background-color: var(--colors-surface-white);
 }
 
 .toggle-window-arr {
-  color: @gray-dark;
+  color: var(--colors-foregrounds-content-quaternary);
 }
 
 // Navigation
 #navigation {
-  background-color: @body-bg;
+  background-color: var(--colors-surface-white);
 }
 .btn-icon.cart-count {
   .cart-price {
-    color: @gray-dark;
+    color: var(--colors-foregrounds-content-quaternary);
     &:hover {
       color: @color-secondary;
     }
@@ -122,14 +116,14 @@ footer {
 .top-nav {
   a,
   .dropdown {
-    color: @gray-dark;
+    color: var(--colors-foregrounds-content-secondary);
     &:hover {
       color: @link-color;
     }
   }
 
   .project-phone-info:hover {
-    color: @gray-dark;
+    color: var(--colors-foregrounds-content-secondary);
   }
 }
 
@@ -137,7 +131,8 @@ footer {
   @media (max-width: @navigation-breakpoint-max) {
     a[data-target='cart'] {
       &,
-      &:hover {
+      &:hover,
+      &:focus-visible {
         color: var(--_color-header-mobile-link);
         i {
           color: var(--_color-header-mobile-contrast-text);
@@ -151,6 +146,11 @@ footer {
 a.btn-icon[data-target='search'] {
   @media (max-width: @navigation-breakpoint-max) {
     color: var(--_color-header-mobile-text);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--_color-header-mobile-link);
+    }
   }
 }
 
@@ -163,21 +163,21 @@ a.btn-icon[data-target='search'] {
     color: @text-color-lighter;
   }
   .availability {
-    color: var(--product-availability-color, @text-color);
+    color: var(--product-availability-color, var(--colors-tags-green));
     .availability-amount {
       color: @text-color;
     }
     @media (min-width: @screen-lg-min) {
       .products-block & {
-        color: @body-bg;
+        color: var(--colors-foregrounds-content-inverted);
         .availability-amount {
-          color: @body-bg;
+          color: var(--colors-foregrounds-content-inverted);
         }
       }
     }
   }
   .btn {
-    .btn-color(@body-bg, @color-primary, @body-bg, @body-bg);
+    .btn-color(var(--colors-foregrounds-content-inverted), var(--color-primary), var(--colors-foregrounds-content-inverted), var(--colors-surface-white));
   }
   .btn.btn-cart,
   .btn.icon-search {
@@ -185,7 +185,7 @@ a.btn-icon[data-target='search'] {
   }
   &.highlight-product .btn {
     @media (min-width: @screen-lg-min) {
-      .btn-color(@gray-dark, @body-bg, @color-secondary, @color-secondary);
+      .btn-color(var(--colors-foregrounds-content-quaternary), var(--colors-foregrounds-content-inverted), var(--color-secondary), var(--color-secondary));
     }
   }
   .products-inline &,
@@ -197,7 +197,7 @@ a.btn-icon[data-target='search'] {
 }
 
 .add-to-cart__quantity-label {
-  color: @gray-dark;
+  color: var(--colors-foregrounds-content-quaternary);
 }
 
 .products-inline,
@@ -207,19 +207,24 @@ a.btn-icon[data-target='search'] {
   }
   .btn.btn-primary,
   .btn.btn-cart {
-    .btn-color(@color-primary, @body-bg, @color-primary, @color-primary);
+    .btn-color(var(--color-primary), var(--colors-foregrounds-content-inverted), var(--color-primary), var(--color-primary));
   }
 }
 
 .price-additional,
 .price-measure {
-  color: @text-muted-color;
+  color: var(--colors-foregrounds-content-tertiary);
+
+  :where(.product.highlight-product) & {
+    color: var(--colors-foregrounds-content-secondary);
+  }
 }
+
 .price-final {
   color: @color-primary;
 }
 .cart-content a {
-  color: @gray-dark;
+  color: var(--colors-foregrounds-content-quaternary);
 
   &:hover {
     color: @link-color;
@@ -227,7 +232,7 @@ a.btn-icon[data-target='search'] {
 }
 
 .descr-info th {
-  color: @gray;
+  color: var(--colors-foregrounds-content-secondary);
 }
 
 .subcategories {
@@ -301,7 +306,7 @@ a.btn-icon[data-target='search'] {
 .extra.cofidis::before,
 .extra.gift::before,
 .discount-coupon .input-group::before {
-  color: @border-color;
+  color: var(--colors-foregrounds-icons-primary);
 }
 .extra strong {
   color: @color-primary;
@@ -349,7 +354,7 @@ a.btn-icon[data-target='search'] {
       color: transparent;
     }
     &::after {
-      border-bottom: @body-bg;
+      border-bottom: var(--colors-foregrounds-content-inverted);
       color: transparent;
     }
   }
@@ -384,14 +389,19 @@ a.btn-icon[data-target='search'] {
 }
 
 .sidebar a {
-  color: @gray-dark;
+  color: var(--colors-foregrounds-content-primary);
 
-  &:not(.social-icon):hover {
+  &:hover,
+  &.social-icon:hover {
     color: @link-color;
   }
 
   &.btn-primary:hover {
     color: @btn-primary-color-hover;
+  }
+
+  &.btn-default:hover {
+    color: var(--colors-foregrounds-content-inverted);
   }
 }
 
