@@ -104,6 +104,14 @@ var validators = {
     billStreet: function (elementValue) {
         var isValid = true;
         if ($(this).attr('id') == 'billStreet' && $(this).attr('data-warning')) {
+            const countriesWithNumberedStreets = [
+                '141', // Romania
+            ];
+            const billCountry = $('#billCountryId').val();
+            if (countriesWithNumberedStreets.includes(billCountry)) {
+                return true;
+            }
+
             isValid = !/\s(\d+)(\/\d+)?[a-z]?$/i.test(elementValue.trim());
             shoptet.validator.message = shoptet.messages['validatorStreet'];
         }
