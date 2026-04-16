@@ -307,27 +307,6 @@ window.initColorbox = () => {
   }
 };
 
-// TODO: Remove this in issue 25868 -- START (shoptet.config.ums_a11y_login)
-/**
- * Add space for "footer" on mobile resolution
- *
- * This function does not accept any arguments.
- */
-window.addPaddingToOverallWrapper = () => {
-  if (!shoptet.config.ums_a11y_login) {
-    if (shoptet.abilities.about.id !== '07') {
-      return;
-    }
-    if (!shoptet.layout.detectResolution(shoptet.config.breakpoints.sm)) {
-      var topNavigationBarHeight = $('.top-navigation-bar').outerHeight();
-      $('.overall-wrapper').css('padding-bottom', topNavigationBarHeight);
-    } else {
-      $('.overall-wrapper').css('padding-bottom', 0);
-    }
-  }
-};
-// TODO: Remove this in issue 25868 -- END (shoptet.config.ums_a11y_login)
-
 /**
  * Detect video background in header
  *
@@ -528,10 +507,6 @@ window.resizeEndCallback = () => {
   }
   shoptet.modal.shoptetResize();
 
-  // TODO: Remove this in issue 25868 -- START (shoptet.config.ums_a11y_login)
-  addPaddingToOverallWrapper();
-  // TODO: Remove this in issue 25868 -- END (shoptet.config.ums_a11y_login)
-
   if (typeof shoptet.checkout !== 'undefined' && shoptet.checkout.$checkoutSidebar.length) {
     if (!shoptet.layout.detectResolution(shoptet.config.breakpoints.sm)) {
       shoptet.checkout.$checkoutSidebar.removeAttr('style');
@@ -567,12 +542,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   }
-
-  // TODO: Remove this in issue 25868 -- START (shoptet.config.ums_a11y_login)
-  if (!shoptet.layout.detectResolution(shoptet.config.breakpoints.sm)) {
-    addPaddingToOverallWrapper();
-  }
-  // TODO: Remove this in issue 25868 -- END (shoptet.config.ums_a11y_login)
 
   detectScrolled('up');
 

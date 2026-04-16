@@ -1,95 +1,158 @@
-// TODO: Remove this in issue 25868 -- START
-:where(body.ums_a11y_login--on) {
-  // TODO: Remove this in issue 25868 -- END
-  .top-navigation-bar {
-    display: none;
+.top-navigation-bar {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 11px;
+  line-height: 14px;
+  text-transform: uppercase;
+  .transition(top @transition-duration @transition-timing);
 
-    @media (min-width: @screen-sm-min) {
-      display: block;
-    }
+  .container {
+    padding-left: 0;
+    padding-right: 0;
   }
 
-  .top-navigation-bar-right a,
-  .top-navigation-bar-right strong,
-  .top-nav-button {
-    display: block;
-    padding-block: 15px;
-    color: @accent-link-color;
-  }
-
-  .top-nav-button {
-    text-transform: uppercase;
-    appearance: none;
-    background: none;
-    border: 0;
-    border-radius: 0;
-  }
-
-  .top-navigation-bar-right a,
-  .top-nav-button {
-    padding-inline: 10px;
-
-    &:hover,
-    &:focus-visible {
-      color: @accent-link-color;
-    }
-
-    &:focus-visible {
-      z-index: 9999;
-    }
-  }
-
-  .top-nav-button-logout {
-    background-color: @navigation-button-login-bg;
-
-    &:hover,
-    &:focus-visible {
-      background-color: @navigation-button-login-bg-hover;
-    }
-  }
-
-  .top-nav-button-login,
-  .top-nav-button-logout {
-    &::before {
-      margin-right: 1ex;
-      font-size: 12px;
-      &:extend(.shp-icon);
-    }
-  }
-
-  .top-nav-button-logout::before {
-    content: @icon-unlock-code;
-  }
-
-  .top-nav-button-register,
-  .top-nav-button-account {
-    background-color: @accent-bg;
-
-    &:hover,
-    &:focus-visible {
-      background-color: @accent-bg-hover;
-    }
+  a {
+    text-decoration: none;
   }
 
   @media (min-width: @screen-sm-min) {
-    .top-navigation-bar-right {
-      float: right;
-      display: flex;
-      .clearfixMixin();
-    }
-
-    .top-navigation-bar-right a,
-    .top-nav-button {
-      padding-inline: 15px;
-    }
+    .clearfixMixin();
+    display: block;
+    position: relative;
+    top: 0;
+    bottom: auto;
+    text-align: left;
   }
 
   @media (min-width: @screen-md-min) {
-    .top-navigation-bar-right a,
-    .top-nav-button {
-      padding-inline: 20px;
-    }
+    font-size: 12px;
   }
-  // TODO: Remove this in issue 25868 -- START
 }
-// TODO: Remove this in issue 25868 -- END
+
+.top-navigation-bar-left {
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  button {
+    padding: 0;
+    border: 0;
+    background: none;
+    .appearance(none);
+  }
+
+  @media (min-width: @screen-sm-min) {
+    float: left;
+    padding-left: 15px;
+  }
+}
+
+.top-navigation-bar-left--language {
+  padding: 0;
+  margin-left: 15px;
+
+  button {
+    padding: 0 20px 0 0;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  .caret {
+    position: absolute;
+    top: 45%;
+    right: 0;
+  }
+
+  .dropdown {
+    width: 100%;
+    height: 17px;
+    margin-top: 15px;
+  }
+
+  @media (min-width: @screen-sm-min) {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}
+
+.top-navigation-bar-right {
+  @media (min-width: @screen-sm-min) {
+    float: right;
+    display: flex;
+    .clearfixMixin();
+  }
+}
+
+.top-navigation-bar-right a,
+.top-navigation-bar-right strong,
+.top-nav-button {
+  display: block;
+  padding-block: 15px;
+  color: @accent-link-color;
+}
+
+.top-nav-button {
+  text-transform: uppercase;
+  appearance: none;
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+
+.top-navigation-bar-right a,
+.top-nav-button {
+  padding-inline: 10px;
+
+  &:hover,
+  &:focus-visible {
+    color: @accent-link-color;
+  }
+
+  &:focus-visible {
+    z-index: 9999;
+  }
+
+  @media (min-width: @screen-sm-min) {
+    padding-inline: 15px;
+  }
+
+  @media (min-width: @screen-md-min) {
+    padding-inline: 20px;
+  }
+}
+
+.top-nav-button-logout {
+  background-color: @navigation-button-login-bg;
+
+  &:hover,
+  &:focus-visible {
+    background-color: @navigation-button-login-bg-hover;
+  }
+}
+
+.top-nav-button-login,
+.top-nav-button-logout {
+  &::before {
+    margin-right: 1ex;
+    font-size: 12px;
+    &:extend(.shp-icon);
+  }
+}
+
+.top-nav-button-logout::before {
+  content: @icon-unlock-code;
+}
+
+.top-nav-button-register,
+.top-nav-button-account {
+  background-color: @accent-bg;
+
+  &:hover,
+  &:focus-visible {
+    background-color: @accent-bg-hover;
+  }
+}

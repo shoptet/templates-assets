@@ -325,40 +325,13 @@ a.btn {
 }
 
 //windows.less
-// TODO: Remove this in issue 25868 -- START
-:where(body.ums_a11y_login--off) {
-  .toggle-window-arr {
-    left: -6px;
-    text-align: left;
-
-    &.btn {
-      text-transform: none;
-    }
-
-    @media (min-width: @screen-sm-min) {
-      left: 14px;
-    }
-  }
-
-  .content-window .toggle-window-arr {
-    left: 0;
-  }
+.toggle-window-arr {
+  text-align: left;
 }
-// TODO: Remove this in issue 25868 -- END
 
-// TODO: Remove this in issue 25868 -- START
-:where(body.ums_a11y_login--on) {
-  // TODO: Remove this in issue 25868 -- END
-  .toggle-window-arr {
-    text-align: left;
-  }
-
-  .toggle-window-arr.btn {
-    text-transform: none;
-  }
-  // TODO: Remove this in issue 25868 -- START
+.toggle-window-arr.btn {
+  text-transform: none;
 }
-// TODO: Remove this in issue 25868 -- END
 
 .sidebar-left .toggle-window-arr {
   position: static;
@@ -1661,16 +1634,10 @@ ul.shp-tabs {
   }
 }
 
-// TODO: Remove this in issue 25868 -- START
-:where(body.ums_a11y_login--on) {
-  // TODO: Remove this in issue 25868 -- END
-  .top-nav-button-account::before {
-    content: @icon-login-code;
-    &:extend(.shp-icon);
-  }
-  // TODO: Remove this in issue 25868 -- START
+.top-nav-button-account::before {
+  content: @icon-login-code;
+  &:extend(.shp-icon);
 }
-// TODO: Remove this in issue 25868 -- END
 
 //filter.less
 .filter-sections {

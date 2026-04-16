@@ -486,19 +486,6 @@ a.link-icon {
   }
 }
 
-// TODO: Remove this in issue 25868 -- START
-:where(body.ums_a11y_login--off) {
-  .navigation-buttons a[data-target='login'] {
-    color: @navigation-button-login-color;
-    background-color: @navigation-button-login-bg;
-    &:hover {
-      color: @navigation-button-login-color-hover;
-      background-color: @navigation-button-login-bg-hover;
-    }
-  }
-}
-// TODO: Remove this in issue 25868 -- END
-
 .navigation-buttons a[data-target='navigation'] {
   color: @navigation-button-navigation-color;
   background-color: @navigation-button-navigation-bg;
@@ -522,22 +509,16 @@ a.link-icon {
   background-color: @cart-count-bg;
 }
 
-// TODO: Remove this in issue 25868 -- START
-:where(body.ums_a11y_login--on) {
-  // TODO: Remove this in issue 25868 -- END
-  .top-nav-button-login {
-    color: @navigation-button-login-color;
-    background-color: @navigation-button-login-bg;
+.top-nav-button-login {
+  color: @navigation-button-login-color;
+  background-color: @navigation-button-login-bg;
 
-    &:hover,
-    &:focus-visible {
-      color: @navigation-button-login-color-hover;
-      background-color: @navigation-button-login-bg-hover;
-    }
+  &:hover,
+  &:focus-visible {
+    color: @navigation-button-login-color-hover;
+    background-color: @navigation-button-login-bg-hover;
   }
-  // TODO: Remove this in issue 25868 -- START
 }
-// TODO: Remove this in issue 25868 -- END
 
 .p-gift-name {
   a,
@@ -559,14 +540,6 @@ a.link-icon {
 a.next-step-back {
   color: var(--colors-foregrounds-content-tertiary, #aaa);
 }
-
-// TODO: Remove this in issue 25868 -- START
-:where(body.ums_a11y_login--off) {
-  .user-action-in .toggle-window-arr {
-    color: @link-color;
-  }
-}
-// TODO: Remove this in issue 25868 -- END
 
 .next-step-back,
 a.next-step-back,

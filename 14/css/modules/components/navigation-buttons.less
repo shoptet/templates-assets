@@ -1,86 +1,41 @@
-// TODO: Remove this in issue 25868 -- START
-:where(body.ums_a11y_login--off) {
-    .navigation-buttons {
-        position: relative;
-        a {
-            margin-left: 0;
-            height: @header-height-sm;
-            width: @navigation_navigation-buttons-width;
-            line-height: @header-height-sm;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+.navigation-buttons {
+    position: relative;
+}
 
-            &::after {
-                &:extend(.shp-icon-shadow);
-            }
-            &[data-target="search"],
-            &[data-target="login"],
-            &[data-target="cart"] {
-                &::before {
-                    content: '';
-                    display: none;
-                }
-            }
-            &[data-target="navigation"] {
-                &::after {
-                    content: @icon-menu-code;
-                }
-            }
-        }
+.navigation-buttons a,
+.top-nav-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: @navigation_navigation-buttons-width;
+    height: @header-height-sm;
+    margin-left: 0;
+    line-height: @header-height-sm;
+    text-align: center;
+    text-decoration: none;
+    font-size: @navigation_navigation-buttons-font-size-1;
+
+    &::before {
+        &:extend(.shp-icon);
     }
-    &.navigation-window-visible .navigation-buttons a[data-target="navigation"] {
-        &::after {
-            content: @icon-close-code;
-        }
+
+    @media (min-width: @screen-xs-min) {
+        font-size: @navigation_navigation-buttons-font-size-2;
     }
 }
-// TODO: Remove this in issue 25868 -- END
 
-// TODO: Remove this in issue 25868 -- START
-:where(body.ums_a11y_login--on) {
-// TODO: Remove this in issue 25868 -- END
-    .navigation-buttons {
-        position: relative;
-    }
-
-    .navigation-buttons a,
-    .top-nav-button {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: @navigation_navigation-buttons-width;
-        height: @header-height-sm;
-        margin-left: 0;
-        line-height: @header-height-sm;
-        text-align: center;
-        text-decoration: none;
-        font-size: @navigation_navigation-buttons-font-size-1;
-
-        &::before {
-            &:extend(.shp-icon);
-        }
-
-        @media (min-width: @screen-xs-min) {
-            font-size: @navigation_navigation-buttons-font-size-2;
-        }
-    }
-
-    .top-nav-button {
-        padding: 0;
-        appearance: none;
-        border: 0;
-    }
-
-    .navigation-buttons a[data-target="search"],
-    .top-nav-button,
-    .navigation-buttons a[data-target="cart"] {
-        &::before {
-            content: '';
-            display: none;
-        }
-    }
-// TODO: Remove this in issue 25868 -- START
+.top-nav-button {
+    padding: 0;
+    appearance: none;
+    border: 0;
 }
-// TODO: Remove this in issue 25868 -- END
+
+.navigation-buttons a[data-target="search"],
+.top-nav-button,
+.navigation-buttons a[data-target="cart"] {
+    &::before {
+        content: '';
+        display: none;
+    }
+}

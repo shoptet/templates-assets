@@ -7,13 +7,11 @@ const isHTMLAnchorElement = value => value instanceof HTMLAnchorElement;
 const isHTMLInputElement = value => value instanceof HTMLInputElement;
 
 const CART_POPUP_WINDOW_TARGET = 'cart';
-const REGISTER_POPUP_WINDOW_TARGET = 'register'; // TODO: Remove this in issue 25868 (shoptet.config.ums_a11y_login)
 const NAVIGATION_POPUP_WINDOW_TARGET = 'navigation';
 const SEARCH_POPUP_WINDOW_TARGET = 'search';
 const LOGIN_POPUP_WINDOW_TARGET = 'login';
 
 const CART_WINDOW_VISIBLE_CLASS = 'cart-window-visible';
-const REGISTER_WINDOW_VISIBLE_CLASS = 'register-window-visible'; // TODO: Remove this in issue 25868 (shoptet.config.ums_a11y_login)
 const LOGIN_WINDOW_VISIBLE_CLASS = 'login-window-visible';
 const NAVIGATION_WINDOW_VISIBLE_CLASS = 'navigation-window-visible';
 const SEARCH_WINDOW_VISIBLE_CLASS = 'search-window-visible';
@@ -23,8 +21,6 @@ const MENU_HELPER_VISIBLE_CLASS = 'menu-helper-visible';
 
 const MENU_HELPER_IDENTIFIER = '.menu-helper';
 
-const REGISTER_FORM = 'register-form'; // TODO: Remove this in issue 25868 (shoptet.config.ums_a11y_login)
-
 /** @type {HTMLElement | null} */
 let lastPopupTrigger = null;
 
@@ -33,7 +29,6 @@ let lastPopupTrigger = null;
   const bodyClasses = [
     USER_ACTION_VISIBLE_CLASS,
     CART_WINDOW_VISIBLE_CLASS,
-    REGISTER_WINDOW_VISIBLE_CLASS, // TODO: Remove this in issue 25868 (shoptet.config.ums_a11y_login)
     LOGIN_WINDOW_VISIBLE_CLASS,
     NAVIGATION_WINDOW_VISIBLE_CLASS,
     SEARCH_WINDOW_VISIBLE_CLASS,
@@ -155,61 +150,22 @@ let lastPopupTrigger = null;
       window.clearSearchFocus();
     }
 
-    // TODO: Remove this in issue 25868 -- START (shoptet.config.ums_a11y_login)
-    if (!shoptet.config.ums_a11y_login && target === REGISTER_POPUP_WINDOW_TARGET) {
-      const userActionRegisterLoader = document.querySelector('.user-action-register .loader');
-      if (userActionRegisterLoader) {
-        const successCallback = response => {
-          const requestedDocument = shoptet.common.createDocumentFromString(response.getPayload());
-          const content = ensure(requestedDocument.getElementById(REGISTER_FORM), isHTMLElement);
-          userActionRegisterLoader.remove();
-          document.querySelector('.place-registration-here')?.insertAdjacentElement('beforeend', content);
-          const additionalInformation = maybe(document.getElementById('additionalInformation'), isHTMLElement);
-          if (additionalInformation && !additionalInformation.classList.contains('visible')) {
-            // @ts-expect-error Shoptet global functions are not defined yet.
-            window.toggleRequiredAttributes($(additionalInformation), 'remove', false);
-          }
-          shoptet.validator.initValidator($(ensure(document.getElementById(REGISTER_FORM), isHTMLElement)));
-          // @ts-expect-error Shoptet global functions are not defined yet.
-          window.initDatepickers();
-          // @ts-expect-error Shoptet global functions are not defined yet.
-          window.initTooltips();
-          shoptet.scripts.signalDomLoad('ShoptetDOMRegisterFormLoaded');
-        };
-        shoptet.ajax.makeAjaxRequest(
-          shoptet.config.registerUrl,
-          shoptet.ajax.requestTypes.get,
-          '',
-          {
-            success: successCallback,
-          },
-          {
-            'X-Shoptet-XHR': 'Shoptet_Coo7ai',
-          }
-        );
-      }
+    if (target === LOGIN_POPUP_WINDOW_TARGET && document.body.classList.contains(LOGIN_WINDOW_VISIBLE_CLASS)) {
+      const dialog = ensure(document.getElementById('login'), isHTMLElement);
+      dialog.setAttribute('aria-hidden', 'false');
+      shoptet.focusManagement.focusFirst(dialog, false, false, true);
+
+      const openerCandidate =
+        lastPopupTrigger && lastPopupTrigger.dataset.target === LOGIN_POPUP_WINDOW_TARGET
+          ? lastPopupTrigger
+          : document.querySelector(`[data-target="${LOGIN_POPUP_WINDOW_TARGET}"]`);
+
+      const opener = ensure(openerCandidate, isHTMLElement);
+
+      shoptet.focusManagement.setupDialogPassThroughFocus(dialog, opener, LOGIN_POPUP_WINDOW_TARGET, () => {
+        hideContentWindows();
+      });
     }
-    // TODO: Remove this in issue 25868 -- END (shoptet.config.ums_a11y_login)
-
-    if (shoptet.config.ums_a11y_login) {
-      // TODO: Remove this wrapper in issue 25868 -- (shoptet.config.ums_a11y_login)
-      if (target === LOGIN_POPUP_WINDOW_TARGET && document.body.classList.contains(LOGIN_WINDOW_VISIBLE_CLASS)) {
-        const dialog = ensure(document.getElementById('login'), isHTMLElement);
-        dialog.setAttribute('aria-hidden', 'false');
-        shoptet.focusManagement.focusFirst(dialog, false, false, true);
-
-        const openerCandidate =
-          lastPopupTrigger && lastPopupTrigger.dataset.target === LOGIN_POPUP_WINDOW_TARGET
-            ? lastPopupTrigger
-            : document.querySelector(`[data-target="${LOGIN_POPUP_WINDOW_TARGET}"]`);
-
-        const opener = ensure(openerCandidate, isHTMLElement);
-
-        shoptet.focusManagement.setupDialogPassThroughFocus(dialog, opener, LOGIN_POPUP_WINDOW_TARGET, () => {
-          hideContentWindows();
-        });
-      }
-    } // TODO: Remove this wrapper in issue 25868 -- (shoptet.config.ums_a11y_login)
 
     shoptet.images.unveil();
   }
@@ -279,8 +235,7 @@ let lastPopupTrigger = null;
 
   ensureEvery(Array.from(document.querySelectorAll('.popup-widget, .hovered-nav')), isHTMLElement).forEach(el => {
     el.addEventListener('mouseleave', () => {
-      // TODO: Remove `|| el.classList.contains('register-widget')` in issue 25868 -- (shoptet.config.ums_a11y_login)
-      if (el.classList.contains('login-widget') || el.classList.contains('register-widget')) {
+      if (el.classList.contains('login-widget')) {
         if (el.querySelector('input:focus')) {
           return false;
         }
