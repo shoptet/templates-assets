@@ -1,16 +1,10 @@
-@input-focus-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.2);
-@user-action-window-muted-color: e("hsl(var(--color-tertiary-h), calc(var(--color-tertiary-s) + 6%), calc(var(--color-tertiary-l) + 16%))");
-@user-action-window-muted-color-light: e("hsl(var(--color-tertiary-h), calc(var(--color-tertiary-s) + 6%), calc(var(--color-tertiary-l) + 21%))");
-@user-action-window-muted-color-lightest: e("hsl(var(--color-tertiary-h), calc(var(--color-tertiary-s) + 6%), calc(var(--color-tertiary-l) + 41%))");
-@user-action-window-secondary-bg: e("hsl(var(--color-tertiary-h), calc(var(--color-tertiary-s) + 8%), calc(var(--color-tertiary-l) - 3%))");
-
 .header-background-light {
     --_color-header: @text-color;
     --_color-header-border: @border-color;
 }
 
 .header-background-dark {
-    --_color-header: #fff;
+    --_color-header: var(--colors-foregrounds-content-inverted);
     --_color-header-border: var(--color-header-background);
 }
 
@@ -23,8 +17,8 @@ body {
 }
 
 .top-navigation-bar {
-    color: @accent-heavy-color;
-    background-color: @accent-heavy-bg;
+    color: var(--colors-foregrounds-content-inverted);
+    background-color: var(--color-tertiary);
 }
 
 
@@ -41,22 +35,60 @@ body {
     }
 }
 
-#footer {
+.subscribe-form .box-bg-default {
+    &,
+    h4 {
+        color: var(--colors-foregrounds-content-primary-dark);
+    }
+}
+
+.box-bg-dark.box-subscribe a {
+  color: var(--colors-foregrounds-content-inverted);
+  text-decoration: underline;
+}
+
+:where(.sidebar) a {
+    color: var(--color-primary-hover);
+}
+
+:where(.footer) .categories .topic.child-active a,
+:where(.footer) .categories .topic.child-active a:hover,
+:where(.footer) .categories li.active a,
+:where(.footer) .categories li.active a:hover,
+:where(.footer) .categories a:hover {
+    color: var(--colors-foregrounds-content-primary-dark);
+}
+
+
+.footer {
     color: @footer-color;
     background-color: @footer-bg;
-    a:not(.btn):not(.login-btn):not(.social-icon),
+
+    a:where(:not(.btn, .login-btn, .social-icon)),
     h3,
     h4,
-    h5 {
+    h5,
+    .vote-wrap a,
+    .vote-wrap a:hover,
+    .vote-wrap a:hover .vote-product-name,
+    .vote-rating,
+    .vote-rating .star::before,
+    .social-login-buttons-divider span {
         color: @footer-color;
     }
-    .custom-footer .banner .banner-wrapper p a {
-        color: @link-color;
 
-        &:hover {
-            color: @link-hover-color;
-        }
+    .banner-wrapper > a {
+        color: @banner-color;
     }
+}
+
+#footer {
+    .banner-wrapper p a,
+    .cookies-settings {
+        color: @footer-color;
+        text-decoration: underline;
+    }
+
     .footer-link {
         padding-right: 30px;
         position: relative;
@@ -80,18 +112,10 @@ body {
             }
         }
     }
-    #signature {
-        a {
-            color: @footer-secondary-color;
-        }
-    }
-    #filters {
-        color: @text-color;
-    }
-}
 
-.footer-bottom {
-    color: @footer-secondary-color;
+    .categories a:hover {
+        text-decoration: none;
+    }
 }
 
 .p {
@@ -101,16 +125,16 @@ body {
         color: @text-color;
     }
     &:hover {
-        border-color: @color-tertiary-hover;
+        border-color: var(--color-primary);
     }
     .products-block & {
         > a {
             &::after {
-                color: rgba(255,255,255,0);
+                color: transparent;
             }
             &:hover {
                 &::after {
-                    color:  @color-tertiary-hover;
+                    color:  var(--color-primary);
                 }
             }
         }
@@ -142,26 +166,26 @@ body {
 
 // Slider
 .slider-wrapper {
-    color: @accent-heavy-color;
-    background-color: @accent-heavy-bg;
+    color: var(--colors-foregrounds-content-inverted);
+    background-color: var(--color-tertiary);
     h4 {
-        color: @accent-heavy-color;
+        color: var(--colors-foregrounds-content-inverted);
     }
 }
 
 .category-header {
-    background-color: #F6F6F6;
+    background-color: var(--colors-surface-secondary);
 }
 
 .listSorting__control:hover,
 .listSorting__control:focus-visible {
-    background-color: #CCC;
+    background-color: color-mix(in srgb, var(--colors-foregrounds-borders-secondary), #000 5%);
 }
 
 .listSorting__control--current,
 .listSorting__control--current:focus-visible {
     color: var(--color-primary);
-    background-color: #FFF;
+    background-color: var(--colors-surface-white);
     border-color: var(--color-primary);
 }
 
@@ -227,9 +251,9 @@ table.table {
 }
 
 .order-summary-item {
-    border-bottom-color: #fff;
+    border-bottom-color: var(--colors-foregrounds-content-inverted);
     &.total {
-        background-color: @box-accent-bg;
+        background-color: var(--colors-computed-02);
     }
     &.price {
         color: @box-price-color;
@@ -237,28 +261,8 @@ table.table {
     }
 }
 
-.helper {
-    color: @accent-color;
-    background-color: @accent-bg;
-    &.single {
-        > a {
-            background-color: @accent-bg;
-        }
-        &:hover {
-            > a {
-                background-color: @accent-bg-hover;
-            }
-        }
-    }
-}
-
-.news-item-widget {
-    .box-bg-default & {
-        border-bottom-color: e("hsl(var(--color-tertiary-hover-h), calc(var(--color-tertiary-hover-s) - 12%), calc(var(--color-tertiary-hover-l) + 12%))");
-    }
-    .box-bg-variant & {
-        border-bottom-color: e("hsl(var(--color-tertiary-hover-h), var(--color-tertiary-hover-s), calc(var(--color-tertiary-hover-l) - 4%))");
-    }
+.unit-value {
+    color: var(--colors-foregrounds-content-secondary);
 }
 
 .p-detail {
@@ -367,7 +371,7 @@ ul.discussion {
     text-align: left;
 
     @media (min-width: @navigation-breakpoint) {
-        color: @accent-heavy-color;
+        color: var(--colors-foregrounds-content-inverted);
     }
 }
 
@@ -395,19 +399,16 @@ body.user-action-visible.language-window-visible {
     margin-top: 0;
 }
 
-ol.top-products.unified {
-    li {
-        border-bottom-color: darken(@top-products-border-color, 4%);
-    }
-    .box-bg-default & {
-        li {
-            border-bottom-color: darken(@top-products-border-color, 4%);
-        }
-    }
-    .box-bg-variant & {
-        li {
-            border-bottom-color: darken(@top-products-border-color-variant, 4%);
-        }
+ol.top-products.unified li {
+    border-bottom-color: @top-products-border-color;
+}
+
+.footer ol.top-products {
+    a.top-products-content,
+    a .top-products-name,
+    a:hover .top-products-name,
+    a .product-appendix {
+        color: var(--colors-foregrounds-content-inverted);
     }
 }
 

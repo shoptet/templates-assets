@@ -1,14 +1,32 @@
 :root {
-  --colors-focus-primary: #09367eff;
-  --colors-focus-secondary: #ffffffff;
-
-  --scroll-offset: var(--scroll-offset-override, var(--scroll-offset-runtime, 0px));
-  --scroll-extra-offset: 0px;
-
   // dialog tokens
   --dialog-wrapper-padding: 20px;
   --dialog-content-form-max-width: 680px;
   --dialog-content-padding: 50px 0 50px;
-  --dialog-bg-color: #ffffffff;
+  --dialog-bg-color: var(--colors-surface-primary);
   --dialog-transition: transform var(--transition-duration, 0.3s) var(--transition-timing, ease-out);
+
+  // computed tokens from --color-tertiary-hover
+  --colors-computed-01: hsl(
+    var(--color-tertiary-hover-h) calc(var(--color-tertiary-hover-s) - 12%) calc(var(--color-tertiary-hover-l) + 16%)
+  );
+  --colors-computed-02: hsl(
+    var(--color-tertiary-hover-h) calc(var(--color-tertiary-hover-s) - 10%) calc(var(--color-tertiary-hover-l) + 6%)
+  );
+  --colors-computed-03: hsl(
+    var(--color-tertiary-hover-h) var(--color-tertiary-hover-s) calc(var(--color-tertiary-hover-l) - 8%)
+  );
+  --colors-computed-04: hsl(
+    var(--color-tertiary-hover-h) calc(var(--color-tertiary-hover-s) + 4%) calc(var(--color-tertiary-hover-l) - 14%)
+  );
+
+  // computed tokens from --color-tertiary
+  --colors-computed-05: hsl(
+    var(--color-tertiary-h) calc(var(--color-tertiary-s) + 2%) calc(var(--color-tertiary-l) + 3%)
+  );
+  --colors-computed-06: hsl(var(--color-tertiary-h) var(--color-tertiary-s) calc(var(--color-tertiary-l) - 5%));
+  --colors-computed-07: hsl(var(--color-tertiary-h) var(--color-tertiary-s) calc(var(--color-tertiary-l) - 8%));
+  --colors-computed-08: hsl(
+    var(--color-tertiary-h) calc(var(--color-tertiary-s) - 8%) calc(var(--color-tertiary-l) - 25%)
+  );
 }

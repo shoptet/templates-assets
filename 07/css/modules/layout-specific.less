@@ -200,16 +200,12 @@ a.btn.goToTop__button,
 
 .helper {
   padding: round(@line-height-computed / 2);
-  > a {
-    text-decoration: none;
-  }
-  &.single {
-    padding: 0;
-    > a {
-      display: block;
-      padding: @line-height-computed;
-      text-transform: uppercase;
-    }
+  color: var(--colors-foregrounds-content-inverted);
+  background-color: var(--colors-computed-05);
+
+  a {
+    color: var(--colors-foregrounds-content-inverted);
+    text-decoration: underline;
   }
 }
 // Shared declarations for the next step element behavior
@@ -558,6 +554,10 @@ a.btn {
         left: initial;
         top: 0;
       }
+    }
+
+    .btn-primary {
+      line-height: 29px;
     }
   }
   .p-bottom > div .p-tools form {

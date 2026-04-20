@@ -346,42 +346,45 @@ ol.top-products.unified {
   }
 }
 
-ol.cart-header {
-  li {
-    a,
-    strong {
-      color: @step-color;
-      background-color: @step-bg;
+ol.cart-header li {
+  a,
+  strong {
+    color: @step-color;
+    background-color: @step-bg;
+  }
+
+  a {
+    &:hover,
+    &:focus-visible {
+      color: @step-active-color;
+      background-color: @step-active-bg;
     }
-    a {
-      &:hover {
-        color: @step-active-color;
-        background-color: @step-active-bg;
-      }
+
+    &:focus-visible {
+      z-index: 1;
     }
-    &.active,
-    &.completed {
-      a,
-      strong {
-        background-color: @step-active-bg;
-      }
-    }
-    &.active {
-      a,
-      strong {
-        color: @step-active-color;
-      }
-    }
-    &.completed {
-      a,
-      strong {
-        color: @step-completed-color;
-      }
-      a {
-        &:hover {
-          color: @step-active-color-hover;
-        }
-      }
+  }
+}
+
+ol.cart-header li.active {
+  a,
+  strong {
+    color: @step-active-color;
+    background-color: @step-active-bg;
+  }
+}
+
+ol.cart-header li.completed {
+  a,
+  strong {
+    color: @step-completed-color;
+    background-color: @step-active-bg;
+  }
+
+  a {
+    &:hover,
+    &:focus-visible {
+      color: @step-active-color-hover;
     }
   }
 }
