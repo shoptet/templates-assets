@@ -1,8 +1,18 @@
+@import "../../00/css/tokens";
 @import "tokens";
+
 @import "../../00/css/modules/bootstrap";
 @import "../../00/css/modules/layout-mixins";
 @import "modules/layout-variables";
 @import "modules/variables-specific";
+
+// Theme modules
+@import 'theme_modules/theme-variables';
+@import "../../00/css/theme_modules/shared-modules";
+@import "../../00/css/theme_modules/components/shared-components";
+@import "../../00/css/theme_modules/shared-declarations";
+@import "../../00/css/theme_modules/components/popup-widgets";
+@import "../../00/css/theme_modules/components/tabs-responsive";
 
 // Modules and components shared between all 3rd generation templates
 @import "../../00/css/modules/shared-modules";
@@ -32,6 +42,9 @@
 @import "../../00/css/modules/components/banner-benefit";
 @import "../../00/css/modules/components/cookies";
 
+// Theme specific
+@import 'theme_modules/theme-specific';
+
 // Template specific modules
 @import "../../00/css/modules/user-actions";
 @import "modules/header";
@@ -42,12 +55,3 @@
 @import "modules/cart";
 @import "modules/ordering-process";
 @import "modules/layout-specific";
-
-// Theme modules
-@import 'theme_modules/theme-variables';
-@import "../../00/css/theme_modules/shared-modules";
-@import "../../00/css/theme_modules/components/shared-components";
-@import "../../00/css/theme_modules/shared-declarations";
-@import "../../00/css/theme_modules/components/popup-widgets";
-@import "../../00/css/theme_modules/components/tabs-responsive";
-@import 'theme_modules/theme-specific';

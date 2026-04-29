@@ -1,7 +1,18 @@
 :root {
-  --colors-focus-primary: #09367eff;
-  --colors-focus-secondary: #ffffffff;
-
-  --scroll-offset: var(--scroll-offset-override, var(--scroll-offset-runtime, 0px));
-  --scroll-extra-offset: 0px;
+  --colors-computed-01: hsl(
+    var(--color-tertiary-h),
+    calc(var(--color-tertiary-s) + 2%),
+    calc(var(--color-tertiary-l) + 8%)
+  );
+  --colors-computed-02: hsl(
+    var(--color-tertiary-h),
+    calc(var(--color-tertiary-s) - 8%),
+    calc(var(--color-tertiary-l) - 25%)
+  );
+  --colors-computed-03: hsl(
+    var(--color-tertiary-hover-h),
+    var(--color-tertiary-hover-s),
+    calc(var(--color-tertiary-hover-l) - 3%)
+  );
+  --colors-computed-04: hsl(var(--color-primary-h), var(--color-primary-s), calc(var(--color-primary-l) - 3%));
 }

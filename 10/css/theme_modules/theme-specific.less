@@ -171,7 +171,7 @@ a.recommended-product {
           color: @color-tertiary-hover;
         }
         &::after {
-          background-color: fade(@product-bg, 90%);
+          background-color: color-mix(in srgb, var(--colors-surface-primary), transparent 10%);
         }
       }
     }
@@ -230,19 +230,7 @@ a.recommended-product {
 
 // Filter
 .category-header {
-  background-color: #f6f6f6;
-}
-
-.listSorting__control:hover,
-.listSorting__control:focus-visible {
-  background-color: #ccc;
-}
-
-.listSorting__control--current,
-.listSorting__control--current:focus-visible {
-  color: var(--color-primary);
-  background-color: #fff;
-  border-color: var(--color-primary);
+  background-color: var(--colors-surface-secondary);
 }
 
 .filter-section {
@@ -444,13 +432,13 @@ ul.discussion {
 .p-detail-top {
   > span,
   > i {
-    color: @gray;
+    color: var(--colors-foregrounds-content-tertiary);
   }
 }
 
 .p-vendor {
   a {
-    color: @gray;
+    color: var(--colors-foregrounds-content-tertiary);
     &:hover {
       color: @color-primary;
     }
@@ -562,21 +550,21 @@ ul.discussion {
 }
 
 .cart-xyDiscount__banner {
-  background-color: #f9f9f9;
+  background-color: var(--colors-surface-secondary);
 }
 
 ol.top-products.unified {
   li {
-    border-bottom-color: darken(@top-products-border-color, 4%);
+    border-bottom-color: var(--colors-foregrounds-borders-secondary);
   }
   .box-bg-default & {
     li {
-      border-bottom-color: darken(@top-products-border-color, 4%);
+      border-bottom-color: var(--colors-foregrounds-borders-secondary);
     }
   }
   .box-bg-variant & {
     li {
-      border-bottom-color: darken(@top-products-border-color-variant, 4%);
+      border-bottom-color: var(--colors-foregrounds-borders-secondary);
     }
   }
 }
