@@ -1402,9 +1402,14 @@ ul.shp-tabs {
   position: relative;
   padding: 0 round(@grid-gutter-width / 2);
   @media (min-width: @screen-sm-min) {
-    margin: -60px auto 0;
+    margin: round(@grid-gutter-width / 2) auto 0;
     flex-flow: row;
     padding: 0;
+  }
+}
+.banners-row:has(.carousel) .next-to-carousel-banners {
+  @media (min-width: @screen-sm-min) {
+    margin-top: -60px;
   }
   @media (min-width: @screen-md-min) {
     margin-top: -110px;
