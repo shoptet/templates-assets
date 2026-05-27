@@ -28,13 +28,11 @@
      */
 
     function updateZipValidPattern($el) {
-        const zipCodePattern = $el.find('option:selected').data('zip-code-pattern') || '';
-
         if ($el.attr('id') === 'billCountryId') {
-            $('#billZip').attr('data-pattern', zipCodePattern);
+            $('#billZip').attr('data-pattern', $el.find('option:selected').data('zip-code-pattern'));
             shoptet.scripts.signalCustomEvent('ShoptetBillZipPatternChange', $('#billZip')[0]);
         } else if ($el.attr('id') === 'deliveryCountryId') {
-            $('#deliveryZip').attr('data-pattern', zipCodePattern);
+            $('#deliveryZip').attr('data-pattern', $el.find('option:selected').data('zip-code-pattern'));
             shoptet.scripts.signalCustomEvent('ShoptetDeliveryZipPatternChange', $('#deliveryZip')[0]);
         }
     }
