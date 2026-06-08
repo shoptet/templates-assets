@@ -312,17 +312,18 @@ $(function () {
                 if ($newListing?.length > 0) {
                     $listingWrapper.append($newListing);
                     shoptet.animations.fadeIn($newListing);
-                    $('.listingControls').replaceWith($newListingControls);
-
                     shoptet.products.splitWidgetParameters();
                     initTooltips();
                     shoptet.images.unveil();
-                    loadingAnnouncer.end();
-                    hideSpinner();
                     shoptet.focusManagement.focusFirst($newListing[0], true);
                 }
+                $('.listingControls').replaceWith($newListingControls);
                 shoptet.scripts.signalDomLoad('ShoptetDOMPageContentLoaded');
-            })
+            }),
+            complete: function () {
+                loadingAnnouncer.end();
+                hideSpinner();
+            }
         });
     });
 
