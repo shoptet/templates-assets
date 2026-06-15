@@ -57,7 +57,7 @@
         quantityDiscountsItems.forEach((item) => {
             const priceRatio = item.dataset.priceRatio
             const price = newPrice * priceRatio
-            item.querySelector('.quantity-discounts__price').textContent = price.ShoptetFormatAsCurrency()
+            item.querySelector('.quantity-discounts__price').textContent = price.ShoptetFormatAsCurrency(undefined, undefined, Number(shoptet.config.decPlacesSystemDefault))
         })
     }
 
@@ -95,7 +95,7 @@
         const productPrice = Number(productOrigPrice)
         const priceRatio = Number(el.dataset.priceRatio);
 
-        return ((quantityInput?.value || el.dataset.amount) * (productPrice - (productPrice * priceRatio))).ShoptetFormatAsCurrency()
+        return ((quantityInput?.value || el.dataset.amount) * (productPrice - (productPrice * priceRatio))).ShoptetFormatAsCurrency(undefined, undefined, Number(shoptet.config.decPlacesSystemDefault))
     }
 
     quantityDiscountsTable && quantityInput?.addEventListener('change', () => {
