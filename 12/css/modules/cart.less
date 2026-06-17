@@ -231,6 +231,28 @@ ol.cart-header {
   }
 }
 
+:where(.ums_forms_redesign--on) & {
+    .discount-coupon {
+        .compact-form {
+            flex-direction: column;
+            max-width: 500px;
+            margin-left: auto;
+            @media (min-width: @screen-xs-min) {
+                flex-direction: row;
+            }
+        }
+        .form-control {
+            border-right-style: var(--form-controls-border-style);
+            @media (min-width: @screen-xs-min) {
+                border-right-style: none;
+            }
+        }
+        button {
+            flex-shrink: 0;
+        }
+    }
+}
+:where(.ums_forms_redesign--off) & {
 .discount-coupon {
     text-align: right;
     label {
@@ -280,6 +302,7 @@ ol.cart-header {
     .btn {
         margin-left: 1ex;
     }
+}
 }
 
 .empty-cart-boxes {

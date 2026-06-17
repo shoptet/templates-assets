@@ -97,25 +97,33 @@ ul {
   }
 }
 
-.co-box {
-  &.co-registration {
-    padding-top: (@line-height-computed / 2);
-    padding-bottom: (@line-height-computed / 2);
-    margin: 0;
-    .box-sm {
-      padding: 0;
-    }
-    h4,
-    h4:first-of-type {
-      position: relative;
-      margin-top: (@line-height-computed / 2);
-      margin-bottom: (@line-height-computed / 2);
-    }
-    .co-box-additional {
-      margin-top: @line-height-computed;
-    }
-    .form-group {
-      margin-bottom: 10px;
+:where(.ums_forms_redesign--on) & {
+  .co-box-additional {
+    margin-top: var(--form-groups-margin);
+  }
+}
+:where(.ums_forms_redesign--off) & {
+  // TODO: Remove this in issue #266651
+  .co-box {
+    &.co-registration {
+      padding-top: (@line-height-computed / 2);
+      padding-bottom: (@line-height-computed / 2);
+      margin: 0;
+      .box-sm {
+        padding: 0;
+      }
+      h4,
+      h4:first-of-type {
+        position: relative;
+        margin-top: (@line-height-computed / 2);
+        margin-bottom: (@line-height-computed / 2);
+      }
+      .co-box-additional {
+        margin-top: @line-height-computed;
+      }
+      .form-group {
+        margin-bottom: 10px;
+      }
     }
   }
 }
@@ -136,14 +144,23 @@ ul {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 0;
-  text-align: center;
+  :where(.ums_forms_redesign--off) & {
+    text-align: center;
+  }
   h3 {
     margin-top: 0;
-    text-align: center;
+    :where(.ums_forms_redesign--off) & {
+      text-align: center;
+    }
   }
   p {
     margin-bottom: @line-height-computed;
     font-style: oblique;
+  }
+  :where(.ums_forms_redesign--on) & {
+    .label {
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -184,9 +201,12 @@ ul {
 }
 // TODO: Remove this in issue 20873 -- END
 
-.html-code {
-  textarea.form-control {
-    height: auto;
+:where(.ums_forms_redesign--off) & {
+  // TODO: Remove this in issue #26651
+  .html-code {
+    textarea.form-control {
+      height: auto;
+    }
   }
 }
 
@@ -322,8 +342,11 @@ ul {
   margin-top: floor(@line-height-computed / 2);
 }
 
-#register-form .submit-wrapper {
-  margin-top: @line-height-computed;
+:where(.ums_forms_redesign--off) & {
+  // TODO: Remove this in issue #26651
+  #register-form .submit-wrapper {
+    margin-top: @line-height-computed;
+  }
 }
 
 .btn-cart {
@@ -335,6 +358,11 @@ ul {
     &::before {
       content: '';
     }
+  }
+}
+:where(.ums_forms_redesign--on) {
+  .login-btn {
+    border-radius: @btn-border-radius-small;
   }
 }
 
@@ -406,8 +434,10 @@ ul {
   }
 }
 
-.js-validator-msg {
-  padding-bottom: round(@line-height-computed / 2);
+:where(.ums_forms_redesign--off) & {
+  .js-validator-msg {
+    padding-bottom: round(@line-height-computed / 2);
+  }
 }
 
 .tab-manufacturer-name {
@@ -421,6 +451,9 @@ ul {
 }
 
 .quantity {
+  :where(.ums_forms_redesign--on) & {
+    border-radius: @quantity-border-radius;
+  }
   .increase-tooltip,
   .decrease-tooltip {
     width: 100%;

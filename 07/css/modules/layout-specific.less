@@ -135,8 +135,7 @@ a.btn.goToTop__button,
 :where(body.ums_homepage_cart_checkout_headings--on) {
   .box {
     margin-bottom: @line-height-computed;
-    h2.h4,
-    h4 {
+    h2 {
       &:first-of-type {
         margin-top: 0;
       }
@@ -211,9 +210,12 @@ a.btn.goToTop__button,
 // Shared declarations for the next step element behavior
 .nextStepCartWithoutSidebar();
 
-.row.summary,
-.cart-content .form-group.consents {
-  margin-bottom: @line-height-computed;
+:where(.ums_forms_redesign--off) & {
+  // TODO: Remove this in issue #26651
+  .row.summary,
+  .cart-content .form-group.consents {
+    margin-bottom: @line-height-computed;
+  }
 }
 .row.summary {
   @media (min-width: @screen-md-min) {
@@ -228,10 +230,14 @@ a.btn.goToTop__button,
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 0;
-  text-align: center;
+  :where(.ums_forms_redesign--off) & {
+    text-align: center;
+  }
   h3 {
     margin-top: 0;
-    text-align: center;
+    :where(.ums_forms_redesign--off) & {
+      text-align: center;
+    }
   }
   p {
     margin-bottom: @line-height-computed;
@@ -267,15 +273,14 @@ a.btn.goToTop__button,
 }
 
 :where(.ums_forms_redesign--off) & {
-  // TODO: Remove this file in issue #26651
+  // TODO: Remove this in issue #26651
   #register-form .submit-wrapper {
     margin-top: round(@line-height-computed / 2);
   }
-}
-
-.html-code {
-  textarea.form-control {
-    height: auto;
+  .html-code {
+    textarea.form-control {
+      height: auto;
+    }
   }
 }
 

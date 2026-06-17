@@ -153,7 +153,6 @@
     'ShoptetDOMExpressCheckoutLoaded',
   ];
   shoptet.scripts.availableDOMUpdateEvents = ['ShoptetDOMCartCountUpdated'];
-  // TODO: standardize format of "validatedFormSubmit"
   shoptet.scripts.availableCustomEvents = [
     'ShoptetPhoneCodeChange',
     'ShoptetPhoneCodeActive',
@@ -172,7 +171,7 @@
     'ShoptetCartSetSelectedGift',
     'ShoptetCartAddDiscountCoupon',
     'ShoptetCartUpdated',
-    'validatedFormSubmit',
+    ...(shoptet.config.ums_forms_redesign ? [] : ['validatedFormSubmit']),
     'ShoptetPagePaginationUsed',
     'ShoptetPageSortingChanged',
     'ShoptetPageFiltersRecalledFromHistory',

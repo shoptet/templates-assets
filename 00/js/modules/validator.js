@@ -29,6 +29,12 @@ var validators = {
             if ($(this).attr('name') === 'score') {
                 // Has separate validation below
                 isValid = true
+            } else if ($(this).attr('type') === 'search' && shoptet.config.ums_forms_redesign) {
+                // Has separate validation in search.js
+                isValid = true
+            } else if ($(this).attr('name') === 'discountCouponCode' && shoptet.config.ums_forms_redesign) {
+                // Has separate validation in cart.js
+                isValid = true
             } else if ($(this).attr('type') == 'checkbox') {
                 if (!$(this).is(':checked')) {
                     isValid = false;
@@ -175,7 +181,9 @@ var validate = function(isSubmit) {
         }
         shoptet.scripts.signalCustomEvent('ShoptetValidationError', $(this)[0]);
     }
-    shoptet.modal.resize();
+    setTimeout(() => {
+        shoptet.modal.resize();
+    });
     return isValid;
 };
 
@@ -219,7 +227,9 @@ shoptet.validator.shoptetFormValidator = {
                     return;
                 }
                 var isElementValid = validate.call($(this), isSubmit);
-                shoptet.scripts.signalCustomEvent('validatedFormSubmit', this);
+                if (!shoptet.config.ums_forms_redesign) {
+                    shoptet.scripts.signalCustomEvent('validatedFormSubmit', this);
+                }
                 if (!isElementValid && invalidElementsCounter++ == 0 && shoptet.validatorPhone.ajaxPending === 0) {
                     $(this).focus();
                 }
@@ -258,10 +268,12 @@ shoptet.validator.shoptetFormValidator = {
                         });
                     }
                 });
-                var requiredFields = document.getElementsByClassName('js-validate-required');
-                for (var key in requiredFields) {
-                    if (typeof requiredFields[key] === 'object') {
-                        shoptet.scripts.signalCustomEvent('validatedFormSubmit', requiredFields[key]);
+                if (!shoptet.config.ums_forms_redesign) {
+                    var requiredFields = document.getElementsByClassName('js-validate-required');
+                    for (var key in requiredFields) {
+                        if (typeof requiredFields[key] === 'object') {
+                            shoptet.scripts.signalCustomEvent('validatedFormSubmit', requiredFields[key]);
+                        }
                     }
                 }
                 var invalid = shoptet.validator.formContainsInvalidFields($currentForm[0]);
@@ -305,11 +317,13 @@ shoptet.validator.validatorMessage = {
         } while ($('#' + id).length);
         $('<div class="validator-msg js-validator-msg" id="' + id + '"></div>').appendTo($('body'));
         var $container = $('#' + id);
-        $('html').on('click', '#' + id, function() {
-            $container.prev('input').removeClass('error-field');
-            $container.remove();
-            $el.data('validatorMessage', false);
-        });
+        if (!shoptet.config.ums_forms_redesign) {
+            $('html').on('click', '#' + id, function() {
+                $container.prev('input').removeClass('error-field');
+                $container.remove();
+                $el.data('validatorMessage', false);
+            });
+        }
         $el.data('validatorMessage', $container);
         $container.data('parent', $el);
     },
@@ -317,7 +331,9 @@ shoptet.validator.validatorMessage = {
         if (!$el.data('validatorMessage')) {
             this.init($el);
         }
-
+        if (shoptet.config.ums_forms_redesign) {
+            shoptet.validator.removeErrorMessage($el[0], shoptet.validatorRequired.messageType);
+        }
         var $container = $el.data('validatorMessage');
         $container
             .addClass(cssClass)

@@ -197,83 +197,40 @@ ol.cart-header {
     }
 }
 
-
 :where(body.ums_homepage_cart_checkout_headings--on) {
     .discount-coupon {
         margin-bottom: round(@line-height-computed * 2);
-        h2, h4 {
-            font-size: @font-size-larger;
-            font-weight: 700;
-        }
-        form {
-            position: relative;
-            max-width: 260px;
-            button {
-                position: absolute;
-                right: 3px;
-                bottom: 3px;
-                .square(32px);
-                padding: 0;
-                border-radius: 50%;
-                &::before {
-                    position: relative;
-                    left: 1px;
-                    top: -1px;
-                }
-            }
-        }
         @media (min-width: @screen-md-min) {
             margin-bottom: 0;
         }
+        h2 {
+            font-size: @font-size-larger;
+            font-weight: 700;
+        }
     }
     .cart-inner {
-        h2, h4 {
+        h2 {
             font-size: @font-size-h2;
         }
         .box {
-            h2, h4 {
+            h2 {
                 &:first-of-type {
                     margin-top: round(@line-height-computed * 2);
                 }
             }
         }
-        .summary {
-            margin-bottom: round(@line-height-computed * 2);
-            padding-bottom: round(@line-height-computed * 2);
-            border-bottom-style: solid;
-            border-bottom-width: 1px;
-        }
-        @media (min-width: @screen-sm-min) {
-            padding: 0;
-        }
     }
 }
+
 :where(body.ums_homepage_cart_checkout_headings--off) {
     .discount-coupon {
         margin-bottom: round(@line-height-computed * 2);
+        @media (min-width: @screen-md-min) {
+            margin-bottom: 0;
+        }
         h4 {
             font-size: @font-size-larger;
             font-weight: 700;
-        }
-        form {
-            position: relative;
-            max-width: 260px;
-            button {
-                position: absolute;
-                right: 3px;
-                bottom: 3px;
-                .square(32px);
-                padding: 0;
-                border-radius: 50%;
-                &::before {
-                    position: relative;
-                    left: 1px;
-                    top: -1px;
-                }
-            }
-        }
-        @media (min-width: @screen-md-min) {
-            margin-bottom: 0;
         }
     }
     .cart-inner {
@@ -287,21 +244,74 @@ ol.cart-header {
                 }
             }
         }
-        .summary {
-            margin-bottom: round(@line-height-computed * 2);
-            padding-bottom: round(@line-height-computed * 2);
-            border-bottom-style: solid;
-            border-bottom-width: 1px;
-        }
-        @media (min-width: @screen-sm-min) {
-            padding: 0;
+    }
+}
+
+:where(.ums_forms_redesign--on) { // TODO: Remove this wrapper in issue #26651
+    .discount-coupon {
+        form {
+            max-width: var(--form-fields-width-lg);
         }
     }
 }
 
-.order-summary,
-.cart-content .form-group.consents {
+:where(.ums_forms_redesign--off) & {
+  // TODO: Remove this in issue #26651
+    .discount-coupon {
+        h4 {
+            font-size: @font-size-larger;
+            font-weight: 700;
+        }
+        form {
+            position: relative;
+            max-width: 260px;
+            button {
+                position: absolute;
+                right: 3px;
+                bottom: 3px;
+                .square(32px);
+                padding: 0;
+                border-radius: 50%;
+                &::before {
+                    position: relative;
+                    left: 1px;
+                    top: -1px;
+                }
+            }
+        }
+    }
+}
+
+.cart-inner {
+    h4 {
+        font-size: @font-size-h2;
+    }
+    .box {
+        h4 {
+            &:first-of-type {
+                margin-top: round(@line-height-computed * 2);
+            }
+        }
+    }
+    .summary {
+        margin-bottom: round(@line-height-computed * 2);
+        padding-bottom: round(@line-height-computed * 2);
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    }
+    @media (min-width: @screen-sm-min) {
+        padding: 0;
+    }
+}
+
+.order-summary {
     margin-bottom: round(@line-height-computed * 2);
+}
+
+:where(.ums_forms_redesign--off) & { // TODO: Remove this wrapper in issue #26651
+    .cart-content .form-group.consents {
+        margin-bottom: round(@line-height-computed * 2);
+    }
 }
 
 :where(body.ums_homepage_cart_checkout_headings--on) {

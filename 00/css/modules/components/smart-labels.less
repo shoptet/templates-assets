@@ -1,79 +1,99 @@
-@smart-height: @input-height-base + (@padding-base-vertical * 2) + @font-size-base;
+:where(.ums_forms_redesign--on) .smart-label-wrapper {
+  label {
+    line-height: var(--form-controls-line-height);
+    font-size: var(--form-controls-font-size);
+    z-index: 1;
+    padding: 0 0 0 var(--form-controls-padding-x);
+    margin: 0;
+    position: absolute;
+    top: calc(var(--smart-labels-computed-height) / 2);
+    transform: translateY(-50%);
+    left: 0;
+    .transition(~'all 0.2s, left 0s');
+  }
+  &.focused label,
+  &.populated label {
+    line-height: 1;
+    font-size: var(--smart-labels-font-size);
+    padding-top: var(--form-controls-padding-y);
+    top: 0;
+    transform: translateY(0);
+  }
+  input,
+  textarea,
+  select {
+    padding-top: var(--form-controls-computed-line-height);
+  }
+  select.form-control {
+    background-size: calc(var(--smart-labels-computed-height) - 2 * var(--form-controls-border-width));
+  }
+  .label {
+    margin-bottom: 0 !important;
+  }
+  .form-group-tooltip {
+    top: calc(var(--smart-labels-computed-height) / 2);
+    transform: translateY(-50%);
+  }
+}
 
-.smart-labels-active .smart-label-wrapper {
-    position: relative;
+:where(.ums_forms_redesign--off).smart-labels-active .smart-label-wrapper {
+  @smart-height: @input-height-base + (@padding-base-vertical * 2) + @font-size-base;
 
-    label {
-        padding: 0 0 0 @padding-base-horizontal;
-        margin: 0;
-        height: auto;
-        width: auto;
-        max-width: 100%;
-        position: absolute;
-        top: 0; /* todo: switch to top: 0 after T18084 release */
-        left: 0;
-        //transition
-        line-height: @smart-height;
-        font-size: @font-size-base;
-
-        .transition(~"all 0.2s, left 0s");
+  position: relative;
+  label {
+    line-height: @smart-height;
+    font-size: @font-size-base;
+    padding: 0 0 0 @padding-base-horizontal;
+    margin: 0;
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    .transition(~'all 0.2s, left 0s');
+  }
+  &.focused label,
+  &.populated label {
+    line-height: @font-size-smaller;
+    font-size: @font-size-smaller;
+    padding-top: calc(@padding-base-vertical * 2);
+  }
+  input,
+  textarea {
+    padding-top: calc((@padding-base-vertical * 2) + @font-size-smaller);
+  }
+  select {
+    padding-top: calc(@padding-base-vertical + @font-size-smaller);
+  }
+  input,
+  textarea {
+    .placeholder(transparent);
+    &:focus {
+      .placeholder();
     }
-
-    &.focused label,
-    &.populated label {
-        line-height: @font-size-smaller;
-        font-size: @font-size-smaller;
-        padding-top: calc(@padding-base-vertical * 2);
+    &::placeholder {
+      .transition(color 0.2s);
     }
-
-    input,
-    textarea {
-        padding-top: calc((@padding-base-vertical * 2) + @font-size-smaller);
+  }
+  input,
+  select,
+  .country-flags {
+    height: @smart-height;
+  }
+  .validator-msg,
+  .js-validator-msg {
+    margin-left: 0;
+    + input,
+    + select,
+    + .phone-combined-input {
+      margin-left: 0;
     }
-
-    input,
-    textarea {
-        .placeholder(transparent);
-        &:focus {
-            .placeholder();
-        }
-        &::placeholder {
-            .transition(color 0.2s);
-        }
-    }
-
-    select {
-        padding-top: calc(@padding-base-vertical + @font-size-smaller);
-    }
-
-    input,
-    select,
-    .country-flags {
-        height: @smart-height;
-    }
-
-    .validator-msg,
-    .js-validator-msg {
-        margin-left: 0;
-        + input,
-        + select,
-        + .phone-combined-input {
-            margin-left: 0;
-        }
-    }
-
-    label[for="phone"] {
-        display: block;
-    }
-
-    .select-label {
-        :where(.ums_forms_redesign--off) {
-        // TODO: Remove this in issue #26651
-        pointer-events: none;
-        }
-    }
-
-    .form-group-tooltip {
-        top: 50%;
-    }
+  }
+  .select-label {
+    pointer-events: none;
+  }
+  .form-group-tooltip {
+    top: 50%;
+  }
 }

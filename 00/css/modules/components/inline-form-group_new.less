@@ -1,8 +1,24 @@
+:root {
+  :where(.ums_forms_redesign--on) {
+    --inline-form-group-controls-width: var(--form-fields-width-md);
+
+    --inline-form-group-labels-font-size: 14px;
+    --inline-form-group-labels-line-height: 1.6;
+    --inline-form-group-labels-computed-padding-y: calc(
+      (
+          var(--form-controls-computed-line-height) + var(--form-controls-computed-box-insets-y) -
+            var(--inline-form-group-labels-font-size) * var(--inline-form-group-labels-line-height)
+        ) /
+        2
+    );
+  }
+}
+
 :where(.ums_forms_redesign--on) {
   // TODO: Remove only ums class in issue #26651
   .inline-form-fields .cart-content .co-box h2 {
     @media (min-width: @screen-xs-min) {
-      padding-left: var(--inline-form-group-labels-width);
+      padding-left: var(--inline-form-group-labels-computed-padding-left);
     }
   }
 
@@ -16,8 +32,7 @@
         width: var(--inline-form-group-labels-width);
         font-size: var(--inline-form-group-labels-font-size);
         line-height: var(--inline-form-group-labels-line-height);
-        padding: var(--inline-form-group-labels-padding-y) 0;
-        &.confirmation,
+        padding: var(--inline-form-group-labels-computed-padding-y) 0;
         &.whole-width {
           width: 100%;
         }

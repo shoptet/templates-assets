@@ -35,6 +35,7 @@
 
   .form-control-wrapper {
     position: relative;
+    max-width: var(--form-fields-width-lg);
     &--with-note {
       display: flex;
       flex-direction: column;
@@ -63,13 +64,11 @@
     }
     .msg-error {
       color: var(--colors-forms-critical);
-      display: flex;
       &::before {
         &:extend(.shp-icon);
         content: @icon-error-code;
         font-size: var(--form-group-error-icons-size);
         margin-right: 0.5ch;
-        line-height: 1;
       }
     }
     .login-button {
@@ -93,22 +92,28 @@
   }
 
   .form-control.short {
-    width: var(--form-fields-width-xs);
+    max-width: var(--form-fields-width-xs);
+  }
+
+  .form-control.small {
+    max-width: var(--form-fields-width-sm);
   }
 
   textarea.form-control {
-    height: var(--form-field-textareas-height);
+    height: var(--form-field-textareas-computed-height);
   }
 
   select,
   select.form-control,
   .select2-selection {
     padding: var(--form-controls-padding-y) var(--form-controls-padding-x);
-    padding-right: var(--selects-padding-right);
+    padding-right: var(--selects-computed-padding-right);
     appearance: none;
     background-image: var(--selects-bg-image);
     background-repeat: no-repeat;
     background-position: right center;
+    background-size: var(--selects-computed-bg-size);
+    max-width: var(--form-fields-width-lg);
   }
 
   label {
@@ -186,6 +191,10 @@
     }
   }
 
+  .consents input + label {
+    line-height: var(--form-group-labels-line-height);
+  }
+
   input[type='radio'] {
     & + label {
       &::after,
@@ -211,7 +220,7 @@
 
   .form-group-tooltip {
     position: absolute;
-    top: var(--form-group-tooltip-top);
+    top: var(--form-group-tooltip-computed-top);
     right: var(--form-controls-padding-x);
   }
 
@@ -281,10 +290,11 @@
   .forgotten-password-form,
   .rating-form,
   .discussion-form,
+  .project-access-form,
   .external-service-login-form,
-  .external-service-content-form {
-    // TODO: Remove this wrapper in issue #26651
-    width: var(--forms-width);
+  .external-service-content-form,
+  .form-registration-affilate {
+    width: var(--form-fields-width-lg);
     max-width: var(--forms-max-width);
     margin-bottom: var(--form-groups-margin);
   }
@@ -294,6 +304,10 @@
 .rate-wrapper form {
   :where(.ums_discussion_rating_forms--on.ums_forms_redesign--off) & {
     // TODO: Remove this in issue #20873
-    max-width: var(--forms-width);
+    max-width: var(--form-fields-width-lg);
   }
+}
+
+.js-location--hidden {
+  display: none;
 }

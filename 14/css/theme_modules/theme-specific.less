@@ -32,19 +32,20 @@ select {
     }
   }
 }
-
-.form-control.error-field,
-.form-control.js-error-field {
-  border-color: @state-danger-border;
-  &:focus {
+:where(.ums_forms_redesign--off) {
+  .form-control.error-field,
+  .form-control.js-error-field {
     border-color: @state-danger-border;
-    box-shadow: 0 0 0 0.1em fade(@state-danger-border, 25%);
+    &:focus {
+      border-color: @state-danger-border;
+      box-shadow: 0 0 0 0.1em fade(@state-danger-border, 25%);
+    }
   }
-}
 
-.error-field + label,
-.js-error-field + label {
-  border-color: @state-danger-border;
+  .error-field + label,
+  .js-error-field + label {
+    border-color: @state-danger-border;
+  }
 }
 
 /* header */
@@ -277,8 +278,10 @@ select {
 .footer-newsletter-full-width {
   background-color: transparent;
 }
-.footer-newsletter .consents {
-  color: @text-muted-color;
+:where(.ums_forms_redesign--off) & {
+  .footer-newsletter .consents {
+    color: @text-muted-color;
+  }
 }
 .blog-wrapper {
   .text {
@@ -560,7 +563,9 @@ ul.manufacturers {
 .extras-wrapper .extra span strong {
   color: @color-secondary;
 }
-.cart-content h4 > i {
+// TODO: Remove h4 headings #26651
+.cart-content h4 > i,
+.cart-content h2 > i {
   color: @color-secondary;
 }
 .cart-inner .contact-box,
@@ -601,11 +606,6 @@ ul.manufacturers {
   border-color: var(--colors-state-success);
   color: var(--colors-state-success);
   background-color: color-mix(in srgb, var(--colors-state-success), #fff 80%);
-}
-.login-from-cart {
-  @media (min-width: unit(@screen-xs-max, px)) {
-    color: @text-color;
-  }
 }
 
 /* category */

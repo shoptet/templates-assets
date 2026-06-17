@@ -1,15 +1,23 @@
 .compact-form {
+    position: relative;
     :where(.ums_forms_redesign--on) & { // TODO: Remove this wrapper in issue #26651
         display: flex;
         fieldset {
             display: contents;
         }
         .form-control {
-            border-right: none;
+            border-right-style: none;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        button {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-right-radius: var(--form-controls-border-radius);
+            border-bottom-right-radius: var(--form-controls-border-radius);
         }
     }
     :where(.ums_forms_redesign--off) & { // TODO: Remove this in issue #26651
-    position: relative;
     .form-control {
         padding-right: @compact-form-input-padding;
         &.lg {

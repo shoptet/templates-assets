@@ -63,11 +63,13 @@ h3,
   fieldset {
     margin-bottom: @grid-gutter-width;
   }
-  .register-soc {
-    margin-top: 14px;
-  }
-  .stay-in-touch {
-    width: 100%;
+  :where(.ums_forms_redesign--off) & {
+    .register-soc {
+      margin-top: 14px;
+    }
+    .stay-in-touch {
+      width: 100%;
+    }
   }
 }
 
@@ -124,23 +126,25 @@ h3,
   }
 }
 
-.subscribe-form {
-  position: relative;
+:where(.ums_forms_redesign--off) & {
+  .subscribe-form {
+    position: relative;
 
-  .form-control {
-    width: ~'calc(100% - 25px)';
-    margin-top: round(@grid-gutter-width / 4);
-    padding: 15px 11px;
-  }
-  .btn {
-    position: absolute;
-    top: 5px;
-    right: 0;
-    padding: 0;
-    border-radius: 50%;
+    .form-control {
+      width: ~'calc(100% - 25px)';
+      margin-top: round(@grid-gutter-width / 4);
+      padding: 15px 11px;
+    }
+    .btn {
+      position: absolute;
+      top: 5px;
+      right: 0;
+      padding: 0;
+      border-radius: 50%;
 
-    &::before {
-      font-size: 22px;
+      &::before {
+        font-size: 22px;
+      }
     }
   }
 }

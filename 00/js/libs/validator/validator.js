@@ -2,7 +2,7 @@
 
     function initNewValidator(validator, element, event) {
         element.addEventListener(event, function() {
-            validator(element);
+            validator(element, event);
         });
     }
 
@@ -81,7 +81,7 @@
         message.classList.add('js-validator-msg');
         message.classList.add('msg-error');
         message.setAttribute('data-type', messageType);
-        if (element.required) {
+        if (messageType === 'validatorRequired') {
           message.textContent = shoptet.messages.validator[`${element.name}Required`] ?? shoptet.messages[messageType]
         } else {
           message.innerHTML = shoptet.messages[messageType];
@@ -97,21 +97,6 @@
         element.dispatchEvent(errorAddEvent);
         shoptet.modal.resize();
     }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        // Disabled until the old validator will be abandoned
-        var oldValidationIsStillInUse = true;
-        if (!oldValidationIsStillInUse) {
-            var forms = document.getElementsByTagName('form');
-            for (var key in forms) {
-                if (typeof forms[key] === 'object') {
-                    forms[key].addEventListener('submit', function(form) {
-                        formContainsInvalidFields(form);
-                    });
-                }
-            }
-        }
-    });
 
     // Trim text inputs globally
     document.addEventListener('change', function(e) {

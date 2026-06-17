@@ -87,8 +87,14 @@
     padding-left: 16px;
     padding-right: 3px;
     justify-self: flex-end;
-    font-size: 14px;
-    line-height: 18px;
+    :where(.ums_forms_redesign--off) & {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    :where(.ums_forms_redesign--on) & {
+        font-size:  var(--form-controls-font-size);
+        line-height: var(--form-controls-line-height);
+    }
     text-align: right;
     &::before {
         content: '';

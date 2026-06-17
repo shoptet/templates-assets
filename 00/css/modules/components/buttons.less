@@ -184,7 +184,9 @@ a.login-btn {
     &.seznam {
         border-style: solid;
         border-width: 1px;
-        border-radius: @btn-border-radius-small;
+        :where(.ums_forms_redesign--off) & {
+            border-radius: @btn-border-radius-small;
+        }
         span,
         strong {
             display: block;

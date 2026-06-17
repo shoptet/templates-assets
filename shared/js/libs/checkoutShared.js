@@ -1561,11 +1561,6 @@ const isHTMLInputElement = item => item instanceof HTMLInputElement;
 
     document.addEventListener("DOMContentLoaded", function () {
         var $document = $(document);
-
-        $document.on('click', '#orderFormButton', function () {
-            $('.js-orderFormSubmit').click();
-        });
-
         $document.on('click', '.js-orderFormSubmit', function () {
             var $el = $('input[name="shippingId"].choose-branch:checked');
 

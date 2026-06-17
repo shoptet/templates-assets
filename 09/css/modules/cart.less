@@ -83,25 +83,29 @@
 .discounts-wrap {
     margin-bottom: round(@grid-gutter-width * 1.5);
 
+    :where(.ums_forms_redesign--off) & {
     .discount-coupon {
         width: 100%;
+    }
     }
 
     .free-gift,
     .discount-coupon .input-group,
     .applied-coupon {
-        display: flex;
-        align-items: center;
         margin-bottom: round(@grid-gutter-width / 2);
+        :where(.ums_forms_redesign--off) & {
+            display: flex;
+            align-items: center;
 
-        input {
-            height: 32px;
-            padding: 8px 11px;
-        }
-        .form-control,
-        strong {
-            width: 100%;
-            display: block;
+            input {
+                height: 32px;
+                padding: 8px 11px;
+            }
+            .form-control,
+            strong {
+                width: 100%;
+                display: block;
+            }
         }
     }
 }
@@ -110,6 +114,9 @@
     content: @icon-discount-code;
     font-size: 38px;
     margin-right: round(@grid-gutter-width / 4);
+    :where(.ums_forms_redesign--on) & {
+        line-height: 1;
+    }
 }
 .free-gifts {
     .list-reset();
@@ -128,6 +135,8 @@
     }
 }
 .free-gift {
+    display: flex;
+    align-items: center;
     flex-wrap: wrap;
 }
 .free-gifts-wrapper {
@@ -335,17 +344,6 @@
     content: @icon-box-code;
     font-size: 30px;
 }
-.complete-order {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-
-    @media (min-width: @screen-md-min) {
-        .form-group {
-            margin-left: 8.33335%;
-        }
-    }
-}
 .cart-inner .consents-first {
     margin-top: @line-height-computed;
 }
@@ -477,8 +475,16 @@
     }
 }
 
-.sending-order .co-billing-address > .form-group:last-child {
-    margin-bottom: @line-height-computed;
+:where(.ums_forms_redesign--on) & {
+    .co-box-additional {
+        margin-top: var(--form-groups-margin);
+    }
+}
+
+:where(.ums_forms_redesign--off) & {
+    .sending-order .co-billing-address > .form-group:last-child {
+        margin-bottom: @line-height-computed;
+    }
 }
 
 @media (min-width: @screen-sm-min) {

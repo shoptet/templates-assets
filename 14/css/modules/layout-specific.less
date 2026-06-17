@@ -53,28 +53,36 @@ input[type='checkbox'] {
   }
 }
 
-.form-group {
-  margin-bottom: round(@grid-gutter-width / 2);
-  fieldset + &,
-  .form-option-block + & {
-    margin-top: round(@grid-gutter-width / 2);
+:where(.ums_forms_redesign--off) & {
+  .form-group {
+    margin-bottom: round(@grid-gutter-width / 2);
+    fieldset + &,
+    .form-option-block + & {
+      margin-top: round(@grid-gutter-width / 2);
+    }
+    label,
+    .label {
+      .label();
+    }
+    input + label {
+      text-transform: none;
+    }
+    [type='checkbox'] + label,
+    [type='radio'] + label,
+    [type='hidden'] + label {
+      font-size: @font-size-base;
+      font-weight: 600;
+    }
+    [type='checkbox']:checked + label,
+    [type='radio']:checked + label {
+      font-weight: 700;
+    }
   }
-  label,
-  .label {
-    .label();
-  }
-  input + label {
-    text-transform: none;
-  }
-  [type='checkbox'] + label,
-  [type='radio'] + label,
-  [type='hidden'] + label {
-    font-size: @font-size-base;
-    font-weight: 600;
-  }
-  [type='checkbox']:checked + label,
-  [type='radio']:checked + label {
-    font-weight: 700;
+}
+
+:where(.ums_forms_redesign--on).ordering-process {
+  .co-box-additional {
+    margin-top: var(--form-groups-margin);
   }
 }
 
@@ -211,6 +219,9 @@ a.btn {
 }
 
 .quantity {
+  :where(.ums_forms_redesign--on) & {
+    border-radius: @quantity-border-radius;
+  }
   .increase {
     border-top-right-radius: @border-radius-base;
     border-bottom-right-radius: @border-radius-base;
@@ -403,8 +414,8 @@ a.login-btn {
 }
 
 /* registration */
-.id--8, //registration
-.id--4 //login
+:where(.ums_forms_redesign--off).id--8, //registration
+:where(.ums_forms_redesign--off).id--4 //login
 {
   @media (min-width: @screen-sm-min) {
     .content-inner {
@@ -425,7 +436,16 @@ a.login-btn {
     margin: round(@line-height-computed * 2) 0 @penta-spacing;
   }
 }
-.id--8 #register-form {
+:where(.ums_forms_redesign--on).id--8 #register-form {
+  h2 {
+    font-size: 20px;
+    line-height: 23px;
+    > i {
+      display: none;
+    }
+  }
+}
+:where(.ums_forms_redesign--off).id--8 #register-form {
   h4 {
     display: none;
   }
@@ -519,43 +539,45 @@ a.login-btn {
   }
 }
 
-.custom-footer #formLogin,
-.sidebar #formLogin {
-  .form-group {
-    margin-bottom: @basic-spacing;
-  }
-  .login-wrapper {
-    display: flex;
-    flex-flow: wrap-reverse;
-    padding: 0;
-    .password-helper {
-      float: none;
-      width: 100%;
+:where(.ums_forms_redesign--off) & {
+  .custom-footer #formLogin,
+  .sidebar #formLogin {
+    .form-group {
+      margin-bottom: @basic-spacing;
+    }
+    .login-wrapper {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: @double-spacing;
-      a {
-        .fontSmaller();
-        + a {
-          padding-top: 0;
+      flex-flow: wrap-reverse;
+      padding: 0;
+      .password-helper {
+        float: none;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: @double-spacing;
+        a {
+          .fontSmaller();
+          + a {
+            padding-top: 0;
+          }
         }
       }
     }
-  }
-  .social-login-buttons {
-    .social-login-buttons-divider span {
-      color: @text-color;
-      .fontSmaller();
-    }
-    a.login-btn.facebook,
-    a.login-btn.google,
-    a.login-btn.seznam {
-      height: @btn-line-height-lg;
-      strong {
-        line-height: @btn-line-height-lg;
-        font-size: @font-size-base;
-        font-weight: 600;
+    .social-login-buttons {
+      .social-login-buttons-divider span {
+        color: @text-color;
+        .fontSmaller();
+      }
+      a.login-btn.facebook,
+      a.login-btn.google,
+      a.login-btn.seznam {
+        height: @btn-line-height-lg;
+        strong {
+          line-height: @btn-line-height-lg;
+          font-size: @font-size-base;
+          font-weight: 600;
+        }
       }
     }
   }
@@ -584,6 +606,15 @@ a.login-btn {
           border-radius: @border-radius-small;
         }
       }
+    }
+  }
+}
+
+:where(.ums_forms_redesign--on) & {
+  .login-widget .login-form {
+    width: 100%;
+    .form-control-wrapper {
+      max-width: 100%;
     }
   }
 }

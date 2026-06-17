@@ -278,13 +278,15 @@
     .discussion-form {
         padding: round(@grid-gutter-width / 2);
         border-radius: @border-radius-base;
-        .consents label {
-            text-transform: none;
-            font-weight: 500;
-        }
-        input[type="submit"] {
-            @media (max-width: @navigation-breakpoint-max) {
-                width: 100%;
+        :where(.ums_forms_redesign--off) & {
+            .consents label {
+                text-transform: none;
+                font-weight: 500;
+            }
+            input[type="submit"] {
+                @media (max-width: @navigation-breakpoint-max) {
+                    width: 100%;
+                }
             }
         }
     }

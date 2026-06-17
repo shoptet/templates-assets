@@ -85,6 +85,9 @@ if (shoptet.abilities.feature.smart_labels){
 
                     phonelabel.style.setProperty("left", phoneInput[0].offsetLeft + "px");
 
+                    document.addEventListener('ShoptetTabChange', function (e) {
+                        phonelabel.style.setProperty("left", phoneInput[0].offsetLeft + "px");
+                    }, false);
                     document.addEventListener('ShoptetPhoneCodeChange', function (e) {
                         phonelabel.style.setProperty("left", phoneInput[0].offsetLeft + "px");
                     }, false);

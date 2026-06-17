@@ -545,6 +545,14 @@
         $html.on('submit', '.discount-coupon form', function(e) {
             e.preventDefault();
             var $this = $(this);
+            if (shoptet.config.ums_forms_redesign) {
+                const input = $this.find('input');
+                if (input.val().trim().length === 0) {
+                    window.showMessage(shoptet.messages.validator.discountCouponCodeRequired, 'error');
+                    input.focus();
+                    return;
+                }
+            }
             shoptet.cart.ajaxSubmitForm(
                 $this.attr('action'),
                 $this[0],

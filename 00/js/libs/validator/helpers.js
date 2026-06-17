@@ -17,7 +17,7 @@ window.toggleRequiredAttributes = ($el, job, preserveNoJsValidation) => {
         $.each($el.find('.js-validate'), function() {
             shoptet.validator.removeErrorMessage(this);
             $(this).addClass('js-validation-suspended')
-                .removeClass('js-error-field')
+                .removeClass(shoptet.config.ums_forms_redesign ? 'js-error-field error-field' : 'js-error-field')
                 .attr(
                     'data-original-value',
                     $(this).val()

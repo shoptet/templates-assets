@@ -124,10 +124,15 @@
             display: block;
         }
         select {
-            width: 100%;
-            border-radius: @border-radius-base;
-            margin-bottom: @double-spacing;
-            height: 48px;
+            :where(.ums_forms_redesign--on) & {
+                margin-bottom: @double-spacing;
+            }
+            :where(.ums_forms_redesign--off) & {
+                width: 100%;
+                border-radius: @border-radius-base;
+                margin-bottom: @double-spacing;
+                height: 48px;
+            }
         }
     }
     .advanced-parameter {

@@ -387,12 +387,20 @@ tr.removeable {
     }
 }
 
+.free-gifts,
+.free-product-gifts {
+  margin: 0;
+}
+
 .free-gifts-wrapper,
 .free-product-gifts-wrapper {
     .free-gift-trigger-holder {
         padding-top: 5px;
         .free-gift-trigger {
             text-decoration: underline;
+            padding: 0;
+            border: none;
+            background: none;
             &:hover {
                 text-decoration: none;
             }
@@ -417,6 +425,7 @@ tr.removeable {
     }
     label {
         cursor: default;
+        font-size: @cart-table-p-name-font-size;
     }
 }
 
@@ -462,6 +471,26 @@ tr.removeable {
 
 
 
+:where(.ums_forms_redesign--on) & {
+    .discount-coupon {
+        .compact-form {
+            max-width: 300px;
+        }
+        .btn.btn-arrow-right.btn-text {
+            flex-shrink: 0;
+            line-height: 0;
+            font-size: 0;
+            &::before {
+                margin-right: 0;
+                line-height: 32px;
+                content: @icon-chevron-right-code;
+                font-size: initial;
+            }
+        }
+    }
+}
+
+:where(.ums_forms_redesign--off) & {
 .discount-coupon {
     margin: @line-height-computed @cart_side-space;
     label {
@@ -525,47 +554,78 @@ tr.removeable {
         }
     }
 }
+}
 
 .coupon-input {
     padding: @line-height-computed 0;
+    :where(.ums_forms_redesign--off) & {
     .discount-coupon {
         padding: 0;
         margin: 0;
         float: none;
+    }
     }
 }
 
 .toggle-coupon-input {
     .discount-coupon {
         display: none;
-        @media (max-width: @screen-xs-max) {
-            display: block;
-        }
-    }
-    .toggle-coupon-input-button {
-        padding: 0;
-        cursor: pointer;
-        text-decoration: underline;
-        &:hover {
-            text-decoration: none;
-        }
-        &::after {
-            &:extend(.shp-icon);
-            content: @icon-chevron-down-code;
-            margin-left: .5em;
-        }
-        &.discount-coupon-visible {
-            margin-bottom: 1ex;
-            &::after {
-                content: @icon-chevron-up-code;
+        :where(.ums_forms_redesign--off) & {
+            @media (max-width: @screen-xs-max) {
+                display: block;
             }
         }
-        @media (max-width: @screen-xs-max) {
-            display: none;
+    }
+    :where(.ums_forms_redesign--on) & {
+        .toggle-coupon-input-button {
+            padding: 0;
+            border: none;
+            background: none;
+            text-decoration: underline;
+            &:hover {
+                text-decoration: none;
+            }
+            &::after {
+                &:extend(.shp-icon);
+                content: @icon-chevron-down-code;
+                margin-left: .5em;
+            }
+            &.discount-coupon-visible {
+                margin-bottom: 1ex;
+                &::after {
+                    content: @icon-chevron-up-code;
+                }
+            }
+        }
+    }
+
+    :where(.ums_forms_redesign--off) & {
+        .toggle-coupon-input-button {
+            padding: 0;
+            cursor: pointer;
+            text-decoration: underline;
+            &:hover {
+                text-decoration: none;
+            }
+            &::after {
+                &:extend(.shp-icon);
+                content: @icon-chevron-down-code;
+                margin-left: .5em;
+            }
+            &.discount-coupon-visible {
+                margin-bottom: 1ex;
+                &::after {
+                    content: @icon-chevron-up-code;
+                }
+            }
+            @media (max-width: @screen-xs-max) {
+                display: none;
+            }
         }
     }
 }
 
+:where(.ums_forms_redesign--off) & {
 .applied-coupon {
     .discount-coupon & {
     padding-top: 5px;
@@ -585,6 +645,7 @@ tr.removeable {
     padding-top: 0;
     font-size: 20px;
     }
+}
 }
 
 .extra {
@@ -691,16 +752,18 @@ tr.removeable {
         margin-left: 8%;
         padding-right: 80px;
     }
-    .form-group {
-        margin-bottom: 10px;
-    }
-    .form-control {
-        max-width: none;
-        width: 100%;
-    }
-    .phone-combined-input {
-        @media (min-width: @screen-xs-min) {
+    :where(.ums_forms_redesign--off) & {
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-control {
             max-width: none;
+            width: 100%;
+        }
+        .phone-combined-input {
+            @media (min-width: @screen-xs-min) {
+                max-width: none;
+            }
         }
     }
     .helper {
@@ -719,7 +782,97 @@ tr.removeable {
     }
 }
 
-.ordering-process .co-box {
+:where(.ums_forms_redesign--on).ordering-process .co-box {
+    padding: 0;
+    h2 {
+        margin: (@line-height-computed * 2) 0 @line-height-computed;
+        padding-left: round(@cart_icon-size + 10px);
+        text-align: left;
+        position: relative;
+        line-height: @cart_icon-size;
+        &::before {
+            &:extend(.shp-icon);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            margin-top: -(round(@cart_icon-size / 2));
+            font-size: @cart_icon-size;
+            font-weight: 400;
+            line-height: @cart_icon-size;
+        }
+        @media (max-width: @cart-table-breakpoint) {
+            margin: @line-height-computed 0;
+        }
+    }
+    &.co-basic-information {
+        h2 {
+            margin-top: 0;
+            &::before {
+                content: @icon-info-code;
+            }
+        }
+    }
+    &.co-contact-information {
+        h2 {
+            &::before {
+                content: @icon-login-code;
+            }
+        }
+    }
+    &.co-delivery-method {
+        h2 {
+            &::before {
+                content: @icon-van-code;
+            }
+        }
+    }
+    &.co-payment-method {
+        h2 {
+            margin-top: @line-height-computed * 3;
+            &::before {
+                content: @icon-wallet-code;
+            }
+            @media (max-width: @cart-table-breakpoint) {
+                margin-top: @line-height-computed * 2;
+            }
+            .recapitulation-wrapper & {
+                padding-left: 0;
+                &::before {
+                    content: "";
+                }
+            }
+        }
+    }
+    &.co-billing-address,
+    &.co-shipping-address {
+        h2 {
+            &::before {
+                content: @icon-address-code;
+            }
+        }
+    }
+    &.co-order {
+        h2 {
+            &::before {
+                content: @icon-box-code;
+            }
+            .recapitulation-wrapper & {
+                padding-left: 0;
+                &::before {
+                    content: "";
+                }
+            }
+        }
+    }
+    .stay-in-touch {
+        h2 {
+            margin: @line-height-computed 0;
+            padding-left: 0;
+        }
+    }
+}
+
+:where(.ums_forms_redesign--off).ordering-process .co-box {
     padding: 0;
     h4 {
         margin: (@line-height-computed * 2) 0 @line-height-computed;
@@ -855,12 +1008,14 @@ tr.removeable {
     }
 }
 
-#company-info {
-    margin-bottom: 0;
-}
+:where(.ums_forms_redesign--off) & {
+    #company-info {
+        margin-bottom: 0;
+    }
 
-label[for="phone"] {
-    display: none;
+    label[for="phone"] {
+        display: none;
+    }
 }
 
 .order-summary-inner {
@@ -1111,7 +1266,9 @@ label[for="phone"] {
 
 .consents {
     &.consents-first {
-        margin-top: @line-height-computed;
+        :where(.ums_forms_redesign--off) & {
+            margin-top: @line-height-computed;
+        }
     }
     a {
         font-weight: bold;

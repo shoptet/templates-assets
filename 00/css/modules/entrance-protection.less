@@ -1,3 +1,18 @@
+:where(.ums_forms_redesign--on) {
+    &.entrance-protection-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100dvh;
+        padding: round(@grid-gutter-width / 2);
+        .entrance-protection,
+        .entrance-protection-inner {
+            display: contents;
+        }
+    }
+}
+:where(.ums_forms_redesign--off) & {
 .entrance-protection {
     display: flex;
     align-items: center;
@@ -42,4 +57,5 @@
             max-width: 80%;
         }
     }
+}
 }

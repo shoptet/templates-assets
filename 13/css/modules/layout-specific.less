@@ -49,9 +49,11 @@
   font-weight: 400;
 }
 
-input[type='checkbox'] + label::before,
-input[type='checkbox'] + label::after {
-  border-radius: 5px;
+:where(.ums_forms_redesign--off) & {
+  input[type='checkbox'] + label::before,
+  input[type='checkbox'] + label::after {
+    border-radius: 5px;
+  }
 }
 input[type='checkbox']:checked + label::after {
   border-width: 0;
@@ -1456,14 +1458,22 @@ table.shipping-options-layout {
   }
 }
 
-.add-to-cart-button,
-.cart-related-button .btn.btn-sm,
-.variant-list select,
-.surcharge-list select {
+.cart-related-button .btn.btn-sm {
   height: @advanced-parameter-size + 2;
   padding-top: 0;
   padding-bottom: 0;
   line-height: @advanced-parameter-size;
+}
+
+:where(.ums_forms_redesign--off) & {
+  .add-to-cart-button,
+  .variant-list select,
+  .surcharge-list select {
+    height: @advanced-parameter-size + 2;
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: @advanced-parameter-size;
+  }
 }
 
 .variant-table {
@@ -2126,7 +2136,15 @@ ul.manufacturers {
 /* manufacturer list page end */
 
 /* registration page start */
-.id--8 {
+.id--8:where(.ums_forms_redesign--on) {
+  h1 {
+    margin-bottom: 0;
+  }
+  h2 {
+    margin-top: @line-height-computed * 2;
+  }
+}
+.id--8:where(.ums_forms_redesign--off) {
   h1 {
     margin-bottom: 0;
   }
@@ -2149,13 +2167,23 @@ ul.manufacturers {
 }
 /* registration page end */
 
-.co-registration {
-  .form-group {
-    margin-bottom: @line-height-computed;
+:where(.ums_forms_redesign--off) & {
+  .co-registration {
+    .form-group {
+      margin-bottom: @line-height-computed;
+    }
+    h4 {
+      margin-top: (@line-height-computed);
+    }
   }
+}
 
-  h4 {
-    margin-top: (@line-height-computed);
+:where(.ums_forms_redesign--on) & {
+  .co-box-additional {
+    margin-top: var(--form-groups-margin);
+  }
+  .order-summary {
+    margin-bottom: @line-height-computed;
   }
 }
 
@@ -2272,15 +2300,17 @@ ul.manufacturers {
     }
   }
 }
-.box-login {
-  .social-login-buttons {
-    margin-top: round((@line-height-computed / 2) * -1);
-  }
-  .login-wrapper {
-    padding: 0;
-    .btn {
-      float: none;
-      width: 100%;
+:where(.ums_forms_redesign--off) & {
+  .box-login {
+    .social-login-buttons {
+      margin-top: round((@line-height-computed / 2) * -1);
+    }
+    .login-wrapper {
+      padding: 0;
+      .btn {
+        float: none;
+        width: 100%;
+      }
     }
   }
 }
@@ -2392,6 +2422,15 @@ body.user-action-visible {
 @media (min-width: @screen-md-min) {
   .popup-widget.login-widget::before {
     right: 145px;
+  }
+}
+
+:where(.ums_forms_redesign--on) & {
+  .login-widget .login-form {
+    width: 100%;
+    .form-control-wrapper {
+      max-width: 100%;
+    }
   }
 }
 

@@ -32,7 +32,29 @@
     }
 }
 
-.ordering-process .co-box {
+:where(.ums_forms_redesign--on).ordering-process .co-box {
+    @media (min-width: @screen-xs-min) and (max-width: @cart-table-breakpoint) {
+        margin-left: round(@grid-gutter-width / 2);
+        margin-right: round(@grid-gutter-width / 2);
+    }
+
+    .header-billing,
+    > h2:first-child {
+        margin-top: 0;
+        font-weight: 700;
+        font-size: @font-size-larger;
+        line-height: 18px;
+        margin-bottom: @double-spacing;
+        @media (min-width: (@cart-table-breakpoint - 1)) {
+            font-weight: 600;
+            font-size: @font-size-h3-large;
+            line-height: 28px;
+            margin-bottom: @triple-spacing;
+        }
+    }
+}
+
+:where(.ums_forms_redesign--off).ordering-process .co-box {
     @media (min-width: @screen-xs-min) and (max-width: @cart-table-breakpoint) {
         margin-left: round(@grid-gutter-width / 2);
         margin-right: round(@grid-gutter-width / 2);
@@ -57,16 +79,16 @@
     }
 }
 
-.ordering-process .co-billing-address,
-.ordering-process .co-shipping-address {
+:where(.ums_forms_redesign--off).ordering-process .co-billing-address,
+:where(.ums_forms_redesign--off).ordering-process .co-shipping-address {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     padding-bottom: @triple-spacing;
     margin-bottom: -(@triple-spacing);
 }
 
-.ordering-process .co-box-additional,
-.ordering-process .co-shipping-address {
+:where(.ums_forms_redesign--off).ordering-process .co-box-additional,
+:where(.ums_forms_redesign--off).ordering-process .co-shipping-address {
     padding-top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -112,7 +134,9 @@
     }
 }
 
-.cart-content h4 {
+.cart-content h4,
+.registration-form h2,
+.cart-content h2 {
     display: flex;
     align-items: center;
     > i {
@@ -692,24 +716,26 @@ tr.removeable {
     padding-left: .5ex;
 }
 
-.co-basic-information {
-    .col-sm-6,
-    .col-sm-12 {
-        padding: @double-spacing round(@basic-spacing * 6);
+:where(.ums_forms_redesign--off) & {
+    .co-basic-information {
+        .col-sm-6,
+        .col-sm-12 {
+            padding: @double-spacing round(@basic-spacing * 6);
+        }
     }
-}
 
-.co-contact-information,
-.co-billing-address,
-.co-shipping-address,
-.co-box-additional {
-    .form-group,
-    #note {
-        margin-bottom: @triple-spacing;
-        @media (min-width: (@cart-table-breakpoint - 1)) {
-            padding-left: @triple-spacing;
-            padding-right: @triple-spacing;
-            margin-bottom: @grid-gutter-width;
+    .co-contact-information,
+    .co-billing-address,
+    .co-shipping-address,
+    .co-box-additional {
+        .form-group,
+        #note {
+            margin-bottom: @triple-spacing;
+            @media (min-width: (@cart-table-breakpoint - 1)) {
+                padding-left: @triple-spacing;
+                padding-right: @triple-spacing;
+                margin-bottom: @grid-gutter-width;
+            }
         }
     }
 }
@@ -753,7 +779,7 @@ tr.removeable {
     }
 }
 
-.ordering-process .co-box {
+:where(.ums_forms_redesign--off).ordering-process .co-box {
     @media (min-width: @screen-sm-min) {
         .form-control {
             max-width: 400px;
@@ -773,15 +799,6 @@ tr.removeable {
     letter-spacing: 0.4px;
     margin-bottom: 3px;
 }
-
-.login-from-cart {
-    .fontSmaller();
-    display: inline-block;
-    @media (max-width: @cart-table-breakpoint) {
-        padding: @double-spacing 0 @basic-spacing;
-    }
-}
-
 #checkoutContent .cart-content {
     [type="text"] + label {
         .label();
@@ -871,7 +888,12 @@ tr.removeable {
 }
 
 .order-summary-item {
-    padding-top: @double-spacing;
+    :where(.ums_forms_redesign--on) & {
+        padding: @double-spacing 0 @triple-spacing;
+    }
+    :where(.ums_forms_redesign--off) & {
+        padding-top: @double-spacing;
+    }
     @media (min-width: @screen-md-min) {
         &.price {
             margin-left: -(@double-spacing);
@@ -931,8 +953,13 @@ tr.removeable {
     }
 }
 
-.ordering-process .co-box h4::before,
 .contact-box ul li > span::before {
+    display: none;
+}
+:where(.ums_forms_redesign--off).ordering-process .co-box h4::before {
+    display: none;
+}
+:where(.ums_forms_redesign--on).ordering-process .co-box h2::before {
     display: none;
 }
 
@@ -1061,8 +1088,10 @@ table.table.recapitulation-table {
 }
 
 /* buttons */
-.consents {
-    margin-top: @line-height-computed;
+:where(.ums_forms_redesign--off) & {
+    .consents {
+        margin-top: @line-height-computed;
+    }
 }
 
 // Shared declarations for the next step element behavior

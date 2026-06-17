@@ -96,6 +96,7 @@
       }
 
       callback && callback()
+      document.dispatchEvent(new CustomEvent('ShoptetTabChange'));
     }
 
     $active.length && transition ?

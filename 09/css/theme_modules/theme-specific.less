@@ -66,13 +66,15 @@ footer {
   }
 }
 
-.subscribe-form .btn {
-  .btn-color(var(--colors-foregrounds-content-inverted), var(--colors-foregrounds-content-inverted), var(--colors-foregrounds-content-inverted), var(--color-primary));
+:where(.ums_forms_redesign--off) & {
+  .subscribe-form .btn {
+    .btn-color(var(--colors-foregrounds-content-inverted), var(--colors-foregrounds-content-inverted), var(--colors-foregrounds-content-inverted), var(--color-primary));
 
-  background-color: var(--colors-surface-quaternary);
+    background-color: var(--colors-surface-quaternary);
 
-  &::before {
-    color: var(--colors-foregrounds-content-inverted);
+    &::before {
+      color: var(--colors-foregrounds-content-inverted);
+    }
   }
 }
 
@@ -327,14 +329,6 @@ a.btn-icon[data-target='search'] {
 .order-summary-item {
   &.summary-thx {
     &:extend(.red);
-  }
-}
-.confirmation {
-  color: @color-secondary;
-
-  input[type='checkbox'] + &::before,
-  input[type='radio'] + &::before {
-    border-color: @color-secondary;
   }
 }
 

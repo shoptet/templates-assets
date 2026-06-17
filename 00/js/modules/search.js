@@ -1,3 +1,7 @@
+/// <reference path="../../../types.d.ts" />
+
+import { ensure, isHTMLInputElement } from '../../../shared/js/typeAssertions';
+
 /**
 * Whisperer handling
 *
@@ -12,7 +16,7 @@ window.fulltextSearch = ($searchInput, $searchContainer) => {
 
     $searchInput.on('keyup focus', function(e) {
         if (shoptet.abilities.feature.extended_search_whisperer) {
-            if ($searchInput.val().length <= 2) {
+            if ($searchInput.val().trim().length <= 2) {
                 clearSearchWhisperer();
                 return;
             }
@@ -26,7 +30,7 @@ window.fulltextSearch = ($searchInput, $searchContainer) => {
         }
 
         delay(function() {
-            if ($searchInput.val().length > 2) {
+            if ($searchInput.val().trim().length > 2) {
                 if (!xhr || xhr.readyState === 4) {
                     xhr = $.ajax({
                         url: '/action/ProductSearch/ajaxSearch/',
@@ -49,7 +53,7 @@ window.fulltextSearch = ($searchInput, $searchContainer) => {
                         // TODO: add error message
                     });
                 }
-            } else if ($searchInput.val().length <= 2) {
+            } else if ($searchInput.val().trim().length <= 2) {
                 clearSearchWhisperer();
             }
         }, 500);
@@ -140,19 +144,16 @@ window.clearSearchFocus = () => {
 }
 
 /**
- * Check minimal length of search query
- *
- * @param {Object} $el
- * $el = HTML element which value has to be checked
+ * @param {HTMLElement} element
+ * @returns boolean
  */
-window.checkMinimalLength = ($el) => {
-    var passed = true;
-    var length = $el.val().length;
-    if ((length < 3 && length > 0) || length == 0) {
-        showMessage(shoptet.messages['charsNeeded'], 'warning', '', false, false);
-        passed = false;
+function checkMinimalLength(element) {
+    if (element.value.trim().length < 3) {
+        window.showMessage(shoptet.messages.charsNeeded, 'error');
+        return false;
     }
-    return passed;
+
+    return true;
 }
 
 /**
@@ -335,11 +336,15 @@ $(function () {
         $(this).hide();
     });
 
-    $html.on('submit', '.search-form', function() {
-        if(!checkMinimalLength($(this).find('input[type="search"]'))) {
-            return false;
-        }
-    });
+    if (shoptet.config.ums_forms_redesign) {
+        $html.on('submit', '.search-form', function() {
+            const input = ensure($(this).find('input[type="search"]')[0], isHTMLInputElement);
+            if(!checkMinimalLength(input)) {
+                input.focus();
+                return false;
+            }
+        });
+    }
 
     // Switch between top recommended products in search
     if (detectRecommended() < 1) {

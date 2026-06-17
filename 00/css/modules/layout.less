@@ -10,6 +10,9 @@
             > div {
                 padding-left: round(@grid-gutter-width / 4);
                 padding-right: round(@grid-gutter-width / 4);
+                :where(.ums_forms_redesign--on) & {
+                    width: 100%;
+                }
             }
             &.cart-row {
                 margin-left: 0;

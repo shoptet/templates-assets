@@ -519,7 +519,7 @@ window.resizeEndCallback = () => {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-  if ($('.regions-wrapper').length) {
+  if (document.querySelector('.regions-wrapper')) {
     shoptet.global.toggleRegionsWrapper();
   }
 
@@ -844,6 +844,9 @@ document.addEventListener('DOMContentLoaded', function () {
         shoptet.validator.initValidator($('form'));
         if (shoptet.config.ums_forms_redesign) {
           shoptet.validator.handleValidators(shoptet.validatorRequired.validators);
+          if (shoptet.abilities.feature.smart_labels) {
+            $('.smart-label-wrapper').SmartLabels();
+          }
         }
         shoptet.watchdog.initWatchdog();
       },
@@ -1086,13 +1089,13 @@ window.resolveImageFormat = () => {
    * This function does not accept any arguments.
    */
   function toggleRegionsWrapper() {
-    var $regionsWrapper = $('.regions-wrapper');
-    var allRegions = $regionsWrapper.find('select');
-    var invisibleRegions = $regionsWrapper.find('select.hide');
+    const regionsWrapper = document.querySelector('.regions-wrapper');
+    const allRegions = regionsWrapper.querySelectorAll('select');
+    const invisibleRegions = regionsWrapper.querySelectorAll('select.hide');
     if (allRegions.length > invisibleRegions.length) {
-      $regionsWrapper.show();
+      regionsWrapper.classList.remove('hidden');
     } else {
-      $regionsWrapper.hide();
+      regionsWrapper.classList.add('hidden');
     }
   }
 
@@ -1145,6 +1148,10 @@ window.resolveImageFormat = () => {
         }, shoptet.config.animationDuration);
       }
     }
+
+    document.querySelectorAll('.js-location').forEach(location => {
+      location.classList.toggle('js-location--hidden');
+    });
 
     var $billRegionId = $('#billRegionId');
     var $billRegionIdInput = $('#billRegionIdInput');

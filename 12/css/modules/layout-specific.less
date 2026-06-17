@@ -65,10 +65,12 @@ body.ordering-process {
   margin-bottom: @line-height-computed;
   padding: @line-height-computed round(@grid-gutter-width / 2);
 }
-.cart-inner {
-  > form > div > .form-group {
-    padding: round(@line-height-computed / 2) round(@grid-gutter-width / 2);
-    margin-bottom: 0;
+:where(.ums_forms_redesign--off) & {
+  .cart-inner {
+    > form > div > .form-group {
+      padding: round(@line-height-computed / 2) round(@grid-gutter-width / 2);
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -211,60 +213,63 @@ body.ordering-process {
   }
 }
 
-//orderStep2
-//inline-form-group.less
-.form-group {
-  label {
-    width: 100%;
-    @media (min-width: @screen-xs-min) {
-      width: @form-group-label-width;
-    }
-    .consents& {
-      line-height: normal;
-    }
-    a {
-      text-decoration: underline;
-    }
-  }
-  > input,
-  > select {
-    &.form-control {
-      max-width: @select-width;
+:where(.ums_forms_redesign--off) & {
+  // TODO: Remove this in issue #26651
+  //orderStep2
+  //inline-form-group.less
+  .form-group {
+    label {
       width: 100%;
-      min-width: auto;
-      &.short {
-        width: 100%;
+      @media (min-width: @screen-xs-min) {
+        width: @form-group-label-width;
+      }
+      .consents& {
+        line-height: normal;
+      }
+      a {
+        text-decoration: underline;
       }
     }
-  }
-  > .phone-combined-input {
-    max-width: @select-width;
-    width: 100%;
-    min-width: auto;
-  }
-  @media (min-width: @screen-xs-min) {
-    .btn {
-      .co-contact-information & {
-        max-width: @select-width;
-        width: calc(100% - 180px);
-      }
-    }
-    .form-group-tooltip {
-      left: calc(100% - @form-group-tooltip-position-left);
-      top: calc(100% - @form-control-height / 2);
-    }
-  }
-  @media (min-width: @screen-md-min) {
-    .form-group-tooltip {
-      left: calc(@form-group-label-width + @select-width - @form-group-tooltip-position-left);
-      top: calc(@form-control-height / 2);
-    }
-  }
-  @media (min-width: @screen-lg-min) {
     > input,
     > select {
       &.form-control {
         max-width: @select-width;
+        width: 100%;
+        min-width: auto;
+        &.short {
+          width: 100%;
+        }
+      }
+    }
+    > .phone-combined-input {
+      max-width: @select-width;
+      width: 100%;
+      min-width: auto;
+    }
+    @media (min-width: @screen-xs-min) {
+      .btn {
+        .co-contact-information & {
+          max-width: @select-width;
+          width: calc(100% - 180px);
+        }
+      }
+      .form-group-tooltip {
+        left: calc(100% - @form-group-tooltip-position-left);
+        top: calc(100% - @form-control-height / 2);
+      }
+    }
+    @media (min-width: @screen-md-min) {
+      .form-group-tooltip {
+        left: calc(@form-group-label-width + @select-width - @form-group-tooltip-position-left);
+        top: calc(@form-control-height / 2);
+      }
+    }
+    @media (min-width: @screen-lg-min) {
+      > input,
+      > select {
+        &.form-control {
+          max-width: @select-width;
+        }
       }
     }
   }
@@ -918,8 +923,10 @@ a.btn {
   padding: 10px 0;
   .detail-parameters {
     float: none;
-    select {
-      width: 100%;
+    :where(.ums_forms_redesign--off) & {
+      select {
+        width: 100%;
+      }
     }
   }
   table.detail-parameters {
@@ -959,9 +966,11 @@ a.btn {
       padding-right: round(@grid-gutter-width / 2);
     }
   }
-  @media (max-width: @screen-xs) {
-    select {
-      line-height: 28px;
+  :where(.ums_forms_redesign--off) & {
+    @media (max-width: @screen-xs) {
+      select {
+        line-height: 28px;
+      }
     }
   }
 }
@@ -1233,32 +1242,54 @@ a.btn {
     border-bottom-width: 1px;
     border-bottom-style: solid;
     padding: round(@line-height-computed * 1.5) round(@grid-gutter-width / 2);
-    display: flex;
-    align-items: center;
-    flex-flow: column;
-    h4 {
-      font-size: @font-size-h1;
-      font-weight: @font-weight-h1;
-      text-align: center;
+    :where(.ums_forms_redesign--off) & {
+      display: flex;
+      align-items: center;
+      flex-flow: column;
+    }
+    :where(.ums_forms_redesign--off) & {
+      h4 {
+        font-size: @font-size-h1;
+        font-weight: @font-weight-h1;
+        text-align: center;
+      }
+    }
+    :where(.ums_forms_redesign--on) & {
+      h3 {
+        font-size: @font-size-h1;
+        font-weight: @font-weight-h1;
+      }
     }
     .newsletter-header {
       flex: 1 2 auto;
-      margin: 0 auto;
+      :where(.ums_forms_redesign--off) & {
+        margin: 0 auto;
+      }
     }
     p {
       font-size: 110%;
-      padding: round(@line-height-computed / 2) round(@grid-gutter-width / 4);
+      :where(.ums_forms_redesign--on) & {
+        padding: round(@line-height-computed / 2) 0;
+      }
+      :where(.ums_forms_redesign--off) & {
+        padding: round(@line-height-computed / 2) round(@grid-gutter-width / 4);
+      }
     }
     form {
       flex: 0 1 auto;
       width: 100%;
-      .js-validator-msg {
-        font-size: 80%;
+      :where(.ums_forms_redesign--off) & {
+        .js-validator-msg {
+          font-size: 80%;
+        }
       }
       .form-group {
-        margin-bottom: round(@line-height-computed / 4);
-        label {
-          line-height: @line-height-computed;
+        :where(.ums_forms_redesign--off) & {
+          // TODO: Remove this in issue #26651
+          margin-bottom: round(@line-height-computed / 4);
+          label {
+            line-height: @line-height-computed;
+          }
         }
       }
       .btn-conversion {
@@ -1269,15 +1300,29 @@ a.btn {
       }
     }
     @media (min-width: @screen-sm-min) {
-      flex-flow: row;
+      :where(.ums_forms_redesign--off) & {
+        flex-flow: row;
+      }
+      :where(.ums_forms_redesign--on) & {
+        display: flex;
+      }
       justify-content: space-between;
       align-items: start;
-      p {
-        padding-left: 0;
+      :where(.ums_forms_redesign--off) & {
+        p {
+          padding-left: 0;
+        }
       }
-      h4 {
-        margin-top: 0;
-        text-align: left;
+      :where(.ums_forms_redesign--off) & {
+        h4 {
+          margin-top: 0;
+          text-align: left;
+        }
+      }
+      :where(.ums_forms_redesign--on) & {
+        h3 {
+          margin-top: 0;
+        }
       }
       form {
         flex-basis: 40%;
@@ -1343,6 +1388,8 @@ a.btn {
       }
     }
   }
+}
+:where(.ums_forms_redesign--off) & {
   .footer-newsletter,
   .footer-rows,
   .footer-bottom {

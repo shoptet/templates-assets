@@ -16,7 +16,9 @@
     padding-right: @quantity-padding-right;
     border-style: @quantity-border-style;
     border-width: @quantity-border-width;
-    border-radius: @quantity-border-radius;
+    :where(.ums_forms_redesign--off) & {
+        border-radius: @quantity-border-radius;
+    }
     font-size: @quantity-font-size;
     font-weight: @quantity-font-weight;
     line-height: 1;

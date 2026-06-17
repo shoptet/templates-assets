@@ -210,26 +210,46 @@
         }
 
         var $document = $(document);
-        $document.on('click', '#orderFormButton', function() {
-            $('#orderFormSubmit').click();
-        });
 
-        $document.on('click', '#orderFormSubmit', function() {
-            var $el = $('input[name="shippingId"].choose-branch:checked');
-            if ($el.length) {
-                var code = $el.attr('data-external') ? 'external-shipping' : $el.attr('data-code');
-                var $label = $el.siblings('label');
-                var $chosen = $label.find('.chosen');
-                if (!$chosen.length) {
-                    if ($label.find('.zasilkovna-choose').length && !$label.find('.zasilkovna-default').length) {
-                        return true;
+        if (shoptet.config.ums_forms_redesign) {
+            $document.on('click', '#orderFormButton', function() {
+                var $el = $('input[name="shippingId"].choose-branch:checked');
+                if ($el.length) {
+                    var code = $el.attr('data-external') ? 'external-shipping' : $el.attr('data-code');
+                    var $label = $el.siblings('label');
+                    var $chosen = $label.find('.chosen');
+                    if (!$chosen.length) {
+                        if ($label.find('.zasilkovna-choose').length && !$label.find('.zasilkovna-default').length) {
+                            return true;
+                        }
+                        showMessage(shoptet.messages['choose-' + code], 'error', '', false, false);
+                        scrollToEl($label);
+                        return false;
                     }
-                    showMessage(shoptet.messages['choose-' + code], 'error', '', false, false);
-                    scrollToEl($label);
-                    return false;
                 }
-            }
-        });
+            });
+        } else {
+            $document.on('click', '#orderFormButton', function() {
+                $('#orderFormSubmit').click();
+            });
+
+            $document.on('click', '#orderFormSubmit', function() {
+                var $el = $('input[name="shippingId"].choose-branch:checked');
+                if ($el.length) {
+                    var code = $el.attr('data-external') ? 'external-shipping' : $el.attr('data-code');
+                    var $label = $el.siblings('label');
+                    var $chosen = $label.find('.chosen');
+                    if (!$chosen.length) {
+                        if ($label.find('.zasilkovna-choose').length && !$label.find('.zasilkovna-default').length) {
+                            return true;
+                        }
+                        showMessage(shoptet.messages['choose-' + code], 'error', '', false, false);
+                        scrollToEl($label);
+                        return false;
+                    }
+                }
+            });
+        }
 
         $('#shippingAddressBox').on('change', function() {
             var $fields = $('#shipping-address .form-option-block').find('input');
