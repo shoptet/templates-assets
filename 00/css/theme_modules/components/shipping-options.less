@@ -1,34 +1,34 @@
 .shipping-options-popup {
-    container-type: inline-size;
+  container-type: inline-size;
 
-    .shipping-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px 10px;
-        align-items: flex-start;
-        justify-content: space-between;
+  .shipping-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 10px;
+    align-items: flex-start;
+    justify-content: space-between;
 
-        padding: 15px 0;
+    padding: 15px 0;
 
-        line-height: @payment-shipping-line-height;
+    line-height: @payment-shipping-line-height;
 
-        border-bottom: 1px solid rgba(0,0,0,0.1);
-    }
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
 
-    .extra.delivery {
-        margin-top: 20px;
-    }
+  .extra.delivery {
+    margin-top: 20px;
+  }
 }
 
 .shipping-row:not(:has(.payment-logo)) .payment-info {
-    flex-basis: auto;
-    max-width: calc(100% - @payment-info-narrow-px);
+  flex-basis: auto;
+  max-width: calc(100% - @payment-info-narrow-px);
 }
 
 .shipping-options {
-    display: inline-block;
+  display: inline-block;
 }
 .delivery-time-label,
 .delivery-time {
-    display: inline-block;
+  display: inline-block;
 }

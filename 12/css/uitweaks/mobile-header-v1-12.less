@@ -1,36 +1,36 @@
-@import "../../../00/css/uitweaks/shared-imports";
-@import "../modules/layout-variables";
-@import "../theme_modules/theme-variables";
-@import "../../../00/css/uitweaks/mobile-header-v1-common";
+@import '../../../00/css/uitweaks/shared-imports';
+@import '../modules/layout-variables';
+@import '../theme_modules/theme-variables';
+@import '../../../00/css/uitweaks/mobile-header-v1-common';
 
 .overall-wrapper {
-    @media (max-width: @navigation-breakpoint-max) {
-        padding-top: 60px;
-    }
-    @media (max-width: @screen-xs-min - 1) {
-        padding-top: 40px;
-    }
+  @media (max-width: @navigation-breakpoint-max) {
+    padding-top: 60px;
+  }
+  @media (max-width: @screen-xs-min - 1) {
+    padding-top: 40px;
+  }
 }
 
 #header {
-    @media (max-width: @navigation-breakpoint-max) {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: @z-popup;
-        transition: transform @transition-duration / 2;
-        .scrolled-down & {
-            transform: translateY(-100%);
-        }
+  @media (max-width: @navigation-breakpoint-max) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: @z-popup;
+    transition: transform @transition-duration / 2;
+    .scrolled-down & {
+      transform: translateY(-100%);
     }
+  }
 }
 
 .top-nav-button-login,
 a.top-nav-button-account {
-    display: none;
+  display: none;
 
-    @media (min-width: @screen-md-min) {
-        display: block;
-    }
+  @media (min-width: @screen-md-min) {
+    display: block;
+  }
 }

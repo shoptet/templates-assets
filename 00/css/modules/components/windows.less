@@ -1,64 +1,64 @@
 .content-window {
-    z-index: @z-navigation-2;
-    position: fixed;
-    left: 0;
-    top: 0;
-    .size(0, 100%);
-    overflow: hidden;
-    .transition(all @transition-duration @transition-timing);
-    &.cart-window {
-        .cart-window-visible & {
-            width: 100%;
-        }
+  z-index: @z-navigation-2;
+  position: fixed;
+  left: 0;
+  top: 0;
+  .size(0, 100%);
+  overflow: hidden;
+  .transition(all @transition-duration @transition-timing);
+  &.cart-window {
+    .cart-window-visible & {
+      width: 100%;
     }
-    &.search-window {
-        .search-window-visible & {
-            width: 100%;
-        }
+  }
+  &.search-window {
+    .search-window-visible & {
+      width: 100%;
     }
-    &.login-window {
-        .login-window-visible & {
-            width: 100%;
-        }
+  }
+  &.login-window {
+    .login-window-visible & {
+      width: 100%;
     }
+  }
 }
 
 .content-window-in {
-    position: relative;
-    .square(100%);
-    padding-top: 77px;
-    overflow: auto;
+  position: relative;
+  .square(100%);
+  padding-top: 77px;
+  overflow: auto;
 }
 
 .toggle-window-arr {
-    padding: 20px;
-    text-decoration: none;
+  padding: 20px;
+  text-decoration: none;
 
+  span {
+    display: none;
+  }
+
+  &::before {
+    &:extend(.shp-icon);
+    content: @icon-arrow-left-code;
+    margin-right: 1ex;
+    font-size: 30px;
+  }
+
+  @media (min-width: @screen-sm-min) {
     span {
-        display: none;
+      display: inline;
     }
-
-    &::before {
-        &:extend(.shp-icon);
-        content: @icon-arrow-left-code;
-        margin-right: 1ex;
-        font-size: 30px;
-    }
-
-    @media (min-width: @screen-sm-min) {
-        span {
-            display: inline;
-        }
-    }
+  }
 }
 
 .content-window-in .toggle-window-arr {
-    position: absolute;
-    z-index: @z-base-1;
-    top: 8px;
-    left: 0;
+  position: absolute;
+  z-index: @z-base-1;
+  top: 8px;
+  left: 0;
 
-    @media (min-width: @screen-sm-min) {
-        left: 20px;
-    }
+  @media (min-width: @screen-sm-min) {
+    left: 20px;
+  }
 }

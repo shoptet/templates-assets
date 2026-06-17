@@ -1,25 +1,25 @@
 a.recommended-product {
+  display: block;
+  > img,
+  > span {
     display: block;
-    > img,
-    > span {
-        display: block;
-        margin: 0 auto 1em;
-        text-align: center;
-    }
-    .name {
-        display: block;
-    }
-    .price-standard-wrapper {
-        font-style: oblique;
-    }
-    &:hover {
-        text-decoration: none;
-    }
+    margin: 0 auto 1em;
+    text-align: center;
+  }
+  .name {
+    display: block;
+  }
+  .price-standard-wrapper {
+    font-style: oblique;
+  }
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 :where(.popup-widget-inner) .search {
-    h3 {
-        margin-bottom: @line-height-computed;
-        text-align: center;
-    }
+  h3 {
+    margin-bottom: @line-height-computed;
+    text-align: center;
+  }
 }

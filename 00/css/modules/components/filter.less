@@ -1,264 +1,265 @@
 .filters {
-    @media (max-width: @screen-xs-max) {
-        display: none;
-        margin-bottom: @line-height-computed;
-        &.visible {
-            display: block;
-        }
+  @media (max-width: @screen-xs-max) {
+    display: none;
+    margin-bottom: @line-height-computed;
+    &.visible {
+      display: block;
     }
-    @media (min-width: @screen-sm-min) {
-        #content &,
-        #footer & {
-            display: none;
-            margin-bottom: @line-height-computed;
-            &.visible {
-                display: block;
-            }
-        }
-        #content .sidebar & {
-            display: block;
-            margin-bottom: 0;
-        }
+  }
+  @media (min-width: @screen-sm-min) {
+    #content &,
+    #footer & {
+      display: none;
+      margin-bottom: @line-height-computed;
+      &.visible {
+        display: block;
+      }
     }
+    #content .sidebar & {
+      display: block;
+      margin-bottom: 0;
+    }
+  }
 }
 
 .btn.unveil-button {
+  display: none;
+  #content &,
+  #footer & {
+    @media (max-width: @screen-xs-max) {
+      display: block;
+      width: 100%;
+    }
+    @media (min-width: @screen-sm-min) {
+      & {
+        display: inline-block;
+      }
+    }
+  }
+  #content .sidebar & {
     display: none;
-    #content &,
-    #footer & {
-        @media (max-width: @screen-xs-max) {
-            display: block;
-            width: 100%;
-        }
-        @media (min-width: @screen-sm-min) {
-            & {
-                display: inline-block;
-            }
-        }
-    }
-    #content .sidebar & {
-        display: none;
-    }
+  }
 }
 
 #content .filters-wrapper > div:first-of-type,
 #footer .filters-wrapper > div:first-of-type {
-    margin-bottom: @line-height-computed;
-    text-align: center;
+  margin-bottom: @line-height-computed;
+  text-align: center;
 }
 
 .filter-section-button {
-    .content & {
-        display: none;
-    }
-    .content .sidebar & {
-        display: block;
-    }
+  .content & {
+    display: none;
+  }
+  .content .sidebar & {
+    display: block;
+  }
 }
 
 .filter-sections {
-    padding-left: round(@line-height-computed / 2);
-    padding-right: round(@line-height-computed /2);
+  padding-left: round(@line-height-computed / 2);
+  padding-right: round(@line-height-computed / 2);
 }
 
 .filter-section {
-    padding-top: round(@line-height-computed / 2);
-    padding-bottom: round(@line-height-computed / 2);
-    border-bottom-style: @filter-section-border-bottom-style;
-    border-bottom-width: @filter-section-border-bottom-width;
-    text-align: left;
-    & + & {
-        border-top-style: @filter-section-border-top-style;
-        border-top-width: @filter-section-border-top-width;
+  padding-top: round(@line-height-computed / 2);
+  padding-bottom: round(@line-height-computed / 2);
+  border-bottom-style: @filter-section-border-bottom-style;
+  border-bottom-width: @filter-section-border-bottom-width;
+  text-align: left;
+  & + & {
+    border-top-style: @filter-section-border-top-style;
+    border-top-width: @filter-section-border-top-width;
+  }
+  #footer & {
+    padding-left: round(@grid-gutter-width / 3);
+    padding-right: round(@grid-gutter-width / 3);
+  }
+  h4 {
+    margin-top: 0;
+    .show-tooltip {
+      margin-left: 5px;
     }
-    #footer & {
-        padding-left: round(@grid-gutter-width / 3);
-        padding-right: round(@grid-gutter-width / 3);
+  }
+  label {
+    &.active {
+      font-weight: 700;
     }
-    h4 {
-        margin-top: 0;
-        .show-tooltip {
-            margin-left: 5px;
+  }
+  &.filter-section-button,
+  &:last-child {
+    border-top-style: none;
+  }
+  &.filter-section-button {
+    padding-top: 0;
+    text-align: center;
+  }
+  #content &,
+  #footer & {
+    fieldset {
+      div {
+        &.advanced-filters-wrapper {
+          margin-bottom: -5px;
+          width: 100%;
+          > div {
+            float: none;
+            width: auto;
+            padding: 0 5px 5px 0;
+          }
         }
+      }
     }
-    label {
-        &.active {
-            font-weight: 700;
+    @media (min-width: @screen-xs-min) {
+      .clearfixMixin();
+      fieldset {
+        div {
+          text-align: left;
+          float: left;
+          width: 50%;
+          &:nth-child(odd) {
+            clear: left;
+          }
+          label {
+            padding-top: 5px;
+            padding-bottom: 5px;
+          }
         }
+      }
     }
-    &.filter-section-button,
-    &:last-child {
-        border-top-style: none;
+    @media (min-width: @screen-lg-min) {
+      .clearfixMixin();
+      fieldset {
+        div {
+          text-align: left;
+          width: 25%;
+          &:nth-child(odd) {
+            clear: none;
+          }
+          &:nth-child(4n + 1) {
+            clear: both;
+          }
+          label {
+            padding-top: 0;
+            padding-bottom: 0;
+          }
+        }
+      }
     }
-    &.filter-section-button {
-        padding-top: 0;
-        text-align: center;
+  }
+  #content .sidebar & {
+    fieldset {
+      div {
+        width: 100%;
+      }
     }
-    #content &,
-    #footer & {
-        fieldset {
-            div {
-                &.advanced-filters-wrapper {
-                    margin-bottom: -5px;
-                    width: 100%;
-                    > div {
-                        float: none;
-                        width: auto;
-                        padding: 0 5px 5px 0;
-                    }
-                }
-            }
+  }
+  #content &.filter-section-parametric,
+  #footer &.filter-section-parametric {
+    @media (min-width: @screen-xs-min) {
+      fieldset {
+        div {
+          &:nth-child(odd) {
+            clear: none;
+          }
+          &:nth-child(even) {
+            clear: left;
+          }
         }
-        @media (min-width: @screen-xs-min) {
-            .clearfixMixin();
-            fieldset {
-                div {
-                    text-align: left;
-                    float: left;
-                    width: 50%;
-                    &:nth-child(odd) {
-                        clear: left;
-                    }
-                    label {
-                        padding-top: 5px;
-                        padding-bottom: 5px;
-                    }
-                }
-            }
-        }
-        @media (min-width: @screen-lg-min) {
-            .clearfixMixin();
-            fieldset {
-                div {
-                    text-align: left;
-                    width: 25%;
-                    &:nth-child(odd) {
-                        clear: none;
-                    }
-                    &:nth-child(4n+1) {
-                        clear: both;
-                    }
-                    label {
-                        padding-top: 0;
-                        padding-bottom: 0;
-                    }
-                }
-            }
-        }
+      }
     }
-    #content .sidebar & {
-        fieldset {
-            div {
-                width: 100%;
-            }
+    @media (min-width: @screen-lg-min) {
+      fieldset {
+        div {
+          &:nth-child(even) {
+            clear: none;
+          }
+          &:nth-child(4n + 1) {
+            clear: none;
+          }
+          &:nth-child(4n + 2) {
+            clear: both;
+          }
         }
+      }
     }
-    #content &.filter-section-parametric,
-    #footer &.filter-section-parametric {
-        @media (min-width: @screen-xs-min) {
-            fieldset {
-                div {
-                    &:nth-child(odd) {
-                        clear: none;
-                    }
-                    &:nth-child(even) {
-                        clear: left;
-                    }
-                }
-            }
-        }
-        @media (min-width: @screen-lg-min) {
-            fieldset {
-                div {
-                    &:nth-child(even) {
-                        clear: none;
-                    }
-                    &:nth-child(4n+1) {
-                        clear: none;
-                    }
-                    &:nth-child(4n+2) {
-                        clear: both;
-                    }
-                }
-            }
-        }
-    }
+  }
 }
 
 #clear-filters,
 .filter-section-button {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 #clear-filters {
-    clear: both;
-    text-align: center;
-    margin-bottom: 0;
-    .close-after {
-        padding-top: 5px;
-        padding-bottom: 10px;
-    }
+  clear: both;
+  text-align: center;
+  margin-bottom: 0;
+  .close-after {
+    padding-top: 5px;
+    padding-bottom: 10px;
+  }
 }
 
 #category-filter-hover {
+  display: none;
+  .content .sidebar & {
     display: none;
-    .content .sidebar & {
-        display: none;
-    }
-    .content &,
-    .content .sidebar &.visible,
-    &.visible {
-        display: block;
-    }
+  }
+  .content &,
+  .content .sidebar &.visible,
+  &.visible {
+    display: block;
+  }
 }
 
 #category-filter-hover .filter-section:first-child {
-    border-top-style: @filter-section-border-top-style;
-    border-top-width: @filter-section-border-top-width;
+  border-top-style: @filter-section-border-top-style;
+  border-top-width: @filter-section-border-top-width;
 }
 
 .param-filter-top {
-    text-align: left;
-    form {
-        display: block;
-        fieldset {
-            display: block;
-        }
+  text-align: left;
+  form {
+    display: block;
+    fieldset {
+      display: block;
     }
+  }
 }
 
 .advanced-filters-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    > div {
-        flex: 0 0 auto;
-        width: 25%;
-        padding-bottom: round(@grid-gutter-width / 2);
-        .advanced-parameter {
-            margin: 0;
-        }
+  display: flex;
+  flex-wrap: wrap;
+  > div {
+    flex: 0 0 auto;
+    width: 25%;
+    padding-bottom: round(@grid-gutter-width / 2);
+    .advanced-parameter {
+      margin: 0;
     }
+  }
 }
 
 .filter-label {
-    display: flex;
-    align-items: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    :where(.ums_forms_redesign--on) & { // TODO: Remove this wrapper in issue #26651
-        margin-bottom: calc(var(--form-groups-gap) * 2);
-    }
+  display: flex;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  :where(.ums_forms_redesign--on) & {
+    // TODO: Remove this wrapper in issue #26651
+    margin-bottom: calc(var(--form-groups-gap) * 2);
+  }
 }
 
 .filter-count {
-    display: inline-block;
-    margin-left: 1ex;
-    padding: 1px .75em;
-    border-radius: round((@font-size-smaller + 2px) / 2);
-    font-size: @font-size-smaller;
-    font-weight: bold;
-    line-height: 1;
+  display: inline-block;
+  margin-left: 1ex;
+  padding: 1px 0.75em;
+  border-radius: round((@font-size-smaller + 2px) / 2);
+  font-size: @font-size-smaller;
+  font-weight: bold;
+  line-height: 1;
 }
 
 .box.box-sm.box-filters {
-    padding: 0;
+  padding: 0;
 }

@@ -1,45 +1,43 @@
-
-
-.site-msg { 
-    padding: @double-spacing 0;
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+.site-msg {
+  padding: @double-spacing 0;
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .text {
+    text-transform: uppercase;
+    padding: 0;
+    font-size: @font-size-base;
+    font-weight: 600;
+  }
+  &.information {
     .text {
-        text-transform: uppercase;
-        padding: 0;
-        font-size: @font-size-base;
-        font-weight: 600;
+      padding-right: @double-spacing;
     }
-    &.information {
-        .text {
-            padding-right: @double-spacing;
-        }
-        .container {
-            padding-left: @double-spacing;
-            padding-right: @double-spacing;
-        }
-        @media (max-width: @navigation-breakpoint-max) { 
-            position: sticky;
-            width: 100%;
-            z-index: @z-popup;
-            top: 0;
-        }
-        .close {
-            position: relative;
-            top: 0;
-            margin-top: 0;
-            display: flex;
-            align-items: center;
-            font-size: @cancel-icon-font-size;
-        }
+    .container {
+      padding-left: @double-spacing;
+      padding-right: @double-spacing;
     }
+    @media (max-width: @navigation-breakpoint-max) {
+      position: sticky;
+      width: 100%;
+      z-index: @z-popup;
+      top: 0;
+    }
+    .close {
+      position: relative;
+      top: 0;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      font-size: @cancel-icon-font-size;
+    }
+  }
 }
 
 :where(.ums_forms_redesign--off) & {
-    .subscribe-form .js-validator-msg {
-        padding-top: 5px;
-    }
+  .subscribe-form .js-validator-msg {
+    padding-top: 5px;
+  }
 }

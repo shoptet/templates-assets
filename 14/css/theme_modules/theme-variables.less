@@ -56,7 +56,12 @@
 @btn-seznam-border: #cc0000;
 @btn-seznam-color: var(--colors-foregrounds-content-inverted);
 @btn-special-bg: var(--color-primary-hover);
-@btn-special-bg-hover: hsla(var(--color-primary-hover-h), var(--color-primary-hover-s), var(--color-primary-hover-l), 0.8);
+@btn-special-bg-hover: hsla(
+  var(--color-primary-hover-h),
+  var(--color-primary-hover-s),
+  var(--color-primary-hover-l),
+  0.8
+);
 @btn-special-border: var(--color-primary-hover);
 @btn-special-color: var(--colors-foregrounds-content-inverted);
 @btn-special-color-hover: var(--colors-foregrounds-content-inverted);
@@ -88,14 +93,16 @@
 @color-secondary-hover: var(--color-secondary-hover);
 @color-tertiary: var(--color-tertiary);
 @color-tertiary-hover: var(--color-tertiary-hover);
-@color-tertiary-hover-hover: e("hsl(var(--color-tertiary-hover-h), var(--color-tertiary-hover-s), calc(var(--color-tertiary-hover-l) - 3%))");
+@color-tertiary-hover-hover: e(
+  'hsl(var(--color-tertiary-hover-h), var(--color-tertiary-hover-s), calc(var(--color-tertiary-hover-l) - 3%))'
+);
 @colorbox-bg: var(--colors-surface-primary);
 @colorbox-overlay-bg: var(--colors-surface-black);
 @colorbox-title-bg: var(--colors-surface-primary);
 @content-box-bg: var(--colors-surface-primary);
 @filter-bg: var(--colors-surface-secondary);
 @filter-border-bottom: transparent;
-@filter-border-top: e("hsl(var(--color-tertiary-h), var(--color-tertiary-s), calc(var(--color-tertiary-l) - 10%))");
+@filter-border-top: e('hsl(var(--color-tertiary-h), var(--color-tertiary-s), calc(var(--color-tertiary-l) - 10%))');
 @filter-count-bg: var(--colors-surface-white);
 @filter-total-count-color: var(--colors-foregrounds-content-secondary);
 @flag-action-bg: var(--colors-tags-pink);
@@ -214,7 +221,7 @@
 @red: var(--colors-state-danger);
 @save-price-color: var(--color-secondary);
 @sidebar-bg: var(--colors-surface-secondary);
-@sidebar-border-bg: e("hsl(var(--color-tertiary-h), var(--color-tertiary-s), calc(var(--color-tertiary-l) - 6%))");
+@sidebar-border-bg: e('hsl(var(--color-tertiary-h), var(--color-tertiary-s), calc(var(--color-tertiary-l) - 6%))');
 @social-btn-bg: var(--colors-surface-primary);
 @social-btn-bg-hover: var(--color-secondary);
 @social-btn-border: var(--color-secondary);
@@ -255,8 +262,18 @@
 @template-font: var(--template-font);
 @template-headings-font: var(--template-headings-font);
 @text-color: var(--colors-foregrounds-content-primary);
-@text-color-lighter: hsl(var(--color-tertiary-hover-h), var(--color-tertiary-hover-s), var(--color-tertiary-hover-l), 0.75);
-@text-muted-color: hsl(var(--color-tertiary-hover-h), var(--color-tertiary-hover-s), var(--color-tertiary-hover-l), 0.63);
+@text-color-lighter: hsl(
+  var(--color-tertiary-hover-h),
+  var(--color-tertiary-hover-s),
+  var(--color-tertiary-hover-l),
+  0.75
+);
+@text-muted-color: hsl(
+  var(--color-tertiary-hover-h),
+  var(--color-tertiary-hover-s),
+  var(--color-tertiary-hover-l),
+  0.63
+);
 @thumbnail-highlight-color: var(--color-primary);
 @top-products-border-color: var(--colors-foregrounds-borders-secondary);
 @top-products-border-color-variant: var(--colors-foregrounds-borders-secondary);

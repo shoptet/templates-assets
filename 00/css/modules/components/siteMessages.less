@@ -1,74 +1,74 @@
 /* ----- site message ----- */
 .messages,
 .cookie-ag-wrap {
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
 }
 .messages {
-    z-index: @z-navigation-3;
+  z-index: @z-navigation-3;
 }
 .cookie-ag-wrap {
-    z-index: @z-cookies;
-    top: auto;
-    bottom: 0;
+  z-index: @z-cookies;
+  top: auto;
+  bottom: 0;
 
-    .site-msg {
-        opacity: 0.9;
+  .site-msg {
+    opacity: 0.9;
 
-        @media (max-width: @screen-sm) {
-            opacity: 1;
-        }
+    @media (max-width: @screen-sm) {
+      opacity: 1;
     }
+  }
 }
 .site-msg {
-    padding: 1ex 1em;
-    text-align: center;
+  padding: 1ex 1em;
+  text-align: center;
+  font-size: 12px;
+
+  .close {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -7px;
+    .square(12px);
     font-size: 12px;
+    line-height: 12px;
+    cursor: pointer;
 
-    .close {
-        position: absolute;
-        right: 0;
-        top: 50%;
-        margin-top: -7px;
-        .square(12px);
-        font-size: 12px;
-        line-height: 12px;
-        cursor: pointer;
+    &::before {
+      &:extend(.shp-icon);
+      content: @icon-close-code;
+    }
+  }
 
-        &::before {
-            &:extend(.shp-icon);
-            content: @icon-close-code;
-        }
+  &.information {
+    text-align: left;
+    line-height: 150%;
+
+    .container {
+      position: relative;
+      padding-left: 0;
+      padding-right: 0;
     }
 
-    &.information {
-        text-align: left;
-        line-height: 150%;
-
-        .container {
-            position: relative;
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-        .text {
-            padding-right: 20px;
-        }
+    .text {
+      padding-right: 20px;
     }
+  }
 
-    form {
-        display: inline-block;
-        position: relative;
-        z-index: @z-base-2;
-    }
+  form {
+    display: inline-block;
+    position: relative;
+    z-index: @z-base-2;
+  }
 
-    button {
-        margin-left: 1ex;
-    }
+  button {
+    margin-left: 1ex;
+  }
 
-    @media (min-width: @screen-md-min) {
-        z-index: @z-super;
-    }
+  @media (min-width: @screen-md-min) {
+    z-index: @z-super;
+  }
 }

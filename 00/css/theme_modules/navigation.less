@@ -1,105 +1,104 @@
 .navigation-in {
-    background-color: @navigation-bg-small;
+  background-color: @navigation-bg-small;
+  a {
+    color: @navigation-color-small;
+    &:hover,
+    &:focus-visible {
+      color: @navigation-color-small-hover;
+    }
+  }
+  > ul {
+    > li {
+      border-color: @navigation-item-border-color-small;
+    }
+  }
+  @media (min-width: @navigation-breakpoint) {
+    background-color: @navigation-bg;
     a {
-        color: @navigation-color-small;
-        &:hover,
-        &:focus-visible {
-            color: @navigation-color-small-hover;
-        }
-    }
-    > ul {
-        > li {
-            border-color: @navigation-item-border-color-small;
-        }
-    }
-    @media (min-width: @navigation-breakpoint) {
-        background-color: @navigation-bg;
-        a {
-            color: @navigation-color;
+      color: @navigation-color;
 
+      &:hover,
+      &:focus-visible {
+        color: @navigation-color-hover;
+      }
+    }
+    ul {
+      &.menu-level-2 {
+        border-color: @navigation-menu-level-2-border-color;
+        background-color: @navigation-menu-level-2-bg;
+        li {
+          border-top-color: @navigation-menu-level-2-border-color;
+        }
+        a {
+          color: @navigation-menu-level-2-color;
+          &:hover,
+          &:focus-visible {
+            color: @navigation-menu-level-2-color-hover;
+          }
+        }
+        > li {
+          > a {
+            &::before {
+              background-color: @navigation-menu-level-2-color;
+            }
             &:hover,
             &:focus-visible {
-                color: @navigation-color-hover;
+              &::before {
+                background-color: @navigation-menu-level-2-color-hover;
+              }
             }
+          }
         }
-        ul {
-            &.menu-level-2 {
-                border-color: @navigation-menu-level-2-border-color;
-                background-color: @navigation-menu-level-2-bg;
-                li {
-                    border-top-color: @navigation-menu-level-2-border-color;
-                }
-                a {
-                    color: @navigation-menu-level-2-color;
-                    &:hover,
-                    &:focus-visible {
-                        color: @navigation-menu-level-2-color-hover;
-                    }
-                }
-                > li {
-                    > a {
-                        &::before {
-                            background-color: @navigation-menu-level-2-color;
-                        }
-                        &:hover,
-                        &:focus-visible {
-                            &::before {
-                                background-color: @navigation-menu-level-2-color-hover;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        > ul {
-            > li {
-                border-color: @navigation-item-border-color;
-                > a {
-                    background-color: @navigation-item-bg;
-                    color: @navigation-item-color;
-                }
-                &.exp > a,
-                > a:hover,
-                > a:focus-visible {
-                    background-color: @navigation-item-bg-hover;
-                    color: @navigation-item-color-hover;
-                }
-            }
-        }
+      }
     }
-    .has-third-level {
-        div {
-            > ul {
-                a {
-                    color: @color-primary;
-                    &:hover,
-                    &:focus-visible {
-                        color: @color-primary-hover;
-                    }
-                }
-            }
+    > ul {
+      > li {
+        border-color: @navigation-item-border-color;
+        > a {
+          background-color: @navigation-item-bg;
+          color: @navigation-item-color;
         }
+        &.exp > a,
+        > a:hover,
+        > a:focus-visible {
+          background-color: @navigation-item-bg-hover;
+          color: @navigation-item-color-hover;
+        }
+      }
     }
-    .navigationActions {
+  }
+  .has-third-level {
+    div {
+      > ul {
+        a {
+          color: @color-primary;
+          &:hover,
+          &:focus-visible {
+            color: @color-primary-hover;
+          }
+        }
+      }
+    }
+  }
+  .navigationActions {
+    border-color: @border-color;
+  }
+  .navigationActions__submenu {
+    ul:not(:first-of-type) {
+      li:first-of-type > a {
         border-color: @border-color;
+      }
     }
-    .navigationActions__submenu {
-        ul:not(:first-of-type) {
-            li:first-of-type > a {
-                border-color: @border-color;
-            }
-        }
-        li::before {
-            color: @navigation-color-small;
-        }
+    li::before {
+      color: @navigation-color-small;
     }
+  }
 }
 
 .navigation-close {
-    color: @navigation-color-small;
+  color: @navigation-color-small;
 }
 
 .navigationActions__submenu__item--active::before {
-    background-color: @navigation-color-small;
+  background-color: @navigation-color-small;
 }
-

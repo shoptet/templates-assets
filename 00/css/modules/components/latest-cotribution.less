@@ -2,138 +2,140 @@
 @latest-contribution_star-size: 18px;
 
 .latest-contribution-wrapper {
-    margin-top: round(@line-height-computed * 2);
-    margin-bottom: round(@line-height-computed * 2);
-    @media (min-width: @screen-sm-min) {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
-    }
+  margin-top: round(@line-height-computed * 2);
+  margin-bottom: round(@line-height-computed * 2);
+  @media (min-width: @screen-sm-min) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
 }
 
 .latest-contribution-wrapper--large {
-    @media (min-width: @screen-sm-min) {
-        display: block;
-    }
+  @media (min-width: @screen-sm-min) {
+    display: block;
+  }
+  @media (min-width: @screen-md) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .latest-contribution {
+    width: 100%;
+
     @media (min-width: @screen-md) {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
+      width: 50%;
     }
-
-    .latest-contribution {
-        width: 100%;
-
-        @media (min-width: @screen-md) {
-            width: 50%;
-        }
-    }
+  }
 }
 
 .latest-contribution {
-    padding-bottom: @line-height-computed;
-    @media (min-width: @screen-sm-min) {
-        width: 50%;
-        flex: 1 1 auto;
-        flex-wrap: wrap;
-        &:first-child:not(:last-child) {
-            padding-right: round(@grid-gutter-width / 2);
-        }
-        &:last-child:not(:first-child) {
-            padding-left: round(@grid-gutter-width / 2);
-        }
+  padding-bottom: @line-height-computed;
+  @media (min-width: @screen-sm-min) {
+    width: 50%;
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    &:first-child:not(:last-child) {
+      padding-right: round(@grid-gutter-width / 2);
     }
+    &:last-child:not(:first-child) {
+      padding-left: round(@grid-gutter-width / 2);
+    }
+  }
 }
 
 .latest-contribution-placeholder {
-    display: none;
-    @media (min-width: @screen-sm-min) {
-        display: block;
-    }
+  display: none;
+  @media (min-width: @screen-sm-min) {
+    display: block;
+  }
 }
 
 .latest-contribution-inner {
-    display: flex;
-    align-items: flex-start;
-    margin-top: round(@line-height-computed * 2);
+  display: flex;
+  align-items: flex-start;
+  margin-top: round(@line-height-computed * 2);
 }
 
 .latest-contribution-image {
-    position: relative;
-    height: @latest-contribution_image-size;
-    flex: 0 0 @latest-contribution_image-size;
-    margin-right: round(@grid-gutter-width / 2);
-    img {
-        position: absolute;
-        border-radius: 50%;
-    }
+  position: relative;
+  height: @latest-contribution_image-size;
+  flex: 0 0 @latest-contribution_image-size;
+  margin-right: round(@grid-gutter-width / 2);
+  img {
+    position: absolute;
+    border-radius: 50%;
+  }
 }
 
 .latest-contribution-content {
-    display: block;
-    width: calc(~'100% - '@latest-contribution_image-size - @grid-gutter-width);
+  display: block;
+  width: calc(~'100% - ' @latest-contribution_image-size - @grid-gutter-width);
 }
 
 .latest-contribution-product {
-    height: @font-size-h4 + round(@font-size-h4 / 3);
-    margin-top: 0;
-    overflow: hidden;
-    margin-bottom: round(@line-height-computed / 4);
-    line-height: @font-size-h4 + round(@font-size-h4 / 3);
-    .text-overflow();
+  height: @font-size-h4 + round(@font-size-h4 / 3);
+  margin-top: 0;
+  overflow: hidden;
+  margin-bottom: round(@line-height-computed / 4);
+  line-height: @font-size-h4 + round(@font-size-h4 / 3);
+  .text-overflow();
 }
 
 .latest-contribution-info {
-    display: flex;
-    align-items: center;
-    margin-bottom: round(@line-height-computed / 4);
-    font-size: @font-size-larger;
+  display: flex;
+  align-items: center;
+  margin-bottom: round(@line-height-computed / 4);
+  font-size: @font-size-larger;
 
-    > i {
-        padding: 0 round(@grid-gutter-width / 4);
-        font-style: normal;
+  > i {
+    padding: 0 round(@grid-gutter-width / 4);
+    font-style: normal;
+  }
+
+  :where(.ums_discussion_rating_forms--off) & {
+    // TODO: Remove this in issue #20873
+    .stars {
+      width: round(@latest-contribution_star-size * 5);
+      height: @latest-contribution_star-size;
+      margin-right: 0;
     }
-
-    :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this in issue #20873
-        .stars {
-            width: round(@latest-contribution_star-size * 5);
-            height: @latest-contribution_star-size;
-            margin-right: 0;
-        }
-        .star {
-            width: @latest-contribution_star-size;
-            height: @latest-contribution_star-size;
-            &::before {
-                font-size: round(@latest-contribution_star-size - 2);
-            }
-        }
+    .star {
+      width: @latest-contribution_star-size;
+      height: @latest-contribution_star-size;
+      &::before {
+        font-size: round(@latest-contribution_star-size - 2);
+      }
     }
+  }
 
-    @media (max-width: @screen-xs-min) {
+  @media (max-width: @screen-xs-min) {
+    display: block;
+    .stars {
+      :where(.ums_discussion_rating_forms--off) & {
+        // TODO: Remove this in issue #20873
         display: block;
-        .stars {
-            :where(.ums_discussion_rating_forms--off) & { // TODO: Remove this in issue #20873
-                display: block;
-            }
-        }
+      }
     }
+  }
 }
 
 // TODO: Remove this in issue 20873 -- START
 :where(.ums_discussion_rating_forms--on) {
-// TODO: Remove this in issue 20873 -- END
-    .latest-contribution-info {
-        @latest-contribution_star-size: 16px;
-        .stars {
-            gap: 2px;
-            height: @latest-contribution_star-size + 2;
-        }
-
-        .star::before {
-            font-size: @latest-contribution_star-size;
-            line-height: @latest-contribution_star-size;
-        }
+  // TODO: Remove this in issue 20873 -- END
+  .latest-contribution-info {
+    @latest-contribution_star-size: 16px;
+    .stars {
+      gap: 2px;
+      height: @latest-contribution_star-size + 2;
     }
-// TODO: Remove this in issue 20873 -- START
+
+    .star::before {
+      font-size: @latest-contribution_star-size;
+      line-height: @latest-contribution_star-size;
+    }
+  }
+  // TODO: Remove this in issue 20873 -- START
 }
 // TODO: Remove this in issue 20873 -- END

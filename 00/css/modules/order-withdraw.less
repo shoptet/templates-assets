@@ -1,24 +1,24 @@
 .orderWithdraw {
-    position: relative;
-    background-color: #f6f6f6;
+  position: relative;
+  background-color: #f6f6f6;
 }
 
 .orderWithdraw::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: calc(100vw - var(--scrollbar-width, 0px));
-    height: 100%;
-    background-color: #f6f6f6;
-    transform: translateX(-50%);
-    z-index: -1;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: calc(100vw - var(--scrollbar-width, 0px));
+  height: 100%;
+  background-color: #f6f6f6;
+  transform: translateX(-50%);
+  z-index: -1;
 }
 
 .container.orderWithdraw__container {
-    padding: 0;
+  padding: 0;
 }
 
 .orderWithdraw--loading {
-    min-height: 100dvh;
+  min-height: 100dvh;
 }

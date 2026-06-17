@@ -1,78 +1,78 @@
 .msg {
-    &.msg-success,
-    &.msg-notice {
-        border-color: @state-success-border;
-        color: @state-success-text;
-        background-color: @state-success-bg;
-        a {
-            color: @state-success-text;
-        }
+  &.msg-success,
+  &.msg-notice {
+    border-color: @state-success-border;
+    color: @state-success-text;
+    background-color: @state-success-bg;
+    a {
+      color: @state-success-text;
     }
-    &.msg-info {
-        border-color: @state-info-border;
-        color: @state-info-text;
-        background-color: @state-info-bg;
-        a {
-            color: @state-info-text;
-        }
+  }
+  &.msg-info {
+    border-color: @state-info-border;
+    color: @state-info-text;
+    background-color: @state-info-bg;
+    a {
+      color: @state-info-text;
     }
-    &.msg-warning {
-        border-color: @state-warning-border;
-        color: @state-warning-text;
-        background-color: @state-warning-bg;
-        a {
-            color: @state-warning-text;
-        }
+  }
+  &.msg-warning {
+    border-color: @state-warning-border;
+    color: @state-warning-text;
+    background-color: @state-warning-bg;
+    a {
+      color: @state-warning-text;
     }
-    &.msg-error {
-        border-color: @state-danger-border;
-        color: @state-danger-text;
-        background-color: @state-danger-bg;
-        a {
-            color: @state-danger-text;
-        }
+  }
+  &.msg-error {
+    border-color: @state-danger-border;
+    color: @state-danger-text;
+    background-color: @state-danger-bg;
+    a {
+      color: @state-danger-text;
     }
+  }
 }
 
 .js-validator-msg {
-    &.msg-info {
-        color: @state-info-bg;
-    }
-    :where(.ums_forms_redesign--off) & {
+  &.msg-info {
+    color: @state-info-bg;
+  }
+  :where(.ums_forms_redesign--off) & {
     // TODO: Remove this in issue #26651
     &.msg-error {
-        color: @state-danger-bg
+      color: @state-danger-bg;
     }
-    }
-    &.msg-warning {
-        color: @state-warning-bg
-    }
-}
-
-:where(.ums_forms_redesign--off) & {
-    // TODO: Remove this in issue #26651
-    .form-control.error-field,
-    .form-control.js-error-field {
-        border-color: @state-danger-bg;
-        &:focus {
-            border-color: @state-danger-bg;
-            box-shadow: 0 0 0 0.1em fade(@state-danger-bg, 25%);
-        }
-    }
-}
-
-.form-control.warning-field {
-    border-color: @state-warning-bg;
-    &:focus {
-        border-color: @state-warning-bg;
-        box-shadow: 0 0 0 0.1em fade(@state-warning-bg, 25%);
-    }
+  }
+  &.msg-warning {
+    color: @state-warning-bg;
+  }
 }
 
 :where(.ums_forms_redesign--off) & {
   // TODO: Remove this in issue #26651
-    .error-field + label,
-    .js-error-field + label {
-        border-color: @state-danger-bg;
+  .form-control.error-field,
+  .form-control.js-error-field {
+    border-color: @state-danger-bg;
+    &:focus {
+      border-color: @state-danger-bg;
+      box-shadow: 0 0 0 0.1em fade(@state-danger-bg, 25%);
     }
+  }
+}
+
+.form-control.warning-field {
+  border-color: @state-warning-bg;
+  &:focus {
+    border-color: @state-warning-bg;
+    box-shadow: 0 0 0 0.1em fade(@state-warning-bg, 25%);
+  }
+}
+
+:where(.ums_forms_redesign--off) & {
+  // TODO: Remove this in issue #26651
+  .error-field + label,
+  .js-error-field + label {
+    border-color: @state-danger-bg;
+  }
 }

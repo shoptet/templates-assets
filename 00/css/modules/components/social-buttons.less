@@ -1,50 +1,50 @@
 .social-buttons-wrapper {
-    display: flex;
-    position: relative;
-    .social-buttons {
-        position: absolute;
-        left: 0;
-        top: 0;
-        min-height: 100%;
-        min-width: 100%;
-    }
+  display: flex;
+  position: relative;
+  .social-buttons {
+    position: absolute;
+    left: 0;
+    top: 0;
+    min-height: 100%;
+    min-width: 100%;
+  }
 }
 
 .social-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  > div {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: auto;
+    padding-right: 5px;
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: flex-start;
-    > div {
-        flex-grow: 0;
-        flex-shrink: 0;
-        width: auto;
-        padding-right: 5px;
-        display: flex;
-        iframe {
-            vertical-align: middle;
-        }
-        &:last-child {
-            padding-right: 0;
-        }
-        &:nth-last-child(2) {
-            padding-right: 1em;
-        }
-        &.close-wrapper {
-            justify-self: flex-end;
-            flex-grow: 1;
-            text-align: left;
-            text-transform: uppercase;
-        }
-        &.addthis {
-            width: 100%;
-            padding-right: 0;
-        }
+    iframe {
+      vertical-align: middle;
     }
-    &.no-display {
-        display: flex !important;
-        opacity: 0;
-        z-index: @z-base-minus-1;
-        overflow: hidden;
+    &:last-child {
+      padding-right: 0;
     }
+    &:nth-last-child(2) {
+      padding-right: 1em;
+    }
+    &.close-wrapper {
+      justify-self: flex-end;
+      flex-grow: 1;
+      text-align: left;
+      text-transform: uppercase;
+    }
+    &.addthis {
+      width: 100%;
+      padding-right: 0;
+    }
+  }
+  &.no-display {
+    display: flex !important;
+    opacity: 0;
+    z-index: @z-base-minus-1;
+    overflow: hidden;
+  }
 }

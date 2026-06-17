@@ -1,124 +1,124 @@
 .flags-extra {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  .highlight-product & {
+    right: round(@grid-gutter-width * 0.75);
+  }
+  .flag {
+    width: @flag-extra-width;
+    height: @flag-extra-height;
+    margin-left: -(round(@grid-gutter-width / 5));
+    border-radius: 100%;
+    font-size: @flag-extra-font-size;
+    font-weight: 700;
     display: flex;
-    .highlight-product & {
-        right: round(@grid-gutter-width * 0.75);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    hyphens: auto;
+    word-break: break-word;
+    .price-standard,
+    .price-save {
+      font-size: @flag-extra-font-size;
     }
-    .flag {
-        width: @flag-extra-width;
-        height: @flag-extra-height;
-        margin-left: -(round(@grid-gutter-width / 5));
-        border-radius: 100%;
-        font-size: @flag-extra-font-size;
-        font-weight: 700;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        hyphens: auto;
-        word-break: break-word;
+    &.flag-freeshipping {
+      font-size: @flag-extra-font-size-smaller;
+    }
+  }
+  .p-image-wrapper & {
+    z-index: @z-mousetrap-1;
+    right: round(@grid-gutter-width / 4);
+    @media (min-width: @screen-sm-min) {
+      .flag {
+        .circle(100px, 50%);
         .price-standard,
         .price-save {
-            font-size: @flag-extra-font-size;
+          font-size: round(@flag-extra-font-size * 1.17);
         }
-        &.flag-freeshipping {
-            font-size: @flag-extra-font-size-smaller;
-        }
+      }
+      .flag-freeshipping .icon-van {
+        font-size: round(@flag-extra-font-size * 5.8);
+      }
+      .flag-text {
+        font-size: round(@flag-extra-font-size * 1.17);
+      }
     }
-    .p-image-wrapper & {
-        z-index: @z-mousetrap-1;
-        right: round(@grid-gutter-width / 4);
-        @media(min-width: @screen-sm-min) {
-            .flag {
-                .circle(100px, 50%);
-                .price-standard,
-                .price-save {
-                    font-size: round(@flag-extra-font-size * 1.17);
-                }
-            }
-            .flag-freeshipping .icon-van {
-                font-size: round(@flag-extra-font-size * 5.8);
-            }
-            .flag-text {
-                font-size: round(@flag-extra-font-size * 1.17);
-            }
-        }
+  }
+  .products-additional & {
+    @media (min-width: @screen-sm-min) and (max-width: @screen-lg-max) {
+      .flag {
+        width: @flag-extra-width-smaller;
+        height: @flag-extra-height-smaller;
+        font-size: @flag-extra-font-size-smaller;
+      }
+      .price-standard,
+      .price-save {
+        font-size: @flag-extra-font-size-smaller;
+      }
     }
-    .products-additional & {
-        @media (min-width: @screen-sm-min) and (max-width: @screen-lg-max) {
-            .flag {
-                width: @flag-extra-width-smaller;
-                height: @flag-extra-height-smaller;
-                font-size: @flag-extra-font-size-smaller;
-            }
-            .price-standard,
-            .price-save {
-                font-size: @flag-extra-font-size-smaller;
-            }
-        }
-    }
+  }
 }
 
 .flag-text {
-    font-size: @flag-extra-font-size;
-    line-height: @line-height-smaller;
-    text-transform: uppercase;
-    white-space: nowrap;
-    .products-additional & {
-        @media (min-width: @screen-sm-min) and (max-width: @screen-lg-max) {
-            font-size: @flag-extra-font-size-smaller;
-            line-height: @flag-extra-font-size-smaller;
-        }
+  font-size: @flag-extra-font-size;
+  line-height: @line-height-smaller;
+  text-transform: uppercase;
+  white-space: nowrap;
+  .products-additional & {
+    @media (min-width: @screen-sm-min) and (max-width: @screen-lg-max) {
+      font-size: @flag-extra-font-size-smaller;
+      line-height: @flag-extra-font-size-smaller;
     }
+  }
 }
 .flag-freeshipping .icon-van {
-    margin-top: -6px;
-    margin-bottom: -6px;
-    font-size: @flag-extra-icon-font-size;
-    .products-additional & {
-        @media (min-width: @screen-sm-min) and (max-width: @screen-lg-max) {
-            margin-bottom: 0;
-            font-size: @flag-extra-icon-font-size-smaller;
-        }
+  margin-top: -6px;
+  margin-bottom: -6px;
+  font-size: @flag-extra-icon-font-size;
+  .products-additional & {
+    @media (min-width: @screen-sm-min) and (max-width: @screen-lg-max) {
+      margin-bottom: 0;
+      font-size: @flag-extra-icon-font-size-smaller;
     }
+  }
 }
 .flag-gift .icon-gift {
-    font-size: 24px;
-    line-height: @flag-extra-icon-font-size;
-    margin-top: -6px;
-    margin-bottom: -6px;
-    .products-additional & {
-        @media (min-width: @screen-sm-min) and (max-width: @screen-lg-max) {
-            margin-bottom: 0;
-            font-size: 14px;
-            line-height: @flag-extra-icon-font-size-smaller;
-        }
+  font-size: 24px;
+  line-height: @flag-extra-icon-font-size;
+  margin-top: -6px;
+  margin-bottom: -6px;
+  .products-additional & {
+    @media (min-width: @screen-sm-min) and (max-width: @screen-lg-max) {
+      margin-bottom: 0;
+      font-size: 14px;
+      line-height: @flag-extra-icon-font-size-smaller;
     }
+  }
 }
 .flag-discount {
-    .price-standard {
-        display: block;
-    }
+  .price-standard {
+    display: block;
+  }
 }
 
 @media (min-width: 321px) and (max-width: @screen-xs-max) {
-    .columns-mobile-2 .products-block > div .flags-extra .flag {
-        width: auto;
-        height: auto;
-        border-radius: 0;
-        flex-direction: row;
-        margin-bottom: 0;
-        margin-right: -8px;
+  .columns-mobile-2 .products-block > div .flags-extra .flag {
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    flex-direction: row;
+    margin-bottom: 0;
+    margin-right: -8px;
 
-        .icon-van,
-        .icon-gift {
-            font-size: 14px;
-            line-height: 14px;
-            margin-right: 5px;
-            margin-left: 3px;
-        }
+    .icon-van,
+    .icon-gift {
+      font-size: 14px;
+      line-height: 14px;
+      margin-right: 5px;
+      margin-left: 3px;
     }
+  }
 }

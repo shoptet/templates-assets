@@ -1,154 +1,153 @@
 .advanced-order {
-    text-align: center;
-    .h1 {
-        margin-bottom: round(@grid-gutter-width / 2);
-        margin-top: round(@grid-gutter-width / 2);
+  text-align: center;
+  .h1 {
+    margin-bottom: round(@grid-gutter-width / 2);
+    margin-top: round(@grid-gutter-width / 2);
+  }
+  .h2 {
+    margin-bottom: round(@grid-gutter-width / 2);
+    text-transform: none;
+  }
+  .advanced-order-suggestion {
+    padding-top: @grid-gutter-width;
+    margin-top: @grid-gutter-width;
+    border-top-width: 1px;
+    border-top-style: solid;
+  }
+  .extras-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+    .extra {
+      text-align: left;
+      width: 100%;
+      margin: 0 0 round(@grid-gutter-width / 2);
+      &.step {
+        margin: round(@grid-gutter-width / 2) 0 0;
+        padding-left: 0;
+        text-align: center;
+      }
     }
-    .h2 {
-        margin-bottom: round(@grid-gutter-width / 2);
-        text-transform: none;
-    }
-    .advanced-order-suggestion {
-        padding-top: @grid-gutter-width;
-        margin-top: @grid-gutter-width;
-        border-top-width: 1px;
-        border-top-style: solid;
-    }
+  }
+  .price-range {
+    margin-bottom: 0;
+  }
+  .products-related {
+    margin-bottom: 0;
+  }
+  .p-desc {
+    display: none;
+  }
+  @media (min-width: @screen-md-min) {
     .extras-wrap {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        position: relative;
-        .extra {
-            text-align: left;
-            width: 100%;
-            margin: 0 0 round(@grid-gutter-width / 2);
-            &.step {
-                margin: round(@grid-gutter-width / 2) 0 0;
-                padding-left: 0;
-                text-align: center;
-            }
+      justify-content: center;
+      .extra {
+        width: auto;
+        margin: 0 round(@grid-gutter-width / 2) round(@grid-gutter-width / 2);
+        flex-shrink: 1;
+        &.step {
+          width: 100%;
+          margin: 0;
+          flex-shrink: 0;
         }
+      }
     }
-    .price-range {
-        margin-bottom: 0;
+    .products {
+      > div {
+        padding-bottom: 0;
+      }
     }
-    .products-related {
-        margin-bottom: 0;
-    }
-    .p-desc {
-        display: none;
-    }
-    @media(min-width: @screen-md-min) {
-        .extras-wrap {
-            justify-content: center;
-            .extra {
-                width: auto;
-                margin: 0 round(@grid-gutter-width / 2) round(@grid-gutter-width / 2);
-                flex-shrink: 1;
-                &.step {
-                    width: 100%;
-                    margin: 0;
-                    flex-shrink: 0;
-                }
-            }
+  }
+  @media (min-width: @screen-lg-min) {
+    .extras-wrap {
+      .extra {
+        margin: round(@grid-gutter-width / 2) round(@grid-gutter-width / 2) 0;
+        &.step {
+          width: auto;
+          margin: round(@grid-gutter-width / 2) round(@grid-gutter-width / 2) 0;
+          flex-shrink: 1;
         }
-        .products {
-            > div {
-                padding-bottom: 0;
-            }
-        }
+      }
     }
-    @media(min-width: @screen-lg-min) {
-        .extras-wrap {
-            .extra {
-                margin: round(@grid-gutter-width / 2) round(@grid-gutter-width / 2) 0;
-                &.step {
-                    width: auto;
-                    margin: round(@grid-gutter-width / 2) round(@grid-gutter-width / 2) 0;
-                    flex-shrink: 1;
-                }
-            }
-        }
-    }
+  }
 }
 
 .advancedOrder__buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: round(@grid-gutter-width / 4) round(@grid-gutter-width / 2);
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: round(@grid-gutter-width / 4) round(@grid-gutter-width / 2);
+  justify-content: center;
 
-    margin-top: round(@grid-gutter-width / 2);
-    margin-bottom: round(@grid-gutter-width / 2);
+  margin-top: round(@grid-gutter-width / 2);
+  margin-bottom: round(@grid-gutter-width / 2);
 
-    @media (min-width: @screen-lg-min) {
-        margin-top: round(@grid-gutter-width);
-    }
+  @media (min-width: @screen-lg-min) {
+    margin-top: round(@grid-gutter-width);
+  }
 }
 
 .ao-product {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: (@grid-gutter-width / 2);
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: (@grid-gutter-width / 2);
 }
-
 
 .ao-image,
 .ao-name,
 .ao-availability {
-    text-align: center;
+  text-align: center;
 }
 
 .ao-image,
 .ao-name {
-    flex: 1 0 100%;
-    min-width: 100%;
-    margin-bottom: (@grid-gutter-width / 2);
+  flex: 1 0 100%;
+  min-width: 100%;
+  margin-bottom: (@grid-gutter-width / 2);
 }
 
 .ao-price,
 .ao-quantity {
-    flex: 1 1 50%;
-    min-width: 50%;
+  flex: 1 1 50%;
+  min-width: 50%;
 }
 
 .ao-price {
-    text-align: left;
+  text-align: left;
 }
 .ao-quantity {
-    text-align: right;
+  text-align: right;
 }
 
 @media (min-width: @screen-sm-min) {
-    .ao-image,
-    .ao-name,
-    .ao-availability {
-        margin-bottom: 0;
-        text-align: left;
+  .ao-image,
+  .ao-name,
+  .ao-availability {
+    margin-bottom: 0;
+    text-align: left;
+  }
+  .ao-image {
+    flex-basis: 20%;
+    min-width: 20%;
+    img {
+      width: auto;
+      max-height: 100px;
     }
-    .ao-image {
-        flex-basis: 20%;
-        min-width: 20%;
-        img {
-            width: auto;
-            max-height: 100px;
-        }
-    }
-    .ao-name {
-        flex-basis: 40%;
-        min-width: 40%;
-    }
-    .ao-price {
-        flex-basis: 20%;
-        min-width: 20%;
-        text-align: right;
-    }
-    .ao-quantity {
-        flex-basis: 20%;
-        min-width: 20%;
-        padding-left: round(@grid-gutter-width / 2);
-    }
+  }
+  .ao-name {
+    flex-basis: 40%;
+    min-width: 40%;
+  }
+  .ao-price {
+    flex-basis: 20%;
+    min-width: 20%;
+    text-align: right;
+  }
+  .ao-quantity {
+    flex-basis: 20%;
+    min-width: 20%;
+    padding-left: round(@grid-gutter-width / 2);
+  }
 }

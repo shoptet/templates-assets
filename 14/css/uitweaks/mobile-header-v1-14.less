@@ -1,54 +1,54 @@
-@import "../../../00/css/uitweaks/shared-imports";
-@import "../modules/layout-variables";
-@import "../theme_modules/theme-variables";
-@import "../../../00/css/uitweaks/mobile-header-v1-common";
+@import '../../../00/css/uitweaks/shared-imports';
+@import '../modules/layout-variables';
+@import '../theme_modules/theme-variables';
+@import '../../../00/css/uitweaks/mobile-header-v1-common';
 
 .overall-wrapper {
-    @media (max-width: @navigation-breakpoint-max) {
-        padding-top: 60px;
-    }
+  @media (max-width: @navigation-breakpoint-max) {
+    padding-top: 60px;
+  }
 }
 
 #header {
-    @media (max-width: @navigation-breakpoint-max) {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: @z-popup;
-        transition: transform @transition-duration / 2;
-        .scrolled-down & {
-            transform: translateY(-100%);
-        }
-
-        .header-top .header-top-wrapper:has(.text-logo) {
-            .site-name {
-                max-width: ~"min(calc(100% - 155px), 400px)";
-            }
-
-            .navigation-buttons {
-                max-width: 155px;
-            }
-        }
+  @media (max-width: @navigation-breakpoint-max) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: @z-popup;
+    transition: transform @transition-duration / 2;
+    .scrolled-down & {
+      transform: translateY(-100%);
     }
+
+    .header-top .header-top-wrapper:has(.text-logo) {
+      .site-name {
+        max-width: ~'min(calc(100% - 155px), 400px)';
+      }
+
+      .navigation-buttons {
+        max-width: 155px;
+      }
+    }
+  }
 }
 
 .site-msg.information {
-    @media (max-width: @navigation-breakpoint-max) {
-        position: fixed;
-        transition: top @transition-duration / 2;
-        top: 60px;
-        .scrolled-down & {
-            top: 0;
-        }
+  @media (max-width: @navigation-breakpoint-max) {
+    position: fixed;
+    transition: top @transition-duration / 2;
+    top: 60px;
+    .scrolled-down & {
+      top: 0;
     }
+  }
 }
 
 .top-nav-button-login,
 a.top-nav-button-account {
-    display: none;
+  display: none;
 
-    @media (min-width: @screen-sm-min) {
-        display: flex;
-    }
+  @media (min-width: @screen-sm-min) {
+    display: flex;
+  }
 }

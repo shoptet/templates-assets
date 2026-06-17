@@ -1,45 +1,45 @@
-:where(.ums_forms_redesign--off) & { // TODO: Remove this file in issue #26651
+:where(.ums_forms_redesign--off) & {
+  // TODO: Remove this file in issue #26651
 
-    .form-group {
+  .form-group {
     label {
-        display: block;
-        margin-bottom: 5px;
+      display: block;
+      margin-bottom: 5px;
     }
     > input,
     > select {
+      &.form-control {
+        max-width: none;
+      }
+    }
+    @media (min-width: @screen-xs-min) {
+      .clearfixMixin();
+      label {
+        float: left;
+        width: @form-group-label-width;
+        margin-bottom: 0;
+        padding-right: round(@grid-gutter-width / 2);
+        &.confirmation,
+        &.whole-width {
+          width: 100%;
+        }
+      }
+      > input,
+      > select {
         &.form-control {
-            max-width: none;
+          width: @select-width;
+          &.short {
+            width: @form-control-short-width;
+          }
         }
+      }
     }
-    @media (min-width: @screen-xs-min) {
-        .clearfixMixin();
-        label {
-            float: left;
-            width: @form-group-label-width;
-            margin-bottom: 0;
-            padding-right: round(@grid-gutter-width / 2);
-            &.confirmation,
-            &.whole-width {
-                width: 100%;
-            }
-        }
-        > input,
-        > select {
-            &.form-control {
-                width: @select-width;
-                &.short {
-                    width: @form-control-short-width;
-                }
-            }
-        }
-    }
-}
+  }
 
-.form-group-tooltip {
+  .form-group-tooltip {
     @media (min-width: @screen-xs-min) {
-        left: calc(@form-group-label-width + @select-width - @form-group-tooltip-position-left);
-        top: calc(@form-control-height / 2);
+      left: calc(@form-group-label-width + @select-width - @form-group-tooltip-position-left);
+      top: calc(@form-control-height / 2);
     }
-}
-
+  }
 }

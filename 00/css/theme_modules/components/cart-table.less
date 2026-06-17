@@ -1,52 +1,52 @@
 .cart-table {
-    border-color: @border-color;
-    tr {
-        td {
-            border-right-color: @cart-table-td-border-right-color;
-            border-top-color: @cart-table-td-border-bottom-color;
-            background-color: @cart-table-td-bg-color;
-            &.cart-p-image {
-                background-color: @content-box-bg;
-            }
-            &.p-name {
-                a {
-                    color: @text-color;
-                    &:hover {
-                        color: @link-color;
-                    }
-                }
-            }
+  border-color: @border-color;
+  tr {
+    td {
+      border-right-color: @cart-table-td-border-right-color;
+      border-top-color: @cart-table-td-border-bottom-color;
+      background-color: @cart-table-td-bg-color;
+      &.cart-p-image {
+        background-color: @content-box-bg;
+      }
+      &.p-name {
+        a {
+          color: @text-color;
+          &:hover {
+            color: @link-color;
+          }
         }
-        &.related {
-            td {
-                background-color: @content-box-bg;
-            }
-        }
+      }
     }
+    &.related {
+      td {
+        background-color: @content-box-bg;
+      }
+    }
+  }
 }
 
 a.cart-related-name {
-    color: @text-color;
-    &:hover {
-        color: @link-color;
-    }
+  color: @text-color;
+  &:hover {
+    color: @link-color;
+  }
 }
 
 .cart-related-product {
-    border-color: @border-color;
+  border-color: @border-color;
 }
 
 .unit-value {
-    color: @text-muted-color;
+  color: @text-muted-color;
 }
 
 .remove-item {
+  &::before {
+    color: @text-color;
+  }
+  &:hover {
     &::before {
-        color: @text-color;
+      color: var(--colors-state-danger, #d63500);
     }
-    &:hover {
-        &::before {
-            color: var(--colors-state-danger, #d63500);
-        }
-    }
+  }
 }

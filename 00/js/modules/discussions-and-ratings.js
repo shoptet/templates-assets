@@ -1,8 +1,8 @@
-(function(shoptet) {
-  document.addEventListener('DOMContentLoaded', function() {
-        var $html = $('html');
+(function (shoptet) {
+  document.addEventListener('DOMContentLoaded', function () {
+    var $html = $('html');
 
-    $html.on('click', '.js-discussion-container .add-comment', function() {
+    $html.on('click', '.js-discussion-container .add-comment', function () {
       $('.js-discussion-container .add-comment').show();
       $(this).hide();
       const $discussionForm = $('.discussion-form');
@@ -11,17 +11,18 @@
 
       $discussionForm[0].querySelectorAll('.js-validate-required').forEach(el => {
         shoptet.validator.removeErrorMessage(el, shoptet.validatorRequired.messageType);
-      })
+      });
 
       $('.discussion-form input[name="parentId"]').remove();
-      if($(this).attr('data-id')) {
-          $('<input name="parentId" value="' + $(this).data('id') + '" type="hidden">')
-              .insertAfter('.discussion-form input[name="discussionEntityId"]');
+      if ($(this).attr('data-id')) {
+        $('<input name="parentId" value="' + $(this).data('id') + '" type="hidden">').insertAfter(
+          '.discussion-form input[name="discussionEntityId"]'
+        );
       }
     });
 
     const loadingAnnouncer = shoptet.screenReader.createLoadingAnnouncer();
-    $html.on('click', '.js-loadMore__button--discussions, .js-loadMore__button--ratings', function(e) {
+    $html.on('click', '.js-loadMore__button--discussions, .js-loadMore__button--ratings', function (e) {
       e.preventDefault();
 
       const $clickedEl = $(this);
@@ -74,26 +75,26 @@
       $.ajax({
         type: 'POST',
         url: `/action/${controller}/${action}?id=${entityId}&offset=${offset}`,
-        headers: {'X-Shoptet-XHR': 'Shoptet_Coo7ai'},
+        headers: { 'X-Shoptet-XHR': 'Shoptet_Coo7ai' },
         dataType: 'html',
-        success: (function (payload) {
+        success: function (payload) {
           const requestedDocument = shoptet.common.createDocumentFromString(payload);
           const $newListing = $(requestedDocument).find(itemSelector);
           const $newListingControls = $(requestedDocument).find(listingControlsSelector);
 
-            if ($newListing?.length > 0) {
-              $listingWrapper.append($newListing);
-              shoptet.animations.fadeIn($newListing);
-              if ($newListingControls) {
-                $listingWrapper.after($newListingControls);
-              }
-              loadingAnnouncer.end();
-              hideSpinner();
-              shoptet.focusManagement.focusFirst($newListing[0]);
+          if ($newListing?.length > 0) {
+            $listingWrapper.append($newListing);
+            shoptet.animations.fadeIn($newListing);
+            if ($newListingControls) {
+              $listingWrapper.after($newListingControls);
             }
-            shoptet.scripts.signalDomLoad(signalDomLoadName, $listingWrapper[0]);
-          })
+            loadingAnnouncer.end();
+            hideSpinner();
+            shoptet.focusManagement.focusFirst($newListing[0]);
+          }
+          shoptet.scripts.signalDomLoad(signalDomLoadName, $listingWrapper[0]);
+        },
       });
-    })
+    });
   });
 })(shoptet);

@@ -1,49 +1,48 @@
 .overlay.visible,
 .loader-overlay {
-    left: 0;
-    top: 0;
-    display: block;
-    .square(100%);
+  left: 0;
+  top: 0;
+  display: block;
+  .square(100%);
 }
 
 .overlay.visible {
-    position: fixed;
-    z-index: @z-navigation-2;
+  position: fixed;
+  z-index: @z-navigation-2;
 }
 
 .loader-overlay {
-    position: absolute;
-    z-index: @z-base;
+  position: absolute;
+  z-index: @z-base;
 }
 
 body {
-    &.user-action-visible,
-    &.msg-visible,
-    &.spinner-visible {
-        .overlay {
-            position: fixed;
-            left: 0;
-            top: 0;
-            display: block;
-            .square(100%);
-            opacity: 1;
-            -webkit-overflow-scrolling: touch;
-            .transition(opacity @transition-duration @transition-timing);
-            &.invisible {
-                opacity: 0;
-            }
-        }
-
+  &.user-action-visible,
+  &.msg-visible,
+  &.spinner-visible {
+    .overlay {
+      position: fixed;
+      left: 0;
+      top: 0;
+      display: block;
+      .square(100%);
+      opacity: 1;
+      -webkit-overflow-scrolling: touch;
+      .transition(opacity @transition-duration @transition-timing);
+      &.invisible {
+        opacity: 0;
+      }
     }
-    &.user-action-visible,
-    &.msg-visible {
-        .overlay {
-            z-index: @z-base;
-        }
+  }
+  &.user-action-visible,
+  &.msg-visible {
+    .overlay {
+      z-index: @z-base;
     }
-    &.spinner-visible {
-        .overlay {
-            z-index: @z-navigation-2;
-        }
+  }
+  &.spinner-visible {
+    .overlay {
+      z-index: @z-navigation-2;
     }
+  }
 }

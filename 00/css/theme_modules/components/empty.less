@@ -1,17 +1,17 @@
 .empty-content {
+  font-family: @template-headings-font, sans-serif;
+  .blank-mode & {
     font-family: @template-headings-font, sans-serif;
-    .blank-mode & {
-        font-family: @template-headings-font, sans-serif;
+  }
+  h1 {
+    color: @color-primary;
+  }
+  h2 {
+    &::after {
+      color: @border-color;
     }
-    h1 {
-        color: @color-primary;
-    }
-    h2 {
-        &::after {
-            color: @border-color;
-        }
-    }
-    p {
-        color: @text-muted-color;
-    }
+  }
+  p {
+    color: @text-muted-color;
+  }
 }

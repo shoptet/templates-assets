@@ -1,58 +1,58 @@
-input[type="checkbox"],
-input[type="radio"] {
-    .radio-wrapper & {
-        & + label {
-            &::before {
-                border-color: color-mix(in srgb, @input-border, #000 17%);
-            }
-            &::after {
-                background-color: color-mix(in srgb, @input-border, #000 17%);
-            }
-        }
-        &:disabled {
-            & + label {
-                &::before {
-                    border-color: @input-border;
-                }
-            }
-        }
-        &:checked {
-            & + label {
-                &::before {
-                    border-color: @color-primary;
-                }
-                &::after {
-                    border-color: @content-box-bg;
-                    background-color: @color-primary;
-                }
-            }
-        }
+input[type='checkbox'],
+input[type='radio'] {
+  .radio-wrapper & {
+    & + label {
+      &::before {
+        border-color: color-mix(in srgb, @input-border, #000 17%);
+      }
+      &::after {
+        background-color: color-mix(in srgb, @input-border, #000 17%);
+      }
     }
+    &:disabled {
+      & + label {
+        &::before {
+          border-color: @input-border;
+        }
+      }
+    }
+    &:checked {
+      & + label {
+        &::before {
+          border-color: @color-primary;
+        }
+        &::after {
+          border-color: @content-box-bg;
+          background-color: @color-primary;
+        }
+      }
+    }
+  }
 }
 
 .radio-wrapper {
-    border-color: @radio-wrapper-border;
-    background-color: @radio-wrapper-bg;
-    input[type="radio"]:checked + label > span b {
-        color: @color-primary;
+  border-color: @radio-wrapper-border;
+  background-color: @radio-wrapper-bg;
+  input[type='radio']:checked + label > span b {
+    color: @color-primary;
+  }
+  &.apple-pay,
+  &[data-submethod='applepay'] {
+    html:not(.apple-pay-available) & {
+      display: none;
     }
-    &.apple-pay,
-    &[data-submethod="applepay"] {
-        html:not(.apple-pay-available) & {
-            display: none;
-        }
-    }
+  }
 }
 
 .for-free {
-    color: @color-for-free;
-    .radio-wrapper.active & {
-        color: @color-primary;
-    }
+  color: @color-for-free;
+  .radio-wrapper.active & {
+    color: @color-primary;
+  }
 }
 
 .cart-hide-unselected-options .radio-wrapper {
-    &.selected-option {
-        border-bottom-color: transparent;
-    }
+  &.selected-option {
+    border-bottom-color: transparent;
+  }
 }

@@ -3,140 +3,139 @@
 @radio-after-px: 10px - (@checkbox-outer-width / 2) + round((@checkbox-outer-width - @checkbox-inner-width) / 2);
 
 .radio-wrapper {
-    container-type: inline-size;
-    padding-right: round(@grid-gutter-width / 4);
-    padding-left: round(@grid-gutter-width / 4);
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
+  container-type: inline-size;
+  padding-right: round(@grid-gutter-width / 4);
+  padding-left: round(@grid-gutter-width / 4);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
 
-    &:last-child {
-        border-bottom-style: none;
+  &:last-child {
+    border-bottom-style: none;
+  }
+
+  input[type='radio'] + label {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 10px;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    width: 100%;
+    padding-top: round(@grid-gutter-width / 4);
+    padding-bottom: round(@grid-gutter-width / 4);
+
+    line-height: @payment-shipping-line-height;
+
+    &::before {
+      top: calc(@radio-em + @radio-before-px);
+      transform: translateY(0);
     }
 
-    input[type="radio"] + label {
-
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px 10px;
-        align-items: flex-start;
-        justify-content: space-between;
-
-        width: 100%;
-        padding-top: round(@grid-gutter-width / 4);
-        padding-bottom: round(@grid-gutter-width / 4);
-
-        line-height: @payment-shipping-line-height;
-
-        &::before {
-            top: calc(@radio-em + @radio-before-px);
-            transform: translateY(0);
-        }
-
-        &::after {
-            top: calc(@radio-em + @radio-after-px);
-            transform: translateY(0);
-        }
-
-        .sublabel {
-            display: block;
-            font-size: smaller;
-        }
+    &::after {
+      top: calc(@radio-em + @radio-after-px);
+      transform: translateY(0);
     }
+
+    .sublabel {
+      display: block;
+      font-size: smaller;
+    }
+  }
 }
 
 @payment-info-narrow-px: ~'10px - ' @payment-shipping-price-width;
 @payment-info-wide-px: ~'100px - ' @payment-shipping-price-width;
 
 .payment-info {
-    flex: 1 1 auto;
-    max-width: calc(100% - @payment-info-narrow-px);
+  flex: 1 1 auto;
+  max-width: calc(100% - @payment-info-narrow-px);
 
+  b {
+    text-transform: @payment-shipping-case;
+  }
+
+  &:has(.question-tooltip) {
     b {
-        text-transform: @payment-shipping-case;
+      padding-right: round(@grid-gutter-width / 4);
     }
-
-    &:has(.question-tooltip) {
-        b {
-            padding-right: round(@grid-gutter-width / 4);
-        }
-    }
+  }
 }
 
 @container (width > 27em) {
-    .payment-info {
-        flex-basis: calc(100% - @payment-info-wide-px);
-    }
+  .payment-info {
+    flex-basis: calc(100% - @payment-info-wide-px);
+  }
 }
 
 .payment-logo {
-    flex: 0 0 100%;
-    order: 1;
-    text-align: left;
+  flex: 0 0 100%;
+  order: 1;
+  text-align: left;
 
-    img {
-        max-width: 80px;
-        max-height: 40px;
-    }
+  img {
+    max-width: 80px;
+    max-height: 40px;
+  }
 }
 
 @container (width > 27em) {
-    .payment-logo {
-        flex-basis: 80px;
-        order: unset;
-        text-align: right;
-    }
+  .payment-logo {
+    flex-basis: 80px;
+    order: unset;
+    text-align: right;
+  }
 }
 
 .payment-shipping-price {
-    flex: 1 0 @payment-shipping-price-width;
-    text-align: right;
+  flex: 1 0 @payment-shipping-price-width;
+  text-align: right;
 }
 
 .not-possible-info {
-    display: none;
-    .inactive & {
-        display: inherit;
-    }
+  display: none;
+  .inactive & {
+    display: inherit;
+  }
 }
 
 #payu_ .table-payu {
-    border: 0 !important;
-    width: 100% !important;
-    max-width: 100%;
-    padding: 0 !important;
-    margin: 0 !important;
-    background: none !important;
+  border: 0 !important;
+  width: 100% !important;
+  max-width: 100%;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: none !important;
 }
 
-#payu_ input[type="radio"] {
-    visibility: hidden;
-    display: inline;
-    .appearance(auto);
+#payu_ input[type='radio'] {
+  visibility: hidden;
+  display: inline;
+  .appearance(auto);
 }
 
 .cart-toggle-unselected-options {
-    padding: round(@grid-gutter-width / 3);
-    cursor: pointer;
-    text-decoration: underline;
-    &::after {
-        &:extend(.shp-icon);
-        content: @icon-chevron-down-code;
-        margin-left: .5em;
-    }
-    &:hover {
-        text-decoration: none;
-    }
+  padding: round(@grid-gutter-width / 3);
+  cursor: pointer;
+  text-decoration: underline;
+  &::after {
+    &:extend(.shp-icon);
+    content: @icon-chevron-down-code;
+    margin-left: 0.5em;
+  }
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .cart-hide-unselected-options .radio-wrapper {
-    max-height: 500px;
-    overflow: hidden;
-    .transition(all .2s ease);
-    &.unselected-option {
-        max-height: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-        border-bottom-width: 0;
-        border-top-width: 0;
-    }
+  max-height: 500px;
+  overflow: hidden;
+  .transition(all 0.2s ease);
+  &.unselected-option {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom-width: 0;
+    border-top-width: 0;
+  }
 }

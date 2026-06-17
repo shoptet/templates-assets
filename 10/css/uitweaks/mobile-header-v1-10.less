@@ -1,69 +1,71 @@
-@import "../../../00/css/uitweaks/shared-imports";
-@import "../modules/layout-variables";
-@import "../theme_modules/theme-variables";
-@import "../../../00/css/uitweaks/mobile-header-v1-common";
+@import '../../../00/css/uitweaks/shared-imports';
+@import '../modules/layout-variables';
+@import '../theme_modules/theme-variables';
+@import '../../../00/css/uitweaks/mobile-header-v1-common';
 
 .navigation-buttons {
-    > a {
-        .size(42px, 55px);
-    }
+  > a {
+    .size(42px, 55px);
+  }
 }
 
 #header {
+  z-index: @z-pupup-minus-1;
+  .container {
     z-index: @z-pupup-minus-1;
-    .container {
-        z-index: @z-pupup-minus-1;
-    }
+  }
 
-    .site-name:has(.text-logo) {
-        max-width: clamp(115px, calc(100% - 140px), 400px);
-    }
+  .site-name:has(.text-logo) {
+    max-width: clamp(115px, calc(100% - 140px), 400px);
+  }
 }
 
 .header-navigation {
-    z-index: @z-pupup-minus-1;
+  z-index: @z-pupup-minus-1;
 }
 
 .top-nav-button-login {
-    @media (max-width: @navigation-breakpoint-max) {
-        display: none;
-    }
+  @media (max-width: @navigation-breakpoint-max) {
+    display: none;
+  }
 }
 
 .popup-widget {
-    @media (max-width: @navigation-breakpoint-max) {
-        &.cart-widget,
-        &.search-widget,
-        &.login-widget {
-            top: @header-height-xs;
-        }
+  @media (max-width: @navigation-breakpoint-max) {
+    &.cart-widget,
+    &.search-widget,
+    &.login-widget {
+      top: @header-height-xs;
     }
+  }
 }
 
 .navigation-in {
-    @media (max-width: @navigation-breakpoint-max) {
-        ul {
-            &.menu-level-2 {
-                > li {
-                    > a {
-                        &::before {
-                            content: none;
-                        }
-                    }
-                }
-                li {
-                    a {
-                        padding-left: round(@navigation-submenu-link-padding-horizontal * 1.5);
-                    }
-                }
-                &.navigationActions__submenu {
-                    li {
-                        a {
-                            padding-left: round(@navigation-submenu-link-padding-horizontal * 1.5 - @navigation-link-padding-horizontal-small);
-                        }
-                    }
-                }
+  @media (max-width: @navigation-breakpoint-max) {
+    ul {
+      &.menu-level-2 {
+        > li {
+          > a {
+            &::before {
+              content: none;
             }
+          }
         }
+        li {
+          a {
+            padding-left: round(@navigation-submenu-link-padding-horizontal * 1.5);
+          }
+        }
+        &.navigationActions__submenu {
+          li {
+            a {
+              padding-left: round(
+                @navigation-submenu-link-padding-horizontal * 1.5 - @navigation-link-padding-horizontal-small
+              );
+            }
+          }
+        }
+      }
     }
+  }
 }

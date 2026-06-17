@@ -1,48 +1,49 @@
 .compact-form {
-    position: relative;
-    :where(.ums_forms_redesign--on) & { // TODO: Remove this wrapper in issue #26651
-        display: flex;
-        fieldset {
-            display: contents;
-        }
-        .form-control {
-            border-right-style: none;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-        button {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-            border-top-right-radius: var(--form-controls-border-radius);
-            border-bottom-right-radius: var(--form-controls-border-radius);
-        }
+  position: relative;
+  :where(.ums_forms_redesign--on) & {
+    // TODO: Remove this wrapper in issue #26651
+    display: flex;
+    fieldset {
+      display: contents;
     }
-    :where(.ums_forms_redesign--off) & { // TODO: Remove this in issue #26651
     .form-control {
-        padding-right: @compact-form-input-padding;
-        &.lg {
-            padding-right: @compact-form-input-padding-lg;
-        }
+      border-right-style: none;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: var(--form-controls-border-radius);
+      border-bottom-right-radius: var(--form-controls-border-radius);
+    }
+  }
+  :where(.ums_forms_redesign--off) & {
+    // TODO: Remove this in issue #26651
+    .form-control {
+      padding-right: @compact-form-input-padding;
+      &.lg {
+        padding-right: @compact-form-input-padding-lg;
+      }
     }
     .btn {
-        position: absolute;
-        right: 0;
-        top: 0;
-        padding: @compact-form-button-padding;
-        border-radius: @compact-form-button-border-radius;
-        height: @compact-form-button-height;
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: @compact-form-button-padding;
+      border-radius: @compact-form-button-border-radius;
+      height: @compact-form-button-height;
+      &::before {
+        margin-right: 0;
+      }
+      &.btn-lg {
+        padding: @compact-form-button-padding-lg;
+        border-radius: @compact-form-button-border-radius-lg;
+        height: @compact-form-button-height-lg;
         &::before {
-            margin-right: 0;
+          font-size: 36px;
         }
-        &.btn-lg {
-            padding: @compact-form-button-padding-lg;
-            border-radius: @compact-form-button-border-radius-lg;
-            height: @compact-form-button-height-lg;
-            &::before {
-                font-size: 36px;
-            }
-        }
+      }
     }
-
-    }
+  }
 }

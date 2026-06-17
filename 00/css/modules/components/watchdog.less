@@ -1,66 +1,68 @@
 .watchdog-form {
-    .watchdog-data {
-        margin-bottom: var(--form-groups-margin);
-    }
-    div.disclaimer {
-        margin-top: var(--form-groups-gap);
-    }
-    span.disclaimer {
-        margin-left: var(--form-groups-gap);
-    }
+  .watchdog-data {
+    margin-bottom: var(--form-groups-margin);
+  }
+  div.disclaimer {
+    margin-top: var(--form-groups-gap);
+  }
+  span.disclaimer {
+    margin-left: var(--form-groups-gap);
+  }
 }
 
 .watchdog-row {
-    :where(.ums_forms_redesign--off) & { // TODO: Remove this in issue #26651
+  :where(.ums_forms_redesign--off) & {
+    // TODO: Remove this in issue #26651
     margin: 0 0 1em;
     min-height: @form-control-height;
     display: flex;
     align-items: center;
     #priceUnder {
-        margin-right: 15px;
-        width: 20%;
+      margin-right: 15px;
+      width: 20%;
     }
     .notificationEmail,
     select {
-        width: 60%;
-        margin-left: 15px;
+      width: 60%;
+      margin-left: 15px;
     }
     .disclaimer {
-        opacity: 0.8;
-        font-style: italic;
+      opacity: 0.8;
+      font-style: italic;
     }
     #watchdog-reset {
-        display: none;
+      display: none;
     }
-    }
+  }
 }
 
 .watchdog-messages {
+  width: 100%;
+  .msg {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    .msg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 5;
-        padding: 10px 0;
-        .container {
-            width: 100%;
-        }
-        .cancel-action {
-            float: right;
-            font-weight: bold;
-        }
+    z-index: 5;
+    padding: 10px 0;
+    .container {
+      width: 100%;
     }
+    .cancel-action {
+      float: right;
+      font-weight: bold;
+    }
+  }
 }
 
 .watchdog-action-buttons {
-    :where(.ums_forms_redesign--off) & { // TODO: Remove this in issue #26651
+  :where(.ums_forms_redesign--off) & {
+    // TODO: Remove this in issue #26651
     display: flex;
     flex-wrap: wrap;
     .clearfixMixin();
     .btn-primary {
-        margin-left: auto;
+      margin-left: auto;
     }
-    }
+  }
 }

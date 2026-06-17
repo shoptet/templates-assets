@@ -1,58 +1,58 @@
 .breadcrumbs {
-    display: none;
+  display: none;
+  > span {
+    > a {
+      &::after {
+        &:extend(.shp-icon);
+      }
+    }
+  }
+  @media (min-width: @screen-md-min) {
+    display: flex;
+    font-size: 90%;
     > span {
-        > a {
-            &::after {
-                &:extend(.shp-icon);
-            }
+      align-self: center;
+      > a,
+      > span {
+        padding: round(@line-height-computed / 2) 0 round(@line-height-computed / 2) round(@grid-gutter-width / 2);
+        display: block;
+      }
+      > a {
+        position: relative;
+        min-height: round(@line-height-computed * 2);
+        &::after {
+          content: @icon-arrow-right-code;
+          font-size: 12px;
+          color: var(--colors-foregrounds-content-secondary);
+          padding: round(@line-height-computed / 2) 0 round(@line-height-computed / 2) round(@grid-gutter-width / 2);
         }
-    }
-    @media (min-width: @screen-md-min) {
-        display: flex;
-        font-size: 90%;
-        > span {
-            align-self: center;
-            > a,
-            > span {
-                padding: round(@line-height-computed / 2) 0 round(@line-height-computed / 2) round(@grid-gutter-width / 2);
-                display: block;
-            }
-            > a {
-                position: relative;
-                min-height: round(@line-height-computed * 2);
-                &::after {
-                    content: @icon-arrow-right-code;
-                    font-size: 12px;
-                    color: var(--colors-foregrounds-content-secondary);
-                    padding: round(@line-height-computed / 2) 0 round(@line-height-computed / 2) round(@grid-gutter-width / 2);
-                }
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
+        &:hover {
+          text-decoration: underline;
         }
+      }
     }
+  }
 }
 
 .breadcrumbs .navigation-bullet {
-    display: none;
+  display: none;
 }
 
 .navigation-home-icon-wrapper {
-    position: relative;
-    &::before {
-        &:extend(.shp-icon);
-        content: @icon-home-code;
-        position: absolute;
-        left: round(@grid-gutter-width / 2);
-        top: 50%;
-        margin-top: -(round(@line-height-computed / 2));
-        font-size: round(@line-height-computed / 2) ;
-        line-height: @line-height-computed;
+  position: relative;
+  &::before {
+    &:extend(.shp-icon);
+    content: @icon-home-code;
+    position: absolute;
+    left: round(@grid-gutter-width / 2);
+    top: 50%;
+    margin-top: -(round(@line-height-computed / 2));
+    font-size: round(@line-height-computed / 2);
+    line-height: @line-height-computed;
+  }
+  #navigation-first {
+    a {
+      padding-left: @grid-gutter-width;
     }
-    #navigation-first {
-        a {
-            padding-left: @grid-gutter-width;
-        }
-    }
+  }
 }

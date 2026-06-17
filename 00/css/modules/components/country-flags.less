@@ -7,111 +7,111 @@
 @country-flags-inner-border-width: 1px;
 
 .country-flags {
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: @country-flag-item-height;
-    cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: @country-flag-item-height;
+  cursor: pointer;
 }
 
 .country-flags-inner {
-    position: relative;
-    border-style: solid;
-    border-width: @country-flags-inner-border-width;
-    .country-flags.active & {
-        position: absolute;
-        top: -@country-flags-inner-border-width;
-        left: -@country-flags-inner-padding-base;
-        z-index: @z-higher-base;
-        width: @country-elements-width;
-        height: @country-elements-height;
-        padding: @country-flag-item-height @country-flags-inner-padding-base @country-flags-inner-padding-base;
-        overflow: auto;
-    }
-    .country-flags.active.turned & {
-        bottom: 0;
-        top: auto;
-    }
+  position: relative;
+  border-style: solid;
+  border-width: @country-flags-inner-border-width;
+  .country-flags.active & {
+    position: absolute;
+    top: -@country-flags-inner-border-width;
+    left: -@country-flags-inner-padding-base;
+    z-index: @z-higher-base;
+    width: @country-elements-width;
+    height: @country-elements-height;
+    padding: @country-flag-item-height @country-flags-inner-padding-base @country-flags-inner-padding-base;
+    overflow: auto;
+  }
+  .country-flags.active.turned & {
+    bottom: 0;
+    top: auto;
+  }
 }
 
 .country-flag {
-    display: none;
-    align-items: center;
-    height: @country-flag-item-height;
-    &.selected,
-    .country-flags.active & {
-        display: flex;
-        margin-left: -@country-flags-inner-padding-base;
-        padding-left: @country-flags-inner-padding-base;
-        padding-right: @country-flags-inner-padding-base;
-        .transition(all @transition-duration @transition-timing);
-    }
-    .country-flags.active &.selected {
-        display: flex;
-        position: absolute;
-        left: @country-flags-inner-padding-base;
-        right: @country-flags-inner-padding-base;
-        top: 0;
-        border-bottom-style: solid;
-        border-bottom-width: 1px;
-    }
-    .country-flags.active &.country-flag-preferred-last {
-        border-bottom-style: solid;
-        border-bottom-width: 1px;
-    }
+  display: none;
+  align-items: center;
+  height: @country-flag-item-height;
+  &.selected,
+  .country-flags.active & {
+    display: flex;
+    margin-left: -@country-flags-inner-padding-base;
+    padding-left: @country-flags-inner-padding-base;
+    padding-right: @country-flags-inner-padding-base;
+    .transition(all @transition-duration @transition-timing);
+  }
+  .country-flags.active &.selected {
+    display: flex;
+    position: absolute;
+    left: @country-flags-inner-padding-base;
+    right: @country-flags-inner-padding-base;
+    top: 0;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+  }
+  .country-flags.active &.country-flag-preferred-last {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+  }
 }
 
 .shp-flag-name {
-    display: none;
-    padding-right: @country-flags-inner-padding-base;
-    .country-flags.active & {
-        display: inline-block;
-    }
+  display: none;
+  padding-right: @country-flags-inner-padding-base;
+  .country-flags.active & {
+    display: inline-block;
+  }
 }
 
 .shp-flag,
 .shp-flag-label {
-    flex-grow: 0;
-    flex-shrink: 0;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 .shp-flag {
-    width: @country-flag-width;
-    height: @country-flag-height;
+  width: @country-flag-width;
+  height: @country-flag-height;
 }
 
 .shp-flag-label {
-    display: flex;
-    position: relative;
+  display: flex;
+  position: relative;
+  width: calc(100% - @country-flag-width);
+  padding-left: 16px;
+  padding-right: 3px;
+  justify-self: flex-end;
+  :where(.ums_forms_redesign--off) & {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  :where(.ums_forms_redesign--on) & {
+    font-size: var(--form-controls-font-size);
+    line-height: var(--form-controls-line-height);
+  }
+  text-align: right;
+  &::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    width: 0;
+    height: 0;
+    margin-top: -3px;
+    border-width: 6px;
+    border-style: solid;
+  }
+  .country-flags.active & {
     width: calc(100% - @country-flag-width);
-    padding-left: 16px;
-    padding-right: 3px;
-    justify-self: flex-end;
-    :where(.ums_forms_redesign--off) & {
-        font-size: 14px;
-        line-height: 18px;
-    }
-    :where(.ums_forms_redesign--on) & {
-        font-size:  var(--form-controls-font-size);
-        line-height: var(--form-controls-line-height);
-    }
-    text-align: right;
+    text-align: left;
     &::before {
-        content: '';
-        position: absolute;
-        left: 3px;
-        top: 50%;
-        width: 0;
-        height: 0;
-        margin-top: -3px;
-        border-width: 6px;
-        border-style: solid;
+      display: none;
     }
-    .country-flags.active & {
-        width: calc(100% - @country-flag-width);
-        text-align: left;
-        &::before {
-            display: none;
-        }
-    }
+  }
 }
