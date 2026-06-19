@@ -21,6 +21,7 @@ import '../../shared/js/libs/helpers';
 import '../../shared/js/libs/images';
 import '../../shared/js/libs/tracking';
 import '../../shared/js/libs/image360';
+import '../../shared/js/libs/fbShareTracker';
 import '../../shared/js/libs/stockAvailabilities';
 import '../../shared/js/libs/ajax/request';
 import '../../shared/js/libs/ajax/response';
