@@ -60,7 +60,7 @@
       item.querySelector('.quantity-discounts__price').textContent = price.ShoptetFormatAsCurrency(
         undefined,
         undefined,
-        Number(shoptet.config.decPlacesSystemDefault)
+        Number(shoptet.config.decPlaces)
       );
     });
   }
@@ -108,7 +108,7 @@
     return (
       (quantityInput?.value || el.dataset.amount) *
       (productPrice - productPrice * priceRatio)
-    ).ShoptetFormatAsCurrency(undefined, undefined, Number(shoptet.config.decPlacesSystemDefault));
+    ).ShoptetFormatAsCurrency(undefined, undefined, Number(shoptet.config.decPlaces));
   }
 
   quantityDiscountsTable &&
