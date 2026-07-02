@@ -1,0 +1,36 @@
+:where(.ums_mobile_header_v1--on) {
+  // TODO: Remove this wrapper in ums_mobile_header cleanup #37553
+  .overall-wrapper {
+    @media (max-width: @navigation-breakpoint-max) {
+      padding-top: 60px;
+    }
+
+    @media (max-width: @screen-xs-min - 1) {
+      padding-top: 40px;
+    }
+  }
+
+  #header {
+    @media (max-width: @navigation-breakpoint-max) {
+      position: fixed;
+      z-index: @z-popup;
+      top: 0;
+      left: 0;
+      width: 100%;
+      transition: transform @transition-duration / 2;
+
+      .scrolled-down & {
+        transform: translateY(-100%);
+      }
+    }
+  }
+
+  .top-nav-button-login,
+  a.top-nav-button-account {
+    display: none;
+
+    @media (min-width: @screen-md-min) {
+      display: block;
+    }
+  }
+}

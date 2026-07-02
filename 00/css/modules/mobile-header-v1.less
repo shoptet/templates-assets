@@ -1,0 +1,75 @@
+:where(.ums_mobile_header_v1--on) {
+  // TODO: Remove this wrapper in ums_mobile_header cleanup #37553
+
+  @media (max-width: @navigation-breakpoint-max) {
+    .navigation-buttons {
+      .dropdown,
+      .languagesMenu {
+        display: none;
+      }
+    }
+
+    .navigation-in {
+      font-size: @navigation-element-font-size-small;
+      line-height: @navigation-element-font-size-small;
+
+      > ul > li > a {
+        display: flex;
+        align-items: center;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+
+      > ul > li > a > b {
+        display: inline-block;
+        padding-top: @navigation-link-padding-vertical-small;
+        padding-bottom: @navigation-link-padding-vertical-small;
+        font-weight: @navigation-element-font-weight-small;
+      }
+
+      > ul > li > a > span {
+        padding-top: @navigation-link-padding-vertical-small;
+        padding-bottom: @navigation-link-padding-vertical-small;
+      }
+
+      > ul > li > a .navigationActions__flagWrapper {
+        padding-top: calc(
+          (@navigation-element-font-size-small + (@navigation-link-padding-vertical-small * 2) - 24px) / 2
+        );
+        padding-bottom: calc(
+          (@navigation-element-font-size-small + (@navigation-link-padding-vertical-small * 2) - 24px) / 2
+        );
+        line-height: 24px;
+      }
+
+      ul.menu-level-2 li a.navigationActions__link--flag {
+        padding-top: calc(
+          (@navigation-element-font-size-small + (@navigation-submenu-link-padding-vertical * 2) - 24px) / 2
+        );
+        padding-bottom: calc(
+          (@navigation-element-font-size-small + (@navigation-submenu-link-padding-vertical * 2) - 24px) / 2
+        );
+      }
+    }
+
+    .submenu-arrow {
+      padding-right: 2em;
+      padding-left: 2em;
+      font-size: @submenu-arrow-font-size-small;
+      line-height: @navigation-element-font-size-small;
+
+      &::after {
+        vertical-align: sub;
+      }
+    }
+  }
+
+  @media (max-width: @navigation-close-visibility) {
+    .navigation-close::before {
+      width: @navigation-element-font-size-small;
+      height: @navigation-element-font-size-small;
+      font-size: @navigation-element-font-size-small;
+      line-height: @navigation-element-font-size-small;
+    }
+  }
+}

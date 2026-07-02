@@ -1,0 +1,52 @@
+:where(.ums_mobile_header_v1--on) {
+  // TODO: Remove this wrapper in ums_mobile_header cleanup #37553
+  .navigation-buttons > a {
+    .size(42px, 55px);
+  }
+
+  #header {
+    z-index: @z-pupup-minus-1;
+
+    .container {
+      z-index: @z-pupup-minus-1;
+    }
+
+    .site-name:has(.text-logo) {
+      max-width: clamp(115px, calc(100% - 140px), 400px);
+    }
+  }
+
+  .header-navigation {
+    z-index: @z-pupup-minus-1;
+  }
+
+  @media (max-width: @navigation-breakpoint-max) {
+    .top-nav-button-login {
+      display: none;
+    }
+
+    .popup-widget {
+      &.cart-widget,
+      &.search-widget,
+      &.login-widget {
+        top: @header-height-xs;
+      }
+    }
+
+    .navigation-in {
+      ul.menu-level-2 > li > a::before {
+        content: none;
+      }
+
+      ul.menu-level-2 li a {
+        padding-left: round(@navigation-submenu-link-padding-horizontal * 1.5);
+      }
+
+      ul.menu-level-2.navigationActions__submenu li a {
+        padding-left: round(
+          @navigation-submenu-link-padding-horizontal * 1.5 - @navigation-link-padding-horizontal-small
+        );
+      }
+    }
+  }
+}
