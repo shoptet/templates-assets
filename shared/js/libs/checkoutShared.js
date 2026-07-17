@@ -773,7 +773,11 @@ const isHTMLInputElement = item => item instanceof HTMLInputElement;
       var calculatedPreauthorizedPrice = prices.shipping.withVat + prices.billing.withVat + prices.cart.preauthorized;
       calculatedPreauthorizedPrice = roundForCart(calculatedPreauthorizedPrice, billingActive);
 
-      preauthorizedPrice.innerHTML = calculatedPreauthorizedPrice.ShoptetFormatAsCurrency();
+      preauthorizedPrice.innerHTML = calculatedPreauthorizedPrice.ShoptetFormatAsCurrency(
+        undefined,
+        undefined,
+        shoptet.config.decPlacesSystemDefault
+      );
     }
   }
 
