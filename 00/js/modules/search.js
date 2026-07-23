@@ -336,7 +336,7 @@ $(function () {
   // Display groups in search results
   $html.on('click', '.display-results-group', function (e) {
     e.preventDefault();
-    $list = $(this).siblings('.search-results-group-list');
+    const $list = $(this).siblings('.search-results-group-list');
     $list.find('.no-display').removeClass('no-display');
     $(this).hide();
   });
