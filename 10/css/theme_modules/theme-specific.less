@@ -204,6 +204,10 @@ a.recommended-product {
   background-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.85);
 }
 
+.quantity label:focus-within ~ button {
+  background-color: transparent;
+}
+
 .banner-category,
 .banners-content {
   a {
@@ -448,8 +452,7 @@ ul.discussion {
 .p-detail {
   .price-standard,
   .price-save,
-  .price-additional,
-  .price-measure {
+  .price-additional {
     color: @text-muted-color;
   }
 }

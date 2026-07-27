@@ -9,7 +9,8 @@
     border-bottom-style: solid;
     border-bottom-width: 1px;
     z-index: @z-base-4;
-    &:hover {
+    &:hover,
+    &:focus-within {
       z-index: 5;
     }
   }
@@ -99,27 +100,35 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      .price-standard,
-      .price-final,
-      .save-percent {
-        flex: 0 0 33.333333%;
+
+      &:has(:where(.price-standard, .save-percent)) {
+        .price-standard,
+        .price-final,
+        .save-percent {
+          flex: 0 0 33.333333%;
+        }
       }
+
       .price-standard {
         padding-right: 5px;
       }
+
       .save-percent {
         padding-left: 5px;
       }
     }
-    &:hover {
+
+    &:hover,
+    &:focus-within {
       .p-code {
         display: block;
       }
     }
+
     @media (min-width: @screen-xs-min) {
       .p-name {
         display: block;
-        height: 38px;
+        height: 2.5em;
         overflow: hidden;
         line-height: 1.2;
       }
@@ -153,7 +162,8 @@
         .transition(transform @transition-duration @transition-timing);
       }
       .advanced-order &,
-      .advanced-order &:hover {
+      .advanced-order &:hover,
+      .advanced-order &:focus-within {
         .price-additional,
         .p-bottom {
           position: relative;
@@ -164,6 +174,7 @@
         }
       }
       &:hover,
+      &:focus-within,
       .advanced-order & {
         .p-code,
         .stars,
@@ -178,7 +189,8 @@
           transform: scaleY(1);
         }
       }
-      &:hover {
+      &:hover,
+      &:focus-within {
         box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
         .prices {
           position: relative;
@@ -194,7 +206,8 @@
           padding: 0 5px 5px 5px;
         }
         .p-bottom {
-          box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
+          clip-path: inset(4px -30px -30px -30px);
+          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
         }
       }
     }
@@ -321,7 +334,7 @@
   .widget-parameter-value {
     .p-detail & {
       padding-left: 0;
-      &:before {
+      &::before {
         display: none;
       }
     }
@@ -333,5 +346,76 @@
   }
   &.justified {
     justify-content: center;
+  }
+}
+
+@media (min-width: @screen-md-min) {
+  .widget-parameter-wrapper {
+    margin-top: round(@grid-gutter-width);
+    margin-bottom: 0;
+  }
+
+  .products-block .p {
+    &:has(:where(.price-additional)):has(:where(.price-measure)) .price-measure {
+      position: absolute;
+      right: 0;
+      left: 0;
+      margin-top: round(-@grid-gutter-width);
+    }
+
+    &:has(.price-measure):has(.widget-parameter-wrapper) .prices {
+      padding-bottom: round(@grid-gutter-width);
+    }
+
+    &:has(.price-additional):has(.price-measure):has(:where(.widget-parameter-wrapper)) .prices {
+      padding-bottom: 0;
+    }
+
+    &:has(:where(.price-additional)):has(:where(.price-measure)) .prices-top {
+      padding-bottom: round(@grid-gutter-width);
+    }
+  }
+
+  .p-in:focus-within .prices {
+    background-color: transparent;
+  }
+
+  .products-block .p:hover,
+  .products-block .p:focus-within {
+    &:has(:where(.price-additional)) .price-measure {
+      margin-top: 0;
+    }
+
+    &:has(:where(.price-additional)):has(:where(.price-measure)) .price-additional {
+      margin-top: round(-@grid-gutter-width);
+    }
+
+    &:has(:where(.price-additional)) .p-desc {
+      padding-top: round(@grid-gutter-width * 2);
+    }
+
+    &:has(:where(.price-additional)) .p-desc:empty {
+      padding-top: round(@grid-gutter-width);
+    }
+
+    &:not(:has(.price-additional)) .p-desc:empty {
+      padding-top: 0;
+    }
+
+    &:has(:where(.widget-parameter-wrapper)) .p-desc {
+      padding-top: round(@grid-gutter-width);
+    }
+
+    &:has(:where(.price-measure)):has(:where(.widget-parameter-wrapper)) .p-desc {
+      padding-top: 0;
+    }
+
+    &:has(:where(.price-additional)):has(:where(.price-measure)):has(:where(.widget-parameter-wrapper)) .p-desc {
+      padding-top: round(@grid-gutter-width);
+    }
+
+    &:has(.price-additional):has(.price-measure):has(:where(.widget-parameter-wrapper)) .widget-parameter-wrapper {
+      margin-top: round(@grid-gutter-width);
+    }
   }
 }

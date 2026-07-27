@@ -102,18 +102,24 @@
     > div {
       display: flex;
       flex-wrap: wrap;
+      gap: round(@line-height-computed / 2);
       align-items: flex-end;
+
+      &:not(:has(:where(.price-additional))) .price-measure {
+        margin-top: 0;
+      }
     }
     .prices,
     .p-tools {
-      flex-basis: 50%;
+      flex-basis: calc(50% - round(@line-height-computed / 4));
     }
     .prices {
       flex-grow: 1;
       flex-shrink: 0;
       text-align: left;
     }
-    .price-additional {
+    .price-additional,
+    .price-measure {
       font-size: @font-size-smaller;
     }
     .p-tools {
@@ -215,13 +221,10 @@
       }
     }
   }
-  @media (min-width: @screen-lg-min) and (max-width: @screen-lg-max) {
-    .p-bottom {
-      .price-additional {
-        font-size: 11px;
-      }
-    }
-  }
+}
+
+.variant-price-wrap .price-measure {
+  margin-top: 0;
 }
 
 @media (min-width: 321px) and (max-width: @screen-xs-max) {
