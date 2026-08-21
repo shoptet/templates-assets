@@ -23,6 +23,74 @@
 @header_search-height-xs: @header-height-xs + @form-control-height;
 @header_search-height-sm: @header-height-sm + @form-control-height;
 
+.category-perex,
+.category__secondDescription,
+.p-desc,
+.p-short-description,
+.basic-description,
+.welcome-wrapper,
+.news-item-detail,
+.pageArticleDetail,
+.sectionDescription,
+.glossaryDetail,
+.manufacturerDetail,
+.manufacturerDescription,
+.xyDiscount__conditions,
+.site-msg,
+.banner p,
+.banner-wrapper p,
+.banner-category p,
+.carousel-inner p,
+#footer .banner-wrapper p,
+#footer .banner p,
+.siteCookies__text,
+.site-msg-custom,
+.site-agreement-inner,
+.form-group label,
+.helpNote,
+.brand-wrapper-manufacturer-name {
+  a {
+    text-decoration: underline;
+    text-decoration-thickness: var(--hyperlinks-underline-thickness);
+    text-underline-offset: var(--hyperlinks-underline-offset);
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+      text-decoration-thickness: var(--hyperlinks-underline-thickness-hover);
+    }
+  }
+}
+
+.vote-content .glossary,
+.cookies-settings {
+  text-decoration: underline;
+  text-decoration-thickness: var(--hyperlinks-underline-thickness);
+  text-underline-offset: var(--hyperlinks-underline-offset);
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+    text-decoration-thickness: var(--hyperlinks-underline-thickness-hover);
+  }
+}
+
+.news-item .text .title:hover,
+.news-item .text .title:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: var(--hyperlinks-underline-thickness-hover);
+  text-underline-offset: var(--hyperlinks-underline-offset);
+}
+
+.news-item-detail a.btn,
+.site-agreement-inner a.btn,
+.category-perex a.btn,
+.basic-description .rateAverage__link,
+.basic-description .rateAverage__link:hover,
+.basic-description .rateAverage__link:focus-visible {
+  text-decoration: none;
+}
+
 //misc
 // TODO: Remove this in issue 20873 -- START
 :where(.ums_discussion_rating_forms--off) {
@@ -395,8 +463,8 @@ article {
         > div > a > span {
           border-width: 0;
           text-decoration: underline;
-          text-underline-offset: 4px;
           text-decoration-thickness: 2px;
+          text-underline-offset: 4px;
         }
       }
       @media (min-width: @navigation-breakpoint) {
@@ -411,8 +479,8 @@ article {
         > a > b {
           border-width: 0;
           text-decoration: underline;
-          text-underline-offset: 4px;
           text-decoration-thickness: 2px;
+          text-underline-offset: 4px;
         }
       }
     }
@@ -879,15 +947,15 @@ select {
   .ratings-and-brand .stars-link {
     color: @text-color;
     text-decoration: underline;
+    text-decoration-thickness: var(--hyperlinks-underline-thickness);
+    text-underline-offset: var(--hyperlinks-underline-offset);
 
     &:hover,
     &:focus-visible {
       color: @link-hover-color;
+      text-decoration: underline;
+      text-decoration-thickness: var(--hyperlinks-underline-thickness-hover);
     }
-  }
-
-  .brand-wrapper-manufacturer-name a {
-    text-decoration: underline;
   }
 
   .starsLabel--productDetail {
@@ -1249,8 +1317,16 @@ table.detail-parameters {
       td {
         padding-left: round(@grid-gutter-width / 2);
         a {
-          text-decoration: underline;
           font-weight: 700;
+          text-decoration: underline;
+          text-decoration-thickness: var(--hyperlinks-underline-thickness);
+          text-underline-offset: var(--hyperlinks-underline-offset);
+
+          &:hover,
+          &:focus-visible {
+            text-decoration: underline;
+            text-decoration-thickness: var(--hyperlinks-underline-thickness-hover);
+          }
         }
       }
       &:last-child {
@@ -1522,8 +1598,16 @@ table.shipping-options-layout {
     align-items: center;
 
     span {
-      text-transform: none;
       text-decoration: underline;
+      text-decoration-thickness: var(--hyperlinks-underline-thickness);
+      text-underline-offset: var(--hyperlinks-underline-offset);
+      text-transform: none;
+
+      &:hover,
+      &:focus-visible {
+        text-decoration: underline;
+        text-decoration-thickness: var(--hyperlinks-underline-thickness-hover);
+      }
     }
   }
 }
@@ -1554,8 +1638,8 @@ table.shipping-options-layout {
     &.active,
     &:hover {
       text-decoration: underline;
-      text-underline-offset: 6px;
       text-decoration-thickness: 2px;
+      text-underline-offset: 6px;
     }
   }
   a.shp-tab-link {
@@ -1827,15 +1911,27 @@ table.shipping-options-layout {
     margin-right: auto;
     margin-left: auto;
     padding-top: round(@grid-gutter-width / 4);
+
     &:hover {
-      box-shadow: @hover-box-shadow;
       z-index: 1;
-      .p {
-        a {
-          text-decoration: underline;
-        }
+      box-shadow: @hover-box-shadow;
+
+      .p-in-in a,
+      .widget-parameter-value a {
+        text-decoration: underline;
+        text-decoration-thickness: var(--hyperlinks-underline-thickness);
+        text-underline-offset: var(--hyperlinks-underline-offset);
       }
     }
+
+    .p-in-in .name:hover,
+    .p-in-in .name:focus-visible,
+    .widget-parameter-value a:hover,
+    .widget-parameter-value a:focus-visible {
+      text-decoration: underline;
+      text-decoration-thickness: var(--hyperlinks-underline-thickness-hover);
+    }
+
     .mobile &:hover,
     .mobile &:active,
     &.inactive:hover {
@@ -2052,6 +2148,7 @@ table.shipping-options-layout {
     }
   }
 }
+
 .widget-parameter-wrapper.justified {
   justify-content: center;
 }
@@ -2329,6 +2426,27 @@ ul.manufacturers {
 #footer {
   padding-bottom: 0;
 }
+
+#footer .cookies-settings {
+  text-decoration: underline;
+  text-decoration-thickness: var(--hyperlinks-underline-thickness);
+  text-underline-offset: var(--hyperlinks-underline-offset);
+}
+
+#footer a:hover,
+#footer a:focus-visible,
+#footer .cookies-settings:hover,
+#footer .cookies-settings:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: var(--hyperlinks-underline-thickness-hover);
+  text-underline-offset: var(--hyperlinks-underline-offset);
+}
+
+#footer a.btn:hover,
+#footer a.btn:focus-visible {
+  text-decoration: none;
+}
+
 .footer-rows {
   // TODO: Remove this in issue 23351 -- START
   :where(body.ums_page_element_headings--off) & {

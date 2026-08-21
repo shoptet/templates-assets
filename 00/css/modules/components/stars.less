@@ -119,11 +119,14 @@
     }
   }
 
-  #footer .vote-wrap a:hover {
+  #footer .vote-wrap a:hover,
+  #footer .vote-wrap a:focus-visible {
     text-decoration: none;
 
     .vote-product-name {
       text-decoration: underline;
+      text-decoration-thickness: var(--hyperlinks-underline-thickness-hover, auto);
+      text-underline-offset: var(--hyperlinks-underline-offset, auto);
     }
   }
   // TODO: Remove this in issue 20873 -- START

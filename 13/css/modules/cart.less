@@ -142,8 +142,17 @@ ol.cart-header {
     a {
       span {
         text-decoration: underline;
+        text-decoration-thickness: var(--hyperlinks-underline-thickness);
+        text-underline-offset: var(--hyperlinks-underline-offset);
+
         &::before {
           text-decoration: none;
+        }
+
+        &:hover,
+        &:focus-visible {
+          text-decoration: underline;
+          text-decoration-thickness: var(--hyperlinks-underline-thickness-hover);
         }
       }
     }
@@ -162,6 +171,8 @@ ol.cart-header {
     }
     a:hover {
       text-decoration: underline;
+      text-decoration-thickness: var(--hyperlinks-underline-thickness-hover);
+      text-underline-offset: var(--hyperlinks-underline-offset);
     }
   }
   .p-label {
@@ -573,8 +584,11 @@ tr.removeable {
       border: none;
       background: none;
       text-decoration: underline;
+      text-decoration-thickness: var(--hyperlinks-underline-thickness);
+      text-underline-offset: var(--hyperlinks-underline-offset);
+
       &:hover {
-        text-decoration: none;
+        text-decoration-thickness: var(--hyperlinks-underline-thickness-hover);
       }
       &::after {
         &:extend(.shp-icon);
@@ -595,8 +609,11 @@ tr.removeable {
       padding: 0;
       cursor: pointer;
       text-decoration: underline;
+      text-decoration-thickness: var(--hyperlinks-underline-thickness);
+      text-underline-offset: var(--hyperlinks-underline-offset);
+
       &:hover {
-        text-decoration: none;
+        text-decoration-thickness: var(--hyperlinks-underline-thickness-hover);
       }
       &::after {
         &:extend(.shp-icon);
@@ -759,6 +776,14 @@ tr.removeable {
     a {
       font-weight: bold;
       text-decoration: underline;
+      text-decoration-thickness: var(--hyperlinks-underline-thickness);
+      text-underline-offset: var(--hyperlinks-underline-offset);
+
+      &:hover,
+      &:focus-visible {
+        text-decoration: underline;
+        text-decoration-thickness: var(--hyperlinks-underline-thickness-hover);
+      }
     }
   }
 }
@@ -1090,8 +1115,14 @@ tr.removeable {
     text-align: right;
   }
   .cart-item-name {
+    a {
+      display: inline-block;
+    }
+
     a:hover {
       text-decoration: underline;
+      text-decoration-thickness: var(--hyperlinks-underline-thickness-hover);
+      text-underline-offset: var(--hyperlinks-underline-offset);
     }
   }
 }
@@ -1300,9 +1331,18 @@ tr.removeable {
 
 .order-complete-links {
   margin: @line-height-computed 0;
+
+  a:hover,
+  a:focus-visible {
+    text-decoration: underline;
+    text-decoration-thickness: var(--hyperlinks-underline-thickness-hover);
+    text-underline-offset: var(--hyperlinks-underline-offset);
+  }
+
   a.btn {
-    padding-left: @grid-gutter-width;
     padding-right: @grid-gutter-width;
+    padding-left: @grid-gutter-width;
+    text-decoration: none;
   }
 }
 

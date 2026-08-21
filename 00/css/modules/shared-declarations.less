@@ -175,7 +175,10 @@ p {
 a,
 .link-like {
   text-decoration: none;
-  .transition(all @transition-duration @transition-timing);
+  transition:
+    all @transition-duration @transition-timing,
+    text-decoration-thickness 0s;
+
   &.btn {
     text-decoration: none;
   }

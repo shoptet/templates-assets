@@ -38,6 +38,12 @@
     }
   }
 }
+
+.sidebar .vote-wrap a,
+.footer .vote-wrap a {
+  display: block;
+}
+
 .vote-header {
   display: flex;
   align-items: center;
@@ -94,6 +100,12 @@
   // TODO: Remove this in issue 20873 -- START
 }
 // TODO: Remove this in issue 20873 -- END
+
+.sidebar .vote-product-name--nowrap,
+.footer .vote-product-name--nowrap {
+  margin-bottom: round(@line-height-computed / 10);
+  line-height: 1.3;
+}
 
 .vote-time {
   font-size: @font-size-small;
