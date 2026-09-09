@@ -134,6 +134,7 @@
   function hideMenuHelper() {
     $('body').removeClass('user-action-visible menu-helper-visible submenu-visible');
     $('.menu-helper .ext').removeClass('exp');
+    $('.menu-helper .ext a[aria-expanded="true"]').attr('aria-expanded', 'false');
   }
 
   /**
@@ -143,6 +144,7 @@
    */
   function hideNavigation() {
     $('body').removeClass('user-action-visible submenu-visible navigation-window-visible');
+    $('#navigation .exp a[aria-expanded="true"]').attr('aria-expanded', 'false');
     $('#navigation .exp').removeClass('exp');
   }
 
@@ -231,6 +233,7 @@
       setTimeout(function () {
         if (parentSubmenuVisible) {
           $this.parents('li').removeClass('exp');
+          $this.parents('li').children('a[aria-expanded="true"]').attr('aria-expanded', 'false');
         } else {
           shoptet.menu.showSubmenu($this.parents('li'));
         }

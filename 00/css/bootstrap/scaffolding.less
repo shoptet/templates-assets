@@ -127,6 +127,9 @@ img {
   overflow: hidden;
   clip: rect(0,0,0,0);
   border: 0;
+  // WAVE/axe contrast false-positive fix — text is not visible, colors are only for audit tools
+  color: #000 !important;
+  background-color: #fff !important;
 }
 
 // Use in conjunction with .sr-only to only display content when it's focused.

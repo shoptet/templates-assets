@@ -55,8 +55,22 @@ select {
 }
 
 .site-msg {
-  background-color: @color-primary-hover;
-  color: @color-secondary;
+  color: var(--colors-foregrounds-content-primary);
+  background-color: var(--color-primary-hover);
+
+  a {
+    color: var(--color-secondary-hover);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--colors-foregrounds-content-primary);
+    }
+  }
+}
+
+.social-login-buttons-divider span,
+:where(.footer, .sidebar) .product-appendix {
+  color: var(--colors-foregrounds-content-secondary);
 }
 
 .user-action {

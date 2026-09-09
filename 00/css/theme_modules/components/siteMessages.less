@@ -1,9 +1,18 @@
 .site-msg {
+  color: var(--colors-foregrounds-content-primary-dark);
   background-color: #fdf3da;
-  color: #000;
+
+  a {
+    color: color-mix(in srgb, var(--color-primary) 70%, #000 30%);
+
+    &:hover {
+      color: var(--colors-foregrounds-content-primary-dark);
+    }
+  }
+
   .close {
     &::before {
-      color: #000;
+      color: var(--colors-foregrounds-content-primary-dark);
     }
   }
 }

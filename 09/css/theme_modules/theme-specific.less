@@ -46,24 +46,24 @@ main {
 header {
   border-bottom-color: @border-color;
 }
-footer {
+
+footer:where(.footer) {
   background-color: @footer-bg;
   border-top-color: @border-color;
+}
 
-  h4 a,
-  h5 a {
-    color: var(--colors-foregrounds-content-quaternary);
-  }
-  p {
-    color: var(--colors-foregrounds-content-quaternary);
-  }
-  a {
-    color: var(--colors-foregrounds-content-quaternary);
+footer:where(.footer) h4 a,
+footer:where(.footer) h5 a,
+footer:where(.footer) p,
+footer:where(.footer) a,
+:where(.footer) .vote-name,
+:where(.footer) .social-login-buttons-divider span,
+:where(.footer) .product-appendix {
+  color: var(--colors-foregrounds-content-quaternary);
+}
 
-    &:hover {
-      color: @color-primary;
-    }
-  }
+footer:where(.footer) a:hover {
+  color: var(--color-primary);
 }
 
 :where(.ums_forms_redesign--off) & {
@@ -369,6 +369,10 @@ a.btn-icon[data-target='search'] {
 @media (min-width: @screen-lg-min) {
   .product:not(.highlight-product):hover .tools-wrap {
     background-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.9);
+  }
+
+  :where(.products-block .product.highlight-product) .inner .descr .visible-lg-inline-block {
+    color: var(--product-availability-color);
   }
 }
 

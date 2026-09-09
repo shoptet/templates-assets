@@ -330,6 +330,7 @@
         function start() {
             $slideshow
                 .html(settings.get('slideshowStop'))
+                .attr('aria-label', settings.get('slideshowStop'))
                 .unbind(click)
                 .one(click, stop);
 
@@ -349,6 +350,7 @@
 
             $slideshow
                 .html(settings.get('slideshowStart'))
+                .attr('aria-label', settings.get('slideshowStart'))
                 .unbind(click)
                 .one(click, function () {
                     publicMethod.next();
@@ -494,9 +496,9 @@
             $content = $tag(div, "Content").append(
                 $title = $tag(div, "Title"),
                 $current = $tag(div, "Current"),
-                $prev = $('<button type="button"/>').attr({id:prefix+'Previous'}),
-                $next = $('<button type="button"/>').attr({id:prefix+'Next'}),
-                $slideshow = $tag('button', "Slideshow"),
+                $prev = $('<button type="button"/>').attr({id:prefix+'Previous', 'aria-label':defaults.previous}),
+                $next = $('<button type="button"/>').attr({id:prefix+'Next', 'aria-label':defaults.next}),
+                $slideshow = $tag('button', "Slideshow").attr('aria-label', defaults.slideshowStart),
                 $loadingOverlay
             );
 
