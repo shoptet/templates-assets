@@ -7,20 +7,47 @@
     document.getElementsByTagName('body')[0].classList.remove('disabled-add-to-cart', 'variant-not-chosen');
   }
 
+  // True when any variant radio group has no checked input
+  function hasUnselectedVariantGroup() {
+    var radios = document.querySelectorAll('.variant-list .advanced-parameter input[type="radio"]');
+    var groupNames = new Set();
+    var checkedGroupNames = new Set();
+    radios.forEach(function (radio) {
+      groupNames.add(radio.name);
+      if (radio.checked) {
+        checkedGroupNames.add(radio.name);
+      }
+    });
+    return groupNames.size !== checkedGroupNames.size;
+  }
+
   function hasToDisableCartButton() {
     if (!$('body').hasClass('type-product')) {
       return false;
     }
 
-    if (
-      $(
-        '.variant-list option[value=""]:selected, .variant-list option[data-disable-button="1"]:selected,' +
-          ' .variant-default:checked, .variant-list .advanced-parameter input[data-disable-button="1"]:checked'
-      ).length
-    ) {
-      return true;
+    if (shoptet.config.ums_variant_and_filter_labels) {
+      if (
+        $(
+          '.variant-list option[value=""]:selected, .variant-list option[data-disable-button="1"]:selected,' +
+            ' .variant-list .advanced-parameter input[data-disable-button="1"]:checked'
+        ).length
+      ) {
+        return true;
+      }
+
+      return shoptet.variantsCommon.hasUnselectedVariantGroup();
     } else {
-      return false;
+      if (
+        $(
+          '.variant-list option[value=""]:selected, .variant-list option[data-disable-button="1"]:selected,' +
+            ' .variant-default:checked, .variant-list .advanced-parameter input[data-disable-button="1"]:checked'
+        ).length
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
@@ -34,15 +61,29 @@
       });
 
       var $target = $('.variant-not-chosen-anchor');
-      if (variantNotSelected || $('.variant-default').is(':checked')) {
-        $('body').addClass('variant-not-chosen');
-        shoptet.variantsCommon.reasonToDisable = shoptet.messages['chooseVariant'];
-        showMessage(shoptet.variantsCommon.reasonToDisable, 'error', '', false, false);
-        setTimeout(function () {
-          scrollToEl($target);
-        }, shoptet.config.animationDuration);
 
-        return false;
+      if (shoptet.config.ums_variant_and_filter_labels) {
+        if (variantNotSelected || shoptet.variantsCommon.hasUnselectedVariantGroup()) {
+          $('body').addClass('variant-not-chosen');
+          shoptet.variantsCommon.reasonToDisable = shoptet.messages['chooseVariant'];
+          showMessage(shoptet.variantsCommon.reasonToDisable, 'error', '', false, false);
+          setTimeout(function () {
+            scrollToEl($target);
+          }, shoptet.config.animationDuration);
+
+          return false;
+        }
+      } else {
+        if (variantNotSelected || $('.variant-default').is(':checked')) {
+          $('body').addClass('variant-not-chosen');
+          shoptet.variantsCommon.reasonToDisable = shoptet.messages['chooseVariant'];
+          showMessage(shoptet.variantsCommon.reasonToDisable, 'error', '', false, false);
+          setTimeout(function () {
+            scrollToEl($target);
+          }, shoptet.config.animationDuration);
+
+          return false;
+        }
       }
 
       if ($('body').hasClass('disabled-add-to-cart')) {
@@ -125,6 +166,7 @@
   shoptet.scripts.libs.variantsCommon = [
     'disableAddingToCart',
     'enableAddingToCart',
+    'hasUnselectedVariantGroup',
     'hasToDisableCartButton',
     'handleSubmit',
     'handleBrowserValueRestoration',

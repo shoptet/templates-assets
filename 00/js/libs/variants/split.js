@@ -145,10 +145,18 @@
       var parameterId = this.id.replace('parameter-id-', '');
       var selected = $(this).find('input:checked, option:selected');
       var valueId = selected.val();
-      if (valueId == '') {
-        showDefault = true;
+      if (shoptet.config.ums_variant_and_filter_labels) {
+        if (!selected.length || valueId == '') {
+          showDefault = true;
+        } else {
+          parameterIds.push(parameterId + '-' + valueId);
+        }
       } else {
-        parameterIds.push(parameterId + '-' + valueId);
+        if (valueId == '') {
+          showDefault = true;
+        } else {
+          parameterIds.push(parameterId + '-' + valueId);
+        }
       }
     });
     $('.p-detail-inner .parameter-dependent, .p-code .parameter-dependent').addClass(

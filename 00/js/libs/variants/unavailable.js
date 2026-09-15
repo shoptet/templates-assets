@@ -254,8 +254,15 @@
             shoptet.scripts.signalCustomEvent('ShoptetSelectedParametersReset', parametersHolder[i]);
             parametersHolder[i].options.selectedIndex = 0;
           } else {
-            var defaultVariant = parametersHolder[i].querySelector('[data-index="0"]');
-            defaultVariant.checked = true;
+            if (shoptet.config.ums_variant_and_filter_labels) {
+              var checkedInput = parametersHolder[i].querySelector('input:checked');
+              if (checkedInput) {
+                checkedInput.checked = false;
+              }
+            } else {
+              var defaultVariant = parametersHolder[i].querySelector('[data-index="0"]');
+              defaultVariant.checked = true;
+            }
             var activeInput = parametersHolder[i].querySelector('input:not([data-index="0"])');
             shoptet.scripts.signalCustomEvent('ShoptetSelectedParametersReset', activeInput);
           }

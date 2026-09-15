@@ -1457,6 +1457,11 @@ table.shipping-options-layout {
   .variant-label,
   .surcharge-label {
     display: block;
+
+    :where(.ums_variant_and_filter_labels--on) & {
+      margin-bottom: 0;
+      font-size: @font-size-base;
+    }
   }
   select {
     &:hover {

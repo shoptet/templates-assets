@@ -12,6 +12,11 @@
   align-items: center;
   .square(@advanced-parameter-size);
   border-radius: @advanced-parameter-border-radius;
+
+  :where(.ums_variant_and_filter_labels--on) & {
+    cursor: pointer;
+  }
+
   img {
     border-radius: @advanced-parameter-border-radius;
     min-width: 1px;

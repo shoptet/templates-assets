@@ -237,6 +237,17 @@
       margin: 0;
     }
   }
+
+  :where(.ums_variant_and_filter_labels--on) & {
+    .advanced-parameter-input + .advanced-parameter {
+      padding-left: 0;
+
+      &::before,
+      &::after {
+        content: none;
+      }
+    }
+  }
 }
 
 .filter-label {

@@ -99,8 +99,7 @@
   .p-to-cart-block,
   .p-price-wrapper,
   .size-id-wrapper,
-  .buttons-wrapper,
-  .surcharge-list {
+  .buttons-wrapper {
     margin-bottom: @double-spacing;
     @media (min-width: @navigation-breakpoint) {
       margin-bottom: @grid-gutter-width;
@@ -112,7 +111,11 @@
   .p-variants-block {
     margin-bottom: @double-spacing;
     @media (min-width: @navigation-breakpoint) {
-      margin-bottom: @double-spacing;
+      margin-bottom: @grid-gutter-width;
+
+      &:has(:where(#simple-variants)) {
+        margin-bottom: @double-spacing;
+      }
     }
   }
   .p-gifts-heading {
