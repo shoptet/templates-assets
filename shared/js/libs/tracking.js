@@ -175,6 +175,7 @@ window.getShoptetProductsList = () => {
     var priceId = resolveAffectedPriceId(response);
 
     shoptet.tracking.updateDataLayerCartInfo(response);
+    trackSeznamSem(response);
 
     if (priceId) {
       trackProducts(form, priceId, formAction, [
@@ -192,6 +193,32 @@ window.getShoptetProductsList = () => {
       ]);
     }
     shoptet.tracking.updateCartDataLayer(response);
+  }
+
+  function trackSeznamSem(response) {
+    if (typeof window.semCall !== 'function') {
+      return;
+    }
+
+    var event = response.getFromPayload('semEvent');
+
+    if (!event || !event.name || !event.payload) {
+      return;
+    }
+
+    window.semCall('track', event.name, event.payload);
+    shoptet.scripts.signalCustomEvent('ShoptetSeznamSemTracked');
+  }
+
+  function trackSeznamSemSearch(searchString) {
+    var query = typeof searchString === 'string' ? searchString.trim() : '';
+
+    if (typeof window.semCall !== 'function' || query === '') {
+      return;
+    }
+
+    window.semCall('track', 'Search', { search_string: query });
+    shoptet.scripts.signalCustomEvent('ShoptetSeznamSemTracked');
   }
 
   function trackProducts(form, priceId, formAction, trackingFunctions) {

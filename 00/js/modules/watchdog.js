@@ -136,8 +136,19 @@
       if (response.code == 500) {
         showMsg('danger', response.message, '', true, false, '.watchdog-messages');
       } else {
+        trackSeznamSem(response);
         shoptet.modal.close();
       }
+    }
+
+    function trackSeznamSem(response) {
+      var event = response.payload && response.payload.semEvent;
+
+      if (typeof window.semCall !== 'function' || !event) {
+        return;
+      }
+
+      window.semCall('track', event.name, event.payload);
     }
 
     function watchdogDataHandler() {

@@ -118,6 +118,18 @@ window.fulltextSearch = ($searchInput, $searchContainer) => {
     }
   });
 
+  $searchContainer.on('click', 'a', function (e) {
+    var $link = $(e.currentTarget);
+
+    if ($link.hasClass('whisperer-trigger') || !$link.attr('href') || $link.attr('href') === '#') {
+      return;
+    }
+
+    if (typeof shoptet.tracking.trackSeznamSemSearch === 'function') {
+      shoptet.tracking.trackSeznamSemSearch($searchInput.val());
+    }
+  });
+
   function clearSearchWhisperer($elementClicked) {
     $searchContainer.removeClass('active');
     $searchContainer.empty();
