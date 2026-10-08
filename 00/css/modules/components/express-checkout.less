@@ -616,6 +616,150 @@
   color: var(--express-checkout-color-gray);
 }
 
+.express-checkout__delivery {
+  margin-top: var(--express-checkout-spacing-lg);
+}
+
+.express-checkout__delivery-label {
+  margin: 0 0 var(--express-checkout-spacing-sm);
+  font-size: @font-size-small;
+}
+
+// a <button> reusing the info-box look; templates style buttons globally, so reset what they set
+.express-checkout__delivery-row {
+  cursor: pointer;
+
+  display: block;
+
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  margin-top: 0;
+
+  font: inherit;
+  line-height: inherit;
+  color: inherit;
+  text-align: left;
+  text-transform: none;
+  letter-spacing: inherit;
+
+  appearance: none;
+  background-color: transparent;
+
+  &.is-error {
+    border-color: var(--express-checkout-color-red);
+  }
+}
+
+.express-checkout__info-shipping-inner[hidden] {
+  display: none;
+}
+
+.express-checkout__delivery-text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.express-checkout__delivery-detail {
+  .text-ellipsis(2);
+
+  font-size: @font-size-small;
+  font-weight: 400;
+  color: var(--express-checkout-color-gray);
+}
+
+.express-checkout__delivery-link {
+  font-size: @font-size-small;
+  text-decoration: underline;
+}
+
+.express-checkout__delivery-error {
+  margin: var(--express-checkout-spacing-sm) 0 0;
+  color: var(--express-checkout-color-red);
+}
+
+.express-checkout__delivery-options .express-checkout__shipping-billing-item-name {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+}
+
+@express-checkout-delivery-icon-size: 24px;
+// the radio's label indent, see forms.less
+@express-checkout-delivery-label-indent: round(@checkbox-outer-width * @checkbox-padding-ratio);
+
+.express-checkout__delivery-icon {
+  flex: 0 0 auto;
+  width: @express-checkout-delivery-icon-size;
+  font-size: @express-checkout-delivery-icon-size;
+  line-height: 1;
+}
+
+// used with .express-checkout__summary-discount-button, lined up under the label text
+.express-checkout__delivery-widget-button {
+  display: block;
+
+  margin: calc(-1 * var(--express-checkout-spacing-sm)) 0 var(--express-checkout-spacing-md)
+    @express-checkout-delivery-label-indent;
+
+  font-size: @font-size-small;
+  color: @text-color;
+
+  &:hover,
+  &:focus {
+    color: @text-color;
+  }
+
+  .express-checkout__shipping-billing-item-wrapper:has(.express-checkout__delivery-icon) & {
+    margin-left: calc(
+      @express-checkout-delivery-label-indent + @express-checkout-delivery-icon-size +
+        var(--express-checkout-spacing-md)
+    );
+  }
+}
+
+// some templates (Step) pull the last radio row down with a negative margin, onto the footer border
+.express-checkout__delivery-options .express-checkout__shipping-billing-item-wrapper:last-child {
+  margin-bottom: 0;
+}
+
+.express-checkout__quick-payment-buttons.is-blocked {
+  opacity: 0.4;
+}
+
+// same rules as logisticsWidgets/pickupPointWidgetLoader.tpl, which the EC modal cannot include
+.express-checkout__pickup-widget {
+  position: fixed;
+  z-index: 999999;
+  inset: 0;
+
+  width: auto;
+  max-width: none;
+  height: auto;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+
+  line-height: 0;
+
+  visibility: visible;
+  background: none;
+  border: none;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+}
+
+body.spinner-visible:has(.express-checkout__pickup-widget[open]) .overlay {
+  z-index: 9999999;
+}
+
 .express-checkout__summary {
   display: flex;
   flex-direction: column;

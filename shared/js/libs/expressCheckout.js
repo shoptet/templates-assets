@@ -6,6 +6,37 @@ import { ensure } from '../typeAssertions';
   let mainStepHtml = '';
 
   /**
+   * Only the latest main-modal render request may repaint the modal: a widget confirm and its
+   * dialog close can arrive in either order, so their requests can overtake each other.
+   */
+  let renderSequence = 0;
+
+  /**
+   * @typedef {object} PickupDeliveryData
+   * @property {string} widgetUrl - built by PickupPointWidgetController::createUrl()
+   * @property {string} selectedShippingMethodId - empty when no point is saved
+   * @property {string} widgetTitle
+   */
+
+  /**
+   * Read on every main-modal render: steps replace the modal content, so the source element is gone
+   * while a step is open. Null = the modal offers no pickup delivery.
+   * @type {PickupDeliveryData | null}
+   */
+  let pickupDeliveryData = null;
+
+  /* "Pick-up point chosen, none saved" cannot be stored on the cart, so it lives here and is
+     re-applied after every re-render; the modal reloads the page when closed. */
+  let pickupChosenWithoutPoint = false;
+  let showPickupWarning = false;
+
+  /** @type {{ pointReceived: boolean, iframe: HTMLIFrameElement } | null} */
+  let pickupWidgetOpening = null;
+
+  // set by an arrow keydown, consumed by the change it causes, which must not act (see expressCheckoutKeydownListeners)
+  let deliveryRadioMovedByArrowKey = false;
+
+  /**
    * @typedef {object} CreatedOrderPayload
    * @property {string} [code]
    * @property {string} [id]
@@ -166,6 +197,198 @@ import { ensure } from '../typeAssertions';
     recreateModuleScripts();
     handleApplePayGdprVisibility();
     listenForPaymentFinished();
+    applyPickupDeliveryState();
+  }
+
+  function readPickupDeliveryData() {
+    const element = document.querySelector('.js-express-checkout-pickup');
+
+    if (!(element instanceof HTMLElement)) {
+      return null;
+    }
+
+    return {
+      widgetUrl: element.dataset.widgetUrl ?? '',
+      selectedShippingMethodId: element.dataset.selectedShippingMethodId ?? '',
+      widgetTitle: element.dataset.widgetTitle ?? '',
+    };
+  }
+
+  function applyPickupDeliveryState() {
+    pickupDeliveryData = readPickupDeliveryData();
+
+    if (!pickupDeliveryData) {
+      return;
+    }
+
+    if (pickupDeliveryData.selectedShippingMethodId !== '') {
+      pickupChosenWithoutPoint = false;
+      showPickupWarning = false;
+
+      return;
+    }
+
+    if (!pickupChosenWithoutPoint) {
+      return;
+    }
+
+    document.querySelector('.js-delivery-row-address')?.setAttribute('hidden', '');
+    document.querySelector('.js-delivery-row-pickup')?.removeAttribute('hidden');
+
+    const paymentButtons = document.querySelector('.express-checkout__quick-payment-buttons');
+    paymentButtons?.setAttribute('inert', '');
+    paymentButtons?.classList.add('is-blocked');
+
+    if (showPickupWarning) {
+      document.querySelector('.js-go-to-delivery-step')?.classList.add('is-error');
+      document.querySelector('.js-delivery-error')?.removeAttribute('hidden');
+    }
+  }
+
+  /**
+   * Always a fresh render: the gateway auth code in the main step is single-use, so re-inserting
+   * the cached main step makes the wallet widget fail its token exchange (401). A widget confirm
+   * still on its way cannot be overtaken, renderSequence lets the latest request repaint.
+   */
+  function returnToMainStep() {
+    initExpressCheckout();
+  }
+
+  function openDeliveryStep() {
+    const deliveryHtml = document.querySelector('.js-delivery-template')?.innerHTML;
+
+    if (!deliveryHtml) {
+      return;
+    }
+
+    deliveryRadioMovedByArrowKey = false;
+    openModal(deliveryHtml, function () {
+      if (pickupChosenWithoutPoint) {
+        const pickupRadio = document.querySelector('.js-delivery-type-radio[value="pickup"]');
+
+        if (pickupRadio instanceof HTMLInputElement) {
+          pickupRadio.checked = true;
+        }
+      }
+    });
+  }
+
+  /**
+   * @param {string} deliveryType
+   */
+  function changeDeliveryType(deliveryType) {
+    if (!pickupDeliveryData) {
+      return;
+    }
+
+    const selectedShippingMethodId = pickupDeliveryData.selectedShippingMethodId;
+
+    if (deliveryType === 'pickup') {
+      pickupChosenWithoutPoint = selectedShippingMethodId === '';
+      openPickupWidget();
+
+      return;
+    }
+
+    pickupChosenWithoutPoint = false;
+    showPickupWarning = false;
+
+    if (selectedShippingMethodId !== '') {
+      updatePickupPoint(selectedShippingMethodId, '');
+
+      return;
+    }
+
+    returnToMainStep();
+  }
+
+  /**
+   * The dialog is a child of #colorbox: colorbox pulls focus back to itself from anywhere outside,
+   * and would close the whole modal (and reload the page) on Escape.
+   */
+  function openPickupWidget() {
+    const modal = document.getElementById('colorbox');
+
+    if (!pickupDeliveryData || !modal) {
+      return;
+    }
+
+    let dialog = modal.querySelector(':scope > .js-express-checkout-pickup-widget');
+
+    if (!(dialog instanceof HTMLDialogElement)) {
+      const newDialog = document.createElement('dialog');
+      newDialog.className = 'new-logistics-widget express-checkout__pickup-widget js-express-checkout-pickup-widget';
+      newDialog.setAttribute('data-testid', 'dialogExpressCheckoutPickupWidget');
+      newDialog.setAttribute('aria-label', pickupDeliveryData.widgetTitle);
+      newDialog.addEventListener('keydown', stopEscapeFromClosingModal);
+      newDialog.addEventListener('close', handlePickupWidgetClosed);
+      modal.appendChild(newDialog);
+      dialog = newDialog;
+    }
+
+    const pickupWidgetDialog = ensure(dialog, value => value instanceof HTMLDialogElement);
+    pickupWidgetDialog.querySelector('iframe')?.remove();
+
+    const iframe = document.createElement('iframe');
+    iframe.src = pickupDeliveryData.widgetUrl;
+    iframe.title = pickupDeliveryData.widgetTitle;
+    pickupWidgetDialog.appendChild(iframe);
+
+    pickupWidgetOpening = { pointReceived: false, iframe };
+    pickupWidgetDialog.showModal();
+  }
+
+  /**
+   * @param {KeyboardEvent} event
+   */
+  function stopEscapeFromClosingModal(event) {
+    if (event.key === 'Escape') {
+      event.stopPropagation();
+    }
+  }
+
+  function handlePickupWidgetClosed() {
+    const opening = pickupWidgetOpening;
+
+    // The widget posts its confirm message before it closes the dialog; let that message land first.
+    setTimeout(function () {
+      if (!opening || opening.pointReceived) {
+        return;
+      }
+
+      pickupChosenWithoutPoint = true;
+      showPickupWarning = true;
+      returnToMainStep();
+    }, 0);
+  }
+
+  /**
+   * @param {MessageEvent} event
+   */
+  function handlePickupWidgetMessage(event) {
+    const opening = pickupWidgetOpening;
+
+    if (
+      !opening ||
+      opening.pointReceived ||
+      event.origin !== window.location.origin ||
+      event.source !== opening.iframe.contentWindow
+    ) {
+      return;
+    }
+
+    const shippingMethodId = event.data?.selectedShippingMethodId;
+    const pickupPointId = event.data?.pickupPointWidget?.id;
+
+    if (!shippingMethodId || !pickupPointId) {
+      return;
+    }
+
+    opening.pointReceived = true;
+    // stays blocked if the point is rejected; a saved point clears it on re-render
+    pickupChosenWithoutPoint = true;
+    showPickupWarning = false;
+    updatePickupPoint(String(shippingMethodId), String(pickupPointId));
   }
 
   function signalExpressCheckoutLoaded() {
@@ -224,6 +447,8 @@ import { ensure } from '../typeAssertions';
       showSpinner();
     }
 
+    const sequence = ++renderSequence;
+
     shoptet.ajax.makeAjaxRequest(
       '/action/ExpressCheckout/',
       shoptet.ajax.requestTypes.get,
@@ -231,6 +456,10 @@ import { ensure } from '../typeAssertions';
       {
         /** @param {SuccessResponse} response  */
         success: function (response) {
+          if (sequence !== renderSequence) {
+            return;
+          }
+
           rerenderExpressCheckoutModal(response, function () {
             initNotLoggedInUser();
             signalExpressCheckoutLoaded();
@@ -296,6 +525,61 @@ import { ensure } from '../typeAssertions';
         /** @param {FailedResponse} response  */
         failed: function (response) {
           resolveFailedRequestWithContent(response, rerenderExpressCheckoutModal);
+        },
+        complete: hideSpinner,
+      },
+      {
+        'X-Shoptet-XHR': 'Shoptet_Coo7ai',
+      }
+    );
+  }
+
+  /**
+   * Re-renders like initExpressCheckout(): the response carries a new gateway session, so the
+   * wallet buttons have to be brought up again.
+   * @param {string} shippingMethodId
+   * @param {string} pickupPointId - empty clears the saved point
+   */
+  function updatePickupPoint(shippingMethodId, pickupPointId) {
+    const sequence = ++renderSequence;
+
+    /** @param {SuccessResponse} response */
+    function callback(response) {
+      if (sequence !== renderSequence) {
+        return;
+      }
+
+      rerenderExpressCheckoutModal(response, function () {
+        initNotLoggedInUser();
+        signalExpressCheckoutLoaded();
+      });
+    }
+
+    showSpinner();
+    shoptet.ajax.makeAjaxRequest(
+      '/action/ExpressCheckout/updatePickupPoint/',
+      shoptet.ajax.requestTypes.post,
+      getFormDataWithCsrfToken(
+        `shippingMethodId=${encodeURIComponent(shippingMethodId)}&pickupPointId=${encodeURIComponent(pickupPointId)}`
+      ),
+      {
+        success: callback,
+        /** @param {FailedResponse} response */
+        failed: function (response) {
+          // a rejected point leaves the buttons blocked, so say why
+          if (pickupPointId !== '') {
+            showPickupWarning = true;
+          }
+
+          if (!response.getFromPayload('content')) {
+            if (sequence === renderSequence) {
+              returnToMainStep();
+            }
+
+            return;
+          }
+
+          resolveFailedRequestWithContent(response, callback);
         },
         complete: hideSpinner,
       },
@@ -638,6 +922,18 @@ import { ensure } from '../typeAssertions';
       openModal(mainStepHtml);
     }
 
+    if (target.closest('.js-go-to-delivery-step')) {
+      openDeliveryStep();
+    }
+
+    if (target.closest('.js-leave-delivery-step')) {
+      returnToMainStep();
+    }
+
+    if (target.closest('.js-open-pickup-widget')) {
+      changeDeliveryType('pickup');
+    }
+
     if (target.classList.contains('js-go-to-billing-step') || target.closest('.js-go-to-billing-step')) {
       const billingHtml = document.querySelector('.js-billing-template')?.innerHTML;
 
@@ -733,6 +1029,14 @@ import { ensure } from '../typeAssertions';
     if (target.classList.contains('js-billing-method-radio') && target.checked) {
       updateBillingMethod(target.value);
     }
+
+    if (target.classList.contains('js-delivery-type-radio') && target.checked) {
+      if (deliveryRadioMovedByArrowKey) {
+        deliveryRadioMovedByArrowKey = false;
+      } else {
+        changeDeliveryType(target.value);
+      }
+    }
   }
 
   /**
@@ -741,6 +1045,19 @@ import { ensure } from '../typeAssertions';
   function expressCheckoutKeydownListeners(event) {
     const target = ensure(event.target, isHTMLElement);
     const key = event.key;
+
+    /* Arrow keys only move the selection between the delivery radios (WCAG 3.2.2); acting on them
+       would drop a saved point or open the fullscreen widget. Enter confirms the focused option. */
+    if (target instanceof HTMLInputElement && target.classList.contains('js-delivery-type-radio')) {
+      deliveryRadioMovedByArrowKey = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(key);
+
+      if (key === 'Enter' && target.checked) {
+        event.preventDefault();
+        changeDeliveryType(target.value);
+      }
+
+      return;
+    }
 
     if (key !== 'Enter') {
       return;
@@ -800,6 +1117,7 @@ import { ensure } from '../typeAssertions';
         modal.addEventListener('change', expressCheckoutChangeListeners);
         modal.addEventListener('keydown', expressCheckoutKeydownListeners);
         modal.addEventListener('submit', expressCheckoutSubmitListeners);
+        window.addEventListener('message', handlePickupWidgetMessage);
       }
     }
 
