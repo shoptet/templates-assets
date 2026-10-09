@@ -144,12 +144,18 @@ window.getShoptetProductsList = () => {
       return;
     }
 
+    // OpenAI wants ISO 4217 minor-unit integers; the exponent comes from the server-rendered pixel snippet.
+    var minorUnitDecimals = parseInt(shoptet.config.openAiPixelMinorUnitDecimals, 10);
+    if (isNaN(minorUnitDecimals)) {
+      return;
+    }
+
     var contentId = productData.content_ids.length > 0 ? productData.content_ids[0] : null;
-    var unitPrice = parseFloat(productData.valueWoVat);
+    var unitAmount = Math.round(parseFloat(productData.valueWoVat) * Math.pow(10, minorUnitDecimals));
 
     oaiq('measure', 'items_added', {
       type: 'contents',
-      amount: unitPrice * productData.amount,
+      amount: Math.round(unitAmount * productData.amount),
       currency: productData.currency,
       contents: [
         {
@@ -157,7 +163,7 @@ window.getShoptetProductsList = () => {
           name: productData.content_name,
           content_type: 'product',
           quantity: productData.amount,
-          amount: unitPrice,
+          amount: unitAmount,
           currency: productData.currency,
         },
       ],
