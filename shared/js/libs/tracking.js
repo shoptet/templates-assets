@@ -150,7 +150,6 @@ window.getShoptetProductsList = () => {
       return;
     }
 
-    var contentId = productData.content_ids.length > 0 ? productData.content_ids[0] : null;
     var unitAmount = Math.round(parseFloat(productData.value) * Math.pow(10, minorUnitDecimals));
 
     oaiq('measure', 'items_added', {
@@ -159,7 +158,8 @@ window.getShoptetProductsList = () => {
       currency: productData.currency,
       contents: [
         {
-          id: contentId,
+          // pricelist_codes.id, the same id-space as the OpenAI feed item_id and the server-side pixel events
+          id: String(productData.priceId),
           name: productData.content_name,
           content_type: 'product',
           quantity: productData.amount,
@@ -248,6 +248,7 @@ window.getShoptetProductsList = () => {
 
     productData.amount = amount;
     productData.previousAmount = previousAmount;
+    productData.priceId = priceId;
 
     trackingFunctions.forEach(function (trackingFunction) {
       if (typeof trackingFunction === 'function') {
