@@ -151,7 +151,7 @@ window.getShoptetProductsList = () => {
     }
 
     var contentId = productData.content_ids.length > 0 ? productData.content_ids[0] : null;
-    var unitAmount = Math.round(parseFloat(productData.valueWoVat) * Math.pow(10, minorUnitDecimals));
+    var unitAmount = Math.round(parseFloat(productData.value) * Math.pow(10, minorUnitDecimals));
 
     oaiq('measure', 'items_added', {
       type: 'contents',
