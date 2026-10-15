@@ -263,46 +263,46 @@ window.getShoptetProductsList = () => {
       return;
     }
 
-    if (typeof fbq === 'function') {
-      var action = shoptet.tracking.resolveTrackingAction(formAction, fbPixelData);
-      var eventName;
+    let action = shoptet.tracking.resolveTrackingAction(formAction, fbPixelData);
+    let eventName;
 
-      var amount = shoptet.tracking.resolveAmount(formAction, fbPixelData);
-      var priceValue = fbPixelData.facebookPixelVat ? fbPixelData.value : fbPixelData.valueWoVat;
-      var data = {
-        content_name: fbPixelData.content_name,
-        content_category: fbPixelData.content_category,
-        content_ids: fbPixelData.content_ids,
-        content_type: 'product',
-        value: parseFloat(priceValue) * amount,
-        currency: fbPixelData.currency,
-        eventId: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
-      };
-
-      var eventInfo = {
-        eventID: data.eventId,
-      };
-
-      switch (action) {
-        case 'remove':
-          eventName = 'trackCustom';
-          action = 'RemoveFromCart';
-          break;
-        case 'add':
-          eventName = 'track';
-          action = 'AddToCart';
-          break;
-        case 'ViewContent':
-          eventName = 'track';
-          action = 'ViewContent';
-          break;
-        default:
-          return;
-      }
-
-      fbq(eventName, action, data, eventInfo);
+    switch (action) {
+      case 'remove':
+        eventName = 'trackCustom';
+        action = 'RemoveFromCart';
+        break;
+      case 'add':
+        eventName = 'track';
+        action = 'AddToCart';
+        break;
+      case 'ViewContent':
+        eventName = 'track';
+        action = 'ViewContent';
+        break;
+      default:
+        return;
     }
 
+    const amount = shoptet.tracking.resolveAmount(formAction, fbPixelData);
+    const priceValue = fbPixelData.facebookPixelVat ? fbPixelData.value : fbPixelData.valueWoVat;
+    const data = {
+      content_name: fbPixelData.content_name,
+      content_category: fbPixelData.content_category,
+      content_ids: fbPixelData.content_ids,
+      content_type: 'product',
+      value: parseFloat(priceValue) * amount,
+      currency: fbPixelData.currency,
+      eventId: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+    };
+
+    if (typeof fbq === 'function') {
+      fbq(eventName, action, data, { eventID: data.eventId });
+    }
+
+    /*
+     * The server event is relayed even when fbq is blocked (ad blocker, consent) so the CAPI
+     * fallback keeps working; consent is enforced server-side in FacebookCAPIController.
+     */
     shoptet.tracking.trackFacebookPixelApi(eventName, action, data);
     shoptet.scripts.signalCustomEvent('ShoptetFacebookPixelTracked');
   }
