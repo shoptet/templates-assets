@@ -123,6 +123,12 @@ import { ensure } from '../typeAssertions';
    * @param {Record<string, string | boolean>} [options]
    */
   function rerenderExpressCheckoutModal(response, onComplete, onClosed, options) {
+    // the empty-cart notice stays in the session and is shown by the reloaded page
+    if (response.getFromPayload('cartEmpty')) {
+      window.location.reload();
+      return;
+    }
+
     const content = response.getFromPayload('content');
     mainStepHtml = content;
 

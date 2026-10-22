@@ -290,8 +290,11 @@
         // about the added product will be lost.
         if (action === shoptet.config.addToCartUrl) {
           if (shoptet.config.expressCheckoutAddToCart) {
-            shoptet.config.expressCheckoutKeepSpinnerVisible = true;
-            shoptet.expressCheckout.initExpressCheckout(true);
+            // add-to-cart can answer success without adding anything, and EC cannot run on an empty cart
+            if (response.getFromPayload('count') > 0) {
+              shoptet.config.expressCheckoutKeepSpinnerVisible = true;
+              shoptet.expressCheckout.initExpressCheckout(true);
+            }
             shoptet.config.expressCheckoutAddToCart = undefined;
           } else if (typeof shoptet.config.showAdvancedOrder !== 'undefined' && displaySpinner) {
             shoptet.cart.getAdvancedOrder();
