@@ -191,12 +191,17 @@
 
           if ($newListing?.length > 0) {
             $listingWrapper.append($newListing);
+            currentPageFirstProduct = $newListing[0];
             shoptet.animations.fadeIn($newListing);
             $('.listingControls').replaceWith($newListingControls);
 
             shoptet.products.splitWidgetParameters();
             initTooltips();
             shoptet.images.unveil();
+            if (!loadedPageUrls.length) {
+              loadedPageUrls.push(toAbsoluteUrl(location.href));
+            }
+            loadedPageUrls.push(toAbsoluteUrl(nextLoadUrl));
             history.pushState(null, null, this.url);
             if ('scrollRestoration' in history) {
               history.scrollRestoration = 'manual';
@@ -222,7 +227,170 @@
         self.removeAttr('data-iframe-src');
       });
     }
+
+    restoreListingPosition();
   });
+
+  /*
+   * The URL pushed by "load more" renders only its own page, so returning to the listing with the browser
+   * Back button drops every other page the visitor had loaded -- and with it their position. Keep track of
+   * the pages that are in the DOM, re-fetch the missing ones on the way back and put the scroll offset
+   * where the visitor left it.
+   */
+  const LISTING_RESTORE_KEY = 'shoptet.products.listingRestore';
+  const loadedPageUrls = [];
+  let currentPageFirstProduct = null;
+  let lastKnownScrollY = 0;
+
+  function getListingWrapper() {
+    const listingWrappers = document.querySelectorAll('.products-page');
+
+    return listingWrappers[listingWrappers.length - 1] || null;
+  }
+
+  function toAbsoluteUrl(url) {
+    return new URL(url, location.href).href;
+  }
+
+  // a filter, a sort or a history hop replaces the whole listing, so the pages tracked so far are gone with it
+  document.addEventListener('ShoptetDOMPageContentLoaded', function () {
+    loadedPageUrls.length = 0;
+    currentPageFirstProduct = null;
+  });
+
+  window.addEventListener('pagehide', function () {
+    lastKnownScrollY = window.scrollY;
+
+    if (!loadedPageUrls.length) {
+      return;
+    }
+
+    const listingWrapper = getListingWrapper();
+    let missingHeight = 0;
+
+    // the space taken by the pages above the one the URL renders -- reserved upfront on the way back
+    if (currentPageFirstProduct && listingWrapper) {
+      missingHeight = Math.max(
+        0,
+        currentPageFirstProduct.getBoundingClientRect().top - listingWrapper.getBoundingClientRect().top
+      );
+    }
+
+    try {
+      sessionStorage.setItem(
+        LISTING_RESTORE_KEY,
+        JSON.stringify({ url: location.href, pageUrls: loadedPageUrls, scrollY: window.scrollY, missingHeight })
+      );
+    } catch {}
+  });
+
+  // a document served from the back/forward cache keeps its DOM, only the suppressed scroll offset is missing
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted && loadedPageUrls.length) {
+      scrollToInstantly(lastKnownScrollY);
+    }
+  });
+
+  function scrollToInstantly(scrollY) {
+    // html has scroll-behavior: smooth, which would animate the jump back to the visitor's position
+    const documentElementStyle = document.documentElement.style;
+    const scrollBehavior = documentElementStyle.scrollBehavior;
+
+    documentElementStyle.scrollBehavior = 'auto';
+    window.scrollTo(0, scrollY);
+    documentElementStyle.scrollBehavior = scrollBehavior;
+  }
+
+  async function fetchListingDocument(pageUrl) {
+    const response = await fetch(pageUrl, { headers: { 'X-Shoptet-XHR': 'Shoptet_Coo7ai' } });
+
+    if (!response.ok) {
+      throw new Error('Listing page ' + pageUrl + ' responded with ' + response.status);
+    }
+
+    return shoptet.common.createDocumentFromString(await response.text());
+  }
+
+  function insertRestoredProducts(listingWrapper, requestedDocument, insertBefore) {
+    if (shoptet.csrf.enabled) {
+      const selector = shoptet.csrf.formsSelector === '' ? 'form' : 'form.' + shoptet.csrf.formsSelector;
+
+      requestedDocument.querySelectorAll(selector).forEach(function (form) {
+        shoptet.csrf.injectToken(form);
+      });
+    }
+
+    shoptet.tracking.trackProductsFromPayload(requestedDocument);
+
+    const products = requestedDocument.querySelectorAll('.products-page > .product');
+
+    if (insertBefore) {
+      listingWrapper.prepend(...products);
+    } else {
+      listingWrapper.append(...products);
+    }
+  }
+
+  async function restoreListingPosition() {
+    if (performance.getEntriesByType('navigation')[0]?.type !== 'back_forward') {
+      return;
+    }
+
+    let restorePoint;
+    try {
+      restorePoint = JSON.parse(sessionStorage.getItem(LISTING_RESTORE_KEY) || 'null');
+      // consumed on the first back navigation, so a later visit to the same URL cannot replay a stale offset
+      sessionStorage.removeItem(LISTING_RESTORE_KEY);
+    } catch {
+      return;
+    }
+
+    const listingWrapper = getListingWrapper();
+    const currentPageIndex = Array.isArray(restorePoint?.pageUrls) ? restorePoint.pageUrls.indexOf(location.href) : -1;
+
+    // the page the server has just rendered has to be one of the pages that were in the DOM
+    if (!listingWrapper || currentPageIndex === -1) {
+      return;
+    }
+
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
+    currentPageFirstProduct = listingWrapper.querySelector(':scope > .product');
+    // the reserved height was measured against the page the visitor left from
+    listingWrapper.style.paddingTop = (restorePoint.url === location.href ? restorePoint.missingHeight || 0 : 0) + 'px';
+    scrollToInstantly(restorePoint.scrollY);
+
+    try {
+      const requestedDocuments = await Promise.all(
+        restorePoint.pageUrls.map(function (pageUrl, index) {
+          return index === currentPageIndex ? null : fetchListingDocument(pageUrl);
+        })
+      );
+
+      // the pages loaded before the rendered one belong above it, the ones loaded after it below
+      for (let index = currentPageIndex - 1; index >= 0; index--) {
+        insertRestoredProducts(listingWrapper, requestedDocuments[index], true);
+      }
+
+      for (let index = currentPageIndex + 1; index < requestedDocuments.length; index++) {
+        insertRestoredProducts(listingWrapper, requestedDocuments[index], false);
+      }
+
+      loadedPageUrls.length = 0;
+      loadedPageUrls.push(...restorePoint.pageUrls);
+      shoptet.products.splitWidgetParameters();
+      initTooltips();
+      shoptet.images.unveil();
+      shoptet.scripts.signalDomLoad('ShoptetDOMPageMoreProductsLoaded', listingWrapper);
+    } catch (err) {
+      console.error('Restoring the product listing failed: ', err);
+    } finally {
+      listingWrapper.style.paddingTop = '';
+      scrollToInstantly(restorePoint.scrollY);
+    }
+  }
 
   window.addEventListener('load', function () {
     shoptet.products.splitWidgetParameters();
