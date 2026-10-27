@@ -3,6 +3,8 @@
 import { ensure } from '../typeAssertions';
 
 (function (shoptet) {
+  const FAILURE_MODAL_CLOSE_DELAY_MS = 2500;
+
   let mainStepHtml = '';
 
   /**
@@ -159,7 +161,39 @@ import { ensure } from '../typeAssertions';
     });
   }
 
+  /**
+   * The error template is included inside the loading template, so on the main step it only exists in the
+   * inert content of that <template>; once the loading view is rendered it is part of the live DOM.
+   * @returns {string | undefined}
+   */
+  function getErrorTemplateHtml() {
+    const liveTemplate = document.querySelector('.js-error-template');
+
+    if (liveTemplate) {
+      return liveTemplate.innerHTML;
+    }
+
+    const loadingTemplate = document.querySelector('.js-loading-template');
+
+    return loadingTemplate instanceof HTMLTemplateElement
+      ? loadingTemplate.content.querySelector('.js-error-template')?.innerHTML
+      : undefined;
+  }
+
+  function showPaymentFailedModal() {
+    const errorHtml = getErrorTemplateHtml();
+
+    if (errorHtml) {
+      openModal(errorHtml);
+    }
+  }
+
   function listenForPaymentFinished() {
+    /*
+     * The gateway reports a failed attempt itself (CZ3PAY1-2675) and no longer retries inside its
+     * session; the shop owns the failure modal, and its retry starts a new payment attempt.
+     */
+    document.getElementById('stpGwRoot')?.addEventListener('shoptet-pay-gw:paymentFailed', showPaymentFailedModal);
     document.getElementById('stpGwRoot')?.addEventListener('shoptet-pay-gw:paymentFinished', function () {
       const loadingHtml = document.querySelector('.js-loading-template')?.innerHTML;
       const cartIdContainer = ensure(document.querySelector('.js-express-checkout-cart-id'), isHTMLElement);
@@ -446,6 +480,37 @@ import { ensure } from '../typeAssertions';
   }
 
   /**
+   * @param {SuccessResponse} response
+   */
+  function rerenderExpressCheckoutBaseData(response) {
+    rerenderExpressCheckoutModal(response, function () {
+      initNotLoggedInUser();
+      signalExpressCheckoutLoaded();
+    });
+  }
+
+  /**
+   * @param {FailedResponse} response
+   */
+  function handleExpressCheckoutBaseDataFailure(response) {
+    if (!response.getFromPayload('content')) {
+      /*
+       * No content to recover with (render failure) - closing the modal
+       * reloads the page (see openModal onClosed), which restores a clean state.
+       * The close is delayed so the error toast stays readable; the retry button is
+       * disabled meanwhile so no new request can race the pending close.
+       */
+      document.querySelector('.js-repeat-payment')?.setAttribute('disabled', '');
+      setTimeout(function () {
+        shoptet.modal.close();
+      }, FAILURE_MODAL_CLOSE_DELAY_MS);
+      return;
+    }
+
+    resolveFailedRequestWithContent(response, rerenderExpressCheckoutBaseData);
+  }
+
+  /**
    * @param {boolean} [disableSpinner]
    */
   function initExpressCheckout(disableSpinner) {
@@ -460,16 +525,21 @@ import { ensure } from '../typeAssertions';
       shoptet.ajax.requestTypes.get,
       '',
       {
-        /** @param {SuccessResponse} response  */
+        /** @param {SuccessResponse} response */
         success: function (response) {
           if (sequence !== renderSequence) {
             return;
           }
 
-          rerenderExpressCheckoutModal(response, function () {
-            initNotLoggedInUser();
-            signalExpressCheckoutLoaded();
-          });
+          rerenderExpressCheckoutBaseData(response);
+        },
+        /** @param {FailedResponse} response */
+        failed: function (response) {
+          if (sequence !== renderSequence) {
+            return;
+          }
+
+          handleExpressCheckoutBaseDataFailure(response);
         },
         complete: function () {
           shoptet.config.expressCheckoutKeepSpinnerVisible = undefined;
@@ -832,11 +902,7 @@ import { ensure } from '../typeAssertions';
           }
 
           if (status === 'FAILED') {
-            const errorHtml = document.querySelector('.js-error-template')?.innerHTML;
-
-            if (errorHtml) {
-              openModal(errorHtml);
-            }
+            showPaymentFailedModal();
           }
         },
       },
