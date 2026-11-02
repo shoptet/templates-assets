@@ -6,6 +6,7 @@ import {
   ensureEvery,
   isHTMLElement,
   isHTMLFormElement,
+  isHTMLInputElement,
   maybe,
   isString,
 } from '../../../shared/js/typeAssertions';
@@ -125,6 +126,45 @@ function openRatingModal() {
   });
 }
 
+const RATING_CAPTCHA_INPUT_SELECTOR = '#dialogRatingCaptcha';
+
+/**
+ * Reloads the rating subpage so the server issues a fresh captcha phrase and
+ * swaps only the captcha image in the open dialog, keeping stars and text.
+ * The input element stays, so the validator initialized on dialog open keeps working.
+ * On any failure the current captcha stays in place.
+ * @param {HTMLFormElement} form
+ * @returns {Promise<void>}
+ */
+async function refreshRatingCaptcha(form) {
+  const captchaInput = maybe(form.querySelector(RATING_CAPTCHA_INPUT_SELECTOR), isHTMLInputElement);
+  const captchaImage = maybe(captchaInput?.closest('fieldset')?.querySelector('img'), isHTMLElement);
+  const trigger = maybe(document.querySelector('.js-ratingDialogTrigger'), isHTMLElement);
+  if (!captchaInput || !captchaImage || !trigger) return;
+
+  try {
+    const response = await fetch(getRequestUrlFromTrigger(trigger), {
+      method: 'GET',
+      headers: { 'X-Shoptet-XHR': 'Shoptet_Coo7ai' },
+      signal: AbortSignal.timeout(20000),
+    });
+    if (!response.ok) return;
+
+    const requestedDocument = shoptet.common.createDocumentFromString(await response.text());
+    const newImageSrc = requestedDocument
+      .querySelector(RATING_CAPTCHA_INPUT_SELECTOR)
+      ?.closest('fieldset')
+      ?.querySelector('img')
+      ?.getAttribute('src');
+    if (!newImageSrc) return;
+
+    captchaImage.setAttribute('src', newImageSrc);
+    captchaInput.value = '';
+  } catch {
+    // keep the old captcha
+  }
+}
+
 /**
  * Submit handler for rating form (#dialogFormRating).
  * @param {HTMLFormElement} form
@@ -165,6 +205,8 @@ function submitRatingForm(form) {
         updateRatingSummaryFromPayload(response);
         shoptet.modal.close();
         shoptet.scripts.signalCustomEvent('ShoptetRatingUpdated', dialog);
+      } else {
+        refreshRatingCaptcha(form);
       }
 
       announcer.end();
