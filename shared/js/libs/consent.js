@@ -137,6 +137,11 @@ const CONSENT_VALIDITY = 180; // 6 months
           html: shoptet.content.colorboxHeader + content + shoptet.content.colorboxFooter,
           className: shoptet.modal.config.classMd,
           width: shoptet.modal.config.widthMd,
+          onOpen: () => {
+            if (shoptet.abilities.about.generation === 3) {
+              document.querySelector('#colorbox')?.setAttribute('aria-labelledby', 'cookiesSettingHeading');
+            }
+          },
           onComplete: () => {
             document.querySelector('#cboxContent')?.classList.add('cookiesDialog');
             shoptet.modal.shoptetResize();
@@ -144,6 +149,7 @@ const CONSENT_VALIDITY = 180; // 6 months
           onClosed: () => {
             document.documentElement.classList.remove('cookies-visible');
             document.querySelector('#cboxContent')?.classList.remove('cookiesDialog');
+            document.querySelector('#colorbox')?.removeAttribute('aria-labelledby');
           },
         });
         shoptet.scripts.signalDomLoad('ShoptetDOMContentLoaded');

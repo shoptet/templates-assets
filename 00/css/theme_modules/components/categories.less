@@ -27,6 +27,10 @@
     > .topic > a:hover > span {
       color: @categories-color-hover;
     }
+
+    .topic.active a:hover span {
+      color: @categories-color-active-hover;
+    }
   }
   .box-bg-default & {
     &::after {
@@ -91,7 +95,7 @@
         color: @categories-color-active;
         background-color: @categories-bg-active;
         &:hover {
-          color: @categories-color-hover;
+          color: @categories-color-active-hover;
           background-color: @categories-bg-active-hover;
         }
       }

@@ -121,6 +121,12 @@ window.makeFilterAjaxRequest = (url, pushHistoryState, successCallback, element,
       shoptet.tracking.trackProductsFromPayload(requestedDocument);
       var payloadContent = $(requestedDocument).find('#content');
       var $payloadContentWrapper = $('#content');
+      // Before replacing #content, filters on mobile are returned to the sidebar
+      // to prevent them from being removed.
+      var $filtersDefaultPosition = $('#filters-default-position');
+      if ($filtersDefaultPosition.length && !$filtersDefaultPosition.closest('#content').length) {
+        moveFilters($('#filters-wrapper .filters-wrapper'), 'default');
+      }
       $payloadContentWrapper.html(payloadContent[0].innerHTML);
       if ($(requestedDocument).find('#filters').length) {
         var payloadFilterContent = $(requestedDocument).find('#filters');
