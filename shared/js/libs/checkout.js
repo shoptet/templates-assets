@@ -170,7 +170,7 @@
     }
 
     // remember and validate customer data (via ajax)
-    var $orderForm = $('#order-form');
+    var $orderForm = $('#order-form.sending-order');
     if ($orderForm.length) {
       var lastData = $orderForm.serialize();
       var vatIdInput = $orderForm.find('#vatId')[0];
@@ -180,7 +180,7 @@
         validateBillingForm(lastData, vatIdInput, true);
       }
 
-      $('#order-form input, #order-form select').blur(function (e) {
+      $orderForm.find('input, select').blur(function (e) {
         var data = $(this).closest('form').serialize();
         if (data !== lastData) {
           lastData = data;
